@@ -1,0 +1,132 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Brand Art Studio — Sightline Studio</title>
+<meta name="description" content="Generate on-brand hero images and art for your website, in your brand's colours.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0f0d0b;--pan:#16120f;--ink:#f4efe9;--mut:#a89f95;--line:rgba(244,239,233,.14);--head:'Fraunces',Georgia,serif;--body:'Inter',system-ui,sans-serif;--ease:cubic-bezier(.16,1,.3,1)}
+*{box-sizing:border-box;margin:0}html{font-size:108%}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);line-height:1.55;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+.wrap{max-width:1320px;margin:0 auto;padding:0 clamp(18px,4vw,46px)}
+.top{display:flex;align-items:center;justify-content:space-between;padding:22px 0;border-bottom:1px solid var(--line)}
+.logo{display:flex;align-items:center;gap:10px;font-family:var(--head);font-weight:600;font-size:1.15rem}
+.dot{width:10px;height:10px;border-radius:50%;background:var(--ink);box-shadow:0 0 0 4px rgba(244,239,233,.12)}
+.back{color:var(--mut);font-size:.86rem}.back:hover{color:var(--ink)}
+.head{padding:clamp(26px,4vw,46px) 0 8px}
+.head .kick{color:var(--mut);font-size:.74rem;letter-spacing:.28em;text-transform:uppercase;font-weight:600;margin-bottom:14px}
+.head h1{font-family:var(--head);font-weight:400;font-size:clamp(2rem,1.2rem+2.6vw,3.4rem);line-height:1.02;letter-spacing:-.02em}
+.head h1 em{font-style:italic;color:#c9a96a}
+.head p{color:var(--mut);max-width:60ch;margin-top:14px;font-size:1.02rem}
+.banner{display:flex;gap:11px;align-items:flex-start;background:rgba(201,169,106,.1);border:1px solid rgba(201,169,106,.32);color:#e7d6b3;border-radius:10px;padding:13px 16px;margin:22px 0 8px;font-size:.9rem}
+.layout{display:grid;grid-template-columns:340px 1fr;gap:clamp(20px,3vw,40px);padding:24px 0 80px;align-items:start}
+@media(max-width:880px){.layout{grid-template-columns:1fr}}
+.panel{background:var(--pan);border:1px solid var(--line);border-radius:16px;padding:22px;position:sticky;top:18px}
+.fld{margin-bottom:20px}
+.fld label{display:block;font-size:.74rem;letter-spacing:.14em;text-transform:uppercase;color:var(--mut);font-weight:600;margin-bottom:9px}
+select,textarea,input{width:100%;background:#0f0d0b;color:var(--ink);border:1px solid var(--line);border-radius:9px;padding:11px 13px;font-family:var(--body);font-size:.96rem}
+textarea{resize:vertical;min-height:78px;line-height:1.45}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{flex:1 1 auto;text-align:center;background:#0f0d0b;border:1px solid var(--line);border-radius:100px;padding:9px 12px;font-size:.82rem;cursor:pointer;transition:.2s;white-space:nowrap}
+.chip:hover{border-color:var(--mut)}
+.chip.on{background:var(--ink);color:#0f0d0b;border-color:var(--ink);font-weight:600}
+.swatches{display:flex;gap:7px;margin-top:11px}
+.sw{width:30px;height:30px;border-radius:7px;border:1px solid var(--line)}
+.gen{width:100%;margin-top:6px;background:var(--ink);color:#0f0d0b;border:none;border-radius:10px;padding:15px;font-family:var(--body);font-weight:600;font-size:1rem;cursor:pointer;transition:transform .2s var(--ease),opacity .2s}
+.gen:hover{transform:translateY(-2px)}.gen:active{transform:none}.gen[disabled]{opacity:.55;cursor:wait}
+.results{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+@media(max-width:560px){.results{grid-template-columns:1fr}}
+.tile{position:relative;border:1px solid var(--line);border-radius:13px;overflow:hidden;background:#16120f;aspect-ratio:var(--ar,16/10)}
+.tile canvas{display:block;width:100%;height:100%}
+.tile .bar{position:absolute;left:0;right:0;bottom:0;display:flex;justify-content:space-between;align-items:center;gap:8px;padding:10px 12px;background:linear-gradient(to top,rgba(15,13,11,.85),transparent);opacity:0;transition:.25s}
+.tile:hover .bar{opacity:1}
+.tile .bar span{font-size:.72rem;color:var(--mut)}
+.dl{background:rgba(244,239,233,.92);color:#0f0d0b;border:none;border-radius:7px;padding:7px 12px;font-weight:600;font-size:.8rem;cursor:pointer}
+.empty{grid-column:1/-1;border:1px dashed var(--line);border-radius:13px;padding:60px 20px;text-align:center;color:var(--mut)}
+.empty b{color:var(--ink);font-family:var(--head);font-weight:500;font-size:1.3rem;display:block;margin-bottom:8px}
+.foot{border-top:1px solid var(--line);padding:26px 0;color:var(--mut);font-size:.84rem}
+</style></head>
+<body>
+<header class="wrap top"><div class="logo"><span class="dot"></span>Sightline Studio</div><a class="back" href="../">&larr; Concepts gallery</a></header>
+<section class="wrap head">
+  <div class="kick">Brand Art Studio · preview</div>
+  <h1>Make the art <em>match the brand.</em></h1>
+  <p>Pick a brand, describe the shot, and generate hero-ready art in their exact colours — drop it straight onto the test-drive site.</p>
+  <div class="banner"><span>◆</span><span><b>Preview engine.</b> These are real on-brand generative compositions you can download and use now. Connect an AI image API to swap in photographic generation — the controls below stay identical.</span></div>
+</section>
+<section class="wrap layout">
+  <aside class="panel">
+    <div class="fld"><label>Brand</label><select id="brand"></select><div class="swatches" id="sw"></div></div>
+    <div class="fld"><label>Use</label><div class="chips" id="ratio">
+      <div class="chip on" data-ar="16/10" data-w="1320" data-h="825">Hero</div>
+      <div class="chip" data-ar="1/1" data-w="1080" data-h="1080">Square</div>
+      <div class="chip" data-ar="4/5" data-w="1000" data-h="1250">Portrait</div>
+    </div></div>
+    <div class="fld"><label>Style</label><div class="chips" id="style">
+      <div class="chip on" data-s="editorial">Editorial Luxe</div>
+      <div class="chip" data-s="bold">Bold Gradient</div>
+      <div class="chip" data-s="warm">Warm Film</div>
+      <div class="chip" data-s="minimal">Minimal</div>
+    </div></div>
+    <div class="fld"><label>Describe the shot</label><textarea id="prompt" placeholder="e.g. soft morning light over a calm treatment room, warm and clean"></textarea></div>
+    <button class="gen" id="gen">Generate 4 concepts</button>
+  </aside>
+  <main><div class="results" id="out">
+    <div class="empty"><b>Your concepts appear here.</b>Choose a brand and style, then generate.</div>
+  </div></main>
+</section>
+<footer class="wrap foot">Brand Art Studio — part of Sightline Studio. On-brand generative preview; photographic engine pluggable.</footer>
+<script>
+const BRANDS=[{"name":"Custom palette","slug":"custom","primary":"#2E5496","accent":"#C9A96A","deep":"#13233f","light":"#f3f1ec"},{"name":"True Beauty Med Spa","slug":"truebeautymedspa-com","primary":"#6b9c98","accent":"#00a1cb","deep":"#1a1a1a","light":"#f3f1ec"},{"name":"Original Hardware","slug":"originalhardware-com","primary":"#e01747","accent":"#00a998","deep":"#1a1a1a","light":"#f3f1ec"},{"name":"Griffiths Law","slug":"griffithslawpc-com","primary":"#525ddc","accent":"#be8700","deep":"#1a1a1a","light":"#f3f1ec"},{"name":"Copeland Family Dental","slug":"copelandfamilydental-com","primary":"#f0ae43","accent":"#009be6","deep":"#1a1a1a","light":"#f3f1ec"},{"name":"Stone Aspen Builders","slug":"stoneaspen-com","primary":"#f0523d","accent":"#00a7a8","deep":"#1a1a1a","light":"#f3f1ec"},{"name":"McKean Insurance","slug":"mckeanins-com","primary":"#c1ab63","accent":"#4290ff","deep":"#1a1a1a","light":"#f3f1ec"},{"name":"Pineview Dental","slug":"pineviewdentalco-com","primary":"#bb9454","accent":"#009aec","deep":"#1a1a1a","light":"#f3f1ec"},{"name":"Scileppi's","slug":"scileppis-com","primary":"#2E5496","accent":"#C9A96A","deep":"#1a1a1a","light":"#f3f1ec"}];
+const sel=document.getElementById('brand'),sw=document.getElementById('sw'),out=document.getElementById('out');
+BRANDS.forEach((b,i)=>{const o=document.createElement('option');o.value=i;o.textContent=b.name;sel.appendChild(o);});
+let state={brand:0,ratio:{ar:'16/10',w:1320,h:825},style:'editorial'};
+function paintSw(){const b=BRANDS[state.brand];sw.innerHTML='';[b.primary,b.accent,b.deep,b.light].forEach(c=>{const d=document.createElement('div');d.className='sw';d.style.background=c;sw.appendChild(d);});}
+sel.onchange=e=>{state.brand=+e.target.value;paintSw();};paintSw();
+function chips(id,fn){document.querySelectorAll('#'+id+' .chip').forEach(c=>c.onclick=()=>{document.querySelectorAll('#'+id+' .chip').forEach(x=>x.classList.remove('on'));c.classList.add('on');fn(c);});}
+chips('ratio',c=>state.ratio={ar:c.dataset.ar,w:+c.dataset.w,h:+c.dataset.h});
+chips('style',c=>state.style=c.dataset.s);
+function mulberry32(a){return function(){a|=0;a=a+0x6D2B79F5|0;let t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296;};}
+function hash(s){let h=2166136261;for(let i=0;i<s.length;i++){h^=s.charCodeAt(i);h=Math.imul(h,16777619);}return h>>>0;}
+function hx(c){c=c.replace('#','');if(c.length===3)c=c.split('').map(x=>x+x).join('');return[parseInt(c.slice(0,2),16),parseInt(c.slice(2,4),16),parseInt(c.slice(4,6),16)];}
+function rgba(c,a){const[r,g,b]=hx(c);return'rgba('+r+','+g+','+b+','+a+')';}
+function art(cv,b,style,seed){
+  const w=state.ratio.w,h=state.ratio.h;cv.width=w;cv.height=h;const x=cv.getContext('2d');const R=mulberry32(seed);
+  const cols={editorial:[b.deep,b.primary],bold:[b.primary,b.accent],warm:[b.deep,b.primary],minimal:[b.light,b.light]}[style];
+  // base
+  if(style==='bold'){const g=x.createLinearGradient(0,0,w,h);g.addColorStop(0,cols[0]);g.addColorStop(1,cols[1]);x.fillStyle=g;x.fillRect(0,0,w,h);}
+  else if(style==='minimal'){x.fillStyle=b.light;x.fillRect(0,0,w,h);}
+  else{const g=x.createLinearGradient(0,0,0,h);g.addColorStop(0,cols[1]);g.addColorStop(1,cols[0]);x.fillStyle=g;x.fillRect(0,0,w,h);}
+  // soft blobs
+  const pal=[b.primary,b.accent,b.deep];const n=style==='minimal'?1:(style==='bold'?5:3);
+  x.globalCompositeOperation=style==='minimal'?'source-over':'lighter';
+  for(let i=0;i<n;i++){const cx=R()*w,cy=R()*h,rad=(0.35+R()*0.5)*Math.max(w,h);const col=style==='minimal'?b.accent:pal[Math.floor(R()*pal.length)];
+    const g=x.createRadialGradient(cx,cy,0,cx,cy,rad);g.addColorStop(0,rgba(col,style==='minimal'?0.9:0.55));g.addColorStop(1,rgba(col,0));x.fillStyle=g;x.beginPath();x.arc(cx,cy,rad,0,7);x.fill();}
+  x.globalCompositeOperation='source-over';
+  if(style==='warm'){x.fillStyle='rgba(255,178,92,0.16)';x.fillRect(0,0,w,h);}
+  if(style==='editorial'){x.fillStyle='rgba(20,18,16,0.14)';x.fillRect(0,0,w,h);}
+  // vignette
+  if(style!=='minimal'){const vg=x.createRadialGradient(w/2,h/2,Math.min(w,h)*0.25,w/2,h/2,Math.max(w,h)*0.75);vg.addColorStop(0,'rgba(0,0,0,0)');vg.addColorStop(1,'rgba(8,6,5,0.5)');x.fillStyle=vg;x.fillRect(0,0,w,h);}
+  // grain
+  const dots=Math.floor(w*h/650);for(let i=0;i<dots;i++){const a=(R()*0.06);x.fillStyle=R()>0.5?'rgba(255,255,255,'+a+')':'rgba(0,0,0,'+a+')';x.fillRect(R()*w,R()*h,1.4,1.4);}
+}
+document.getElementById('gen').onclick=function(){
+  const btn=this;btn.disabled=true;btn.textContent='Generating…';
+  const b=BRANDS[state.brand];const base=hash((document.getElementById('prompt').value||'sightline')+state.style+state.ratio.ar+Date.now());
+  out.innerHTML='';out.style.setProperty('--ar',state.ratio.ar.replace('/','/'));
+  setTimeout(()=>{
+    for(let i=0;i<4;i++){
+      const t=document.createElement('div');t.className='tile';t.style.setProperty('--ar',state.ratio.ar);
+      const cv=document.createElement('canvas');t.appendChild(cv);
+      const bar=document.createElement('div');bar.className='bar';
+      const lab=document.createElement('span');lab.textContent=b.name+' · '+state.style;
+      const dl=document.createElement('button');dl.className='dl';dl.textContent='Download';
+      bar.appendChild(lab);bar.appendChild(dl);t.appendChild(bar);out.appendChild(t);
+      art(cv,b,state.style,(base+i*97)>>>0);
+      dl.onclick=()=>{const a=document.createElement('a');a.download=b.slug+'-'+state.style+'-'+(i+1)+'.png';a.href=cv.toDataURL('image/png');a.click();};
+    }
+    btn.disabled=false;btn.textContent='Generate 4 concepts';
+  },380);
+};
+</script>
+</body></html>
