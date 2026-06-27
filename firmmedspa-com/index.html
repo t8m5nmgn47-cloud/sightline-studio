@@ -1,0 +1,202 @@
+<!DOCTYPE html><html lang="en"><head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>The Firm Medspa — Lone Tree</title>
+<meta name="description" content="Natural-looking injectables, advanced skin treatments, and results that still look like you — from a team you’ll actually trust.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=Exo+2:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+:root{--p:#5897fb;--p6:#2c6dd3;--p7:#2558a8;--p9:#1b2e4c;--ac:#cf7b00;--ink:#2a2e34;--n50:#f0f5fd;--n1:#e3e8f0;--n2:#d0d5dc;--n7:#575b62;
+--bg:#f0f5fd;--surf:#ffffff;--surf2:#e3e8f0;--navc:#ffffff;--rad:0px;
+--head:'Fraunces',Georgia,serif;--body:'Exo 2',system-ui,sans-serif;--mono:ui-monospace,monospace;
+--fs-hero:clamp(3.1rem,8.4vw,8rem);--fs-disp:clamp(2.1rem,1rem+3.4vw,4.4rem);--maxw:1280px;--sp:clamp(84px,10vw,150px);--ease:cubic-bezier(.16,1,.3,1);
+--sh:0 2px 8px rgba(20,18,16,.06),0 18px 40px rgba(20,18,16,.09);}
+*{box-sizing:border-box;margin:0}html{scroll-behavior:smooth;font-size:115%}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:clamp(1rem,.95rem+.25vw,1.15rem);line-height:1.62;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+h1,h2,h3{font-family:var(--head);font-weight:400;line-height:1;letter-spacing:-.025em;color:var(--ink);}
+a{color:inherit;text-decoration:none}.wrap{max-width:var(--maxw);margin:0 auto;padding:0 clamp(22px,5vw,64px);position:relative}
+.kicker{font-family:var(--body);font-size:clamp(.72rem,.68rem+.2vw,.82rem);letter-spacing:.28em;text-transform:uppercase;font-weight:600}
+.btn{display:inline-flex;align-items:center;gap:10px;font-family:var(--body);font-weight:600;font-size:1.02rem;padding:16px 32px;border-radius:var(--rad);border:1.5px solid var(--ink);background:var(--ink);color:#fff;cursor:pointer;transition:transform .25s var(--ease),background .25s,color .25s}
+.btn:hover{transform:translateY(-2px)}
+.btn-out{background:transparent;border-color:currentColor}
+.btn-light{background:#fff;color:var(--p9);border-color:#fff}.btn-light:hover{background:transparent;color:#fff}
+
+.stars{color:#e3b341;letter-spacing:2px}
+/* NAV */
+.nav{position:fixed;inset:0 0 auto 0;z-index:60;display:flex;align-items:center;justify-content:space-between;padding:20px clamp(22px,5vw,64px);color:var(--navc);transition:background .35s,color .35s,box-shadow .35s,padding .35s}
+.nav.scd{background:rgba(255,255,255,.94);backdrop-filter:blur(12px);color:var(--ink);box-shadow:0 1px 0 rgba(20,18,16,.08);padding:14px clamp(22px,5vw,64px)}
+.brand{font-family:var(--head);font-weight:600;font-size:1.3rem;letter-spacing:-.01em;}
+.logo-img{height:36px;width:auto;max-width:170px;display:block}
+.nav.scd .logo-img{filter:none}.nav:not(.scd) .logo-img{filter:brightness(0) invert(1)}
+.navlinks{display:flex;gap:32px;font-size:.96rem;font-weight:500}.navlinks a{opacity:.92}.navlinks a:hover{opacity:1}
+.navcta{font-weight:600;font-size:.95rem;border:1.5px solid currentColor;padding:10px 22px;border-radius:var(--rad)}
+@media(max-width:860px){.navlinks{display:none}}
+/* HERO cover */
+.hero{position:relative;min-height:100svh;display:flex;align-items:flex-end;color:#fff;overflow:hidden;isolation:isolate}
+.hero-bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:-2;animation:kb 16s var(--ease) forwards}
+@keyframes kb{from{transform:scale(1.12)}to{transform:scale(1)}}
+.hero-fallback{position:absolute;inset:0;z-index:-2;background:linear-gradient(155deg,var(--p) 0%,var(--p7) 55%,var(--p9) 100%)}
+.hero-scrim{position:absolute;inset:0;z-index:-1;background:linear-gradient(to top,rgba(15,13,11,.9) 0%,rgba(15,13,11,.55) 30%,rgba(15,13,11,.3) 56%,rgba(15,13,11,.6) 100%)}
+.nav:not(.scd){text-shadow:0 1px 20px rgba(0,0,0,.55)}
+.hero h1,.hero-sub{text-shadow:0 2px 36px rgba(0,0,0,.5)}
+.hero-inner{padding-bottom:clamp(54px,8vw,96px);padding-top:140px;width:100%}
+.hero .kicker{color:#fff;opacity:.92;margin-bottom:22px}
+.hero h1{color:#fff;font-size:var(--fs-hero);line-height:.92;letter-spacing:-.025em;max-width:15ch;font-weight:400}
+.hero h1 .ln{display:block;overflow:hidden}
+.hero h1 .ln>span{display:block;transform:translateY(105%);opacity:0;animation:rise .95s var(--ease) forwards}
+.hero h1 .ln:nth-child(2)>span{animation-delay:.1s}.hero h1 .ln:nth-child(3)>span{animation-delay:.2s}
+.hero h1 em{font-style:italic;color:#fff}
+@keyframes rise{to{transform:none;opacity:1}}
+.hero-sub{font-size:clamp(1.1rem,.95rem+.7vw,1.45rem);max-width:42ch;margin:28px 0 34px;color:rgba(255,255,255,.92);line-height:1.5;opacity:0;animation:rise .9s var(--ease) .42s forwards}
+.hero-cta{display:flex;gap:16px;flex-wrap:wrap;align-items:center;opacity:0;animation:rise .9s var(--ease) .54s forwards}
+.hero-rate{display:flex;align-items:center;gap:9px;font-size:.98rem;color:#fff}
+/* HERO split (minimal) */
+.hero-min{min-height:100svh;display:flex;align-items:center;background:var(--bg);color:var(--ink);padding:120px 0 60px}
+.hmg{display:grid;grid-template-columns:1.05fr .95fr;gap:clamp(34px,5vw,76px);align-items:center;width:100%}
+.hmt .kicker{color:var(--p6);margin-bottom:22px;display:block}
+.hmt h1{font-size:var(--fs-hero);line-height:1.02;max-width:13ch}
+.hmt h1 .hl{color:var(--p)}
+.hsub-min{font-size:clamp(1.05rem,.95rem+.5vw,1.32rem);color:var(--n7);max-width:46ch;margin:26px 0 34px;line-height:1.55}
+.hrate-min{display:inline-flex;gap:8px;align-items:center;color:var(--ink);font-size:.95rem}
+.hmi{aspect-ratio:4/5;overflow:hidden;border-radius:var(--rad);box-shadow:var(--sh)}
+.hmi img{width:100%;height:100%;object-fit:cover;display:block;animation:kb 18s var(--ease) forwards}
+.hmi-fb{width:100%;height:100%;background:linear-gradient(150deg,var(--p),var(--p9));display:flex;align-items:center;justify-content:center;color:#fff;font-family:var(--head);font-size:3rem}
+@media(max-width:860px){.hmg{grid-template-columns:1fr}.hmi{aspect-ratio:16/11}}
+/* proof bar */
+.proof{background:var(--ink);color:#fff}
+.proof.lite{background:transparent;color:var(--ink);border-top:1px solid var(--n2);border-bottom:1px solid var(--n2)}
+.proof .wrap{display:flex;gap:clamp(20px,5vw,70px);justify-content:center;flex-wrap:wrap;padding:20px 0;font-size:.96rem;letter-spacing:.01em}
+.proof span{display:inline-flex;align-items:center;gap:10px;opacity:.92}.proof .d{color:var(--ac)}
+/* sections */
+.section{padding:var(--sp) 0}
+.sec-head{display:flex;align-items:flex-end;justify-content:space-between;gap:24px;margin-bottom:clamp(40px,5vw,64px);flex-wrap:wrap}
+.sec-head h2{font-size:calc(var(--fs-disp)*1.2);max-width:18ch}
+.sec-head .ek{color:var(--p6)}
+/* services editorial list */
+.svc{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--n2);border:1px solid var(--n2);border-radius:var(--rad);overflow:hidden}
+.svc .it{background:var(--bg);padding:clamp(28px,3vw,44px);transition:background .3s}
+.svc .it:hover{background:var(--surf)}
+.svc .si{font-family:var(--mono);font-size:.8rem;color:var(--p6);letter-spacing:.05em;font-weight:600}
+.svc .it h3{font-size:clamp(1.5rem,1rem+1.4vw,2.1rem);margin:12px 0 12px}
+.svc .it p{color:var(--ink);opacity:.84;font-size:1.07rem;max-width:42ch;margin:0}
+@media(max-width:760px){.svc{grid-template-columns:1fr}}
+/* about */
+.about{background:var(--ink);color:#fff}
+.about.lite{background:var(--surf2);color:var(--ink)}
+.about.lite h2{color:var(--ink)}.about.lite p{color:var(--n7)}.about.lite .ek{color:var(--p6)}
+.about h2{color:#fff;font-size:var(--fs-disp);max-width:16ch}
+.about-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:clamp(34px,5vw,72px);align-items:center}
+.about p{color:rgba(255,255,255,.82);font-size:1.12rem;margin-top:22px;max-width:48ch}
+.about .ek{color:var(--ac)}
+.about-img{aspect-ratio:4/5;border-radius:var(--rad);overflow:hidden;box-shadow:var(--sh)}
+.about-img img{width:100%;height:100%;object-fit:cover;display:block}
+.about-panel{aspect-ratio:4/5;border-radius:var(--rad);background:linear-gradient(150deg,var(--p),var(--p9));display:flex;flex-direction:column;justify-content:flex-end;padding:38px;gap:6px}
+.about-panel .big{font-family:var(--head);font-size:3.2rem;color:#fff}.about-panel .l{color:rgba(255,255,255,.8)}
+@media(max-width:860px){.about-grid{grid-template-columns:1fr}}
+/* quote */
+.quote{text-align:center;max-width:24ch;margin:0 auto}
+.quote blockquote{font-family:var(--head);font-weight:500;font-size:clamp(1.7rem,1rem+2.6vw,3.2rem);line-height:1.18;letter-spacing:-.015em;}
+.quote .stars{font-size:1.5rem;display:block;margin-bottom:26px}
+.quote cite{display:block;font-family:var(--body);font-style:normal;font-size:1rem;color:var(--n7);margin-top:26px}
+/* gallery */
+.gal{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.gal .g{aspect-ratio:4/5;overflow:hidden;border-radius:var(--rad)}.gal img{width:100%;height:100%;object-fit:cover;transition:transform .7s var(--ease)}.gal .g:hover img{transform:scale(1.06)}
+@media(max-width:760px){.gal{grid-template-columns:1fr 1fr}}
+/* cta */
+.cta{position:relative;color:#fff;text-align:center;padding:clamp(80px,11vw,150px) 0;overflow:hidden}
+.cta-bg{position:absolute;inset:0;z-index:-2;background:linear-gradient(150deg,var(--p),var(--p9))}
+.cta-bg.img{background:none}.cta-bg.img img{width:100%;height:100%;object-fit:cover}
+.cta-scrim{position:absolute;inset:0;z-index:-1;background:linear-gradient(to top,rgba(18,16,14,.8),rgba(18,16,14,.5))}
+.cta h2{color:#fff;font-size:clamp(2.2rem,1.2rem+3.6vw,4.6rem);max-width:16ch;margin:0 auto}
+.cta p{color:rgba(255,255,255,.85);max-width:46ch;margin:20px auto 34px}
+.cta.lite{color:var(--ink);background:var(--surf2)}
+.cta.lite h2{color:var(--ink)}.cta.lite p{color:var(--n7)}.cta.lite .ek{color:var(--p6);display:block;margin-bottom:14px}
+/* feature band */
+.feature{position:relative;color:#fff;padding:clamp(94px,13vw,176px) 0;overflow:hidden;isolation:isolate}
+.feature-bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:-2}
+.feature-scrim{position:absolute;inset:0;z-index:-1;background:linear-gradient(110deg,rgba(15,13,11,.8),rgba(15,13,11,.34))}
+.feature .kicker{color:#fff;opacity:.9;margin-bottom:18px}
+.feature h2{color:#fff;font-size:var(--fs-disp);max-width:13ch;text-shadow:0 2px 34px rgba(0,0,0,.5)}
+.feature .btn{margin-top:30px}
+/* compare / competitive standing */
+.compare{background:var(--surf2)}
+.cmp-grid{display:grid;grid-template-columns:1.3fr .7fr;gap:clamp(32px,5vw,64px);align-items:center}
+.cmp-bars{display:flex;flex-direction:column;gap:13px}
+.cmp-row{display:grid;grid-template-columns:minmax(120px,1.1fr) 2fr auto;gap:14px;align-items:center;font-size:.97rem}
+.cmp-row .cn{color:var(--ink);opacity:.78;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.cmp-row.me .cn{opacity:1;font-weight:700}
+.cmp-row .cbar{height:11px;background:var(--n2);border-radius:999px;overflow:hidden}
+.cmp-row .cbar i{display:block;height:100%;background:var(--p);border-radius:999px}
+.cmp-row.me .cbar i{background:var(--ac)}
+.cmp-row .cv{font-variant-numeric:tabular-nums;font-weight:700;color:var(--ink)}
+.cmp-rank{font-family:var(--head);font-weight:400;font-size:clamp(3rem,6vw,4.8rem);line-height:1;color:var(--p)}
+.cmp-rank span{display:block;font-family:var(--body);font-size:.9rem;color:var(--n7);letter-spacing:.02em;margin-top:8px;text-transform:none}
+.cmp-note p{margin-top:16px;color:var(--ink);opacity:.92}
+.cmp-gap{background:var(--bg);border-left:3px solid var(--ac);padding:14px 16px;border-radius:0 8px 8px 0;font-size:1rem}
+.cmp-gap span{display:block;font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;color:var(--p6);font-weight:700;margin-bottom:6px}
+.cmp-src{font-size:.83rem!important;opacity:.58!important}
+@media(max-width:860px){.cmp-grid{grid-template-columns:1fr}}
+/* footer */
+.footer{padding:clamp(64px,8vw,110px) 0 40px}
+.wordmark{font-family:var(--head);font-weight:400;font-size:clamp(2.6rem,8vw,8.5rem);line-height:.9;letter-spacing:-.03em;color:var(--ink);}
+.frow{display:flex;justify-content:space-between;flex-wrap:wrap;gap:20px;border-top:1px solid var(--n2);margin-top:34px;padding-top:24px;color:var(--n7);font-size:.92rem}
+.rv{opacity:0;transform:translateY(26px);transition:opacity .8s var(--ease),transform .8s var(--ease)}.rv.in{opacity:1;transform:none}
+.flag{position:fixed;bottom:14px;left:14px;z-index:99;background:var(--ink);color:#fff;font:600 12px/1 var(--body);padding:9px 14px;border-radius:999px;opacity:.9}
+.stylechip{position:fixed;bottom:14px;right:14px;z-index:99;background:var(--p);color:#fff;font:600 11px/1 var(--body);padding:9px 13px;border-radius:999px;opacity:.92;letter-spacing:.04em;text-transform:uppercase}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.rv,.hero h1 .ln>span,.hero-sub,.hero-cta{opacity:1!important;transform:none!important}}
+</style></head>
+<body>
+<nav class="nav" id="nav">
+  <a class="brand" href="#top"><img class="logo-img" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAgAAAAIACAYAAAD0eNT6AAAACXBIWXMAACHVAAAh1QEEnLSdAAAEEElEQVR4nO3BMQEAAADCoPVPbQdvoAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAoNsAAvAAAZlC0qUAAAAASUVORK5CYII=" alt="The Firm Medspa"></a>
+  <div class="navlinks"><a href="#services">Services</a><a href="#about">About</a><a href="#reviews">Reviews</a></div>
+  <a class="navcta" href="#contact">Book a consultation</a>
+</nav>
+<header class="hero" id="top">
+  <img class="hero-bg" src="data:image/jpeg;base64,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" alt="The Firm Medspa">
+  <div class="hero-scrim"></div>
+  <div class="wrap hero-inner">
+    <span class="kicker">Aesthetics · Skin · Confidence · Lone Tree</span>
+    <h1><span class="ln"><span>Quietly</span></span><span class="ln"><span><em>radiant.</em></span></span></h1>
+    <p class="hero-sub">Natural-looking injectables, advanced skin treatments, and results that still look like you — from a team you’ll actually trust.</p>
+    <div class="hero-cta"><a class="btn btn-light" href="#contact">Book a consultation →</a><span class="hero-rate"><span class="stars">★★★★★</span> <b>4.9</b> on Google</span></div>
+  </div>
+</header>
+<div class="proof"><div class="wrap"><span><span class="d">◆</span> Board-certified providers</span><span><span class="d">◆</span> Natural-result promise</span><span><span class="d">◆</span> Consult before you commit</span></div></div>
+
+<section class="section" id="services"><div class="wrap">
+  <div class="sec-head rv"><h2>What The does best.</h2><span class="kicker ek">(01) — Services</span></div>
+  <div class="svc"><div class="it rv"><span class="si">01</span><h3>Injectables &amp; Botox</h3><p>Soften fine lines and refresh in under 30 minutes — subtle, balanced, never frozen.</p></div><div class="it rv"><span class="si">02</span><h3>Dermal Fillers</h3><p>Restore lost volume and sculpt definition with an artful, light touch that flatters your features.</p></div><div class="it rv"><span class="si">03</span><h3>Medical-Grade Facials</h3><p>Clinical results with spa-level calm — visibly brighter, smoother skin within days.</p></div><div class="it rv"><span class="si">04</span><h3>Laser &amp; Skin</h3><p>Target sun damage, texture and tone with proven devices and a plan built for your skin.</p></div><div class="it rv"><span class="si">05</span><h3>Body Contouring</h3><p>Non-surgical treatments that smooth, tighten and define — with no downtime.</p></div><div class="it rv"><span class="si">06</span><h3>IV &amp; Wellness</h3><p>Hydration and vitamin therapy to help you feel as good as you look.</p></div></div>
+</div></section>
+
+<section class="feature"><img class="feature-bg" src="https://firmmedspa.com/wp-content/uploads/2024/04/631b6c155bd59bcdcb830ec3_phone@3x-p-500.png" alt=""><div class="feature-scrim"></div><div class="wrap"><span class="kicker">Lone Tree · 4.9★ rated</span><h2>See why they keep coming back.</h2><a class="btn btn-light" href="#contact">Book a consultation →</a></div></section>
+<section class="about" id="about"><div class="wrap section"><div class="about-grid">
+  <div class="rv"><span class="kicker ek">(02) — About</span><h2 style="margin-top:18px">Expertise you can feel the moment you walk in.</h2><p>We pair genuine medical credentials with an unhurried, spa-calm experience. Every plan starts with a real conversation — honest advice, no pressure, and results designed to look like the best version of you.</p>
+    <p style="opacity:.7;font-size:1rem">Proudly serving Lone Tree and the surrounding area.</p></div>
+  <div class="about-img rv"><img src="https://firmmedspa.com/wp-content/uploads/2024/04/631b6c155bd59bcdcb830ec3_phone@3x-p-500.png" alt="The Firm Medspa"></div>
+</div></div></section>
+
+<section class="section" id="reviews"><div class="wrap"><div class="quote rv">
+  <span class="stars">★★★★★</span>
+  <blockquote>“I finally found a place that makes me look refreshed, not different. Warm, professional, and the results speak for themselves.”</blockquote>
+  <cite>— a verified Lone Tree client · 4.9★ across Google &amp; the major review sites</cite>
+</div></div></section>
+
+<section class="section" style="padding-top:0"><div class="wrap"><div class="gal"><div class="g rv"><img loading="lazy" src="https://firmmedspa.com/wp-content/uploads/2024/04/631b6c155bd59bcdcb830ec3_phone@3x-p-500.png" alt="The Firm Medspa"></div><div class="g rv"><img loading="lazy" src="https://firmmedspa.com/wp-content/uploads/2024/04/home_background.jpg" alt="The Firm Medspa"></div><div class="g rv"><img loading="lazy" src="https://firmmedspa.com/wp-content/uploads/2024/04/home_spa-2400-med.jpg" alt="The Firm Medspa"></div></div></div></section>
+
+<section class="section compare" id="compare"><div class="wrap"><div class="sec-head rv"><h2>How you compare in Lone.</h2><span class="kicker ek">(03) — The local field</span></div><div class="cmp-grid"><div class="cmp-bars rv"><div class="cmp-row"><span class="cn">Nu-Reflections Medspa</span><span class="cbar"><i style="width:88%"></i></span><span class="cv">88</span></div><div class="cmp-row"><span class="cn">ZenVita MedSpa</span><span class="cbar"><i style="width:87%"></i></span><span class="cv">87</span></div><div class="cmp-row"><span class="cn">Pearl Skin &amp; Body</span><span class="cbar"><i style="width:87%"></i></span><span class="cv">87</span></div><div class="cmp-row"><span class="cn">Thin Space Wellness</span><span class="cbar"><i style="width:87%"></i></span><span class="cv">87</span></div><div class="cmp-row"><span class="cn">Cedar &amp; Magnolia Day Spa + Med Spa</span><span class="cbar"><i style="width:85%"></i></span><span class="cv">85</span></div><div class="cmp-row"><span class="cn">June Aesthetics &amp; Medspa</span><span class="cbar"><i style="width:85%"></i></span><span class="cv">85</span></div><div class="cmp-row me"><span class="cn">The Firm Medspa · you</span><span class="cbar"><i style="width:53%"></i></span><span class="cv">53</span></div></div><div class="cmp-note rv"><div class="cmp-rank">#7<span>of 7 nearby</span></div><p>You’re mid-pack today — this is how you climb.</p><p class="cmp-gap"><span>Biggest gap</span>Missing most web-security headers. <b>— fixed in this rebuild.</b></p><p class="cmp-src">From public signals — security, mobile, site quality &amp; presence — across 6 local competitors.</p></div></div></div></section>
+<section class="cta" id="contact">
+  <div class="cta-bg img"><img src="https://firmmedspa.com/wp-content/uploads/2024/04/home_background.jpg" alt=""></div><div class="cta-scrim"></div>
+  <div class="wrap"><h2>Book a consultation today.</h2><p>New clients always start with a complimentary consultation. No pressure, ever.</p><a class="btn btn-light" href="#">Book a consultation →</a></div>
+</section>
+
+<footer class="footer"><div class="wrap">
+  <div class="wordmark rv">The Firm Medspa</div>
+  <div class="frow"><span>© 2026 The Firm Medspa · Lone Tree</span><span>Aesthetics · Skin · Confidence</span></div>
+</div></footer>
+<div class="flag">✨ Test-drive concept by Sightline</div>
+<div class="stylechip">Editorial Luxe</div>
+<script>
+(function(){var n=document.getElementById('nav');var split=false;function s(){n.classList.toggle('scd',scrollY>window.innerHeight*(split?.12:.78))}addEventListener('scroll',s);s();
+var io=new IntersectionObserver(function(e){e.forEach(function(x){if(x.isIntersecting){x.target.classList.add('in');io.unobserve(x.target)}})},{rootMargin:'0px 0px -10% 0px'});
+document.querySelectorAll('.rv').forEach(function(el){io.observe(el)});})();
+</script>
+</body></html>

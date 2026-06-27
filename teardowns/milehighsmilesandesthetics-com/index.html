@@ -1,0 +1,123 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Competitive Teardown — Mile High Smiles &amp; Esthetics</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#16140f;--mut:#6b6660;--line:#e7e2d8;--bg:#faf8f4;--ac:#479a88;--head:'Fraunces',Georgia,serif;--body:'Inter',system-ui,sans-serif}
+*{box-sizing:border-box;margin:0}body{background:var(--bg);color:var(--ink);font-family:var(--body);line-height:1.6;-webkit-font-smoothing:antialiased}
+.wrap{max-width:1080px;margin:0 auto;padding:0 clamp(20px,5vw,52px)}
+.top{display:flex;justify-content:space-between;align-items:center;padding:22px 0;border-bottom:1px solid var(--line)}
+.logo{display:flex;gap:10px;align-items:center;font-family:var(--head);font-weight:600;font-size:1.15rem}
+.dot{width:10px;height:10px;border-radius:50%;background:var(--ac)}
+.tag{color:var(--mut);font-size:.82rem}
+.hd{padding:clamp(36px,6vw,68px) 0 18px}
+.hd .k{color:var(--ac);font-weight:600;font-size:.78rem;letter-spacing:.22em;text-transform:uppercase;margin-bottom:16px}
+.hd h1{font-family:var(--head);font-weight:400;font-size:clamp(2rem,1.3rem+2.6vw,3.4rem);line-height:1.04;letter-spacing:-.02em;max-width:20ch}
+.hd p{color:var(--mut);max-width:64ch;margin-top:16px;font-size:1.05rem}
+.score-line{display:flex;gap:26px;flex-wrap:wrap;margin:26px 0 6px}
+.sb{background:#fff;border:1px solid var(--line);border-radius:12px;padding:18px 22px;min-width:150px}
+.sb .n{font-family:var(--head);font-size:2.2rem;line-height:1}.sb .l{color:var(--mut);font-size:.84rem;margin-top:6px}
+.sec{padding:clamp(30px,5vw,52px) 0;border-top:1px solid var(--line)}
+.sec h2{font-family:var(--head);font-weight:500;font-size:clamp(1.5rem,1rem+1.6vw,2.2rem);letter-spacing:-.01em;margin-bottom:8px}
+.sec .sub{color:var(--mut);margin-bottom:24px}
+table{width:100%;border-collapse:collapse;font-size:.9rem;background:#fff;border:1px solid var(--line);border-radius:12px;overflow:hidden}
+th,td{padding:12px 12px;text-align:left;border-bottom:1px solid var(--line)}
+th{font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;color:var(--mut);font-weight:600;background:#f3efe7}
+td.rk{color:var(--mut);font-variant-numeric:tabular-nums}
+td.nm{font-weight:600}.dm{color:var(--mut);font-weight:400;font-size:.8rem}
+.you{background:var(--ac);color:#fff;font-size:.62rem;padding:2px 7px;border-radius:100px;letter-spacing:.08em;vertical-align:middle}
+tr.me{background:#fff7ec}
+.pill{display:inline-block;font-weight:700;padding:5px 11px;border-radius:100px;color:#fff;font-variant-numeric:tabular-nums}
+.g-A{background:#1f7a4d}.g-B{background:#4a8f3c}.g-C{background:#b8862b}.g-D{background:#c2682a}.g-F{background:#b23b3b}
+td.g{color:#1f7a4d;font-weight:600}td.b{color:#b23b3b;font-weight:600}td.m{color:var(--mut)}
+ul{list-style:none;margin:0;padding:0}
+.win,.gap{display:flex;gap:13px;padding:14px 0;border-bottom:1px solid var(--line);align-items:flex-start}
+.win:last-child,.gap:last-child{border-bottom:none}
+.win .i{color:#1f7a4d;font-weight:700}.gap .i{color:#c2682a;font-weight:700}
+.cta{margin-top:14px;background:var(--ink);color:#fff;border-radius:14px;padding:clamp(26px,4vw,40px)}
+.cta h3{font-family:var(--head);font-weight:500;font-size:1.5rem;color:#fff;margin-bottom:10px}
+.cta p{color:rgba(255,255,255,.8);max-width:60ch}
+.foot{padding:30px 0 50px;color:var(--mut);font-size:.82rem}
+.disc{color:var(--mut);font-size:.78rem;margin-top:10px}
+</style></head><body>
+<header class="wrap top"><div class="logo"><span class="dot"></span>Sightline</div><span class="tag">Competitive Teardown · passive / public-signal analysis</span></header>
+<section class="wrap hd">
+  <div class="k">Dental · Lone Tree</div>
+  <h1>How Mile High Smiles &amp; Esthetics stacks up against the local field.</h1>
+  <p>We analyzed <b>6</b> nearby competitors on the public signals a customer (or attacker) can see — security, mobile experience, site quality and online presence. No logins, no probing. Here’s where you stand and where the easy wins are.</p>
+  <div class="score-line">
+    <div class="sb"><div class="n">#7</div><div class="l">of 7 in the local field</div></div>
+    <div class="sb"><div class="n">18</div><div class="l">your presence score (/100)</div></div>
+    <div class="sb"><div class="n">87</div><div class="l">field average</div></div>
+    <div class="sb"><div class="n">88</div><div class="l">top competitor</div></div>
+  </div>
+</section>
+<section class="wrap sec"><h2>The local leaderboard</h2><div class="sub">Ranked by overall online-presence score. Greens are strengths; reds are liabilities.</div>
+  <table><thead><tr><th>#</th><th>Business</th><th>Score</th><th>HTTPS</th><th>Email (DMARC)</th><th>Mobile</th><th>Homepage</th><th>Social</th></tr></thead>
+  <tbody><tr class="">
+    <td class="rk">1</td><td class="nm">Copeland Family Dental<br><span class="dm">copelandfamilydental.com</span></td>
+    <td class="sc"><span class="pill g-A">88</span></td>
+    <td class="g">Secure</td>
+    <td class="g">Yes</td>
+    <td class="g">Modern</td>
+    <td class="g">Full</td>
+    <td class="g">FB IG</td>
+  </tr><tr class="">
+    <td class="rk">2</td><td class="nm">Spring Creek Dental<br><span class="dm">mydentistfortcollins.com</span></td>
+    <td class="sc"><span class="pill g-A">88</span></td>
+    <td class="g">Secure</td>
+    <td class="b">p=none</td>
+    <td class="g">Modern</td>
+    <td class="g">Full</td>
+    <td class="g">FB IG</td>
+  </tr><tr class="">
+    <td class="rk">3</td><td class="nm">Acacia Dental Group<br><span class="dm">acaciadentalgroup.com</span></td>
+    <td class="sc"><span class="pill g-A">87</span></td>
+    <td class="g">Secure</td>
+    <td class="g">Yes</td>
+    <td class="g">Modern</td>
+    <td class="g">Full</td>
+    <td class="g">FB YT</td>
+  </tr><tr class="">
+    <td class="rk">4</td><td class="nm">Northstar Dental<br><span class="dm">northstardentalco.com</span></td>
+    <td class="sc"><span class="pill g-A">87</span></td>
+    <td class="g">Secure</td>
+    <td class="b">p=none</td>
+    <td class="g">Modern</td>
+    <td class="g">Full</td>
+    <td class="g">FB IG YT</td>
+  </tr><tr class="">
+    <td class="rk">5</td><td class="nm">Fermelia Dental<br><span class="dm">fermeliadental.com</span></td>
+    <td class="sc"><span class="pill g-A">87</span></td>
+    <td class="g">Secure</td>
+    <td class="g">Yes</td>
+    <td class="g">Modern</td>
+    <td class="g">Full</td>
+    <td class="g">FB IG</td>
+  </tr><tr class="">
+    <td class="rk">6</td><td class="nm">Lafayette Family Orthodontics<br><span class="dm">lafayettefamilyorthodontics.com</span></td>
+    <td class="sc"><span class="pill g-B">84</span></td>
+    <td class="g">Secure</td>
+    <td class="b">p=none</td>
+    <td class="g">Modern</td>
+    <td class="g">Full</td>
+    <td class="b">FB</td>
+  </tr><tr class="me">
+    <td class="rk">7</td><td class="nm">Mile High Smiles &amp; Esthetics <span class="you">YOU</span><br><span class="dm">milehighsmilesandesthetics.com</span></td>
+    <td class="sc"><span class="pill g-F">18</span></td>
+    <td class="b">None</td>
+    <td class="b">None</td>
+    <td class="b">Dated</td>
+    <td class="b">Thin</td>
+    <td class="b">None</td>
+  </tr></tbody></table>
+</section>
+<section class="wrap sec"><h2>Easy wins — beat the whole field</h2><div class="sub">Weaknesses shared across the local competitors. Close these and you leapfrog most of them.</div>
+  <ul><li class="win"><span class="i">▲</span><span>The local field is unusually strong — we’ll compete on design polish and conversion.</span></li></ul>
+</section>
+<section class="wrap sec"><h2>Mile High Smiles &amp; Esthetics: your gaps right now</h2><div class="sub">Where your current site trails the field — every one of these is fixed by the rebuild.</div>
+  <ul><li class="gap"><span class="i">●</span><span>No valid HTTPS — the site loads ‘Not Secure’.</span></li><li class="gap"><span class="i">●</span><span>No DMARC — your email can be impersonated.</span></li><li class="gap"><span class="i">●</span><span>Missing most web-security headers.</span></li><li class="gap"><span class="i">●</span><span>No mobile viewport — looks broken on phones.</span></li><li class="gap"><span class="i">●</span><span>Design/platform looks dated next to the field.</span></li><li class="gap"><span class="i">●</span><span>Thin or unlinked social presence.</span></li></ul>
+  <div class="cta"><h3>The Sightline rebuild closes every gap above.</h3><p>A fast, hardened, mobile-first site in your real brand — with the security basics (HTTPS, DMARC, headers) handled, modern design that outclasses the field, and one clear path to act. Test-drive the concept, then we make it yours.</p></div>
+</section>
+<footer class="wrap foot">Sightline · Competitive teardown for Mile High Smiles &amp; Esthetics. <span class="disc">Based only on public, passively observable signals. Scores are a Sightline heuristic, not an endorsement or certification. Competitor names shown for comparison only.</span></footer>
+</body></html>
