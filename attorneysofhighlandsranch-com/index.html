@@ -79,6 +79,22 @@ a{color:inherit;text-decoration:none}.wrap{max-width:var(--maxw);margin:0 auto;p
 .svc .it h3{font-size:clamp(1.5rem,1rem+1.4vw,2.1rem);margin:12px 0 12px}
 .svc .it p{color:var(--ink);opacity:.84;font-size:1.07rem;max-width:42ch;margin:0}
 @media(max-width:760px){.svc{grid-template-columns:1fr}}
+/* services — asymmetric editorial */
+.svc-grid{display:grid;grid-template-columns:.82fr 1.18fr;gap:clamp(38px,6vw,88px);align-items:start}
+.svc-intro{position:sticky;top:108px}
+.svc-intro .kicker{color:var(--p6)}
+.svc-intro h2{font-size:calc(var(--fs-disp)*1.04);margin:18px 0 22px;max-width:13ch}
+.svc-lead{font-family:var(--head);font-weight:400;font-size:clamp(1.12rem,1rem+.55vw,1.5rem);line-height:1.44;color:var(--ink);opacity:.82;max-width:32ch;margin-bottom:30px}
+.svc-cta{display:inline-block;font-family:var(--body);font-weight:600;font-size:1rem;color:var(--ink);border-bottom:2px solid var(--ac);padding-bottom:5px;transition:color .25s}
+.svc-cta:hover{color:var(--p)}
+.svc-list{display:flex;flex-direction:column}
+.svc-row{display:grid;grid-template-columns:auto 1fr;gap:clamp(20px,3vw,46px);padding:clamp(26px,3vw,40px) 0;border-top:1px solid var(--n2);align-items:baseline;transition:padding-left .3s var(--ease)}
+.svc-row:last-child{border-bottom:1px solid var(--n2)}
+.svc-row:hover{padding-left:8px}
+.svc-row .si{font-family:var(--mono);font-size:.92rem;color:var(--ac);font-weight:700;letter-spacing:.04em}
+.svc-body h3{font-size:clamp(1.4rem,1rem+1.25vw,2.05rem);margin-bottom:11px;line-height:1.05}
+.svc-body p{color:var(--ink);opacity:.78;font-size:1.08rem;line-height:1.56;max-width:50ch;margin:0}
+@media(max-width:860px){.svc-grid{grid-template-columns:1fr}.svc-intro{position:static;margin-bottom:14px}}
 /* about */
 .about{background:var(--ink);color:#fff}
 .about.lite{background:var(--surf2);color:var(--ink)}
@@ -93,9 +109,10 @@ a{color:inherit;text-decoration:none}.wrap{max-width:var(--maxw);margin:0 auto;p
 .about-panel .big{font-family:var(--head);font-size:3.2rem;color:#fff}.about-panel .l{color:rgba(255,255,255,.8)}
 @media(max-width:860px){.about-grid{grid-template-columns:1fr}}
 /* quote */
-.quote{text-align:center;max-width:24ch;margin:0 auto}
-.quote blockquote{font-family:var(--head);font-weight:500;font-size:clamp(1.7rem,1rem+2.6vw,3.2rem);line-height:1.18;letter-spacing:-.015em;}
-.quote .stars{font-size:1.5rem;display:block;margin-bottom:26px}
+.quote{text-align:center;max-width:26ch;margin:0 auto}
+.quote .qmark{display:block;font-family:var(--head);font-size:clamp(4.5rem,10vw,8rem);line-height:.55;color:var(--ac);opacity:.45;margin-bottom:10px}
+.quote blockquote{font-family:var(--head);font-weight:500;font-size:clamp(2rem,1rem+3.1vw,3.9rem);line-height:1.16;letter-spacing:-.018em;}
+.quote .stars{font-size:1.4rem;display:block;margin:24px 0 0}
 .quote cite{display:block;font-family:var(--body);font-style:normal;font-size:1rem;color:var(--n7);margin-top:26px}
 /* gallery */
 .gal{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
@@ -157,7 +174,7 @@ a{color:inherit;text-decoration:none}.wrap{max-width:var(--maxw);margin:0 auto;p
 </style></head>
 <body>
 <nav class="nav" id="nav">
-  <a class="brand" href="#top"><img class="logo-img" src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQEAYABgAAD//gA7Q1JFQVRPUjogZ2QtanBlZyB2MS4wICh1c2luZyBJSkcgSlBFRyB2NjIpLCBxdWFsaXR5ID0gOTAK/9sAQwADAgIDAgIDAwMDBAMDBAUIBQUEBAUKBwcGCAwKDAwLCgsLDQ4SEA0OEQ4LCxAWEBETFBUVFQwPFxgWFBgSFBUU/9sAQwEDBAQFBAUJBQUJFA0LDRQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQU/8AAEQgAcgByAwEiAAIRAQMRAf/EAB8AAAEFAQEBAQEBAAAAAAAAAAABAgMEBQYHCAkKC//EALUQAAIBAwMCBAMFBQQEAAABfQECAwAEEQUSITFBBhNRYQcicRQygZGhCCNCscEVUtHwJDNicoIJChYXGBkaJSYnKCkqNDU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6g4SFhoeIiYqSk5SVlpeYmZqio6Slpqeoqaqys7S1tre4ubrCw8TFxsfIycrS09TV1tfY2drh4uPk5ebn6Onq8fLz9PX29/j5+v/EAB8BAAMBAQEBAQEBAQEAAAAAAAABAgMEBQYHCAkKC//EALURAAIBAgQEAwQHBQQEAAECdwABAgMRBAUhMQYSQVEHYXETIjKBCBRCkaGxwQkjM1LwFWJy0QoWJDThJfEXGBkaJicoKSo1Njc4OTpDREVGR0hJSlNUVVZXWFlaY2RlZmdoaWpzdHV2d3h5eoKDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uLj5OXm5+jp6vLz9PX29/j5+v/aAAwDAQACEQMRAD8A/KqiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigD6L+Av7F2p/HT4Xal4/f4heC/Anh6w1Y6NJceLdQazVp/KjlAD7CnKyDAzn5TxXY/8O+NO/6OW+B3/hWL/wDEUeG/+UVvi3/sqEH/AKQRV8hjrQB9ef8ADvjT8/8AJyvwO/8ACsX/AOIo/wCHfGnf9HLfA7/wrF/+IrY/4Jafs9ab8Y/jlceIPEthbX3hTwtAss8F/Gr29xdTEx28Tq3DZO9sHqUA7147+2l8D2/Z+/aL8XeFYoDDpJuTfaYcfKbSb54wPXbkp9UND0sgWtz0r/h3xp3/AEct8Dj/ANzYv/xFL/w740//AKOW+B3/AIVi/wDxFfIQODzX6Hf8E7PHPgj47fE/Svhl4y+C3w6voI9KlePWotG23srwqPmmLMyuWHUhVORnnNNK4m7Hlv8Aw73089P2lfgcf+5sX/4il/4d8aeP+blfgd/4Vi//ABFbP7fHxO8J+Cvil43+FPhD4PeAPDmm6dJFajW7bSf+Jnu2LIzJIGCoCWxwhOB15r57+CHxrsvhFqF6+o/Dzwf8QbO9MfmW/irT2uGhCk58l1YeWWDEEkMOBwcVMXzFNWPa/wDh3xp3/Ry3wO/8Kxf/AIij/h3vYD/m5X4Hf+FYv/xFfX/7Zx+En7OfwD8DeN/DnwG+Hl/q3ih4AkOpaWr29ur2/nE4TYz9gPmHXPtXwd8Ev2j9G0Hxu9vr3we+HnizS9d1hZ5re90grJZrIVUxWrBsRxjAIVlYA59SapK7sLpc7H/h3zp//RyvwO/8Kxf/AIil/wCHe+n/APRyvwO/8Kxf/iK+t/2/NT+EX7Hl54MttG/Z78AeIG16O6kke/sFjEQiMQAUKvOfMPU9q8+/Ze+If7OP7YfiUfDLxZ8CfD3gXxDqEUr6dqXh1zAJ3VWYoGUK6OEBIBLq205xwClrsD01Z4T/AMO+NO/6OW+B3/hWL/8AEVHrH/BO6/tvBPi7xJoXxm+F/jSPwzpNxrN9YeG9ba9uRBEhZiFSM4zjALEDJHNeT/ta/AOT9mr47eIvAn2p7+ys2Sexu5AA8ttIoeMtjjcAdpxxlTjivXP2CT/xQP7UHt8L9T/kKSdxtWPkPHvRSUUxH154b/5RW+Lf+yoQf+kEVfIkYy4HWvrvw3/yiu8W/wDZUIP/AEgirz79iL4FL8fv2iPDeg3kYbw/ZSHVNZkfhFs4SGdWPYOdqf8AA6aV2Gx7Z8Vddvv2RP2TPhR4E0ed9M8deLL6Lx3rUqHEsEcbKbGNu4GUVsdmib1r2D/go14asP2lf2XPhr+0T4ftgbi3tY7bVViGfLhlOCrH/plcbk/7ak1xP7TGi/s4/tG/GDWvG2rftTLpjXWyC306HwXfTR2kEahUjV8gMBgnIABLE45r6R/Yk0r4M6/8H/GfwA0H4xR/FWx1W3uboWsmhXGmy2cEirHKU83IbDlXGDlWJPPaXqr9dwWjR+LzDBr7M/4JJuE/bJ0QEff0u/A/79Z/pXy98WPh1qfwl+I3iLwdrCFNR0W9ls5TtwH2t8rj/ZZcMPZhX09/wSWH/GZeg/8AYNv/AP0SaqOpM9EP/br/AGd/ix4y/az+JGsaF8L/ABnrOk3WoK1vf6f4fu54JlEKDckiRlWGQeQa8IX9lD43Bv8Akjnj/Gf+hXvv/jVfQf7bv7Uvxi8DftV/EbQtB+JfijRtHstREdtYWepyxQwp5SHCqDgDJJ49a8PX9tL48FgD8XvGOP8AsMTf/FVMNlYuW593f8FVbO4039kP4EWl3BLa3du1vDNBOhSSN1sAGVlPIIIIIPQ1+X3hE48V6Nzj/TIf/QxX6k/8FXprnUP2Svgje3lzJd3U00Ek08zbnldrDLMx7knJJ96/Lbwl/wAjVo3/AF+Q/wDoYq4/H8xP4F6H6Wf8Ft7ae78SfCYQwySotnqGdiE4O+CvHv8AgmP+zd4w174/eH/iLf6Td6N4I8MiW/n1i+iaCCV/JdUjjdsBjlwzEZAUHJGRn68/4KgftW/E79mbxH8OR4A16PSbbVbe7e9hlsoLhZjE8O3/AFiMV4dh8pHX2FYPx81jWf8AgoZ+xlaeNPhpr2pWWv6IjjxB4KsrtxFdsFBliaMH52AG+LOdykjG7pKdk2gavZM+Ev8AgoX8aNJ+On7UfifXtAnW70K0SHTLK7T7twkKbWkU91LlyD3XFdV+wT/yIX7UP/ZL9S/lXyPPG0UhRwQynBB6g19cfsE/8iD+1D/2S/U/5UkrKw3qfIdFFFMR9keA9LuNc/4JieINNtAjXd58V7W3hWSRY1LtYwquXYhVGSOWIA7kV9FfAj9nK5+A/wCyf8TbPSfGngmX4w+NLZdPVB4itljsbIna0azbseYVeRiQcZ2c/Lmvkj4BfteeGfhP8EtW+GXi34T2XxK0O/1069i91eSzEcvkxxKNqRsTgRk53fxdOK6L/hrn4Bk/8mk+H/8Awp7n/wCNUdLAfKniTQ7zwxr2oaRfiIXtjO9vOIJkmQOpKna6EqwyOqkg9jX03/wTo8O+Kbf9oLw9400PVNE0jSNDvI49XuNa1aGzVrWUFZUVHYPIxTeRtUgMFyRWgf2uvgH/ANGk+H//AAp7n/41R/w118BP+jSfD/8A4U9z/wDGqpOwmrn0d/wUw/Zo0n4z+MoPiZ8OvFnhC+1AWHk61pza7bQzTmIHy5o9z7WbZ8hGQfkTGcmuS/4JnfAPUfhh8XNF+KHizxN4Q0TQH0qYwW9x4gtWvJPPTCfu1c7MDkhiCMgYznHj3/DXPwD/AOjSPD3/AIU9z/8AGqD+118BD1/ZJ8Pn/uZ7n/41UrQb10Z0f/BQ39nrWL34w+PvirpHiDwpr/hS+niux/ZuvWz3USlEjIaAsGYhh/AG4IPrj5z+CP7O3iP473t5Hod/oGlW9k0a3F5r+sQWMcZcnbgO29+FYnYrYx7jPtP/AA118AweP2SPD4/7me5/+NUH9rr4CHr+yT4fP/cz3P8A8aoj7oPU+4P29PhXafHr9njwB4R8GeOvBl3rHhmaBpobrX7eATolsYTsYtjOcHDY4zzng/nd8EP2QfF/jfx0Vn1Xwr4fsdD1hLTULvVvEVoiK8ZV38sLIzSjaRhkBUk43cHHY/8ADXXwD/6NI8P/APhT3P8A8ao/4a7+AmOf2SfD/wBP+Enuf/jVNOzuJ6qx9i/8FO/hGf2no/A+o+A/GPgy+m0GO7jubO58Q20EriUxFShZtp/1bZyw6ivg39jT9prVv2RPjil3dM8vh24m/s7xBp8UokWSIMV8xNpKs8ZyykZyNwBw2a60ftdfAPt+yT4fH/cz3P8A8ao/4a6+Amc/8Mk+H8/9jPc//GqUdBvVWPb/ANtD9irwZ8VvHr+O/g78Q/AsUuuxfb7zw5ea7b2xeQ43T25JwA25SyttwxJB52jyP9jDw9eeE9B/aw0bUFiW+sPhtqttOIJ0mQOvDbZEJVhkdVJB7Gsw/td/AU/82leH/wDwp7n/AONVdf8Abr+Hmh+BPHXh/wAEfs96V4IvPFmhXWhXOqWniGaZkimQrnY8OGwSGxkZx1FJaaAfGtFKcZopgJRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFAH//2Q==" alt="Town &amp; Town (Attorneys of HR)"></a>
+  <a class="brand" href="#top">Town &amp; Town</a>
   <div class="navlinks"><a href="#services">Services</a><a href="#about">About</a><a href="#reviews">Reviews</a><a href="#faq">FAQ</a></div>
   <a class="navcta" href="#contact">Request a consultation</a>
 </nav>
@@ -174,23 +191,28 @@ a{color:inherit;text-decoration:none}.wrap{max-width:var(--maxw);margin:0 auto;p
 </header>
 <div class="proof"><div class="wrap"><span><span class="d">◆</span> Decades of experience</span><span><span class="d">◆</span> Direct partner access</span><span><span class="d">◆</span> Free initial consultation</span></div></div>
 
-<section class="section" id="services"><div class="wrap">
-  <div class="sec-head rv"><h2>What Town &amp; Town does best.</h2><span class="kicker ek">(01) — Services</span></div>
-  <p class="sec-lead rv">When the stakes are high you want a steady hand and a straight answer. We give you both — and the relentless preparation to back them up.</p>
-  <div class="svc"><div class="it rv"><span class="si">01</span><h3>Family Law</h3><p>Compassionate, strategic representation through divorce, custody and the moments that matter.</p></div><div class="it rv"><span class="si">02</span><h3>Estate Planning</h3><p>Protect what you’ve built with wills, trusts and a plan your family can rely on.</p></div><div class="it rv"><span class="si">03</span><h3>Business &amp; Contracts</h3><p>Practical counsel that keeps your business protected and your deals airtight.</p></div><div class="it rv"><span class="si">04</span><h3>Litigation</h3><p>Prepared, persuasive advocacy in and out of the courtroom.</p></div><div class="it rv"><span class="si">05</span><h3>Real Estate</h3><p>Clean closings and clear guidance on the biggest transactions of your life.</p></div><div class="it rv"><span class="si">06</span><h3>Consultations</h3><p>Sit down with an attorney, get a straight answer, and know your options.</p></div></div>
-</div></section>
+<section class="section svc-sec" id="services"><div class="wrap"><div class="svc-grid">
+  <div class="svc-intro rv">
+    <span class="kicker ek">(01) — Services</span>
+    <h2>What Town &amp; Town does best.</h2>
+    <p class="svc-lead">When the stakes are high you want a steady hand and a straight answer. We give you both — and the relentless preparation to back them up.</p>
+    <a class="svc-cta" href="#contact">Request a consultation →</a>
+  </div>
+  <div class="svc-list"><div class="svc-row rv"><span class="si">01</span><div class="svc-body"><h3>Family Law</h3><p>Compassionate, strategic representation through divorce, custody and the moments that matter.</p></div></div><div class="svc-row rv"><span class="si">02</span><div class="svc-body"><h3>Estate Planning</h3><p>Protect what you’ve built with wills, trusts and a plan your family can rely on.</p></div></div><div class="svc-row rv"><span class="si">03</span><div class="svc-body"><h3>Business &amp; Contracts</h3><p>Practical counsel that keeps your business protected and your deals airtight.</p></div></div><div class="svc-row rv"><span class="si">04</span><div class="svc-body"><h3>Litigation</h3><p>Prepared, persuasive advocacy in and out of the courtroom.</p></div></div><div class="svc-row rv"><span class="si">05</span><div class="svc-body"><h3>Real Estate</h3><p>Clean closings and clear guidance on the biggest transactions of your life.</p></div></div><div class="svc-row rv"><span class="si">06</span><div class="svc-body"><h3>Consultations</h3><p>Sit down with an attorney, get a straight answer, and know your options.</p></div></div></div>
+</div></div></section>
 
 <section class="feature"><img class="feature-bg" src="https://attorneysofhighlandsranch.com/wp-content/uploads/2013/03/31.jpg?w=820" alt=""><div class="feature-scrim"></div><div class="wrap"><span class="kicker">Highlands Ranch · 4.9★ rated</span><h2>See why they keep coming back.</h2><a class="btn btn-light" href="#contact">Request a consultation →</a></div></section>
 <section class="about" id="about"><div class="wrap section"><div class="about-grid">
   <div class="rv"><span class="kicker ek">(02) — About</span><h2 style="margin-top:18px">The attention only an independent firm can give.</h2><p>You work directly with a senior attorney — not a rotating cast. Decades of experience, a reputation for discretion, and the kind of preparation that wins.</p>
     <p style="opacity:.7;font-size:1rem">Proudly serving Highlands Ranch and the surrounding area.</p></div>
-  <div class="about-img rv"><img src="https://attorneysofhighlandsranch.com/wp-content/uploads/2013/03/31.jpg?w=820" alt="Town &amp; Town (Attorneys of HR)"></div>
+  <div class="about-img rv"><img src="https://attorneysofhighlandsranch.com/wp-content/uploads/2013/04/25.jpg?w=820" alt="Town &amp; Town (Attorneys of HR)"></div>
 </div></div></section>
 
 <section class="section" id="reviews"><div class="wrap"><div class="quote rv">
+  <span class="qmark" aria-hidden="true">“</span>
+  <blockquote>They took my case seriously from day one, explained every option in plain English, and got a result I didn’t think was possible.</blockquote>
   <span class="stars">★★★★★</span>
-  <blockquote>“They took my case seriously from day one, explained every option in plain English, and got a result I didn’t think was possible.”</blockquote>
-  <cite>— a verified Highlands Ranch client · 4.9★ across Google &amp; the major review sites</cite>
+  <cite>— a Highlands Ranch client · 4.9★ across Google &amp; the major review sites</cite>
 </div></div></section>
 
 <section class="section" style="padding-top:0"><div class="wrap"><div class="gal"><div class="g rv"><img loading="lazy" src="https://attorneysofhighlandsranch.com/wp-content/uploads/2013/03/31.jpg?w=820" alt="Town &amp; Town (Attorneys of HR)"></div><div class="g rv"><img loading="lazy" src="https://attorneysofhighlandsranch.com/wp-content/uploads/2013/04/25.jpg?w=820" alt="Town &amp; Town (Attorneys of HR)"></div><div class="g rv"><img loading="lazy" src="https://attorneysofhighlandsranch.com/wp-content/uploads/2013/04/26.jpg?w=820" alt="Town &amp; Town (Attorneys of HR)"></div></div></div></section>
@@ -198,7 +220,7 @@ a{color:inherit;text-decoration:none}.wrap{max-width:var(--maxw);margin:0 auto;p
 <section class="section faq" id="faq"><div class="wrap"><div class="sec-head rv"><h2>Questions, answered.</h2><span class="kicker ek">(04) — FAQ</span></div><div class="faq-grid"><div class="faq-it rv"><h3>What happens in the first consultation?</h3><p>You sit down directly with an attorney, walk through your situation, and leave understanding your options and the likely path forward. It’s free and confidential.</p></div><div class="faq-it rv"><h3>Will I work with an actual attorney?</h3><p>Yes — not a rotating cast. You get direct access to a senior attorney who knows your matter from day one.</p></div><div class="faq-it rv"><h3>How much will this cost?</h3><p>We’re transparent about fees from the start and explain your options clearly before any engagement, so there are no surprises later.</p></div><div class="faq-it rv"><h3>How quickly can you help?</h3><p>Reach out today and we’ll respond promptly. When something’s at stake, timing matters — and we treat it that way.</p></div></div></div></section>
 <section class="section compare" id="compare"><div class="wrap"><div class="sec-head rv"><h2>How you compare in Highlands.</h2><span class="kicker ek">(03) — The local field</span></div><div class="cmp-grid"><div class="cmp-bars rv"><div class="cmp-row"><span class="cn">The McKenzie Law Firm</span><span class="cbar"><i style="width:88%"></i></span><span class="cv">88</span></div><div class="cmp-row"><span class="cn">Colorado Estate Matters</span><span class="cbar"><i style="width:88%"></i></span><span class="cv">88</span></div><div class="cmp-row"><span class="cn">Law Office of Anna L. Burr</span><span class="cbar"><i style="width:87%"></i></span><span class="cv">87</span></div><div class="cmp-row"><span class="cn">Tolison &amp; Williams</span><span class="cbar"><i style="width:82%"></i></span><span class="cv">82</span></div><div class="cmp-row"><span class="cn">Goodman and Wallace PC</span><span class="cbar"><i style="width:82%"></i></span><span class="cv">82</span></div><div class="cmp-row"><span class="cn">Antommaria Ilevska Elder LLC</span><span class="cbar"><i style="width:80%"></i></span><span class="cv">80</span></div><div class="cmp-row me"><span class="cn">Town &amp; Town (Attorneys of HR) · you</span><span class="cbar"><i style="width:64%"></i></span><span class="cv">64</span></div></div><div class="cmp-note rv"><div class="cmp-rank">#7<span>of 7 nearby</span></div><p>You’re mid-pack today — this is how you climb.</p><p class="cmp-gap"><span>Biggest gap</span>No DMARC — your email can be impersonated. <b>— fixed in this rebuild.</b></p><p class="cmp-src">From public signals — security, mobile, site quality &amp; presence — across 6 local competitors.</p></div></div></div></section>
 <section class="cta" id="contact">
-  <div class="cta-bg img"><img src="https://attorneysofhighlandsranch.com/wp-content/uploads/2013/04/25.jpg?w=820" alt=""></div><div class="cta-scrim"></div>
+  <div class="cta-bg img"><img src="https://attorneysofhighlandsranch.com/wp-content/uploads/2013/04/26.jpg?w=820" alt=""></div><div class="cta-scrim"></div>
   <div class="wrap"><h2>Request a consultation today.</h2><p>Your first consultation is free and confidential.</p><a class="btn btn-light" href="#">Request a consultation →</a></div>
 </section>
 

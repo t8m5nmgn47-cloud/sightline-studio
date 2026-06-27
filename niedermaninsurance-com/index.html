@@ -79,6 +79,22 @@ a{color:inherit;text-decoration:none}.wrap{max-width:var(--maxw);margin:0 auto;p
 .svc .it h3{font-size:clamp(1.5rem,1rem+1.4vw,2.1rem);margin:12px 0 12px}
 .svc .it p{color:var(--ink);opacity:.84;font-size:1.07rem;max-width:42ch;margin:0}
 @media(max-width:760px){.svc{grid-template-columns:1fr}}
+/* services — asymmetric editorial */
+.svc-grid{display:grid;grid-template-columns:.82fr 1.18fr;gap:clamp(38px,6vw,88px);align-items:start}
+.svc-intro{position:sticky;top:108px}
+.svc-intro .kicker{color:var(--p6)}
+.svc-intro h2{font-size:calc(var(--fs-disp)*1.04);margin:18px 0 22px;max-width:13ch}
+.svc-lead{font-family:var(--head);font-weight:400;font-size:clamp(1.12rem,1rem+.55vw,1.5rem);line-height:1.44;color:var(--ink);opacity:.82;max-width:32ch;margin-bottom:30px}
+.svc-cta{display:inline-block;font-family:var(--body);font-weight:600;font-size:1rem;color:var(--ink);border-bottom:2px solid var(--ac);padding-bottom:5px;transition:color .25s}
+.svc-cta:hover{color:var(--p)}
+.svc-list{display:flex;flex-direction:column}
+.svc-row{display:grid;grid-template-columns:auto 1fr;gap:clamp(20px,3vw,46px);padding:clamp(26px,3vw,40px) 0;border-top:1px solid var(--n2);align-items:baseline;transition:padding-left .3s var(--ease)}
+.svc-row:last-child{border-bottom:1px solid var(--n2)}
+.svc-row:hover{padding-left:8px}
+.svc-row .si{font-family:var(--mono);font-size:.92rem;color:var(--ac);font-weight:700;letter-spacing:.04em}
+.svc-body h3{font-size:clamp(1.4rem,1rem+1.25vw,2.05rem);margin-bottom:11px;line-height:1.05}
+.svc-body p{color:var(--ink);opacity:.78;font-size:1.08rem;line-height:1.56;max-width:50ch;margin:0}
+@media(max-width:860px){.svc-grid{grid-template-columns:1fr}.svc-intro{position:static;margin-bottom:14px}}
 /* about */
 .about{background:var(--ink);color:#fff}
 .about.lite{background:var(--surf2);color:var(--ink)}
@@ -93,9 +109,10 @@ a{color:inherit;text-decoration:none}.wrap{max-width:var(--maxw);margin:0 auto;p
 .about-panel .big{font-family:var(--head);font-size:3.2rem;color:#fff}.about-panel .l{color:rgba(255,255,255,.8)}
 @media(max-width:860px){.about-grid{grid-template-columns:1fr}}
 /* quote */
-.quote{text-align:center;max-width:24ch;margin:0 auto}
-.quote blockquote{font-family:var(--head);font-weight:500;font-size:clamp(1.7rem,1rem+2.6vw,3.2rem);line-height:1.18;letter-spacing:-.015em;}
-.quote .stars{font-size:1.5rem;display:block;margin-bottom:26px}
+.quote{text-align:center;max-width:26ch;margin:0 auto}
+.quote .qmark{display:block;font-family:var(--head);font-size:clamp(4.5rem,10vw,8rem);line-height:.55;color:var(--ac);opacity:.45;margin-bottom:10px}
+.quote blockquote{font-family:var(--head);font-weight:500;font-size:clamp(2rem,1rem+3.1vw,3.9rem);line-height:1.16;letter-spacing:-.018em;}
+.quote .stars{font-size:1.4rem;display:block;margin:24px 0 0}
 .quote cite{display:block;font-family:var(--body);font-style:normal;font-size:1rem;color:var(--n7);margin-top:26px}
 /* gallery */
 .gal{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
@@ -172,23 +189,28 @@ a{color:inherit;text-decoration:none}.wrap{max-width:var(--maxw);margin:0 auto;p
   </div></div></header>
 <div class="proof lite"><div class="wrap"><span><span class="d">◆</span> Fee-only fiduciary</span><span><span class="d">◆</span> Independent &amp; local</span><span><span class="d">◆</span> No-cost first meeting</span></div></div>
 
-<section class="section" id="services"><div class="wrap">
-  <div class="sec-head rv"><h2>What Niederman Insurance does best.</h2><span class="kicker ek">(01) — Services</span></div>
-  <p class="sec-lead rv">Real planning, in plain language — built around your life and your goals, not a product someone’s trying to sell you.</p>
-  <div class="svc"><div class="it rv"><span class="si">01</span><h3>Financial Planning</h3><p>A clear, living roadmap for your money — built around your life, not a template.</p></div><div class="it rv"><span class="si">02</span><h3>Retirement</h3><p>Plan the income, taxes and timing so you can retire with confidence, not guesswork.</p></div><div class="it rv"><span class="si">03</span><h3>Investments</h3><p>Disciplined, low-cost portfolios designed for the long run, not the headlines.</p></div><div class="it rv"><span class="si">04</span><h3>Tax Strategy</h3><p>Keep more of what you earn with proactive, year-round tax planning.</p></div><div class="it rv"><span class="si">05</span><h3>Estate &amp; Legacy</h3><p>Make sure what you’ve built passes to the people and causes you love.</p></div><div class="it rv"><span class="si">06</span><h3>Annual Reviews</h3><p>Stay on track with regular check-ins and a real person who answers the phone.</p></div></div>
-</div></section>
+<section class="section svc-sec" id="services"><div class="wrap"><div class="svc-grid">
+  <div class="svc-intro rv">
+    <span class="kicker ek">(01) — Services</span>
+    <h2>What Niederman Insurance does best.</h2>
+    <p class="svc-lead">Real planning, in plain language — built around your life and your goals, not a product someone’s trying to sell you.</p>
+    <a class="svc-cta" href="#contact">Schedule a meeting →</a>
+  </div>
+  <div class="svc-list"><div class="svc-row rv"><span class="si">01</span><div class="svc-body"><h3>Financial Planning</h3><p>A clear, living roadmap for your money — built around your life, not a template.</p></div></div><div class="svc-row rv"><span class="si">02</span><div class="svc-body"><h3>Retirement</h3><p>Plan the income, taxes and timing so you can retire with confidence, not guesswork.</p></div></div><div class="svc-row rv"><span class="si">03</span><div class="svc-body"><h3>Investments</h3><p>Disciplined, low-cost portfolios designed for the long run, not the headlines.</p></div></div><div class="svc-row rv"><span class="si">04</span><div class="svc-body"><h3>Tax Strategy</h3><p>Keep more of what you earn with proactive, year-round tax planning.</p></div></div><div class="svc-row rv"><span class="si">05</span><div class="svc-body"><h3>Estate &amp; Legacy</h3><p>Make sure what you’ve built passes to the people and causes you love.</p></div></div><div class="svc-row rv"><span class="si">06</span><div class="svc-body"><h3>Annual Reviews</h3><p>Stay on track with regular check-ins and a real person who answers the phone.</p></div></div></div>
+</div></div></section>
 
 <section class="feature"><img class="feature-bg" src="https://niedermaninsurance.com/files/banner1.jpg" alt=""><div class="feature-scrim"></div><div class="wrap"><span class="kicker">Highlands Ranch · 4.9★ rated</span><h2>See why they keep coming back.</h2><a class="btn btn-light" href="#contact">Schedule a meeting →</a></div></section>
 <section class="about lite" id="about"><div class="wrap section"><div class="about-grid">
   <div class="rv"><span class="kicker ek">(02) — About</span><h2 style="margin-top:18px">Advice that puts you first — and proves it.</h2><p>As an independent fiduciary, we’re legally and personally on your side. Transparent fees, patient guidance, and a plan you’ll actually understand.</p>
     <p style="opacity:.7;font-size:1rem">Proudly serving Highlands Ranch and the surrounding area.</p></div>
-  <div class="about-img rv"><img src="https://niedermaninsurance.com/files/banner1.jpg" alt="Niederman Insurance Agency"></div>
+  <div class="about-img rv"><img src="https://niedermaninsurance.com/files/lines.jpg" alt="Niederman Insurance Agency"></div>
 </div></div></section>
 
 <section class="section" id="reviews"><div class="wrap"><div class="quote rv">
+  <span class="qmark" aria-hidden="true">“</span>
+  <blockquote>For the first time I understand my own finances. No jargon, no pressure — just a clear plan and someone who answers when I call.</blockquote>
   <span class="stars">★★★★★</span>
-  <blockquote>“For the first time I understand my own finances. No jargon, no pressure — just a clear plan and someone who answers when I call.”</blockquote>
-  <cite>— a verified Highlands Ranch client · 4.9★ across Google &amp; the major review sites</cite>
+  <cite>— a Highlands Ranch client · 4.9★ across Google &amp; the major review sites</cite>
 </div></div></section>
 
 
