@@ -117,6 +117,17 @@ a{color:inherit;text-decoration:none}.wrap{max-width:var(--maxw);margin:0 auto;p
 .feature .kicker{color:#fff;opacity:.9;margin-bottom:18px}
 .feature h2{color:#fff;font-size:var(--fs-disp);max-width:13ch;text-shadow:0 2px 34px rgba(0,0,0,.5)}
 .feature .btn{margin-top:30px}
+/* section lead + faq + scroll cue */
+.sec-lead{font-family:var(--head);font-weight:400;font-size:clamp(1.2rem,1rem+.75vw,1.65rem);line-height:1.42;max-width:44ch;color:var(--ink);opacity:.82;margin:-16px 0 52px}
+.faq{background:var(--surf2)}
+.faq .faq-grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--n2);border:1px solid var(--n2);border-radius:var(--rad);overflow:hidden;margin-top:6px}
+.faq-it{background:var(--bg);padding:clamp(26px,3vw,42px);transition:background .3s}
+.faq-it:hover{background:var(--surf)}
+.faq-it h3{font-size:clamp(1.12rem,1rem+.7vw,1.5rem);margin-bottom:13px}
+.faq-it p{color:var(--ink);opacity:.82;font-size:1.05rem;line-height:1.6;max-width:48ch}
+@media(max-width:760px){.faq .faq-grid{grid-template-columns:1fr}}
+.scrolldown{position:absolute;bottom:24px;left:50%;width:1px;height:48px;background:linear-gradient(rgba(255,255,255,0),rgba(255,255,255,.85));transform-origin:bottom center;animation:sd 2.1s ease-in-out infinite;z-index:2}
+@keyframes sd{0%,100%{transform:translateX(-50%) scaleY(.35);opacity:.3}50%{transform:translateX(-50%) scaleY(1);opacity:.85}}
 /* compare / competitive standing */
 .compare{background:var(--surf2)}
 .cmp-grid{display:grid;grid-template-columns:1.3fr .7fr;gap:clamp(32px,5vw,64px);align-items:center}
@@ -147,7 +158,7 @@ a{color:inherit;text-decoration:none}.wrap{max-width:var(--maxw);margin:0 auto;p
 <body>
 <nav class="nav" id="nav">
   <a class="brand" href="#top">Dermatology &amp; Laser Institute</a>
-  <div class="navlinks"><a href="#services">Services</a><a href="#about">About</a><a href="#reviews">Reviews</a></div>
+  <div class="navlinks"><a href="#services">Services</a><a href="#about">About</a><a href="#reviews">Reviews</a><a href="#faq">FAQ</a></div>
   <a class="navcta" href="#contact">Request an appointment</a>
 </nav>
 <header class="hero-min" id="top"><div class="wrap"><div class="hmg">
@@ -162,7 +173,8 @@ a{color:inherit;text-decoration:none}.wrap{max-width:var(--maxw);margin:0 auto;p
 <div class="proof lite"><div class="wrap"><span><span class="d">◆</span> Board-certified providers</span><span><span class="d">◆</span> Most insurance accepted</span><span><span class="d">◆</span> Same-week appointments</span></div></div>
 
 <section class="section" id="services"><div class="wrap">
-  <div class="sec-head rv"><h2>What Dermatology does best.</h2><span class="kicker ek">(01) — Services</span></div>
+  <div class="sec-head rv"><h2>What Dermatology &amp; Laser does best.</h2><span class="kicker ek">(01) — Services</span></div>
+  <p class="sec-lead rv">Modern, patient-first care from a team that listens — clear answers and unhurried visits, every time you come in.</p>
   <div class="svc"><div class="it rv"><span class="si">01</span><h3>New Patients</h3><p>Welcoming, thorough first visits — we listen, explain, and build a plan around you.</p></div><div class="it rv"><span class="si">02</span><h3>Preventive Care</h3><p>Stay ahead of problems with proactive checkups and screenings tailored to you.</p></div><div class="it rv"><span class="si">03</span><h3>On-Site Diagnostics</h3><p>Modern diagnostics so you get answers faster, without the runaround.</p></div><div class="it rv"><span class="si">04</span><h3>Ongoing Care</h3><p>Coordinated, attentive treatment for managing conditions with confidence.</p></div><div class="it rv"><span class="si">05</span><h3>Telehealth</h3><p>Convenient virtual visits when you can’t make it in — same trusted team.</p></div><div class="it rv"><span class="si">06</span><h3>Care Coordination</h3><p>We handle the details and coordinate your care from start to finish.</p></div></div>
 </div></section>
 
@@ -181,6 +193,7 @@ a{color:inherit;text-decoration:none}.wrap{max-width:var(--maxw);margin:0 auto;p
 
 
 
+<section class="section faq" id="faq"><div class="wrap"><div class="sec-head rv"><h2>Questions, answered.</h2><span class="kicker ek">(04) — FAQ</span></div><div class="faq-grid"><div class="faq-it rv"><h3>Are you taking new patients?</h3><p>Yes — we’re accepting new patients with same-week appointments often available. Getting started takes just a few minutes.</p></div><div class="faq-it rv"><h3>Do you accept my insurance?</h3><p>We accept most major plans and our team helps verify your coverage before your visit, so there are no surprises.</p></div><div class="faq-it rv"><h3>Will I feel rushed?</h3><p>No. Unhurried, attentive visits are central to how we practise — we listen first and make sure your questions are fully answered.</p></div><div class="faq-it rv"><h3>Do you offer telehealth?</h3><p>Yes — convenient virtual visits are available when you can’t make it in, with the same trusted team and care.</p></div></div></div></section>
 <section class="section compare" id="compare"><div class="wrap"><div class="sec-head rv"><h2>How you compare in Lone.</h2><span class="kicker ek">(03) — The local field</span></div><div class="cmp-grid"><div class="cmp-bars rv"><div class="cmp-row"><span class="cn">Envision Eye Care</span><span class="cbar"><i style="width:93%"></i></span><span class="cv">93</span></div><div class="cmp-row"><span class="cn">Vista Eye Care</span><span class="cbar"><i style="width:90%"></i></span><span class="cv">90</span></div><div class="cmp-row"><span class="cn">South Denver ENT &amp; Allergy</span><span class="cbar"><i style="width:87%"></i></span><span class="cv">87</span></div><div class="cmp-row"><span class="cn">NatureMed Clinic</span><span class="cbar"><i style="width:80%"></i></span><span class="cv">80</span></div><div class="cmp-row"><span class="cn">Mountain Dermatology Specialists</span><span class="cbar"><i style="width:80%"></i></span><span class="cv">80</span></div><div class="cmp-row"><span class="cn">Dr. Heidi Oster, MD (OB/GYN)</span><span class="cbar"><i style="width:75%"></i></span><span class="cv">75</span></div><div class="cmp-row me"><span class="cn">Dermatology &amp; Laser Institute · you</span><span class="cbar"><i style="width:40%"></i></span><span class="cv">40</span></div></div><div class="cmp-note rv"><div class="cmp-rank">#7<span>of 7 nearby</span></div><p>You’re mid-pack today — this is how you climb.</p><p class="cmp-gap"><span>Biggest gap</span>Missing most web-security headers. <b>— fixed in this rebuild.</b></p><p class="cmp-src">From public signals — security, mobile, site quality &amp; presence — across 6 local competitors.</p></div></div></div></section>
 <section class="cta lite" id="contact"><div class="wrap"><span class="kicker ek">Get started</span><h2>Request an appointment today.</h2><p>Accepting new patients — most insurance accepted, same-week visits available.</p><a class="btn" href="#">Request an appointment →</a></div></section>
 

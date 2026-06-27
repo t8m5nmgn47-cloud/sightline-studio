@@ -117,6 +117,17 @@ a{color:inherit;text-decoration:none}.wrap{max-width:var(--maxw);margin:0 auto;p
 .feature .kicker{color:#fff;opacity:.9;margin-bottom:18px}
 .feature h2{color:#fff;font-size:var(--fs-disp);max-width:13ch;text-shadow:0 2px 34px rgba(0,0,0,.5)}
 .feature .btn{margin-top:30px}
+/* section lead + faq + scroll cue */
+.sec-lead{font-family:var(--head);font-weight:400;font-size:clamp(1.2rem,1rem+.75vw,1.65rem);line-height:1.42;max-width:44ch;color:var(--ink);opacity:.82;margin:-16px 0 52px}
+.faq{background:var(--surf2)}
+.faq .faq-grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--n2);border:1px solid var(--n2);border-radius:var(--rad);overflow:hidden;margin-top:6px}
+.faq-it{background:var(--bg);padding:clamp(26px,3vw,42px);transition:background .3s}
+.faq-it:hover{background:var(--surf)}
+.faq-it h3{font-size:clamp(1.12rem,1rem+.7vw,1.5rem);margin-bottom:13px}
+.faq-it p{color:var(--ink);opacity:.82;font-size:1.05rem;line-height:1.6;max-width:48ch}
+@media(max-width:760px){.faq .faq-grid{grid-template-columns:1fr}}
+.scrolldown{position:absolute;bottom:24px;left:50%;width:1px;height:48px;background:linear-gradient(rgba(255,255,255,0),rgba(255,255,255,.85));transform-origin:bottom center;animation:sd 2.1s ease-in-out infinite;z-index:2}
+@keyframes sd{0%,100%{transform:translateX(-50%) scaleY(.35);opacity:.3}50%{transform:translateX(-50%) scaleY(1);opacity:.85}}
 /* compare / competitive standing */
 .compare{background:var(--surf2)}
 .cmp-grid{display:grid;grid-template-columns:1.3fr .7fr;gap:clamp(32px,5vw,64px);align-items:center}
@@ -147,7 +158,7 @@ a{color:inherit;text-decoration:none}.wrap{max-width:var(--maxw);margin:0 auto;p
 <body>
 <nav class="nav" id="nav">
   <a class="brand" href="#top"><img class="logo-img" src="data:image/png;base64,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" alt="Montessori School at Lone Tree"></a>
-  <div class="navlinks"><a href="#services">Services</a><a href="#about">About</a><a href="#reviews">Reviews</a></div>
+  <div class="navlinks"><a href="#services">Services</a><a href="#about">About</a><a href="#reviews">Reviews</a><a href="#faq">FAQ</a></div>
   <a class="navcta" href="#contact">Schedule a tour</a>
 </nav>
 <header class="hero" id="top">
@@ -159,11 +170,13 @@ a{color:inherit;text-decoration:none}.wrap{max-width:var(--maxw);margin:0 auto;p
     <p class="hero-sub">A warm, enriching environment where children are known, challenged, and cared for — and where parents feel at home too.</p>
     <div class="hero-cta"><a class="btn btn-light" href="#contact">Schedule a tour →</a><span class="hero-rate"><span class="stars">★★★★★</span> <b>4.9</b> on Google</span></div>
   </div>
+  <span class="scrolldown" aria-hidden="true"></span>
 </header>
 <div class="proof lite"><div class="wrap"><span><span class="d">◆</span> Experienced, caring educators</span><span><span class="d">◆</span> Low student-teacher ratios</span><span><span class="d">◆</span> Now enrolling</span></div></div>
 
 <section class="section" id="services"><div class="wrap">
-  <div class="sec-head rv"><h2>What Montessori does best.</h2><span class="kicker ek">(01) — Services</span></div>
+  <div class="sec-head rv"><h2>What Montessori School does best.</h2><span class="kicker ek">(01) — Services</span></div>
+  <p class="sec-lead rv">A warm, enriching place where children are known, challenged and cared for — and where parents feel at home too.</p>
   <div class="svc"><div class="it rv"><span class="si">01</span><h3>Our Program</h3><p>A thoughtful, proven curriculum that meets every child exactly where they are.</p></div><div class="it rv"><span class="si">02</span><h3>Early Childhood</h3><p>Nurturing first experiences that build confidence, curiosity and kindness.</p></div><div class="it rv"><span class="si">03</span><h3>Enrichment</h3><p>Art, music, movement and discovery woven through every single day.</p></div><div class="it rv"><span class="si">04</span><h3>A Day Here</h3><p>Predictable, joyful rhythms that help children feel safe and truly thrive.</p></div><div class="it rv"><span class="si">05</span><h3>Our Educators</h3><p>Experienced, caring teachers who genuinely know and love your child.</p></div><div class="it rv"><span class="si">06</span><h3>Enrollment</h3><p>Limited spots each term — schedule a tour and see the difference.</p></div></div>
 </div></section>
 
@@ -182,6 +195,7 @@ a{color:inherit;text-decoration:none}.wrap{max-width:var(--maxw);margin:0 auto;p
 
 <section class="section" style="padding-top:0"><div class="wrap"><div class="gal"><div class="g rv"><img loading="lazy" src="https://montessoriatlonetree.com/wp-content/uploads/2020/08/nw-class.png" alt="Montessori School at Lone Tree"></div><div class="g rv"><img loading="lazy" src="https://montessoriatlonetree.com/wp-content/uploads/2020/08/nw-class-birthday.png" alt="Montessori School at Lone Tree"></div><div class="g rv"><img loading="lazy" src="https://montessoriatlonetree.com/wp-content/uploads/2020/11/NW-Main-Page-Thumbnail.png" alt="Montessori School at Lone Tree"></div></div></div></section>
 
+<section class="section faq" id="faq"><div class="wrap"><div class="sec-head rv"><h2>Questions, answered.</h2><span class="kicker ek">(04) — FAQ</span></div><div class="faq-grid"><div class="faq-it rv"><h3>Can we schedule a tour?</h3><p>Yes — we’d love to show you around. A tour lets you meet our educators, see a day in action, and feel the difference in person.</p></div><div class="faq-it rv"><h3>What ages and hours?</h3><p>We offer flexible schedules across early-childhood ages. Tell us what you need and we’ll walk you through options that fit your family.</p></div><div class="faq-it rv"><h3>How do you keep children safe?</h3><p>Safety is foundational — secure facilities, low student-teacher ratios, and trained, caring educators who truly know each child.</p></div><div class="faq-it rv"><h3>Are you enrolling now?</h3><p>Yes, with limited spots each term. Reach out soon to secure a place and start the simple enrolment process.</p></div></div></div></section>
 
 <section class="cta lite" id="contact"><div class="wrap"><span class="kicker ek">Get started</span><h2>Schedule a tour today.</h2><p>Now enrolling — schedule a tour and meet the team.</p><a class="btn" href="#">Schedule a tour →</a></div></section>
 
