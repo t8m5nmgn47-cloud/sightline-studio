@@ -109,6 +109,11 @@ a{color:inherit;text-decoration:none}.wrap{max-width:var(--maxw);margin:0 auto;p
 .about-panel{aspect-ratio:4/5;border-radius:var(--rad);background:linear-gradient(150deg,var(--p),var(--p9));display:flex;flex-direction:column;justify-content:flex-end;padding:38px;gap:6px}
 .about-panel .big{font-family:var(--head);font-size:3.2rem;color:#fff}.about-panel .l{color:rgba(255,255,255,.8)}
 @media(max-width:860px){.about-grid{grid-template-columns:1fr}}
+.about-vals{display:grid;grid-template-columns:1fr 1fr 1fr;gap:clamp(18px,2.5vw,34px);margin-top:clamp(34px,4vw,54px);padding-top:clamp(26px,3vw,40px);border-top:1px solid rgba(255,255,255,.16)}
+.about.lite .about-vals{border-top-color:var(--n2)}
+.about-vals .av b{display:block;font-family:var(--head);font-weight:500;font-size:1.14rem;letter-spacing:-.01em;margin-bottom:8px}
+.about-vals .av span{font-size:.95rem;line-height:1.5;opacity:.72}
+@media(max-width:680px){.about-vals{grid-template-columns:1fr;gap:20px}}
 /* quote */
 .quote{text-align:center;max-width:26ch;margin:0 auto}
 .quote .qmark{display:block;font-family:var(--head);font-size:clamp(4.5rem,10vw,8rem);line-height:.55;color:var(--ac);opacity:.45;margin-bottom:10px}
@@ -243,7 +248,7 @@ a{color:inherit;text-decoration:none}.wrap{max-width:var(--maxw);margin:0 auto;p
   <div class="about-text rv"><span class="kicker ek">(02) — About</span><h2 style="margin-top:18px">Eye care that’s thorough — and never rushed.</h2><p>Modern diagnostic technology, a genuinely friendly team, and opticians who help you find frames you love. Clear answers, honest recommendations, and time to ask questions.</p>
     <p style="opacity:.7;font-size:1rem">Proudly serving Highlands Ranch and the surrounding area.</p></div>
   <div class="about-img rv"><img src="https://elevatemyeyes.com/app/uploads/2024/09/iStock-1214546911-1.jpg" alt="Highlands Ranch Vision Center"></div>
-</div></div></section>
+</div><div class="about-vals rv"><div class="av"><b>Modern diagnostics</b><span>Thorough, technology-forward eye exams.</span></div><div class="av"><b>Eyewear you’ll love</b><span>A curated collection with honest guidance.</span></div><div class="av"><b>Gentle with kids</b><span>Patient exams that keep young eyes healthy.</span></div></div></div></section>
 
 <section class="section" id="reviews"><div class="wrap"><div class="quote rv">
   <span class="qmark" aria-hidden="true">“</span>
