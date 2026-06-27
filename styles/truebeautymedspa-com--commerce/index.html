@@ -3,16 +3,16 @@
 <title>True Beauty Med Spa — Littleton</title>
 <meta name="description" content="Natural-looking injectables, advanced skin treatments, and results that still look like you — from a team you’ll actually trust.">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=Lusitana:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700;800;900&family=Inter:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
 <style>
 :root{--p:#6b9c98;--p6:#3b7f7a;--p7:#216763;--p9:#003633;--ac:#00a1cb;--ink:#27302f;--n50:#edf8f7;--n1:#dfebe9;--n2:#ccd7d6;--n7:#545d5c;
---bg:#edf8f7;--surf:#ffffff;--surf2:#dfebe9;--navc:#ffffff;--rad:0px;
---head:'Fraunces',Georgia,serif;--body:'Lusitana',system-ui,sans-serif;--mono:ui-monospace,monospace;
+--bg:#ffffff;--surf:#ffffff;--surf2:#f6f6f4;--navc:#ffffff;--rad:7px;
+--head:'Archivo',system-ui,sans-serif;--body:'Inter',system-ui,sans-serif;--mono:ui-monospace,monospace;
 --fs-hero:clamp(3.1rem,8.4vw,8rem);--fs-disp:clamp(2.1rem,1rem+3.4vw,4.4rem);--maxw:1280px;--sp:clamp(84px,10vw,150px);--ease:cubic-bezier(.16,1,.3,1);
 --sh:0 2px 8px rgba(20,18,16,.06),0 18px 40px rgba(20,18,16,.09);}
 *{box-sizing:border-box;margin:0}html{scroll-behavior:smooth;font-size:115%}
 body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:clamp(1rem,.95rem+.25vw,1.15rem);line-height:1.62;-webkit-font-smoothing:antialiased;overflow-x:hidden}
-h1,h2,h3{font-family:var(--head);font-weight:400;line-height:1;letter-spacing:-.025em;color:var(--ink);}
+h1,h2,h3{font-family:var(--head);font-weight:800;line-height:1;letter-spacing:-.02em;color:var(--ink);text-transform:uppercase;}
 a{color:inherit;text-decoration:none}.wrap{max-width:var(--maxw);margin:0 auto;padding:0 clamp(22px,5vw,64px);position:relative}
 .kicker{font-family:var(--body);font-size:clamp(.72rem,.68rem+.2vw,.82rem);letter-spacing:.28em;text-transform:uppercase;font-weight:600}
 .btn{display:inline-flex;align-items:center;gap:10px;font-family:var(--body);font-weight:600;font-size:1.02rem;padding:16px 32px;border-radius:var(--rad);border:1.5px solid var(--ink);background:var(--ink);color:#fff;cursor:pointer;transition:transform .25s var(--ease),background .25s,color .25s}
@@ -24,7 +24,7 @@ a{color:inherit;text-decoration:none}.wrap{max-width:var(--maxw);margin:0 auto;p
 /* NAV */
 .nav{position:fixed;inset:0 0 auto 0;z-index:60;display:flex;align-items:center;justify-content:space-between;padding:20px clamp(22px,5vw,64px);color:var(--navc);transition:background .35s,color .35s,box-shadow .35s,padding .35s}
 .nav.scd{background:rgba(255,255,255,.94);backdrop-filter:blur(12px);color:var(--ink);box-shadow:0 1px 0 rgba(20,18,16,.08);padding:14px clamp(22px,5vw,64px)}
-.brand{font-family:var(--head);font-weight:600;font-size:1.3rem;letter-spacing:-.01em;}
+.brand{font-family:var(--head);font-weight:800;font-size:1.3rem;letter-spacing:-.01em;text-transform:uppercase;letter-spacing:.02em;}
 .logo-img{height:36px;width:auto;max-width:170px;display:block}
 .nav.scd .logo-img{filter:none}.nav:not(.scd) .logo-img{filter:brightness(0) invert(1)}
 .navlinks{display:flex;gap:32px;font-size:.96rem;font-weight:500}.navlinks a{opacity:.92}.navlinks a:hover{opacity:1}
@@ -35,12 +35,12 @@ a{color:inherit;text-decoration:none}.wrap{max-width:var(--maxw);margin:0 auto;p
 .hero-bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:-2;animation:kb 16s var(--ease) forwards}
 @keyframes kb{from{transform:scale(1.12)}to{transform:scale(1)}}
 .hero-fallback{position:absolute;inset:0;z-index:-2;background:linear-gradient(155deg,var(--p) 0%,var(--p7) 55%,var(--p9) 100%)}
-.hero-scrim{position:absolute;inset:0;z-index:-1;background:linear-gradient(to top,rgba(15,13,11,.9) 0%,rgba(15,13,11,.55) 30%,rgba(15,13,11,.3) 56%,rgba(15,13,11,.6) 100%)}
+.hero-scrim{position:absolute;inset:0;z-index:-1;background:linear-gradient(to top,var(--p9) 2%,rgba(10,10,14,.34) 50%,rgba(10,10,14,.5) 100%)}
 .nav:not(.scd){text-shadow:0 1px 20px rgba(0,0,0,.55)}
 .hero h1,.hero-sub{text-shadow:0 2px 36px rgba(0,0,0,.5)}
 .hero-inner{padding-bottom:clamp(54px,8vw,96px);padding-top:140px;width:100%}
 .hero .kicker{color:#fff;opacity:.92;margin-bottom:22px}
-.hero h1{color:#fff;font-size:var(--fs-hero);line-height:.92;letter-spacing:-.025em;max-width:15ch;font-weight:400}
+.hero h1{color:#fff;font-size:var(--fs-hero);line-height:.92;letter-spacing:-.01em;max-width:15ch;font-weight:800}
 .hero h1 .ln{display:block;overflow:hidden}
 .hero h1 .ln>span{display:block;transform:translateY(105%);opacity:0;animation:rise .95s var(--ease) forwards}
 .hero h1 .ln:nth-child(2)>span{animation-delay:.1s}.hero h1 .ln:nth-child(3)>span{animation-delay:.2s}
@@ -75,7 +75,7 @@ a{color:inherit;text-decoration:none}.wrap{max-width:var(--maxw);margin:0 auto;p
 .svc{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--n2);border:1px solid var(--n2);border-radius:var(--rad);overflow:hidden}
 .svc .it{background:var(--bg);padding:clamp(28px,3vw,44px);transition:background .3s}
 .svc .it:hover{background:var(--surf)}
-.svc .si{font-family:var(--mono);font-size:.8rem;color:var(--p6);letter-spacing:.05em;font-weight:600}
+.svc .si{font-family:var(--mono);font-size:.8rem;color:var(--ac);letter-spacing:.05em;font-weight:600}
 .svc .it h3{font-size:clamp(1.5rem,1rem+1.4vw,2.1rem);margin:12px 0 12px}
 .svc .it p{color:var(--ink);opacity:.84;font-size:1.07rem;max-width:42ch;margin:0}
 @media(max-width:760px){.svc{grid-template-columns:1fr}}
@@ -94,7 +94,7 @@ a{color:inherit;text-decoration:none}.wrap{max-width:var(--maxw);margin:0 auto;p
 @media(max-width:860px){.about-grid{grid-template-columns:1fr}}
 /* quote */
 .quote{text-align:center;max-width:24ch;margin:0 auto}
-.quote blockquote{font-family:var(--head);font-weight:500;font-size:clamp(1.7rem,1rem+2.6vw,3.2rem);line-height:1.18;letter-spacing:-.015em;}
+.quote blockquote{font-family:var(--head);font-weight:600;font-size:clamp(1.7rem,1rem+2.6vw,3.2rem);line-height:1.18;letter-spacing:-.015em;text-transform:none;}
 .quote .stars{font-size:1.5rem;display:block;margin-bottom:26px}
 .quote cite{display:block;font-family:var(--body);font-style:normal;font-size:1rem;color:var(--n7);margin-top:26px}
 /* gallery */
@@ -119,7 +119,7 @@ a{color:inherit;text-decoration:none}.wrap{max-width:var(--maxw);margin:0 auto;p
 .feature .btn{margin-top:30px}
 /* footer */
 .footer{padding:clamp(64px,8vw,110px) 0 40px}
-.wordmark{font-family:var(--head);font-weight:400;font-size:clamp(2.6rem,8vw,8.5rem);line-height:.9;letter-spacing:-.03em;color:var(--ink);}
+.wordmark{font-family:var(--head);font-weight:800;font-size:clamp(2.6rem,8vw,8.5rem);line-height:.9;letter-spacing:-.03em;color:var(--ink);text-transform:uppercase;letter-spacing:-.01em;}
 .frow{display:flex;justify-content:space-between;flex-wrap:wrap;gap:20px;border-top:1px solid var(--n2);margin-top:34px;padding-top:24px;color:var(--n7);font-size:.92rem}
 .rv{opacity:0;transform:translateY(26px);transition:opacity .8s var(--ease),transform .8s var(--ease)}.rv.in{opacity:1;transform:none}
 .flag{position:fixed;bottom:14px;left:14px;z-index:99;background:var(--ink);color:#fff;font:600 12px/1 var(--body);padding:9px 14px;border-radius:999px;opacity:.9}
@@ -137,7 +137,7 @@ a{color:inherit;text-decoration:none}.wrap{max-width:var(--maxw);margin:0 auto;p
   <div class="hero-scrim"></div>
   <div class="wrap hero-inner">
     <span class="kicker">Aesthetics · Skin · Confidence · Littleton</span>
-    <h1><span class="ln"><span>Quietly</span></span><span class="ln"><span><em>radiant.</em></span></span></h1>
+    <h1><span class="ln"><span>Quietly</span></span><span class="ln"><span>radiant.</span></span></h1>
     <p class="hero-sub">Natural-looking injectables, advanced skin treatments, and results that still look like you — from a team you’ll actually trust.</p>
     <div class="hero-cta"><a class="btn btn-light" href="#contact">Book a consultation →</a><span class="hero-rate"><span class="stars">★★★★★</span> <b>4.7</b> · 338 reviews</span></div>
   </div>
@@ -174,7 +174,7 @@ a{color:inherit;text-decoration:none}.wrap{max-width:var(--maxw);margin:0 auto;p
   <div class="frow"><span>© 2026 True Beauty Med Spa · Littleton</span><span>(303) 972-6862 · Aesthetics · Skin · Confidence</span></div>
 </div></footer>
 <div class="flag">✨ Test-drive concept by Sightline</div>
-<div class="stylechip">Editorial Luxe</div>
+<div class="stylechip">Bold Commerce</div>
 <script>
 (function(){var n=document.getElementById('nav');var split=false;function s(){n.classList.toggle('scd',scrollY>window.innerHeight*(split?.12:.78))}addEventListener('scroll',s);s();
 var io=new IntersectionObserver(function(e){e.forEach(function(x){if(x.isIntersecting){x.target.classList.add('in');io.unobserve(x.target)}})},{rootMargin:'0px 0px -10% 0px'});
