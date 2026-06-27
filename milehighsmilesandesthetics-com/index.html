@@ -8,7 +8,7 @@
 :root{--p:#479a88;--p6:#3d8576;--p7:#326d60;--p9:#1d3f38;--ac:#c1a05a;--ink:#28302e;--n50:#edf8f5;--n1:#e0ebe8;--n2:#ccd7d4;--n7:#545d5b;
 --bg:#f6f1e8;--surf:#ffffff;--surf2:#efe6d6;--navc:#ffffff;--rad:20px;
 --head:'Newsreader',Georgia,serif;--body:'Figtree',system-ui,sans-serif;--mono:ui-monospace,monospace;
---fs-hero:clamp(3.1rem,8.4vw,8rem);--fs-disp:clamp(2.1rem,1rem+3.4vw,4.4rem);--maxw:1280px;--sp:clamp(84px,10vw,150px);--ease:cubic-bezier(.16,1,.3,1);
+--fs-hero:clamp(3.3rem,9vw,8.9rem);--fs-disp:clamp(2.1rem,1rem+3.4vw,4.4rem);--maxw:1280px;--sp:clamp(84px,10vw,150px);--ease:cubic-bezier(.16,1,.3,1);
 --sh:0 2px 8px rgba(20,18,16,.06),0 18px 40px rgba(20,18,16,.09);}
 *{box-sizing:border-box;margin:0}html{scroll-behavior:smooth;font-size:115%}
 body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:clamp(1rem,.95rem+.25vw,1.15rem);line-height:1.62;-webkit-font-smoothing:antialiased;overflow-x:hidden}
@@ -40,7 +40,7 @@ a{color:inherit;text-decoration:none}.wrap{max-width:var(--maxw);margin:0 auto;p
 .hero h1,.hero-sub{text-shadow:0 2px 36px rgba(0,0,0,.5)}
 .hero-inner{padding-bottom:clamp(54px,8vw,96px);padding-top:140px;width:100%}
 .hero .kicker{color:#fff;opacity:.92;margin-bottom:22px}
-.hero h1{color:#fff;font-size:var(--fs-hero);line-height:.92;letter-spacing:-.025em;max-width:15ch;font-weight:500}
+.hero h1{color:#fff;font-size:var(--fs-hero);line-height:.86;letter-spacing:-.03em;max-width:15ch;font-weight:500}
 .hero h1 .ln{display:block;overflow:hidden}
 .hero h1 .ln>span{display:block;transform:translateY(105%);opacity:0;animation:rise .95s var(--ease) forwards}
 .hero h1 .ln:nth-child(2)>span{animation-delay:.1s}.hero h1 .ln:nth-child(3)>span{animation-delay:.2s}
@@ -100,10 +100,11 @@ a{color:inherit;text-decoration:none}.wrap{max-width:var(--maxw);margin:0 auto;p
 .about.lite{background:var(--surf2);color:var(--ink)}
 .about.lite h2{color:var(--ink)}.about.lite p{color:var(--n7)}.about.lite .ek{color:var(--p6)}
 .about h2{color:#fff;font-size:var(--fs-disp);max-width:16ch}
-.about-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:clamp(34px,5vw,72px);align-items:center}
+.about-grid{display:grid;grid-template-columns:1fr 1.08fr;gap:clamp(36px,5vw,80px);align-items:stretch}
+.about-text{align-self:center}
 .about p{color:rgba(255,255,255,.82);font-size:1.12rem;margin-top:22px;max-width:48ch}
 .about .ek{color:var(--ac)}
-.about-img{aspect-ratio:4/5;border-radius:var(--rad);overflow:hidden;box-shadow:var(--sh)}
+.about-img{aspect-ratio:auto;min-height:clamp(440px,54vh,660px);border-radius:var(--rad);overflow:hidden;box-shadow:var(--sh)}
 .about-img img{width:100%;height:100%;object-fit:cover;display:block}
 .about-panel{aspect-ratio:4/5;border-radius:var(--rad);background:linear-gradient(150deg,var(--p),var(--p9));display:flex;flex-direction:column;justify-content:flex-end;padding:38px;gap:6px}
 .about-panel .big{font-family:var(--head);font-size:3.2rem;color:#fff}.about-panel .l{color:rgba(255,255,255,.8)}
@@ -203,7 +204,7 @@ a{color:inherit;text-decoration:none}.wrap{max-width:var(--maxw);margin:0 auto;p
 
 <section class="feature"><img class="feature-bg" src="http://milehighsmilesandesthetics.com/images/background.jpg" alt=""><div class="feature-scrim"></div><div class="wrap"><span class="kicker">Lone Tree · 4.8★ rated</span><h2>See why they keep coming back.</h2><a class="btn btn-light" href="#contact">Book your visit →</a></div></section>
 <section class="about lite" id="about"><div class="wrap section"><div class="about-grid">
-  <div class="rv"><span class="kicker ek">(02) — About</span><h2 style="margin-top:18px">Dentistry that finally feels calm.</h2><p>Modern technology, a genuinely gentle chairside manner, and clear pricing with no surprises. We explain everything, never upsell, and treat your family like our own.</p>
+  <div class="about-text rv"><span class="kicker ek">(02) — About</span><h2 style="margin-top:18px">Dentistry that finally feels calm.</h2><p>Modern technology, a genuinely gentle chairside manner, and clear pricing with no surprises. We explain everything, never upsell, and treat your family like our own.</p>
     <p style="opacity:.7;font-size:1rem">Proudly serving Lone Tree and the surrounding area.</p></div>
   <div class="about-img rv"><img src="http://milehighsmilesandesthetics.com/images/banner_home.jpg" alt="Mile High Smiles &amp; Esthetics"></div>
 </div></div></section>
