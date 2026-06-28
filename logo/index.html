@@ -1,0 +1,183 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Logo Studio — Sightline</title>
+<meta name="description" content="Generate a clean brand wordmark, monogram, and favicon in your real brand font and colors — free with Sightline.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600&family=Playfair+Display:wght@600&family=Cormorant+Garamond:wght@600&family=Inter:wght@400;600;700&family=Archivo:wght@700&family=Montserrat:wght@700&family=Poppins:wght@600&family=Space+Grotesk:wght@600&family=Figtree:wght@700&family=Quicksand:wght@600&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#16140f;--mut:#6b6660;--line:#e7e2d8;--bg:#f4f1ea;--ac:#1f6f5c;--gold:#c2a04a;--head:'Fraunces',Georgia,serif;--body:'Inter',system-ui,sans-serif;--ease:cubic-bezier(.16,1,.3,1)}
+*{box-sizing:border-box;margin:0}html{overflow-x:hidden}body{background:var(--bg);color:var(--ink);font-family:var(--body);line-height:1.55;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+.wrap{max-width:1240px;width:100%;margin:0 auto;padding:0 clamp(18px,4vw,44px)}
+.top{display:flex;align-items:center;justify-content:space-between;padding:18px 0;flex-wrap:wrap;gap:10px}
+.logo{display:flex;gap:10px;align-items:center;font-family:var(--head);font-weight:600;font-size:1.2rem}.dot{width:11px;height:11px;border-radius:50%;background:var(--ac)}
+.top a{color:var(--mut);text-decoration:none;font-size:.85rem}.top a:hover{color:var(--ink)}
+.hd{padding:clamp(14px,2.5vw,26px) 0 4px}
+.hd h1{font-family:var(--head);font-weight:400;font-size:clamp(1.8rem,1.2rem+2.2vw,2.8rem);letter-spacing:-.02em;line-height:1.05}.hd h1 em{font-style:italic;color:var(--ac)}
+.hd p{color:var(--mut);max-width:60ch;margin-top:10px}
+.layout{display:grid;grid-template-columns:340px 1fr;gap:clamp(18px,3vw,36px);padding:22px 0 60px;align-items:start}
+@media(max-width:900px){.layout{grid-template-columns:1fr}}
+.panel{background:#fff;border:1px solid var(--line);border-radius:16px;padding:20px;position:sticky;top:14px}
+.fld{margin-bottom:16px}.fld label{display:block;font-size:.74rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--mut);margin-bottom:7px}
+.fld input[type=text]{width:100%;border:1px solid var(--line);border-radius:9px;padding:10px 12px;font-family:var(--body);font-size:.95rem;color:var(--ink);background:#faf8f4}
+.fld input:focus{outline:none;border-color:var(--ac)}
+.seg{display:flex;flex-wrap:wrap;gap:6px}
+.seg button{flex:1;min-width:64px;border:1px solid var(--line);background:#faf8f4;border-radius:8px;padding:8px 6px;font-family:var(--body);font-size:.82rem;font-weight:600;cursor:pointer;color:var(--mut);transition:.18s}
+.seg button.on{background:var(--ac);color:#fff;border-color:var(--ac)}
+.fonts{display:grid;grid-template-columns:1fr 1fr;gap:6px;max-height:188px;overflow:auto}
+.fontb{border:1px solid var(--line);background:#faf8f4;border-radius:8px;padding:9px 8px;cursor:pointer;font-size:1rem;text-align:center;color:var(--ink);transition:.18s;overflow:hidden;white-space:nowrap}
+.fontb.on{border-color:var(--ac);box-shadow:0 0 0 2px rgba(31,111,92,.16)}
+.sw{display:flex;flex-wrap:wrap;gap:7px;align-items:center}
+.sw b{width:26px;height:26px;border-radius:50%;cursor:pointer;border:2px solid #fff;box-shadow:0 0 0 1px var(--line)}
+.sw b.on{box-shadow:0 0 0 2px var(--ac)}
+.sw input[type=color]{width:30px;height:30px;border:none;background:none;cursor:pointer;padding:0}
+input[type=range]{width:100%;accent-color:var(--ac)}
+.stagewrap{background:#fff;border:1px solid var(--line);border-radius:16px;overflow:hidden;box-shadow:0 24px 60px rgba(20,18,15,.1)}
+.stbar{background:#efeae0;border-bottom:1px solid var(--line);padding:9px 14px;display:flex;align-items:center;gap:10px;font-size:.8rem;color:var(--mut)}
+.stbar .dots{display:flex;gap:6px}.stbar .dots i{width:10px;height:10px;border-radius:50%;background:#cfc7b6;display:block}
+#stage{min-height:340px;display:flex;align-items:center;justify-content:center;padding:40px 24px;transition:background .2s}
+#stage.bgcheck{background-image:linear-gradient(45deg,#eee 25%,transparent 25%),linear-gradient(-45deg,#eee 25%,transparent 25%),linear-gradient(45deg,transparent 75%,#eee 75%),linear-gradient(-45deg,transparent 75%,#eee 75%);background-size:20px 20px;background-position:0 0,0 10px,10px -10px,-10px 0}
+#stage svg{max-width:100%;height:auto;max-height:300px}
+.variants{display:flex;gap:12px;flex-wrap:wrap;padding:16px;border-top:1px solid var(--line)}
+.vcard{flex:1;min-width:120px;border:1px solid var(--line);border-radius:10px;overflow:hidden}
+.vcard .vt{font-size:.68rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--mut);padding:7px 10px;border-bottom:1px solid var(--line);background:#faf8f4}
+.vcard .vb{height:84px;display:flex;align-items:center;justify-content:center;padding:8px}.vcard .vb svg{max-width:100%;max-height:68px;height:auto}
+.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
+.btn{border:none;border-radius:10px;padding:12px 18px;font-family:var(--body);font-weight:700;font-size:.92rem;cursor:pointer;background:var(--ac);color:#fff}
+.btn.alt{background:#fff;color:var(--ink);border:1px solid var(--line)}
+.btn.gold{background:var(--gold);color:#241c08}
+.note{background:#fff;border:1px solid var(--line);border-radius:13px;padding:16px 18px;margin-top:16px;font-size:.86rem;color:var(--mut);line-height:1.5}
+.note b{color:var(--ink)}
+.up{background:linear-gradient(150deg,var(--ink),#2a2620);color:#fff;border-radius:13px;padding:18px 20px;margin-top:14px}
+.up h3{font-family:var(--head);font-weight:500;font-size:1.2rem;margin-bottom:6px}.up p{color:rgba(255,255,255,.8);font-size:.88rem}.up .btn{margin-top:12px}
+.toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%) translateY(20px);background:var(--ink);color:#fff;padding:11px 18px;border-radius:10px;font-size:.88rem;opacity:0;transition:.3s;pointer-events:none}
+.toast.show{opacity:1;transform:translateX(-50%)}
+</style></head>
+<body>
+<header class="wrap top"><div class="logo"><span class="dot"></span>Sightline · Logo Studio</div><a href="../">← Back to Studio</a></header>
+<section class="wrap hd"><h1>Your logo, <em>instantly.</em></h1><p>A clean wordmark, monogram, and favicon — built from your real brand name, font, and colors. Download it free. Want a custom illustrated mark? That's the premium tier below.</p></section>
+<section class="wrap layout">
+  <aside class="panel">
+    <div class="fld"><label>Business name</label><input type="text" id="name" autocomplete="off"></div>
+    <div class="fld"><label>Tagline (optional)</label><input type="text" id="tag" autocomplete="off" placeholder="e.g. Littleton, Colorado"></div>
+    <div class="fld"><label>Layout</label><div class="seg" id="layout">
+      <button data-v="wordmark" class="on">Wordmark</button><button data-v="stacked">Stacked</button><button data-v="monogram">Monogram</button><button data-v="badge">Badge</button></div></div>
+    <div class="fld"><label>Font</label><div class="fonts" id="fonts"></div></div>
+    <div class="fld"><label>Color</label><div class="sw" id="sw"></div></div>
+    <div class="fld"><label>Background</label><div class="seg" id="bg">
+      <button data-v="light" class="on">Light</button><button data-v="dark">Dark</button><button data-v="transparent">None</button></div></div>
+    <div class="fld"><label>Letter spacing</label><input type="range" id="track" min="-4" max="24" value="0"></div>
+  </aside>
+  <main>
+    <div class="stagewrap">
+      <div class="stbar"><span class="dots"><i></i><i></i><i></i></span><span id="stagelabel">Live preview</span></div>
+      <div id="stage"></div>
+      <div class="variants" id="variants"></div>
+    </div>
+    <div class="actions">
+      <button class="btn" id="dlpng">Download PNG</button>
+      <button class="btn alt" id="dlsvg">Download SVG</button>
+      <button class="btn alt" id="dlfav">Download favicon</button>
+      <button class="btn alt" id="copysvg">Copy SVG</button>
+    </div>
+    <div class="note"><b>About this logo.</b> You're free to use this commercially. But note: a generated wordmark is a file and a license to use it — it is <b>not</b> a cleared or registered trademark, and may not be unique. For real brand protection, run a clearance search at tmsearch.uspto.gov and consult a trademark attorney before registering. <i>(Not legal advice.)</i></div>
+    <div class="up"><h3>Need a custom illustrated logo?</h3><p>Our premium tier delivers a unique, hand-finished vector mark with an icon — true editable vector files for print and signage. One-time $149–299.</p><button class="btn gold" onclick="alert('We\\'ll include this in your proposal — just ask on your call.')">Add a custom logo →</button></div>
+  </main>
+</section>
+<div class="toast" id="toast"></div>
+<script>
+const FONTS=[
+ {n:"Fraunces",f:"'Fraunces',serif",w:600},{n:"Playfair Display",f:"'Playfair Display',serif",w:600},
+ {n:"Cormorant",f:"'Cormorant Garamond',serif",w:600},{n:"Inter",f:"'Inter',sans-serif",w:700},
+ {n:"Archivo",f:"'Archivo',sans-serif",w:700},{n:"Montserrat",f:"'Montserrat',sans-serif",w:700},
+ {n:"Poppins",f:"'Poppins',sans-serif",w:600},{n:"Space Grotesk",f:"'Space Grotesk',sans-serif",w:600},
+ {n:"Figtree",f:"'Figtree',sans-serif",w:700},{n:"Quicksand",f:"'Quicksand',sans-serif",w:600}
+];
+const SWATCHES=["#1f6f5c","#16140f","#7c2d12","#1e3a5f","#6d28d9","#b91c1c","#c2410c","#0f766e","#9d174d","#b8860b"];
+const qs=new URLSearchParams(location.search);
+const S={name:qs.get("name")||"Highlands Ranch Co.",tag:qs.get("tag")||"",layout:"wordmark",font:FONTS[0],color:qs.get("color")||"#1f6f5c",bg:"light",track:0};
+const $=id=>document.getElementById(id);
+const measureCanvas=document.createElement("canvas").getContext("2d");
+function initials(name){const p=name.trim().split(/\s+/).filter(w=>!/^(the|and|of|co|llc|inc|pllc|pc)\.?$/i.test(w));const a=(p[0]||name)[0]||"";const b=p.length>1?p[1][0]:"";return (a+b).toUpperCase();}
+function measure(t,fs,fam,w,sp){measureCanvas.font=w+" "+fs+"px "+fam;return measureCanvas.measureText(t).width+sp*Math.max(0,t.length-1);}
+// returns {w,h,els} primitives; els: text/circle/rect
+function layout(o){const fam=o.font.f,fw=o.font.w,sp=o.track;
+ const txtCol=o.mono?(o.bg==="dark"?"#ffffff":"#111111"):(o.bg==="dark"?"#ffffff":o.color);
+ const subCol=o.bg==="dark"?"rgba(255,255,255,.65)":"rgba(0,0,0,.5)";
+ const pad=56,els=[];let W,H;const ini=initials(o.name);
+ if(o.layout==="wordmark"){
+  const fs=120;const tw=measure(o.name,fs,fam,fw,sp);
+  const tagfs=34;const tgw=o.tag?measure(o.tag.toUpperCase(),tagfs,"'Inter'",600,3):0;
+  W=Math.max(tw,tgw)+pad*2;H=pad*2+fs+(o.tag?tagfs+26:0);
+  let y=pad+fs*0.78;els.push({t:"text",x:W/2,y,fs,fam,fw,sp,col:txtCol,txt:o.name});
+  if(o.tag){els.push({t:"text",x:W/2,y:y+44,fs:tagfs,fam:"'Inter'",fw:600,sp:3,col:subCol,txt:o.tag.toUpperCase()});}
+ } else if(o.layout==="monogram"){
+  const r=150;W=H=r*2+pad*2;els.push({t:"circle",cx:W/2,cy:H/2,r,fill:txtCol});
+  els.push({t:"text",x:W/2,y:H/2+r*0.36,fs:r*1.05,fam,fw,sp:0,col:o.bg==="dark"?"#16140f":"#ffffff",txt:ini});
+ } else if(o.layout==="stacked"){
+  const r=92;const fs=84;const tw=measure(o.name,fs,fam,fw,sp);
+  W=Math.max(tw,r*2)+pad*2;H=pad*2+r*2+34+fs+(o.tag?40:0);
+  const cx=W/2;els.push({t:"circle",cx,cy:pad+r,r,fill:txtCol});
+  els.push({t:"text",x:cx,y:pad+r+r*0.36,fs:r*1.05,fam,fw,sp:0,col:o.bg==="dark"?"#16140f":"#ffffff",txt:ini});
+  els.push({t:"text",x:cx,y:pad+r*2+34+fs*0.78,fs,fam,fw,sp,col:txtCol,txt:o.name});
+  if(o.tag)els.push({t:"text",x:cx,y:pad+r*2+34+fs+30,fs:26,fam:"'Inter'",fw:600,sp:3,col:subCol,txt:o.tag.toUpperCase()});
+ } else { // badge — horizontal lockup in a rounded rect
+  const box=176;const fs=72;const nm=measure(o.name,fs,fam,fw,sp);
+  const tagfs=24;const tg=o.tag?measure(o.tag.toUpperCase(),tagfs,"'Inter'",600,3):0;
+  const gap=34;const txtW=Math.max(nm,tg);W=pad*2+box+gap+txtW+pad;H=Math.max(box,fs+(o.tag?tagfs+20:0))+pad*2;
+  const bx=pad,by=(H-box)/2;
+  els.push({t:"rrect",x:bx,y:by,w:box,h:box,r:26,fill:txtCol});
+  els.push({t:"text",x:bx+box/2,y:by+box/2+box*0.30,fs:box*0.62,fam,fw,sp:0,col:o.bg==="dark"?"#16140f":"#ffffff",txt:ini,anchor:"middle"});
+  const tx=bx+box+gap;const cy=H/2;
+  els.push({t:"text",x:tx,y:o.tag?cy-4:cy+fs*0.34,fs,fam,fw,sp,col:txtCol,txt:o.name,anchor:"start"});
+  if(o.tag)els.push({t:"text",x:tx,y:cy+tagfs+14,fs:tagfs,fam:"'Inter'",fw:600,sp:3,col:subCol,txt:o.tag.toUpperCase(),anchor:"start"});
+ }
+ return {w:Math.ceil(W),h:Math.ceil(H),els,bg:o.bg};
+}
+function bgFill(bg){return bg==="dark"?"#16140f":bg==="light"?"#faf8f4":null;}
+function toSVG(L,forExport){const e=[];e.push('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 '+L.w+' '+L.h+'" width="'+L.w+'" height="'+L.h+'">');
+ if(forExport)e.push('<style>@import url("https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600&family=Playfair+Display:wght@600&family=Cormorant+Garamond:wght@600&family=Inter:wght@400;600;700&family=Archivo:wght@700&family=Montserrat:wght@700&family=Poppins:wght@600&family=Space+Grotesk:wght@600&family=Figtree:wght@700&family=Quicksand:wght@600&display=swap");</style>');
+ const f=bgFill(L.bg);if(f)e.push('<rect width="'+L.w+'" height="'+L.h+'" fill="'+f+'"/>');
+ L.els.forEach(el=>{
+  if(el.t==="circle")e.push('<circle cx="'+el.cx+'" cy="'+el.cy+'" r="'+el.r+'" fill="'+el.fill+'"/>');
+  else if(el.t==="rrect")e.push('<rect x="'+el.x+'" y="'+el.y+'" width="'+el.w+'" height="'+el.h+'" rx="'+el.r+'" fill="'+el.fill+'"/>');
+  else if(el.t==="text"){const anc=el.anchor||"middle";e.push('<text x="'+el.x+'" y="'+el.y+'" font-family="'+el.fam.replace(/'/g,"&apos;")+'" font-weight="'+el.fw+'" font-size="'+el.fs+'" letter-spacing="'+el.sp+'" fill="'+el.col+'" text-anchor="'+anc+'">'+el.txt.replace(/&/g,"&amp;").replace(/</g,"&lt;")+'</text>');}
+ });
+ e.push('</svg>');return e.join("");}
+function drawCanvas(ctx,L,scale){scale=scale||1;ctx.canvas.width=L.w*scale;ctx.canvas.height=L.h*scale;ctx.scale(scale,scale);
+ const f=bgFill(L.bg);if(f){ctx.fillStyle=f;ctx.fillRect(0,0,L.w,L.h);}
+ L.els.forEach(el=>{
+  if(el.t==="circle"){ctx.fillStyle=el.fill;ctx.beginPath();ctx.arc(el.cx,el.cy,el.r,0,7);ctx.fill();}
+  else if(el.t==="rrect"){ctx.fillStyle=el.fill;const r=el.r;ctx.beginPath();ctx.moveTo(el.x+r,el.y);ctx.arcTo(el.x+el.w,el.y,el.x+el.w,el.y+el.h,r);ctx.arcTo(el.x+el.w,el.y+el.h,el.x,el.y+el.h,r);ctx.arcTo(el.x,el.y+el.h,el.x,el.y,r);ctx.arcTo(el.x,el.y,el.x+el.w,el.y,r);ctx.fill();}
+  else if(el.t==="text"){ctx.fillStyle=el.col;ctx.font=el.fw+" "+el.fs+"px "+el.fam;ctx.textAlign=el.anchor||"center";ctx.textBaseline="alphabetic";try{ctx.letterSpacing=el.sp+"px";}catch(e){}ctx.fillText(el.txt,el.x,el.y);try{ctx.letterSpacing="0px";}catch(e){}}
+ });}
+let curL;
+function render(){curL=layout(S);$("stage").innerHTML=toSVG(curL,false);
+ $("stage").className=S.bg==="transparent"?"bgcheck":"";$("stage").style.background=S.bg==="dark"?"#16140f":S.bg==="light"?"#faf8f4":"";
+ // variants
+ const vs=[["Light",Object.assign({},S,{bg:"light"})],["Dark",Object.assign({},S,{bg:"dark"})],["Mono",Object.assign({},S,{bg:"light",mono:true})]];
+ $("variants").innerHTML=vs.map(([lab,o])=>{const L=layout(o);return '<div class="vcard"><div class="vt">'+lab+'</div><div class="vb" style="background:'+(o.bg==="dark"?"#16140f":"#fff")+'">'+toSVG(L,false)+'</div></div>';}).join("");
+}
+// build controls
+$("name").value=S.name;$("tag").value=S.tag;
+$("name").oninput=e=>{S.name=e.target.value||" ";render();};
+$("tag").oninput=e=>{S.tag=e.target.value;render();};
+$("track").oninput=e=>{S.track=+e.target.value;render();};
+document.querySelectorAll("#layout button").forEach(b=>b.onclick=()=>{S.layout=b.dataset.v;document.querySelectorAll("#layout button").forEach(x=>x.classList.toggle("on",x===b));render();});
+document.querySelectorAll("#bg button").forEach(b=>b.onclick=()=>{S.bg=b.dataset.v;document.querySelectorAll("#bg button").forEach(x=>x.classList.toggle("on",x===b));render();});
+const fh=$("fonts");FONTS.forEach((ft,i)=>{const d=document.createElement("div");d.className="fontb"+(i===0?" on":"");d.textContent="Aa "+ft.n;d.style.fontFamily=ft.f;d.style.fontWeight=ft.w;d.onclick=()=>{S.font=ft;document.querySelectorAll(".fontb").forEach(x=>x.classList.remove("on"));d.classList.add("on");render();};fh.appendChild(d);});
+const swh=$("sw");SWATCHES.forEach((c,i)=>{const b=document.createElement("b");b.style.background=c;if(c===S.color)b.classList.add("on");b.onclick=()=>{S.color=c;document.querySelectorAll("#sw b").forEach(x=>x.classList.remove("on"));b.classList.add("on");render();};swh.appendChild(b);});
+const pick=document.createElement("input");pick.type="color";pick.value=S.color;pick.oninput=e=>{S.color=e.target.value;document.querySelectorAll("#sw b").forEach(x=>x.classList.remove("on"));render();};swh.appendChild(pick);
+// exports
+function toast(m){const t=$("toast");t.textContent=m;t.classList.add("show");setTimeout(()=>t.classList.remove("show"),1800);}
+function dl(name,url){const a=document.createElement("a");a.href=url;a.download=name;document.body.appendChild(a);a.click();a.remove();}
+const safe=()=>(S.name||"logo").toLowerCase().replace(/[^a-z0-9]+/g,"-").replace(/^-|-$/g,"")||"logo";
+$("dlsvg").onclick=()=>{const blob=new Blob([toSVG(curL,true)],{type:"image/svg+xml"});dl(safe()+".svg",URL.createObjectURL(blob));toast("SVG downloaded");};
+$("copysvg").onclick=async()=>{try{await navigator.clipboard.writeText(toSVG(curL,true));toast("SVG copied");}catch(e){toast("Copy blocked — use Download SVG");}};
+$("dlpng").onclick=async()=>{await document.fonts.ready;const c=document.createElement("canvas");drawCanvas(c.getContext("2d"),layout(S),3);dl(safe()+".png",c.toDataURL("image/png"));toast("PNG downloaded (3×)");};
+$("dlfav").onclick=async()=>{await document.fonts.ready;const o=Object.assign({},S,{layout:"monogram",tag:""});const L=layout(o);const c=document.createElement("canvas");const ctx=c.getContext("2d");c.width=c.height=512;const s=512/L.w;ctx.scale(s,s);// favicon square
+ ctx.fillStyle=S.bg==="dark"?"#16140f":S.color;const r=512/s;// rounded square bg
+ const rr=L.w*0.18;ctx.beginPath();ctx.moveTo(rr,0);ctx.arcTo(L.w,0,L.w,L.w,rr);ctx.arcTo(L.w,L.w,0,L.w,rr);ctx.arcTo(0,L.w,0,0,rr);ctx.arcTo(0,0,L.w,0,rr);ctx.fill();
+ ctx.fillStyle="#fff";ctx.font=S.font.w+" "+(L.w*0.5)+"px "+S.font.f;ctx.textAlign="center";ctx.textBaseline="middle";ctx.fillText(initials(S.name),L.w/2,L.w/2+L.w*0.03);
+ dl(safe()+"-favicon.png",c.toDataURL("image/png"));toast("Favicon downloaded (512px)");};
+document.fonts.ready.then(render);render();
+</script>
+</body></html>

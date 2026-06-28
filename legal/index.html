@@ -1,0 +1,158 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Legal Pages — Sightline</title>
+<meta name="description" content="Generate a privacy policy, terms of service, cookie policy, and accessibility statement from a few answers — self-help, not legal advice.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#16140f;--mut:#6b6660;--line:#e7e2d8;--bg:#f4f1ea;--ac:#1f6f5c;--gold:#c2a04a;--head:'Fraunces',Georgia,serif;--body:'Inter',system-ui,sans-serif}
+*{box-sizing:border-box;margin:0}html{overflow-x:hidden}body{background:var(--bg);color:var(--ink);font-family:var(--body);line-height:1.55;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+.wrap{max-width:1240px;width:100%;margin:0 auto;padding:0 clamp(18px,4vw,44px)}
+.top{display:flex;align-items:center;justify-content:space-between;padding:18px 0;flex-wrap:wrap;gap:10px}
+.logo{display:flex;gap:10px;align-items:center;font-family:var(--head);font-weight:600;font-size:1.2rem}.dot{width:11px;height:11px;border-radius:50%;background:var(--ac)}
+.top a{color:var(--mut);text-decoration:none;font-size:.85rem}.top a:hover{color:var(--ink)}
+.hd{padding:clamp(12px,2vw,22px) 0 4px}
+.hd h1{font-family:var(--head);font-weight:400;font-size:clamp(1.8rem,1.2rem+2.2vw,2.8rem);letter-spacing:-.02em;line-height:1.05}.hd h1 em{font-style:italic;color:var(--ac)}
+.disc{background:#fff7e6;border:1px solid #e8d6a8;border-radius:12px;padding:13px 16px;margin:14px 0 4px;font-size:.85rem;color:#5a4a1f;line-height:1.5}
+.disc b{color:#3d3210}
+.layout{display:grid;grid-template-columns:360px 1fr;gap:clamp(18px,3vw,36px);padding:20px 0 60px;align-items:start}
+@media(max-width:900px){.layout{grid-template-columns:1fr}}
+.panel{background:#fff;border:1px solid var(--line);border-radius:16px;padding:20px;position:sticky;top:14px;max-height:calc(100vh - 28px);overflow:auto}
+.fld{margin-bottom:14px}.fld label{display:block;font-size:.74rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--mut);margin-bottom:6px}
+.fld input[type=text],.fld input[type=email],.fld select{width:100%;border:1px solid var(--line);border-radius:9px;padding:10px 12px;font-family:var(--body);font-size:.93rem;color:var(--ink);background:#faf8f4}
+.fld input:focus,.fld select:focus{outline:none;border-color:var(--ac)}
+.chk{display:flex;align-items:flex-start;gap:9px;padding:8px 0;cursor:pointer;font-size:.9rem}
+.chk input{margin-top:3px;accent-color:var(--ac);width:16px;height:16px}
+.chk .d{color:var(--mut);font-size:.78rem}
+.gh{font-size:.72rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--ac);margin:16px 0 4px;border-top:1px solid var(--line);padding-top:14px}
+.out{background:#fff;border:1px solid var(--line);border-radius:16px;overflow:hidden;box-shadow:0 24px 60px rgba(20,18,15,.1)}
+.tabs{display:flex;border-bottom:1px solid var(--line);overflow:auto}
+.tabs button{flex:1;min-width:120px;background:none;border:none;border-bottom:3px solid transparent;padding:13px 10px;font-family:var(--body);font-weight:600;font-size:.88rem;color:var(--mut);cursor:pointer;white-space:nowrap}
+.tabs button.on{color:var(--ink);border-bottom-color:var(--ac)}
+.docwrap{max-height:560px;overflow:auto;padding:26px clamp(18px,3vw,38px)}
+.doc h2{font-family:var(--head);font-weight:500;font-size:1.5rem;margin-bottom:4px}
+.doc .meta{color:var(--mut);font-size:.82rem;margin-bottom:18px}
+.doc h3{font-size:1rem;font-weight:700;margin:18px 0 6px;color:var(--ink)}
+.doc p{font-size:.9rem;color:#33302a;margin-bottom:10px}
+.doc ul{margin:0 0 10px 18px}.doc li{font-size:.9rem;color:#33302a;margin-bottom:4px}
+.actions{display:flex;gap:10px;flex-wrap:wrap;padding:14px clamp(18px,3vw,38px);border-top:1px solid var(--line);background:#faf8f4}
+.btn{border:none;border-radius:10px;padding:11px 16px;font-family:var(--body);font-weight:700;font-size:.88rem;cursor:pointer;background:var(--ac);color:#fff}
+.btn.alt{background:#fff;color:var(--ink);border:1px solid var(--line)}
+.foot{background:#11271f;color:#dff0e9;border-radius:13px;padding:16px 18px;margin-top:16px;font-size:.86rem;line-height:1.5}.foot b{color:#fff}
+.toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%) translateY(20px);background:var(--ink);color:#fff;padding:11px 18px;border-radius:10px;font-size:.88rem;opacity:0;transition:.3s;pointer-events:none}.toast.show{opacity:1;transform:translateX(-50%)}
+</style></head>
+<body>
+<header class="wrap top"><div class="logo"><span class="dot"></span>Sightline · Legal Pages</div><a href="../">← Back to Studio</a></header>
+<section class="wrap hd"><h1>Your legal pages, <em>drafted.</em></h1>
+<div class="disc"><b>Please read:</b> These documents are <b>auto-generated from your answers as self-help software — they are not legal advice</b>, and using this tool does not create an attorney-client relationship with Sightline (we are a web studio, not a law firm). Have a licensed attorney review them before publishing — especially if you sell products, handle sensitive data, or have EU visitors. For policies that <b>auto-update as laws change</b>, Sightline installs Termageddon on your site.</div>
+</section>
+<section class="wrap layout">
+  <aside class="panel">
+    <div class="fld"><label>Business / website name</label><input type="text" id="biz" autocomplete="off"></div>
+    <div class="fld"><label>Website URL</label><input type="text" id="url" autocomplete="off" placeholder="yourbusiness.com"></div>
+    <div class="fld"><label>Contact email</label><input type="email" id="email" autocomplete="off" placeholder="hello@yourbusiness.com"></div>
+    <div class="fld"><label>Primary US state</label><select id="state"></select></div>
+    <div class="gh">What your site does</div>
+    <label class="chk"><input type="checkbox" id="c_contact" checked><span>Contact / lead form <span class="d">— collects name, email, phone</span></span></label>
+    <label class="chk"><input type="checkbox" id="c_analytics" checked><span>Google Analytics <span class="d">— usage/traffic tracking</span></span></label>
+    <label class="chk"><input type="checkbox" id="c_email"><span>Email marketing / newsletter</span></label>
+    <label class="chk"><input type="checkbox" id="c_pixels"><span>Ad pixels (Meta/Google Ads) <span class="d">— retargeting</span></span></label>
+    <label class="chk"><input type="checkbox" id="c_accounts"><span>User accounts / logins</span></label>
+    <label class="chk"><input type="checkbox" id="c_sell"><span>Sells products/services online <span class="d">— adds orders & refunds</span></span></label>
+    <label class="chk"><input type="checkbox" id="c_eu"><span>Targets or gets EU/UK visitors <span class="d">— adds GDPR + consent</span></span></label>
+  </aside>
+  <main>
+    <div class="out">
+      <div class="tabs" id="tabs"><button data-d="privacy" class="on">Privacy Policy</button><button data-d="terms">Terms of Service</button><button data-d="cookies">Cookie Policy</button><button data-d="access">Accessibility</button></div>
+      <div class="docwrap"><div class="doc" id="doc"></div></div>
+      <div class="actions"><button class="btn" id="copy">Copy this document</button><button class="btn alt" id="dlone">Download .html</button><button class="btn alt" id="dlall">Download all 4</button></div>
+    </div>
+    <div class="foot"><b>For production:</b> A static document silently goes stale as privacy laws change and as you add new tools. Sightline installs <b>Termageddon</b> so your policies auto-update, with a cookie-consent banner included — and the license is in your name, so the provider (not Sightline) stays responsible for the content. Ask us to switch it on.</div>
+  </main>
+</section>
+<div class="toast" id="toast"></div>
+<script>
+const STATES=["Alabama","Alaska","Arizona","Arkansas","California","Colorado","Connecticut","Delaware","Florida","Georgia","Hawaii","Idaho","Illinois","Indiana","Iowa","Kansas","Kentucky","Louisiana","Maine","Maryland","Massachusetts","Michigan","Minnesota","Mississippi","Missouri","Montana","Nebraska","Nevada","New Hampshire","New Jersey","New Mexico","New York","North Carolina","North Dakota","Ohio","Oklahoma","Oregon","Pennsylvania","Rhode Island","South Carolina","South Dakota","Tennessee","Texas","Utah","Vermont","Virginia","Washington","West Virginia","Wisconsin","Wyoming"];
+const qs=new URLSearchParams(location.search);
+const S={biz:qs.get("name")||"Your Business",url:qs.get("url")||"yourbusiness.com",email:"hello@yourbusiness.com",state:"Colorado",contact:true,analytics:true,email_m:false,pixels:false,accounts:false,sell:false,eu:false};
+let tab="privacy";
+const $=id=>document.getElementById(id);
+const today=new Date().toLocaleDateString("en-US",{year:"numeric",month:"long",day:"numeric"});
+const B=()=>S.biz||"Your Business",U=()=>S.url||"your website",E=()=>S.email||"our contact email";
+function privacy(){let h='<h2>Privacy Policy</h2><div class="meta">'+B()+' · Last updated '+today+'</div>';
+ h+='<p>This Privacy Policy describes how '+B()+' ("we," "us," or "our") collects, uses, and shares information when you visit '+U()+' (the "Site").</p>';
+ h+='<h3>Information we collect</h3><ul>';
+ if(S.contact)h+='<li><b>Information you give us</b> — such as your name, email address, phone number, and any message you submit through our contact or lead forms.</li>';
+ if(S.accounts)h+='<li><b>Account information</b> — credentials and profile details you provide when creating an account.</li>';
+ if(S.sell)h+='<li><b>Order information</b> — items purchased and billing/shipping details. Card payments are processed by our payment provider; we do not store full card numbers.</li>';
+ if(S.email_m)h+='<li><b>Email preferences</b> — your email address and subscription status if you join our list.</li>';
+ h+='<li><b>Automatically collected data</b> — IP address, browser type, device information, pages viewed, and similar usage data collected through cookies and similar technologies.</li></ul>';
+ h+='<h3>How we use your information</h3><ul><li>To respond to your inquiries and provide our services.</li>';
+ if(S.sell)h+='<li>To process and fulfill your orders.</li>';
+ if(S.email_m)h+='<li>To send you newsletters or marketing emails you have opted into (you can unsubscribe at any time).</li>';
+ if(S.analytics)h+='<li>To understand how visitors use the Site and to improve it.</li>';
+ if(S.pixels)h+='<li>To measure and serve relevant advertising.</li>';
+ h+='<li>To maintain the security and proper functioning of the Site, and to comply with legal obligations.</li></ul>';
+ if(S.analytics||S.pixels){h+='<h3>Cookies and tracking</h3><p>We use cookies and similar technologies'+(S.analytics?', including Google Analytics,':'')+(S.pixels?' and advertising pixels such as the Meta and Google Ads pixels,':'')+' to understand site usage'+(S.pixels?' and deliver relevant ads':'')+'. See our Cookie Policy for details and how to manage your choices.</p>';}
+ h+='<h3>How we share information</h3><p>We do not sell your personal information for money. We share information only with service providers who help us operate the Site (such as hosting, analytics, email, and payment providers), and when required by law. '+(S.pixels?'Our use of advertising pixels may be considered "sharing" of personal information for targeted advertising under some state laws; see "Your rights" below to opt out.':'')+'</p>';
+ h+='<h3>Your rights</h3><p>Depending on where you live, you may have the right to access, correct, or delete your personal information, and to opt out of targeted advertising or the "sale" or "sharing" of your information. To exercise any right, contact us at '+E()+'.</p>';
+ if(S.state==="California")h+='<p><b>California residents (CCPA/CPRA):</b> you have the right to know what personal information we collect, to request deletion, to correct inaccurate information, and to opt out of the sale or sharing of your personal information. We will not discriminate against you for exercising these rights.</p>';
+ if(S.eu)h+='<p><b>EU/UK residents (GDPR):</b> you have rights to access, rectification, erasure, restriction, portability, and to object to processing. Our legal bases include consent, contract, and legitimate interests. You may lodge a complaint with your local data protection authority.</p>';
+ h+='<h3>Data security</h3><p>We use reasonable administrative and technical safeguards to protect your information. No method of transmission over the Internet is completely secure, however, and we cannot guarantee absolute security.</p>';
+ h+='<h3>Children’s privacy</h3><p>The Site is not directed to children under 13, and we do not knowingly collect information from them.</p>';
+ h+='<h3>Changes to this policy</h3><p>We may update this Privacy Policy from time to time. The "last updated" date above reflects the latest revision.</p>';
+ h+='<h3>Contact us</h3><p>Questions about this policy? Email us at '+E()+'.</p>';return h;}
+function terms(){let h='<h2>Terms of Service</h2><div class="meta">'+B()+' · Last updated '+today+'</div>';
+ h+='<p>These Terms of Service ("Terms") govern your use of '+U()+' (the "Site"), operated by '+B()+'. By using the Site, you agree to these Terms.</p>';
+ h+='<h3>Use of the Site</h3><p>You agree to use the Site lawfully and not to misuse it, interfere with its operation, or attempt unauthorized access. We may modify or discontinue the Site at any time.</p>';
+ if(S.accounts)h+='<h3>Accounts</h3><p>If you create an account, you are responsible for keeping your credentials confidential and for all activity under your account. Provide accurate information and notify us of any unauthorized use.</p>';
+ if(S.sell){h+='<h3>Orders and payment</h3><p>Prices and availability are subject to change. We reserve the right to refuse or cancel orders. Payment is due at the time of purchase through our payment provider.</p>';
+  h+='<h3>Returns and refunds</h3><p>If you are not satisfied, contact us at '+E()+'. Our refund and return terms will be provided at the point of sale or upon request. Certain items may be non-refundable as disclosed at purchase.</p>';}
+ h+='<h3>Intellectual property</h3><p>The content on the Site — text, graphics, logos, and images — is owned by '+B()+' or its licensors and may not be copied or reused without permission.</p>';
+ h+='<h3>Disclaimers</h3><p>The Site and its content are provided "as is" without warranties of any kind, express or implied. We do not warrant that the Site will be uninterrupted, error-free, or free of harmful components.</p>';
+ h+='<h3>Limitation of liability</h3><p>To the maximum extent permitted by law, '+B()+' will not be liable for any indirect, incidental, or consequential damages arising from your use of the Site. Our total liability will not exceed the amount you paid us, if any, in the 12 months before the claim.</p>';
+ h+='<h3>Governing law</h3><p>These Terms are governed by the laws of the State of '+S.state+', without regard to its conflict-of-laws rules.</p>';
+ h+='<h3>Changes to these Terms</h3><p>We may update these Terms from time to time. Continued use of the Site after changes means you accept the revised Terms.</p>';
+ h+='<h3>Contact us</h3><p>Questions about these Terms? Email us at '+E()+'.</p>';return h;}
+function cookies(){let h='<h2>Cookie Policy</h2><div class="meta">'+B()+' · Last updated '+today+'</div>';
+ h+='<p>This Cookie Policy explains how '+B()+' uses cookies and similar technologies on '+U()+'.</p>';
+ h+='<h3>What are cookies?</h3><p>Cookies are small text files placed on your device that help websites function and remember your preferences. Some are essential; others help us understand usage'+(S.pixels?' or deliver advertising':'')+'.</p>';
+ h+='<h3>Cookies we use</h3><ul><li><b>Essential cookies</b> — required for the Site to function (security, basic preferences). These cannot be switched off.</li>';
+ if(S.analytics)h+='<li><b>Analytics cookies</b> — such as Google Analytics, to understand how visitors use the Site so we can improve it.</li>';
+ if(S.pixels)h+='<li><b>Advertising cookies</b> — such as the Meta and Google Ads pixels, to measure campaigns and show you relevant ads.</li>';
+ if(S.email_m)h+='<li><b>Preference cookies</b> — to remember choices like newsletter sign-up state.</li>';
+ h+='</ul>';
+ h+='<h3>Managing cookies</h3><p>You can control or delete cookies through your browser settings. Blocking some cookies may affect how the Site works.</p>';
+ if(S.eu)h+='<p><b>Visitors in the EU/UK:</b> we request your consent before setting non-essential cookies, and you can withdraw consent at any time using the cookie banner on the Site.</p>';
+ else h+='<p>For visitors in the United States, non-essential cookies may be used in accordance with applicable state law; where required, you may opt out of targeted advertising'+(S.pixels?' via our "Do Not Sell or Share My Personal Information" control':'')+'.</p>';
+ h+='<h3>Contact us</h3><p>Questions about cookies? Email us at '+E()+'.</p>';return h;}
+function access(){let h='<h2>Accessibility Statement</h2><div class="meta">'+B()+' · Last updated '+today+'</div>';
+ h+='<p>'+B()+' is committed to making '+U()+' accessible to as many people as possible, including people with disabilities.</p>';
+ h+='<h3>Our goal</h3><p>We aim to conform to the Web Content Accessibility Guidelines (WCAG) 2.1 Level AA as a practical benchmark for usable, accessible design.</p>';
+ h+='<h3>What we do</h3><ul><li>Use clear structure, readable text, and sufficient color contrast.</li><li>Provide text alternatives for meaningful images.</li><li>Support keyboard navigation and screen-reader-friendly markup where feasible.</li></ul>';
+ h+='<h3>Ongoing effort</h3><p>Accessibility is an ongoing process. Some content may not yet be fully accessible, and we welcome feedback to help us improve.</p>';
+ h+='<h3>Need help or found a barrier?</h3><p>If you have trouble accessing any part of the Site, or need information in an alternative format, please contact us at '+E()+' and we will work to assist you and address the issue.</p>';
+ h+='<p style="font-size:.82rem;color:#6b6660;border-top:1px solid #e7e2d8;padding-top:10px;margin-top:14px"><i>This statement reflects a good-faith commitment and provides a contact for accommodation requests. It is not a legal guarantee of compliance; genuine accessibility depends on ongoing remediation work.</i></p>';return h;}
+const GEN={privacy,terms,cookies,access};
+const NAME={privacy:"privacy-policy",terms:"terms-of-service",cookies:"cookie-policy",access:"accessibility-statement"};
+function render(){$("doc").innerHTML=GEN[tab]();}
+// state dropdown
+STATES.forEach(s=>{const o=document.createElement("option");o.value=s;o.textContent=s;if(s===S.state)o.selected=true;$("state").appendChild(o);});
+// bind
+$("biz").value=S.biz;$("url").value=S.url;$("email").value=S.email;
+$("biz").oninput=e=>{S.biz=e.target.value;render();};
+$("url").oninput=e=>{S.url=e.target.value;render();};
+$("email").oninput=e=>{S.email=e.target.value;render();};
+$("state").onchange=e=>{S.state=e.target.value;render();};
+const map={c_contact:"contact",c_analytics:"analytics",c_email:"email_m",c_pixels:"pixels",c_accounts:"accounts",c_sell:"sell",c_eu:"eu"};
+Object.keys(map).forEach(id=>{$(id).onchange=e=>{S[map[id]]=e.target.checked;render();};});
+document.querySelectorAll("#tabs button").forEach(b=>b.onclick=()=>{tab=b.dataset.d;document.querySelectorAll("#tabs button").forEach(x=>x.classList.toggle("on",x===b));render();});
+// exports
+function toast(m){const t=$("toast");t.textContent=m;t.classList.add("show");setTimeout(()=>t.classList.remove("show"),1800);}
+function fullDoc(title,inner){return '<!doctype html><meta charset=utf-8><title>'+title+'</title><div style="max-width:760px;margin:40px auto;font-family:Georgia,serif;line-height:1.6;color:#222;padding:0 20px">'+inner+'<hr><p style="font-size:.8rem;color:#888">Generated by Sightline self-help tool — not legal advice. Have an attorney review before publishing.</p></div>';}
+function dl(name,text,type){const blob=new Blob([text],{type:type||"text/html"});const a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download=name;document.body.appendChild(a);a.click();a.remove();}
+$("copy").onclick=async()=>{const tmp=document.createElement("div");tmp.innerHTML=GEN[tab]();try{await navigator.clipboard.writeText(tmp.innerText);toast("Copied to clipboard");}catch(e){toast("Copy blocked — use Download");}};
+$("dlone").onclick=()=>{const slug=(S.biz||"site").toLowerCase().replace(/[^a-z0-9]+/g,"-").replace(/^-|-$/g,"");dl(slug+"-"+NAME[tab]+".html",fullDoc(NAME[tab],GEN[tab]()));toast("Downloaded "+NAME[tab]+".html");};
+$("dlall").onclick=()=>{const slug=(S.biz||"site").toLowerCase().replace(/[^a-z0-9]+/g,"-").replace(/^-|-$/g,"");const all=Object.keys(GEN).map(k=>'<section>'+GEN[k]()+'</section>').join('<hr style="margin:40px 0">');dl(slug+"-legal-pages.html",fullDoc(S.biz+" — Legal Pages",all));toast("Downloaded all 4 documents");};
+render();
+</script>
+</body></html>
