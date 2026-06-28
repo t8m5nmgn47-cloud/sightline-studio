@@ -27,6 +27,7 @@ a{color:inherit}.wrap{width:100%;max-width:680px;margin:0 auto;padding:0 20px}
 .demoframe{width:100%;height:460px;border:0;display:block;background:#fff}
 .openlink{display:inline-block;margin-top:12px;font-weight:600;color:var(--ac);text-decoration:none;border-bottom:1px solid var(--ac);padding-bottom:2px}
 .built{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}.built span{font-size:.8rem;font-weight:600;background:#eef4f1;color:#185845;border-radius:100px;padding:6px 12px}
+.swrow{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:0 0 14px}.swl{font-size:.82rem;color:var(--mut);margin-right:4px}.swb{border:1px solid var(--line);background:#fff;color:var(--ink);border-radius:999px;padding:8px 14px;font:600 .82rem/1 var(--body);cursor:pointer;transition:.15s}.swb.on{background:var(--ac);color:#fff;border-color:var(--ac)}
 .find{background:var(--ink);color:#fff;border-radius:16px;padding:24px}
 .find h2{color:#fff}.find .lead{color:rgba(255,255,255,.7)}
 .stat{display:flex;gap:22px;flex-wrap:wrap;margin:16px 0 18px}
@@ -61,10 +62,11 @@ a{color:inherit}.wrap{width:100%;max-width:680px;margin:0 auto;padding:0 20px}
 
 <section class="wrap sec">
   <h2>Your new site</h2>
-  <div class="lead">Built in your real brand — live online booking, an AI chat assistant, and bank-grade security already included.</div>
-  <div class="frame"><div class="fbar"><i></i><i></i><i></i><span class="u">elevatemyeyes.com</span></div><iframe class="demoframe" src="../../elevatemyeyes-com/" loading="lazy" title="Highlands Ranch Vision Center demo"></iframe></div>
-  <a class="openlink" href="../../elevatemyeyes-com/" target="_blank" rel="noopener">Open the full live demo ↗</a>
-  <div class="built"><span>✦ Warm Local design</span><span>💬 AI chat assistant</span><span>🔒 Security built in</span><span>📱 Mobile-first</span></div>
+  <div class="lead">Built in your real brand — three designs to choose from, with live online booking, an AI chat assistant, and bank-grade security already included.</div>
+  <div class="swrow"><span class="swl">Choose a look:</span><button class="swb on" data-src="../../elevatemyeyes-com/" data-label="Warm Local" onclick="pickStyle(this)">Warm Local</button><button class="swb" data-src="../../elevatemyeyes-com--editorial/" data-label="Editorial Luxe" onclick="pickStyle(this)">Editorial Luxe</button><button class="swb" data-src="../../elevatemyeyes-com--minimal/" data-label="Clean Minimal" onclick="pickStyle(this)">Clean Minimal</button></div>
+  <div class="frame"><div class="fbar"><i></i><i></i><i></i><span class="u">elevatemyeyes.com</span></div><iframe id="demoframe" class="demoframe" src="../../elevatemyeyes-com/" loading="lazy" title="Highlands Ranch Vision Center demo"></iframe></div>
+  <a class="openlink" id="openlink" href="../../elevatemyeyes-com/" target="_blank" rel="noopener">Open the full live demo ↗</a>
+  <div class="built"><span id="stylelabel">✦ Warm Local design</span><span>💬 AI chat assistant</span><span>🔒 Security built in</span><span>📱 Mobile-first</span></div>
 </section>
 
 <section class="wrap sec">
@@ -103,4 +105,5 @@ a{color:inherit}.wrap{width:100%;max-width:680px;margin:0 auto;padding:0 20px}
   <div class="rea">First month free · 30-day money-back · we don't stop until you're happy.</div>
 </section>
 <footer class="wrap foot">Prepared for Highlands Ranch Vision Center by <b>Sightline</b> · the security + website studio for Highlands Ranch businesses.</footer>
+<script>function pickStyle(b){var s=b.getAttribute('data-src'),l=b.getAttribute('data-label');var f=document.getElementById('demoframe');if(f)f.src=s;var o=document.getElementById('openlink');if(o)o.href=s;var sl=document.getElementById('stylelabel');if(sl)sl.textContent='✦ '+l+' design';b.parentNode.querySelectorAll('.swb').forEach(function(x){x.classList.remove('on')});b.classList.add('on');}</script>
 </body></html>
