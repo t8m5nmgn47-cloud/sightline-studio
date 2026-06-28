@@ -15,6 +15,7 @@
 .disc{background:#fff7e6;border:1px solid #e8d6a8;border-radius:12px;padding:13px 16px;margin:14px 0 4px;font-size:.85rem;color:#5a4a1f;line-height:1.5}
 .disc b{color:#3d3210}
 .layout{display:grid;grid-template-columns:360px 1fr;gap:clamp(18px,3vw,36px);padding:20px 0 60px;align-items:start}
+.layout>*{min-width:0}
 @media(max-width:900px){.layout{grid-template-columns:1fr}}
 .panel{background:#fff;border:1px solid var(--line);border-radius:16px;padding:20px;position:sticky;top:14px;max-height:calc(100vh - 28px);overflow:auto}
 .fld{margin-bottom:14px}.fld label{display:block;font-size:.74rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--mut);margin-bottom:6px}

@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+Disallow: /admin
+Disallow: /pipeline
+Disallow: /p/
+
+Sitemap: https://sightline-studio.vercel.app/sitemap.xml
