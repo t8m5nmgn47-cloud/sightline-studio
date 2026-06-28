@@ -125,6 +125,16 @@ a{color:inherit;text-decoration:none}.wrap{max-width:var(--maxw);margin:0 auto;p
 .gal{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
 .gal .g{aspect-ratio:4/5;overflow:hidden;border-radius:var(--rad)}.gal img{width:100%;height:100%;object-fit:cover;transition:transform .7s var(--ease)}.gal .g:hover img{transform:scale(1.06)}
 @media(max-width:760px){.gal{grid-template-columns:1fr 1fr}}
+.gallery-sec .car{position:relative;border-radius:var(--rad);overflow:hidden;background:var(--surf2);box-shadow:var(--sh)}
+.car-track{display:flex;transition:transform .55s var(--ease);will-change:transform}
+.car-slide{min-width:100%}
+.car-slide img{width:100%;height:clamp(300px,46vw,560px);object-fit:cover;display:block}
+.car-arr{position:absolute;top:50%;transform:translateY(-50%);width:48px;height:48px;border-radius:50%;border:none;background:rgba(255,255,255,.92);color:#16140f;font-size:1.7rem;line-height:1;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 16px rgba(0,0,0,.2);z-index:2;transition:transform .2s}
+.car-arr:hover{transform:translateY(-50%) scale(1.07)}.car-arr.prev{left:16px}.car-arr.next{right:16px}
+.car-dots{position:absolute;bottom:16px;left:50%;transform:translateX(-50%);display:flex;gap:8px;z-index:2}
+.car-dots .cd{width:9px;height:9px;border-radius:50%;border:none;background:rgba(255,255,255,.6);cursor:pointer;padding:0;transition:.25s}
+.car-dots .cd.on{background:#fff;width:24px;border-radius:6px}
+@media(max-width:760px){.car-arr{width:40px;height:40px;font-size:1.4rem}}
 /* cta */
 .cta{position:relative;color:#fff;text-align:center;padding:clamp(80px,11vw,150px) 0;overflow:hidden}
 .cta-bg{position:absolute;inset:0;z-index:-2;background:linear-gradient(150deg,var(--p),var(--p9))}
@@ -297,4 +307,5 @@ var io=new IntersectionObserver(function(e){e.forEach(function(x){if(x.isInterse
 document.querySelectorAll('.rv').forEach(function(el){io.observe(el)});
 var cw=document.getElementById('chatw');if(cw){document.getElementById('chatBtn').onclick=function(){cw.classList.toggle('open')};document.getElementById('chatX').onclick=function(){cw.classList.remove('open')};document.querySelectorAll('.cchips button').forEach(function(btn){btn.onclick=function(){var body=document.getElementById('chatBody');var chips=body.querySelector('.cchips');var u=document.createElement('div');u.className='cmsg cuser';u.textContent=btn.textContent;body.insertBefore(u,chips);var r=document.createElement('div');r.className='cmsg';r.style.marginTop='10px';r.textContent='Thanks! A team member will be right with you — or call and we’ll help straight away.';setTimeout(function(){body.insertBefore(r,chips);body.scrollTop=body.scrollHeight},480);body.scrollTop=body.scrollHeight}})}})();
 </script>
+<script>(function(){var car=document.getElementById('car');if(!car)return;var tr=document.getElementById('carTrack'),dots=[].slice.call(car.querySelectorAll('.cd')),n=tr.children.length,idx=0,timer;function go(i){idx=(i+n)%n;tr.style.transform='translateX('+(-idx*100)+'%)';dots.forEach(function(d,j){d.classList.toggle('on',j===idx)})}function rs(){clearInterval(timer);timer=setInterval(function(){go(idx+1)},5000)}var pv=document.getElementById('carPrev'),nx=document.getElementById('carNext');if(pv)pv.onclick=function(){go(idx-1);rs()};if(nx)nx.onclick=function(){go(idx+1);rs()};dots.forEach(function(d){d.onclick=function(){go(+d.getAttribute('data-i'));rs()}});var x0=null;car.addEventListener('touchstart',function(e){x0=e.touches[0].clientX},{passive:true});car.addEventListener('touchend',function(e){if(x0==null)return;var dx=e.changedTouches[0].clientX-x0;if(Math.abs(dx)>40){go(idx+(dx<0?1:-1));rs()}x0=null});rs();})();</script>
 <a href="../" title="Back to Sightline Studio" style="position:fixed;left:14px;bottom:14px;z-index:99999;background:rgba(15,13,11,.85);color:#fff;font:600 13px/1 system-ui,-apple-system,sans-serif;padding:10px 15px;border-radius:100px;text-decoration:none;backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);box-shadow:0 6px 18px rgba(0,0,0,.3)">&larr; Sightline Studio</a></body></html>
