@@ -1,0 +1,63 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Sightline · Admin</title>
+<meta name="robots" content="noindex,nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#16140f;--mut:#6b6660;--line:#e7e2d8;--bg:#f4f1ea;--ac:#1f6f5c;--gold:#c2a04a;--head:'Fraunces',Georgia,serif;--body:'Inter',system-ui,sans-serif}
+*{box-sizing:border-box;margin:0}body{background:var(--bg);color:var(--ink);font-family:var(--body);-webkit-font-smoothing:antialiased}
+.wrap{max-width:1100px;margin:0 auto;padding:0 clamp(18px,4vw,40px)}
+.top{display:flex;align-items:center;justify-content:space-between;padding:16px 0;border-bottom:1px solid var(--line)}
+.lg{display:flex;gap:10px;align-items:center;font-family:var(--head);font-weight:600;font-size:1.2rem}.dot{width:11px;height:11px;border-radius:50%;background:var(--ac)}
+.top a{color:var(--mut);text-decoration:none;font-size:.85rem}
+.hd{padding:34px 0 6px}.hd h1{font-family:var(--head);font-weight:400;font-size:clamp(2rem,1.4rem+2vw,2.9rem);letter-spacing:-.02em}.hd p{color:var(--mut);margin-top:8px;font-size:1.05rem}
+.gh{font-size:.74rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--mut);margin:34px 0 14px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:14px}
+.card{display:block;background:#fff;border:1px solid var(--line);border-radius:14px;padding:20px;text-decoration:none;color:inherit;transition:transform .2s,box-shadow .2s,border-color .2s}
+.card:hover{transform:translateY(-3px);box-shadow:0 14px 34px rgba(20,18,15,.09);border-color:#cfc8b8}
+.card .ic{font-size:1.5rem}.card h3{font-family:var(--head);font-weight:600;font-size:1.18rem;margin:10px 0 4px}
+.card p{color:var(--mut);font-size:.88rem;line-height:1.5}
+.card .go{margin-top:10px;font-size:.84rem;font-weight:700;color:var(--ac)}
+.card.lead{background:#11271f;border-color:#11271f}.card.lead h3,.card.lead .ic{color:#fff}.card.lead p{color:rgba(255,255,255,.72)}.card.lead .go{color:#9fe3c4}
+.steps{background:#fff;border:1px solid var(--line);border-radius:16px;padding:8px 26px 24px}
+.step{display:flex;gap:16px;padding:18px 0;border-top:1px solid var(--line)}.step:first-child{border-top:0}
+.step .n{flex:none;width:30px;height:30px;border-radius:50%;background:var(--ac);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:.9rem;margin-top:2px}
+.step .b{flex:1}.step h4{font-size:1rem;font-weight:600;margin-bottom:3px}.step p{color:var(--mut);font-size:.9rem;line-height:1.5}
+.step code{background:#f4f1ea;border:1px solid var(--line);border-radius:5px;padding:1px 7px;font-size:.84rem;font-family:ui-monospace,monospace}
+.note{background:#fff7e6;border:1px solid #e8d6a8;color:#5a4a1f;border-radius:12px;padding:14px 16px;margin-top:16px;font-size:.88rem;line-height:1.5}.note b{color:#3d3210}
+.foot{color:var(--mut);font-size:.8rem;padding:26px 0 50px}
+</style></head>
+<body>
+<header class="wrap top"><div class="lg"><span class="dot"></span>Sightline · Admin</div><a href="../">View public studio →</a></header>
+<div class="wrap">
+<section class="hd"><h1>Your control center.</h1><p>Everything to run Sightline — sales pipeline, the 30 prospect funnels, and every studio tool — in one place.</p></section>
+
+<div class="gh">Sell &amp; track</div>
+<div class="grid">
+  <a class="card lead" href="../pipeline/"><div class="ic">📊</div><h3>Pipeline / CRM</h3><p>Every prospect with their funnel link, ready email, and status — contacted → opened → booked → won.</p><div class="go">Open pipeline →</div></a>
+  <a class="card" href="../p/"><div class="ic">🎯</div><h3>Prospect funnels</h3><p>30 personalized landing pages (demo + audit + offer). Copy a link and send it.</p><div class="go">All funnels →</div></a>
+  <a class="card" href="../"><div class="ic">🖼️</div><h3>Concept gallery</h3><p>All 30 demos — 3 design options each — to show on a call.</p><div class="go">Open gallery →</div></a>
+  <a class="card" href="../teardowns/"><div class="ic">🔍</div><h3>Competitor teardowns</h3><p>How each prospect ranks vs. their local field on public signals.</p><div class="go">View teardowns →</div></a>
+</div>
+
+<div class="gh">Studio tools (use on a call or to fulfill)</div>
+<div class="grid">
+  <a class="card" href="../builder/"><div class="ic">🧩</div><h3>Build-your-site</h3><p>The add-on configurator — show how easy booking, store, payments, etc. switch on.</p><div class="go">Open builder →</div></a>
+  <a class="card" href="../logo/"><div class="ic">✦</div><h3>Logo Studio</h3><p>Generate a client's wordmark, monogram &amp; favicon. Free tier.</p><div class="go">Open Logo Studio →</div></a>
+  <a class="card" href="../legal/"><div class="ic">⚖️</div><h3>Legal Pages</h3><p>Privacy, terms, cookie &amp; accessibility from a few answers.</p><div class="go">Open generator →</div></a>
+  <a class="card" href="../brand/"><div class="ic">🎨</div><h3>Sightline brand</h3><p>Your own logo, palette &amp; type sheet.</p><div class="go">Open brand sheet →</div></a>
+  <a class="card" href="../generator/"><div class="ic">🖌️</div><h3>Brand Art Studio</h3><p>Client image/art tool (UI preview — AI engine wires in later).</p><div class="go">Open art studio →</div></a>
+</div>
+
+<div class="gh">Launch a new customer page</div>
+<div class="steps">
+  <div class="step"><div class="n">1</div><div class="b"><h4>Add the prospect</h4><p>Add the business (name, domain, city, vertical, rating) to <code>top30.json</code>. The generator pulls brand colors automatically; drop a hero photo at <code>images/custom/&lt;domain&gt;.jpg</code> for a hand-picked look.</p></div></div>
+  <div class="step"><div class="n">2</div><div class="b"><h4>Build &amp; QA</h4><p>Run <code>./release.sh</code> — it regenerates the demo (3 styles), teardown, and funnel, then runs the QA gate. It stops if anything fails.</p></div></div>
+  <div class="step"><div class="n">3</div><div class="b"><h4>Deploy</h4><p>Run <code>./deploy.sh "added &lt;business&gt;"</code> — it re-checks QA and pushes live. The new funnel appears at <code>/p/&lt;slug&gt;/</code> and in the pipeline. Send the link.</p></div></div>
+  <div class="step"><div class="n">4</div><div class="b"><h4>When they buy → go live on their domain</h4><p>Finalize their content, switch on the add-ons they bought, point <em>their</em> domain at the site, and install the legal pages. (Full steps in the Operations Playbook &amp; Go-Live Runbook.)</p></div></div>
+</div>
+<div class="note"><b>🔒 Lock this admin.</b> This page is set to <code>noindex</code> and isn't linked publicly, but it's not password-protected yet. To truly restrict it, enable <b>Vercel → Project → Settings → Deployment Protection (Password)</b>, or we add real login later. Don't share the <code>/admin/</code> or <code>/pipeline/</code> URLs publicly until then.</div>
+
+<footer class="foot">Sightline Admin · internal · not for public distribution.</footer>
+</div>
+</body></html>
