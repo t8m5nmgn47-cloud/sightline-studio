@@ -8,36 +8,39 @@
 .wrap{max-width:1280px;width:100%;margin:0 auto;padding:0 clamp(18px,4vw,44px)}
 .top{display:flex;align-items:center;justify-content:space-between;padding:20px 0;flex-wrap:wrap;gap:10px}
 .logo{display:flex;gap:10px;align-items:center;font-family:var(--head);font-weight:600;font-size:1.2rem}.dot{width:11px;height:11px;border-radius:50%;background:var(--ac)}
-.hd{padding:clamp(20px,3vw,36px) 0 8px}
+.hd{padding:clamp(18px,3vw,32px) 0 6px}
 .hd h1{font-family:var(--head);font-weight:400;font-size:clamp(1.9rem,1.2rem+2.4vw,3rem);letter-spacing:-.02em;line-height:1.04;max-width:18ch}
 .hd h1 em{font-style:italic;color:var(--ac)}
-.hd p{color:var(--mut);max-width:56ch;margin-top:12px;font-size:1.05rem}
-.layout{display:grid;grid-template-columns:380px 1fr;gap:clamp(20px,3vw,40px);padding:26px 0 70px;align-items:start}
-@media(max-width:920px){.layout{grid-template-columns:1fr}}
-/* config panel */
-.panel{position:sticky;top:18px}
-.panel .ph{font-size:.75rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--mut);margin-bottom:14px}
-.addon{display:flex;gap:13px;align-items:flex-start;width:100%;text-align:left;background:#fff;border:1px solid var(--line);border-radius:13px;padding:15px 16px;margin-bottom:10px;cursor:pointer;transition:border-color .2s,box-shadow .2s,transform .2s;font-family:var(--body)}
+.hd p{color:var(--mut);max-width:58ch;margin-top:12px;font-size:1.05rem}
+.layout{display:grid;grid-template-columns:390px 1fr;gap:clamp(20px,3vw,40px);padding:24px 0 70px;align-items:start}
+@media(max-width:940px){.layout{grid-template-columns:1fr}}
+.panel{position:sticky;top:16px}
+.ph{font-size:.72rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--mut);margin:0 0 12px}
+.presets{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:20px}
+.preset{background:#fff;border:1px solid var(--line);border-radius:999px;padding:8px 14px;font-size:.82rem;font-weight:600;cursor:pointer;font-family:var(--body);transition:.2s}
+.preset:hover{border-color:var(--ac);color:var(--ac)}
+.preset.on{background:var(--ac);color:#fff;border-color:var(--ac)}
+.addon{display:flex;gap:12px;align-items:flex-start;width:100%;background:#fff;border:1px solid var(--line);border-radius:13px;padding:14px 15px;margin-bottom:10px;cursor:pointer;transition:border-color .2s,box-shadow .2s}
 .addon:hover{border-color:#cfc8b8;box-shadow:0 6px 18px rgba(20,18,15,.06)}
 .addon.on{border-color:var(--ac);box-shadow:0 0 0 2px rgba(31,111,92,.16)}
 .addon .ic{flex:none;width:38px;height:38px;border-radius:10px;background:#f0ece2;display:flex;align-items:center;justify-content:center;color:var(--ac);transition:.2s}
-.addon.on .ic{background:var(--ac);color:#fff}
-.addon .ic svg{width:20px;height:20px}
+.addon.on .ic{background:var(--ac);color:#fff}.addon .ic svg{width:20px;height:20px}
 .addon .tx{flex:1;min-width:0}
 .addon .nm{font-weight:600;font-size:.98rem;display:flex;justify-content:space-between;gap:8px;align-items:baseline}
 .addon .pr{color:var(--ac);font-weight:700;font-size:.9rem;white-space:nowrap}
 .addon .bl{color:var(--mut);font-size:.85rem;margin-top:3px;line-height:1.45}
+.addon .det{display:inline-block;margin-top:7px;font-size:.78rem;font-weight:600;color:var(--ac);cursor:pointer;border-bottom:1px solid transparent}
+.addon .det:hover{border-color:var(--ac)}
 .addon .tg{flex:none;align-self:center;width:42px;height:24px;border-radius:999px;background:#ddd6c7;position:relative;transition:background .2s}
-.addon.on .tg{background:var(--ac)}
-.addon .tg::after{content:"";position:absolute;top:3px;left:3px;width:18px;height:18px;border-radius:50%;background:#fff;transition:transform .2s var(--ease)}
-.addon.on .tg::after{transform:translateX(18px)}
-.totalbar{background:var(--ink);color:#fff;border-radius:14px;padding:18px 20px;margin-top:16px;display:flex;justify-content:space-between;align-items:center;gap:12px}
+.addon.on .tg{background:var(--ac)}.addon .tg::after{content:"";position:absolute;top:3px;left:3px;width:18px;height:18px;border-radius:50%;background:#fff;transition:transform .2s var(--ease)}.addon.on .tg::after{transform:translateX(18px)}
+.hbadge{display:none;align-items:center;gap:8px;background:#11271f;color:#dff0e9;border-radius:10px;padding:11px 14px;margin-top:14px;font-size:.85rem;font-weight:600}.hbadge.show{display:flex}
+.hbadge svg{width:16px;height:16px;color:var(--gold)}
+.totalbar{background:var(--ink);color:#fff;border-radius:14px;padding:18px 20px;margin-top:14px;display:flex;justify-content:space-between;align-items:center;gap:12px}
 .totalbar .l{font-size:.82rem;color:rgba(255,255,255,.7)}
 .totalbar .n{font-family:var(--head);font-size:1.9rem;line-height:1}.totalbar .n small{font-size:.9rem;color:rgba(255,255,255,.7);font-family:var(--body)}
 .totalbar button{background:var(--gold);color:#241c08;border:none;border-radius:10px;padding:11px 16px;font-weight:700;font-size:.9rem;cursor:pointer;font-family:var(--body)}
 .reset{display:block;margin:12px auto 0;background:none;border:none;color:var(--mut);font-size:.82rem;cursor:pointer;text-decoration:underline;font-family:var(--body)}
 .samp{font-size:.76rem;color:var(--mut);text-align:center;margin-top:10px}
-/* preview browser */
 .browser{background:#fff;border:1px solid var(--line);border-radius:16px;overflow:hidden;box-shadow:0 30px 70px rgba(20,18,15,.12)}
 .bbar{background:#efeae0;padding:11px 14px;display:flex;align-items:center;gap:12px;border-bottom:1px solid var(--line)}
 .dots{display:flex;gap:6px}.dots i{width:11px;height:11px;border-radius:50%;background:#cfc7b6;display:block}
@@ -45,12 +48,11 @@
 .site{position:relative;background:#fbfaf7}
 .snav{display:flex;align-items:center;justify-content:space-between;padding:16px 24px;border-bottom:1px solid var(--line)}
 .snav b{font-family:var(--head);font-weight:600;font-size:1.1rem}.snav span{color:var(--mut);font-size:.85rem}
-.shero{background:linear-gradient(135deg,var(--ac),var(--acd) 70%,#0f3a2e);color:#fff;padding:clamp(34px,5vw,60px) 24px;position:relative;overflow:hidden}
+.shero{background:linear-gradient(135deg,var(--ac),var(--acd) 70%,#0f3a2e);color:#fff;padding:clamp(34px,5vw,58px) 24px;position:relative;overflow:hidden}
 .shero::after{content:"";position:absolute;right:-60px;top:-60px;width:260px;height:260px;border-radius:50%;background:rgba(255,255,255,.06)}
 .shero .kick{font-size:.7rem;letter-spacing:.22em;font-weight:600;opacity:.85}
 .shero h3{font-family:var(--head);font-weight:400;font-size:clamp(1.8rem,1rem+2.6vw,2.8rem);margin:10px 0 8px;line-height:1.04}
-.shero p{opacity:.9;max-width:42ch;font-size:1rem}
-.shero .sbtn{display:inline-block;margin-top:18px;background:#fff;color:var(--acd);font-weight:600;font-size:.9rem;padding:11px 20px;border-radius:8px}
+.shero p{opacity:.9;max-width:42ch;font-size:1rem}.shero .sbtn{display:inline-block;margin-top:18px;background:#fff;color:var(--acd);font-weight:600;font-size:.9rem;padding:11px 20px;border-radius:8px}
 .modules{padding:20px 24px;display:flex;flex-direction:column;gap:16px;min-height:40px}
 .empty-hint{color:var(--mut);font-size:.9rem;text-align:center;padding:26px;border:1.5px dashed var(--line);border-radius:12px}
 .mod{opacity:0;transform:translateY(16px);transition:opacity .45s var(--ease),transform .45s var(--ease);border:1px solid var(--line);border-radius:13px;padding:18px 20px;background:#fff}
@@ -62,8 +64,7 @@
 .cal span.av{background:#e6f1ed;color:var(--acd);font-weight:600}.cal span.sel{background:var(--ac);color:#fff}
 .times{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}.times b{background:#e6f1ed;color:var(--acd);border-radius:7px;padding:7px 12px;font-size:.82rem;font-weight:600}
 .prods{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px}
-.prod{border:1px solid var(--line);border-radius:10px;overflow:hidden}
-.prod .pim{height:74px;background:linear-gradient(135deg,#dfe7e3,#cdd8d2)}
+.prod{border:1px solid var(--line);border-radius:10px;overflow:hidden}.prod .pim{height:74px;background:linear-gradient(135deg,#dfe7e3,#cdd8d2)}
 .prod .pin{padding:9px 11px}.prod .pn{font-size:.84rem;font-weight:600}.prod .pp{color:var(--ac);font-weight:700;font-size:.86rem;margin-top:2px}.prod .stk{font-size:.72rem;color:#1f7a4d;margin-top:3px}
 .ship{display:flex;align-items:center;justify-content:space-between;gap:12px;background:#f4f1ea;border-radius:10px;padding:12px 14px;font-size:.88rem}
 .ship .carr{display:flex;gap:6px}.ship .carr b{background:#fff;border:1px solid var(--line);border-radius:6px;padding:4px 9px;font-size:.74rem;font-weight:700}
@@ -73,23 +74,40 @@
 .secbar{display:flex;flex-wrap:wrap;gap:10px}.secchip{display:flex;align-items:center;gap:7px;background:#11271f;color:#dff0e9;border-radius:8px;padding:9px 13px;font-size:.8rem;font-weight:600}.secchip svg{width:15px;height:15px;color:var(--gold)}
 .gal{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.gal i{aspect-ratio:4/3;border-radius:8px;background:linear-gradient(135deg,#dfe7e3,#c4d2cb);display:block}
 .sfoot{padding:16px 24px;border-top:1px solid var(--line);color:var(--mut);font-size:.78rem}
-/* preview chat */
 .pchat{position:absolute;right:16px;bottom:16px;display:flex;flex-direction:column;align-items:flex-end;gap:10px;opacity:0;transform:translateY(14px) scale(.96);transition:.4s var(--ease);pointer-events:none}
 .pchat.in{opacity:1;transform:none}
 .pchat .panel2{width:230px;background:#fff;border:1px solid var(--line);border-radius:14px;box-shadow:0 16px 40px rgba(0,0,0,.18);overflow:hidden}
-.pchat .ch{background:var(--ac);color:#fff;padding:11px 13px;font-size:.84rem;font-weight:600;display:flex;align-items:center;gap:8px}
-.pchat .ch i{width:8px;height:8px;border-radius:50%;background:#7fe3b0;display:block}
+.pchat .ch{background:var(--ac);color:#fff;padding:11px 13px;font-size:.84rem;font-weight:600;display:flex;align-items:center;gap:8px}.pchat .ch i{width:8px;height:8px;border-radius:50%;background:#7fe3b0;display:block}
 .pchat .cb{padding:12px 13px;font-size:.82rem;color:var(--ink);background:#f6f5f2}
 .pchat .bub{background:var(--ac);color:#fff;width:48px;height:48px;border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 10px 24px rgba(0,0,0,.2)}.pchat .bub svg{width:22px;height:22px}
 .flag{text-align:center;color:var(--mut);font-size:.78rem;padding:14px 0 30px}
+/* modal */
+.modal{position:fixed;inset:0;z-index:200;display:flex;align-items:center;justify-content:center;padding:20px}
+.modal[hidden]{display:none}
+.mback{position:absolute;inset:0;background:rgba(20,18,15,.55)}
+.mbox{position:relative;background:#fff;border-radius:18px;max-width:560px;width:100%;max-height:88vh;overflow:auto;padding:30px;box-shadow:0 40px 90px rgba(0,0,0,.4)}
+.mx{position:absolute;top:12px;right:16px;background:none;border:none;font-size:1.7rem;cursor:pointer;color:var(--mut);line-height:1}
+.mtool{display:inline-flex;align-items:center;gap:7px;background:#eef4f1;color:var(--acd);border-radius:999px;padding:6px 12px;font-size:.8rem;font-weight:600;margin-bottom:13px}.mtool svg{width:15px;height:15px}
+#mbody h3{font-family:var(--head);font-weight:500;font-size:1.55rem;margin-bottom:8px}
+.mdesc{color:var(--ink);font-size:1.02rem;margin-bottom:13px}
+.msetup{color:var(--mut);font-size:.9rem;margin-bottom:12px;display:flex;align-items:center;gap:7px}
+.mhipaa{background:#11271f;color:#dff0e9;border-radius:10px;padding:12px 14px;font-size:.88rem;margin-bottom:16px;line-height:1.5}
+.mprev-l{font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--mut);font-weight:700;margin:8px 0 10px}
+.mprev .mod{opacity:1;transform:none}
+.mprev .pchatprev{border:1px solid var(--line);border-radius:14px;overflow:hidden;max-width:280px}
+.mprev .pchatprev .ch{background:var(--ac);color:#fff;padding:11px 13px;font-size:.85rem;font-weight:600;display:flex;align-items:center;gap:8px}.mprev .pchatprev .ch i{width:8px;height:8px;border-radius:50%;background:#7fe3b0;display:block}
+.mprev .pchatprev .cb{padding:12px 13px;font-size:.84rem;background:#f6f5f2}.mprev .pchatprev .cb .u{background:var(--ac);color:#fff;border-radius:10px;padding:7px 10px;display:inline-block;margin-top:8px;font-size:.8rem}
 </style></head>
 <body>
 <header class="wrap top"><div class="logo"><span class="dot"></span>Sightline</div><span style="color:var(--mut);font-size:.85rem">Build your site</span></header>
-<section class="wrap hd"><h1>Click an add-on. <em>Watch it appear.</em></h1><p>This is how simple it is to grow your Sightline site. Toggle what you need — booking, shipping, a store, reviews, an AI assistant — and see it land on the page instantly. Add more anytime.</p></section>
+<section class="wrap hd"><h1>Click an add-on. <em>Watch it appear.</em></h1><p>Start with a kit for your industry, or switch on exactly what you need — booking, shipping, a store, reviews, an AI assistant. See it land on the page instantly, and tap “Details” to see what powers it.</p></section>
 <section class="wrap layout">
   <aside class="panel">
+    <div class="ph">Start with a kit</div>
+    <div class="presets" id="presets"></div>
     <div class="ph">Add-ons — switch on what you need</div>
     <div id="addons"></div>
+    <div class="hbadge" id="hbadge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M12 3l7 3v5c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6z"/><path d="M9 12l2 2 4-4"/></svg> HIPAA-ready stack — BAA included, PHI kept off the public site</div>
     <div class="totalbar"><div><div class="l">Your plan</div><div class="n" id="total">$99<small>/mo</small></div></div><button>Start with this →</button></div>
     <button class="reset" id="reset">Reset to just the website</button>
     <div class="samp">Illustrative pricing — Sightline base website $99/mo + add-ons.</div>
@@ -100,7 +118,7 @@
       <div class="site">
         <div class="snav"><b>Your Business</b><span>Services · About · Contact</span></div>
         <div class="shero"><div class="kick">LOCAL · TRUSTED</div><h3>Beautifully simple.</h3><p>Your new site — clean, fast, and built to grow. Add what you need, when you need it.</p><span class="sbtn">Get started</span></div>
-        <div class="modules" id="modules"><div class="empty-hint" id="hint">⬅ Toggle an add-on to see it appear here on your site.</div></div>
+        <div class="modules" id="modules"><div class="empty-hint" id="hint">⬅ Pick a kit or toggle an add-on to see it appear here.</div></div>
         <div class="sfoot">© Your Business · Secured &amp; built by Sightline</div>
         <div class="pchat" id="pchat"><div class="panel2"><div class="ch"><i></i> Your Business · online</div><div class="cb">Hi 👋 How can we help you today?</div></div><div class="bub"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.4 8.4 0 0 1-8.5 8.5 8.5 8.5 0 0 1-3.8-.9L3 21l1.9-5.7a8.5 8.5 0 0 1-.9-3.8A8.4 8.4 0 0 1 12.5 3 8.4 8.4 0 0 1 21 11.5z"/></svg></div></div>
       </div>
@@ -108,17 +126,19 @@
     <div class="flag">A live preview — real modules drop in exactly like this on your Sightline site.</div>
   </main>
 </section>
+<div class="modal" id="modal" hidden><div class="mback" id="mback"></div><div class="mbox"><button class="mx" id="mx" aria-label="Close">×</button><div id="mbody"></div></div></div>
 <script>
-const I={booking:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 9h18M8 3v4M16 3v4"/></svg>',store:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l1-5h16l1 5M4 9v10a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1V9M3 9h18"/></svg>',shipping:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7h11v8H3zM14 10h4l3 3v2h-7z"/><circle cx="7" cy="18" r="1.6"/><circle cx="17.5" cy="18" r="1.6"/></svg>',payments:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="6" width="18" height="12" rx="2"/><path d="M3 10h18"/></svg>',reviews:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l2.6 5.3 5.9.9-4.3 4.1 1 5.8L12 16.9 6.8 19.2l1-5.8L3.5 9.2l5.9-.9z"/></svg>',assistant:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.4 8.4 0 0 1-8.5 8.5 8.5 8.5 0 0 1-3.8-.9L3 21l1.9-5.7a8.5 8.5 0 0 1-.9-3.8A8.4 8.4 0 0 1 12.5 3 8.4 8.4 0 0 1 21 11.5z"/></svg>',security:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v5c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6z"/><path d="M9 12l2 2 4-4"/></svg>',gallery:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="8.5" cy="9.5" r="1.5"/><path d="M21 16l-5-5-7 7"/></svg>'};
+const I={booking:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 9h18M8 3v4M16 3v4"/></svg>',store:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l1-5h16l1 5M4 9v10a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1V9M3 9h18"/></svg>',shipping:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7h11v8H3zM14 10h4l3 3v2h-7z"/><circle cx="7" cy="18" r="1.6"/><circle cx="17.5" cy="18" r="1.6"/></svg>',payments:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="6" width="18" height="12" rx="2"/><path d="M3 10h18"/></svg>',reviews:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l2.6 5.3 5.9.9-4.3 4.1 1 5.8L12 16.9 6.8 19.2l1-5.8L3.5 9.2l5.9-.9z"/></svg>',assistant:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.4 8.4 0 0 1-8.5 8.5 8.5 8.5 0 0 1-3.8-.9L3 21l1.9-5.7a8.5 8.5 0 0 1-.9-3.8A8.4 8.4 0 0 1 12.5 3 8.4 8.4 0 0 1 21 11.5z"/></svg>',security:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v5c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6z"/><path d="M9 12l2 2 4-4"/></svg>',gallery:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="8.5" cy="9.5" r="1.5"/><path d="M21 16l-5-5-7 7"/></svg>',intake:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M9 4h6a2 2 0 0 1 2 2v14H7V6a2 2 0 0 1 2-2z"/><path d="M9 9h6M9 13h6M9 17h3"/></svg>'};
 const ADDONS=[
- {id:"booking",name:"Online Booking",price:19,blurb:"Let customers book appointments 24/7."},
- {id:"store",name:"Online Store + Inventory",price:25,blurb:"Sell products with live stock counts."},
- {id:"shipping",name:"Shipping — UPS &amp; USPS",price:15,blurb:"Live rates and printable labels at checkout."},
- {id:"payments",name:"Online Payments",price:10,blurb:"Take cards and deposits right on the site."},
- {id:"reviews",name:"Reviews &amp; Reputation",price:39,blurb:"Collect, display, and monitor your reviews."},
- {id:"assistant",name:"AI Assistant",price:49,blurb:"A 24/7 chat that answers and books."},
- {id:"security",name:"Security &amp; Monitoring",price:29,blurb:"HTTPS, hardening, and uptime watch."},
- {id:"gallery",name:"Photo Gallery",price:9,blurb:"A beautiful gallery of your work."}
+ {id:"booking",name:"Online Booking",price:19,blurb:"Let customers book appointments 24/7.",tool:"Acuity / Square Appointments",setup:"Copy-paste embed · ~10 min",desc:"Customers self-book around the clock, with automatic reminders and no-show protection — synced straight to your calendar.",hipaa:"For dental, medical & med-spa we use a BAA-signed tool (NexHealth, Jane, or Acuity Premium). We never use plain Calendly for health — it bans patient data."},
+ {id:"store",name:"Online Store + Inventory",price:25,blurb:"Sell products with live stock counts.",tool:"Ecwid by Lightspeed",setup:"One snippet · visual product admin",desc:"A full, browsable storefront with live inventory, low-stock alerts and variants — no platform transaction fees."},
+ {id:"shipping",name:"Shipping — UPS &amp; USPS",price:15,blurb:"Live rates and printable labels at checkout.",tool:"Shippo (UPS · USPS · FedEx)",setup:"Connect in minutes · auto carrier discounts",desc:"Real-time carrier rates at checkout and one-click printable labels — UPS/USPS discounts applied automatically, no painful account setup."},
+ {id:"payments",name:"Online Payments",price:10,blurb:"Take cards and deposits on the site.",tool:"Stripe (Payment Links)",setup:"No-code buy button",desc:"Accept cards, Apple Pay and deposits right on the page. Flat 2.9% + 30¢, no monthly fee. Add a PayPal button too for extra trust.",hipaa:"For health, we keep clinical detail off the charge or process inside the practice's system — so payments stay compliant."},
+ {id:"reviews",name:"Reviews &amp; Reputation",price:39,blurb:"Collect, display, and monitor reviews.",tool:"Elfsight + Sightline monitoring",setup:"Drop-in widget",desc:"Show your best Google reviews live, gather new ones automatically, and get alerted to suspicious or fake-attack reviews so you can dispute them."},
+ {id:"assistant",name:"AI Assistant",price:49,blurb:"A 24/7 chat that answers and books.",tool:"GPT-5-mini / Gemini (premium: Claude Haiku)",setup:"We build &amp; connect it",desc:"A 24/7 assistant trained on your real info — hours, services, FAQs — that answers instantly and books appointments while you sleep.",hipaa:"On health sites it stays strictly non-PHI (hours, directions, callbacks) and hands off to secure messaging for anything medical."},
+ {id:"security",name:"Security &amp; Monitoring",price:29,blurb:"HTTPS, hardening, and uptime watch.",tool:"Cloudflare + Sightline monitoring",setup:"Included &amp; managed",desc:"HTTPS everywhere, a web-application firewall, DDoS protection, and round-the-clock uptime monitoring — the trust layer most local sites miss."},
+ {id:"gallery",name:"Photo Gallery",price:9,blurb:"A beautiful gallery of your work.",tool:"Built-in",setup:"Included",desc:"A fast, elegant, swipeable gallery to show off your work, space or menu."},
+ {id:"intake",name:"Patient Intake Forms",price:20,blurb:"Secure new-patient forms before the visit.",tool:"IntakeQ (HIPAA · BAA)",setup:"Secure link · ~15 min",desc:"Collect new-patient paperwork securely before the appointment — encrypted, HIPAA-compliant, and never a plain web form.",hipaa:"Always BAA-backed and encrypted. Intake links are sent securely, ideally after booking — PHI never sits on the public site."}
 ];
 const MOD={
  booking:'<div class="mod" data-m="booking"><h4>Book an appointment</h4><div class="ms">Pick a day and time — confirmed instantly.</div><div class="cal"><span>M</span><span>T</span><span>W</span><span>T</span><span>F</span><span>S</span><span>S</span><span>9</span><span class="av">10</span><span class="sel">11</span><span class="av">12</span><span>13</span><span class="av">14</span><span>15</span></div><div class="times"><b>10:00</b><b>11:30</b><b>1:00</b><b>3:30</b></div></div>',
@@ -126,28 +146,43 @@ const MOD={
  shipping:'<div class="mod" data-m="shipping"><h4>Fast, calculated shipping</h4><div class="ms">Real carrier rates and printable labels.</div><div class="ship"><span>Ship to 80130 — <b>$7.20</b>, arrives Tue</span><span class="carr"><b>UPS</b><b>USPS</b><b>FedEx</b></span></div></div>',
  payments:'<div class="mod" data-m="payments"><h4>Pay online</h4><div class="ms">Cards, Apple Pay, and deposits.</div><div class="pay"><div class="payrow"><span class="payf">Card number</span><span class="payf" style="max-width:90px">MM / YY</span></div><div class="paybtn">Pay $48.00</div></div></div>',
  reviews:'<div class="mod" data-m="reviews"><h4>What customers say</h4><div class="ms">Pulled live from Google — 4.9★ from 200+ reviews.</div><div class="revs"><div class="rev"><div class="st">★★★★★</div><p>“Easiest booking I’ve ever used. Highly recommend.”</p><cite>— Jamie R.</cite></div><div class="rev"><div class="st">★★★★★</div><p>“Fast, friendly, and the new site is gorgeous.”</p><cite>— Pat M.</cite></div></div></div>',
- security:'<div class="mod" data-m="security"><h4>Secured by Sightline</h4><div class="ms">The trust signals customers (and Google) look for.</div><div class="secbar"><span class="secchip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>HTTPS everywhere</span><span class="secchip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M12 3l7 3v5c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6z"/></svg>Hardened &amp; monitored</span><span class="secchip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M3 12h4l3 7 4-14 3 7h4"/></svg>99.9% uptime</span></div></div>',
- gallery:'<div class="mod" data-m="gallery"><h4>Our work</h4><div class="ms">A clean, swipeable gallery.</div><div class="gal"><i></i><i></i><i></i><i></i><i></i><i></i></div></div>'
+ security:'<div class="mod" data-m="security"><h4>Secured by Sightline</h4><div class="ms">The trust signals customers (and Google) look for.</div><div class="secbar"><span class="secchip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>HTTPS everywhere</span><span class="secchip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M12 3l7 3v5c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6z"/></svg>Firewall &amp; monitored</span><span class="secchip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M3 12h4l3 7 4-14 3 7h4"/></svg>99.9% uptime</span></div></div>',
+ gallery:'<div class="mod" data-m="gallery"><h4>Our work</h4><div class="ms">A clean, swipeable gallery.</div><div class="gal"><i></i><i></i><i></i><i></i><i></i><i></i></div></div>',
+ intake:'<div class="mod" data-m="intake"><h4>New patient intake</h4><div class="ms">Secure &amp; HIPAA-compliant — completed before the visit.</div><div class="pay"><div class="payf">Full name</div><div class="payf">Reason for visit</div><div class="paybtn" style="background:#11271f">🔒 Submit securely · IntakeQ</div></div></div>'
 };
-const BASE=99, state=new Set();
-const host=document.getElementById("addons"), mods=document.getElementById("modules"), hint=document.getElementById("hint"), pchat=document.getElementById("pchat"), total=document.getElementById("total");
-ADDONS.forEach(a=>{const b=document.createElement("button");b.className="addon";b.dataset.id=a.id;
- b.innerHTML='<span class="ic">'+I[a.id]+'</span><span class="tx"><span class="nm">'+a.name+'<span class="pr">+$'+a.price+'</span></span><span class="bl">'+a.blurb+'</span></span><span class="tg"></span>';
- b.onclick=()=>toggle(a.id);host.appendChild(b);});
-function order(){return ADDONS.map(a=>a.id).filter(id=>state.has(id));}
-function toggle(id){const a=ADDONS.find(x=>x.id===id);const btn=host.querySelector('[data-id="'+id+'"]');
- if(state.has(id)){state.delete(id);btn.classList.remove("on");
-   if(id==="assistant"){pchat.classList.remove("in");}
-   else{const el=mods.querySelector('[data-m="'+id+'"]');if(el){el.classList.remove("in");setTimeout(()=>el.remove(),420);}}
- }else{state.add(id);btn.classList.add("on");
-   if(id==="assistant"){pchat.classList.add("in");}
-   else{mods.insertAdjacentHTML("beforeend",MOD[id]);const el=mods.querySelector('[data-m="'+id+'"]:last-child')||mods.querySelector('[data-m="'+id+'"]');requestAnimationFrame(()=>requestAnimationFrame(()=>el.classList.add("in")));reorder();}
- }
- update();}
-function reorder(){order().filter(id=>id!=="assistant").forEach(id=>{const el=mods.querySelector('[data-m="'+id+'"]');if(el)mods.appendChild(el);});}
+const PREVIEW=Object.assign({},MOD,{assistant:'<div class="pchatprev"><div class="ch"><i></i> Your Business · online</div><div class="cb">Hi 👋 How can we help today?<br><span class="u">Book an appointment</span></div></div>'});
+const PRESETS=[
+ {key:"medspa",label:"Med Spa",ids:["booking","reviews","payments","assistant","security","gallery"],hipaa:true},
+ {key:"dental",label:"Dental / Medical",ids:["booking","intake","reviews","security","assistant"],hipaa:true},
+ {key:"law",label:"Law / Pro",ids:["booking","payments","reviews","security","assistant"]},
+ {key:"restaurant",label:"Restaurant",ids:["booking","reviews","gallery","payments"]},
+ {key:"retail",label:"Retail / Shop",ids:["store","shipping","payments","reviews","security"]},
+ {key:"home",label:"Home Services",ids:["booking","payments","reviews","security","gallery"]}
+];
+const BASE=99, state=new Set(); let activePreset=null;
+const host=document.getElementById("addons"),presetHost=document.getElementById("presets"),mods=document.getElementById("modules"),hint=document.getElementById("hint"),pchat=document.getElementById("pchat"),total=document.getElementById("total"),hbadge=document.getElementById("hbadge"),modal=document.getElementById("modal"),mbody=document.getElementById("mbody");
+PRESETS.forEach(p=>{const b=document.createElement("button");b.className="preset";b.dataset.p=p.key;b.textContent=p.label;b.onclick=()=>applyPreset(p);presetHost.appendChild(b);});
+ADDONS.forEach(a=>{const d=document.createElement("div");d.className="addon";d.dataset.id=a.id;
+ d.innerHTML='<span class="ic">'+I[a.id]+'</span><span class="tx"><span class="nm">'+a.name+'<span class="pr">+$'+a.price+'</span></span><span class="bl">'+a.blurb+'</span><span class="det" data-info="'+a.id+'">Details ›</span></span><span class="tg"></span>';
+ d.onclick=e=>{if(e.target.classList.contains("det"))return;toggle(a.id);activePreset=null;syncPresetBtns();};
+ d.querySelector(".det").onclick=e=>{e.stopPropagation();openModal(a.id);};
+ host.appendChild(d);});
+function setOn(id,on){const a=ADDONS.find(x=>x.id===id);const btn=host.querySelector('[data-id="'+id+'"]');
+ if(on&&!state.has(id)){state.add(id);btn.classList.add("on");if(id==="assistant")pchat.classList.add("in");else{mods.insertAdjacentHTML("beforeend",MOD[id]);const el=[...mods.querySelectorAll('[data-m="'+id+'"]')].pop();requestAnimationFrame(()=>requestAnimationFrame(()=>el.classList.add("in")));}}
+ else if(!on&&state.has(id)){state.delete(id);btn.classList.remove("on");if(id==="assistant")pchat.classList.remove("in");else{const el=mods.querySelector('[data-m="'+id+'"]');if(el){el.classList.remove("in");setTimeout(()=>el.remove(),420);}}}}
+function toggle(id){setOn(id,!state.has(id));reorder();update();}
+function applyPreset(p){[...state].forEach(id=>setOn(id,false));p.ids.forEach(id=>setOn(id,true));activePreset=p;syncPresetBtns();reorder();update();}
+function syncPresetBtns(){document.querySelectorAll(".preset").forEach(b=>b.classList.toggle("on",activePreset&&b.dataset.p===activePreset.key));}
+function reorder(){ADDONS.map(a=>a.id).filter(id=>state.has(id)&&id!=="assistant").forEach(id=>{const el=mods.querySelector('[data-m="'+id+'"]');if(el)mods.appendChild(el);});}
 function update(){let sum=BASE;state.forEach(id=>sum+=ADDONS.find(x=>x.id===id).price);total.innerHTML='$'+sum+'<small>/mo</small>';
- const hasMods=[...state].some(id=>id!=="assistant");hint.style.display=hasMods?"none":"block";}
-document.getElementById("reset").onclick=()=>{[...state].forEach(id=>toggle(id));};
+ const hasMods=[...state].some(id=>id!=="assistant");hint.style.display=hasMods?"none":"block";
+ const hip=(activePreset&&activePreset.hipaa)||state.has("intake");hbadge.classList.toggle("show",hip);}
+function openModal(id){const a=ADDONS.find(x=>x.id===id);
+ mbody.innerHTML='<div class="mtool">'+I[id]+' Powered by '+a.tool+'</div><h3>'+a.name+'</h3><p class="mdesc">'+a.desc+'</p><div class="msetup">⚡ '+a.setup+' · +$'+a.price+'/mo</div>'+(a.hipaa?'<div class="mhipaa"><b>🔒 Health practices:</b> '+a.hipaa+'</div>':'')+'<div class="mprev-l">What it looks like on your site</div><div class="mprev">'+(PREVIEW[id]||'')+'</div>';
+ modal.hidden=false;}
+document.getElementById("mx").onclick=()=>modal.hidden=true;
+document.getElementById("mback").onclick=()=>modal.hidden=true;
+document.getElementById("reset").onclick=()=>{[...state].forEach(id=>setOn(id,false));activePreset=null;syncPresetBtns();update();};
 update();
 </script>
 </body></html>
