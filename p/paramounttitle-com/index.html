@@ -62,8 +62,8 @@ a{color:inherit}.wrap{width:100%;max-width:680px;margin:0 auto;padding:0 20px}
 
 <section class="wrap sec" data-qc-section="demo">
   <h2>Your new site</h2>
-  <div class="lead">Built in your real brand — three designs to choose from, with live online booking, an AI chat assistant, and bank-grade security already included.</div>
-  <div class="swrow"><span class="swl">Choose a look:</span><button class="swb on" data-src="../../paramounttitle-com/" data-label="Clean Minimal" onclick="pickStyle(this)">Clean Minimal</button><button class="swb" data-src="../../paramounttitle-com--editorial/" data-label="Editorial Luxe" onclick="pickStyle(this)">Editorial Luxe</button><button class="swb" data-src="../../paramounttitle-com--warm/" data-label="Warm Local" onclick="pickStyle(this)">Warm Local</button></div>
+  <div class="lead">Built in your real brand — 4 distinct designs to choose from, with live online booking, an AI chat assistant, and bank-grade security already included.</div>
+  <div class="swrow"><span class="swl">Choose a look:</span><button class="swb on" data-src="../../paramounttitle-com/" data-label="Clean Minimal" onclick="pickStyle(this)">Clean Minimal</button><button class="swb" data-src="../../paramounttitle-com--editorial/" data-label="Editorial Luxe" onclick="pickStyle(this)">Editorial Luxe</button><button class="swb" data-src="../../paramounttitle-com--commerce/" data-label="Bold Commerce" onclick="pickStyle(this)">Bold Commerce</button><button class="swb" data-src="../../paramounttitle-com--warm/" data-label="Warm Local" onclick="pickStyle(this)">Warm Local</button></div>
   <div class="frame"><div class="fbar"><i></i><i></i><i></i><span class="u">paramounttitle.com</span></div><iframe id="demoframe" class="demoframe" src="../../paramounttitle-com/" loading="lazy" title="Paramount Title Agency demo"></iframe></div>
   <a class="openlink" id="openlink" href="../../paramounttitle-com/" target="_blank" rel="noopener">Open the full live demo ↗</a>
   <div class="built"><span id="stylelabel">✦ Clean Minimal design</span><span>💬 AI chat assistant</span><span>🔒 Security built in</span><span>📱 Mobile-first</span></div>
@@ -105,5 +105,9 @@ a{color:inherit}.wrap{width:100%;max-width:680px;margin:0 auto;padding:0 20px}
   <div class="rea">First month free · 30-day money-back · we don't stop until you're happy.</div>
 </section>
 <footer class="wrap foot">Prepared for Paramount Title Agency by <b>Sightline</b> · the security + website studio for Greenwood Village businesses.</footer>
-<script>function pickStyle(b){var s=b.getAttribute('data-src'),l=b.getAttribute('data-label');var f=document.getElementById('demoframe');if(f)f.src=s;var o=document.getElementById('openlink');if(o)o.href=s;var sl=document.getElementById('stylelabel');if(sl)sl.textContent='✦ '+l+' design';b.parentNode.querySelectorAll('.swb').forEach(function(x){x.classList.remove('on')});b.classList.add('on');}</script>
+<script>function pickStyle(b){var s=b.getAttribute('data-src'),l=b.getAttribute('data-label');var f=document.getElementById('demoframe');
+// Use location.replace on the iframe (same-origin) so switching styles does NOT push browser-history entries —
+// otherwise the browser Back button steps backward through style changes ("back overwrites the demo") instead of leaving the page.
+if(f){try{f.contentWindow.location.replace(s);}catch(e){f.src=s;}}
+var o=document.getElementById('openlink');if(o)o.href=s;var sl=document.getElementById('stylelabel');if(sl)sl.textContent='✦ '+l+' design';b.parentNode.querySelectorAll('.swb').forEach(function(x){x.classList.remove('on')});b.classList.add('on');}</script>
 </body></html>
