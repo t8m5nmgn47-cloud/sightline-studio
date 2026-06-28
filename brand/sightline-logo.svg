@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 560 140" width="560" height="140">
+<style>@import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600&family=Inter:wght@600&display=swap');</style>
+<g fill="none" stroke="#1f6f5c" stroke-width="6" stroke-linecap="round">
+ <circle cx="70" cy="70" r="46"/>
+ <circle cx="70" cy="70" r="24"/>
+ <line x1="70" y1="6" x2="70" y2="30"/>
+ <line x1="70" y1="110" x2="70" y2="134"/>
+ <line x1="6" y1="70" x2="30" y2="70"/>
+ <line x1="110" y1="70" x2="134" y2="70"/>
+</g>
+<circle cx="70" cy="70" r="7.5" fill="#1f6f5c"/>
+<text x="156" y="80" font-family="'Fraunces',Georgia,serif" font-weight="600" font-size="62" fill="#16140f">Sightline</text>
+<text x="159" y="108" font-family="'Inter',sans-serif" font-weight="600" font-size="14.5" letter-spacing="5.5" fill="#6b6660">SECURITY · WEBSITES</text>
+</svg>
