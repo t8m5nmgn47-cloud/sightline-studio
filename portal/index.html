@@ -12,6 +12,7 @@ header{display:flex;align-items:center;gap:12px;padding:14px 20px;background:var
 .mark{width:34px;height:34px;border-radius:9px;background:var(--brand);color:#fff;display:grid;place-items:center;font-weight:800;letter-spacing:-.02em}
 .bh{font-weight:700}.bh small{display:block;font-weight:600;color:var(--mut);font-size:.72rem;letter-spacing:.06em;text-transform:uppercase}
 .sec-badge{margin-left:auto;display:inline-flex;align-items:center;gap:7px;font-size:.78rem;color:var(--ok);background:#eaf7ef;border:1px solid #cdeeda;border-radius:999px;padding:5px 11px;font-weight:700}
+.lk{width:15px;height:15px;display:inline-block;vertical-align:-2px}
 .demo-pill{margin-left:8px;font-size:.7rem;font-weight:800;letter-spacing:.05em;color:#9a6b00;background:#fff5e0;border:1px solid #f3dca0;border-radius:999px;padding:5px 9px}
 main{flex:1;display:grid;grid-template-columns:300px 1fr;gap:0}
 @media(max-width:760px){main{grid-template-columns:1fr}.threads{display:none}}
@@ -58,7 +59,7 @@ main{flex:1;display:grid;grid-template-columns:300px 1fr;gap:0}
   <header>
     <div class="mark" id="mark">S</div>
     <div class="bh" id="firmName">Secure Client Portal<small>Attorney–client · confidential</small></div>
-    <span class="sec-badge">🔒 Encrypted · TLS + at rest</span>
+    <span class="sec-badge"><svg class="lk" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg> Encrypted · TLS + at rest</span>
     <span class="demo-pill" id="demoPill" style="display:none">DEMO</span>
   </header>
   <div id="app"><div class="empty">Loading…</div></div>
@@ -85,6 +86,7 @@ function toast(m){toastEl.textContent=m;toastEl.classList.add("show");setTimeout
 function initials(n){return (n||"S").split(/\s+/).filter(Boolean).slice(0,2).map(w=>w[0]).join("").toUpperCase()||"S";}
 function esc(s){return (s||"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));}
 function fmt(ts){const d=new Date(ts);return d.toLocaleString([], {month:"short",day:"numeric",hour:"numeric",minute:"2-digit"});}
+const LOCK='<svg class="lk" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>';
 
 if(FIRM_SLUG){ $("#firmName").innerHTML=esc(FIRM_NAME)+"<small>Attorney–client · confidential</small>"; $("#mark").textContent=initials(FIRM_NAME); }
 
@@ -122,7 +124,7 @@ function renderDemo(){
           <div class="t">${esc(th.t)}</div><div class="p">${esc(th.s)}</div></div>`).join("")}
       </aside>
       <section class="panel">
-        <div class="threadhead"><div class="t">${esc(cur.t)}</div><div class="s">${esc(cur.s)} · 🔒 encrypted</div></div>
+        <div class="threadhead"><div class="t">${esc(cur.t)}</div><div class="s">${esc(cur.s)} · ${LOCK} encrypted</div></div>
         <div class="msgs" id="msgs">
           ${cur.msgs.map(m=>`<div class="msg ${m.me?'me':''}"><div class="who">${esc(m.who)}</div>${esc(m.body)}<div class="ts">${fmt(m.ts)}</div></div>`).join("")}
         </div>
@@ -160,7 +162,7 @@ async function renderReal(){
 }
 function loginScreen(sb){
   app.innerHTML=`<div class="login">
-    <div class="lock">🔒</div>
+    <div class="lock"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg></div>
     <h1>${esc(FIRM_NAME)} — client portal</h1>
     <p>Sign in to your secure, encrypted conversation. We'll email you a one-time login link.</p>
     <form id="lf"><input type="email" id="le" placeholder="you@email.com" required>
@@ -190,7 +192,7 @@ async function portalScreen(sb,user){
         <div style="padding:12px 10px"><a id="lo" style="font-size:.82rem;cursor:pointer">Sign out</a></div>
       </aside>
       <section class="panel">
-        <div class="threadhead"><div class="t">${esc(cur.subject)}</div><div class="s">🔒 encrypted · confidential</div></div>
+        <div class="threadhead"><div class="t">${esc(cur.subject)}</div><div class="s">${LOCK} encrypted · confidential</div></div>
         <div class="msgs" id="msgs">${(msgs||[]).map(m=>`<div class="msg ${m.sender_user_id===user.id?'me':''}"><div class="who">${m.sender_user_id===user.id?'You':esc(firm?firm.name:'Firm')}</div>${esc(m.body)}<div class="ts">${fmt(m.created_at)}</div></div>`).join("")||'<div class="empty">No messages yet.</div>'}</div>
         <div class="docs"><h4>Secure document vault</h4>
           ${(docs||[]).map(d=>`<div class="doc"><div class="ic">${(d.filename.split('.').pop()||'').toUpperCase().slice(0,3)}</div><div><div class="nm">${esc(d.filename)}</div><div class="mt">${d.size_bytes?Math.max(1,Math.round(d.size_bytes/1024))+' KB':''}</div></div><span class="dl" data-path="${esc(d.storage_path)}">Download</span></div>`).join("")||'<div class="mt" style="color:var(--mut)">No documents yet.</div>'}
