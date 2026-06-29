@@ -2,16 +2,24 @@
 <title>Sightline · Admin</title>
 <meta name="robots" content="noindex,nofollow">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
-:root{--ink:#16140f;--mut:#6b6660;--line:#e7e2d8;--bg:#f4f1ea;--ac:#1f6f5c;--gold:#c2a04a;--head:'Fraunces',Georgia,serif;--body:'Inter',system-ui,sans-serif}
+:root{--ink:#16140f;--mut:#6b6660;--line:#e7e2d8;--bg:#f4f1ea;--ac:#1f6f5c;--gold:#c2a04a;--head:'Fraunces',Georgia,serif;--body:'Inter',system-ui,sans-serif;--num:"Helvetica Neue",Helvetica,Arial,sans-serif}
 *{box-sizing:border-box;margin:0}body{background:var(--bg);color:var(--ink);font-family:var(--body);-webkit-font-smoothing:antialiased}
+h1,h2,h3,h4{font-variant-ligatures:none}
 .wrap{max-width:1100px;margin:0 auto;padding:0 clamp(18px,4vw,40px)}
 .top{display:flex;align-items:center;justify-content:space-between;padding:16px 0;border-bottom:1px solid var(--line)}
 .lg{display:flex;gap:10px;align-items:center;font-family:var(--head);font-weight:600;font-size:1.2rem}.dot{width:11px;height:11px;border-radius:50%;background:var(--ac)}
 .top a{color:var(--mut);text-decoration:none;font-size:.85rem}
-.hd{padding:34px 0 6px}.hd h1{font-family:var(--head);font-weight:400;font-size:clamp(2rem,1.4rem+2vw,2.9rem);letter-spacing:-.02em}.hd p{color:var(--mut);margin-top:8px;font-size:1.05rem}
-.gh{font-size:.74rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--mut);margin:34px 0 14px}
+.hd{padding:30px 0 6px}.hd h1{font-family:var(--head);font-weight:400;font-size:clamp(2rem,1.4rem+2vw,2.9rem);letter-spacing:-.02em}.hd p{color:var(--mut);margin-top:8px;font-size:1.05rem}
+/* KPI strip */
+.kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:24px}@media(max-width:760px){.kpis{grid-template-columns:1fr 1fr}}
+.kpi{background:#fff;border:1px solid var(--line);border-radius:14px;padding:18px}
+.kpi .n{font-family:var(--num);font-weight:800;font-size:2.1rem;letter-spacing:-.02em;line-height:1}
+.kpi .l{color:var(--mut);font-size:.82rem;margin-top:7px;font-weight:500}
+.kpi.accent{background:#11271f;border-color:#11271f}.kpi.accent .n{color:#fff}.kpi.accent .l{color:#9fe3c4}
+.gh{font-size:.74rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--mut);margin:34px 0 14px;display:flex;align-items:center;justify-content:space-between}
+.gh .act{color:var(--ac);cursor:pointer;text-transform:none;letter-spacing:0;font-size:.82rem}
 .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:14px}
 .card{display:block;background:#fff;border:1px solid var(--line);border-radius:14px;padding:20px;text-decoration:none;color:inherit;transition:transform .2s,box-shadow .2s,border-color .2s}
 .card:hover{transform:translateY(-3px);box-shadow:0 14px 34px rgba(20,18,15,.09);border-color:#cfc8b8}
@@ -19,30 +27,82 @@
 .card p{color:var(--mut);font-size:.88rem;line-height:1.5}
 .card .go{margin-top:10px;font-size:.84rem;font-weight:700;color:var(--ac)}
 .card.lead{background:#11271f;border-color:#11271f}.card.lead h3,.card.lead .ic{color:#fff}.card.lead p{color:rgba(255,255,255,.72)}.card.lead .go{color:#9fe3c4}
+/* subscribers */
+.panel{background:#fff;border:1px solid var(--line);border-radius:16px;padding:6px 0 4px;overflow:hidden}
+.subrow{display:grid;grid-template-columns:1.6fr 1.3fr .8fr auto;gap:10px;align-items:center;padding:14px 22px;border-top:1px solid var(--line)}
+.subrow:first-child{border-top:0}
+.subrow .nm{font-weight:600}.subrow .dm{color:var(--mut);font-size:.8rem}
+.subrow .pl{font-size:.86rem}.subrow .mo{color:var(--mut);font-size:.8rem}
+.badge{font-size:.7rem;font-weight:700;letter-spacing:.04em;text-transform:uppercase;padding:3px 9px;border-radius:999px;display:inline-block}
+.badge.active{background:#eaf7ef;color:#1f8d57;border:1px solid #cdeeda}
+.badge.paused{background:#fdf3e3;color:#9a6b00;border:1px solid #f3dca0}
+.badge.canceled{background:#f6eceb;color:#b4453a;border:1px solid #ecc9c5}
+.subact{display:flex;gap:8px;justify-content:flex-end}
+.subact a,.subact button{font-size:.78rem;font-weight:600;color:var(--ac);background:none;border:0;cursor:pointer;text-decoration:none;padding:4px 6px;border-radius:6px}
+.subact button.x{color:#b4453a}
+.empty{padding:30px 22px;color:var(--mut);text-align:center}.empty b{color:var(--ink)}
+.addbar{padding:14px 22px;border-top:1px solid var(--line);background:#fbfaf6}
+.addform{display:none;grid-template-columns:1.4fr 1.3fr 1fr .9fr auto;gap:10px;align-items:end}.addform.show{display:grid}@media(max-width:760px){.addform.show{grid-template-columns:1fr 1fr}}
+.addform label{display:block;font-size:.72rem;font-weight:600;color:var(--mut);margin-bottom:4px}
+.addform input,.addform select{width:100%;padding:9px 10px;border:1px solid var(--line);border-radius:8px;font:inherit;background:#fff}
+.mini{background:var(--ac);color:#fff;border:0;border-radius:8px;padding:9px 14px;font-weight:700;cursor:pointer;font:inherit}
+.mini.ghost{background:#fff;color:var(--ac);border:1px solid var(--line)}
 .steps{background:#fff;border:1px solid var(--line);border-radius:16px;padding:8px 26px 24px}
 .step{display:flex;gap:16px;padding:18px 0;border-top:1px solid var(--line)}.step:first-child{border-top:0}
-.step .n{flex:none;width:30px;height:30px;border-radius:50%;background:var(--ac);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:.9rem;margin-top:2px}
+.step .n{flex:none;width:30px;height:30px;border-radius:50%;background:var(--ac);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:.9rem;margin-top:2px;font-family:var(--num)}
 .step .b{flex:1}.step h4{font-size:1rem;font-weight:600;margin-bottom:3px}.step p{color:var(--mut);font-size:.9rem;line-height:1.5}
 .step code{background:#f4f1ea;border:1px solid var(--line);border-radius:5px;padding:1px 7px;font-size:.84rem;font-family:ui-monospace,monospace}
 .note{background:#fff7e6;border:1px solid #e8d6a8;color:#5a4a1f;border-radius:12px;padding:14px 16px;margin-top:16px;font-size:.88rem;line-height:1.5}.note b{color:#3d3210}
 .foot{color:var(--mut);font-size:.8rem;padding:26px 0 50px}
+.toast{position:fixed;left:50%;bottom:22px;transform:translateX(-50%);background:#161a1d;color:#fff;padding:10px 16px;border-radius:10px;font-size:.86rem;opacity:0;transition:opacity .25s;pointer-events:none;z-index:50}.toast.show{opacity:1}
 </style></head>
 <body>
 <header class="wrap top"><div class="lg"><span class="dot"></span>Sightline · Admin</div><a href="../">View public studio →</a></header>
 <div class="wrap">
-<section class="hd"><h1>Your control center.</h1><p>Everything to run Sightline — sales pipeline, the 30 prospect funnels, and every studio tool — in one place.</p></section>
+<section class="hd"><h1>Your control center.</h1><p>Run Sightline end to end — subscribers &amp; revenue, the sales pipeline, the marketing engine, and every studio tool, in one place.</p></section>
+
+<div class="kpis">
+  <div class="kpi accent"><div class="n" id="kMrr">$0</div><div class="l">Monthly recurring revenue</div></div>
+  <div class="kpi"><div class="n" id="kSubs">0</div><div class="l">Active subscribers</div></div>
+  <div class="kpi"><div class="n">33</div><div class="l">Prospect funnels live</div></div>
+  <div class="kpi"><div class="n" id="kPipe">33</div><div class="l">In pipeline</div></div>
+</div>
+
+<div class="gh">Subscribers — your paying clients <span class="act" onclick="toggleAdd()">＋ Add subscriber</span></div>
+<div class="panel">
+  <div class="addbar" style="display:none" id="addbar">
+    <form class="addform show" id="addform" onsubmit="return addSub(event)">
+      <div><label>Business name</label><input id="fName" required placeholder="The Vaughn Law Offices"></div>
+      <div><label>Domain (optional)</label><input id="fDom" placeholder="vaughn-law.com"></div>
+      <div><label>Plan</label><select id="fPlan" onchange="planChange()">
+        <option value="99.99">$0 down · $99.99/mo</option>
+        <option value="49.99">$299.99 start · $49.99/mo</option>
+        <option value="custom">Custom…</option></select></div>
+      <div><label>$/mo</label><input id="fMo" type="number" step="0.01" value="99.99"></div>
+      <div style="display:flex;gap:8px"><button class="mini" type="submit">Save</button><button class="mini ghost" type="button" onclick="toggleAdd()">Cancel</button></div>
+    </form>
+  </div>
+  <div id="subList"></div>
+</div>
 
 <div class="gh">Sell &amp; track</div>
 <div class="grid">
   <a class="card lead" href="../pipeline/"><div class="ic">📊</div><h3>Pipeline / CRM</h3><p>Every prospect with their funnel link, ready email, and status — contacted → opened → booked → won.</p><div class="go">Open pipeline →</div></a>
-  <a class="card" href="../p/"><div class="ic">🎯</div><h3>Prospect funnels</h3><p>30 personalized landing pages (demo + audit + offer). Copy a link and send it.</p><div class="go">All funnels →</div></a>
-  <a class="card" href="../"><div class="ic">🖼️</div><h3>Concept gallery</h3><p>All 30 demos — 3 design options each — to show on a call.</p><div class="go">Open gallery →</div></a>
+  <a class="card" href="../p/"><div class="ic">🎯</div><h3>Prospect funnels</h3><p>33 personalized landing pages (demo + audit + offer). Copy a link and send it.</p><div class="go">All funnels →</div></a>
+  <a class="card" href="../"><div class="ic">🖼️</div><h3>Concept gallery</h3><p>All demos — 8 design options each — to show on a call.</p><div class="go">Open gallery →</div></a>
   <a class="card" href="../teardowns/"><div class="ic">🔍</div><h3>Competitor teardowns</h3><p>How each prospect ranks vs. their local field on public signals.</p><div class="go">View teardowns →</div></a>
+</div>
+
+<div class="gh">Marketing engine — what the monthly plan delivers</div>
+<div class="grid">
+  <a class="card lead" href="../marketing/"><div class="ic">📈</div><h3>Marketing engine</h3><p>Local SEO + Google Business Profile, review generation, reputation defense, monthly analytics &amp; social — the recurring work that earns the subscription.</p><div class="go">Open marketing engine →</div></a>
+  <a class="card" href="../marketing/"><div class="ic">⭐</div><h3>Review request composer</h3><p>Generate a ready SMS + email review ask with the client's Google link. Send in seconds.</p><div class="go">Open composer →</div></a>
+  <a class="card" href="../teardowns/"><div class="ic">🛡️</div><h3>Reputation defense</h3><p>Fake-review monitoring + one-click disputes — shown live on every prospect funnel.</p><div class="go">See it live →</div></a>
 </div>
 
 <div class="gh">Studio tools (use on a call or to fulfill)</div>
 <div class="grid">
-  <a class="card" href="../builder/"><div class="ic">🧩</div><h3>Build-your-site</h3><p>The add-on configurator — show how easy booking, store, payments, etc. switch on.</p><div class="go">Open builder →</div></a>
+  <a class="card" href="../builder/"><div class="ic">🧩</div><h3>Customize your site</h3><p>The add-on configurator — show a client how easily booking, store, payments &amp; more switch on.</p><div class="go">Open customizer →</div></a>
   <a class="card" href="../logo/"><div class="ic">✦</div><h3>Logo Studio</h3><p>Generate a client's wordmark, monogram &amp; favicon. Free tier.</p><div class="go">Open Logo Studio →</div></a>
   <a class="card" href="../legal/"><div class="ic">⚖️</div><h3>Legal Pages</h3><p>Privacy, terms, cookie &amp; accessibility from a few answers.</p><div class="go">Open generator →</div></a>
   <a class="card" href="../brand/"><div class="ic">🎨</div><h3>Sightline brand</h3><p>Your own logo, palette &amp; type sheet.</p><div class="go">Open brand sheet →</div></a>
@@ -52,12 +112,55 @@
 <div class="gh">Launch a new customer page</div>
 <div class="steps">
   <div class="step"><div class="n">1</div><div class="b"><h4>Add the prospect</h4><p>Add the business (name, domain, city, vertical, rating) to <code>top30.json</code>. The generator pulls brand colors automatically; drop a hero photo at <code>images/custom/&lt;domain&gt;.jpg</code> for a hand-picked look.</p></div></div>
-  <div class="step"><div class="n">2</div><div class="b"><h4>Build &amp; QA</h4><p>Run <code>./release.sh</code> — it regenerates the demo (3 styles), teardown, and funnel, then runs the QA gate. It stops if anything fails.</p></div></div>
+  <div class="step"><div class="n">2</div><div class="b"><h4>Build &amp; QA</h4><p>Run <code>./release.sh</code> — it regenerates the demo (8 styles), teardown, and funnel, then runs the QA gate. It stops if anything fails.</p></div></div>
   <div class="step"><div class="n">3</div><div class="b"><h4>Deploy</h4><p>Run <code>./deploy.sh "added &lt;business&gt;"</code> — it re-checks QA and pushes live. The new funnel appears at <code>/p/&lt;slug&gt;/</code> and in the pipeline. Send the link.</p></div></div>
-  <div class="step"><div class="n">4</div><div class="b"><h4>When they buy → go live on their domain</h4><p>Finalize their content, switch on the add-ons they bought, point <em>their</em> domain at the site, and install the legal pages. (Full steps in the Operations Playbook &amp; Go-Live Runbook.)</p></div></div>
+  <div class="step"><div class="n">4</div><div class="b"><h4>When they buy → add them as a subscriber &amp; go live</h4><p>Add them in <b>Subscribers</b> above, finalize content, switch on the add-ons they bought, point <em>their</em> domain at the site, turn on the secure portal (legal/medical), and install the legal pages. (Full steps in the Operations Playbook &amp; Go-Live Runbook.)</p></div></div>
 </div>
-<div class="note"><b>🔒 Lock this admin.</b> This page is set to <code>noindex</code> and isn't linked publicly, but it's not password-protected yet. To truly restrict it, enable <b>Vercel → Project → Settings → Deployment Protection (Password)</b>, or we add real login later. Don't share the <code>/admin/</code> or <code>/pipeline/</code> URLs publicly until then.</div>
+<div class="note"><b>🔒 Lock this admin.</b> This page is <code>noindex</code> and unlinked, but not password-protected. Subscriber data here is saved <b>only in this browser</b> (localStorage) — it never leaves your device. To truly restrict the page, enable <b>Vercel → Project → Settings → Deployment Protection (Password)</b>. Don't share the <code>/admin/</code>, <code>/pipeline/</code> or <code>/marketing/</code> URLs publicly until then.</div>
 
 <footer class="foot">Sightline Admin · internal · not for public distribution.</footer>
 </div>
+<div class="toast" id="toast"></div>
+<script>
+const KEY='sl_subscribers';
+let subs=[]; try{subs=JSON.parse(localStorage.getItem(KEY)||'[]')}catch(e){subs=[]}
+let editId=null;
+function save(){localStorage.setItem(KEY,JSON.stringify(subs))}
+function money(n){return '$'+(Math.round(n*100)/100).toLocaleString(undefined,{minimumFractionDigits:n%1?2:0,maximumFractionDigits:2})}
+function slug(d){return (d||'').replace(/^https?:\/\//,'').replace(/\/.*$/,'').replace(/\./g,'-')}
+function toast(m){const e=document.getElementById('toast');e.textContent=m;e.classList.add('show');setTimeout(()=>e.classList.remove('show'),1800)}
+function planChange(){const v=document.getElementById('fPlan').value;if(v!=='custom')document.getElementById('fMo').value=v}
+function toggleAdd(){const b=document.getElementById('addbar');const showing=b.style.display!=='none';b.style.display=showing?'none':'block';if(showing){editId=null;document.getElementById('addform').reset();document.getElementById('fMo').value='99.99'}}
+function addSub(e){e.preventDefault();
+  const name=document.getElementById('fName').value.trim();if(!name)return false;
+  const dom=document.getElementById('fDom').value.trim();
+  const mo=parseFloat(document.getElementById('fMo').value)||0;
+  const planSel=document.getElementById('fPlan');const plan=planSel.options[planSel.selectedIndex].text;
+  if(editId){const s=subs.find(x=>x.id===editId);if(s){s.name=name;s.dom=dom;s.mo=mo;s.plan=plan}editId=null}
+  else subs.push({id:Date.now()+''+Math.floor(Math.random()*1e3),name,dom,mo,plan,status:'active'});
+  save();render();toggleAdd();toast('Saved');return false}
+function edit(id){const s=subs.find(x=>x.id===id);if(!s)return;editId=id;
+  document.getElementById('addbar').style.display='block';
+  document.getElementById('fName').value=s.name;document.getElementById('fDom').value=s.dom||'';
+  document.getElementById('fMo').value=s.mo;
+  window.scrollTo({top:document.querySelector('.panel').offsetTop-80,behavior:'smooth'})}
+function cycle(id){const s=subs.find(x=>x.id===id);if(!s)return;const o=['active','paused','canceled'];s.status=o[(o.indexOf(s.status)+1)%3];save();render()}
+function del(id){if(!confirm('Remove this subscriber?'))return;subs=subs.filter(x=>x.id!==id);save();render()}
+function render(){
+  const active=subs.filter(s=>s.status==='active');
+  const mrr=active.reduce((a,s)=>a+(s.mo||0),0);
+  document.getElementById('kMrr').textContent=money(mrr);
+  document.getElementById('kSubs').textContent=active.length;
+  const list=document.getElementById('subList');
+  if(!subs.length){list.innerHTML='<div class="empty">No subscribers yet. When a prospect signs up, <b>＋ Add subscriber</b> to track plan, status &amp; MRR here.</div>';return}
+  list.innerHTML=subs.map(s=>{const sl=slug(s.dom);
+    const portal=s.dom?`<a href="../portal/?firm=${sl}&name=${encodeURIComponent(s.name)}&demo=1" target="_blank" rel="noopener">Portal ↗</a>`:'';
+    return `<div class="subrow"><div><div class="nm">${esc(s.name)}</div>${s.dom?`<div class="dm">${esc(s.dom)}</div>`:''}</div>
+    <div><div class="pl">${esc(s.plan||'')}</div><div class="mo">${money(s.mo||0)}/mo</div></div>
+    <div><span class="badge ${s.status}" onclick="cycle('${s.id}')" style="cursor:pointer" title="click to change">${s.status}</span></div>
+    <div class="subact">${portal}<button onclick="edit('${s.id}')">Edit</button><button class="x" onclick="del('${s.id}')">✕</button></div></div>`}).join('')
+}
+function esc(s){return (s||'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]))}
+render();
+</script>
 </body></html>

@@ -1,0 +1,86 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Sightline · Marketing engine</title>
+<meta name="robots" content="noindex,nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,400&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#16140f;--mut:#6b6660;--line:#e7e2d8;--bg:#f4f1ea;--ac:#1f6f5c;--gold:#c2a04a;--head:'Fraunces',Georgia,serif;--body:'Inter',system-ui,sans-serif}
+*{box-sizing:border-box;margin:0}body{background:var(--bg);color:var(--ink);font-family:var(--body);-webkit-font-smoothing:antialiased}
+h1,h2,h3{font-variant-ligatures:none}
+.wrap{max-width:1100px;margin:0 auto;padding:0 clamp(18px,4vw,40px)}
+.top{display:flex;align-items:center;justify-content:space-between;padding:16px 0;border-bottom:1px solid var(--line)}
+.lg{display:flex;gap:10px;align-items:center;font-family:var(--head);font-weight:600;font-size:1.2rem}.dot{width:11px;height:11px;border-radius:50%;background:var(--ac)}
+.top a{color:var(--ac);text-decoration:none;font-size:.85rem;font-weight:600}
+.hd{padding:34px 0 6px}.hd h1{font-family:var(--head);font-weight:400;font-size:clamp(2rem,1.4rem+2vw,2.9rem);letter-spacing:-.02em}.hd p{color:var(--mut);margin-top:8px;font-size:1.05rem;max-width:65ch}
+.gh{font-size:.74rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--mut);margin:34px 0 14px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px}
+.card{background:#fff;border:1px solid var(--line);border-radius:14px;padding:20px}
+.card .ic{font-size:1.4rem}.card h3{font-family:var(--head);font-weight:600;font-size:1.16rem;margin:10px 0 4px}
+.card p{color:var(--mut);font-size:.9rem;line-height:1.55}
+.tag{display:inline-block;font-size:.68rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:3px 9px;border-radius:999px;margin-top:12px}
+.tag.live{background:#eaf7ef;color:#1f8d57;border:1px solid #cdeeda}
+.tag.managed{background:#eef2fb;color:#3a5bbf;border:1px solid #d4ddf5}
+.tag.soon{background:#fdf3e3;color:#9a6b00;border:1px solid #f3dca0}
+.tool{background:#fff;border:1px solid var(--line);border-radius:16px;padding:24px;margin-top:8px}
+.tool h2{font-family:var(--head);font-weight:600;font-size:1.4rem;margin-bottom:4px}
+.tool .sub{color:var(--mut);font-size:.92rem;margin-bottom:16px}
+.fld{display:block;margin-bottom:12px}.fld label{display:block;font-size:.8rem;font-weight:600;margin-bottom:5px}
+.fld input{width:100%;padding:11px 13px;border:1px solid var(--line);border-radius:9px;font:inherit;background:#fcfbf8}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:12px}@media(max-width:560px){.row2{grid-template-columns:1fr}}
+.btn{background:var(--ac);color:#fff;border:0;border-radius:9px;padding:11px 18px;font-weight:700;cursor:pointer;font:inherit}
+.out{margin-top:16px;display:none}.out.show{display:block}
+.msg{background:#f4f1ea;border:1px solid var(--line);border-radius:10px;padding:13px 15px;font-size:.9rem;line-height:1.5;margin-bottom:10px;position:relative}
+.msg .lbl{font-size:.68rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--mut);display:block;margin-bottom:5px}
+.copy{position:absolute;top:10px;right:10px;font-size:.72rem;font-weight:700;color:var(--ac);background:#fff;border:1px solid var(--line);border-radius:7px;padding:4px 9px;cursor:pointer}
+.foot{color:var(--mut);font-size:.8rem;padding:26px 0 50px;line-height:1.6}
+.toast{position:fixed;left:50%;bottom:22px;transform:translateX(-50%);background:#161a1d;color:#fff;padding:10px 16px;border-radius:10px;font-size:.86rem;opacity:0;transition:opacity .25s;pointer-events:none;z-index:50}.toast.show{opacity:1}
+</style></head>
+<body>
+<header class="wrap top"><div class="lg"><span class="dot"></span>Sightline · Marketing engine</div><a href="/admin/">← Dashboard</a></header>
+<div class="wrap">
+<section class="hd"><h1>The marketing engine.</h1><p>The recurring work that keeps a client found, chosen, and protected after their site is live — this is what the monthly plan pays for, and what makes Sightline more than a website.</p></section>
+
+<div class="gh">Modules — run for every subscriber</div>
+<div class="grid">
+  <div class="card"><div class="ic">📍</div><h3>Local SEO + Google Business Profile</h3><p>Claim &amp; optimize the GBP, fix citations &amp; categories, target local keywords, and keep hours/photos/posts fresh so they show up in the map pack.</p><span class="tag managed">Managed monthly</span></div>
+  <div class="card"><div class="ic">⭐</div><h3>Review generation</h3><p>Automated, friendly review asks by SMS/email after a visit — more 5★ reviews, steadily. Use the composer below to send one now.</p><span class="tag live">Live tool ↓</span></div>
+  <div class="card"><div class="ic">🛡️</div><h3>Reputation defense</h3><p>We watch every new review, flag the suspicious or policy-violating ones, and file the removal dispute in one click — already shown on every prospect funnel.</p><span class="tag live">Live in funnels</span></div>
+  <div class="card"><div class="ic">📈</div><h3>Monthly analytics</h3><p>Traffic, local rank, review trend, and response rate in one plain monthly report — the same scorecard prospects see in their funnel.</p><span class="tag live">Live in funnels</span></div>
+  <div class="card"><div class="ic">✍️</div><h3>Content &amp; social posts</h3><p>A few branded posts/updates a month to GBP and social, so the profile looks active and current.</p><span class="tag managed">Managed monthly</span></div>
+  <div class="card"><div class="ic">🤖</div><h3>AI assistant + lead capture</h3><p>The on-site chat assistant answers FAQs and books calls 24/7 — built into every demo, included on the plan.</p><span class="tag live">Live on sites</span></div>
+</div>
+
+<div class="gh">Quick tool — review request composer</div>
+<div class="tool">
+  <h2>Send a review request</h2>
+  <div class="sub">Generate a warm SMS + email ask with the client's Google review link. Copy and send — the fastest way to turn a happy customer into a 5★ review.</div>
+  <div class="row2">
+    <div class="fld"><label>Business name</label><input id="biz" placeholder="The Vaughn Law Offices"></div>
+    <div class="fld"><label>Customer first name (optional)</label><input id="cust" placeholder="Sarah"></div>
+  </div>
+  <div class="fld"><label>Google review link</label><input id="link" placeholder="https://g.page/r/…/review or search.google.com/local/writereview?placeid=…"></div>
+  <button class="btn" onclick="gen()">Generate the asks →</button>
+  <div class="out" id="out">
+    <div class="msg"><span class="lbl">SMS</span><span id="sms"></span><button class="copy" onclick="cp('sms')">Copy</button></div>
+    <div class="msg"><span class="lbl">Email</span><span id="email"></span><button class="copy" onclick="cp('email')">Copy</button></div>
+  </div>
+</div>
+
+<div class="foot">Sightline marketing engine · internal. Local SEO, content and social are delivered as a managed monthly service; reviews, reputation defense, analytics and the AI assistant are live in the product. Always follow Google's review-gating rules: ask <em>all</em> customers, never only the happy ones, and never offer incentives for reviews.</div>
+</div>
+<div class="toast" id="toast"></div>
+<script>
+function esc(s){return (s||"").trim();}
+function gen(){
+  const biz=esc(document.getElementById('biz').value)||"our team";
+  const cust=esc(document.getElementById('cust').value);
+  const link=esc(document.getElementById('link').value)||"[your Google review link]";
+  const hi=cust?("Hi "+cust+", "):"Hi, ";
+  document.getElementById('sms').textContent=hi+"thanks for choosing "+biz+"! If we did right by you, a quick Google review means the world to a local business — it takes 30 seconds: "+link;
+  document.getElementById('email').textContent=hi+"thank you for trusting "+biz+". Reviews are how neighbors find us, and yours would genuinely help. If you have a moment, we'd be grateful if you'd share your experience on Google: "+link+" — thank you!";
+  document.getElementById('out').classList.add('show');
+}
+function cp(id){const t=document.getElementById(id).textContent;navigator.clipboard&&navigator.clipboard.writeText(t);toast('Copied to clipboard');}
+function toast(m){const e=document.getElementById('toast');e.textContent=m;e.classList.add('show');setTimeout(()=>e.classList.remove('show'),1800);}
+</script>
+</body></html>
