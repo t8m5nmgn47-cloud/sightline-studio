@@ -24,8 +24,9 @@ a{color:inherit;text-decoration:none}.wrap{max-width:1140px;margin:0 auto;paddin
 @media(max-width:760px){.navr .lnk{display:none}}
 /* hero */
 .hero{position:relative;min-height:92svh;display:flex;align-items:flex-end;color:#fff;isolation:isolate;overflow:hidden}
-.hero-bg{position:absolute;inset:0;z-index:-2;background:linear-gradient(150deg,#2f5d50,#214035 60%,#16140f)}
-.hero-bg::after{content:"";position:absolute;inset:0;background:radial-gradient(120% 80% at 70% 10%,rgba(201,138,60,.34),transparent 60%)}
+.hero-bg{position:absolute;inset:0;z-index:-2;width:100%;height:100%;object-fit:cover}
+.hero-bg.grad{background:linear-gradient(150deg,var(--brand),var(--brand-d) 60%,#16140f)}
+.hero-bg.grad::after{content:"";position:absolute;inset:0;background:radial-gradient(120% 80% at 70% 10%,rgba(201,138,60,.34),transparent 60%)}
 .hero-scrim{position:absolute;inset:0;z-index:-1;background:linear-gradient(180deg,rgba(0,0,0,.25),transparent 30%,rgba(0,0,0,.45))}
 .hero-in{padding:130px 0 clamp(40px,7vw,80px);width:100%}
 .kick{display:inline-flex;gap:10px;align-items:center;font-weight:600;letter-spacing:.18em;text-transform:uppercase;font-size:.74rem;opacity:.92;margin-bottom:20px}
@@ -84,7 +85,8 @@ h2{font-size:clamp(2rem,1.4rem+2.4vw,3.2rem)}.lead{color:var(--mut);font-size:1.
 </nav>
 
 <header class="hero">
-  <div class="hero-bg"></div><div class="hero-scrim"></div>
+  <div class="hero-bg grad"></div>
+  <div class="hero-scrim"></div>
   <div class="wrap hero-in">
     <span class="kick">● Denver, CO</span>
     <h1>You belong here.</h1>
