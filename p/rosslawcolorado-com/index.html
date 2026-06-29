@@ -64,6 +64,12 @@ a{color:inherit}.wrap{width:100%;max-width:680px;margin:0 auto;padding:0 20px}
 .stats .whygrid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}@media(max-width:680px){.stats .whygrid{grid-template-columns:1fr}}
 .why{background:#fff;border:1px solid var(--line);border-radius:12px;padding:18px;text-align:center}
 .why .wn{font-family:var(--head);font-size:2rem;color:var(--ac)}.why .wl{color:var(--mut);font-size:.85rem;margin-top:6px;line-height:1.45}.why .src{display:block;color:var(--ink);opacity:.5;font-size:.72rem;margin-top:4px}
+.barow{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:16px 0 6px}@media(max-width:680px){.barow{grid-template-columns:1fr}}
+.bafig{margin:0;border:1px solid var(--line);border-radius:13px;overflow:hidden;background:#fff;position:relative}
+.bafig.new{box-shadow:0 16px 44px rgba(0,0,0,.14);border-color:var(--ac)}
+.batag{position:absolute;top:10px;left:10px;z-index:2;font-size:.68rem;font-weight:700;letter-spacing:.05em;text-transform:uppercase;padding:5px 10px;border-radius:100px}
+.batag.old{background:rgba(20,18,15,.8);color:#fff}.batag.new{background:var(--ac);color:#fff}
+.baimg{display:block;width:100%;height:300px;object-fit:cover;object-position:top}@media(max-width:680px){.baimg{height:230px}}
 .offer{background:#fff;border:1px solid var(--line);border-radius:16px;overflow:hidden}
 .oprimary{background:linear-gradient(150deg,var(--ac),#15110d);color:#fff;padding:24px}
 .oprimary .otag{display:inline-block;background:var(--gold);color:#241c08;font-size:.72rem;font-weight:700;letter-spacing:.04em;text-transform:uppercase;padding:5px 11px;border-radius:100px;margin-bottom:12px}
@@ -88,9 +94,18 @@ a{color:inherit}.wrap{width:100%;max-width:680px;margin:0 auto;padding:0 20px}
   <a class="btn" href="../../book/?biz=Ross%20Law%20PC">Book your 15-minute call →</a>
 </header>
 
+<section class="wrap sec" data-qc-section="beforeafter">
+  <h2>Ross Law, here's the difference.</h2>
+  <div class="lead">On the left, your site today. On the right, the one we've <b>already built</b> for you — same business, same brand, a decade newer.</div>
+  <div class="barow">
+    <figure class="bafig old"><div class="batag old">Before · your site today</div><img class="baimg" src="../../assets/ba/rosslawcolorado-com-before.png" alt="Ross Law PC — current site" loading="lazy"></figure>
+    <figure class="bafig new"><div class="batag new">After · your new site</div><img class="baimg" src="../../assets/ba/rosslawcolorado-com-after.png" alt="Ross Law PC — new site by Sightline" loading="lazy"></figure>
+  </div>
+</section>
+
 <section class="wrap sec" data-qc-section="demo">
-  <h2>Your new site</h2>
-  <div class="lead">Built in your real brand — 8 distinct designs to choose from, with live online booking, an AI chat assistant, and bank-grade security already included.</div>
+  <h2>Now open it and click around</h2>
+  <div class="lead">It's real and live — switch between 8 designs, try the booking flow, open it full-screen. Online booking, an AI chat assistant and bank-grade security are already on.</div>
   <div class="swrow"><span class="swl">Choose a look:</span><button class="swb on" data-src="../../rosslawcolorado-com/" data-label="Editorial Luxe" onclick="pickStyle(this)">Editorial Luxe</button><button class="swb" data-src="../../rosslawcolorado-com--commerce/" data-label="Bold Commerce" onclick="pickStyle(this)">Bold Commerce</button><button class="swb" data-src="../../rosslawcolorado-com--warm/" data-label="Warm Local" onclick="pickStyle(this)">Warm Local</button><button class="swb" data-src="../../rosslawcolorado-com--minimal/" data-label="Clean Minimal" onclick="pickStyle(this)">Clean Minimal</button><button class="swb" data-src="../../rosslawcolorado-com--heritage/" data-label="Heritage Trust" onclick="pickStyle(this)">Heritage Trust</button><button class="swb" data-src="../../rosslawcolorado-com--clinical/" data-label="Calm Clinical" onclick="pickStyle(this)">Calm Clinical</button><button class="swb" data-src="../../rosslawcolorado-com--moderntech/" data-label="Modern Tech" onclick="pickStyle(this)">Modern Tech</button><button class="swb" data-src="../../rosslawcolorado-com--servicepro/" data-label="Service Pro" onclick="pickStyle(this)">Service Pro</button></div>
   <div class="frame"><div class="fbar"><i></i><i></i><i></i><span class="u">rosslawcolorado.com</span></div><iframe id="demoframe" class="demoframe" src="../../rosslawcolorado-com/" loading="lazy" title="Ross Law PC demo"></iframe></div>
   <a class="openlink" id="openlink" href="../../rosslawcolorado-com/" target="_blank" rel="noopener">Open the full live demo ↗</a>
