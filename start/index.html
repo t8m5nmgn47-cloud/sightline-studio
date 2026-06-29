@@ -1,0 +1,137 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Start your site — Sightline</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,400&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#16140f;--mut:#5d6b73;--line:#e7e2d8;--bg:#faf8f4;--ac:#1f6f5c;--head:'Fraunces',Georgia,serif;--body:'Inter',system-ui,sans-serif;--num:"Helvetica Neue",Helvetica,Arial,sans-serif}
+*{box-sizing:border-box;margin:0}body{background:var(--bg);color:var(--ink);font-family:var(--body);-webkit-font-smoothing:antialiased;line-height:1.6}
+h1,h2,h3{font-variant-ligatures:none}
+.wrap{max-width:640px;margin:0 auto;padding:0 20px}
+.nav{display:flex;align-items:center;gap:9px;padding:16px 20px;border-bottom:1px solid var(--line)}
+.dot{width:10px;height:10px;border-radius:50%;background:var(--ac)}.nav b{font-family:var(--head);font-weight:600}
+.hd{padding:30px 0 6px}.hd .k{color:var(--ac);font-weight:700;font-size:.74rem;letter-spacing:.14em;text-transform:uppercase}
+.hd h1{font-family:var(--head);font-weight:400;font-size:clamp(1.8rem,1.3rem+2vw,2.6rem);letter-spacing:-.02em;margin-top:10px}
+.hd p{color:var(--mut);margin-top:10px}
+.card{background:#fff;border:1px solid var(--line);border-radius:16px;padding:22px;margin-top:20px}
+.plans{display:grid;gap:12px;margin:6px 0 4px}
+.plan{display:flex;gap:13px;align-items:flex-start;border:1.5px solid var(--line);border-radius:12px;padding:15px 16px;cursor:pointer;transition:.15s;position:relative}
+.plan:hover{border-color:#cfc8b8}.plan.on{border-color:var(--ac);background:#f3faf7}
+.plan input{margin-top:3px}
+.plan .t{font-weight:700}.plan .s{color:var(--mut);font-size:.9rem}
+.plan .tag{position:absolute;top:-9px;right:14px;background:var(--ac);color:#fff;font-size:.64rem;font-weight:800;letter-spacing:.05em;text-transform:uppercase;padding:3px 9px;border-radius:999px}
+.big{font-family:var(--num);font-weight:800;letter-spacing:-.01em}
+.fld{margin-top:14px}.fld label{display:block;font-size:.82rem;font-weight:600;margin-bottom:5px}
+.fld input,.fld textarea{width:100%;padding:12px 13px;border:1px solid var(--line);border-radius:10px;font:inherit;background:#fcfbf8}
+.fld textarea{min-height:74px;resize:vertical}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:12px}@media(max-width:520px){.row2{grid-template-columns:1fr}}
+.btn{display:block;width:100%;background:var(--ac);color:#fff;border:0;border-radius:12px;padding:16px;font-weight:800;font-size:1.05rem;cursor:pointer;font-family:var(--num);letter-spacing:-.01em;margin-top:18px}
+.btn:disabled{opacity:.6;cursor:default}
+.reassure{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.reassure span{font-size:.78rem;color:var(--mut);background:#fff;border:1px solid var(--line);border-radius:999px;padding:5px 11px}
+.alt{text-align:center;color:var(--mut);font-size:.9rem;margin:18px 0 40px}.alt a{color:var(--ac);font-weight:600;text-decoration:none}
+.err{color:#b23b3b;font-size:.85rem;margin-top:8px;display:none}.err.show{display:block}
+.done{text-align:center;padding:8px 0}
+.done .chk{width:54px;height:54px;border-radius:50%;background:#eaf7ef;border:1px solid #cdeeda;color:var(--ac);display:grid;place-items:center;margin:0 auto 14px}
+.done h2{font-family:var(--head);font-weight:600;font-size:1.6rem}.done p{color:var(--mut);margin-top:8px}
+.foot{color:var(--mut);font-size:.76rem;text-align:center;padding:0 0 40px;line-height:1.5}
+.lock{font-size:.78rem;color:var(--ac);font-weight:600;display:inline-flex;gap:6px;align-items:center}
+</style></head>
+<body>
+<div class="nav"><span class="dot"></span><b id="brand">Sightline</b></div>
+<div class="wrap">
+  <div id="app">
+  <section class="hd">
+    <div class="k">Start today · no call required</div>
+    <h1 id="hl">Let's make it yours.</h1>
+    <p id="sub">Pick how you'd like to start, tell us where to send it, and we begin building. Most sites go live within days.</p>
+  </section>
+  <div class="card">
+    <form id="f">
+      <div class="plans">
+        <label class="plan on"><input type="radio" name="plan" value="zerodown" checked>
+          <span><span class="t">$0 down — <span class="big">$99.99</span>/mo</span><br><span class="s">Nothing up front. Cancel-friendly. Most popular.</span></span>
+          <span class="tag">Most popular</span></label>
+        <label class="plan"><input type="radio" name="plan" value="deposit">
+          <span><span class="t"><span class="big">$299.99</span> to start, then <span class="big">$49.99</span>/mo</span><br><span class="s">A little up front, lower monthly.</span></span></label>
+      </div>
+      <div class="row2">
+        <div class="fld"><label>Your name</label><input id="cname" autocomplete="name" placeholder="Jordan Smith"></div>
+        <div class="fld"><label>Email *</label><input id="email" type="email" autocomplete="email" required placeholder="you@business.com"></div>
+      </div>
+      <div class="row2">
+        <div class="fld"><label>Mobile (for your link &amp; updates)</label><input id="phone" type="tel" autocomplete="tel" placeholder="(303) 555-0148"></div>
+        <div class="fld"><label>Your domain (if you have one)</label><input id="domain" placeholder="yourbusiness.com"></div>
+      </div>
+      <div class="fld"><label>Anything we should know? (optional)</label><textarea id="notes" placeholder="Logo, photos, services to feature, a deadline…"></textarea></div>
+      <button class="btn" id="go" type="submit">Start my site →</button>
+      <div class="err" id="err"></div>
+      <div class="reassure"><span>✓ Cancel-friendly</span><span>✓ First month free</span><span>✓ 30-day money-back</span><span>✓ No four-figure build fee</span></div>
+    </form>
+  </div>
+  <div class="alt">Prefer to talk first? <a id="callus" href="#">Book a 15-min call</a> · or <a id="textus" href="#">text/email us</a></div>
+  </div>
+</div>
+<div class="foot"><span class="lock">🔒 Secure</span> · Your details are sent over an encrypted connection and used only to build and launch your site.</div>
+
+<script>
+const SUPA_URL="https://vtqmtecoxljduqomtkbw.supabase.co";
+const SUPA_KEY="sb_publishable_tOVldxTzrH4_9U0x-GZGHw_UFM57C2c";
+// ── Kris: paste your Stripe Payment Link URLs here after you create them (one per plan). Until then,
+//    signups are captured and the page tells the customer you'll send a secure payment link. ──
+const STRIPE={ zerodown:"", deposit:"" };
+const CONTACT={ phone:"", email:"hello@sightlinehq.com", book:"/book/" };
+
+const qs=new URLSearchParams(location.search);
+const BIZ=qs.get("name")||qs.get("biz")||"";
+const SLUG=qs.get("slug")||qs.get("biz")||"";
+const BRAND=qs.get("color")||"#1f6f5c";
+document.documentElement.style.setProperty("--ac",BRAND);
+const $=s=>document.querySelector(s);
+if(BIZ){ $("#brand").textContent=BIZ; $("#hl").textContent=BIZ+" — let's make it yours."; }
+// wire fallbacks
+$("#callus").href=CONTACT.book||"/book/";
+const mailto="mailto:"+(CONTACT.email||"")+"?subject="+encodeURIComponent("Question about my site"+(BIZ?(" — "+BIZ):""));
+$("#textus").href=CONTACT.phone?("sms:"+CONTACT.phone.replace(/[^0-9+]/g,"")):mailto;
+// plan radio styling
+document.querySelectorAll(".plan").forEach(p=>p.addEventListener("click",()=>{document.querySelectorAll(".plan").forEach(x=>x.classList.remove("on"));p.classList.add("on");p.querySelector("input").checked=true;}));
+
+function planLabel(v){return v==="deposit"?"$299.99 to start, then $49.99/mo":"$0 down, then $99.99/mo";}
+
+$("#f").addEventListener("submit",async e=>{
+  e.preventDefault();
+  const email=$("#email").value.trim();
+  const err=$("#err");
+  if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)){ err.textContent="Please enter a valid email so we can send your site.";err.classList.add("show");return; }
+  err.classList.remove("show");
+  const go=$("#go"); go.disabled=true; go.textContent="Starting…";
+  const plan=(document.querySelector('input[name=plan]:checked')||{}).value||"zerodown";
+  const lead={ biz:BIZ||null, slug:SLUG||null, source:"funnel:"+(SLUG||"direct"), plan:planLabel(plan),
+    contact_name:$("#cname").value.trim()||null, email, phone:$("#phone").value.trim()||null,
+    domain:$("#domain").value.trim()||null, notes:$("#notes").value.trim()||null };
+  let saved=false;
+  try{ const {createClient}=await import("https://esm.sh/@supabase/supabase-js@2");
+    const sb=createClient(SUPA_URL,SUPA_KEY);
+    const {error}=await sb.from("signups").insert(lead); saved=!error;
+    if(error) console.warn("signup insert:",error.message);
+  }catch(e){ console.warn("supabase load failed",e); }
+  if(!saved){ // never lose the lead — fall back to an email handoff
+    const body=`New signup%0D%0A${Object.entries(lead).map(([k,v])=>k+': '+(v||'')).join('%0D%0A')}`;
+    try{ navigator.sendBeacon && false; }catch(e){}
+    window.location.href="mailto:"+(CONTACT.email||"")+"?subject="+encodeURIComponent("New signup"+(BIZ?(" — "+BIZ):""))+"&body="+body;
+  }
+  // confirmation
+  const link=STRIPE[plan]||"";
+  $("#app").innerHTML=`<div class="card done">
+    <div class="chk"><svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+    <h2>You're in${$("#cname").value.trim()?(", "+$("#cname").value.trim().split(" ")[0]):""}.</h2>
+    <p>${BIZ?esc(BIZ)+" — your":"Your"} ${esc(planLabel(plan))} plan is reserved. ${link?"One last step — complete your first payment and we start building today.":"We'll send a secure payment link to <b>"+esc(email)+"</b> shortly — once it's done, we start building right away."}</p>
+    ${link?`<a class="btn" href="${link}" style="text-decoration:none;display:block">Complete checkout →</a>`:""}
+    <div class="reassure" style="justify-content:center"><span>✓ First month free</span><span>✓ 30-day money-back</span><span>✓ Cancel anytime</span></div>
+    <div class="alt" style="margin-top:18px">Questions? <a href="${CONTACT.phone?('sms:'+CONTACT.phone.replace(/[^0-9+]/g,'')):mailto}">${CONTACT.phone?'Text us':'Email us'}</a> anytime.</div>
+  </div>`;
+  window.scrollTo({top:0,behavior:"smooth"});
+});
+function esc(s){return (s||"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));}
+</script>
+</body></html>
