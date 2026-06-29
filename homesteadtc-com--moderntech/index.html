@@ -1,0 +1,327 @@
+<!DOCTYPE html><html lang="en"><head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Homestead Title &amp; Escrow — Greenwood Village</title>
+<meta name="description" content="Homestead Title &amp; Escrow · Greenwood Village — Title and escrow built on trust and detail: we double-check the numbers and make signing day the easy part in…">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"FinancialService","name":"Homestead Title & Escrow","description":"Homestead Title & Escrow · Greenwood Village — Title and escrow built on trust and detail: we double-check the numbers and make signing day the easy part in…","areaServed":"Greenwood Village","url":"https://homesteadtc.com","telephone":"(303) 815-1300"}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+:root{--p:#a3b846;--p6:#8fa23e;--p7:#788834;--p9:#4e5821;--ac:#b08d57;
+--ink:#e9edf2;--n50:#11161d;--n1:#161c26;--n2:#2a3340;--n7:#9aa6b2;--bg:#0d1117;--surf:#161c26;--surf2:#11161d;--navc:#e8ecf1;--rad:12px;
+--head:'Space Grotesk',system-ui,sans-serif;--body:'Inter',system-ui,sans-serif;--mono:ui-monospace,monospace;
+--fs-hero:clamp(3.3rem,9vw,8.9rem);--fs-disp:clamp(2.1rem,1rem + 3.4vw,4.4rem);--maxw:1280px;--sp:clamp(84px,10vw,150px);--ease:cubic-bezier(.16,1,.3,1);
+--sh:0 2px 8px rgba(20,18,16,.06),0 18px 40px rgba(20,18,16,.09);}
+*{box-sizing:border-box;margin:0}html{scroll-behavior:smooth;font-size:115%}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:clamp(1rem,.95rem + .25vw,1.15rem);line-height:1.62;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+h1,h2,h3{font-family:var(--head);font-weight:600;line-height:1;letter-spacing:-.022em;color:var(--ink);}
+a{color:inherit;text-decoration:none}.wrap{max-width:var(--maxw);margin:0 auto;padding:0 clamp(22px,5vw,64px);position:relative}
+.kicker{font-family:var(--body);font-size:clamp(.72rem,.68rem + .2vw,.82rem);letter-spacing:.28em;text-transform:uppercase;font-weight:600}
+.btn{display:inline-flex;align-items:center;gap:10px;font-family:var(--body);font-weight:600;font-size:1.02rem;padding:16px 32px;border-radius:var(--rad);border:1.5px solid var(--ink);background:var(--ink);color:#fff;cursor:pointer;transition:transform .25s var(--ease),background .25s,color .25s}
+.btn:hover{transform:translateY(-2px)}
+.btn-out{background:transparent;border-color:currentColor}
+.btn-light{background:#fff;color:var(--p9);border-color:#fff}.btn-light:hover{background:transparent;color:#fff}
+
+.stars{color:#e3b341;letter-spacing:2px}
+/* a too-long single word in a narrow column would otherwise spill past its box */
+h1,h2,h3,h4{overflow-wrap:break-word}
+/* NAV */
+.nav{position:fixed;inset:0 0 auto 0;z-index:60;display:flex;align-items:center;justify-content:space-between;padding:20px clamp(22px,5vw,64px);color:var(--navc);transition:background .35s,color .35s,box-shadow .35s,padding .35s}
+.nav.scd{background:rgba(255,255,255,.94);backdrop-filter:blur(12px);color:var(--ink);box-shadow:0 1px 0 rgba(20,18,16,.08);padding:14px clamp(22px,5vw,64px)}
+.brand{font-family:var(--head);font-weight:600;font-size:1.5rem;letter-spacing:-.01em;}
+.logo-img{height:36px;width:auto;max-width:170px;display:block}
+.nav.scd .logo-img{filter:none}.nav:not(.scd) .logo-img{filter:none}
+.navlinks{display:flex;gap:32px;font-size:.96rem;font-weight:500}.navlinks a{opacity:.92}.navlinks a:hover{opacity:1}
+.navcta{font-weight:600;font-size:.95rem;border:1.5px solid currentColor;padding:10px 22px;border-radius:var(--rad)}
+@media(max-width:860px){.navlinks{display:none}}
+.nav{gap:14px}.brand{min-width:0}
+/* on small screens a long brand name + a long CTA ("Request an appointment") would overrun the bar and force
+   horizontal page scroll. Tighten padding + truncate the brand; on tablets shrink the CTA, and on phones drop it
+   entirely (the hero keeps its own CTA) so the row always fits the viewport. */
+@media(max-width:560px){.nav{padding-left:16px;padding-right:16px;gap:10px}.brand{font-size:1.1rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:58vw}.navcta{padding:7px 12px;font-size:.78rem;white-space:nowrap;flex:0 0 auto}}
+@media(max-width:480px){.navcta{display:none}}
+/* HERO cover */
+.hero{position:relative;min-height:100svh;display:flex;align-items:flex-end;color:#fff;overflow:hidden;isolation:isolate}
+.hero-bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:-2;animation:kb 16s var(--ease) forwards}
+@keyframes kb{from{transform:scale(1.12)}to{transform:scale(1)}}
+.hero-fallback{position:absolute;inset:0;z-index:-2;background:linear-gradient(155deg,var(--p) 0%,var(--p7) 55%,var(--p9) 100%)}
+.hero-scrim{position:absolute;inset:0;z-index:-1;background:linear-gradient(to top,var(--p9) 2%,rgba(10,10,14,.34) 50%,rgba(10,10,14,.5) 100%)}
+.nav:not(.scd){text-shadow:0 1px 20px rgba(0,0,0,0)}
+.hero h1,.hero-sub{text-shadow:0 2px 36px rgba(0,0,0,.5)}
+.hero-inner{padding-bottom:clamp(54px,8vw,96px);padding-top:140px;width:100%}
+.hero .kicker{color:#fff;opacity:.92;margin-bottom:22px}
+.hero h1{color:#fff;font-size:var(--fs-hero);line-height:.98;letter-spacing:-.03em;max-width:15ch;font-weight:600}
+.hero h1 .ln{display:block;overflow:hidden;padding:.06em .02em .14em}
+.hero h1 .ln+.ln{margin-top:-.16em}
+.hero h1 .ln>span{display:block;transform:translateY(105%);opacity:0;animation:rise .95s var(--ease) forwards}
+.hero h1 .ln:nth-child(2)>span{animation-delay:.1s}.hero h1 .ln:nth-child(3)>span{animation-delay:.2s}
+.hero h1 em{font-style:italic;color:#fff}
+@keyframes rise{to{transform:none;opacity:1}}
+.hero-sub{font-size:clamp(1.1rem,.95rem + .7vw,1.45rem);max-width:42ch;margin:28px 0 34px;color:rgba(255,255,255,.92);line-height:1.5;opacity:0;animation:rise .9s var(--ease) .42s forwards}
+.hero-cta{display:flex;gap:16px;flex-wrap:wrap;align-items:center;opacity:0;animation:rise .9s var(--ease) .54s forwards}
+.hero-rate{display:flex;align-items:center;gap:9px;font-size:.98rem;color:#fff}
+
+/* HERO split (minimal) */
+.hero-min{min-height:100svh;display:flex;align-items:center;background:var(--bg);color:var(--ink);padding:120px 0 60px}
+.hmg{display:grid;grid-template-columns:1.05fr .95fr;gap:clamp(34px,5vw,76px);align-items:center;width:100%}
+.hmt .kicker{color:var(--p6);margin-bottom:22px;display:block}
+.hmt h1{font-size:var(--fs-hero);line-height:1.02;max-width:13ch}
+.hmt h1 .hl{color:var(--p)}
+.hsub-min{font-size:clamp(1.05rem,.95rem + .5vw,1.32rem);color:var(--n7);max-width:46ch;margin:26px 0 34px;line-height:1.55}
+.hrate-min{display:inline-flex;gap:8px;align-items:center;color:var(--ink);font-size:.95rem}
+.hmi{aspect-ratio:4/5;overflow:hidden;border-radius:var(--rad);box-shadow:var(--sh)}
+.hmi img{width:100%;height:100%;object-fit:cover;display:block;animation:kb 18s var(--ease) forwards}
+.hmi-fb{width:100%;height:100%;background:linear-gradient(150deg,var(--p),var(--p9));display:flex;align-items:center;justify-content:center;color:#fff;font-family:var(--head);font-size:3rem}
+@media(max-width:860px){.hmg{grid-template-columns:1fr}.hmi{aspect-ratio:16/11}}
+/* proof bar */
+.proof{background:var(--ink);color:#fff}
+.proof.lite{background:transparent;color:var(--ink);border-top:1px solid var(--n2);border-bottom:1px solid var(--n2)}
+.proof .wrap{display:flex;gap:clamp(20px,5vw,70px);justify-content:center;flex-wrap:wrap;padding:20px 0;font-size:.96rem;letter-spacing:.01em}
+.proof span{display:inline-flex;align-items:center;gap:10px;opacity:.92}.proof .d{color:var(--ac)}
+/* sections */
+.section{padding:var(--sp) 0}
+.sec-head{display:flex;align-items:flex-end;justify-content:space-between;gap:24px;margin-bottom:clamp(40px,5vw,64px);flex-wrap:wrap}
+.sec-head h2{font-size:calc(var(--fs-disp)*1.2);max-width:18ch}
+.sec-head .ek{color:var(--p6)}
+/* services editorial list */
+.svc{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--n2);border:1px solid var(--n2);border-radius:var(--rad);overflow:hidden}
+.svc .it{background:var(--bg);padding:clamp(28px,3vw,44px);transition:background .3s}
+.svc .it:hover{background:var(--surf)}
+.svc .si{font-family:var(--mono);font-size:.8rem;color:var(--p6);letter-spacing:.05em;font-weight:600}
+.svc .it h3{font-size:clamp(1.5rem,1rem + 1.4vw,2.1rem);margin:12px 0 12px}
+.svc .it p{color:var(--ink);opacity:.84;font-size:1.07rem;max-width:42ch;margin:0}
+@media(max-width:760px){.svc{grid-template-columns:1fr}}
+/* services — asymmetric editorial */
+.svc-grid{display:grid;grid-template-columns:.82fr 1.18fr;gap:clamp(38px,6vw,88px);align-items:start}
+.svc-intro{position:sticky;top:108px}
+.svc-intro .kicker{color:var(--p6)}
+.svc-intro h2{font-size:calc(var(--fs-disp)*1.04);margin:18px 0 22px;max-width:13ch}
+.svc-lead{font-family:var(--head);font-weight:400;font-size:clamp(1.12rem,1rem + .55vw,1.5rem);line-height:1.44;color:var(--ink);opacity:.82;max-width:32ch;margin-bottom:30px}
+.svc-cta{display:inline-block;font-family:var(--body);font-weight:600;font-size:1rem;color:var(--ink);border-bottom:2px solid var(--ac);padding-bottom:5px;transition:color .25s}
+.svc-cta:hover{color:var(--p)}
+.svc-list{display:flex;flex-direction:column}
+.svc-row{display:grid;grid-template-columns:auto 1fr;gap:clamp(20px,3vw,46px);padding:clamp(26px,3vw,40px) 0;border-top:1px solid var(--n2);align-items:baseline;transition:padding-left .3s var(--ease)}
+.svc-row:last-child{border-bottom:1px solid var(--n2)}
+.svc-row:hover{padding-left:8px}
+.svc-row .si{font-family:var(--mono);font-size:.92rem;color:var(--ac);font-weight:700;letter-spacing:.04em}
+.svc-body h3{font-size:clamp(1.4rem,1rem + 1.25vw,2.05rem);margin-bottom:11px;line-height:1.05}
+.svc-body p{color:var(--ink);opacity:.78;font-size:1.08rem;line-height:1.56;max-width:50ch;margin:0}
+@media(max-width:860px){.svc-grid{grid-template-columns:1fr}.svc-intro{position:static;margin-bottom:14px}}
+/* about */
+.about{background:var(--ink);color:#fff}
+.about.lite{background:var(--surf2);color:var(--ink)}
+.about.lite h2{color:var(--ink)}.about.lite p{color:var(--n7)}.about.lite .ek{color:var(--p6)}
+.about h2{color:#fff;font-size:var(--fs-disp);max-width:16ch}
+.about-grid{display:grid;grid-template-columns:1fr 1.08fr;gap:clamp(36px,5vw,80px);align-items:stretch}
+.about-text{align-self:center}
+.about p{color:rgba(255,255,255,.82);font-size:1.12rem;margin-top:22px;max-width:48ch}
+.about .ek{color:var(--ac)}
+.about-img{aspect-ratio:auto;min-height:clamp(440px,54vh,660px);border-radius:var(--rad);overflow:hidden;box-shadow:var(--sh)}
+.about-img img{width:100%;height:100%;object-fit:cover;display:block}
+.about-panel{aspect-ratio:4/5;border-radius:var(--rad);background:linear-gradient(150deg,var(--p),var(--p9));display:flex;flex-direction:column;justify-content:flex-end;padding:38px;gap:6px}
+.about-panel .big{font-family:var(--head);font-size:3.2rem;color:#fff}.about-panel .l{color:rgba(255,255,255,.8)}
+@media(max-width:860px){.about-grid{grid-template-columns:1fr}}
+.about-vals{display:grid;grid-template-columns:1fr 1fr 1fr;gap:clamp(18px,2.5vw,34px);margin-top:clamp(34px,4vw,54px);padding-top:clamp(26px,3vw,40px);border-top:1px solid rgba(255,255,255,.16)}
+.about.lite .about-vals{border-top-color:var(--n2)}
+.about-vals .av b{display:block;font-family:var(--head);font-weight:500;font-size:1.14rem;letter-spacing:-.01em;margin-bottom:8px}
+.about-vals .av span{font-size:.95rem;line-height:1.5;opacity:.72}
+@media(max-width:680px){.about-vals{grid-template-columns:1fr;gap:20px}}
+/* quote */
+.quote{text-align:center;max-width:42rem;margin:0 auto}
+.quote .qmark{display:block;font-family:var(--head);font-size:clamp(4.5rem,10vw,8rem);line-height:.55;color:var(--ac);opacity:.45;margin-bottom:10px}
+.quote blockquote{font-family:var(--head);font-weight:500;font-size:clamp(1.55rem,1rem + 1.9vw,2.6rem);line-height:1.32;letter-spacing:-.01em;}
+.quote .stars{font-size:1.4rem;display:block;margin:24px 0 0}
+.quote cite{display:block;font-family:var(--body);font-style:normal;font-size:1rem;color:var(--n7);margin-top:26px}
+/* gallery */
+.gal{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.gal .g{aspect-ratio:4/5;overflow:hidden;border-radius:var(--rad)}.gal img{width:100%;height:100%;object-fit:cover;transition:transform .7s var(--ease)}.gal .g:hover img{transform:scale(1.06)}
+@media(max-width:760px){.gal{grid-template-columns:1fr 1fr}}
+.gallery-sec .car{position:relative;border-radius:var(--rad);overflow:hidden;background:var(--surf2);box-shadow:var(--sh)}
+.car-track{display:flex;transition:transform .55s var(--ease);will-change:transform}
+.car-slide{min-width:100%}
+.car-slide img{width:100%;height:clamp(300px,46vw,560px);object-fit:cover;display:block}
+.car-arr{position:absolute;top:50%;transform:translateY(-50%);width:48px;height:48px;border-radius:50%;border:none;background:rgba(255,255,255,.92);color:#16140f;font-size:1.7rem;line-height:1;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 16px rgba(0,0,0,.2);z-index:2;transition:transform .2s}
+.car-arr:hover{transform:translateY(-50%) scale(1.07)}.car-arr.prev{left:16px}.car-arr.next{right:16px}
+.car-dots{position:absolute;bottom:16px;left:50%;transform:translateX(-50%);display:flex;gap:8px;z-index:2}
+.car-dots .cd{width:9px;height:9px;border-radius:50%;border:none;background:rgba(255,255,255,.6);cursor:pointer;padding:0;transition:.25s}
+.car-dots .cd.on{background:#fff;width:24px;border-radius:6px}
+@media(max-width:760px){.car-arr{width:40px;height:40px;font-size:1.4rem}}
+/* cta */
+.cta{position:relative;color:#fff;text-align:center;padding:clamp(80px,11vw,150px) 0;overflow:hidden}
+.cta-bg{position:absolute;inset:0;z-index:-2;background:linear-gradient(150deg,var(--p),var(--p9))}
+.cta-bg.img{background:none}.cta-bg.img img{width:100%;height:100%;object-fit:cover}
+.cta-scrim{position:absolute;inset:0;z-index:-1;background:linear-gradient(to top,rgba(18,16,14,.8),rgba(18,16,14,.5))}
+.cta h2{color:#fff;font-size:clamp(2.2rem,1.2rem + 3.6vw,4.6rem);max-width:16ch;margin:0 auto}
+.cta p{color:rgba(255,255,255,.85);max-width:46ch;margin:20px auto 34px}
+.cta.lite{color:var(--ink);background:var(--surf2)}
+.cta.lite h2{color:var(--ink)}.cta.lite p{color:var(--n7)}.cta.lite .ek{color:var(--p6);display:block;margin-bottom:14px}
+/* feature band */
+.feature{position:relative;color:#fff;padding:clamp(94px,13vw,176px) 0;overflow:hidden;isolation:isolate}
+.feature-bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:-2}
+.feature-scrim{position:absolute;inset:0;z-index:-1;background:linear-gradient(110deg,rgba(15,13,11,.8),rgba(15,13,11,.34))}
+.feature .kicker{color:#fff;opacity:.9;margin-bottom:18px}
+.feature h2{color:#fff;font-size:var(--fs-disp);max-width:13ch;text-shadow:0 2px 34px rgba(0,0,0,.5)}
+.feature .btn{margin-top:30px}
+/* section lead + faq + scroll cue */
+.sec-lead{font-family:var(--head);font-weight:400;font-size:clamp(1.2rem,1rem + .75vw,1.65rem);line-height:1.42;max-width:44ch;color:var(--ink);opacity:.82;margin:-16px 0 52px}
+.faq{background:var(--surf2)}
+.faq .faq-grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--n2);border:1px solid var(--n2);border-radius:var(--rad);overflow:hidden;margin-top:6px}
+.faq-it{background:var(--bg);padding:clamp(26px,3vw,42px);transition:background .3s}
+.faq-it:hover{background:var(--surf)}
+.faq-it h3{font-size:clamp(1.12rem,1rem + .7vw,1.5rem);margin-bottom:13px}
+.faq-it p{color:var(--ink);opacity:.82;font-size:1.05rem;line-height:1.6;max-width:48ch}
+@media(max-width:760px){.faq .faq-grid{grid-template-columns:1fr}}
+.scrolldown{position:absolute;bottom:24px;left:50%;width:1px;height:48px;background:linear-gradient(rgba(255,255,255,0),rgba(255,255,255,.85));transform-origin:bottom center;animation:sd 2.1s ease-in-out infinite;z-index:2}
+@keyframes sd{0%,100%{transform:translateX(-50%) scaleY(.35);opacity:.3}50%{transform:translateX(-50%) scaleY(1);opacity:.85}}
+/* compare / competitive standing */
+.compare{background:var(--surf2)}
+.cmp-grid{display:grid;grid-template-columns:1.3fr .7fr;gap:clamp(32px,5vw,64px);align-items:center}
+.cmp-bars{display:flex;flex-direction:column;gap:13px}
+.cmp-row{display:grid;grid-template-columns:minmax(120px,1.1fr) 2fr auto;gap:14px;align-items:center;font-size:.97rem}
+.cmp-row .cn{color:var(--ink);opacity:.78;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.cmp-row.me .cn{opacity:1;font-weight:700}
+.cmp-row .cbar{height:11px;background:var(--n2);border-radius:999px;overflow:hidden}
+.cmp-row .cbar i{display:block;height:100%;background:var(--p);border-radius:999px}
+.cmp-row.me .cbar i{background:var(--ac)}
+.cmp-row .cv{font-variant-numeric:tabular-nums;font-weight:700;color:var(--ink)}
+.cmp-rank{font-family:var(--head);font-weight:600;font-size:clamp(3rem,6vw,4.8rem);line-height:1;color:var(--p)}
+.cmp-rank span{display:block;font-family:var(--body);font-size:.9rem;color:var(--n7);letter-spacing:.02em;margin-top:8px;text-transform:none}
+.cmp-note p{margin-top:16px;color:var(--ink);opacity:.92}
+.cmp-gap{background:var(--bg);border-left:3px solid var(--ac);padding:14px 16px;border-radius:0 8px 8px 0;font-size:1rem}
+.cmp-gap span{display:block;font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;color:var(--p6);font-weight:700;margin-bottom:6px}
+.cmp-src{font-size:.83rem!important;opacity:.58!important}
+@media(max-width:860px){.cmp-grid{grid-template-columns:1fr}}
+/* security — the Sightline signature */
+.secure{background:var(--ink);color:#fff}
+.secure .sec-head h2{color:#fff}
+.secure .sec-head .kicker{color:var(--ac)}
+.secure-lead{font-family:var(--head);font-weight:400;font-size:clamp(1.15rem,1rem + .6vw,1.55rem);line-height:1.42;color:rgba(255,255,255,.82);max-width:50ch;margin:-12px 0 46px}
+.secure-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:rgba(255,255,255,.13);border:1px solid rgba(255,255,255,.13);border-radius:var(--rad);overflow:hidden}
+.sf{background:var(--ink);padding:clamp(24px,2.4vw,36px)}
+.sf-mark{display:block;width:30px;height:30px;color:var(--ac);margin-bottom:20px}
+.sf-mark svg{width:100%;height:100%;display:block}
+.sf h3{color:#fff;font-size:1.16rem;margin-bottom:10px;letter-spacing:-.01em}
+.sf p{color:rgba(255,255,255,.7);font-size:.97rem;line-height:1.55;margin:0}
+.secure-add{display:flex;gap:18px;align-items:center;flex-wrap:wrap;margin-top:22px;padding:22px 26px;border:1px solid rgba(255,255,255,.18);border-radius:var(--rad);background:rgba(255,255,255,.04)}
+.secure-add .sa-tag{color:var(--ac);font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;font-weight:700;white-space:nowrap}
+.secure-add p{color:rgba(255,255,255,.82);font-size:1rem;margin:0;max-width:70ch}.secure-add b{color:#fff}
+@media(max-width:860px){.secure-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:520px){.secure-grid{grid-template-columns:1fr}}
+/* chat widget */
+.chatw{position:fixed;right:20px;bottom:20px;z-index:120;font-family:var(--body)}
+.chat-btn{display:inline-flex;align-items:center;gap:10px;background:var(--p);color:#fff;border:none;border-radius:999px;padding:14px 20px;font-weight:600;font-size:.95rem;cursor:pointer;box-shadow:0 14px 34px rgba(0,0,0,.28);transition:transform .25s var(--ease)}
+.chat-btn:hover{transform:translateY(-2px)}.chat-btn svg{width:20px;height:20px}
+.chat-panel{position:absolute;right:0;bottom:64px;width:336px;max-width:80vw;background:#fff;border-radius:18px;box-shadow:0 28px 64px rgba(0,0,0,.3);overflow:hidden;opacity:0;transform:translateY(14px) scale(.97);pointer-events:none;transition:opacity .25s var(--ease),transform .25s var(--ease)}
+.chatw.open .chat-panel{opacity:1;transform:none;pointer-events:auto}
+.chat-head{background:var(--p);color:#fff;padding:16px 18px;display:flex;align-items:center;justify-content:space-between}
+.chat-id{display:flex;align-items:center;gap:11px}.chat-dot{width:9px;height:9px;border-radius:50%;background:#5fd08a;box-shadow:0 0 0 3px rgba(95,208,138,.3)}
+.chat-id b{display:block;font-size:.98rem;font-family:var(--head)}.chat-id span{font-size:.77rem;opacity:.85}
+.chat-x{background:none;border:none;color:#fff;font-size:1.5rem;cursor:pointer;line-height:1;opacity:.85}
+.chat-body{padding:18px;background:#f6f5f2;max-height:340px;overflow-y:auto}
+.cmsg{background:#fff;border:1px solid #eee;border-radius:14px;border-top-left-radius:4px;padding:12px 15px;font-size:.91rem;color:#1c1a17;max-width:88%;box-shadow:0 2px 6px rgba(0,0,0,.04)}
+.cmsg.cuser{background:var(--p);color:#fff;border-color:var(--p);border-top-left-radius:14px;border-top-right-radius:4px;margin-left:auto;margin-top:10px}
+.cchips{display:flex;flex-direction:column;gap:8px;margin-top:14px}
+.cchips button{text-align:left;background:#fff;border:1px solid var(--p);color:var(--p);border-radius:10px;padding:10px 13px;font-size:.87rem;font-weight:600;cursor:pointer;transition:.2s;font-family:var(--body)}
+.cchips button:hover{background:var(--p);color:#fff}
+.chat-input{display:flex;gap:8px;padding:12px;background:#fff;border-top:1px solid #eee}
+.chat-input input{flex:1;border:1px solid #e3e0d9;border-radius:10px;padding:10px 13px;font-size:.9rem;font-family:var(--body)}
+.chat-send{background:var(--p);color:#fff;border:none;border-radius:10px;width:42px;font-size:1.1rem;cursor:pointer}
+@media(max-width:560px){.chat-btn span{display:none}.chat-btn{padding:15px}
+/* the closed chat panel (336px, only faded out) still occupies layout and pokes past a phone's right edge,
+   forcing horizontal scroll — drop it from layout until opened (desktop keeps its fade-in). */
+.chatw:not(.open) .chat-panel{display:none}.chat-panel{max-width:calc(100vw - 40px)}}
+/* footer */
+.footer{padding:clamp(64px,8vw,110px) 0 40px;overflow-x:clip}
+.contact-details{display:flex;flex-wrap:wrap;gap:8px 24px;align-items:center;margin:4px 0 26px}
+.cd-phone{font-weight:700;font-size:1.18rem;color:inherit;border-bottom:2px solid currentColor;padding-bottom:2px;white-space:nowrap}
+.cd-addr{opacity:.86;font-size:1rem}
+.wordmark{font-family:var(--head);font-weight:600;font-size:clamp(2.6rem,8vw,8.5rem);line-height:.9;letter-spacing:-.03em;color:var(--ink);}
+.frow{display:flex;justify-content:space-between;flex-wrap:wrap;gap:20px;border-top:1px solid var(--n2);margin-top:34px;padding-top:24px;color:var(--n7);font-size:.92rem}
+.rv{opacity:0;transform:translateY(26px);transition:opacity .8s var(--ease),transform .8s var(--ease)}.rv.in{opacity:1;transform:none}
+.flag{position:fixed;bottom:14px;left:14px;z-index:99;background:var(--ink);color:#fff;font:600 12px/1 var(--body);padding:9px 14px;border-radius:999px;opacity:.9}
+.stylechip{position:fixed;bottom:14px;right:14px;z-index:99;background:var(--p);color:#fff;font:600 11px/1 var(--body);padding:9px 13px;border-radius:999px;opacity:.92;letter-spacing:.04em;text-transform:uppercase}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.rv,.hero h1 .ln>span,.hero-sub,.hero-cta{opacity:1!important;transform:none!important}}
+</style></head>
+<body>
+<nav class="nav" id="nav">
+  <a class="brand" href="#top">Homestead Title &amp; Escrow</a>
+  <div class="navlinks"><a href="#services">Services</a><a href="#about">About</a><a href="#reviews">Reviews</a><a href="#faq">FAQ</a></div>
+  <a class="navcta" href="#contact">Open a file</a>
+</nav>
+<header class="hero" id="top" data-qc-section="hero">
+  <img class="hero-bg" src="/assets/stock/insurance-title-3.webp" alt="Homestead Title &amp; Escrow">
+  <div class="hero-scrim"></div>
+  <div class="wrap hero-inner">
+    <span class="kicker">Title · Escrow · Closings · Greenwood Village</span>
+    <h1><span class="ln"><span>Closings,</span></span><span class="ln"><span>handled.</span></span></h1>
+    <p class="hero-sub">Title and escrow built on trust and detail: we double-check the numbers and make signing day the easy part in Greenwood Village.</p>
+    <div class="hero-cta"><a class="btn btn-light" href="#contact">Open a file →</a><span class="hero-rate"><span class="stars">★★★★★</span> Trusted by locals</span></div>
+  </div>
+  <span class="scrolldown" aria-hidden="true"></span>
+</header>
+<div class="proof lite"><div class="wrap"><span><span class="d">◆</span> Licensed &amp; bonded</span><span><span class="d">◆</span> On-time closings</span><span><span class="d">◆</span> Clear communication</span></div></div>
+
+<section data-qc-section="services" class="section svc-sec" id="services"><div class="wrap"><div class="svc-grid">
+  <div class="svc-intro rv">
+    <span class="kicker ek">(01) — Services</span>
+    <h2>What Homestead Title does best.</h2>
+    
+    <a class="svc-cta" href="#contact">Open a file →</a>
+  </div>
+  <div class="svc-list"><div class="svc-row rv"><span class="si">01</span><div class="svc-body"><h3>Escrow Services</h3><p>A neutral, secure hold and disbursement so every dollar lands where it should.</p></div></div><div class="svc-row rv"><span class="si">02</span><div class="svc-body"><h3>Closing Coordination</h3><p>We keep lenders, agents and buyers in sync for a calm, on-time signing.</p></div></div><div class="svc-row rv"><span class="si">03</span><div class="svc-body"><h3>Title Search</h3><p>Thorough searches that surface and clear issues before they delay your close.</p></div></div><div class="svc-row rv"><span class="si">04</span><div class="svc-body"><h3>Refinance Closings</h3><p>Fast, accurate refis handled with the same care as a purchase.</p></div></div><div class="svc-row rv"><span class="si">05</span><div class="svc-body"><h3>Commercial Title</h3><p>Complex deals handled with the diligence they require.</p></div></div><div class="svc-row rv"><span class="si">06</span><div class="svc-body"><h3>Title Insurance</h3><p>Owner's and lender's policies that protect the biggest purchase of your life.</p></div></div></div>
+</div></div></section>
+
+<section class="feature"><img class="feature-bg" src="/assets/stock/insurance-title-1.webp" alt="Homestead Title &amp; Escrow — Greenwood Village"><div class="feature-scrim"></div><div class="wrap"><span class="kicker">Greenwood Village</span><h2>See why they keep coming back.</h2><a class="btn btn-light" href="#contact">Open a file →</a></div></section>
+<section class="about lite" id="about" data-qc-section="about"><div class="wrap section"><div class="about-grid">
+  <div class="about-text rv"><span class="kicker ek">(02) — About</span><h2 style="margin-top:18px">Closings that actually close on time.</h2><p>Title and escrow is all about trust and detail. We over-communicate, double-check the numbers, and make signing day the easy part.</p>
+    <p style="opacity:.7;font-size:1rem">Proudly serving Greenwood Village and the surrounding area.</p></div>
+  <div class="about-img rv"><img src="/assets/stock/insurance-title-2.webp" alt="Homestead Title &amp; Escrow"></div>
+</div></div></section>
+
+<section class="section" id="reviews" data-qc-section="reviews"><div class="wrap"><div class="quote rv">
+  <span class="qmark" aria-hidden="true">“</span>
+  <blockquote>Communicative, precise, and on time. Our agent now sends everyone to them.</blockquote>
+  <span class="stars">★★★★★</span>
+  <cite>— a Greenwood Village client</cite>
+</div></div></section>
+
+
+
+
+<section class="section secure" id="security" data-qc-section="security"><div class="wrap">
+  <div class="sec-head rv"><h2>Secure from the first byte.</h2><span class="kicker">Secured by Sightline</span></div>
+  <p class="secure-lead rv">Most local websites quietly fail the security basics that browsers — and customers — now check for. Yours won’t: we build it hardened, then keep it that way.</p>
+  <div class="secure-grid">
+    <div class="sf rv"><span class="sf-mark"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg></span><h3>HTTPS everywhere</h3><p>Every page encrypted end to end — no “Not Secure” warning, ever.</p></div>
+    <div class="sf rv"><span class="sf-mark"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v5c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6z"/><path d="M9 12l2 2 4-4"/></svg></span><h3>Privacy protected</h3><p>Your financial details encrypted and kept strictly private.</p></div>
+    <div class="sf rv"><span class="sf-mark"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg></span><h3>Email locked down</h3><p>Hardened against spoofing, so no one can impersonate you to your clients.</p></div>
+    <div class="sf rv"><span class="sf-mark"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h4l3 7 4-14 3 7h4"/></svg></span><h3>Monitored &amp; maintained</h3><p>We watch it so you don’t have to — and fix issues before they become problems.</p></div>
+  </div>
+  
+</div></section>
+<section class="section compare" id="compare"><div class="wrap"><div class="sec-head rv"><h2>How you compare in Greenwood.</h2><span class="kicker ek">(03) — The local field</span></div><div class="cmp-grid"><div class="cmp-bars rv"><div class="cmp-row"><span class="cn">Squires Insurance Solutions</span><span class="cbar"><i style="width:95%"></i></span><span class="cv">95</span></div><div class="cmp-row"><span class="cn">Heritage Title Company</span><span class="cbar"><i style="width:93%"></i></span><span class="cv">93</span></div><div class="cmp-row"><span class="cn">3R Insurance Agency</span><span class="cbar"><i style="width:93%"></i></span><span class="cv">93</span></div><div class="cmp-row"><span class="cn">Colorado Title &amp; Escrow</span><span class="cbar"><i style="width:90%"></i></span><span class="cv">90</span></div><div class="cmp-row me"><span class="cn">Homestead Title &amp; Escrow · you</span><span class="cbar"><i style="width:85%"></i></span><span class="cv">85</span></div><div class="cmp-row"><span class="cn">Paramount Title Agency</span><span class="cbar"><i style="width:76%"></i></span><span class="cv">76</span></div><div class="cmp-row"><span class="cn">Robinson | Bailey PC</span><span class="cbar"><i style="width:16%"></i></span><span class="cv">16</span></div></div><div class="cmp-note rv"><div class="cmp-rank">#5<span>of 7 nearby</span></div><p>You’re mid-pack today — this is how you climb.</p><p class="cmp-gap"><span>Biggest opportunity</span>Missing most web-security headers. <b>— handled in this rebuild.</b></p><p class="cmp-src">From public signals — security, mobile, site quality &amp; presence — across 6 local competitors.</p></div></div></div></section>
+<section class="cta lite" id="contact" data-qc-section="contact"><div class="wrap"><span class="kicker ek">Get started</span><h2>Open a file today.</h2><p>Open a file today — we'll coordinate the rest.</p><div class="contact-details"><a class="cd-phone" href="tel:+13038151300">Call (303) 815-1300</a></div><a class="btn" href="tel:+13038151300">Open a file →</a></div></section>
+
+<footer class="footer" data-qc-section="footer"><div class="wrap">
+  <div class="wordmark rv">Homestead Title &amp; Escrow</div>
+  <div class="frow"><span>© 2026 Homestead Title &amp; Escrow · Greenwood Village</span><span><a href="tel:+13038151300" style="color:inherit;text-decoration:none">(303) 815-1300</a> · Title · Escrow · Closings</span></div>
+</div></footer>
+<div class="chatw" id="chatw">
+  <div class="chat-panel" id="chatPanel">
+    <div class="chat-head"><div class="chat-id"><span class="chat-dot"></span><div><b>Homestead Title</b><span>Typically replies in minutes</span></div></div><button class="chat-x" id="chatX" aria-label="Close">×</button></div>
+    <div class="chat-body" id="chatBody">
+      <div class="cmsg">Hi 👋 Thanks for visiting Homestead Title. How can we help today?</div>
+      <div class="cchips"><button>Open a file</button><button>Hours &amp; location</button><button>Ask a question</button></div>
+    </div>
+    <div class="chat-input"><input placeholder="Type a message…" aria-label="Message"><button class="chat-send" aria-label="Send">→</button></div>
+  </div>
+  <button class="chat-btn" id="chatBtn" aria-label="Chat with us"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-8.5 8.5 8.5 8.5 0 0 1-3.8-.9L3 21l1.9-5.7a8.5 8.5 0 0 1-.9-3.8A8.38 8.38 0 0 1 12.5 3 8.38 8.38 0 0 1 21 11.5z"/></svg><span>Chat with us</span></button>
+</div>
+<div class="flag">✦ Test-drive concept · Modern Tech · Sightline</div>
+<script>
+(function(){var n=document.getElementById('nav');var split=false;function s(){n.classList.toggle('scd',scrollY>window.innerHeight*(split?.12:.78))}addEventListener('scroll',s);s();
+var io=new IntersectionObserver(function(e){e.forEach(function(x){if(x.isIntersecting){x.target.classList.add('in');io.unobserve(x.target)}})},{rootMargin:'0px 0px -10% 0px'});
+document.querySelectorAll('.rv').forEach(function(el){io.observe(el)});
+var cw=document.getElementById('chatw');if(cw){document.getElementById('chatBtn').onclick=function(){cw.classList.toggle('open')};document.getElementById('chatX').onclick=function(){cw.classList.remove('open')};document.querySelectorAll('.cchips button').forEach(function(btn){btn.onclick=function(){var body=document.getElementById('chatBody');var chips=body.querySelector('.cchips');var u=document.createElement('div');u.className='cmsg cuser';u.textContent=btn.textContent;body.insertBefore(u,chips);var r=document.createElement('div');r.className='cmsg';r.style.marginTop='10px';r.textContent='Thanks! A team member will be right with you — or call and we’ll help straight away.';setTimeout(function(){body.insertBefore(r,chips);body.scrollTop=body.scrollHeight},480);body.scrollTop=body.scrollHeight}})}})();
+</script>
+<script>(function(){var car=document.getElementById('car');if(!car)return;var tr=document.getElementById('carTrack'),dots=[].slice.call(car.querySelectorAll('.cd')),n=tr.children.length,idx=0,timer;function go(i){idx=(i+n)%n;tr.style.transform='translateX('+(-idx*100)+'%)';dots.forEach(function(d,j){d.classList.toggle('on',j===idx)})}function rs(){clearInterval(timer);timer=setInterval(function(){go(idx+1)},5000)}var pv=document.getElementById('carPrev'),nx=document.getElementById('carNext');if(pv)pv.onclick=function(){go(idx-1);rs()};if(nx)nx.onclick=function(){go(idx+1);rs()};dots.forEach(function(d){d.onclick=function(){go(+d.getAttribute('data-i'));rs()}});var x0=null;car.addEventListener('touchstart',function(e){x0=e.touches[0].clientX},{passive:true});car.addEventListener('touchend',function(e){if(x0==null)return;var dx=e.changedTouches[0].clientX-x0;if(Math.abs(dx)>40){go(idx+(dx<0?1:-1));rs()}x0=null});rs();})();</script>
+</body></html>
