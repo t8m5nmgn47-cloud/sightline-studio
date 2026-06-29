@@ -1,0 +1,413 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Competitor Teardowns — Sightline Studio</title>
+<meta name="description" content="Live competitive teardowns: how each local business ranks against its real nearby competitors on public signals.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500;1,9..144,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0f0d0b;--ink:#f4efe9;--mut:#a89f95;--line:rgba(244,239,233,.14);--head:'Fraunces',Georgia,serif;--body:'Inter',system-ui,sans-serif;--ease:cubic-bezier(.16,1,.3,1)}
+*{box-sizing:border-box;margin:0}html{font-size:112%}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);line-height:1.55;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+.wrap{max-width:1180px;margin:0 auto;padding:0 clamp(20px,5vw,56px)}
+.top{display:flex;align-items:center;justify-content:space-between;padding:24px 0;border-bottom:1px solid var(--line)}
+.logo{display:flex;align-items:center;gap:11px;font-family:var(--head);font-weight:600;font-size:1.2rem}
+.dot{width:11px;height:11px;border-radius:50%;background:var(--ink);box-shadow:0 0 0 4px rgba(244,239,233,.12)}
+.back{color:var(--mut);font-size:.86rem}.back:hover{color:var(--ink)}
+.hero{padding:clamp(40px,7vw,84px) 0 clamp(18px,3vw,34px)}
+.hero .kick{color:var(--mut);font-size:.78rem;letter-spacing:.3em;text-transform:uppercase;font-weight:600;margin-bottom:20px}
+.hero h1{font-family:var(--head);font-weight:400;font-size:clamp(2.3rem,1.4rem + 3.4vw,4.6rem);line-height:1;letter-spacing:-.025em;max-width:17ch}
+.hero h1 em{font-style:italic;color:#c9a96a}
+.hero p{color:var(--mut);font-size:clamp(1.05rem,.95rem + .5vw,1.26rem);max-width:62ch;margin-top:22px}
+.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:clamp(16px,2vw,24px);padding:32px 0 70px}
+@media(max-width:780px){.grid{grid-template-columns:1fr}}
+.card{border:1px solid var(--line);border-radius:15px;padding:28px 28px 22px;background:#16120f;display:flex;flex-direction:column;gap:20px;transition:transform .45s var(--ease),box-shadow .45s}
+.card:hover{transform:translateY(-5px);box-shadow:0 28px 64px rgba(0,0,0,.5)}
+.vert{color:var(--mut);font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;font-weight:600}
+.card h3{font-family:var(--head);font-weight:500;font-size:1.7rem;line-height:1.05;margin-top:12px}
+.stat{display:flex;gap:26px;border-top:1px solid var(--line);padding-top:18px}
+.stat .big{font-family:var(--head);font-size:2rem;line-height:1;display:block}
+.stat .l{color:var(--mut);font-size:.78rem;margin-top:6px;display:block}
+.up{color:#7bbf7b}.dn{color:#d98c6a}
+.card-foot{display:flex;justify-content:space-between;align-items:center;gap:12px;color:var(--ink);font-weight:600;font-size:.92rem;margin-top:2px}
+.demo{color:var(--mut);font-weight:500;border-bottom:1px solid var(--line)}.demo:hover{color:var(--ink)}
+.note{border-top:1px solid var(--line);padding:26px 0;color:var(--mut);font-size:.84rem}
+.rv{opacity:0;transform:translateY(22px)}.rv.in{opacity:1;transform:none;transition:opacity .7s var(--ease),transform .7s var(--ease)}
+@media(prefers-reduced-motion:reduce){.rv{opacity:1;transform:none}}
+</style></head>
+<body>
+<header class="wrap top"><div class="logo"><span class="dot"></span>Sightline Studio</div><a class="back" href="../">&larr; Concepts gallery</a></header>
+<section class="wrap hero">
+  <div class="kick">Competitive teardowns</div>
+  <h1>Where each business <em>really</em> stands.</h1>
+  <p>For each prospect we find their real local competitors, then passively scan the whole field on the public signals a customer (or attacker) can see — security, mobile, site quality, presence. Open any teardown for the leaderboard, the easy wins, and the gaps the rebuild closes.</p>
+</section>
+<section class="wrap"><div class="grid"><a class="card rv" href="copelandfamilydental-com/">
+   <div class="card-top">
+     <span class="vert">Dental · Highlands Ranch</span>
+     <h3>Copeland Family Dental</h3>
+   </div>
+   <div class="stat">
+     <div class="rk"><span class="big">#1</span><span class="l">of 7 local</span></div>
+     <div class="sc"><span class="big">88</span><span class="l">presence score</span></div>
+     <div class="sc"><span class="big up">+3</span><span class="l">vs field avg 85</span></div>
+   </div>
+   <div class="card-foot"><span>Leads the local field &rarr;</span><a class="demo" href="../copelandfamilydental-com/">View demo site</a></div>
+ </a><a class="card rv" href="kcmortgagecolorado-com/">
+   <div class="card-top">
+     <span class="vert">Mortgage · Castle Rock</span>
+     <h3>KC Mortgage (Kay Cleland)</h3>
+   </div>
+   <div class="stat">
+     <div class="rk"><span class="big">#1</span><span class="l">of 7 local</span></div>
+     <div class="sc"><span class="big">85</span><span class="l">presence score</span></div>
+     <div class="sc"><span class="big up">+8</span><span class="l">vs field avg 77</span></div>
+   </div>
+   <div class="card-foot"><span>Leads the local field &rarr;</span><a class="demo" href="../kcmortgagecolorado-com/">View demo site</a></div>
+ </a><a class="card rv" href="elevatemyeyes-com/">
+   <div class="card-top">
+     <span class="vert">Optometry · Highlands Ranch</span>
+     <h3>Highlands Ranch Vision Center</h3>
+   </div>
+   <div class="stat">
+     <div class="rk"><span class="big">#3</span><span class="l">of 7 local</span></div>
+     <div class="sc"><span class="big">91</span><span class="l">presence score</span></div>
+     <div class="sc"><span class="big up">+15</span><span class="l">vs field avg 76</span></div>
+   </div>
+   <div class="card-foot"><span>Full teardown &rarr;</span><a class="demo" href="../elevatemyeyes-com/">View demo site</a></div>
+ </a><a class="card rv" href="acaciadentalgroup-com/">
+   <div class="card-top">
+     <span class="vert">Dental · Englewood</span>
+     <h3>Acacia Dental Group</h3>
+   </div>
+   <div class="stat">
+     <div class="rk"><span class="big">#3</span><span class="l">of 7 local</span></div>
+     <div class="sc"><span class="big">87</span><span class="l">presence score</span></div>
+     <div class="sc"><span class="big up">+9</span><span class="l">vs field avg 78</span></div>
+   </div>
+   <div class="card-foot"><span>Full teardown &rarr;</span><a class="demo" href="../acaciadentalgroup-com/">View demo site</a></div>
+ </a><a class="card rv" href="araoent-com/">
+   <div class="card-top">
+     <span class="vert">Medical · Littleton</span>
+     <h3>South Denver ENT &amp; Allergy</h3>
+   </div>
+   <div class="stat">
+     <div class="rk"><span class="big">#3</span><span class="l">of 7 local</span></div>
+     <div class="sc"><span class="big">87</span><span class="l">presence score</span></div>
+     <div class="sc"><span class="big up">+4</span><span class="l">vs field avg 83</span></div>
+   </div>
+   <div class="card-foot"><span>Full teardown &rarr;</span><a class="demo" href="../araoent-com/">View demo site</a></div>
+ </a><a class="card rv" href="griffithslawpc-com/">
+   <div class="card-top">
+     <span class="vert">Legal · Lone Tree</span>
+     <h3>Griffiths Law PC</h3>
+   </div>
+   <div class="stat">
+     <div class="rk"><span class="big">#3</span><span class="l">of 7 local</span></div>
+     <div class="sc"><span class="big">87</span><span class="l">presence score</span></div>
+     <div class="sc"><span class="big up">+2</span><span class="l">vs field avg 85</span></div>
+   </div>
+   <div class="card-foot"><span>Full teardown &rarr;</span><a class="demo" href="../griffithslawpc-com/">View demo site</a></div>
+ </a><a class="card rv" href="wamboltwealth-com/">
+   <div class="card-top">
+     <span class="vert">Finance · Littleton</span>
+     <h3>Wambolt &amp; Associates (RIA)</h3>
+   </div>
+   <div class="stat">
+     <div class="rk"><span class="big">#3</span><span class="l">of 7 local</span></div>
+     <div class="sc"><span class="big">83</span><span class="l">presence score</span></div>
+     <div class="sc"><span class="big up">+3</span><span class="l">vs field avg 80</span></div>
+   </div>
+   <div class="card-foot"><span>Full teardown &rarr;</span><a class="demo" href="../wamboltwealth-com/">View demo site</a></div>
+ </a><a class="card rv" href="southwestheating-com/">
+   <div class="card-top">
+     <span class="vert">HVAC · Littleton</span>
+     <h3>Southwest Heating &amp; Cooling</h3>
+   </div>
+   <div class="stat">
+     <div class="rk"><span class="big">#3</span><span class="l">of 7 local</span></div>
+     <div class="sc"><span class="big">82</span><span class="l">presence score</span></div>
+     <div class="sc"><span class="big up">+1</span><span class="l">vs field avg 81</span></div>
+   </div>
+   <div class="card-foot"><span>Full teardown &rarr;</span><a class="demo" href="../southwestheating-com/">View demo site</a></div>
+ </a><a class="card rv" href="myrkmhome-com/">
+   <div class="card-top">
+     <span class="vert">Custom builder · Castle Rock</span>
+     <h3>RKM Homes</h3>
+   </div>
+   <div class="stat">
+     <div class="rk"><span class="big">#3</span><span class="l">of 7 local</span></div>
+     <div class="sc"><span class="big">80</span><span class="l">presence score</span></div>
+     <div class="sc"><span class="big up">+1</span><span class="l">vs field avg 79</span></div>
+   </div>
+   <div class="card-foot"><span>Full teardown &rarr;</span><a class="demo" href="../myrkmhome-com/">View demo site</a></div>
+ </a><a class="card rv" href="stoneaspen-com/">
+   <div class="card-top">
+     <span class="vert">Custom builder · Castle Rock</span>
+     <h3>Stone Aspen Signature Builders</h3>
+   </div>
+   <div class="stat">
+     <div class="rk"><span class="big">#3</span><span class="l">of 7 local</span></div>
+     <div class="sc"><span class="big">80</span><span class="l">presence score</span></div>
+     <div class="sc"><span class="big up">+1</span><span class="l">vs field avg 79</span></div>
+   </div>
+   <div class="card-foot"><span>Full teardown &rarr;</span><a class="demo" href="../stoneaspen-com/">View demo site</a></div>
+ </a><a class="card rv" href="cotitleescrow-com/">
+   <div class="card-top">
+     <span class="vert">Title/Escrow · Parker</span>
+     <h3>Colorado Title &amp; Escrow</h3>
+   </div>
+   <div class="stat">
+     <div class="rk"><span class="big">#4</span><span class="l">of 7 local</span></div>
+     <div class="sc"><span class="big">90</span><span class="l">presence score</span></div>
+     <div class="sc"><span class="big up">+2</span><span class="l">vs field avg 88</span></div>
+   </div>
+   <div class="card-foot"><span>Full teardown &rarr;</span><a class="demo" href="../cotitleescrow-com/">View demo site</a></div>
+ </a><a class="card rv" href="niedermaninsurance-com/">
+   <div class="card-top">
+     <span class="vert">Insurance · Highlands Ranch</span>
+     <h3>Niederman Insurance Agency</h3>
+   </div>
+   <div class="stat">
+     <div class="rk"><span class="big">#4</span><span class="l">of 7 local</span></div>
+     <div class="sc"><span class="big">88</span><span class="l">presence score</span></div>
+     <div class="sc"><span class="big up">+1</span><span class="l">vs field avg 87</span></div>
+   </div>
+   <div class="card-foot"><span>Full teardown &rarr;</span><a class="demo" href="../niedermaninsurance-com/">View demo site</a></div>
+ </a><a class="card rv" href="rosslawcolorado-com/">
+   <div class="card-top">
+     <span class="vert">Legal · Centennial</span>
+     <h3>Ross Law PC</h3>
+   </div>
+   <div class="stat">
+     <div class="rk"><span class="big">#4</span><span class="l">of 7 local</span></div>
+     <div class="sc"><span class="big">84</span><span class="l">presence score</span></div>
+     <div class="sc"><span class="big dn">-1</span><span class="l">vs field avg 85</span></div>
+   </div>
+   <div class="card-foot"><span>Full teardown &rarr;</span><a class="demo" href="../rosslawcolorado-com/">View demo site</a></div>
+ </a><a class="card rv" href="denverfamilylawmatters-com/">
+   <div class="card-top">
+     <span class="vert">Legal · Denver</span>
+     <h3>Tolison &amp; Williams</h3>
+   </div>
+   <div class="stat">
+     <div class="rk"><span class="big">#4</span><span class="l">of 7 local</span></div>
+     <div class="sc"><span class="big">82</span><span class="l">presence score</span></div>
+     <div class="sc"><span class="big dn">-2</span><span class="l">vs field avg 84</span></div>
+   </div>
+   <div class="card-foot"><span>Full teardown &rarr;</span><a class="demo" href="../denverfamilylawmatters-com/">View demo site</a></div>
+ </a><a class="card rv" href="biondijewelry-com/">
+   <div class="card-top">
+     <span class="vert">E-commerce · Aurora</span>
+     <h3>Biondi Diamond Jewelers</h3>
+   </div>
+   <div class="stat">
+     <div class="rk"><span class="big">#5</span><span class="l">of 7 local</span></div>
+     <div class="sc"><span class="big">85</span><span class="l">presence score</span></div>
+     <div class="sc"><span class="big dn">-1</span><span class="l">vs field avg 86</span></div>
+   </div>
+   <div class="card-foot"><span>Full teardown &rarr;</span><a class="demo" href="../biondijewelry-com/">View demo site</a></div>
+ </a><a class="card rv" href="homesteadtc-com/">
+   <div class="card-top">
+     <span class="vert">Title/Escrow · Greenwood Village</span>
+     <h3>Homestead Title &amp; Escrow</h3>
+   </div>
+   <div class="stat">
+     <div class="rk"><span class="big">#5</span><span class="l">of 7 local</span></div>
+     <div class="sc"><span class="big">85</span><span class="l">presence score</span></div>
+     <div class="sc"><span class="big up">+8</span><span class="l">vs field avg 77</span></div>
+   </div>
+   <div class="card-foot"><span>Full teardown &rarr;</span><a class="demo" href="../homesteadtc-com/">View demo site</a></div>
+ </a><a class="card rv" href="coloradolendingteam-com/">
+   <div class="card-top">
+     <span class="vert">Mortgage · Englewood</span>
+     <h3>Colorado Lending Team</h3>
+   </div>
+   <div class="stat">
+     <div class="rk"><span class="big">#5</span><span class="l">of 7 local</span></div>
+     <div class="sc"><span class="big">76</span><span class="l">presence score</span></div>
+     <div class="sc"><span class="big dn">-3</span><span class="l">vs field avg 79</span></div>
+   </div>
+   <div class="card-foot"><span>Full teardown &rarr;</span><a class="demo" href="../coloradolendingteam-com/">View demo site</a></div>
+ </a><a class="card rv" href="vaughn-law-com/">
+   <div class="card-top">
+     <span class="vert">Legal · Lone Tree</span>
+     <h3>The Vaughn Law Offices, PLLC</h3>
+   </div>
+   <div class="stat">
+     <div class="rk"><span class="big">#6</span><span class="l">of 7 local</span></div>
+     <div class="sc"><span class="big">81</span><span class="l">presence score</span></div>
+     <div class="sc"><span class="big dn">-4</span><span class="l">vs field avg 85</span></div>
+   </div>
+   <div class="card-foot"><span>Full teardown &rarr;</span><a class="demo" href="../vaughn-law-com/">View demo site</a></div>
+ </a><a class="card rv" href="paramounttitle-com/">
+   <div class="card-top">
+     <span class="vert">Title/Escrow · Greenwood Village</span>
+     <h3>Paramount Title Agency</h3>
+   </div>
+   <div class="stat">
+     <div class="rk"><span class="big">#6</span><span class="l">of 7 local</span></div>
+     <div class="sc"><span class="big">76</span><span class="l">presence score</span></div>
+     <div class="sc"><span class="big dn">-3</span><span class="l">vs field avg 79</span></div>
+   </div>
+   <div class="card-foot"><span>Full teardown &rarr;</span><a class="demo" href="../paramounttitle-com/">View demo site</a></div>
+ </a><a class="card rv" href="heidiosterobgyn-com/">
+   <div class="card-top">
+     <span class="vert">Medical · Lone Tree</span>
+     <h3>Dr. Heidi Oster, MD (OB/GYN)</h3>
+   </div>
+   <div class="stat">
+     <div class="rk"><span class="big">#6</span><span class="l">of 7 local</span></div>
+     <div class="sc"><span class="big">75</span><span class="l">presence score</span></div>
+     <div class="sc"><span class="big dn">-3</span><span class="l">vs field avg 78</span></div>
+   </div>
+   <div class="card-foot"><span>Full teardown &rarr;</span><a class="demo" href="../heidiosterobgyn-com/">View demo site</a></div>
+ </a><a class="card rv" href="buildabath-net/">
+   <div class="card-top">
+     <span class="vert">Remodeling · Highlands Ranch</span>
+     <h3>Build A Bath &amp; Kitchen</h3>
+   </div>
+   <div class="stat">
+     <div class="rk"><span class="big">#7</span><span class="l">of 7 local</span></div>
+     <div class="sc"><span class="big">86</span><span class="l">presence score</span></div>
+     <div class="sc"><span class="big dn">-2</span><span class="l">vs field avg 88</span></div>
+   </div>
+   <div class="card-foot"><span>Full teardown &rarr;</span><a class="demo" href="../buildabath-net/">View demo site</a></div>
+ </a><a class="card rv" href="truebeautymedspa-com/">
+   <div class="card-top">
+     <span class="vert">Med Spa · Littleton</span>
+     <h3>True Beauty Med Spa</h3>
+   </div>
+   <div class="stat">
+     <div class="rk"><span class="big">#7</span><span class="l">of 7 local</span></div>
+     <div class="sc"><span class="big">80</span><span class="l">presence score</span></div>
+     <div class="sc"><span class="big dn">-7</span><span class="l">vs field avg 87</span></div>
+   </div>
+   <div class="card-foot"><span>Full teardown &rarr;</span><a class="demo" href="../truebeautymedspa-com/">View demo site</a></div>
+ </a><a class="card rv" href="southdenverobgyn-com/">
+   <div class="card-top">
+     <span class="vert">Medical · Littleton</span>
+     <h3>South Denver OB/GYN &amp; Midwives</h3>
+   </div>
+   <div class="stat">
+     <div class="rk"><span class="big">#7</span><span class="l">of 7 local</span></div>
+     <div class="sc"><span class="big">77</span><span class="l">presence score</span></div>
+     <div class="sc"><span class="big dn">-8</span><span class="l">vs field avg 85</span></div>
+   </div>
+   <div class="card-foot"><span>Full teardown &rarr;</span><a class="demo" href="../southdenverobgyn-com/">View demo site</a></div>
+ </a><a class="card rv" href="montessoriatlonetree-com/">
+   <div class="card-top">
+     <span class="vert">Childcare/Edu · Lone Tree</span>
+     <h3>Montessori School at Lone Tree</h3>
+   </div>
+   <div class="stat">
+     <div class="rk"><span class="big">#7</span><span class="l">of 7 local</span></div>
+     <div class="sc"><span class="big">72</span><span class="l">presence score</span></div>
+     <div class="sc"><span class="big dn">-19</span><span class="l">vs field avg 91</span></div>
+   </div>
+   <div class="card-foot"><span>Full teardown &rarr;</span><a class="demo" href="../montessoriatlonetree-com/">View demo site</a></div>
+ </a><a class="card rv" href="aspenfallslandscaping-com/">
+   <div class="card-top">
+     <span class="vert">Landscape · Centennial</span>
+     <h3>Aspen Falls Landscape &amp; Const.</h3>
+   </div>
+   <div class="stat">
+     <div class="rk"><span class="big">#7</span><span class="l">of 7 local</span></div>
+     <div class="sc"><span class="big">70</span><span class="l">presence score</span></div>
+     <div class="sc"><span class="big dn">-11</span><span class="l">vs field avg 81</span></div>
+   </div>
+   <div class="card-foot"><span>Full teardown &rarr;</span><a class="demo" href="../aspenfallslandscaping-com/">View demo site</a></div>
+ </a><a class="card rv" href="mckeanins-com/">
+   <div class="card-top">
+     <span class="vert">Insurance · Parker</span>
+     <h3>McKean Insurance Agency</h3>
+   </div>
+   <div class="stat">
+     <div class="rk"><span class="big">#7</span><span class="l">of 7 local</span></div>
+     <div class="sc"><span class="big">66</span><span class="l">presence score</span></div>
+     <div class="sc"><span class="big dn">-22</span><span class="l">vs field avg 88</span></div>
+   </div>
+   <div class="card-foot"><span>Full teardown &rarr;</span><a class="demo" href="../mckeanins-com/">View demo site</a></div>
+ </a><a class="card rv" href="attorneysofhighlandsranch-com/">
+   <div class="card-top">
+     <span class="vert">Legal · Highlands Ranch</span>
+     <h3>Town &amp; Town (Attorneys of HR)</h3>
+   </div>
+   <div class="stat">
+     <div class="rk"><span class="big">#7</span><span class="l">of 7 local</span></div>
+     <div class="sc"><span class="big">64</span><span class="l">presence score</span></div>
+     <div class="sc"><span class="big dn">-21</span><span class="l">vs field avg 85</span></div>
+   </div>
+   <div class="card-foot"><span>Full teardown &rarr;</span><a class="demo" href="../attorneysofhighlandsranch-com/">View demo site</a></div>
+ </a><a class="card rv" href="firmmedspa-com/">
+   <div class="card-top">
+     <span class="vert">Med Spa · Lone Tree</span>
+     <h3>The Firm Medspa</h3>
+   </div>
+   <div class="stat">
+     <div class="rk"><span class="big">#7</span><span class="l">of 7 local</span></div>
+     <div class="sc"><span class="big">53</span><span class="l">presence score</span></div>
+     <div class="sc"><span class="big dn">-34</span><span class="l">vs field avg 87</span></div>
+   </div>
+   <div class="card-foot"><span>Full teardown &rarr;</span><a class="demo" href="../firmmedspa-com/">View demo site</a></div>
+ </a><a class="card rv" href="cherryhillsdentist-com/">
+   <div class="card-top">
+     <span class="vert">Dental · Englewood</span>
+     <h3>Cherry Hills Dental Associates</h3>
+   </div>
+   <div class="stat">
+     <div class="rk"><span class="big">#7</span><span class="l">of 7 local</span></div>
+     <div class="sc"><span class="big">42</span><span class="l">presence score</span></div>
+     <div class="sc"><span class="big dn">-44</span><span class="l">vs field avg 86</span></div>
+   </div>
+   <div class="card-foot"><span>Full teardown &rarr;</span><a class="demo" href="../cherryhillsdentist-com/">View demo site</a></div>
+ </a><a class="card rv" href="coloradodermatology-com/">
+   <div class="card-top">
+     <span class="vert">Medical · Lone Tree</span>
+     <h3>Dermatology &amp; Laser Institute</h3>
+   </div>
+   <div class="stat">
+     <div class="rk"><span class="big">#7</span><span class="l">of 7 local</span></div>
+     <div class="sc"><span class="big">40</span><span class="l">presence score</span></div>
+     <div class="sc"><span class="big dn">-44</span><span class="l">vs field avg 84</span></div>
+   </div>
+   <div class="card-foot"><span>Full teardown &rarr;</span><a class="demo" href="../coloradodermatology-com/">View demo site</a></div>
+ </a><a class="card rv" href="castlerockcpa-com/">
+   <div class="card-top">
+     <span class="vert">Accounting · Castle Rock</span>
+     <h3>Castle Rock CPA</h3>
+   </div>
+   <div class="stat">
+     <div class="rk"><span class="big">#7</span><span class="l">of 7 local</span></div>
+     <div class="sc"><span class="big">35</span><span class="l">presence score</span></div>
+     <div class="sc"><span class="big dn">-49</span><span class="l">vs field avg 84</span></div>
+   </div>
+   <div class="card-foot"><span>Full teardown &rarr;</span><a class="demo" href="../castlerockcpa-com/">View demo site</a></div>
+ </a><a class="card rv" href="compfm-com/">
+   <div class="card-top">
+     <span class="vert">Medical · Highlands Ranch</span>
+     <h3>Comprehensive Family Medicine</h3>
+   </div>
+   <div class="stat">
+     <div class="rk"><span class="big">#7</span><span class="l">of 7 local</span></div>
+     <div class="sc"><span class="big">32</span><span class="l">presence score</span></div>
+     <div class="sc"><span class="big dn">-53</span><span class="l">vs field avg 85</span></div>
+   </div>
+   <div class="card-foot"><span>Full teardown &rarr;</span><a class="demo" href="../compfm-com/">View demo site</a></div>
+ </a><a class="card rv" href="milehighsmilesandesthetics-com/">
+   <div class="card-top">
+     <span class="vert">Dental · Lone Tree</span>
+     <h3>Mile High Smiles &amp; Esthetics</h3>
+   </div>
+   <div class="stat">
+     <div class="rk"><span class="big">#7</span><span class="l">of 7 local</span></div>
+     <div class="sc"><span class="big">18</span><span class="l">presence score</span></div>
+     <div class="sc"><span class="big dn">-69</span><span class="l">vs field avg 87</span></div>
+   </div>
+   <div class="card-foot"><span>Full teardown &rarr;</span><a class="demo" href="../milehighsmilesandesthetics-com/">View demo site</a></div>
+ </a></div></section>
+<footer class="wrap note">Public-signal analysis · 33 live teardowns · competitor names shown for comparison only.</footer>
+<script>
+const io=new IntersectionObserver((es)=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})},{threshold:.1});
+document.querySelectorAll('.rv').forEach(el=>io.observe(el));
+</script>
+</body></html>

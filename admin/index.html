@@ -91,6 +91,7 @@ h1,h2,h3,h4{font-variant-ligatures:none}
   <a class="card" href="../p/"><div class="ic">🎯</div><h3>Prospect funnels</h3><p>33 personalized landing pages (demo + audit + offer). Copy a link and send it.</p><div class="go">All funnels →</div></a>
   <a class="card" href="../"><div class="ic">🖼️</div><h3>Concept gallery</h3><p>All demos — 8 design options each — to show on a call.</p><div class="go">Open gallery →</div></a>
   <a class="card" href="../teardowns/"><div class="ic">🔍</div><h3>Competitor teardowns</h3><p>How each prospect ranks vs. their local field on public signals.</p><div class="go">View teardowns →</div></a>
+  <a class="card" href="../faith/"><div class="ic">⛪</div><h3>Faith / Church demo</h3><p>The church offering — online worship, sermons, giving &amp; plan-your-visit. Show faith-org prospects.</p><div class="go">Open church demo →</div></a>
 </div>
 
 <div class="gh">Marketing engine — what the monthly plan delivers</div>
@@ -102,6 +103,7 @@ h1,h2,h3,h4{font-variant-ligatures:none}
 
 <div class="gh">Studio tools (use on a call or to fulfill)</div>
 <div class="grid">
+  <a class="card" href="../onboard/"><div class="ic">✅</div><h3>Onboard a subscriber</h3><p>Post-sale checklist — close · assets · build · launch · go-live — with a progress bar, tracked per client.</p><div class="go">Open onboarding →</div></a>
   <a class="card" href="../builder/"><div class="ic">🧩</div><h3>Customize your site</h3><p>The add-on configurator — show a client how easily booking, store, payments &amp; more switch on.</p><div class="go">Open customizer →</div></a>
   <a class="card" href="../logo/"><div class="ic">✦</div><h3>Logo Studio</h3><p>Generate a client's wordmark, monogram &amp; favicon. Free tier.</p><div class="go">Open Logo Studio →</div></a>
   <a class="card" href="../legal/"><div class="ic">⚖️</div><h3>Legal Pages</h3><p>Privacy, terms, cookie &amp; accessibility from a few answers.</p><div class="go">Open generator →</div></a>
@@ -158,7 +160,7 @@ function render(){
     return `<div class="subrow"><div><div class="nm">${esc(s.name)}</div>${s.dom?`<div class="dm">${esc(s.dom)}</div>`:''}</div>
     <div><div class="pl">${esc(s.plan||'')}</div><div class="mo">${money(s.mo||0)}/mo</div></div>
     <div><span class="badge ${s.status}" onclick="cycle('${s.id}')" style="cursor:pointer" title="click to change">${s.status}</span></div>
-    <div class="subact">${portal}<button onclick="edit('${s.id}')">Edit</button><button class="x" onclick="del('${s.id}')">✕</button></div></div>`}).join('')
+    <div class="subact"><a href="../onboard/?biz=${encodeURIComponent(s.name)}" target="_blank" rel="noopener">Onboard ↗</a>${portal}<button onclick="edit('${s.id}')">Edit</button><button class="x" onclick="del('${s.id}')">✕</button></div></div>`}).join('')
 }
 function esc(s){return (s||'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]))}
 render();

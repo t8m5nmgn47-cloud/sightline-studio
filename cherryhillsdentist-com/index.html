@@ -29,6 +29,7 @@ h1,h2,h3,h4{overflow-wrap:break-word}
 .nav.scd{background:rgba(255,255,255,.94);backdrop-filter:blur(12px);color:var(--ink);box-shadow:0 1px 0 rgba(20,18,16,.08);padding:14px clamp(22px,5vw,64px)}
 .brand{font-family:var(--head);font-weight:600;font-size:1.5rem;letter-spacing:-.01em;font-variant-ligatures:none;font-feature-settings:"liga" 0,"dlig" 0,"clig" 0;}
 .logo-img{height:30px;width:auto;max-width:158px;display:block;background:#fff;padding:6px 11px;border-radius:9px;box-shadow:0 1px 4px rgba(0,0,0,.12)}
+.bmono{display:inline-flex;align-items:center;justify-content:center;width:1.5em;height:1.5em;border-radius:7px;background:var(--p);color:#fff;font-weight:700;font-size:.72em;letter-spacing:0;margin-right:.42em;vertical-align:-.18em;font-family:var(--body);text-transform:none}
 .navlinks{display:flex;gap:32px;font-size:.96rem;font-weight:500}.navlinks a{opacity:.92}.navlinks a:hover{opacity:1}
 .navcta{font-weight:600;font-size:.95rem;border:1.5px solid currentColor;padding:10px 22px;border-radius:var(--rad)}
 @media(max-width:860px){.navlinks{display:none}}
@@ -246,7 +247,7 @@ h1,h2,h3,h4{overflow-wrap:break-word}
 </style></head>
 <body>
 <nav class="nav" id="nav">
-  <a class="brand" href="#top">Cherry Hills Dental Associates</a>
+  <a class="brand" href="#top"><span class="bmono" aria-hidden="true">CH</span>Cherry Hills Dental Associates</a>
   <div class="navlinks"><a href="#services">Services</a><a href="#about">About</a><a href="#reviews">Reviews</a><a href="#faq">FAQ</a></div>
   <a class="navcta" href="#contact">Book your visit</a>
 </nav>

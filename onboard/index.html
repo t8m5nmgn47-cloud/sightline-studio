@@ -1,0 +1,108 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Sightline · Onboard a subscriber</title>
+<meta name="robots" content="noindex,nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#16140f;--mut:#6b6660;--line:#e7e2d8;--bg:#f4f1ea;--ac:#1f6f5c;--head:'Fraunces',Georgia,serif;--body:'Inter',system-ui,sans-serif;--num:"Helvetica Neue",Helvetica,Arial,sans-serif}
+*{box-sizing:border-box;margin:0}body{background:var(--bg);color:var(--ink);font-family:var(--body);-webkit-font-smoothing:antialiased}
+h1,h2,h3{font-variant-ligatures:none}
+.wrap{max-width:860px;margin:0 auto;padding:0 clamp(18px,4vw,40px)}
+.top{display:flex;align-items:center;justify-content:space-between;padding:16px 0;border-bottom:1px solid var(--line)}
+.lg{display:flex;gap:10px;align-items:center;font-family:var(--head);font-weight:600;font-size:1.2rem}.dot{width:11px;height:11px;border-radius:50%;background:var(--ac)}
+.top a{color:var(--ac);text-decoration:none;font-size:.85rem;font-weight:600}
+.hd{padding:28px 0 6px}.hd h1{font-family:var(--head);font-weight:400;font-size:clamp(1.8rem,1.3rem+2vw,2.6rem);letter-spacing:-.02em}
+.hd .who{display:flex;gap:10px;align-items:center;margin-top:12px}
+.hd input.biz{font:inherit;font-weight:600;font-size:1rem;border:1px solid var(--line);border-radius:9px;padding:9px 12px;min-width:280px;background:#fff}
+.prog{background:#fff;border:1px solid var(--line);border-radius:14px;padding:16px 18px;margin-top:18px;display:flex;align-items:center;gap:16px}
+.bar{flex:1;height:12px;background:#eee8db;border-radius:999px;overflow:hidden}.bar i{display:block;height:100%;background:var(--ac);width:0;transition:width .3s}
+.pct{font-family:var(--num);font-weight:800;font-size:1.4rem;letter-spacing:-.02em;min-width:64px;text-align:right}
+.stage{margin-top:26px}
+.stage h2{font-size:.78rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--mut);margin-bottom:10px;display:flex;justify-content:space-between}
+.stage h2 .c{color:var(--ac)}
+.items{background:#fff;border:1px solid var(--line);border-radius:14px;overflow:hidden}
+.it{display:flex;gap:13px;align-items:flex-start;padding:14px 18px;border-top:1px solid var(--line);cursor:pointer}.it:first-child{border-top:0}
+.it:hover{background:#fbfaf6}
+.box{flex:none;width:22px;height:22px;border-radius:6px;border:2px solid #cfc8b8;margin-top:1px;display:grid;place-items:center;transition:.15s}
+.it.done .box{background:var(--ac);border-color:var(--ac)}
+.box svg{width:13px;height:13px;stroke:#fff;stroke-width:3;fill:none;opacity:0}.it.done .box svg{opacity:1}
+.it .t{font-weight:600;font-size:.95rem}.it.done .t{color:var(--mut);text-decoration:line-through}
+.it .d{color:var(--mut);font-size:.82rem;margin-top:2px}
+.notes{margin-top:24px}.notes label{font-size:.78rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--mut)}
+.notes textarea{width:100%;margin-top:8px;min-height:90px;border:1px solid var(--line);border-radius:12px;padding:13px;font:inherit;background:#fff;resize:vertical}
+.row{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}
+.lnk{display:inline-block;font-size:.82rem;font-weight:600;color:var(--ac);text-decoration:none;border:1px solid var(--line);background:#fff;border-radius:9px;padding:9px 13px}
+.foot{color:var(--mut);font-size:.8rem;padding:26px 0 50px;line-height:1.6}
+.toast{position:fixed;left:50%;bottom:22px;transform:translateX(-50%);background:#161a1d;color:#fff;padding:10px 16px;border-radius:10px;font-size:.86rem;opacity:0;transition:opacity .25s;pointer-events:none;z-index:50}.toast.show{opacity:1}
+</style></head>
+<body>
+<header class="wrap top"><div class="lg"><span class="dot"></span>Sightline · Onboarding</div><a href="/admin/">← Dashboard</a></header>
+<div class="wrap">
+<section class="hd"><h1>Onboard a subscriber.</h1>
+  <div class="who"><label style="font-size:.85rem;color:var(--mut)">Client</label><input class="biz" id="biz" placeholder="Business name" oninput="renameClient()"></div>
+</section>
+<div class="prog"><div class="bar"><i id="barFill"></i></div><div class="pct" id="pct">0%</div></div>
+<div id="stages"></div>
+<div class="notes"><label>Notes</label><textarea id="notes" placeholder="Anything specific to this client — assets received, add-ons bought, domain registrar, deadlines…" oninput="saveNotes()"></textarea></div>
+<div class="row">
+  <a class="lnk" href="/builder/" target="_blank">Customize your site →</a>
+  <a class="lnk" href="/logo/" target="_blank">Logo Studio →</a>
+  <a class="lnk" href="/legal/" target="_blank">Legal Pages →</a>
+  <a class="lnk" href="/marketing/" target="_blank">Marketing engine →</a>
+  <a class="lnk" href="/book/" target="_blank">Booking →</a>
+</div>
+<div class="foot">Progress saves <b>in this browser</b> per client (localStorage). Switch clients by changing the business name above; each keeps its own checklist. Full detail in the Operations Playbook &amp; Go-Live Runbook.</div>
+</div>
+<div class="toast" id="toast"></div>
+<script>
+const STAGES=[
+ ["Close the deal",[
+   ["Payment collected","Stripe payment link — deposit + first month, or $0-down first month"],
+   ["Engagement agreement signed","Countersigned; security authorization too if doing active work"],
+   ["Added as subscriber","Logged in the dashboard Subscribers panel (plan + MRR)"]]],
+ ["Assets & access",[
+   ["Logo & brand colors","Received from client, or created in Logo Studio"],
+   ["Photos / gallery","Real photos received (or licensed stock chosen)"],
+   ["Hours, services, contact","Confirmed and final"],
+   ["Google Business Profile access","Manager access granted (for SEO + reviews)"],
+   ["Domain / DNS access","Registrar login or DNS records access"]]],
+ ["Build it out",[
+   ["Design chosen","Client picked 1 of the 8 styles"],
+   ["Real content finalized","Copy, services, about, FAQ — all theirs"],
+   ["Add-ons switched on","Booking / store / payments / reviews / AI chat as bought"],
+   ["Secure portal enabled","Legal (attorney-client) or medical (HIPAA) if applicable"],
+   ["Legal pages generated","Privacy, terms, cookie, accessibility (Termageddon)"]]],
+ ["Launch",[
+   ["Domain pointed at Vercel + SSL","Their domain live, HTTPS green"],
+   ["Email DNS hardened","SPF / DKIM / DMARC set"],
+   ["QC gate passed","./release.sh clean — 0 blockers"],
+   ["Published on their domain","Site is live for the public"]]],
+ ["Live & recurring",[
+   ["Portal / login sent","Client has their secure login (if applicable)"],
+   ["Marketing engine on","Local SEO + GBP, review asks, reputation monitoring"],
+   ["First monthly report scheduled","Sets the cadence that earns the subscription"]]]
+];
+const qs=new URLSearchParams(location.search);
+let client=(qs.get('biz')||'').trim();
+function key(){return 'sl_onboard_'+(client||'_default').toLowerCase().replace(/[^a-z0-9]+/g,'-')}
+let state={}; function load(){try{state=JSON.parse(localStorage.getItem(key())||'{}')}catch(e){state={}}}
+function persist(){localStorage.setItem(key(),JSON.stringify(state))}
+function toast(m){const e=document.getElementById('toast');e.textContent=m;e.classList.add('show');setTimeout(()=>e.classList.remove('show'),1500)}
+function esc(s){return (s||'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]))}
+function renameClient(){client=document.getElementById('biz').value.trim();load();document.getElementById('notes').value=state._notes||'';render();
+  const u=new URL(location);u.searchParams.set('biz',client);history.replaceState({},'',u)}
+function saveNotes(){state._notes=document.getElementById('notes').value;persist()}
+function toggle(si,ii){const k=si+'.'+ii;state[k]=!state[k];persist();render()}
+function render(){
+  let done=0,total=0;
+  document.getElementById('stages').innerHTML=STAGES.map((st,si)=>{
+    const items=st[1];let sc=0;
+    const rows=items.map((it,ii)=>{const on=!!state[si+'.'+ii];if(on){sc++;done++}total++;
+      return `<div class="it ${on?'done':''}" onclick="toggle(${si},${ii})"><div class="box"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div><div><div class="t">${esc(it[0])}</div><div class="d">${esc(it[1])}</div></div></div>`}).join('');
+    return `<div class="stage"><h2>${esc(st[0])} <span class="c">${sc}/${items.length}</span></h2><div class="items">${rows}</div></div>`}).join('');
+  const pct=total?Math.round(done/total*100):0;
+  document.getElementById('pct').textContent=pct+'%';document.getElementById('barFill').style.width=pct+'%';
+}
+document.getElementById('biz').value=client;load();document.getElementById('notes').value=state._notes||'';render();
+</script>
+</body></html>
