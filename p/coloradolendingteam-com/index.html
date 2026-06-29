@@ -37,6 +37,19 @@ a{color:inherit}.wrap{width:100%;max-width:680px;margin:0 auto;padding:0 20px}
 .findlink{display:inline-block;margin-top:14px;color:#fff;font-weight:600;border-bottom:1px solid rgba(255,255,255,.5);text-decoration:none;padding-bottom:2px;font-size:.9rem}
 .rep{background:#fff;border:1px solid var(--line);border-radius:14px;padding:22px}
 .rep .st{color:var(--gold);font-size:1.1rem}
+.repgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:14px 0 18px}
+.repstat{background:#fff;border:1px solid var(--line);border-radius:12px;padding:16px 12px;text-align:center}
+.repstat .n{font-family:var(--head);font-size:1.7rem;color:var(--ac);line-height:1}.repstat .l{color:var(--mut);font-size:.8rem;margin-top:6px}
+.repcols{display:grid;grid-template-columns:1fr 1fr;gap:16px}@media(max-width:680px){.repcols{grid-template-columns:1fr}.repgrid{grid-template-columns:1fr}}
+.repcard{background:#fff;border:1px solid var(--line);border-radius:14px;padding:20px}
+.rtag{font-size:.7rem;letter-spacing:.13em;text-transform:uppercase;color:var(--ac);font-weight:700;margin-bottom:8px}
+.repcard h3{margin:0 0 8px;font-family:var(--head);font-size:1.25rem}.repcard p{color:var(--mut);font-size:.95rem;line-height:1.5}
+.dmock{margin-top:14px;border:1px solid var(--line);border-radius:10px;padding:12px;background:var(--bg)}
+.dmh{display:flex;justify-content:space-between;align-items:center;gap:8px}.dstars{color:#d33;letter-spacing:1px}.dflag{font-size:.72rem;color:#b5742f;font-weight:700}
+.dmt{font-size:.9rem;color:var(--ink);margin:6px 0 10px}.dmeta{color:var(--mut);font-size:.78rem}
+.dbtn{background:var(--ink);color:#fff;border:none;border-radius:8px;padding:9px 14px;font-weight:600;font-size:.85rem}
+.dnote{font-size:.7rem;color:var(--mut);margin-top:8px}
+.rwatch{margin-top:14px;font-size:.88rem;color:var(--ink);background:var(--bg);border-radius:10px;padding:12px;line-height:1.5}.rwatch b{color:var(--ink)}
 .offer{background:#fff;border:1px solid var(--line);border-radius:16px;overflow:hidden}
 .oprimary{background:linear-gradient(150deg,var(--ac),#15110d);color:#fff;padding:24px}
 .oprimary .otag{display:inline-block;background:var(--gold);color:#241c08;font-size:.72rem;font-weight:700;letter-spacing:.04em;text-transform:uppercase;padding:5px 11px;border-radius:100px;margin-bottom:12px}
@@ -81,9 +94,28 @@ a{color:inherit}.wrap{width:100%;max-width:680px;margin:0 auto;padding:0 20px}
   </div>
 </section>
 
-<section class="wrap sec">
-  <h2>Your reputation</h2>
-  <div class="rep"><div class="st">★★★★★</div><p style="margin-top:8px;color:var(--ink)">You're at <b>4.9★ on Google</b> — strong. We'll protect it: monitor for fake-negative attacks and build the dispute case if a competitor strikes.</p></div>
+<section class="wrap sec" data-qc-section="reputation">
+  <h2>Your reputation — watched, measured, defended</h2>
+  <div class="lead">Your reviews are your #1 sales asset. We turn them into a live dashboard and stand guard over them.</div>
+  <div class="repgrid">
+    <div class="repstat"><div class="n">4.9★</div><div class="l">Google rating</div></div>
+    <div class="repstat"><div class="n">24/7</div><div class="l">every new review monitored</div></div>
+    <div class="repstat"><div class="n">1&#8209;click</div><div class="l">fake-review disputes filed for you</div></div>
+  </div>
+  <div class="repcols">
+    <div class="repcard">
+      <div class="rtag">Reputation defense</div>
+      <h3>Spot &amp; fight fake reviews</h3>
+      <p>Fake, retaliatory and competitor reviews are a real, growing problem — and Google's removal process is slow and confusing to do yourself. We watch every new review, flag the suspicious or policy&#8209;violating ones, and <b>file the removal dispute for you in one click</b> — policy citation written in.</p>
+      <div class="dmock"><div class="dmh"><span class="dstars">★☆☆☆☆</span><span class="dflag">⚠ Flagged · likely policy violation</span></div><div class="dmt">"Never been here but heard it's terrible…"<span class="dmeta"> — no visit · out-of-area account · part of a same-day cluster</span></div><button class="dbtn" type="button">Dispute this review →</button><div class="dnote">Example of the one-click dispute we draft &amp; file on your behalf.</div></div>
+    </div>
+    <div class="repcard">
+      <div class="rtag">Reputation growth</div>
+      <h3>Turn happy customers into 5★ reviews</h3>
+      <p>You're at <b>4.9★ on Google</b> — strong. We'll protect it: monitor for fake-negative attacks and build the dispute case if a competitor strikes.</p>
+      <div class="rwatch"><b>Each month you'll see:</b> rating trend · new reviews · response rate · suspicious-review alerts · your local rank (#5 of 7)</div>
+    </div>
+  </div>
 </section>
 
 <section class="wrap sec" data-qc-section="offer">
