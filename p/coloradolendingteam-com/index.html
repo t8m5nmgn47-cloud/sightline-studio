@@ -32,7 +32,7 @@ a{color:inherit}.wrap{width:100%;max-width:680px;margin:0 auto;padding:0 20px}
 .find h2{color:#fff}.find .lead{color:rgba(255,255,255,.7)}
 .stat{display:flex;gap:22px;flex-wrap:wrap;margin:16px 0 18px}
 .stat .n{font-family:var(--head);font-size:1.9rem;line-height:1}.stat .l{color:rgba(255,255,255,.6);font-size:.8rem;margin-top:4px}
-.gaps{list-style:none;padding:0;margin:0}.gaps li{display:flex;gap:10px;padding:9px 0;border-top:1px solid rgba(255,255,255,.12);font-size:.95rem;color:rgba(255,255,255,.9)}.gaps li:first-child{border-top:0}.gaps .x{color:#e0a59a;font-weight:700}
+.gaps{list-style:none;padding:0;margin:12px 0 16px}.gaps li{display:flex;gap:10px;align-items:flex-start;padding:9px 0;border-top:1px solid var(--line);font-size:.96rem;color:var(--ink)}.gaps li:first-child{border-top:0}.gaps .x{color:#d6483b;font-weight:800;flex:0 0 auto}
 .fix{margin-top:14px;font-size:.92rem;color:#cfe6dd}.fix b{color:#fff}
 .findlink{display:inline-block;margin-top:14px;color:#fff;font-weight:600;border-bottom:1px solid rgba(255,255,255,.5);text-decoration:none;padding-bottom:2px;font-size:.9rem}
 .rep{background:#fff;border:1px solid var(--line);border-radius:14px;padding:22px}
@@ -50,6 +50,20 @@ a{color:inherit}.wrap{width:100%;max-width:680px;margin:0 auto;padding:0 20px}
 .dbtn{background:var(--ink);color:#fff;border:none;border-radius:8px;padding:9px 14px;font-weight:600;font-size:.85rem}
 .dnote{font-size:.7rem;color:var(--mut);margin-top:8px}
 .rwatch{margin-top:14px;font-size:.88rem;color:var(--ink);background:var(--bg);border-radius:10px;padding:12px;line-height:1.5}.rwatch b{color:var(--ink)}
+.scards{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:16px 0 16px}@media(max-width:680px){.scards{grid-template-columns:1fr 1fr}}
+.scard{background:#fff;border:1px solid var(--line);border-radius:12px;padding:16px;border-top:3px solid var(--mut)}
+.scard.b{border-top-color:#d6483b}.scard.a{border-top-color:#d89b2c}.scard.g{border-top-color:#1f9d57}
+.scard .sn{font-family:var(--head);font-size:1.9rem;color:var(--ink);line-height:1}.scard .sn span{font-size:.85rem;color:var(--mut);font-family:var(--body);margin-left:3px}
+.scard .sl{font-weight:600;color:var(--ink);font-size:.9rem;margin-top:8px}.scard .ss{color:var(--mut);font-size:.76rem;margin-top:2px}
+.cbars{background:var(--bg);border:1px solid var(--line);border-radius:12px;padding:16px;margin:4px 0 16px}
+.cbh{font-weight:700;color:var(--ink);font-size:.92rem;margin-bottom:10px}
+.cbar{display:grid;grid-template-columns:148px 1fr 32px;align-items:center;gap:10px;padding:3px 0;font-size:.82rem}
+.cbn{color:var(--mut);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.cbar.me .cbn{color:var(--ink);font-weight:700}
+.cbt{background:#ece7dd;border-radius:6px;height:12px;overflow:hidden}.cbt i{display:block;height:100%;background:#b9b2a6;border-radius:6px}.cbar.me .cbt i{background:var(--ac)}
+.cbv{text-align:right;color:var(--ink);font-weight:600}
+.stats .whygrid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}@media(max-width:680px){.stats .whygrid{grid-template-columns:1fr}}
+.why{background:#fff;border:1px solid var(--line);border-radius:12px;padding:18px;text-align:center}
+.why .wn{font-family:var(--head);font-size:2rem;color:var(--ac)}.why .wl{color:var(--mut);font-size:.85rem;margin-top:6px;line-height:1.45}.why .src{display:block;color:var(--ink);opacity:.5;font-size:.72rem;margin-top:4px}
 .offer{background:#fff;border:1px solid var(--line);border-radius:16px;overflow:hidden}
 .oprimary{background:linear-gradient(150deg,var(--ac),#15110d);color:#fff;padding:24px}
 .oprimary .otag{display:inline-block;background:var(--gold);color:#241c08;font-size:.72rem;font-weight:700;letter-spacing:.04em;text-transform:uppercase;padding:5px 11px;border-radius:100px;margin-bottom:12px}
@@ -83,14 +97,22 @@ a{color:inherit}.wrap{width:100%;max-width:680px;margin:0 auto;padding:0 20px}
   <div class="built"><span id="stylelabel">✦ Clean Minimal design</span><span>💬 AI chat assistant</span><span>🔒 Security built in</span><span>📱 Mobile-first</span></div>
 </section>
 
-<section class="wrap sec">
-  <div class="find">
-    <h2>What we found on your current site</h2>
-    <div class="lead">A passive, public-signal audit — the things customers (and Google) already notice.</div>
-    <div class="stat"><div><div class="n">#5</div><div class="l">of 7 nearby</div></div><div><div class="n">76</div><div class="l">your score /100</div></div><div><div class="n">79</div><div class="l">local average</div></div></div>
-    <ul class="gaps"><li><span class="x">✕</span><span>Missing most web-security headers.</span></li><li><span class="x">✕</span><span>Thin or unlinked social presence.</span></li></ul>
-    <div class="fix">Every one of these is <b>fixed in the rebuild above</b> — and we keep it that way.</div>
-    <a class="findlink" href="../../teardowns/coloradolendingteam-com/" target="_blank" rel="noopener">See the full competitor teardown ↗</a>
+<section class="wrap sec" data-qc-section="scorecard">
+  <h2>Your current site, scored</h2>
+  <div class="lead">A passive, public-signal audit — the same things your customers and Google judge you on. No logins, no guesswork; every number is measured.</div>
+  <div class="scards"><div class="scard g"><div class="sn">76<span>/100</span></div><div class="sl">Overall site score</div><div class="ss">local avg 79</div></div><div class="scard b"><div class="sn">#5<span>of 7</span></div><div class="sl">Rank in Englewood</div><div class="ss">bottom half — room to climb</div></div><div class="scard a"><div class="sn">−9<span>pts</span></div><div class="sl">Behind the local leader</div><div class="ss">leader scores 85</div></div><div class="scard a"><div class="sn">55<span>/100</span></div><div class="sl">Design &amp; first impression</div><div class="ss">how modern it looks</div></div><div class="scard g"><div class="sn">100<span>/100</span></div><div class="sl">Completeness</div><div class="ss">booking · mobile · security · schema</div></div><div class="scard g"><div class="sn">4.9★<span></span></div><div class="sl">Reputation</div><div class="ss">watched 24/7</div></div></div>
+  <ul class="gaps"><li><span class="x">✕</span><span>Missing most web-security headers.</span></li><li><span class="x">✕</span><span>Thin or unlinked social presence.</span></li></ul>
+  <div class="cbars"><div class="cbh">How you stack up against 6 nearby competitors</div><div class="cbar"><span class="cbn">KC Mortgage (Kay Cleland</span><span class="cbt"><i style="width:85%"></i></span><span class="cbv">85</span></div><div class="cbar"><span class="cbn">Mortgage Maestro Group</span><span class="cbt"><i style="width:85%"></i></span><span class="cbv">85</span></div><div class="cbar"><span class="cbn">Uptown Mortgage</span><span class="cbt"><i style="width:82%"></i></span><span class="cbv">82</span></div><div class="cbar"><span class="cbn">Rob's Mortgage Loans</span><span class="cbt"><i style="width:77%"></i></span><span class="cbv">77</span></div><div class="cbar me"><span class="cbn">Colorado Lending Team · you</span><span class="cbt"><i style="width:76%"></i></span><span class="cbv">76</span></div><div class="cbar"><span class="cbn">Nathan Mortgage</span><span class="cbt"><i style="width:74%"></i></span><span class="cbv">74</span></div><div class="cbar"><span class="cbn">Castle Rock Mortgage LLC</span><span class="cbt"><i style="width:70%"></i></span><span class="cbv">70</span></div></div>
+  <div class="fix">Every one of these is <b>fixed in the rebuild above</b> — and we keep it that way.</div>
+  <a class="findlink" href="../../teardowns/coloradolendingteam-com/" target="_blank" rel="noopener">See the full competitor teardown ↗</a>
+</section>
+
+<section class="wrap sec stats">
+  <div class="lead" style="text-align:center;margin-bottom:14px">This isn't cosmetic — it's revenue</div>
+  <div class="whygrid">
+    <div class="why"><div class="wn">53%</div><div class="wl">of mobile visitors abandon a site that takes over 3 seconds to load <span class="src">— Google</span></div></div>
+    <div class="why"><div class="wn">75%</div><div class="wl">judge a company's credibility on its website design alone <span class="src">— Stanford</span></div></div>
+    <div class="why"><div class="wn">~9 in 10</div><div class="wl">read online reviews before choosing a local business <span class="src">— BrightLocal</span></div></div>
   </div>
 </section>
 
