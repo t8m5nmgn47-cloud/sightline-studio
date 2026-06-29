@@ -1,0 +1,194 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Equipped Church — your site, reimagined · Sightline</title>
+<meta name="description" content="A premium new website, a security audit, and a reputation read — prepared for Equipped Church by Sightline.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500;1,9..144,600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#16140f;--mut:#6b6660;--line:#e7e2d8;--bg:#faf8f4;--ac:#3498db;--gold:#c2a04a;--head:'Fraunces',Georgia,serif;--body:'Inter',system-ui,sans-serif;--ease:cubic-bezier(.16,1,.3,1)}
+*{box-sizing:border-box;margin:0}html{overflow-x:hidden;scroll-behavior:smooth}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+a{color:inherit}.wrap{width:100%;max-width:680px;margin:0 auto;padding:0 20px}
+.nav{position:sticky;top:0;z-index:30;background:rgba(250,248,244,.92);backdrop-filter:blur(10px);border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;padding:12px 20px}
+.nav .lg{display:flex;align-items:center;gap:8px;font-family:var(--head);font-weight:600}.nav .dot{width:9px;height:9px;border-radius:50%;background:var(--ac)}
+.btn{display:inline-block;background:var(--ac);color:#fff;font-weight:600;font-size:.95rem;padding:13px 20px;border-radius:10px;text-decoration:none;text-align:center;transition:transform .2s var(--ease)}
+.btn:active{transform:scale(.98)}.nav .btn{padding:9px 15px;font-size:.85rem}
+.btn.alt{background:transparent;color:var(--ac);border:1px solid var(--ac)}
+.ctastack{display:flex;flex-direction:column;gap:12px;align-items:center;max-width:380px;margin:0 auto}
+.callalt{color:var(--mut);font-size:.92rem;margin-top:2px}.callalt a{color:var(--ac);font-weight:600;text-decoration:none}
+.hero{padding:38px 0 30px;text-align:left}
+.hero .kick{color:var(--ac);font-weight:600;font-size:.78rem;letter-spacing:.14em;text-transform:uppercase}
+.hero h1{font-family:var(--head);font-weight:400;font-size:clamp(2rem,8vw,2.8rem);line-height:1.04;letter-spacing:-.02em;margin:14px 0 14px;font-variant-ligatures:none;font-feature-settings:"liga" 0,"dlig" 0,"clig" 0}
+.hero h1 em{font-style:italic;color:var(--ac)}
+.hero p{color:var(--mut);font-size:1.08rem;max-width:46ch}
+.hero .btn{margin-top:22px;width:100%;font-size:1.05rem;padding:16px}
+.sec{padding:30px 0;border-top:1px solid var(--line)}
+.sec h2{font-family:var(--head);font-weight:500;font-size:clamp(1.5rem,6vw,2rem);letter-spacing:-.01em;margin-bottom:6px;font-variant-ligatures:none;font-feature-settings:"liga" 0,"dlig" 0,"clig" 0}
+.sec .lead{color:var(--mut);margin-bottom:18px}
+.frame{border:1px solid var(--line);border-radius:14px;overflow:hidden;box-shadow:0 16px 40px rgba(20,18,15,.1);background:#fff}
+.fbar{background:#efeae0;padding:9px 12px;display:flex;align-items:center;gap:8px;border-bottom:1px solid var(--line)}
+.fbar i{width:9px;height:9px;border-radius:50%;background:#cfc7b6;display:block}.fbar .u{background:#fff;border:1px solid var(--line);border-radius:6px;padding:3px 12px;font-size:.74rem;color:var(--mut);margin-left:6px}
+.demoframe{width:100%;height:460px;border:0;display:block;background:#fff}
+.openlink{display:inline-block;margin-top:12px;font-weight:600;color:var(--ac);text-decoration:none;border-bottom:1px solid var(--ac);padding-bottom:2px}
+.built{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}.built span{font-size:.8rem;font-weight:600;background:#eef4f1;color:#185845;border-radius:100px;padding:6px 12px}
+.swrow{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:0 0 14px}.swl{font-size:.82rem;color:var(--mut);margin-right:4px}.swb{border:1px solid var(--line);background:#fff;color:var(--ink);border-radius:999px;padding:8px 14px;font:600 .82rem/1 var(--body);cursor:pointer;transition:.15s}.swb.on{background:var(--ac);color:#fff;border-color:var(--ac)}
+.find{background:var(--ink);color:#fff;border-radius:16px;padding:24px}
+.find h2{color:#fff}.find .lead{color:rgba(255,255,255,.7)}
+.stat{display:flex;gap:22px;flex-wrap:wrap;margin:16px 0 18px}
+.stat .n{font-family:var(--head);font-size:1.9rem;line-height:1}.stat .l{color:rgba(255,255,255,.6);font-size:.8rem;margin-top:4px}
+.gaps{list-style:none;padding:0;margin:12px 0 16px}.gaps li{display:flex;gap:10px;align-items:flex-start;padding:9px 0;border-top:1px solid var(--line);font-size:.96rem;color:var(--ink)}.gaps li:first-child{border-top:0}.gaps .x{color:#d6483b;font-weight:800;flex:0 0 auto}
+.fix{margin-top:14px;font-size:.95rem;color:#4a5a54;font-weight:600}.fix b{color:var(--ac);font-weight:800}
+.findlink{display:inline-block;margin-top:14px;color:#fff;font-weight:600;border-bottom:1px solid rgba(255,255,255,.5);text-decoration:none;padding-bottom:2px;font-size:.9rem}
+.rep{background:#fff;border:1px solid var(--line);border-radius:14px;padding:22px}
+.rep .st{color:var(--gold);font-size:1.1rem}
+.repgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:14px 0 18px}
+.repstat{background:#fff;border:1px solid var(--line);border-radius:12px;padding:16px 12px;text-align:center}
+.repstat .n{font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;font-weight:800;font-size:1.95rem;letter-spacing:-.02em;color:var(--ac);line-height:1}.repstat .l{color:var(--mut);font-size:.8rem;margin-top:6px}
+.repcols{display:grid;grid-template-columns:1fr 1fr;gap:16px}@media(max-width:680px){.repcols{grid-template-columns:1fr}.repgrid{grid-template-columns:1fr}}
+.repcard{background:#fff;border:1px solid var(--line);border-radius:14px;padding:20px}
+.rtag{font-size:.7rem;letter-spacing:.13em;text-transform:uppercase;color:var(--ac);font-weight:700;margin-bottom:8px}
+.repcard h3{margin:0 0 8px;font-family:var(--head);font-size:1.25rem}.repcard p{color:var(--mut);font-size:.95rem;line-height:1.5}
+.dmock{margin-top:14px;border:1px solid var(--line);border-radius:10px;padding:12px;background:var(--bg)}
+.dmh{display:flex;justify-content:space-between;align-items:center;gap:8px}.dstars{color:#d33;letter-spacing:1px}.dflag{font-size:.72rem;color:#b5742f;font-weight:700}
+.dmt{font-size:.9rem;color:var(--ink);margin:6px 0 10px}.dmeta{color:var(--mut);font-size:.78rem}
+.dbtn{background:var(--ink);color:#fff;border:none;border-radius:8px;padding:9px 14px;font-weight:600;font-size:.85rem}
+.dnote{font-size:.7rem;color:var(--mut);margin-top:8px}
+.rwatch{margin-top:14px;font-size:.88rem;color:var(--ink);background:var(--bg);border-radius:10px;padding:12px;line-height:1.5}.rwatch b{color:var(--ink)}
+.scards{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:16px 0 16px}@media(max-width:680px){.scards{grid-template-columns:1fr 1fr}}
+.scard{background:#fff;border:1px solid var(--line);border-radius:12px;padding:16px;border-top:3px solid var(--mut)}
+.scard.b{border-top-color:#d6483b}.scard.a{border-top-color:#d89b2c}.scard.g{border-top-color:#1f9d57}
+.scard .sn{font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;font-weight:800;font-size:2.05rem;letter-spacing:-.02em;color:var(--ink);line-height:1}.scard .sn span{font-size:.85rem;color:var(--mut);font-family:var(--body);margin-left:3px}
+.scard .sl{font-weight:600;color:var(--ink);font-size:.9rem;margin-top:8px}.scard .ss{color:var(--mut);font-size:.76rem;margin-top:2px}
+.cbars{background:var(--bg);border:1px solid var(--line);border-radius:12px;padding:16px;margin:4px 0 16px}
+.cbh{font-weight:700;color:var(--ink);font-size:.92rem;margin-bottom:10px}
+.cbar{display:grid;grid-template-columns:148px 1fr 32px;align-items:center;gap:10px;padding:3px 0;font-size:.82rem}
+.cbn{color:var(--mut);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.cbar.me .cbn{color:var(--ink);font-weight:700}
+.cbt{background:#ece7dd;border-radius:6px;height:12px;overflow:hidden}.cbt i{display:block;height:100%;background:#b9b2a6;border-radius:6px}.cbar.me .cbt i{background:var(--ac)}
+.cbv{text-align:right;color:var(--ink);font-weight:600}
+.stats .whygrid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}@media(max-width:680px){.stats .whygrid{grid-template-columns:1fr}}
+.why{background:#fff;border:1px solid var(--line);border-radius:12px;padding:18px;text-align:center}
+.why .wn{font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;font-weight:800;font-size:2.35rem;letter-spacing:-.02em;color:var(--ac)}.why .wl{color:var(--mut);font-size:.85rem;margin-top:6px;line-height:1.45}.why .src{display:block;color:var(--ink);opacity:.5;font-size:.72rem;margin-top:4px}
+.barow{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:16px 0 6px;align-items:start}@media(max-width:680px){.barow{grid-template-columns:1fr}}
+.bafig{margin:0;border:1px solid var(--line);border-radius:13px;overflow:hidden;background:#fff;position:relative}
+.bafig.new{box-shadow:0 16px 44px rgba(0,0,0,.14);border-color:var(--ac)}
+.batag{position:absolute;top:10px;left:10px;z-index:2;font-size:.68rem;font-weight:700;letter-spacing:.05em;text-transform:uppercase;padding:5px 10px;border-radius:100px}
+.batag.old{background:rgba(20,18,15,.8);color:#fff}.batag.new{background:var(--ac);color:#fff}
+.baimg{display:block;width:100%;height:auto}
+.offer{background:#fff;border:1px solid var(--line);border-radius:16px;overflow:hidden}
+.oprimary{background:linear-gradient(150deg,var(--ac),#15110d);color:#fff;padding:24px}
+.oprimary .otag{display:inline-block;background:var(--gold);color:#241c08;font-size:.72rem;font-weight:700;letter-spacing:.04em;text-transform:uppercase;padding:5px 11px;border-radius:100px;margin-bottom:12px}
+.oprimary h3{font-family:var(--head);font-weight:500;font-size:1.45rem;line-height:1.15;margin-bottom:10px;color:#fff}.oprimary h3 b{color:var(--gold)}
+.oprimary p{color:rgba(255,255,255,.85);font-size:.98rem}.oprimary p b{color:#fff}
+.osub{padding:18px 24px;border-top:1px solid var(--line)}.osub b{color:var(--ink)}
+.osub .row{display:flex;justify-content:space-between;gap:12px;font-size:.92rem;color:var(--mut);padding:7px 0}
+.cta{text-align:center;padding:40px 0 20px}
+.cta h2{margin-bottom:10px}.cta p{color:var(--mut);margin-bottom:18px}
+.cta .btn{font-size:1.1rem;padding:17px 28px}
+.rea{color:var(--mut);font-size:.84rem;margin-top:12px}
+.foot{text-align:center;color:var(--mut);font-size:.8rem;padding:26px 0 40px}
+@media(min-width:760px){.hero .btn{width:auto}.demoframe{height:540px}}
+</style></head>
+<body>
+<nav class="nav"><span class="lg"><span class="dot"></span>Sightline</span><a class="btn" href="../../start/?name=Equipped%20Church&slug=equippedchurch-net&color=%233498db">Start my site</a></nav>
+<header class="wrap hero" data-qc-section="hero">
+  <div class="kick">Prepared for Equipped Church · Highlands Ranch</div>
+  <h1>Equipped Church, here's your site — <em>reimagined.</em></h1>
+  <p>We rebuilt your website, audited your security, and read your reputation — no charge, no obligation. Here's everything in one place.</p>
+  
+  <a class="btn" href="../../start/?name=Equipped%20Church&slug=equippedchurch-net&color=%233498db">Start my site — $0 down →</a>
+  <div class="callalt">No call needed. Prefer to talk first? <a href="../../book/?biz=Equipped%20Church">Book a 15-min call</a>.</div>
+</header>
+
+<section class="wrap sec" data-qc-section="beforeafter">
+  <h2>Equipped Church, here's the difference.</h2>
+  <div class="lead">On the left, your site today. On the right, the one we've <b>already built</b> for you — same business, same brand, a decade newer.</div>
+  <div class="barow">
+    <figure class="bafig old"><div class="batag old">Before · your site today</div><img class="baimg" src="../../assets/ba/equippedchurch-net-before.png" alt="Equipped Church — current site" loading="lazy"></figure>
+    <figure class="bafig new"><div class="batag new">After · your new site</div><img class="baimg" src="../../assets/ba/equippedchurch-net-after.png" alt="Equipped Church — new site by Sightline" loading="lazy"></figure>
+  </div>
+</section>
+
+<section class="wrap sec" data-qc-section="demo">
+  <h2>Now open it and click around</h2>
+  <div class="lead">It's real and live — switch between 8 designs, try the booking flow, open it full-screen. Online booking, an AI chat assistant and bank-grade security are already on.</div>
+  <div class="swrow"><span class="swl">Choose a look:</span><button class="swb on" data-src="../../equippedchurch-net/" data-label="Heritage Trust" onclick="pickStyle(this)">Heritage Trust</button><button class="swb" data-src="../../equippedchurch-net--editorial/" data-label="Editorial Luxe" onclick="pickStyle(this)">Editorial Luxe</button><button class="swb" data-src="../../equippedchurch-net--commerce/" data-label="Bold Commerce" onclick="pickStyle(this)">Bold Commerce</button><button class="swb" data-src="../../equippedchurch-net--warm/" data-label="Warm Local" onclick="pickStyle(this)">Warm Local</button><button class="swb" data-src="../../equippedchurch-net--minimal/" data-label="Clean Minimal" onclick="pickStyle(this)">Clean Minimal</button><button class="swb" data-src="../../equippedchurch-net--moderntech/" data-label="Modern Tech" onclick="pickStyle(this)">Modern Tech</button><button class="swb" data-src="../../equippedchurch-net--clinical/" data-label="Calm Clinical" onclick="pickStyle(this)">Calm Clinical</button><button class="swb" data-src="../../equippedchurch-net--servicepro/" data-label="Service Pro" onclick="pickStyle(this)">Service Pro</button></div>
+  <div class="frame"><div class="fbar"><i></i><i></i><i></i><span class="u">equippedchurch.net</span></div><iframe id="demoframe" class="demoframe" src="../../equippedchurch-net/" loading="lazy" title="Equipped Church demo"></iframe></div>
+  <a class="openlink" id="openlink" href="../../equippedchurch-net/" target="_blank" rel="noopener">Open the full live demo ↗</a>
+  <div class="built"><span id="stylelabel">✦ Heritage Trust design</span><span>💬 AI chat assistant</span><span>🔒 Security built in</span><span>📱 Mobile-first</span></div>
+</section>
+
+<section class="wrap sec" data-qc-section="scorecard">
+  <h2>Your current site, scored</h2>
+  <div class="lead">A passive, public-signal audit — the same things your customers and Google judge you on. No logins, no guesswork; every number is measured.</div>
+  <div class="scards"></div>
+  <ul class="gaps"><li><span class="x">✕</span><span>No HTTPS / weak security basics</span></li><li><span class="x">✕</span><span>No DMARC — email is spoofable</span></li><li><span class="x">✕</span><span>Dated, not mobile-first</span></li></ul>
+  
+  <div class="fix">Every one of these is <b>fixed in the rebuild above</b> — and we keep it that way.</div>
+  
+</section>
+
+<section class="wrap sec stats">
+  <div class="lead" style="text-align:center;margin-bottom:14px">This isn't cosmetic — it's revenue</div>
+  <div class="whygrid">
+    <div class="why"><div class="wn">53%</div><div class="wl">of mobile visitors abandon a site that takes over 3 seconds to load <span class="src">— Google</span></div></div>
+    <div class="why"><div class="wn">75%</div><div class="wl">judge a company's credibility on its website design alone <span class="src">— Stanford</span></div></div>
+    <div class="why"><div class="wn">~9 in 10</div><div class="wl">read online reviews before choosing a local business <span class="src">— BrightLocal</span></div></div>
+  </div>
+</section>
+
+<section class="wrap sec" data-qc-section="reputation">
+  <h2>Your reputation — watched, measured, defended</h2>
+  <div class="lead">Your reviews are your #1 sales asset. We turn them into a live dashboard and stand guard over them.</div>
+  <div class="repgrid">
+    <div class="repstat"><div class="n">Baseline</div><div class="l">we benchmark your reviews on day one</div></div>
+    <div class="repstat"><div class="n">24/7</div><div class="l">every new review monitored</div></div>
+    <div class="repstat"><div class="n">1&#8209;click</div><div class="l">fake-review disputes filed for you</div></div>
+  </div>
+  <div class="repcols">
+    <div class="repcard">
+      <div class="rtag">Reputation defense</div>
+      <h3>Spot &amp; fight fake reviews</h3>
+      <p>Fake, retaliatory and competitor reviews are a real, growing problem — and Google's removal process is slow and confusing to do yourself. We watch every new review, flag the suspicious or policy&#8209;violating ones, and <b>file the removal dispute for you in one click</b> — policy citation written in.</p>
+      <div class="dmock"><div class="dmh"><span class="dstars">★☆☆☆☆</span><span class="dflag">⚠ Flagged · likely policy violation</span></div><div class="dmt">"Never been here but heard it's terrible…"<span class="dmeta"> — no visit · out-of-area account · part of a same-day cluster</span></div><button class="dbtn" type="button">Dispute this review →</button><div class="dnote">Example of the one-click dispute we draft &amp; file on your behalf.</div></div>
+    </div>
+    <div class="repcard">
+      <div class="rtag">Reputation growth</div>
+      <h3>Turn happy customers into 5★ reviews</h3>
+      <p>We'll baseline your reviews, surface anything suspicious, and watch for fake-negative attacks — with the dispute case ready if a competitor strikes.</p>
+      <div class="rwatch"><b>Each month you'll see:</b> rating trend · new reviews · response rate · suspicious-review alerts</div>
+    </div>
+  </div>
+</section>
+
+<section class="wrap sec" data-qc-section="offer">
+  <h2>Your offer</h2>
+  <div class="offer">
+    <div class="oprimary"><span class="otag">Special offer for churches in the Highlands Ranch area</span><h3><b>$0 down — your site live for $99.99/mo.</b> Prefer a lower monthly? <b>$199 down, then $49.99/mo</b>.</h3><p>Built in your real brand — online giving integration, service-time display, sermon/media embed, visitor connect card, and kids-ministry info all included. Hosting, security, and monthly edits included. No four-figure build fee, cancel-friendly.</p></div>
+    <div class="osub">
+      <div class="row"><span><b>Option 1</b> · nothing down (most popular)</span><b>$0 down, then $99.99/mo</b></div>
+      <div class="row"><span><b>Option 2</b> · a little up front, lower monthly</span><b>$299.99 to start, then $49.99/mo</b></div>
+      <div class="row"><span>Included in both</span><b>build · hosting · security · booking · reviews · edits</b></div>
+      <div class="row"><span>Cancel-friendly</span><b>no four-figure build fee</b></div>
+    </div>
+    <div class="ctastack" style="margin-top:18px">
+      <a class="btn" href="../../start/?name=Equipped%20Church&slug=equippedchurch-net&color=%233498db">Start my site — $0 down →</a>
+      <div class="callalt">No call required — pick a plan and we start building. Prefer to talk? <a href="../../book/?biz=Equipped%20Church">Book a 15-min call</a>.</div>
+    </div>
+  </div>
+</section>
+
+<section class="wrap cta" id="book" data-qc-section="cta">
+  <h2>Ready to make it yours?</h2>
+  <p>Start in two minutes — pick your plan, tell us where to send it, and we begin building. No call required.</p>
+  <div class="ctastack">
+    <a class="btn" href="../../start/?name=Equipped%20Church&slug=equippedchurch-net&color=%233498db">Start my site — $0 down →</a>
+    <div class="callalt">Rather talk it through first? <a href="../../book/?biz=Equipped%20Church">Book a 15-min call</a> — no pressure, no obligation.</div>
+  </div>
+  <div class="rea">First month free · 30-day money-back · we don't stop until you're happy.</div>
+</section>
+<footer class="wrap foot">Prepared for Equipped Church by <b>Sightline</b> · the security + website studio for Highlands Ranch businesses.</footer>
+<script>function pickStyle(b){var s=b.getAttribute('data-src'),l=b.getAttribute('data-label');var f=document.getElementById('demoframe');
+// Use location.replace on the iframe (same-origin) so switching styles does NOT push browser-history entries —
+// otherwise the browser Back button steps backward through style changes ("back overwrites the demo") instead of leaving the page.
+if(f){try{f.contentWindow.location.replace(s);}catch(e){f.src=s;}}
+var o=document.getElementById('openlink');if(o)o.href=s;var sl=document.getElementById('stylelabel');if(sl)sl.textContent='✦ '+l+' design';b.parentNode.querySelectorAll('.swb').forEach(function(x){x.classList.remove('on')});b.classList.add('on');}</script>
+</body></html>
