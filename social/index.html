@@ -1,0 +1,590 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Sightline · Social Studio</title>
+<meta name="robots" content="noindex,nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#16140f;--mut:#6b6660;--line:#e7e2d8;--bg:#f4f1ea;--ac:#1f6f5c;--gold:#c2a04a;--head:'Fraunces',Georgia,serif;--body:'Inter',system-ui,sans-serif;--num:"Helvetica Neue",Helvetica,Arial,sans-serif}
+*{box-sizing:border-box;margin:0}body{background:var(--bg);color:var(--ink);font-family:var(--body);-webkit-font-smoothing:antialiased}
+h1,h2,h3,h4{font-variant-ligatures:none}
+.wrap{max-width:1200px;margin:0 auto;padding:0 clamp(18px,4vw,40px)}
+.top{display:flex;align-items:center;justify-content:space-between;padding:16px 0;border-bottom:1px solid var(--line)}
+.lg{display:flex;gap:10px;align-items:center;font-family:var(--head);font-weight:600;font-size:1.2rem}.dot{width:11px;height:11px;border-radius:50%;background:var(--ac)}
+.top a{color:var(--ac);text-decoration:none;font-size:.85rem;font-weight:600}
+.hd{padding:30px 0 6px}.hd h1{font-family:var(--head);font-weight:400;font-size:clamp(2rem,1.4rem+2vw,2.7rem);letter-spacing:-.02em}.hd p{color:var(--mut);margin-top:8px;font-size:1.05rem;max-width:60ch}
+.gh{font-size:.74rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--mut);margin:34px 0 14px;display:flex;align-items:center;gap:12px}
+.gh .sep{flex:1;height:1px;background:var(--line)}
+/* layout */
+.layout{display:grid;grid-template-columns:1fr 420px;gap:24px;align-items:start;margin-top:4px}
+@media(max-width:900px){.layout{grid-template-columns:1fr}}
+.panel{background:#fff;border:1px solid var(--line);border-radius:16px;padding:24px}
+.panel h2{font-family:var(--head);font-size:1.3rem;font-weight:600;margin-bottom:4px}
+.panel .sub{color:var(--mut);font-size:.9rem;margin-bottom:18px}
+/* form elements */
+label{display:block;font-size:.78rem;font-weight:600;color:var(--mut);margin-bottom:5px}
+textarea,input[type=text],input[type=datetime-local],select{width:100%;padding:11px 13px;border:1px solid var(--line);border-radius:9px;font:inherit;background:#fcfbf8;color:var(--ink);resize:vertical}
+textarea:focus,input:focus,select:focus{outline:2px solid var(--ac);outline-offset:1px}
+.fld{margin-bottom:14px}
+/* channel toggles */
+.channels{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:6px}
+.ch-toggle{cursor:pointer;user-select:none}
+.ch-toggle input{display:none}
+.ch-toggle span{display:inline-flex;align-items:center;gap:6px;padding:7px 13px;border:1.5px solid var(--line);border-radius:999px;font-size:.82rem;font-weight:600;transition:.15s;background:#fff;color:var(--mut)}
+.ch-toggle input:checked+span{background:var(--ac);color:#fff;border-color:var(--ac)}
+/* char counter */
+.char-row{display:flex;justify-content:space-between;align-items:center;margin-top:4px;font-size:.76rem;color:var(--mut)}
+.char-row .warn{color:#d6483b;font-weight:700}
+/* hashtag helper */
+.tag-row{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.ht{cursor:pointer;font-size:.78rem;padding:5px 10px;border:1px solid var(--line);border-radius:999px;background:#f4f1ea;transition:.15s}
+.ht:hover{background:var(--ac);color:#fff;border-color:var(--ac)}
+/* image preview */
+.img-drop{border:2px dashed var(--line);border-radius:10px;padding:22px;text-align:center;font-size:.88rem;color:var(--mut);cursor:pointer;transition:.15s}
+.img-drop:hover{border-color:var(--ac);color:var(--ac)}
+.img-drop img{max-width:100%;max-height:200px;border-radius:8px;display:block;margin:0 auto}
+/* buttons */
+.btn{background:var(--ac);color:#fff;border:0;border-radius:9px;padding:11px 18px;font:600 .95rem/1 var(--body);cursor:pointer;transition:.15s}
+.btn:hover{filter:brightness(1.1)}
+.btn.ghost{background:#fff;color:var(--ac);border:1px solid var(--line)}
+.btn.gold{background:var(--gold);color:#241c08}
+.btn-row{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}
+/* post type starters */
+.starter-chips{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:12px}
+.pt-chip{cursor:pointer;font-size:.8rem;font-weight:600;padding:7px 14px;border:1.5px solid var(--line);border-radius:999px;background:#fff;transition:.15s}
+.pt-chip:hover,.pt-chip.on{background:var(--ink);color:#fff;border-color:var(--ink)}
+.starter-list{margin-top:8px;display:none}.starter-list.show{display:block}
+.starter-list li{padding:10px 0;border-top:1px solid var(--line);font-size:.9rem;line-height:1.5;cursor:pointer;display:flex;justify-content:space-between;align-items:flex-start;gap:10px}
+.starter-list li:first-child{border-top:0}
+.starter-list li span{color:var(--mut);font-size:.8rem;flex:0 0 auto;margin-top:2px}
+/* previews */
+.preview-tabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px}
+.ptab{cursor:pointer;font-size:.78rem;font-weight:700;padding:6px 13px;border-radius:999px;border:1.5px solid var(--line);background:#fff;color:var(--mut);transition:.15s}
+.ptab.on{background:var(--ac);color:#fff;border-color:var(--ac)}
+.preview-pane{display:none}.preview-pane.show{display:block}
+/* channel preview cards */
+.prev-card{background:#fff;border:1px solid var(--line);border-radius:14px;overflow:hidden;max-width:380px}
+.prev-header{display:flex;align-items:center;gap:10px;padding:14px 16px;border-bottom:1px solid var(--line)}
+.prev-avatar{width:38px;height:38px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:1rem;color:#fff;flex:0 0 auto}
+.prev-name{font-weight:700;font-size:.9rem}.prev-handle{color:var(--mut);font-size:.78rem}
+.prev-body{padding:14px 16px}
+.prev-img{width:100%;max-height:180px;object-fit:cover;background:#e9e3d8;display:flex;align-items:center;justify-content:center;color:var(--mut);font-size:.85rem;min-height:80px}
+.prev-caption{font-size:.9rem;line-height:1.5;white-space:pre-wrap;word-break:break-word}
+.prev-meta{display:flex;justify-content:space-between;align-items:center;padding:10px 16px 14px;border-top:1px solid var(--line);font-size:.78rem;color:var(--mut)}
+.prev-warn{background:#fdf3e3;border:1px solid #f3dca0;border-radius:8px;padding:8px 12px;font-size:.8rem;color:#7a5200;margin-top:10px;display:none}
+.prev-warn.show{display:block}
+/* GBP preview */
+.gbp-card{background:#fff;border:1px solid var(--line);border-radius:14px;overflow:hidden;max-width:380px}
+.gbp-head{background:#4285f4;padding:10px 14px;color:#fff;font-size:.85rem;font-weight:700;display:flex;align-items:center;gap:8px}
+.gbp-dot{width:8px;height:8px;border-radius:50%;background:#fff;opacity:.9}
+.gbp-body{padding:14px}
+.gbp-tag{font-size:.7rem;font-weight:700;color:#4285f4;letter-spacing:.06em;text-transform:uppercase;margin-bottom:6px}
+.gbp-text{font-size:.9rem;line-height:1.5;white-space:pre-wrap;word-break:break-word}
+/* queue */
+.qrow{display:grid;grid-template-columns:1fr auto;gap:10px;align-items:start;padding:14px 18px;border-top:1px solid var(--line)}
+.qrow:first-child{border-top:0}
+.qtop{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:4px}
+.qch{font-size:.72rem;font-weight:700;background:#eef4f1;color:#185845;border-radius:100px;padding:3px 8px}
+.qdate{font-size:.78rem;color:var(--mut)}
+.qcap{font-size:.88rem;color:var(--ink);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:360px}
+.qact{display:flex;gap:8px;align-items:center}
+.qact button{font-size:.78rem;font-weight:600;color:var(--ac);background:none;border:0;cursor:pointer;padding:4px 6px;border-radius:6px}
+.qact button.x{color:#b4453a}
+.badge{font-size:.7rem;font-weight:700;letter-spacing:.04em;text-transform:uppercase;padding:3px 9px;border-radius:999px;display:inline-block}
+.badge.draft{background:#f4f1ea;color:var(--mut);border:1px solid var(--line)}
+.badge.scheduled{background:#eef2fb;color:#3a5bbf;border:1px solid #d4ddf5}
+.badge.posted{background:#eaf7ef;color:#1f8d57;border:1px solid #cdeeda}
+.empty{padding:30px 18px;color:var(--mut);text-align:center;font-size:.9rem}
+/* postiz callout */
+.postiz-bar{background:#11271f;border-radius:14px;padding:20px 24px;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-top:8px}
+.postiz-bar p{color:rgba(255,255,255,.85);font-size:.92rem;max-width:52ch}.postiz-bar b{color:#9fe3c4}
+.postiz-bar a,.postiz-bar button{background:#9fe3c4;color:#0a1c15;font-weight:700;border:0;border-radius:8px;padding:10px 18px;font:700 .88rem/1 var(--body);cursor:pointer;text-decoration:none;flex:0 0 auto;transition:.15s}
+.postiz-bar a:hover,.postiz-bar button:hover{background:#bff0d8}
+/* toast */
+.toast{position:fixed;left:50%;bottom:22px;transform:translateX(-50%);background:#161a1d;color:#fff;padding:10px 16px;border-radius:10px;font-size:.86rem;opacity:0;transition:opacity .25s;pointer-events:none;z-index:50}.toast.show{opacity:1}
+.foot{color:var(--mut);font-size:.8rem;padding:26px 0 50px}
+</style></head>
+<body>
+<header class="wrap top">
+  <div class="lg"><span class="dot"></span>Sightline · Social Studio</div>
+  <a href="/admin/">← Dashboard</a>
+</header>
+<div class="wrap">
+<section class="hd">
+  <h1>Social Studio.</h1>
+  <p>Compose posts for every channel, preview how they look, queue your content calendar, and hand off to Postiz to schedule and publish.</p>
+</section>
+
+<!-- COMPOSER + PREVIEWS LAYOUT -->
+<div class="gh"><span>Compose</span><span class="sep"></span></div>
+<div class="layout">
+
+  <!-- LEFT: Composer -->
+  <div>
+    <div class="panel">
+      <h2>Post composer</h2>
+      <div class="sub">Write once, preview per channel. Scheduling and publishing handled by Postiz.</div>
+
+      <!-- Need ideas? -->
+      <div class="fld">
+        <label>Need ideas? Pick a post type</label>
+        <div class="starter-chips">
+          <div class="pt-chip" data-type="promo">Promo</div>
+          <div class="pt-chip" data-type="review">Review ask</div>
+          <div class="pt-chip" data-type="event">Event</div>
+          <div class="pt-chip" data-type="tip">Tip</div>
+          <div class="pt-chip" data-type="bts">Behind the scenes</div>
+        </div>
+        <ul class="starter-list" id="starterList"></ul>
+      </div>
+
+      <!-- Caption -->
+      <div class="fld">
+        <label>Caption</label>
+        <textarea id="caption" rows="6" placeholder="Write your post here — or pick a starter above and customize it…" oninput="onCaption()"></textarea>
+        <div class="char-row">
+          <span id="charCount">0 characters</span>
+          <span id="charWarn"></span>
+        </div>
+      </div>
+
+      <!-- Hashtag helper -->
+      <div class="fld">
+        <label>Hashtag suggestions — click to add</label>
+        <div class="tag-row" id="tagSuggestions"></div>
+        <input type="text" id="tagInput" placeholder="Type a word to get suggestions (e.g. dentist, law, plumbing…)" oninput="suggestTags(this.value)" style="margin-top:8px">
+      </div>
+
+      <!-- Image attach -->
+      <div class="fld">
+        <label>Image (preview only — upload to Postiz to publish)</label>
+        <div class="img-drop" id="imgDrop" onclick="document.getElementById('imgFile').click()" ondragover="event.preventDefault()" ondrop="handleDrop(event)">
+          <div id="imgPlaceholder">📷 Click to attach or drag an image</div>
+          <img id="imgPreview" style="display:none">
+        </div>
+        <input type="file" id="imgFile" accept="image/*" style="display:none" onchange="handleFile(this.files[0])">
+      </div>
+
+      <!-- Channels -->
+      <div class="fld">
+        <label>Channels</label>
+        <div class="channels" id="channelToggles">
+          <label class="ch-toggle"><input type="checkbox" name="ch" value="X" checked><span>✕ X (Twitter)</span></label>
+          <label class="ch-toggle"><input type="checkbox" name="ch" value="LinkedIn" checked><span>💼 LinkedIn</span></label>
+          <label class="ch-toggle"><input type="checkbox" name="ch" value="Facebook" checked><span>📘 Facebook</span></label>
+          <label class="ch-toggle"><input type="checkbox" name="ch" value="Instagram"><span>📸 Instagram</span></label>
+          <label class="ch-toggle"><input type="checkbox" name="ch" value="Threads"><span>🧵 Threads</span></label>
+          <label class="ch-toggle"><input type="checkbox" name="ch" value="GBP"><span>📍 Google Business</span></label>
+          <label class="ch-toggle"><input type="checkbox" name="ch" value="TikTok"><span>🎵 TikTok</span></label>
+        </div>
+      </div>
+
+      <!-- Schedule -->
+      <div class="fld">
+        <label>Schedule date &amp; time</label>
+        <input type="datetime-local" id="schedDate">
+      </div>
+
+      <!-- Action buttons -->
+      <div class="btn-row">
+        <button class="btn" onclick="saveDraft()">Save as draft</button>
+        <button class="btn gold" onclick="saveScheduled()">Add to queue</button>
+        <button class="btn ghost" onclick="copyPost()">Copy post</button>
+      </div>
+    </div>
+
+    <!-- Postiz handoff -->
+    <div class="postiz-bar" style="margin-top:16px">
+      <p>Scheduling &amp; publishing runs through <b>Postiz</b> — your connected social scheduler (28+ channels including GBP, X, LinkedIn, Facebook, Instagram &amp; TikTok). Compose here, then send it to Postiz to go live.</p>
+      <button onclick="openPostiz()">Open Postiz to schedule →</button>
+    </div>
+  </div>
+
+  <!-- RIGHT: Live previews -->
+  <div>
+    <div class="panel">
+      <h2>Live previews</h2>
+      <div class="sub">How your post looks per channel. Switch channels below.</div>
+      <div class="preview-tabs" id="previewTabs"></div>
+
+      <!-- X preview -->
+      <div class="preview-pane show" id="prev-X">
+        <div class="prev-card">
+          <div class="prev-header">
+            <div class="prev-avatar" style="background:#000">✕</div>
+            <div><div class="prev-name">Your Business</div><div class="prev-handle">@yourbusiness</div></div>
+          </div>
+          <div class="prev-body">
+            <div class="prev-caption" id="pX"></div>
+            <div id="pX-img" class="prev-img" style="display:none;margin-top:10px;border-radius:10px;overflow:hidden"></div>
+            <div class="prev-warn" id="wX">⚠ Over X's 280-character limit. The post will be cut off or rejected.</div>
+          </div>
+          <div class="prev-meta"><span id="pX-count">0 / 280</span><span>Just now</span></div>
+        </div>
+      </div>
+
+      <!-- LinkedIn preview -->
+      <div class="preview-pane" id="prev-LinkedIn">
+        <div class="prev-card">
+          <div class="prev-header">
+            <div class="prev-avatar" style="background:#0077b5">in</div>
+            <div><div class="prev-name">Your Business</div><div class="prev-handle">Local business · Promoted</div></div>
+          </div>
+          <div class="prev-body">
+            <div class="prev-caption" id="pLI"></div>
+            <div id="pLI-img" class="prev-img" style="display:none;margin-top:10px;border-radius:6px;overflow:hidden"></div>
+            <div class="prev-warn" id="wLI">⚠ Over LinkedIn's 3,000-character limit for posts.</div>
+          </div>
+          <div class="prev-meta"><span id="pLI-count">0 / 3000</span><span>Like · Comment · Share</span></div>
+        </div>
+      </div>
+
+      <!-- Facebook preview -->
+      <div class="preview-pane" id="prev-Facebook">
+        <div class="prev-card">
+          <div class="prev-header">
+            <div class="prev-avatar" style="background:#1877f2">f</div>
+            <div><div class="prev-name">Your Business Page</div><div class="prev-handle">Just now · 🌐</div></div>
+          </div>
+          <div class="prev-body">
+            <div class="prev-caption" id="pFB"></div>
+            <div id="pFB-img" class="prev-img" style="display:none;margin-top:10px;overflow:hidden"></div>
+          </div>
+          <div class="prev-meta"><span>👍 Like · 💬 Comment · ↗ Share</span></div>
+        </div>
+      </div>
+
+      <!-- Instagram preview -->
+      <div class="preview-pane" id="prev-Instagram">
+        <div class="prev-card">
+          <div class="prev-header">
+            <div class="prev-avatar" style="background:radial-gradient(circle at 30% 107%,#fdf497 0%,#fdf497 5%,#fd5949 45%,#d6249f 60%,#285aeb 90%)">ig</div>
+            <div><div class="prev-name">yourbusiness</div><div class="prev-handle">Instagram · Promoted</div></div>
+          </div>
+          <div id="pIG-img" class="prev-img" style="min-height:180px;display:flex;align-items:center;justify-content:center;background:#f4f1ea">
+            <span style="color:var(--mut);font-size:.85rem">Image goes here</span>
+          </div>
+          <div class="prev-body" style="padding-top:10px">
+            <div class="prev-caption" id="pIG"></div>
+            <div class="prev-warn" id="wIG">⚠ Over Instagram's 2,200-character caption limit.</div>
+          </div>
+          <div class="prev-meta"><span id="pIG-count">0 / 2200</span><span>♡ 🗨 ✈</span></div>
+        </div>
+      </div>
+
+      <!-- Threads preview -->
+      <div class="preview-pane" id="prev-Threads">
+        <div class="prev-card">
+          <div class="prev-header">
+            <div class="prev-avatar" style="background:#000">🧵</div>
+            <div><div class="prev-name">yourbusiness</div><div class="prev-handle">Threads</div></div>
+          </div>
+          <div class="prev-body">
+            <div class="prev-caption" id="pTH"></div>
+            <div class="prev-warn" id="wTH">⚠ Over Threads' 500-character limit.</div>
+          </div>
+          <div class="prev-meta"><span id="pTH-count">0 / 500</span><span>🤍 💬 🔁 ✈</span></div>
+        </div>
+      </div>
+
+      <!-- GBP preview -->
+      <div class="preview-pane" id="prev-GBP">
+        <div class="gbp-card">
+          <div class="gbp-head"><div class="gbp-dot"></div>Google Business Profile · Post</div>
+          <div class="gbp-body">
+            <div class="gbp-tag">What's new</div>
+            <div class="gbp-text" id="pGBP"></div>
+            <div class="prev-warn" id="wGBP" style="margin-top:10px">⚠ Over GBP's 1,500-character limit.</div>
+          </div>
+          <div class="prev-meta" style="padding:10px 14px"><span id="pGBP-count">0 / 1500</span><span style="font-size:.75rem;color:var(--mut)">Google Maps · Search</span></div>
+        </div>
+      </div>
+
+      <!-- TikTok preview -->
+      <div class="preview-pane" id="prev-TikTok">
+        <div class="prev-card">
+          <div class="prev-header">
+            <div class="prev-avatar" style="background:#010101">🎵</div>
+            <div><div class="prev-name">@yourbusiness</div><div class="prev-handle">TikTok · Video caption</div></div>
+          </div>
+          <div class="prev-body">
+            <div class="prev-caption" id="pTK"></div>
+            <div class="prev-warn" id="wTK">⚠ Over TikTok's 2,200-character caption limit.</div>
+          </div>
+          <div class="prev-meta"><span id="pTK-count">0 / 2200</span><span>❤ 💬 ↗</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- QUEUE / CALENDAR -->
+<div class="gh" style="margin-top:40px"><span>Content queue</span><span class="sep"></span><span class="act" style="color:var(--ac);cursor:pointer;font-size:.82rem;font-weight:700;text-transform:none;letter-spacing:0" onclick="clearPosted()">Clear posted</span></div>
+<div style="background:#fff;border:1px solid var(--line);border-radius:16px;overflow:hidden;margin-bottom:40px">
+  <div id="queueList"></div>
+</div>
+
+<footer class="foot">Sightline Social Studio · internal · posts are composed and planned here, then published via Postiz (your connected scheduler). No social API keys stored in this tool.</footer>
+</div>
+<div class="toast" id="toast"></div>
+<script>
+// ─── Data ───────────────────────────────────────────────────────────────────
+const KEY='sl_social_posts';
+let posts=[]; try{posts=JSON.parse(localStorage.getItem(KEY)||'[]');}catch(e){posts=[];}
+function save(){localStorage.setItem(KEY,JSON.stringify(posts));}
+
+// ─── Starters ────────────────────────────────────────────────────────────────
+const STARTERS={
+  promo:[
+    "🎉 Now accepting new [patients/clients/appointments] — spots are limited this month. Book in 60 seconds at [link].",
+    "We've helped hundreds of [city] families with [service]. Ready to help yours. 👇 [link]",
+    "New patient special: [offer]. No catch, just a great first visit. Learn more → [link]"
+  ],
+  review:[
+    "Helping people is why we do this. If we've helped you, a quick Google review means the world to a local business — takes 30 seconds. 🙏 [link]",
+    "We don't advertise — our neighbors are our best marketing. If you had a great experience, would you mind sharing it? [link]",
+    "Your review helps the next family in [city] find us. If you've visited, we'd love to hear from you → [link]"
+  ],
+  event:[
+    "Join us [date] for [event name]. Light snacks, great people, and [something useful]. RSVP → [link]",
+    "We're hosting an open house [date] — stop by, meet the team, and see how we can help. Free to attend. [link]",
+    "[Event name] is happening [date]. Come say hi! 👋 [link]"
+  ],
+  tip:[
+    "Quick tip: [tip text]. This one change can [benefit]. Have questions? We're here. [link]",
+    "Did you know? [interesting fact related to your industry]. Worth keeping in mind next time you [action]. 💡",
+    "The #1 thing most [clients/patients/customers] overlook: [tip]. We cover this on every first visit — it matters more than people think."
+  ],
+  bts:[
+    "A look behind the scenes at [business name] — [what you're showing]. This is what [service] looks like before you ever see the finished result. 👀",
+    "Meet [team member] — [name] has been with us for [time] and handles [role]. The team you don't always see, but always benefit from. 🙌",
+    "Monday morning at [business name]: [brief description]. This is the work that happens before the doors open. ☕"
+  ]
+};
+
+const HASHTAG_MAP={
+  law:['#locallaw','#legaladvice','#coloradolawyer','#lonetreelaw','#estatelaw'],
+  dental:['#dentalcare','#denversmiles','#familydentist','#dentist','#oralhealth'],
+  medical:['#healthcare','#localclinic','#denverhealth','#patientcare'],
+  plumbing:['#plumber','#homerepair','#localplumber','#plumbingservices'],
+  hvac:['#hvac','#airconditioning','#heating','#localcontractor'],
+  landscaping:['#landscaping','#lawncare','#coloradolandscaping','#yardwork'],
+  restaurant:['#localfood','#denvereats','#supportlocal','#foodie'],
+  remodeling:['#homeimprovement','#remodeling','#contractor','#kitchenremodel'],
+  medspa:['#medspa','#aesthetics','#skincare','#botox','#beautytreatment'],
+  default:['#supportlocal','#smallbusiness','#localfirst','#community','#denver']
+};
+
+function suggestTags(val){
+  val=(val||'').toLowerCase();
+  let tags=HASHTAG_MAP.default;
+  for(const k of Object.keys(HASHTAG_MAP)){if(val.includes(k)){tags=HASHTAG_MAP[k];break;}}
+  const el=document.getElementById('tagSuggestions');
+  el.innerHTML=tags.map(t=>`<div class="ht" onclick="addTag('${t}')">${t}</div>`).join('');
+}
+function addTag(t){
+  const ta=document.getElementById('caption');
+  const cur=ta.value;
+  ta.value=cur+(cur&&!cur.endsWith(' ')?' ':'')+t+' ';
+  onCaption();
+  toast('Tag added');
+}
+
+// ─── Caption live update ──────────────────────────────────────────────────────
+const LIMITS={X:280,LinkedIn:3000,Facebook:63206,Instagram:2200,Threads:500,GBP:1500,TikTok:2200};
+function onCaption(){
+  const cap=document.getElementById('caption').value;
+  const len=cap.length;
+  document.getElementById('charCount').textContent=len+' character'+(len===1?'':'s');
+  // compute for each channel
+  const channels=['X','LinkedIn','Facebook','Instagram','Threads','GBP','TikTok'];
+  channels.forEach(ch=>{
+    const lim=LIMITS[ch];
+    const pEl=document.getElementById('p'+{X:'X',LinkedIn:'LI',Facebook:'FB',Instagram:'IG',Threads:'TH',GBP:'GBP',TikTok:'TK'}[ch]);
+    if(pEl) pEl.textContent=cap||'Your post will appear here…';
+    const cnt=document.getElementById('p'+{X:'X',LinkedIn:'LI',Facebook:'FB',Instagram:'IG',Threads:'TH',GBP:'GBP',TikTok:'TK'}[ch]+'-count');
+    if(cnt) cnt.textContent=len+' / '+lim;
+    const w=document.getElementById('w'+ch);
+    if(w) w.classList.toggle('show',len>lim);
+  });
+  // global warn
+  const overChannels=channels.filter(ch=>document.getElementById('w'+ch)&&document.getElementById('w'+ch).classList.contains('show'));
+  document.getElementById('charWarn').textContent=overChannels.length?'Over limit on: '+overChannels.join(', '):'';
+  document.getElementById('charWarn').className=overChannels.length?'warn':'';
+}
+
+// ─── Image handling ───────────────────────────────────────────────────────────
+function handleFile(file){
+  if(!file)return;
+  const reader=new FileReader();
+  reader.onload=e=>{showImg(e.target.result);};
+  reader.readAsDataURL(file);
+}
+function handleDrop(e){
+  e.preventDefault();
+  const f=e.dataTransfer&&e.dataTransfer.files&&e.dataTransfer.files[0];
+  if(f&&f.type.startsWith('image/'))handleFile(f);
+}
+function showImg(src){
+  const pl=document.getElementById('imgPlaceholder');
+  const pv=document.getElementById('imgPreview');
+  pl.style.display='none';pv.src=src;pv.style.display='block';
+  // inject into previews
+  ['pX-img','pLI-img','pFB-img'].forEach(id=>{
+    const el=document.getElementById(id);
+    if(!el)return;
+    el.innerHTML=`<img src="${src}" style="width:100%;max-height:180px;object-fit:cover;display:block">`;
+    el.style.display='block';
+  });
+  const igImg=document.getElementById('pIG-img');
+  if(igImg){igImg.innerHTML=`<img src="${src}" style="width:100%;height:200px;object-fit:cover;display:block">`;igImg.style.display='flex';}
+}
+
+// ─── Post type starters ───────────────────────────────────────────────────────
+document.querySelectorAll('.pt-chip').forEach(chip=>{
+  chip.addEventListener('click',()=>{
+    document.querySelectorAll('.pt-chip').forEach(c=>c.classList.remove('on'));
+    chip.classList.add('on');
+    const type=chip.dataset.type;
+    const list=document.getElementById('starterList');
+    list.innerHTML=(STARTERS[type]||[]).map(s=>`<li onclick="useStarter(\`${s.replace(/`/g,"'")}\`)"><span style="flex:1">${s}</span><span>Use →</span></li>`).join('');
+    list.classList.add('show');
+  });
+});
+function useStarter(text){
+  document.getElementById('caption').value=text;
+  onCaption();
+  toast('Starter applied — customize it for your business');
+}
+
+// ─── Preview tabs ─────────────────────────────────────────────────────────────
+const CH_LABELS={X:'✕ X',LinkedIn:'in LinkedIn',Facebook:'f Facebook',Instagram:'ig Instagram',Threads:'🧵 Threads',GBP:'📍 GBP',TikTok:'🎵 TikTok'};
+function rebuildTabs(){
+  const checked=Array.from(document.querySelectorAll('input[name=ch]:checked')).map(i=>i.value);
+  const tabs=document.getElementById('previewTabs');
+  const curActive=tabs.querySelector('.ptab.on');
+  const curCh=curActive?curActive.dataset.ch:null;
+  tabs.innerHTML=checked.map((ch,i)=>`<button class="ptab${(ch===curCh||(i===0&&!curCh))?' on':''}" data-ch="${ch}" onclick="switchPreview('${ch}')">${CH_LABELS[ch]||ch}</button>`).join('');
+  // show correct pane
+  document.querySelectorAll('.preview-pane').forEach(p=>p.classList.remove('show'));
+  const showCh=(checked.includes(curCh)?curCh:checked[0]);
+  if(showCh)document.getElementById('prev-'+showCh)&&document.getElementById('prev-'+showCh).classList.add('show');
+}
+function switchPreview(ch){
+  document.querySelectorAll('.ptab').forEach(t=>t.classList.toggle('on',t.dataset.ch===ch));
+  document.querySelectorAll('.preview-pane').forEach(p=>p.classList.remove('show'));
+  const el=document.getElementById('prev-'+ch);if(el)el.classList.add('show');
+}
+document.querySelectorAll('input[name=ch]').forEach(i=>i.addEventListener('change',rebuildTabs));
+
+// ─── Queue ────────────────────────────────────────────────────────────────────
+let editId=null;
+function getChannels(){return Array.from(document.querySelectorAll('input[name=ch]:checked')).map(i=>i.value);}
+function saveDraft(){
+  const cap=document.getElementById('caption').value.trim();
+  if(!cap){toast('Write a caption first');return;}
+  commit(cap,'draft');
+}
+function saveScheduled(){
+  const cap=document.getElementById('caption').value.trim();
+  if(!cap){toast('Write a caption first');return;}
+  const dt=document.getElementById('schedDate').value;
+  if(!dt){toast('Pick a schedule date/time first');return;}
+  commit(cap,'scheduled');
+}
+function commit(cap,status){
+  const chs=getChannels();
+  const dt=document.getElementById('schedDate').value;
+  if(editId){
+    const p=posts.find(x=>x.id===editId);
+    if(p){p.caption=cap;p.channels=chs;p.scheduled=dt;p.status=status;}
+    editId=null;
+  } else {
+    posts.unshift({id:Date.now()+'',caption:cap,channels:chs,scheduled:dt,status,created:new Date().toISOString()});
+  }
+  save();renderQueue();
+  document.getElementById('caption').value='';
+  document.getElementById('schedDate').value='';
+  onCaption();
+  toast(status==='scheduled'?'Added to queue':'Saved as draft');
+}
+function editPost(id){
+  const p=posts.find(x=>x.id===id);if(!p)return;
+  editId=id;
+  document.getElementById('caption').value=p.caption;
+  document.getElementById('schedDate').value=p.scheduled||'';
+  document.querySelectorAll('input[name=ch]').forEach(i=>i.checked=p.channels.includes(i.value));
+  onCaption();rebuildTabs();
+  window.scrollTo({top:0,behavior:'smooth'});
+  toast('Editing post — save when done');
+}
+function dupPost(id){
+  const p=posts.find(x=>x.id===id);if(!p)return;
+  posts.unshift({...p,id:Date.now()+'',status:'draft',created:new Date().toISOString()});
+  save();renderQueue();toast('Duplicated as draft');
+}
+function delPost(id){if(!confirm('Remove this post?'))return;posts=posts.filter(x=>x.id!==id);save();renderQueue();}
+function clearPosted(){posts=posts.filter(p=>p.status!=='posted');save();renderQueue();toast('Cleared posted');}
+function markPosted(id){const p=posts.find(x=>x.id===id);if(p){p.status='posted';save();renderQueue();toast('Marked as posted');}}
+
+function esc(s){return (s||'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));}
+function fmtDate(dt){if(!dt)return '';try{return new Date(dt).toLocaleString(undefined,{month:'short',day:'numeric',hour:'numeric',minute:'2-digit'});}catch{return dt;}}
+
+function renderQueue(){
+  const el=document.getElementById('queueList');
+  if(!posts.length){el.innerHTML='<div class="empty">No posts yet. Compose one above and save or schedule it.</div>';return;}
+  el.innerHTML=posts.map(p=>`
+    <div class="qrow">
+      <div>
+        <div class="qtop">
+          <span class="badge ${esc(p.status)}">${esc(p.status)}</span>
+          ${p.channels.map(c=>`<span class="qch">${esc(c)}</span>`).join('')}
+          ${p.scheduled?`<span class="qdate">📅 ${esc(fmtDate(p.scheduled))}</span>`:''}
+        </div>
+        <div class="qcap">${esc(p.caption)}</div>
+      </div>
+      <div class="qact">
+        ${p.status!=='posted'?`<button onclick="markPosted('${p.id}')">✓ Posted</button>`:''}
+        <button onclick="editPost('${p.id}')">Edit</button>
+        <button onclick="dupPost('${p.id}')">Dup</button>
+        <button class="x" onclick="delPost('${p.id}')">✕</button>
+      </div>
+    </div>`).join('');
+}
+
+// ─── Copy & Postiz ────────────────────────────────────────────────────────────
+function copyPost(){
+  const cap=document.getElementById('caption').value;
+  if(!cap){toast('Nothing to copy yet');return;}
+  navigator.clipboard&&navigator.clipboard.writeText(cap);
+  toast('Caption copied to clipboard');
+}
+function openPostiz(){
+  // Postiz is an installed local-first social scheduler.
+  // Try common local ports first; if you have a custom URL, update POSTIZ_URL below.
+  const POSTIZ_URL='http://localhost:4200';
+  const cap=document.getElementById('caption').value;
+  if(cap){navigator.clipboard&&navigator.clipboard.writeText(cap);}
+  // Open Postiz — it runs on your machine or self-hosted server.
+  const win=window.open(POSTIZ_URL,'_blank','noopener');
+  if(!win){
+    // Fallback if popup blocked
+    toast('Caption copied. Open Postiz at '+POSTIZ_URL+' to schedule.');
+  } else {
+    toast(cap?'Caption copied + Postiz opening — paste into your Postiz composer':'Opening Postiz…');
+  }
+}
+
+// ─── Init ────────────────────────────────────────────────────────────────────
+suggestTags('local');
+rebuildTabs();
+onCaption();
+renderQueue();
+// default schedule to tomorrow 9am
+(()=>{const d=new Date();d.setDate(d.getDate()+1);d.setHours(9,0,0,0);
+  const pad=n=>String(n).padStart(2,'0');
+  document.getElementById('schedDate').value=`${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}T${pad(d.getHours())}:${pad(d.getMinutes())}`;
+})();
+
+function toast(m){const e=document.getElementById('toast');e.textContent=m;e.classList.add('show');setTimeout(()=>e.classList.remove('show'),2200);}
+</script>
+</body></html>
