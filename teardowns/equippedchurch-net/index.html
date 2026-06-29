@@ -1,73 +1,184 @@
 <!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Competitive Context — Equipped Church · Sightline Studio</title>
-<meta name="description" content="Website presence analysis and competitive context for Equipped Church in Highlands Ranch — a Sightline studio audit.">
-<meta name="robots" content="noindex">
+<title>Visitor-Readiness Report — Equipped Church</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-<style>:root{--bg:#0f0d0b;--ink:#f4efe9;--mut:#a89f95;--line:rgba(244,239,233,.14);--head:'Fraunces',Georgia,serif;--body:'Inter',system-ui,sans-serif}
-*{box-sizing:border-box;margin:0}body{background:var(--bg);color:var(--ink);font-family:var(--body);line-height:1.6;-webkit-font-smoothing:antialiased;min-height:100vh}
-.wrap{max-width:760px;margin:0 auto;padding:0 clamp(18px,4vw,40px)}
-.top{display:flex;align-items:center;justify-content:space-between;padding:20px 0;border-bottom:1px solid var(--line)}
-.logo{font-family:var(--head);font-weight:600;font-size:1.2rem}.back{color:var(--mut);font-size:.86rem;text-decoration:none}
-.hero{padding:clamp(40px,6vw,80px) 0 clamp(20px,3vw,40px)}
-.kick{color:var(--mut);font-size:.76rem;letter-spacing:.28em;text-transform:uppercase;font-weight:600;margin-bottom:18px;display:block}
-h1{font-family:var(--head);font-weight:400;font-size:clamp(2rem,1.2rem+3vw,3.6rem);line-height:1.08;letter-spacing:-.02em;margin-bottom:18px}
-h1 em{font-style:italic;color:#c9a96a}.lead{color:var(--mut);font-size:1.1rem;max-width:56ch}
-.cards{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:40px 0}
-.card{background:rgba(244,239,233,.04);border:1px solid var(--line);border-radius:8px;padding:22px 20px}
-.card .label{color:var(--mut);font-size:.82rem;letter-spacing:.12em;text-transform:uppercase;font-weight:600;margin-bottom:8px}
-.card .val{font-family:var(--head);font-size:1.5rem;font-weight:500}.card .note{color:var(--mut);font-size:.88rem;margin-top:6px}
-.section{padding:28px 0;border-top:1px solid var(--line)}
-.section h2{font-family:var(--head);font-weight:500;font-size:1.4rem;margin-bottom:12px}
-.section p{color:var(--mut);font-size:.97rem;margin-bottom:10px}
-.criteria{list-style:none;margin-top:14px;display:grid;gap:10px}
-.criteria li{background:rgba(244,239,233,.04);border:1px solid var(--line);border-radius:6px;padding:14px 18px;font-size:.93rem}
-.criteria li strong{color:var(--ink)}.criteria li span{color:var(--mut)}
-.notice{background:rgba(201,169,106,.08);border:1px solid rgba(201,169,106,.2);border-radius:8px;padding:24px;margin:32px 0}
-.notice h3{font-family:var(--head);font-weight:500;margin-bottom:10px;color:#c9a96a}
-.notice p{color:var(--mut);font-size:.97rem;margin-top:10px;line-height:1.65}
-.foot{border-top:1px solid var(--line);padding:32px 0;margin-top:28px;display:flex;gap:16px;align-items:center;flex-wrap:wrap}
-.btn{display:inline-flex;align-items:center;background:rgba(244,239,233,.08);border:1px solid rgba(244,239,233,.18);color:var(--ink);padding:11px 22px;border-radius:100px;font-weight:600;text-decoration:none;font-size:.95rem}
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>h1,h2,h3{font-variant-ligatures:none;font-feature-settings:"liga" 0,"dlig" 0}
+:root{--ink:#16140f;--mut:#6b6660;--line:#e7e2d8;--bg:#faf8f4;--ac:#1a5276;--head:'Fraunces',Georgia,serif;--body:'Inter',system-ui,sans-serif}
+*{box-sizing:border-box;margin:0}body{background:var(--bg);color:var(--ink);font-family:var(--body);line-height:1.6;-webkit-font-smoothing:antialiased}
+.wrap{max-width:1100px;margin:0 auto;padding:0 clamp(20px,5vw,52px)}
+.top{display:flex;justify-content:space-between;align-items:center;padding:22px 0;border-bottom:1px solid var(--line)}
+.logo{display:flex;gap:10px;align-items:center;font-family:var(--head);font-weight:600;font-size:1.15rem}
+.dot{width:10px;height:10px;border-radius:50%;background:var(--ac)}
+.tag{color:var(--mut);font-size:.82rem}
+.hd{padding:clamp(36px,6vw,68px) 0 18px}
+.hd .k{color:var(--ac);font-weight:600;font-size:.78rem;letter-spacing:.22em;text-transform:uppercase;margin-bottom:16px}
+.hd h1{font-family:var(--head);font-weight:400;font-size:clamp(2rem,1.3rem+2.6vw,3.4rem);line-height:1.04;letter-spacing:-.02em;max-width:24ch}
+.hd p{color:var(--mut);max-width:66ch;margin-top:16px;font-size:1.05rem}
+.score-line{display:flex;gap:26px;flex-wrap:wrap;margin:26px 0 6px}
+.sb{background:#fff;border:1px solid var(--line);border-radius:12px;padding:18px 22px;min-width:150px}
+.sb .n{font-family:var(--head);font-size:2.2rem;line-height:1}.sb .l{color:var(--mut);font-size:.84rem;margin-top:6px}
+.sec{padding:clamp(30px,5vw,52px) 0;border-top:1px solid var(--line)}
+.sec h2{font-family:var(--head);font-weight:500;font-size:clamp(1.5rem,1rem+1.6vw,2.2rem);letter-spacing:-.01em;margin-bottom:8px}
+.sec .sub{color:var(--mut);margin-bottom:24px}
+table{width:100%;border-collapse:collapse;font-size:.85rem;background:#fff;border:1px solid var(--line);border-radius:12px;overflow:hidden}
+.table-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;border-radius:12px;border:1px solid var(--line)}
+.table-wrap table{border:none;border-radius:0}
+th,td{padding:11px 10px;text-align:left;border-bottom:1px solid var(--line)}
+th{font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;color:var(--mut);font-weight:600;background:#f3efe7}
+td.rk{color:var(--mut);font-variant-numeric:tabular-nums}
+td.nm{font-weight:600}.dm{color:var(--mut);font-weight:400;font-size:.78rem}
+.you{background:var(--ac);color:#fff;font-size:.62rem;padding:2px 7px;border-radius:100px;letter-spacing:.08em;vertical-align:middle}
+tr.me{background:#fff7ec}
+.pill{display:inline-block;font-weight:700;padding:5px 11px;border-radius:100px;color:#fff;font-variant-numeric:tabular-nums}
+.g-A{background:#1f7a4d}.g-B{background:#4a8f3c}.g-C{background:#b8862b}.g-D{background:#c2682a}.g-F{background:#b23b3b}
+td.g{color:#1f7a4d;font-weight:600}td.b{color:#b23b3b;font-weight:600}td.m{color:var(--mut)}
+ul{list-style:none;margin:0;padding:0}
+.win,.gap{display:flex;gap:13px;padding:14px 0;border-bottom:1px solid var(--line);align-items:flex-start}
+.win:last-child,.gap:last-child{border-bottom:none}
+.win .i{color:#1f7a4d;font-weight:700}.gap .i{color:#c2682a;font-weight:700}
+.weights{background:#fff;border:1px solid var(--line);border-radius:10px;padding:20px 24px;margin-top:20px;font-size:.88rem}
+.weights h3{font-family:var(--head);font-size:1.1rem;margin-bottom:12px}
+.wrow{display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid var(--line)}
+.wrow:last-child{border-bottom:none}
+.wrow .pts{font-weight:600;color:var(--ac)}
+.cta{margin-top:14px;background:var(--ink);color:#fff;border-radius:14px;padding:clamp(26px,4vw,40px)}
+.cta h3{font-family:var(--head);font-weight:500;font-size:1.5rem;color:#fff;margin-bottom:10px}
+.cta p{color:rgba(255,255,255,.8);max-width:60ch}
+.foot{padding:30px 0 50px;color:var(--mut);font-size:.82rem}
 </style></head><body>
-<div class="wrap">
-<nav class="top"><span class="logo">Sightline &middot; Studio</span><a class="back" href="../../teardowns/">&larr; All teardowns</a></nav>
-<div class="hero">
-<span class="kick">Church &middot; Highlands Ranch, CO &middot; Website presence audit</span>
-<h1><em>Equipped Church</em><br>online presence context</h1>
-<p class="lead">A Bible-based community in Highlands Ranch equipping believers to live out their faith in every sphere of life. Below is a structured look at what the current site does well, where it falls short, and how a Sightline rebuild would serve the congregation better.</p>
-</div>
-<div class="cards">
-<div class="card"><div class="label">Vertical</div><div class="val">Church / Faith</div><div class="note">South Denver metro area congregation</div></div>
-<div class="card"><div class="label">Location</div><div class="val">Highlands Ranch, CO</div><div class="note">Douglas / Arapahoe County region</div></div>
-<div class="card"><div class="label">Competitive scan</div><div class="val">In progress</div><div class="note">Church sector audit being compiled now</div></div>
-<div class="card"><div class="label">Demo site</div><div class="val">Ready to view</div><div class="note">8 design styles available now — all free</div></div>
-</div>
-<div class="section">
-<h2>What the Sightline church audit measures</h2>
-<p>Generic website audits miss what actually matters for faith communities. Sightline&rsquo;s church-specific teardown evaluates seven areas that directly affect whether a first-time visitor decides to walk in the door — or keeps driving.</p>
-<ul class="criteria">
-<li><strong>Visitor clarity</strong> <span>— Can a first-time visitor answer &ldquo;what will Sunday look like for me?&rdquo; within 10 seconds of landing?</span></li>
-<li><strong>Mobile experience</strong> <span>— 70–80% of church web traffic is mobile. Is the site fast, thumb-friendly, and readable without zooming?</span></li>
-<li><strong>Kids &amp; family transparency</strong> <span>— Parents need to know their children are safe. Is check-in, volunteer vetting, and kids programming clearly explained?</span></li>
-<li><strong>Online giving UX</strong> <span>— Is giving easy to find, frictionless to complete, and available as a recurring option on any device?</span></li>
-<li><strong>Sermon &amp; media discoverability</strong> <span>— Can a curious visitor watch or listen to a recent message before committing to attend in person?</span></li>
-<li><strong>Connect card &amp; follow-up</strong> <span>— Is there a simple, low-friction way for first-time visitors to indicate interest so the church can reach out warmly?</span></li>
-<li><strong>Technical foundations</strong> <span>— HTTPS, mobile load speed, Church structured-data schema, and local search discoverability for &ldquo;church near me&rdquo; searches.</span></li>
-</ul>
-</div>
-<div class="section">
-<h2>Why church websites underperform</h2>
-<p>Most church websites were built by volunteers with limited web experience, or on templated platforms optimized for other industries. Common gaps include: no clear first-visit guide, buried service times, kids-ministry information that&rsquo;s hard to find, giving links that require multiple taps on mobile, and sermon archives that are impossible to navigate.</p>
-<p>A Sightline rebuild addresses all of these with a single, purpose-built template designed specifically for faith communities — visitor-first, mobile-first, and built to convert curiosity into connection.</p>
-</div>
-<div class="notice">
-<h3>Full competitive teardown coming soon</h3>
-<p>Competitive scan data for churches and faith communities in the south Denver metro is currently being compiled. A full teardown — including a ranked comparison against other local congregations on all the criteria above — will appear here once complete.</p>
-<p>In the meantime, view the demo site below to see how a Sightline redesign would serve <strong>Equipped Church</strong> and its congregation with a world-class, visitor-first web presence.</p>
-</div>
-<div class="foot">
-<a class="btn" href="../../equippedchurch-net/">View demo site &rarr;</a>
-<a class="btn" href="../../p/equippedchurch-net/">Pricing &amp; pitch</a>
-<a class="btn" href="../../teardowns/">All teardowns</a>
-</div>
-<div class="section"><h2>About Sightline for faith communities</h2><p>Sightline is a local web studio serving small businesses and organizations across the south Denver metro — Lone Tree, Highlands Ranch, Castle Rock, Parker, Centennial, and surrounding areas. We specialize in premium, fast, modern websites with an unusually high standard of craft and a straightforward monthly model that makes a great web presence accessible without a four-figure build fee.</p><p>Our church offering was designed from the ground up for faith communities: a visitor-first layout, built-in online giving integration, sermon media embed, service-time display, kids-ministry clarity, and a connect-card form — all in one fast, mobile-first site built in your real brand colors and voice. We handle hosting, security, and monthly updates. No contracts, no surprises.</p><p>Every church in the south Denver area deserves a site that matches the quality of care they put into their community. That is what Sightline builds.</p></div></div></body></html>
+<header class="wrap top"><div class="logo"><span class="dot"></span>Sightline</div><span class="tag">Visitor-Readiness Report · public-signal scan</span></header>
+<section class="wrap hd">
+  <div class="k">Church · Highlands Ranch</div>
+  <h1>How easy is it for a newcomer to find, visit, and give to Equipped Church?</h1>
+  <p>We scanned <b>7</b> south-Denver-metro churches on the public signals a first-time visitor sees before ever walking through the door — service times, newcomer welcome paths, giving, sermons, kids ministry, and web fundamentals. The mission is simple: more people find you, fewer turn away. Here's where you stand.</p>
+  <div class="score-line">
+    <div class="sb"><div class="n">#1</div><div class="l">of 8 churches scanned</div></div>
+    <div class="sb"><div class="n">100</div><div class="l">visitor-readiness score (/100)</div></div>
+    <div class="sb"><div class="n">67</div><div class="l">field average</div></div>
+    <div class="sb"><div class="n">100</div><div class="l">top in field</div></div>
+  </div>
+</section>
+<section class="wrap sec"><h2>South-Denver church field — visitor-readiness leaderboard</h2>
+  <div class="sub">Greens are visible strengths; reds are friction points that cost you first-time visitors.</div>
+  <div class="table-wrap"><table><thead><tr>
+    <th>#</th><th>Church</th><th>Score</th>
+    <th>Service Times</th><th>I'm New Path</th><th>Online Giving</th>
+    <th>Sermons</th><th>Kids/Youth</th><th>Events</th><th>Social</th>
+  </tr></thead>
+  <tbody><tr class="me">
+      <td class="rk">1</td>
+      <td class="nm">Equipped Church <span class="you">YOU</span><br><span class="dm">equippedchurch.net</span></td>
+      <td class="sc"><span class="pill g-A">100</span></td>
+      <td class="g">Shown</td>
+      <td class="g">Yes</td>
+      <td class="g">subsplash</td>
+      <td class="g">Yes</td>
+      <td class="g">Yes</td>
+      <td class="g">Fresh</td>
+      <td class="g">FB IG YT</td>
+    </tr><tr class="">
+      <td class="rk">2</td>
+      <td class="nm">Cherry Hills Community Church<br><span class="dm">chcc.org</span></td>
+      <td class="sc"><span class="pill g-A">100</span></td>
+      <td class="g">Shown</td>
+      <td class="g">Yes</td>
+      <td class="g">pushpay</td>
+      <td class="g">Yes</td>
+      <td class="g">Yes</td>
+      <td class="g">Fresh</td>
+      <td class="g">FB IG YT</td>
+    </tr><tr class="">
+      <td class="rk">3</td>
+      <td class="nm">Thrive Church<br><span class="dm">thrivechurch.com</span></td>
+      <td class="sc"><span class="pill g-A">88</span></td>
+      <td class="b">Hidden</td>
+      <td class="g">Yes</td>
+      <td class="g">subsplash</td>
+      <td class="g">Yes</td>
+      <td class="g">Yes</td>
+      <td class="g">Fresh</td>
+      <td class="g">FB IG YT</td>
+    </tr><tr class="">
+      <td class="rk">4</td>
+      <td class="nm">St. Mark Catholic Church<br><span class="dm">stmarkhr.org</span></td>
+      <td class="sc"><span class="pill g-A">88</span></td>
+      <td class="g">Shown</td>
+      <td class="b">No</td>
+      <td class="g">Yes</td>
+      <td class="g">Yes</td>
+      <td class="g">Yes</td>
+      <td class="g">Fresh</td>
+      <td class="g">FB IG YT</td>
+    </tr><tr class="">
+      <td class="rk">5</td>
+      <td class="nm">Highlands Ranch Church of Christ<br><span class="dm">hrcoc.org</span></td>
+      <td class="sc"><span class="pill g-D">55</span></td>
+      <td class="b">Hidden</td>
+      <td class="b">No</td>
+      <td class="b">No</td>
+      <td class="g">Yes</td>
+      <td class="b">No</td>
+      <td class="g">Fresh</td>
+      <td class="g">FB YT</td>
+    </tr><tr class="">
+      <td class="rk">6</td>
+      <td class="nm">Mile High Calvary<br><span class="dm">milehighcalvary.com</span></td>
+      <td class="sc"><span class="pill g-F">53</span></td>
+      <td class="b">Hidden</td>
+      <td class="b">No</td>
+      <td class="b">No</td>
+      <td class="b">No</td>
+      <td class="g">Yes</td>
+      <td class="g">Fresh</td>
+      <td class="g">IG YT</td>
+    </tr><tr class="">
+      <td class="rk">7</td>
+      <td class="nm">Castle Rock Community Church<br><span class="dm">visitcrcc.org</span></td>
+      <td class="sc"><span class="pill g-F">44</span></td>
+      <td class="b">Hidden</td>
+      <td class="b">No</td>
+      <td class="g">tithe.ly</td>
+      <td class="b">No</td>
+      <td class="b">No</td>
+      <td class="b">Stale</td>
+      <td class="b">FB</td>
+    </tr><tr class="">
+      <td class="rk">8</td>
+      <td class="nm">New Covenant Community Church<br><span class="dm">new3c.org</span></td>
+      <td class="sc"><span class="pill g-F">40</span></td>
+      <td class="b">Hidden</td>
+      <td class="b">No</td>
+      <td class="b">No</td>
+      <td class="b">No</td>
+      <td class="b">No</td>
+      <td class="g">Fresh</td>
+      <td class="b">None</td>
+    </tr></tbody></table></div>
+  <div class="weights">
+    <h3>How the visitor-readiness score works</h3>
+    <div class="wrow"><span>Church signals (60 pts max)</span><span class="pts">60</span></div>
+    <div class="wrow"><span>&nbsp;&nbsp;Service times clearly shown</span><span class="pts">12</span></div>
+    <div class="wrow"><span>&nbsp;&nbsp;"I'm New" / Plan Your Visit path</span><span class="pts">12</span></div>
+    <div class="wrow"><span>&nbsp;&nbsp;Online giving present</span><span class="pts">10</span></div>
+    <div class="wrow"><span>&nbsp;&nbsp;Sermons / watch online / livestream</span><span class="pts">10</span></div>
+    <div class="wrow"><span>&nbsp;&nbsp;Kids / youth / family ministry</span><span class="pts">8</span></div>
+    <div class="wrow"><span>&nbsp;&nbsp;Fresh upcoming events / calendar</span><span class="pts">8</span></div>
+    <div class="wrow"><span>Web fundamentals (40 pts max)</span><span class="pts">40</span></div>
+    <div class="wrow"><span>&nbsp;&nbsp;Valid HTTPS / SSL certificate</span><span class="pts">15</span></div>
+    <div class="wrow"><span>&nbsp;&nbsp;Mobile-ready (viewport + modern)</span><span class="pts">12</span></div>
+    <div class="wrow"><span>&nbsp;&nbsp;Social presence (FB / IG / YT)</span><span class="pts">8</span></div>
+    <div class="wrow"><span>&nbsp;&nbsp;Full homepage (not placeholder)</span><span class="pts">5</span></div>
+    <div class="wrow"><span>Scores are a Sightline heuristic based only on publicly observable signals. Detected via homepage HTML + standard sub-pages.</span><span></span></div>
+  </div>
+</section>
+<section class="wrap sec"><h2>What the whole field is missing — easy wins for everyone</h2>
+  <div class="sub">When most churches fumble the same thing, fixing it makes you the obvious choice for the newcomer browsing on Sunday morning.</div>
+  <ul><li class="win"><span class="i">▲</span><span><b>Over half the field hides service times</b> — visitors shouldn't have to dig. Showing them clearly on the homepage is an instant win for newcomers.</span></li><li class="win"><span class="i">▲</span><span><b>Most churches skip an explicit "I'm new" path</b> — a dedicated "Plan Your Visit" page removes the guesswork and anxiety that keeps first-timers away.</span></li><li class="win"><span class="i">▲</span><span><b>Many haven't made online giving obvious</b> — a one-click "Give" button on every page multiplies generosity without any awkwardness.</span></li></ul>
+</section>
+<section class="wrap sec"><h2>Equipped Church: specific things to fix before next Sunday</h2>
+  <div class="sub">Visitor friction points — each one is a person who looked you up and decided not to come. All fixable.</div>
+  <ul><li class="gap"><span class="i">●</span><span>Your fundamentals are solid — the opportunity is in storytelling, first-impression design, and conversion.</span></li></ul>
+  <div class="cta"><h3>The Sightline rebuild addresses every item above.</h3><p>A fast, welcoming, mobile-first site that shows service times on the homepage, walks first-timers through what to expect, makes giving obvious, and loads in under 2 seconds on a phone. We'll build it in your brand, handle the technical details (HTTPS, email auth, headers), and give you a site that's actually reaching the people you exist to serve.</p></div>
+</section>
+<footer class="wrap foot">Sightline · Visitor-readiness analysis for Equipped Church. <span>Based only on publicly observable signals as of 2026-06-29. Scores are a Sightline heuristic, not an endorsement or certification. Competitor names shown for informational comparison only.</span></footer>
+</body></html>
