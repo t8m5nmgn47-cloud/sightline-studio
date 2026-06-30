@@ -14,7 +14,7 @@
 *{box-sizing:border-box;margin:0}html{scroll-behavior:smooth;font-size:115%}
 body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:clamp(1rem,.95rem + .25vw,1.15rem);line-height:1.62;-webkit-font-smoothing:antialiased;overflow-x:hidden}
 h1,h2,h3{font-family:var(--head);font-weight:600;line-height:1;letter-spacing:-.022em;color:var(--ink);font-variant-ligatures:none;font-feature-settings:"liga" 0,"dlig" 0,"clig" 0;}
-a{color:inherit;text-decoration:none}.wrap{max-width:var(--maxw);margin:0 auto;padding:0 clamp(22px,5vw,64px);position:relative}
+a{color:inherit;text-decoration:none}.wrap{width:100%;max-width:var(--maxw);margin:0 auto;padding:0 clamp(22px,5vw,64px);position:relative;box-sizing:border-box}
 .kicker{font-family:var(--body);font-size:clamp(.72rem,.68rem + .2vw,.82rem);letter-spacing:.28em;text-transform:uppercase;font-weight:600}
 .btn{display:inline-flex;align-items:center;gap:10px;font-family:var(--body);font-weight:600;font-size:1.02rem;padding:16px 32px;border-radius:var(--rad);border:1.5px solid var(--ink);background:var(--ink);color:#fff;cursor:pointer;transition:transform .25s var(--ease),background .25s,color .25s}
 .btn:hover{transform:translateY(-2px)}
@@ -180,7 +180,7 @@ h1,h2,h3,h4{overflow-wrap:break-word}
 .compare{background:var(--surf2)}
 .cmp-grid{display:grid;grid-template-columns:1.3fr .7fr;gap:clamp(32px,5vw,64px);align-items:center}
 .cmp-bars{display:flex;flex-direction:column;gap:13px}
-.cmp-row{display:grid;grid-template-columns:minmax(120px,1.1fr) 2fr auto;gap:14px;align-items:center;font-size:.97rem}
+.cmp-row{display:grid;grid-template-columns:minmax(80px,1.1fr) 2fr auto;gap:10px;align-items:center;font-size:.97rem}@media(max-width:480px){.cmp-row{grid-template-columns:minmax(60px,1fr) 2fr auto;gap:6px;font-size:.88rem}}
 .cmp-row .cn{color:var(--ink);opacity:.78;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .cmp-row.me .cn{opacity:1;font-weight:700}
 .cmp-row .cbar{height:11px;background:var(--n2);border-radius:999px;overflow:hidden}
@@ -256,7 +256,7 @@ h1,h2,h3,h4{overflow-wrap:break-word}
   <div class="hero-scrim"></div>
   <div class="wrap hero-inner">
     <span class="kicker">Faith · Community · Welcome · Highlands Ranch</span>
-    <h1><span class="ln"><span>Come</span></span><span class="ln"><span>as you are.</span></span></h1>
+    <h1><span class="ln"><span>Grace,</span></span><span class="ln"><span>always open.</span></span></h1>
     <p class="hero-sub">Faith shouldn't feel like a performance. Come as you are to a real Highlands Ranch community that does life together.</p>
     <div class="hero-cta"><a class="btn btn-light" href="#contact">Plan your visit →</a><span class="hero-rate"><span class="stars">★★★★★</span> Trusted by locals</span></div>
   </div>
@@ -329,4 +329,4 @@ document.querySelectorAll('.rv').forEach(function(el){io.observe(el)});
 var cw=document.getElementById('chatw');if(cw){document.getElementById('chatBtn').onclick=function(){cw.classList.toggle('open')};document.getElementById('chatX').onclick=function(){cw.classList.remove('open')};document.querySelectorAll('.cchips button').forEach(function(btn){btn.onclick=function(){var body=document.getElementById('chatBody');var chips=body.querySelector('.cchips');var u=document.createElement('div');u.className='cmsg cuser';u.textContent=btn.textContent;body.insertBefore(u,chips);var r=document.createElement('div');r.className='cmsg';r.style.marginTop='10px';r.textContent='Thanks! A team member will be right with you — or call and we’ll help straight away.';setTimeout(function(){body.insertBefore(r,chips);body.scrollTop=body.scrollHeight},480);body.scrollTop=body.scrollHeight}})}})();
 </script>
 <script>(function(){var car=document.getElementById('car');if(!car)return;var tr=document.getElementById('carTrack'),dots=[].slice.call(car.querySelectorAll('.cd')),n=tr.children.length,idx=0,timer;function go(i){idx=(i+n)%n;tr.style.transform='translateX('+(-idx*100)+'%)';dots.forEach(function(d,j){d.classList.toggle('on',j===idx)})}function rs(){clearInterval(timer);timer=setInterval(function(){go(idx+1)},5000)}var pv=document.getElementById('carPrev'),nx=document.getElementById('carNext');if(pv)pv.onclick=function(){go(idx-1);rs()};if(nx)nx.onclick=function(){go(idx+1);rs()};dots.forEach(function(d){d.onclick=function(){go(+d.getAttribute('data-i'));rs()}});var x0=null;car.addEventListener('touchstart',function(e){x0=e.touches[0].clientX},{passive:true});car.addEventListener('touchend',function(e){if(x0==null)return;var dx=e.changedTouches[0].clientX-x0;if(Math.abs(dx)>40){go(idx+(dx<0?1:-1));rs()}x0=null});rs();})();</script>
-</body></html>
+<a href="../" title="Back to Sightline Studio" style="position:fixed;left:14px;bottom:14px;z-index:99999;background:rgba(15,13,11,.85);color:#fff;font:600 13px/1 system-ui,-apple-system,sans-serif;padding:10px 15px;border-radius:100px;text-decoration:none;backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);box-shadow:0 6px 18px rgba(0,0,0,.3)">&larr; Sightline Studio</a></body></html>
