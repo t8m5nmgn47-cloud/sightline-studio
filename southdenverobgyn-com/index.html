@@ -7,20 +7,20 @@
 <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;600;700&family=Raleway:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
 :root{--p:#3855dc;--p6:#2543d1;--p7:#1f39b2;--p9:#15277a;--ac:#4a9b8e;
---ink:#2b2e34;--n50:#f2f5fe;--n1:#e4e8f0;--n2:#d1d4dc;--n7:#585b62;--bg:#ffffff;--surf:#ffffff;--surf2:#f6f6f4;--navc:#2b2e34;--rad:0px;
+--ink:#2b2e34;--n50:#f2f5fe;--n1:#e4e8f0;--n2:#d1d4dc;--n7:#585b62;--bg:#f2f5fe;--surf:#ffffff;--surf2:#e4e8f0;--navc:#ffffff;--rad:0px;
 --head:'Roboto',system-ui,sans-serif;--body:'Raleway',system-ui,sans-serif;--mono:ui-monospace,monospace;
---fs-hero:clamp(2.7rem,1rem + 4.6vw,5.6rem);--fs-disp:clamp(2.1rem,1rem + 3.4vw,4.4rem);--maxw:1280px;--sp:clamp(84px,10vw,150px);--ease:cubic-bezier(.16,1,.3,1);
+--fs-hero:clamp(3.3rem,9vw,8.9rem);--fs-disp:clamp(2.1rem,1rem + 3.4vw,4.4rem);--maxw:1280px;--sp:clamp(84px,10vw,150px);--ease:cubic-bezier(.16,1,.3,1);
 --sh:0 2px 8px rgba(20,18,16,.06),0 18px 40px rgba(20,18,16,.09);}
 *{box-sizing:border-box;margin:0}html{scroll-behavior:smooth;font-size:115%}
 body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:clamp(1rem,.95rem + .25vw,1.15rem);line-height:1.62;-webkit-font-smoothing:antialiased;overflow-x:hidden}
-h1,h2,h3{font-family:var(--head);font-weight:600;line-height:1;letter-spacing:-.032em;color:var(--ink);font-variant-ligatures:none;font-feature-settings:"liga" 0,"dlig" 0,"clig" 0;}
+h1,h2,h3{font-family:var(--head);font-weight:400;line-height:1;letter-spacing:-.025em;color:var(--ink);font-variant-ligatures:none;font-feature-settings:"liga" 0,"dlig" 0,"clig" 0;}
 a{color:inherit;text-decoration:none}.wrap{width:100%;max-width:var(--maxw);margin:0 auto;padding:0 clamp(22px,5vw,64px);position:relative;box-sizing:border-box}
 .kicker{font-family:var(--body);font-size:clamp(.72rem,.68rem + .2vw,.82rem);letter-spacing:.28em;text-transform:uppercase;font-weight:600}
 .btn{display:inline-flex;align-items:center;gap:10px;font-family:var(--body);font-weight:600;font-size:1.02rem;padding:16px 32px;border-radius:var(--rad);border:1.5px solid var(--ink);background:var(--ink);color:#fff;cursor:pointer;transition:transform .25s var(--ease),background .25s,color .25s}
 .btn:hover{transform:translateY(-2px)}
 .btn-out{background:transparent;border-color:currentColor}
 .btn-light{background:#fff;color:var(--p9);border-color:#fff}.btn-light:hover{background:transparent;color:#fff}
-.btn{background:transparent;color:var(--ink)}.btn:hover{background:var(--ink);color:#fff}
+
 .stars{color:#e3b341;letter-spacing:2px}
 /* a too-long single word in a narrow column would otherwise spill past its box */
 h1,h2,h3,h4{overflow-wrap:break-word}
@@ -49,11 +49,11 @@ h1,h2,h3,h4{overflow-wrap:break-word}
   linear-gradient(150deg, #161a21 0%, #0f1218 58%, #0a0c11 100%)}
 .hero-fallback:after{content:"";position:absolute;inset:0;background-image:radial-gradient(rgba(255,255,255,.05) 1px,transparent 1px);background-size:22px 22px;opacity:.5}
 .hero-scrim{position:absolute;inset:0;z-index:-1;background:linear-gradient(to top,rgba(14,13,12,.92) 0%,rgba(14,13,12,.5) 34%,rgba(14,13,12,.16) 64%,rgba(14,13,12,.08) 100%)}
-.nav:not(.scd){text-shadow:0 1px 20px rgba(0,0,0,0)}
+.nav:not(.scd){text-shadow:0 1px 20px rgba(0,0,0,.55)}
 .hero h1,.hero-sub{text-shadow:0 2px 36px rgba(0,0,0,.5)}
 .hero-inner{padding-bottom:clamp(54px,8vw,96px);padding-top:140px;width:100%}
 .hero .kicker{color:#fff;opacity:.92;margin-bottom:22px}
-.hero h1{color:#fff;font-size:var(--fs-hero);line-height:.98;letter-spacing:-.03em;max-width:15ch;font-weight:600}
+.hero h1{color:#fff;font-size:var(--fs-hero);line-height:.98;letter-spacing:-.03em;max-width:15ch;font-weight:400}
 .hero h1 .ln{display:block;overflow:hidden;padding:.06em .02em .14em}
 .hero h1 .ln+.ln{margin-top:-.16em}
 .hero h1 .ln>span{display:block;transform:translateY(105%);opacity:0;animation:rise .95s var(--ease) forwards}
@@ -64,18 +64,21 @@ h1,h2,h3,h4{overflow-wrap:break-word}
 .hero-cta{display:flex;gap:16px;flex-wrap:wrap;align-items:center;opacity:0;animation:rise .9s var(--ease) .54s forwards}
 .hero-rate{display:flex;align-items:center;gap:9px;font-size:.98rem;color:#fff}
 
-/* HERO split (minimal) */
-.hero-min{min-height:100svh;display:flex;align-items:center;background:var(--bg);color:var(--ink);padding:120px 0 60px}
-.hmg{display:grid;grid-template-columns:1.05fr .95fr;gap:clamp(34px,5vw,76px);align-items:center;width:100%}
-.hmt .kicker{color:var(--p6);margin-bottom:22px;display:block}
-.hmt h1{font-size:var(--fs-hero);line-height:1.02;max-width:13ch}
+/* HERO split (minimal) — elevated: near-full-bleed image, bold headline, accent rule */
+.hero-min{min-height:100svh;display:flex;align-items:center;background:var(--bg);color:var(--ink);padding:100px 0 0;overflow:hidden}
+.hmg{display:grid;grid-template-columns:1fr 1fr;gap:0;align-items:stretch;width:100%;min-height:calc(100svh - 100px)}
+.hmt{padding:clamp(40px,6vw,80px) clamp(22px,5vw,64px) clamp(40px,6vw,80px) clamp(22px,5vw,64px);display:flex;flex-direction:column;justify-content:center}
+.hmt .kicker{color:var(--p6);margin-bottom:clamp(18px,2.5vw,30px);display:flex;align-items:center;gap:12px}
+.hmt .kicker::before{content:"";display:inline-block;width:28px;height:2px;background:var(--p);flex-shrink:0}
+.hmt h1{font-size:clamp(3rem,1.2rem + 5vw,6.2rem);line-height:.97;max-width:12ch;letter-spacing:-.04em}
 .hmt h1 .hl{color:var(--p)}
-.hsub-min{font-size:clamp(1.05rem,.95rem + .5vw,1.32rem);color:var(--n7);max-width:46ch;margin:26px 0 34px;line-height:1.55}
+.hsub-min{font-size:clamp(1.05rem,.95rem + .45vw,1.28rem);color:var(--n7);max-width:42ch;margin:clamp(20px,2.5vw,30px) 0 clamp(28px,3.5vw,42px);line-height:1.58}
 .hrate-min{display:inline-flex;gap:8px;align-items:center;color:var(--ink);font-size:.95rem}
-.hmi{aspect-ratio:4/5;overflow:hidden;border-radius:var(--rad);box-shadow:var(--sh)}
-.hmi img{width:100%;height:100%;object-fit:cover;display:block;animation:kb 18s var(--ease) forwards}
-.hmi-fb{width:100%;height:100%;background:linear-gradient(150deg,var(--p),var(--p9));display:flex;align-items:center;justify-content:center;color:#fff;font-family:var(--head);font-size:3rem}
-@media(max-width:860px){.hmg{grid-template-columns:1fr}.hmi{aspect-ratio:16/11}}
+.hmi{overflow:hidden;border-radius:0;box-shadow:none;position:relative}
+.hmi img{width:100%;height:100%;object-fit:cover;display:block;animation:kb 18s var(--ease) forwards;min-height:clamp(400px,80vh,900px)}
+.hmi::after{content:"";position:absolute;inset:0 0 0 auto;width:3px;background:var(--p);opacity:.18}
+.hmi-fb{width:100%;height:100%;min-height:clamp(400px,80vh,900px);background:linear-gradient(150deg,var(--p),var(--p9));display:flex;align-items:center;justify-content:center;color:#fff;font-family:var(--head);font-size:3rem}
+@media(max-width:860px){.hmg{grid-template-columns:1fr;min-height:auto}.hmt{padding:clamp(32px,5vw,56px) clamp(22px,5vw,48px)}.hmi{aspect-ratio:16/10}.hmi img{min-height:unset;height:100%}}
 /* proof bar */
 .proof{background:var(--ink);color:#fff}
 .proof.lite{background:transparent;color:var(--ink);border-top:1px solid var(--n2);border-bottom:1px solid var(--n2)}
@@ -187,7 +190,7 @@ h1,h2,h3,h4{overflow-wrap:break-word}
 .cmp-row .cbar i{display:block;height:100%;background:var(--p);border-radius:999px}
 .cmp-row.me .cbar i{background:var(--ac)}
 .cmp-row .cv{font-variant-numeric:tabular-nums;font-weight:700;color:var(--ink)}
-.cmp-rank{font-family:var(--head);font-weight:600;font-size:clamp(3rem,6vw,4.8rem);line-height:1;color:var(--p)}
+.cmp-rank{font-family:var(--head);font-weight:400;font-size:clamp(3rem,6vw,4.8rem);line-height:1;color:var(--p)}
 .cmp-rank span{display:block;font-family:var(--body);font-size:.9rem;color:var(--n7);letter-spacing:.02em;margin-top:8px;text-transform:none}
 .cmp-note p{margin-top:16px;color:var(--ink);opacity:.92}
 .cmp-gap{background:var(--bg);border-left:3px solid var(--ac);padding:14px 16px;border-radius:0 8px 8px 0;font-size:1rem}
@@ -238,7 +241,7 @@ h1,h2,h3,h4{overflow-wrap:break-word}
 .contact-details{display:flex;flex-wrap:wrap;gap:8px 24px;align-items:center;margin:4px 0 26px}
 .cd-phone{font-weight:700;font-size:1.18rem;color:inherit;border-bottom:2px solid currentColor;padding-bottom:2px;white-space:nowrap}
 .cd-addr{opacity:.86;font-size:1rem}
-.wordmark{font-family:var(--head);font-weight:600;font-size:clamp(2.6rem,8vw,8.5rem);line-height:.9;letter-spacing:-.03em;color:var(--ink);}
+.wordmark{font-family:var(--head);font-weight:400;font-size:clamp(2.6rem,8vw,8.5rem);line-height:.9;letter-spacing:-.03em;color:var(--ink);}
 .frow{display:flex;justify-content:space-between;flex-wrap:wrap;gap:20px;border-top:1px solid var(--n2);margin-top:34px;padding-top:24px;color:var(--n7);font-size:.92rem}
 .rv{opacity:0;transform:translateY(26px);transition:opacity .8s var(--ease),transform .8s var(--ease)}.rv.in{opacity:1;transform:none}
 .flag{position:fixed;bottom:14px;left:50%;transform:translateX(-50%);z-index:98;background:var(--ink);color:#fff;font:600 12px/1 var(--body);padding:9px 14px;border-radius:999px;opacity:.9;max-width:90vw;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}@media(max-width:560px){.flag{display:none}}
@@ -251,16 +254,18 @@ h1,h2,h3,h4{overflow-wrap:break-word}
   <div class="navlinks"><a href="#services">Services</a><a href="#about">About</a><a href="#reviews">Reviews</a><a href="#faq">FAQ</a></div>
   <a class="navcta" href="#contact">Request an appointment</a>
 </nav>
-<header class="hero-min" id="top" data-qc-section="hero"><div class="wrap"><div class="hmg">
-    <div class="hmt">
-      <span class="kicker ek">Women's Health · OB/GYN · Littleton</span>
-      <h1 class="rmin">Care <span class="hl">for her.</span></h1>
-      <p class="hsub-min">Same-day answers and a provider who follows up — attentive, unhurried care right here in Littleton.</p>
-      <div class="hero-cta"><a class="btn" href="#contact">Request an appointment →</a><span class="hrate-min"><span class="stars">★★★★★</span> <b>4.9</b> · 1150</span></div>
-    </div>
-    <div class="hmi"><img src="/assets/heroes/southdenverobgyn.com.webp" alt="South Denver OB/GYN &amp; Midwives"></div>
-  </div></div></header>
-<div class="proof lite"><div class="wrap"><span><span class="d">◆</span> Board-certified providers</span><span><span class="d">◆</span> Most insurance accepted</span><span><span class="d">◆</span> Same-week appointments</span></div></div>
+<header class="hero" id="top" data-qc-section="hero">
+  <img class="hero-bg" src="/assets/heroes/southdenverobgyn.com.webp" alt="South Denver OB/GYN &amp; Midwives">
+  <div class="hero-scrim"></div>
+  <div class="wrap hero-inner">
+    <span class="kicker">Women's Health · OB/GYN · Littleton</span>
+    <h1><span class="ln"><span>Care</span></span><span class="ln"><span><em>for her.</em></span></span></h1>
+    <p class="hero-sub">Same-day answers and a provider who follows up — attentive, unhurried care right here in Littleton.</p>
+    <div class="hero-cta"><a class="btn btn-light" href="#contact">Request an appointment →</a><span class="hero-rate"><span class="stars">★★★★★</span> <b>4.9</b> · 1150 reviews</span></div>
+  </div>
+  <span class="scrolldown" aria-hidden="true"></span>
+</header>
+<div class="proof"><div class="wrap"><span><span class="d">◆</span> Board-certified providers</span><span><span class="d">◆</span> Most insurance accepted</span><span><span class="d">◆</span> Same-week appointments</span></div></div>
 
 <section data-qc-section="services" class="section svc-sec" id="services"><div class="wrap"><div class="svc-grid">
   <div class="svc-intro rv">
@@ -273,7 +278,7 @@ h1,h2,h3,h4{overflow-wrap:break-word}
 </div></div></section>
 
 <section class="feature"><img class="feature-bg" src="/assets/stock/medical-3.webp" alt="South Denver OB/GYN &amp; Midwives — Littleton"><div class="feature-scrim"></div><div class="wrap"><span class="kicker">Littleton · 4.9★ rated</span><h2>See why they keep coming back.</h2><a class="btn btn-light" href="#contact">Request an appointment →</a></div></section>
-<section class="about lite" id="about" data-qc-section="about"><div class="wrap section"><div class="about-grid">
+<section class="about" id="about" data-qc-section="about"><div class="wrap section"><div class="about-grid">
   <div class="about-text rv"><span class="kicker ek">(02) — About</span><h2 style="margin-top:18px">Care that treats you like a person, not a chart.</h2><p>Unhurried visits, providers who listen, and clear guidance in plain language. Modern medicine with an old-fashioned bedside manner — and the credentials to back it up.</p>
     <p style="opacity:.7;font-size:1rem">Proudly serving Littleton and the surrounding area.</p></div>
   <div class="about-img rv"><img src="/assets/stock/medical-1.webp" alt="South Denver OB/GYN &amp; Midwives"></div>
@@ -302,7 +307,10 @@ h1,h2,h3,h4{overflow-wrap:break-word}
   
 </div></section>
 <section class="section compare" id="compare"><div class="wrap"><div class="sec-head rv"><h2>How you compare in Littleton.</h2><span class="kicker ek">(03) — The local field</span></div><div class="cmp-grid"><div class="cmp-bars rv"><div class="cmp-row"><span class="cn">Envision Eye Care</span><span class="cbar"><i style="width:93%"></i></span><span class="cv">93</span></div><div class="cmp-row"><span class="cn">Vista Eye Care</span><span class="cbar"><i style="width:90%"></i></span><span class="cv">90</span></div><div class="cmp-row"><span class="cn">South Denver ENT &amp; Allergy</span><span class="cbar"><i style="width:87%"></i></span><span class="cv">87</span></div><div class="cmp-row"><span class="cn">NatureMed Clinic</span><span class="cbar"><i style="width:80%"></i></span><span class="cv">80</span></div><div class="cmp-row"><span class="cn">Mountain Dermatology Specialists</span><span class="cbar"><i style="width:80%"></i></span><span class="cv">80</span></div><div class="cmp-row"><span class="cn">SkinWise Dermatology</span><span class="cbar"><i style="width:78%"></i></span><span class="cv">78</span></div><div class="cmp-row me"><span class="cn">South Denver OB/GYN &amp; Midwives · you</span><span class="cbar"><i style="width:77%"></i></span><span class="cv">77</span></div></div><div class="cmp-note rv"><div class="cmp-rank">#7<span>of 7 nearby</span></div><p>You’re mid-pack today — this is how you climb.</p><p class="cmp-gap"><span>Biggest opportunity</span>Missing most web-security headers. <b>— handled in this rebuild.</b></p><p class="cmp-src">From public signals — security, mobile, site quality &amp; presence — across 6 local competitors.</p></div></div></div></section>
-<section class="cta lite" id="contact" data-qc-section="contact"><div class="wrap"><span class="kicker ek">Get started</span><h2>Request an appointment today.</h2><p>Accepting new patients — most insurance accepted, same-week visits available.</p><div class="contact-details"><a class="cd-phone" href="tel:+13037381100">Call (303) 738-1100</a></div><a class="btn" href="tel:+13037381100">Request an appointment →</a></div></section>
+<section class="cta" id="contact" data-qc-section="contact">
+  <div class="cta-bg img"><img src="/assets/stock/medical-2.webp" alt="South Denver OB/GYN &amp; Midwives — Littleton"></div><div class="cta-scrim"></div>
+  <div class="wrap"><h2>Request an appointment today.</h2><p>Accepting new patients — most insurance accepted, same-week visits available.</p><div class="contact-details"><a class="cd-phone" href="tel:+13037381100">Call (303) 738-1100</a></div><a class="btn btn-light" href="tel:+13037381100">Request an appointment →</a></div>
+</section>
 
 <footer class="footer" data-qc-section="footer"><div class="wrap">
   <div class="wordmark rv">South Denver OB/GYN &amp; Midwives</div>
@@ -319,9 +327,9 @@ h1,h2,h3,h4{overflow-wrap:break-word}
   </div>
   <button class="chat-btn" id="chatBtn" aria-label="Chat with us"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-8.5 8.5 8.5 8.5 0 0 1-3.8-.9L3 21l1.9-5.7a8.5 8.5 0 0 1-.9-3.8A8.38 8.38 0 0 1 12.5 3 8.38 8.38 0 0 1 21 11.5z"/></svg><span>Chat with us</span></button>
 </div>
-<div class="flag">✦ Test-drive concept · Clean Minimal · Sightline</div>
+<div class="flag">✦ Test-drive concept · Editorial Luxe · Sightline</div>
 <script>
-(function(){var n=document.getElementById('nav');var split=true;function s(){n.classList.toggle('scd',scrollY>window.innerHeight*(split?.12:.78))}addEventListener('scroll',s);s();
+(function(){var n=document.getElementById('nav');var split=false;function s(){n.classList.toggle('scd',scrollY>window.innerHeight*(split?.12:.78))}addEventListener('scroll',s);s();
 var io=new IntersectionObserver(function(e){e.forEach(function(x){if(x.isIntersecting){x.target.classList.add('in');io.unobserve(x.target)}})},{rootMargin:'0px 0px -10% 0px'});
 document.querySelectorAll('.rv').forEach(function(el){io.observe(el)});
 var cw=document.getElementById('chatw');if(cw){document.getElementById('chatBtn').onclick=function(){cw.classList.toggle('open')};document.getElementById('chatX').onclick=function(){cw.classList.remove('open')};document.querySelectorAll('.cchips button').forEach(function(btn){btn.onclick=function(){var body=document.getElementById('chatBody');var chips=body.querySelector('.cchips');var u=document.createElement('div');u.className='cmsg cuser';u.textContent=btn.textContent;body.insertBefore(u,chips);var r=document.createElement('div');r.className='cmsg';r.style.marginTop='10px';r.textContent='Thanks! A team member will be right with you — or call and we’ll help straight away.';setTimeout(function(){body.insertBefore(r,chips);body.scrollTop=body.scrollHeight},480);body.scrollTop=body.scrollHeight}})}})();

@@ -9,7 +9,7 @@
 :root{--p:#3a5340;--p6:#2d4132;--p7:#1f2c22;--p9:#0a0f0c;--ac:#bf8b46;
 --ink:#302e27;--n50:#f8f5ec;--n1:#ebe8df;--n2:#d7d4cc;--n7:#5e5b53;--bg:#eef3f6;--surf:#ffffff;--surf2:#e2ebef;--navc:#302e27;--rad:16px;
 --head:'DM Sans',system-ui,sans-serif;--body:'Inter',system-ui,sans-serif;--mono:ui-monospace,monospace;
---fs-hero:clamp(2.7rem,1rem + 4.6vw,5.6rem);--fs-disp:clamp(2.1rem,1rem + 3.4vw,4.4rem);--maxw:1280px;--sp:clamp(84px,10vw,150px);--ease:cubic-bezier(.16,1,.3,1);
+--fs-hero:clamp(3rem,1.2rem + 5vw,6.2rem);--fs-disp:clamp(2.1rem,1rem + 3.4vw,4.4rem);--maxw:1280px;--sp:clamp(84px,10vw,150px);--ease:cubic-bezier(.16,1,.3,1);
 --sh:0 2px 8px rgba(20,18,16,.06),0 18px 40px rgba(20,18,16,.09);}
 *{box-sizing:border-box;margin:0}html{scroll-behavior:smooth;font-size:115%}
 body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:clamp(1rem,.95rem + .25vw,1.15rem);line-height:1.62;-webkit-font-smoothing:antialiased;overflow-x:hidden}
@@ -64,18 +64,21 @@ h1,h2,h3,h4{overflow-wrap:break-word}
 .hero-cta{display:flex;gap:16px;flex-wrap:wrap;align-items:center;opacity:0;animation:rise .9s var(--ease) .54s forwards}
 .hero-rate{display:flex;align-items:center;gap:9px;font-size:.98rem;color:#fff}
 
-/* HERO split (minimal) */
-.hero-min{min-height:100svh;display:flex;align-items:center;background:var(--bg);color:var(--ink);padding:120px 0 60px}
-.hmg{display:grid;grid-template-columns:1.05fr .95fr;gap:clamp(34px,5vw,76px);align-items:center;width:100%}
-.hmt .kicker{color:var(--p6);margin-bottom:22px;display:block}
-.hmt h1{font-size:var(--fs-hero);line-height:1.02;max-width:13ch}
+/* HERO split (minimal) — elevated: near-full-bleed image, bold headline, accent rule */
+.hero-min{min-height:100svh;display:flex;align-items:center;background:var(--bg);color:var(--ink);padding:100px 0 0;overflow:hidden}
+.hmg{display:grid;grid-template-columns:1fr 1fr;gap:0;align-items:stretch;width:100%;min-height:calc(100svh - 100px)}
+.hmt{padding:clamp(40px,6vw,80px) clamp(22px,5vw,64px) clamp(40px,6vw,80px) clamp(22px,5vw,64px);display:flex;flex-direction:column;justify-content:center}
+.hmt .kicker{color:var(--p6);margin-bottom:clamp(18px,2.5vw,30px);display:flex;align-items:center;gap:12px}
+.hmt .kicker::before{content:"";display:inline-block;width:28px;height:2px;background:var(--p);flex-shrink:0}
+.hmt h1{font-size:clamp(3rem,1.2rem + 5vw,6.2rem);line-height:.97;max-width:12ch;letter-spacing:-.04em}
 .hmt h1 .hl{color:var(--p)}
-.hsub-min{font-size:clamp(1.05rem,.95rem + .5vw,1.32rem);color:var(--n7);max-width:46ch;margin:26px 0 34px;line-height:1.55}
+.hsub-min{font-size:clamp(1.05rem,.95rem + .45vw,1.28rem);color:var(--n7);max-width:42ch;margin:clamp(20px,2.5vw,30px) 0 clamp(28px,3.5vw,42px);line-height:1.58}
 .hrate-min{display:inline-flex;gap:8px;align-items:center;color:var(--ink);font-size:.95rem}
-.hmi{aspect-ratio:4/5;overflow:hidden;border-radius:var(--rad);box-shadow:var(--sh)}
-.hmi img{width:100%;height:100%;object-fit:cover;display:block;animation:kb 18s var(--ease) forwards}
-.hmi-fb{width:100%;height:100%;background:linear-gradient(150deg,var(--p),var(--p9));display:flex;align-items:center;justify-content:center;color:#fff;font-family:var(--head);font-size:3rem}
-@media(max-width:860px){.hmg{grid-template-columns:1fr}.hmi{aspect-ratio:16/11}}
+.hmi{overflow:hidden;border-radius:0;box-shadow:none;position:relative}
+.hmi img{width:100%;height:100%;object-fit:cover;display:block;animation:kb 18s var(--ease) forwards;min-height:clamp(400px,80vh,900px)}
+.hmi::after{content:"";position:absolute;inset:0 0 0 auto;width:3px;background:var(--p);opacity:.18}
+.hmi-fb{width:100%;height:100%;min-height:clamp(400px,80vh,900px);background:linear-gradient(150deg,var(--p),var(--p9));display:flex;align-items:center;justify-content:center;color:#fff;font-family:var(--head);font-size:3rem}
+@media(max-width:860px){.hmg{grid-template-columns:1fr;min-height:auto}.hmt{padding:clamp(32px,5vw,56px) clamp(22px,5vw,48px)}.hmi{aspect-ratio:16/10}.hmi img{min-height:unset;height:100%}}
 /* proof bar */
 .proof{background:var(--ink);color:#fff}
 .proof.lite{background:transparent;color:var(--ink);border-top:1px solid var(--n2);border-bottom:1px solid var(--n2)}
