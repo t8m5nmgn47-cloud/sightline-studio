@@ -15,7 +15,7 @@
 .hd p{color:var(--mut);max-width:60ch;margin-top:10px}
 .layout{display:grid;grid-template-columns:340px 1fr;gap:clamp(18px,3vw,36px);padding:22px 0 60px;align-items:start}
 @media(max-width:900px){.layout{grid-template-columns:1fr}}
-.panel{background:#fff;border:1px solid var(--line);border-radius:16px;padding:20px;position:sticky;top:14px}
+.panel{background:#fff;border:1px solid var(--line);border-radius:16px;padding:20px;position:sticky;top:14px;max-height:calc(100vh - 28px);overflow-y:auto}
 .fld{margin-bottom:16px}.fld label{display:block;font-size:.74rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--mut);margin-bottom:7px}
 .fld input[type=text]{width:100%;border:1px solid var(--line);border-radius:9px;padding:10px 12px;font-family:var(--body);font-size:.95rem;color:var(--ink);background:#faf8f4}
 .fld input:focus{outline:none;border-color:var(--ac)}
@@ -50,6 +50,19 @@ input[type=range]{width:100%;accent-color:var(--ac)}
 .up h3{font-family:var(--head);font-weight:500;font-size:1.2rem;margin-bottom:6px}.up p{color:rgba(255,255,255,.8);font-size:.88rem}.up .btn{margin-top:12px}
 .toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%) translateY(20px);background:var(--ink);color:#fff;padding:11px 18px;border-radius:10px;font-size:.88rem;opacity:0;transition:.3s;pointer-events:none}
 .toast.show{opacity:1;transform:translateX(-50%)}
+/* Icon picker */
+.vtfilt{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:8px;max-height:88px;overflow-y:auto}
+.vtchip{border:1px solid var(--line);background:#faf8f4;border-radius:20px;padding:4px 10px;font-size:.72rem;font-weight:600;cursor:pointer;color:var(--mut);transition:.15s;white-space:nowrap}
+.vtchip.on{background:var(--ac);color:#fff;border-color:var(--ac)}
+.icongrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(46px,1fr));gap:6px;max-height:220px;overflow-y:auto}
+.iswatch{width:100%;aspect-ratio:1;border:1px solid var(--line);background:#faf8f4;border-radius:8px;cursor:pointer;display:flex;align-items:center;justify-content:center;padding:6px;transition:.15s;position:relative}
+.iswatch:hover{border-color:var(--ac)}
+.iswatch.on{border-color:var(--ac);box-shadow:0 0 0 2px rgba(31,111,92,.2);background:#f0faf7}
+.iswatch svg{width:100%;height:100%}
+.iswatch.none-swatch{font-size:.65rem;font-weight:700;color:var(--mut);letter-spacing:.05em}
+/* Mark position and enclosure fields */
+#positionfld,#enclosurefld{display:none}
+#positionfld.vis,#enclosurefld.vis{display:block}
 </style></head>
 <body>
 <header class="wrap top"><div class="logo"><span class="dot"></span>Sightline · Logo Studio</div><a href="/admin/" data-adminback style="text-decoration:none;font-weight:600;margin-right:16px;color:#1f6f5c;font-size:.85rem">← Dashboard</a><a href="../">← Back to Studio</a></header>
@@ -58,6 +71,36 @@ input[type=range]{width:100%;accent-color:var(--ac)}
   <aside class="panel">
     <div class="fld"><label>Business name</label><input type="text" id="name" autocomplete="off"></div>
     <div class="fld"><label>Tagline (optional)</label><input type="text" id="tag" autocomplete="off" placeholder="e.g. Littleton, Colorado"></div>
+
+    <!-- Symbol / Icon picker -->
+    <div class="fld">
+      <label>Symbol / Icon</label>
+      <div class="vtfilt" id="vtfilt"></div>
+      <div class="icongrid" id="icongrid"></div>
+    </div>
+
+    <!-- Mark Position (shown when icon selected) -->
+    <div class="fld" id="positionfld">
+      <label>Mark Position</label>
+      <div class="seg" id="markpos">
+        <button data-v="icon-top" class="on">Icon Top</button>
+        <button data-v="icon-left">Icon Left</button>
+        <button data-v="icon-only">Icon Only</button>
+      </div>
+    </div>
+
+    <!-- Enclosure (shown when icon selected) -->
+    <div class="fld" id="enclosurefld">
+      <label>Enclosure</label>
+      <div class="seg" id="enclosure">
+        <button data-v="none" class="on">None</button>
+        <button data-v="circle">Circle</button>
+        <button data-v="rounded">Rounded Sq</button>
+        <button data-v="shield">Shield</button>
+        <button data-v="badge">Badge Sq</button>
+      </div>
+    </div>
+
     <div class="fld"><label>Layout</label><div class="seg" id="layout">
       <button data-v="wordmark" class="on">Wordmark</button><button data-v="stacked">Stacked</button><button data-v="monogram">Monogram</button><button data-v="badge">Badge</button></div></div>
     <div class="fld"><label>Font</label><div class="fonts" id="fonts"></div></div>
@@ -79,11 +122,268 @@ input[type=range]{width:100%;accent-color:var(--ac)}
       <button class="btn alt" id="copysvg">Copy SVG</button>
     </div>
     <div class="note"><b>About this logo.</b> You're free to use this commercially. But note: a generated wordmark is a file and a license to use it — it is <b>not</b> a cleared or registered trademark, and may not be unique. For real brand protection, run a clearance search at tmsearch.uspto.gov and consult a trademark attorney before registering. <i>(Not legal advice.)</i></div>
-    <div class="up"><h3>Need a custom illustrated logo?</h3><p>Our premium tier delivers a unique, hand-finished vector mark with an icon — true editable vector files for print and signage. One-time $149–299.</p><button class="btn gold" onclick="alert('We\\'ll include this in your proposal — just ask on your call.')">Add a custom logo →</button></div>
+    <div class="up"><h3>Need a custom illustrated logo?</h3><p>Our premium tier delivers a unique, hand-finished vector mark with an icon — true editable vector files for print and signage. One-time $149–299.</p><button class="btn gold" onclick="alert('We\'ll include this in your proposal — just ask on your call.')">Add a custom logo →</button></div>
   </main>
 </section>
 <div class="toast" id="toast"></div>
 <script>
+// ─── ICON LIBRARY ───────────────────────────────────────────────────────────
+const ICONS = [
+  // FAITH / CHURCH
+  {
+    id:"cross-latin", name:"Latin Cross", verticals:["Faith"],
+    paths:`<path d="M42 10 h16 v22 h28 v16 h-28 v42 h-16 v-42 h-28 v-16 h28 z" fill="currentColor"/>`
+  },
+  {
+    id:"dove", name:"Dove", verticals:["Faith"],
+    paths:`<path d="M50 22 C42 22 30 28 24 36 C20 41 18 44 16 42 C14 40 18 34 22 30 C14 32 8 40 10 50 C12 60 22 66 32 64 C28 70 22 76 18 80 L24 80 C30 74 36 68 42 66 C46 68 50 70 54 70 C66 70 76 60 76 48 C76 40 74 34 70 30 L82 20 L78 16 L62 26 C58 24 54 22 50 22 Z M50 30 C58 30 64 36 64 44 C64 52 58 58 50 58 C42 58 36 52 36 44 C36 36 42 30 50 30 Z M50 38 C46 38 44 41 44 44 C44 47 46 50 50 50 C54 50 56 47 56 44 C56 41 54 38 50 38 Z" fill="currentColor"/>`
+  },
+  {
+    id:"flame", name:"Flame", verticals:["Faith"],
+    paths:`<path d="M50 8 C50 8 36 28 32 42 C28 56 34 70 42 76 C40 68 44 62 50 60 C56 62 60 68 58 76 C66 70 72 56 68 42 C64 28 50 8 50 8 Z M50 66 C46 66 42 70 42 74 C42 80 46 84 50 84 C54 84 58 80 58 74 C58 70 54 66 50 66 Z" fill="currentColor"/>`
+  },
+  {
+    id:"open-book", name:"Open Book", verticals:["Faith"],
+    paths:`<path d="M50 26 L50 82 M50 26 C44 20 28 18 12 22 L12 78 C28 74 44 76 50 82 M50 26 C56 20 72 18 88 22 L88 78 C72 74 56 76 50 82" stroke="currentColor" stroke-width="5" fill="none" stroke-linejoin="round" stroke-linecap="round"/>`
+  },
+  {
+    id:"steeple", name:"Chapel", verticals:["Faith"],
+    paths:`<path d="M50 6 L56 20 L56 28 L70 28 L50 50 L30 28 L44 28 L44 20 Z" fill="currentColor"/><path d="M47 46 l3 -4 l3 4 L70 46 L70 88 L30 88 L30 46 Z" fill="currentColor"/><path d="M42 88 L42 68 Q50 62 58 68 L58 88 Z" fill="currentColor" opacity=".35"/>`
+  },
+  {
+    id:"fish", name:"Ichthys Fish", verticals:["Faith"],
+    paths:`<path d="M20 50 C20 50 28 30 56 30 C72 30 80 40 80 50 C80 60 72 70 56 70 C28 70 20 50 20 50 Z M74 40 L90 30 L88 50 L90 70 L74 60 Z" fill="currentColor"/>`
+  },
+  {
+    id:"heart-hands", name:"Heart in Hands", verticals:["Faith"],
+    paths:`<path d="M50 30 C50 30 42 22 34 28 C26 34 30 44 38 48 L50 60 L62 48 C70 44 74 34 66 28 C58 22 50 30 50 30 Z" fill="currentColor"/><path d="M22 72 C22 62 28 58 34 56 L42 62 C36 64 32 68 30 74 L22 80 Z" fill="currentColor" opacity=".7"/><path d="M78 72 C78 62 72 58 66 56 L58 62 C64 64 68 68 70 74 L78 80 Z" fill="currentColor" opacity=".7"/><path d="M30 74 L30 88 L70 88 L70 74 C68 66 60 62 50 62 C40 62 32 66 30 74 Z" fill="currentColor" opacity=".5"/>`
+  },
+  {
+    id:"sunrise", name:"Sunrise", verticals:["Faith"],
+    paths:`<path d="M10 68 Q30 40 50 38 Q70 40 90 68 Z" fill="currentColor"/><path d="M50 12 L50 22 M26 18 L31 27 M74 18 L69 27 M14 38 L23 42 M86 38 L77 42" stroke="currentColor" stroke-width="5" stroke-linecap="round"/><path d="M32 55 Q50 42 68 55" stroke="currentColor" stroke-width="5" fill="none" stroke-linecap="round"/>`
+  },
+  // LAW
+  {
+    id:"scales", name:"Scales of Justice", verticals:["Law"],
+    paths:`<line x1="50" y1="18" x2="50" y2="82" stroke="currentColor" stroke-width="5" stroke-linecap="round"/><line x1="20" y1="26" x2="80" y2="26" stroke="currentColor" stroke-width="5" stroke-linecap="round"/><path d="M20 26 L8 52 Q14 58 20 52 Z" fill="currentColor" opacity=".9"/><path d="M20 26 L32 52 Q26 58 20 52 Z" fill="currentColor" opacity=".9"/><path d="M80 26 L68 52 Q74 58 80 52 Z" fill="currentColor" opacity=".9"/><path d="M80 26 L92 52 Q86 58 80 52 Z" fill="currentColor" opacity=".9"/><rect x="38" y="80" width="24" height="6" rx="3" fill="currentColor"/>`
+  },
+  {
+    id:"column", name:"Classical Column", verticals:["Law"],
+    paths:`<rect x="36" y="18" width="28" height="8" rx="2" fill="currentColor"/><rect x="40" y="26" width="4" height="48" fill="currentColor"/><rect x="48" y="26" width="4" height="48" fill="currentColor"/><rect x="56" y="26" width="4" height="48" fill="currentColor"/><rect x="34" y="74" width="32" height="8" rx="2" fill="currentColor"/>`
+  },
+  {
+    id:"gavel", name:"Gavel", verticals:["Law"],
+    paths:`<rect x="28" y="22" width="44" height="22" rx="8" transform="rotate(-40 50 33)" fill="currentColor"/><rect x="44" y="44" width="8" height="40" rx="4" transform="rotate(-40 48 64)" fill="currentColor" opacity=".75"/><line x1="14" y1="82" x2="44" y2="52" stroke="currentColor" stroke-width="5" stroke-linecap="round" opacity=".4"/>`
+  },
+  {
+    id:"shield-law", name:"Shield", verticals:["Law"],
+    paths:`<path d="M50 8 L88 24 L88 56 Q88 80 50 92 Q12 80 12 56 L12 24 Z" fill="currentColor"/>`
+  },
+  {
+    id:"courthouse", name:"Courthouse", verticals:["Law"],
+    paths:`<polygon points="50,10 90,34 90,40 10,40 10,34" fill="currentColor"/><rect x="22" y="40" width="8" height="40" fill="currentColor"/><rect x="38" y="40" width="8" height="40" fill="currentColor"/><rect x="54" y="40" width="8" height="40" fill="currentColor"/><rect x="70" y="40" width="8" height="40" fill="currentColor"/><rect x="14" y="80" width="72" height="8" rx="2" fill="currentColor"/>`
+  },
+  // DENTAL
+  {
+    id:"tooth", name:"Tooth", verticals:["Dental"],
+    paths:`<path d="M30 20 Q24 20 22 32 Q18 52 20 64 Q22 72 28 72 Q34 72 36 64 Q38 56 50 56 Q62 56 64 64 Q66 72 72 72 Q78 72 80 64 Q82 52 78 32 Q76 20 70 20 Q62 20 58 28 Q54 36 50 36 Q46 36 42 28 Q38 20 30 20 Z" fill="currentColor"/>`
+  },
+  {
+    id:"tooth-sparkle", name:"Tooth + Sparkle", verticals:["Dental"],
+    paths:`<path d="M24 22 Q18 22 16 34 Q12 52 14 62 Q16 70 22 70 Q28 70 30 62 Q32 54 44 54 Q56 54 58 62 Q60 70 66 70 Q72 70 74 62 Q76 52 72 34 Q70 22 64 22 Q56 22 52 30 Q48 38 44 38 Q40 38 36 30 Q32 22 24 22 Z" fill="currentColor"/><path d="M78 14 L80 20 L86 22 L80 24 L78 30 L76 24 L70 22 L76 20 Z" fill="currentColor"/><path d="M84 34 L85 37 L88 38 L85 39 L84 42 L83 39 L80 38 L83 37 Z" fill="currentColor"/>`
+  },
+  {
+    id:"smile", name:"Smile Arc", verticals:["Dental"],
+    paths:`<path d="M16 38 Q50 80 84 38" stroke="currentColor" stroke-width="7" fill="none" stroke-linecap="round"/><path d="M16 38 L84 38" stroke="currentColor" stroke-width="4" stroke-dasharray="14 5" stroke-linecap="round" fill="none"/>`
+  },
+  // MEDICAL
+  {
+    id:"medical-cross", name:"Medical Cross", verticals:["Medical"],
+    paths:`<path d="M36 14 h28 a8 8 0 0 1 8 8 v22 h22 a8 8 0 0 1 8 8 v16 a8 8 0 0 1 -8 8 h-22 v22 a8 8 0 0 1 -8 8 h-28 a8 8 0 0 1 -8 -8 v-22 h-22 a8 8 0 0 1 -8 -8 v-16 a8 8 0 0 1 8 -8 h22 v-22 a8 8 0 0 1 8 -8 z" fill="currentColor" transform="scale(0.68) translate(10,10)"/>`
+  },
+  {
+    id:"heart-pulse", name:"Heart + Pulse", verticals:["Medical"],
+    paths:`<path d="M50 80 C50 80 14 58 14 36 C14 24 22 16 32 16 C40 16 46 20 50 26 C54 20 60 16 68 16 C78 16 86 24 86 36 C86 58 50 80 50 80 Z" fill="currentColor" opacity=".2" stroke="currentColor" stroke-width="4"/><path d="M14 50 L28 50 L34 38 L42 62 L52 44 L58 56 L64 50 L86 50" stroke="currentColor" stroke-width="5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>`
+  },
+  {
+    id:"stethoscope", name:"Stethoscope", verticals:["Medical"],
+    paths:`<path d="M24 16 L24 46 Q24 64 44 68 Q64 72 68 56 Q72 40 62 34 Q52 28 48 36 Q44 44 52 48 Q58 50 60 46" stroke="currentColor" stroke-width="6" fill="none" stroke-linecap="round"/><circle cx="60" cy="42" r="8" fill="currentColor" opacity=".3" stroke="currentColor" stroke-width="4"/><line x1="18" y1="16" x2="30" y2="16" stroke="currentColor" stroke-width="6" stroke-linecap="round"/><circle cx="18" cy="16" r="6" fill="currentColor"/><circle cx="30" cy="16" r="6" fill="currentColor"/>`
+  },
+  {
+    id:"plus-circle", name:"Plus in Circle", verticals:["Medical"],
+    paths:`<circle cx="50" cy="50" r="38" fill="none" stroke="currentColor" stroke-width="6"/><path d="M50 28 L50 72 M28 50 L72 50" stroke="currentColor" stroke-width="8" stroke-linecap="round"/>`
+  },
+  // OPTOMETRY
+  {
+    id:"eye", name:"Eye", verticals:["Optometry"],
+    paths:`<path d="M10 50 Q30 20 50 20 Q70 20 90 50 Q70 80 50 80 Q30 80 10 50 Z" fill="none" stroke="currentColor" stroke-width="5"/><circle cx="50" cy="50" r="14" fill="currentColor"/><circle cx="50" cy="50" r="6" fill="currentColor" opacity=".3"/><circle cx="56" cy="44" r="4" fill="white" opacity=".6"/>`
+  },
+  {
+    id:"eyeglasses", name:"Eyeglasses", verticals:["Optometry"],
+    paths:`<circle cx="32" cy="52" r="18" fill="none" stroke="currentColor" stroke-width="5"/><circle cx="68" cy="52" r="18" fill="none" stroke="currentColor" stroke-width="5"/><path d="M50 52 Q54 46 56 48" stroke="currentColor" stroke-width="4" fill="none" stroke-linecap="round"/><line x1="14" y1="44" x2="14" y2="56" stroke="currentColor" stroke-width="4" stroke-linecap="round"/><line x1="86" y1="44" x2="86" y2="56" stroke="currentColor" stroke-width="4" stroke-linecap="round"/>`
+  },
+  // LANDSCAPING
+  {
+    id:"leaf", name:"Leaf", verticals:["Landscaping"],
+    paths:`<path d="M50 85 C50 85 16 68 12 38 C8 8 42 12 50 85 Z" fill="currentColor"/><path d="M50 85 C50 85 84 68 88 38 C92 8 58 12 50 85 Z" fill="currentColor" opacity=".65"/><line x1="50" y1="85" x2="50" y2="24" stroke="currentColor" stroke-width="3" stroke-linecap="round" opacity=".4"/>`
+  },
+  {
+    id:"tree", name:"Tree", verticals:["Landscaping"],
+    paths:`<ellipse cx="50" cy="36" rx="28" ry="26" fill="currentColor"/><rect x="44" y="60" width="12" height="26" rx="4" fill="currentColor" opacity=".7"/>`
+  },
+  {
+    id:"sprout", name:"Sprout", verticals:["Landscaping"],
+    paths:`<path d="M50 80 L50 42" stroke="currentColor" stroke-width="5" stroke-linecap="round"/><path d="M50 58 C50 58 36 48 28 32 C44 28 56 40 50 58 Z" fill="currentColor"/><path d="M50 50 C50 50 62 40 72 26 C56 22 44 36 50 50 Z" fill="currentColor" opacity=".7"/><ellipse cx="50" cy="82" rx="14" ry="5" fill="currentColor" opacity=".3"/>`
+  },
+  {
+    id:"sun-landscape", name:"Sun", verticals:["Landscaping"],
+    paths:`<circle cx="50" cy="50" r="18" fill="currentColor"/><line x1="50" y1="16" x2="50" y2="24" stroke="currentColor" stroke-width="5" stroke-linecap="round"/><line x1="50" y1="76" x2="50" y2="84" stroke="currentColor" stroke-width="5" stroke-linecap="round"/><line x1="16" y1="50" x2="24" y2="50" stroke="currentColor" stroke-width="5" stroke-linecap="round"/><line x1="76" y1="50" x2="84" y2="50" stroke="currentColor" stroke-width="5" stroke-linecap="round"/><line x1="27" y1="27" x2="33" y2="33" stroke="currentColor" stroke-width="5" stroke-linecap="round"/><line x1="67" y1="67" x2="73" y2="73" stroke="currentColor" stroke-width="5" stroke-linecap="round"/><line x1="73" y1="27" x2="67" y2="33" stroke="currentColor" stroke-width="5" stroke-linecap="round"/><line x1="27" y1="73" x2="33" y2="67" stroke="currentColor" stroke-width="5" stroke-linecap="round"/>`
+  },
+  // CONSTRUCTION / HOME
+  {
+    id:"house", name:"House", verticals:["Construction"],
+    paths:`<polygon points="50,12 88,46 12,46" fill="currentColor"/><rect x="18" y="46" width="64" height="40" rx="2" fill="currentColor" opacity=".8"/><rect x="40" y="60" width="20" height="26" rx="3" fill="currentColor" opacity=".35"/>`
+  },
+  {
+    id:"roof-hammer", name:"Roof + Hammer", verticals:["Construction"],
+    paths:`<path d="M50 14 L88 48 L80 48 L50 22 L20 48 L12 48 Z" fill="currentColor"/><rect x="22" y="48" width="56" height="38" rx="2" fill="currentColor" opacity=".55"/><rect x="54" y="62" width="22" height="8" rx="3" transform="rotate(-35 65 66)" fill="currentColor"/><rect x="58" y="56" width="12" height="12" rx="4" transform="rotate(-35 64 62)" fill="currentColor"/>`
+  },
+  {
+    id:"wrench", name:"Wrench", verticals:["Construction"],
+    paths:`<path d="M30 72 L62 40 C58 32 60 20 68 14 C70 12 74 12 76 14 L68 22 L72 28 L80 24 C82 26 82 30 80 32 C74 40 62 38 58 40 L26 72 C22 76 22 80 26 80 C30 80 34 76 30 72 Z" fill="currentColor"/><circle cx="28" cy="76" r="5" fill="currentColor" opacity=".4"/>`
+  },
+  {
+    id:"triangle-level", name:"Level Triangle", verticals:["Construction"],
+    paths:`<path d="M50 14 L90 80 L10 80 Z" fill="none" stroke="currentColor" stroke-width="6" stroke-linejoin="round"/><line x1="10" y1="80" x2="90" y2="80" stroke="currentColor" stroke-width="6" stroke-linecap="round"/><circle cx="50" cy="70" r="8" fill="none" stroke="currentColor" stroke-width="4"/><line x1="50" y1="38" x2="50" y2="62" stroke="currentColor" stroke-width="3" stroke-linecap="round" opacity=".5"/>`
+  },
+  // FINANCE
+  {
+    id:"rising-bars", name:"Rising Bars", verticals:["Finance"],
+    paths:`<rect x="12" y="56" width="20" height="28" rx="4" fill="currentColor"/><rect x="40" y="38" width="20" height="46" rx="4" fill="currentColor"/><rect x="68" y="18" width="20" height="66" rx="4" fill="currentColor"/>`
+  },
+  {
+    id:"coin", name:"Coin", verticals:["Finance"],
+    paths:`<circle cx="50" cy="50" r="36" fill="currentColor"/><text x="50" y="64" font-family="Georgia,serif" font-weight="700" font-size="42" text-anchor="middle" fill="white">$</text>`
+  },
+  {
+    id:"columns-finance", name:"Pillars", verticals:["Finance"],
+    paths:`<rect x="14" y="28" width="14" height="52" rx="3" fill="currentColor"/><rect x="43" y="18" width="14" height="62" rx="3" fill="currentColor"/><rect x="72" y="28" width="14" height="52" rx="3" fill="currentColor"/><rect x="10" y="80" width="80" height="8" rx="3" fill="currentColor"/>`
+  },
+  {
+    id:"key", name:"Key", verticals:["Finance"],
+    paths:`<circle cx="34" cy="38" r="20" fill="none" stroke="currentColor" stroke-width="7"/><line x1="50" y1="46" x2="82" y2="78" stroke="currentColor" stroke-width="7" stroke-linecap="round"/><line x1="70" y1="66" x2="78" y2="58" stroke="currentColor" stroke-width="6" stroke-linecap="round"/><line x1="76" y1="72" x2="84" y2="64" stroke="currentColor" stroke-width="6" stroke-linecap="round"/>`
+  },
+  {
+    id:"shield-check", name:"Shield Check", verticals:["Finance"],
+    paths:`<path d="M50 8 L88 24 L88 56 Q88 80 50 92 Q12 80 12 56 L12 24 Z" fill="currentColor"/><path d="M30 50 L44 64 L70 38" stroke="white" stroke-width="7" fill="none" stroke-linecap="round" stroke-linejoin="round"/>`
+  },
+  // RESTAURANT / CAFE
+  {
+    id:"fork-knife", name:"Fork and Knife", verticals:["Restaurant"],
+    paths:`<line x1="34" y1="16" x2="34" y2="84" stroke="currentColor" stroke-width="5" stroke-linecap="round"/><path d="M26 16 L26 40 Q26 52 34 52 Q42 52 42 40 L42 16" stroke="currentColor" stroke-width="5" fill="none" stroke-linecap="round"/><line x1="66" y1="16" x2="66" y2="84" stroke="currentColor" stroke-width="5" stroke-linecap="round"/><path d="M58 16 Q58 36 66 40" stroke="currentColor" stroke-width="5" fill="none" stroke-linecap="round"/><path d="M74 16 Q74 36 66 40" stroke="currentColor" stroke-width="5" fill="none" stroke-linecap="round"/>`
+  },
+  {
+    id:"cloche", name:"Plate Cloche", verticals:["Restaurant"],
+    paths:`<path d="M12 60 Q12 28 50 24 Q88 28 88 60 Z" fill="currentColor"/><ellipse cx="50" cy="60" rx="38" ry="6" fill="currentColor" opacity=".6"/><line x1="14" y1="72" x2="86" y2="72" stroke="currentColor" stroke-width="5" stroke-linecap="round"/><circle cx="50" cy="24" r="5" fill="currentColor"/>`
+  },
+  {
+    id:"chef-hat", name:"Chef Hat", verticals:["Restaurant"],
+    paths:`<path d="M30 48 Q22 48 18 40 Q14 30 22 22 Q26 18 32 18 Q36 12 44 12 Q48 8 50 8 Q52 8 56 12 Q64 12 68 18 Q74 18 78 22 Q86 30 82 40 Q78 48 70 48 Z" fill="currentColor"/><rect x="30" y="48" width="40" height="28" rx="4" fill="currentColor" opacity=".75"/><line x1="36" y1="58" x2="64" y2="58" stroke="white" stroke-width="2.5" opacity=".4"/><line x1="36" y1="66" x2="64" y2="66" stroke="white" stroke-width="2.5" opacity=".4"/>`
+  },
+  {
+    id:"coffee-cup", name:"Coffee Cup", verticals:["Restaurant"],
+    paths:`<path d="M20 42 L24 78 Q24 84 32 84 L68 84 Q76 84 76 78 L80 42 Z" fill="currentColor"/><path d="M76 52 Q90 52 90 62 Q90 72 76 72" stroke="currentColor" stroke-width="5" fill="none" stroke-linecap="round"/><path d="M36 30 Q36 22 42 18" stroke="currentColor" stroke-width="4" fill="none" stroke-linecap="round" opacity=".6"/><path d="M50 28 Q50 20 56 16" stroke="currentColor" stroke-width="4" fill="none" stroke-linecap="round" opacity=".6"/>`
+  },
+  // BEAUTY / MED SPA
+  {
+    id:"lotus", name:"Lotus", verticals:["Beauty"],
+    paths:`<path d="M50 78 C50 78 32 60 32 44 C32 34 40 28 50 28 C60 28 68 34 68 44 C68 60 50 78 50 78 Z" fill="currentColor"/><path d="M50 78 C50 78 20 72 14 52 C10 40 18 28 28 28 C36 28 44 36 50 78 Z" fill="currentColor" opacity=".55"/><path d="M50 78 C50 78 80 72 86 52 C90 40 82 28 72 28 C64 28 56 36 50 78 Z" fill="currentColor" opacity=".55"/>`
+  },
+  {
+    id:"sparkle", name:"Sparkle", verticals:["Beauty"],
+    paths:`<path d="M50 10 L55 42 L88 50 L55 58 L50 90 L45 58 L12 50 L45 42 Z" fill="currentColor"/>`
+  },
+  {
+    id:"droplet", name:"Droplet", verticals:["Beauty"],
+    paths:`<path d="M50 10 C50 10 22 42 22 60 C22 76 34 88 50 88 C66 88 78 76 78 60 C78 42 50 10 50 10 Z" fill="currentColor"/>`
+  },
+  {
+    id:"bloom", name:"Bloom", verticals:["Beauty"],
+    paths:`<ellipse cx="50" cy="28" rx="10" ry="18" fill="currentColor" opacity=".8"/><ellipse cx="50" cy="28" rx="10" ry="18" fill="currentColor" opacity=".8" transform="rotate(72 50 50)"/><ellipse cx="50" cy="28" rx="10" ry="18" fill="currentColor" opacity=".8" transform="rotate(144 50 50)"/><ellipse cx="50" cy="28" rx="10" ry="18" fill="currentColor" opacity=".8" transform="rotate(216 50 50)"/><ellipse cx="50" cy="28" rx="10" ry="18" fill="currentColor" opacity=".8" transform="rotate(288 50 50)"/><circle cx="50" cy="50" r="12" fill="currentColor"/>`
+  },
+  // CHILDCARE / EDUCATION
+  {
+    id:"balloon", name:"Balloon", verticals:["Childcare"],
+    paths:`<ellipse cx="50" cy="38" rx="26" ry="30" fill="currentColor"/><path d="M50 68 Q46 76 48 82 Q50 86 52 82 Q54 76 50 68 Z" fill="currentColor" opacity=".6"/><path d="M60 22 Q68 16 72 20" stroke="white" stroke-width="3" fill="none" stroke-linecap="round" opacity=".5"/>`
+  },
+  {
+    id:"sun-face", name:"Sun Face", verticals:["Childcare"],
+    paths:`<circle cx="50" cy="50" r="24" fill="currentColor"/><line x1="50" y1="16" x2="50" y2="22" stroke="currentColor" stroke-width="4" stroke-linecap="round"/><line x1="50" y1="78" x2="50" y2="84" stroke="currentColor" stroke-width="4" stroke-linecap="round"/><line x1="16" y1="50" x2="22" y2="50" stroke="currentColor" stroke-width="4" stroke-linecap="round"/><line x1="78" y1="50" x2="84" y2="50" stroke="currentColor" stroke-width="4" stroke-linecap="round"/><line x1="27" y1="27" x2="31" y2="31" stroke="currentColor" stroke-width="4" stroke-linecap="round"/><line x1="69" y1="69" x2="73" y2="73" stroke="currentColor" stroke-width="4" stroke-linecap="round"/><line x1="73" y1="27" x2="69" y2="31" stroke="currentColor" stroke-width="4" stroke-linecap="round"/><line x1="27" y1="73" x2="31" y2="69" stroke="currentColor" stroke-width="4" stroke-linecap="round"/><circle cx="44" cy="46" r="3" fill="white"/><circle cx="56" cy="46" r="3" fill="white"/><path d="M42 56 Q50 64 58 56" stroke="white" stroke-width="3" fill="none" stroke-linecap="round"/>`
+  },
+  {
+    id:"blocks", name:"Building Blocks", verticals:["Childcare"],
+    paths:`<rect x="14" y="50" width="32" height="32" rx="5" fill="currentColor"/><rect x="54" y="50" width="32" height="32" rx="5" fill="currentColor" opacity=".7"/><rect x="34" y="18" width="32" height="32" rx="5" fill="currentColor" opacity=".85"/>`
+  },
+  {
+    id:"grad-cap", name:"Graduation Cap", verticals:["Childcare"],
+    paths:`<polygon points="50,18 88,38 50,58 12,38" fill="currentColor"/><path d="M76 46 L76 68 Q76 78 50 82 Q24 78 24 68 L24 46" fill="none" stroke="currentColor" stroke-width="5"/><line x1="88" y1="38" x2="88" y2="60" stroke="currentColor" stroke-width="4" stroke-linecap="round"/><circle cx="88" cy="64" r="5" fill="currentColor"/>`
+  },
+  {
+    id:"open-book-edu", name:"Open Book", verticals:["Childcare"],
+    paths:`<path d="M50 28 L50 80 M50 28 C44 22 26 20 10 24 L10 76 C26 72 44 74 50 80 M50 28 C56 22 74 20 90 24 L90 76 C74 72 56 74 50 80" stroke="currentColor" stroke-width="5" fill="none" stroke-linejoin="round" stroke-linecap="round"/><line x1="20" y1="36" x2="42" y2="36" stroke="currentColor" stroke-width="3" stroke-linecap="round" opacity=".5"/><line x1="20" y1="46" x2="42" y2="46" stroke="currentColor" stroke-width="3" stroke-linecap="round" opacity=".5"/><line x1="20" y1="56" x2="42" y2="56" stroke="currentColor" stroke-width="3" stroke-linecap="round" opacity=".5"/>`
+  },
+  // INSURANCE / REAL ESTATE
+  {
+    id:"umbrella", name:"Umbrella", verticals:["Real Estate"],
+    paths:`<path d="M10 50 Q10 18 50 14 Q90 18 90 50 Z" fill="currentColor"/><path d="M50 50 L50 74 Q50 82 42 82 Q34 82 34 74" stroke="currentColor" stroke-width="6" fill="none" stroke-linecap="round"/>`
+  },
+  {
+    id:"house-key", name:"House + Key", verticals:["Real Estate"],
+    paths:`<polygon points="50,12 84,42 16,42" fill="currentColor"/><rect x="20" y="42" width="60" height="40" rx="2" fill="currentColor" opacity=".75"/><rect x="42" y="56" width="16" height="26" rx="2" fill="currentColor" opacity=".35"/><circle cx="72" cy="52" r="9" fill="none" stroke="white" stroke-width="3"/><line x1="78" y1="58" x2="84" y2="64" stroke="white" stroke-width="3" stroke-linecap="round"/>`
+  },
+  {
+    id:"door", name:"Door", verticals:["Real Estate"],
+    paths:`<path d="M20 16 L80 16 L80 86 L20 86 Z" fill="currentColor" opacity=".2" stroke="currentColor" stroke-width="5"/><path d="M20 86 L20 16 Q20 10 26 10 L74 10 Q80 10 80 16 L80 86" stroke="currentColor" stroke-width="5" fill="none" stroke-linejoin="round"/><path d="M20 56 Q50 44 80 56" stroke="currentColor" stroke-width="4" fill="none" opacity=".4"/><circle cx="68" cy="50" r="5" fill="currentColor"/>`
+  },
+  // UNIVERSAL
+  {
+    id:"orbit", name:"Circle Orbit", verticals:["Universal"],
+    paths:`<circle cx="50" cy="50" r="14" fill="currentColor"/><ellipse cx="50" cy="50" rx="38" ry="18" fill="none" stroke="currentColor" stroke-width="4"/><ellipse cx="50" cy="50" rx="38" ry="18" fill="none" stroke="currentColor" stroke-width="4" transform="rotate(60 50 50)"/><ellipse cx="50" cy="50" rx="38" ry="18" fill="none" stroke="currentColor" stroke-width="4" transform="rotate(120 50 50)"/>`
+  },
+  {
+    id:"star4", name:"4-Point Star", verticals:["Universal"],
+    paths:`<path d="M50 8 L58 42 L92 50 L58 58 L50 92 L42 58 L8 50 L42 42 Z" fill="currentColor"/>`
+  },
+  {
+    id:"mountain", name:"Mountain Peak", verticals:["Universal"],
+    paths:`<path d="M50 12 L88 80 L12 80 Z" fill="currentColor"/><path d="M30 80 L50 42 L70 80 Z" fill="currentColor" opacity=".25"/>`
+  },
+  {
+    id:"hexagon", name:"Hexagon", verticals:["Universal"],
+    paths:`<path d="M50 10 L86 30 L86 70 L50 90 L14 70 L14 30 Z" fill="none" stroke="currentColor" stroke-width="6" stroke-linejoin="round"/>`
+  },
+  {
+    id:"abstract-leaf", name:"Abstract Leaf", verticals:["Universal"],
+    paths:`<path d="M50 82 C28 82 10 64 10 42 C10 20 30 10 50 10 C50 10 88 10 88 48 C88 68 72 82 50 82 Z" fill="currentColor"/><path d="M50 82 Q50 44 88 28" stroke="white" stroke-width="3" fill="none" stroke-linecap="round" opacity=".3"/>`
+  },
+  {
+    id:"sunburst", name:"Sunburst", verticals:["Universal"],
+    paths:`<circle cx="50" cy="50" r="18" fill="currentColor"/><path d="M50 10 L54 30 L50 32 L46 30 Z" fill="currentColor"/><path d="M50 10 L54 30 L50 32 L46 30 Z" fill="currentColor" transform="rotate(30 50 50)"/><path d="M50 10 L54 30 L50 32 L46 30 Z" fill="currentColor" transform="rotate(60 50 50)"/><path d="M50 10 L54 30 L50 32 L46 30 Z" fill="currentColor" transform="rotate(90 50 50)"/><path d="M50 10 L54 30 L50 32 L46 30 Z" fill="currentColor" transform="rotate(120 50 50)"/><path d="M50 10 L54 30 L50 32 L46 30 Z" fill="currentColor" transform="rotate(150 50 50)"/><path d="M50 10 L54 30 L50 32 L46 30 Z" fill="currentColor" transform="rotate(180 50 50)"/><path d="M50 10 L54 30 L50 32 L46 30 Z" fill="currentColor" transform="rotate(210 50 50)"/><path d="M50 10 L54 30 L50 32 L46 30 Z" fill="currentColor" transform="rotate(240 50 50)"/><path d="M50 10 L54 30 L50 32 L46 30 Z" fill="currentColor" transform="rotate(270 50 50)"/><path d="M50 10 L54 30 L50 32 L46 30 Z" fill="currentColor" transform="rotate(300 50 50)"/><path d="M50 10 L54 30 L50 32 L46 30 Z" fill="currentColor" transform="rotate(330 50 50)"/>`
+  },
+  {
+    id:"infinity", name:"Infinity", verticals:["Universal"],
+    paths:`<path d="M50 50 C50 50 38 34 26 34 C14 34 8 42 8 50 C8 58 14 66 26 66 C38 66 50 50 50 50 C50 50 62 34 74 34 C86 34 92 42 92 50 C92 58 86 66 74 66 C62 66 50 50 50 50 Z" fill="none" stroke="currentColor" stroke-width="7" stroke-linecap="round"/>`
+  },
+  {
+    id:"monogram-hex", name:"Hex Frame", verticals:["Universal"],
+    paths:`<path d="M50 6 L90 28 L90 72 L50 94 L10 72 L10 28 Z" fill="none" stroke="currentColor" stroke-width="5"/><path d="M50 16 L82 34 L82 66 L50 84 L18 66 L18 34 Z" fill="none" stroke="currentColor" stroke-width="2" opacity=".4"/>`
+  }
+];
+
+// ─── VERTICALS & FILTER ────────────────────────────────────────────────────
+const VERTICALS = ["All","Faith","Law","Dental","Medical","Optometry","Landscaping","Construction","Finance","Restaurant","Beauty","Childcare","Real Estate","Universal"];
+
+// ─── FONTS & SWATCHES ───────────────────────────────────────────────────────
 const FONTS=[
  {n:"Fraunces",f:"'Fraunces',serif",w:600},{n:"Playfair Display",f:"'Playfair Display',serif",w:600},
  {n:"Cormorant",f:"'Cormorant Garamond',serif",w:600},{n:"Inter",f:"'Inter',sans-serif",w:700},
@@ -93,91 +393,474 @@ const FONTS=[
 ];
 const SWATCHES=["#1f6f5c","#16140f","#7c2d12","#1e3a5f","#6d28d9","#b91c1c","#c2410c","#0f766e","#9d174d","#b8860b"];
 const qs=new URLSearchParams(location.search);
-const S={name:qs.get("name")||"Highlands Ranch Co.",tag:qs.get("tag")||"",layout:"wordmark",font:FONTS[0],color:qs.get("color")||"#1f6f5c",bg:"light",track:0};
+
+// ─── STATE ──────────────────────────────────────────────────────────────────
+const S={
+  name:qs.get("name")||"Highlands Ranch Co.",
+  tag:qs.get("tag")||"",
+  layout:"wordmark",
+  font:FONTS[0],
+  color:qs.get("color")||"#1f6f5c",
+  bg:"light",
+  track:0,
+  symbol:null,     // icon id or null
+  markPos:"icon-top",
+  enclosure:"none",
+  vtFilter:"All"
+};
 const $=id=>document.getElementById(id);
 const measureCanvas=document.createElement("canvas").getContext("2d");
+
 function initials(name){const p=name.trim().split(/\s+/).filter(w=>!/^(the|and|of|co|llc|inc|pllc|pc)\.?$/i.test(w));const a=(p[0]||name)[0]||"";const b=p.length>1?p[1][0]:"";return (a+b).toUpperCase();}
 function measure(t,fs,fam,w,sp){measureCanvas.font=w+" "+fs+"px "+fam;return measureCanvas.measureText(t).width+sp*Math.max(0,t.length-1);}
-// returns {w,h,els} primitives; els: text/circle/rect
-function layout(o){const fam=o.font.f,fw=o.font.w,sp=o.track;
- const txtCol=o.mono?(o.bg==="dark"?"#ffffff":"#111111"):(o.bg==="dark"?"#ffffff":o.color);
- const subCol=o.bg==="dark"?"rgba(255,255,255,.65)":"rgba(0,0,0,.5)";
- const pad=56,els=[];let W,H;const ini=initials(o.name);
- if(o.layout==="wordmark"){
-  const fs=120;const tw=measure(o.name,fs,fam,fw,sp);
-  const tagfs=34;const tgw=o.tag?measure(o.tag.toUpperCase(),tagfs,"'Inter'",600,3):0;
-  W=Math.max(tw,tgw)+pad*2;H=pad*2+fs+(o.tag?tagfs+26:0);
-  let y=pad+fs*0.78;els.push({t:"text",x:W/2,y,fs,fam,fw,sp,col:txtCol,txt:o.name});
-  if(o.tag){els.push({t:"text",x:W/2,y:y+44,fs:tagfs,fam:"'Inter'",fw:600,sp:3,col:subCol,txt:o.tag.toUpperCase()});}
- } else if(o.layout==="monogram"){
-  const r=150;W=H=r*2+pad*2;els.push({t:"circle",cx:W/2,cy:H/2,r,fill:txtCol});
-  els.push({t:"text",x:W/2,y:H/2+r*0.36,fs:r*1.05,fam,fw,sp:0,col:o.bg==="dark"?"#16140f":"#ffffff",txt:ini});
- } else if(o.layout==="stacked"){
-  const r=92;const fs=84;const tw=measure(o.name,fs,fam,fw,sp);
-  W=Math.max(tw,r*2)+pad*2;H=pad*2+r*2+34+fs+(o.tag?40:0);
-  const cx=W/2;els.push({t:"circle",cx,cy:pad+r,r,fill:txtCol});
-  els.push({t:"text",x:cx,y:pad+r+r*0.36,fs:r*1.05,fam,fw,sp:0,col:o.bg==="dark"?"#16140f":"#ffffff",txt:ini});
-  els.push({t:"text",x:cx,y:pad+r*2+34+fs*0.78,fs,fam,fw,sp,col:txtCol,txt:o.name});
-  if(o.tag)els.push({t:"text",x:cx,y:pad+r*2+34+fs+30,fs:26,fam:"'Inter'",fw:600,sp:3,col:subCol,txt:o.tag.toUpperCase()});
- } else { // badge — horizontal lockup in a rounded rect
-  const box=176;const fs=72;const nm=measure(o.name,fs,fam,fw,sp);
-  const tagfs=24;const tg=o.tag?measure(o.tag.toUpperCase(),tagfs,"'Inter'",600,3):0;
-  const gap=34;const txtW=Math.max(nm,tg);W=pad*2+box+gap+txtW+pad;H=Math.max(box,fs+(o.tag?tagfs+20:0))+pad*2;
-  const bx=pad,by=(H-box)/2;
-  els.push({t:"rrect",x:bx,y:by,w:box,h:box,r:26,fill:txtCol});
-  els.push({t:"text",x:bx+box/2,y:by+box/2+box*0.30,fs:box*0.62,fam,fw,sp:0,col:o.bg==="dark"?"#16140f":"#ffffff",txt:ini,anchor:"middle"});
-  const tx=bx+box+gap;const cy=H/2;
-  els.push({t:"text",x:tx,y:o.tag?cy-4:cy+fs*0.34,fs,fam,fw,sp,col:txtCol,txt:o.name,anchor:"start"});
-  if(o.tag)els.push({t:"text",x:tx,y:cy+tagfs+14,fs:tagfs,fam:"'Inter'",fw:600,sp:3,col:subCol,txt:o.tag.toUpperCase(),anchor:"start"});
- }
- return {w:Math.ceil(W),h:Math.ceil(H),els,bg:o.bg};
+
+// ─── ICON HELPER ─────────────────────────────────────────────────────────────
+function getIcon(id){return ICONS.find(ic=>ic.id===id)||null;}
+
+// Build enclosure SVG string at 0,0 on 100x100 viewBox
+function enclosureSVG(type, col){
+  if(type==="circle") return `<circle cx="50" cy="50" r="54" fill="${col}"/>`;
+  if(type==="rounded") return `<rect x="-4" y="-4" width="108" height="108" rx="20" fill="${col}"/>`;
+  if(type==="shield") return `<path d="M50 2 L96 18 L96 60 Q96 85 50 98 Q4 85 4 60 L4 18 Z" fill="${col}"/>`;
+  if(type==="badge") return `<rect x="-4" y="-4" width="108" height="108" rx="8" fill="${col}"/>`;
+  return "";
 }
+
+// Build icon SVG group element string
+// x,y = top-left of icon bounding box in output SVG units; size = icon render size (pixels in viewBox)
+function iconSVGGroup(iconObj, x, y, size, brandCol, encType){
+  const hasEnc = encType && encType !== "none";
+  const iconCol = hasEnc ? "#ffffff" : brandCol;
+  const encCol = brandCol;
+  const sc = size / 100;
+  let g = `<g transform="translate(${x},${y}) scale(${sc})">`;
+  if(hasEnc) g += enclosureSVG(encType, encCol);
+  // Replace currentColor in paths with actual color
+  const pathsColored = iconObj.paths.replace(/currentColor/g, iconCol);
+  g += pathsColored;
+  g += `</g>`;
+  return g;
+}
+
+// Canvas drawing for enclosure + icon using Path2D where possible
+function drawIconToCanvas(ctx, iconObj, x, y, size, brandCol, encType){
+  const hasEnc = encType && encType !== "none";
+  const iconCol = hasEnc ? "#ffffff" : brandCol;
+  const sc = size / 100;
+  ctx.save();
+  ctx.translate(x, y);
+  ctx.scale(sc, sc);
+  // Draw enclosure
+  if(hasEnc){
+    ctx.fillStyle = brandCol;
+    if(encType==="circle"){
+      ctx.beginPath();ctx.arc(50,50,54,0,Math.PI*2);ctx.fill();
+    } else if(encType==="rounded"){
+      const rx=20;ctx.beginPath();
+      ctx.moveTo(-4+rx,-4);ctx.arcTo(104,-4,104,104,rx);ctx.arcTo(104,104,-4,104,rx);ctx.arcTo(-4,104,-4,-4,rx);ctx.arcTo(-4,-4,104,-4,rx);ctx.closePath();ctx.fill();
+    } else if(encType==="shield"){
+      ctx.fill(new Path2D("M50 2 L96 18 L96 60 Q96 85 50 98 Q4 85 4 60 L4 18 Z"));
+    } else if(encType==="badge"){
+      const rx=8;ctx.beginPath();
+      ctx.moveTo(-4+rx,-4);ctx.arcTo(104,-4,104,104,rx);ctx.arcTo(104,104,-4,104,rx);ctx.arcTo(-4,104,-4,-4,rx);ctx.arcTo(-4,-4,104,-4,rx);ctx.closePath();ctx.fill();
+    }
+  }
+  // Draw icon via SVG Image (inline data URI) for accurate rendering
+  ctx.restore();
+  // We'll do SVG image rendering asynchronously — return a promise
+  return new Promise(resolve=>{
+    const svgStr = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">${iconObj.paths.replace(/currentColor/g, iconCol)}</svg>`;
+    const img = new Image();
+    img.onload = ()=>{
+      ctx.save();
+      ctx.translate(x,y);
+      ctx.drawImage(img, 0, 0, size, size);
+      ctx.restore();
+      resolve();
+    };
+    img.onerror = ()=>resolve(); // fail gracefully
+    img.src = "data:image/svg+xml;charset=utf-8,"+encodeURIComponent(svgStr);
+  });
+}
+
+// ─── LAYOUT ENGINE ──────────────────────────────────────────────────────────
 function bgFill(bg){return bg==="dark"?"#16140f":bg==="light"?"#faf8f4":null;}
-function toSVG(L,forExport){const e=[];e.push('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 '+L.w+' '+L.h+'" width="'+L.w+'" height="'+L.h+'">');
- if(forExport)e.push('<style>@import url("https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600&family=Playfair+Display:wght@600&family=Cormorant+Garamond:wght@600&family=Inter:wght@400;600;700&family=Archivo:wght@700&family=Montserrat:wght@700&family=Poppins:wght@600&family=Space+Grotesk:wght@600&family=Figtree:wght@700&family=Quicksand:wght@600&display=swap");</style>');
- const f=bgFill(L.bg);if(f)e.push('<rect width="'+L.w+'" height="'+L.h+'" fill="'+f+'"/>');
- L.els.forEach(el=>{
-  if(el.t==="circle")e.push('<circle cx="'+el.cx+'" cy="'+el.cy+'" r="'+el.r+'" fill="'+el.fill+'"/>');
-  else if(el.t==="rrect")e.push('<rect x="'+el.x+'" y="'+el.y+'" width="'+el.w+'" height="'+el.h+'" rx="'+el.r+'" fill="'+el.fill+'"/>');
-  else if(el.t==="text"){const anc=el.anchor||"middle";e.push('<text x="'+el.x+'" y="'+el.y+'" font-family="'+el.fam.replace(/'/g,"&apos;")+'" font-weight="'+el.fw+'" font-size="'+el.fs+'" letter-spacing="'+el.sp+'" fill="'+el.col+'" text-anchor="'+anc+'">'+el.txt.replace(/&/g,"&amp;").replace(/</g,"&lt;")+'</text>');}
- });
- e.push('</svg>');return e.join("");}
-function drawCanvas(ctx,L,scale){scale=scale||1;ctx.canvas.width=L.w*scale;ctx.canvas.height=L.h*scale;ctx.scale(scale,scale);
- const f=bgFill(L.bg);if(f){ctx.fillStyle=f;ctx.fillRect(0,0,L.w,L.h);}
- L.els.forEach(el=>{
-  if(el.t==="circle"){ctx.fillStyle=el.fill;ctx.beginPath();ctx.arc(el.cx,el.cy,el.r,0,7);ctx.fill();}
-  else if(el.t==="rrect"){ctx.fillStyle=el.fill;const r=el.r;ctx.beginPath();ctx.moveTo(el.x+r,el.y);ctx.arcTo(el.x+el.w,el.y,el.x+el.w,el.y+el.h,r);ctx.arcTo(el.x+el.w,el.y+el.h,el.x,el.y+el.h,r);ctx.arcTo(el.x,el.y+el.h,el.x,el.y,r);ctx.arcTo(el.x,el.y,el.x+el.w,el.y,r);ctx.fill();}
-  else if(el.t==="text"){ctx.fillStyle=el.col;ctx.font=el.fw+" "+el.fs+"px "+el.fam;ctx.textAlign=el.anchor||"center";ctx.textBaseline="alphabetic";try{ctx.letterSpacing=el.sp+"px";}catch(e){}ctx.fillText(el.txt,el.x,el.y);try{ctx.letterSpacing="0px";}catch(e){}}
- });}
-let curL;
-function render(){curL=layout(S);$("stage").innerHTML=toSVG(curL,false);
- $("stage").className=S.bg==="transparent"?"bgcheck":"";$("stage").style.background=S.bg==="dark"?"#16140f":S.bg==="light"?"#faf8f4":"";
- // variants
- const vs=[["Light",Object.assign({},S,{bg:"light"})],["Dark",Object.assign({},S,{bg:"dark"})],["Mono",Object.assign({},S,{bg:"light",mono:true})]];
- $("variants").innerHTML=vs.map(([lab,o])=>{const L=layout(o);return '<div class="vcard"><div class="vt">'+lab+'</div><div class="vb" style="background:'+(o.bg==="dark"?"#16140f":"#fff")+'">'+toSVG(L,false)+'</div></div>';}).join("");
+
+function layout(o){
+  // If a symbol is selected, route to icon layouts
+  if(o.symbol){
+    const icon = getIcon(o.symbol);
+    if(icon){
+      if(o.markPos==="icon-only") return layoutIconOnly(o, icon);
+      if(o.markPos==="icon-top") return layoutIconTop(o, icon);
+      if(o.markPos==="icon-left") return layoutIconLeft(o, icon);
+    }
+  }
+  return layoutText(o);
 }
-// build controls
+
+// Pure text layout (original logic)
+function layoutText(o){
+  const fam=o.font.f,fw=o.font.w,sp=o.track;
+  const txtCol=o.mono?(o.bg==="dark"?"#ffffff":"#111111"):(o.bg==="dark"?"#ffffff":o.color);
+  const subCol=o.bg==="dark"?"rgba(255,255,255,.65)":"rgba(0,0,0,.5)";
+  const pad=56,els=[];let W,H;const ini=initials(o.name);
+  if(o.layout==="wordmark"){
+    const fs=120;const tw=measure(o.name,fs,fam,fw,sp);
+    const tagfs=34;const tgw=o.tag?measure(o.tag.toUpperCase(),tagfs,"'Inter'",600,3):0;
+    W=Math.max(tw,tgw)+pad*2;H=pad*2+fs+(o.tag?tagfs+26:0);
+    let y=pad+fs*0.78;els.push({t:"text",x:W/2,y,fs,fam,fw,sp,col:txtCol,txt:o.name});
+    if(o.tag){els.push({t:"text",x:W/2,y:y+44,fs:tagfs,fam:"'Inter'",fw:600,sp:3,col:subCol,txt:o.tag.toUpperCase()});}
+  } else if(o.layout==="monogram"){
+    const r=150;W=H=r*2+pad*2;els.push({t:"circle",cx:W/2,cy:H/2,r,fill:txtCol});
+    els.push({t:"text",x:W/2,y:H/2+r*0.36,fs:r*1.05,fam,fw,sp:0,col:o.bg==="dark"?"#16140f":"#ffffff",txt:ini});
+  } else if(o.layout==="stacked"){
+    const r=92;const fs=84;const tw=measure(o.name,fs,fam,fw,sp);
+    W=Math.max(tw,r*2)+pad*2;H=pad*2+r*2+34+fs+(o.tag?40:0);
+    const cx=W/2;els.push({t:"circle",cx,cy:pad+r,r,fill:txtCol});
+    els.push({t:"text",x:cx,y:pad+r+r*0.36,fs:r*1.05,fam,fw,sp:0,col:o.bg==="dark"?"#16140f":"#ffffff",txt:ini});
+    els.push({t:"text",x:cx,y:pad+r*2+34+fs*0.78,fs,fam,fw,sp,col:txtCol,txt:o.name});
+    if(o.tag)els.push({t:"text",x:cx,y:pad+r*2+34+fs+30,fs:26,fam:"'Inter'",fw:600,sp:3,col:subCol,txt:o.tag.toUpperCase()});
+  } else { // badge
+    const box=176;const fs=72;const nm=measure(o.name,fs,fam,fw,sp);
+    const tagfs=24;const tg=o.tag?measure(o.tag.toUpperCase(),tagfs,"'Inter'",600,3):0;
+    const gap=34;const txtW=Math.max(nm,tg);W=pad*2+box+gap+txtW+pad;H=Math.max(box,fs+(o.tag?tagfs+20:0))+pad*2;
+    const bx=pad,by=(H-box)/2;
+    els.push({t:"rrect",x:bx,y:by,w:box,h:box,r:26,fill:txtCol});
+    els.push({t:"text",x:bx+box/2,y:by+box/2+box*0.30,fs:box*0.62,fam,fw,sp:0,col:o.bg==="dark"?"#16140f":"#ffffff",txt:ini,anchor:"middle"});
+    const tx=bx+box+gap;const cy=H/2;
+    els.push({t:"text",x:tx,y:o.tag?cy-4:cy+fs*0.34,fs,fam,fw,sp,col:txtCol,txt:o.name,anchor:"start"});
+    if(o.tag)els.push({t:"text",x:tx,y:cy+tagfs+14,fs:tagfs,fam:"'Inter'",fw:600,sp:3,col:subCol,txt:o.tag.toUpperCase(),anchor:"start"});
+  }
+  return {w:Math.ceil(W),h:Math.ceil(H),els,bg:o.bg};
+}
+
+function layoutIconTop(o, icon){
+  const fam=o.font.f,fw=o.font.w,sp=o.track;
+  const txtCol=o.mono?(o.bg==="dark"?"#ffffff":"#111111"):(o.bg==="dark"?"#ffffff":o.color);
+  const subCol=o.bg==="dark"?"rgba(255,255,255,.65)":"rgba(0,0,0,.5)";
+  const pad=48, iconSize=100, gap=28;
+  const fs=90;
+  const tw=measure(o.name,fs,fam,fw,sp);
+  const tagfs=28;const tgw=o.tag?measure(o.tag.toUpperCase(),tagfs,"'Inter'",600,3):0;
+  const W=Math.max(iconSize, tw, tgw)+pad*2;
+  const H=pad+iconSize+gap+fs+(o.tag?tagfs+16:0)+pad;
+  const els=[];
+  const ix=(W-iconSize)/2, iy=pad;
+  els.push({t:"icon",x:ix,y:iy,size:iconSize,iconId:o.symbol,iconObj:icon,col:o.color,enclosure:o.enclosure});
+  const textY=pad+iconSize+gap+fs*0.78;
+  els.push({t:"text",x:W/2,y:textY,fs,fam,fw,sp,col:txtCol,txt:o.name});
+  if(o.tag) els.push({t:"text",x:W/2,y:textY+36,fs:tagfs,fam:"'Inter'",fw:600,sp:3,col:subCol,txt:o.tag.toUpperCase()});
+  return {w:Math.ceil(W),h:Math.ceil(H),els,bg:o.bg};
+}
+
+function layoutIconLeft(o, icon){
+  const fam=o.font.f,fw=o.font.w,sp=o.track;
+  const txtCol=o.mono?(o.bg==="dark"?"#ffffff":"#111111"):(o.bg==="dark"?"#ffffff":o.color);
+  const subCol=o.bg==="dark"?"rgba(255,255,255,.65)":"rgba(0,0,0,.5)";
+  const pad=40, iconSize=80, gap=24;
+  const fs=72;
+  const tw=measure(o.name,fs,fam,fw,sp);
+  const tagfs=24;const tgw=o.tag?measure(o.tag.toUpperCase(),tagfs,"'Inter'",600,3):0;
+  const txtBlockW=Math.max(tw,tgw);
+  const W=pad+iconSize+gap+txtBlockW+pad;
+  const textBlockH=fs+(o.tag?tagfs+12:0);
+  const H=Math.max(iconSize,textBlockH)+pad*2;
+  const els=[];
+  const ix=pad, iy=(H-iconSize)/2;
+  els.push({t:"icon",x:ix,y:iy,size:iconSize,iconId:o.symbol,iconObj:icon,col:o.color,enclosure:o.enclosure});
+  const tx=pad+iconSize+gap;
+  const ty=o.tag?(H-textBlockH)/2+fs*0.78:(H/2)+fs*0.34;
+  els.push({t:"text",x:tx,y:ty,fs,fam,fw,sp,col:txtCol,txt:o.name,anchor:"start"});
+  if(o.tag) els.push({t:"text",x:tx,y:ty+fs*0.22+tagfs,fs:tagfs,fam:"'Inter'",fw:600,sp:3,col:subCol,txt:o.tag.toUpperCase(),anchor:"start"});
+  return {w:Math.ceil(W),h:Math.ceil(H),els,bg:o.bg};
+}
+
+function layoutIconOnly(o, icon){
+  const pad=40, iconSize=120;
+  const tagfs=26;
+  const subCol=o.bg==="dark"?"rgba(255,255,255,.65)":"rgba(0,0,0,.5)";
+  const tgw=o.tag?measure(o.tag.toUpperCase(),tagfs,"'Inter'",600,3):0;
+  const W=Math.max(iconSize,tgw)+pad*2;
+  const H=pad+iconSize+(o.tag?tagfs+20:0)+pad;
+  const els=[];
+  const ix=(W-iconSize)/2, iy=pad;
+  els.push({t:"icon",x:ix,y:iy,size:iconSize,iconId:o.symbol,iconObj:icon,col:o.color,enclosure:o.enclosure});
+  if(o.tag) els.push({t:"text",x:W/2,y:pad+iconSize+tagfs+8,fs:tagfs,fam:"'Inter'",fw:600,sp:3,col:subCol,txt:o.tag.toUpperCase()});
+  return {w:Math.ceil(W),h:Math.ceil(H),els,bg:o.bg};
+}
+
+// ─── SVG RENDERER ───────────────────────────────────────────────────────────
+function toSVG(L,forExport){
+  const e=[];
+  e.push('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 '+L.w+' '+L.h+'" width="'+L.w+'" height="'+L.h+'">');
+  if(forExport) e.push('<style>@import url("https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600&family=Playfair+Display:wght@600&family=Cormorant+Garamond:wght@600&family=Inter:wght@400;600;700&family=Archivo:wght@700&family=Montserrat:wght@700&family=Poppins:wght@600&family=Space+Grotesk:wght@600&family=Figtree:wght@700&family=Quicksand:wght@600&display=swap");</style>');
+  const f=bgFill(L.bg);if(f) e.push('<rect width="'+L.w+'" height="'+L.h+'" fill="'+f+'"/>');
+  L.els.forEach(el=>{
+    if(el.t==="circle") e.push('<circle cx="'+el.cx+'" cy="'+el.cy+'" r="'+el.r+'" fill="'+el.fill+'"/>');
+    else if(el.t==="rrect") e.push('<rect x="'+el.x+'" y="'+el.y+'" width="'+el.w+'" height="'+el.h+'" rx="'+el.r+'" fill="'+el.fill+'"/>');
+    else if(el.t==="text"){
+      const anc=el.anchor||"middle";
+      e.push('<text x="'+el.x+'" y="'+el.y+'" font-family="'+el.fam.replace(/'/g,"&apos;")+'" font-weight="'+el.fw+'" font-size="'+el.fs+'" letter-spacing="'+el.sp+'" fill="'+el.col+'" text-anchor="'+anc+'">'+el.txt.replace(/&/g,"&amp;").replace(/</g,"&lt;")+'</text>');
+    }
+    else if(el.t==="icon"){
+      e.push(iconSVGGroup(el.iconObj, el.x, el.y, el.size, el.col, el.enclosure));
+    }
+  });
+  e.push('</svg>');
+  return e.join("");
+}
+
+// ─── CANVAS RENDERER ────────────────────────────────────────────────────────
+// Returns a promise that resolves when all drawing (including async icon loads) is done
+async function drawCanvas(ctx, L, scale){
+  scale=scale||1;
+  ctx.canvas.width=L.w*scale;
+  ctx.canvas.height=L.h*scale;
+  ctx.scale(scale,scale);
+  const f=bgFill(L.bg);
+  if(f){ctx.fillStyle=f;ctx.fillRect(0,0,L.w,L.h);}
+  const promises=[];
+  L.els.forEach(el=>{
+    if(el.t==="circle"){ctx.fillStyle=el.fill;ctx.beginPath();ctx.arc(el.cx,el.cy,el.r,0,7);ctx.fill();}
+    else if(el.t==="rrect"){
+      ctx.fillStyle=el.fill;const r=el.r;ctx.beginPath();
+      ctx.moveTo(el.x+r,el.y);ctx.arcTo(el.x+el.w,el.y,el.x+el.w,el.y+el.h,r);ctx.arcTo(el.x+el.w,el.y+el.h,el.x,el.y+el.h,r);ctx.arcTo(el.x,el.y+el.h,el.x,el.y,r);ctx.arcTo(el.x,el.y,el.x+el.w,el.y,r);ctx.closePath();ctx.fill();
+    }
+    else if(el.t==="text"){
+      ctx.fillStyle=el.col;ctx.font=el.fw+" "+el.fs+"px "+el.fam;ctx.textAlign=el.anchor||"center";ctx.textBaseline="alphabetic";
+      try{ctx.letterSpacing=el.sp+"px";}catch(e){}
+      ctx.fillText(el.txt,el.x,el.y);
+      try{ctx.letterSpacing="0px";}catch(e){}
+    }
+    else if(el.t==="icon"){
+      const hasEnc = el.enclosure && el.enclosure !== "none";
+      // Draw enclosure synchronously
+      if(hasEnc){
+        ctx.save();
+        ctx.translate(el.x,el.y);
+        ctx.scale(el.size/100,el.size/100);
+        ctx.fillStyle=el.col;
+        if(el.enclosure==="circle"){ctx.beginPath();ctx.arc(50,50,54,0,Math.PI*2);ctx.fill();}
+        else if(el.enclosure==="rounded"){
+          const rx=20;ctx.beginPath();
+          ctx.moveTo(-4+rx,-4);ctx.arcTo(104,-4,104,104,rx);ctx.arcTo(104,104,-4,104,rx);ctx.arcTo(-4,104,-4,-4,rx);ctx.arcTo(-4,-4,104,-4,rx);ctx.closePath();ctx.fill();
+        }
+        else if(el.enclosure==="shield"){ctx.fill(new Path2D("M50 2 L96 18 L96 60 Q96 85 50 98 Q4 85 4 60 L4 18 Z"));}
+        else if(el.enclosure==="badge"){
+          const rx=8;ctx.beginPath();
+          ctx.moveTo(-4+rx,-4);ctx.arcTo(104,-4,104,104,rx);ctx.arcTo(104,104,-4,104,rx);ctx.arcTo(-4,104,-4,-4,rx);ctx.arcTo(-4,-4,104,-4,rx);ctx.closePath();ctx.fill();
+        }
+        ctx.restore();
+      }
+      // Draw icon via SVG image (async)
+      const iconCol = hasEnc ? "#ffffff" : el.col;
+      const svgStr=`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">${el.iconObj.paths.replace(/currentColor/g,iconCol)}</svg>`;
+      const p=new Promise(resolve=>{
+        const img=new Image();
+        img.onload=()=>{ctx.drawImage(img,el.x,el.y,el.size,el.size);resolve();};
+        img.onerror=()=>resolve();
+        img.src="data:image/svg+xml;charset=utf-8,"+encodeURIComponent(svgStr);
+      });
+      promises.push(p);
+    }
+  });
+  await Promise.all(promises);
+}
+
+// ─── RENDER ─────────────────────────────────────────────────────────────────
+let curL;
+function render(){
+  curL=layout(S);
+  $("stage").innerHTML=toSVG(curL,false);
+  $("stage").className=S.bg==="transparent"?"bgcheck":"";
+  $("stage").style.background=S.bg==="dark"?"#16140f":S.bg==="light"?"#faf8f4":"";
+  // variants
+  const vs=[["Light",{...S,bg:"light"}],["Dark",{...S,bg:"dark"}],["Mono",{...S,bg:"light",mono:true}]];
+  $("variants").innerHTML=vs.map(([lab,o])=>{
+    const L=layout(o);
+    return '<div class="vcard"><div class="vt">'+lab+'</div><div class="vb" style="background:'+(o.bg==="dark"?"#16140f":"#fff")+'">'+toSVG(L,false)+'</div></div>';
+  }).join("");
+  // Update icon swatch colors
+  refreshSwatchColors();
+}
+
+// ─── ICON PICKER ────────────────────────────────────────────────────────────
+function buildIconGrid(filterVertical){
+  const grid=$("icongrid");
+  grid.innerHTML="";
+  // None swatch
+  const none=document.createElement("div");
+  none.className="iswatch none-swatch"+(S.symbol===null?" on":"");
+  none.title="No icon";
+  none.textContent="Aa";
+  none.onclick=()=>{S.symbol=null;updateSymbolUI();render();};
+  grid.appendChild(none);
+  // Icon swatches
+  const list=filterVertical==="All"?ICONS:ICONS.filter(ic=>ic.verticals.includes(filterVertical));
+  list.forEach(ic=>{
+    const sw=document.createElement("div");
+    sw.className="iswatch"+(S.symbol===ic.id?" on":"");
+    sw.title=ic.name;
+    sw.dataset.iconId=ic.id;
+    const svgEl=document.createElement("div");
+    svgEl.innerHTML=`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" style="width:100%;height:100%;color:${S.color}">${ic.paths}</svg>`;
+    sw.appendChild(svgEl.firstChild);
+    sw.onclick=()=>{S.symbol=ic.id;updateSymbolUI();render();};
+    grid.appendChild(sw);
+  });
+}
+
+function refreshSwatchColors(){
+  // Update currentColor on icon swatches
+  document.querySelectorAll(".icongrid .iswatch svg").forEach(svg=>{
+    svg.style.color=S.color;
+  });
+}
+
+function updateSymbolUI(){
+  const hasSymbol=!!S.symbol;
+  $("positionfld").classList.toggle("vis",hasSymbol);
+  $("enclosurefld").classList.toggle("vis",hasSymbol);
+  // Rebuild grid to update .on state
+  buildIconGrid(S.vtFilter);
+}
+
+function buildVerticalFilter(){
+  const vt=$("vtfilt");
+  vt.innerHTML="";
+  VERTICALS.forEach(v=>{
+    const ch=document.createElement("button");
+    ch.className="vtchip"+(S.vtFilter===v?" on":"");
+    ch.textContent=v;
+    ch.onclick=()=>{
+      S.vtFilter=v;
+      document.querySelectorAll(".vtchip").forEach(c=>c.classList.toggle("on",c===ch));
+      buildIconGrid(v);
+    };
+    vt.appendChild(ch);
+  });
+}
+
+// ─── CONTROLS INIT ──────────────────────────────────────────────────────────
 $("name").value=S.name;$("tag").value=S.tag;
 $("name").oninput=e=>{S.name=e.target.value||" ";render();};
 $("tag").oninput=e=>{S.tag=e.target.value;render();};
 $("track").oninput=e=>{S.track=+e.target.value;render();};
-document.querySelectorAll("#layout button").forEach(b=>b.onclick=()=>{S.layout=b.dataset.v;document.querySelectorAll("#layout button").forEach(x=>x.classList.toggle("on",x===b));render();});
-document.querySelectorAll("#bg button").forEach(b=>b.onclick=()=>{S.bg=b.dataset.v;document.querySelectorAll("#bg button").forEach(x=>x.classList.toggle("on",x===b));render();});
-const fh=$("fonts");FONTS.forEach((ft,i)=>{const d=document.createElement("div");d.className="fontb"+(i===0?" on":"");d.textContent="Aa "+ft.n;d.style.fontFamily=ft.f;d.style.fontWeight=ft.w;d.onclick=()=>{S.font=ft;document.querySelectorAll(".fontb").forEach(x=>x.classList.remove("on"));d.classList.add("on");render();};fh.appendChild(d);});
-const swh=$("sw");SWATCHES.forEach((c,i)=>{const b=document.createElement("b");b.style.background=c;if(c===S.color)b.classList.add("on");b.onclick=()=>{S.color=c;document.querySelectorAll("#sw b").forEach(x=>x.classList.remove("on"));b.classList.add("on");render();};swh.appendChild(b);});
-const pick=document.createElement("input");pick.type="color";pick.value=S.color;pick.oninput=e=>{S.color=e.target.value;document.querySelectorAll("#sw b").forEach(x=>x.classList.remove("on"));render();};swh.appendChild(pick);
-// exports
+
+// Layout buttons
+document.querySelectorAll("#layout button").forEach(b=>b.onclick=()=>{
+  S.layout=b.dataset.v;
+  document.querySelectorAll("#layout button").forEach(x=>x.classList.toggle("on",x===b));
+  render();
+});
+// BG buttons
+document.querySelectorAll("#bg button").forEach(b=>b.onclick=()=>{
+  S.bg=b.dataset.v;
+  document.querySelectorAll("#bg button").forEach(x=>x.classList.toggle("on",x===b));
+  render();
+});
+// Mark position buttons
+document.querySelectorAll("#markpos button").forEach(b=>b.onclick=()=>{
+  S.markPos=b.dataset.v;
+  document.querySelectorAll("#markpos button").forEach(x=>x.classList.toggle("on",x===b));
+  render();
+});
+// Enclosure buttons
+document.querySelectorAll("#enclosure button").forEach(b=>b.onclick=()=>{
+  S.enclosure=b.dataset.v;
+  document.querySelectorAll("#enclosure button").forEach(x=>x.classList.toggle("on",x===b));
+  render();
+});
+
+// Fonts
+const fh=$("fonts");
+FONTS.forEach((ft,i)=>{
+  const d=document.createElement("div");
+  d.className="fontb"+(i===0?" on":"");
+  d.textContent="Aa "+ft.n;d.style.fontFamily=ft.f;d.style.fontWeight=ft.w;
+  d.onclick=()=>{S.font=ft;document.querySelectorAll(".fontb").forEach(x=>x.classList.remove("on"));d.classList.add("on");render();};
+  fh.appendChild(d);
+});
+
+// Color swatches
+const swh=$("sw");
+SWATCHES.forEach((c,i)=>{
+  const b=document.createElement("b");
+  b.style.background=c;
+  if(c===S.color) b.classList.add("on");
+  b.onclick=()=>{S.color=c;document.querySelectorAll("#sw b").forEach(x=>x.classList.remove("on"));b.classList.add("on");render();};
+  swh.appendChild(b);
+});
+const pick=document.createElement("input");
+pick.type="color";pick.value=S.color;
+pick.oninput=e=>{S.color=e.target.value;document.querySelectorAll("#sw b").forEach(x=>x.classList.remove("on"));render();};
+swh.appendChild(pick);
+
+// Build icon UI
+buildVerticalFilter();
+buildIconGrid("All");
+
+// ─── EXPORTS ────────────────────────────────────────────────────────────────
 function toast(m){const t=$("toast");t.textContent=m;t.classList.add("show");setTimeout(()=>t.classList.remove("show"),1800);}
 function dl(name,url){const a=document.createElement("a");a.href=url;a.download=name;document.body.appendChild(a);a.click();a.remove();}
 const safe=()=>(S.name||"logo").toLowerCase().replace(/[^a-z0-9]+/g,"-").replace(/^-|-$/g,"")||"logo";
-$("dlsvg").onclick=()=>{const blob=new Blob([toSVG(curL,true)],{type:"image/svg+xml"});dl(safe()+".svg",URL.createObjectURL(blob));toast("SVG downloaded");};
-$("copysvg").onclick=async()=>{try{await navigator.clipboard.writeText(toSVG(curL,true));toast("SVG copied");}catch(e){toast("Copy blocked — use Download SVG");}};
-$("dlpng").onclick=async()=>{await document.fonts.ready;const c=document.createElement("canvas");drawCanvas(c.getContext("2d"),layout(S),3);dl(safe()+".png",c.toDataURL("image/png"));toast("PNG downloaded (3×)");};
-$("dlfav").onclick=async()=>{await document.fonts.ready;const o=Object.assign({},S,{layout:"monogram",tag:""});const L=layout(o);const c=document.createElement("canvas");const ctx=c.getContext("2d");c.width=c.height=512;const s=512/L.w;ctx.scale(s,s);// favicon square
- ctx.fillStyle=S.bg==="dark"?"#16140f":S.color;const r=512/s;// rounded square bg
- const rr=L.w*0.18;ctx.beginPath();ctx.moveTo(rr,0);ctx.arcTo(L.w,0,L.w,L.w,rr);ctx.arcTo(L.w,L.w,0,L.w,rr);ctx.arcTo(0,L.w,0,0,rr);ctx.arcTo(0,0,L.w,0,rr);ctx.fill();
- ctx.fillStyle="#fff";ctx.font=S.font.w+" "+(L.w*0.5)+"px "+S.font.f;ctx.textAlign="center";ctx.textBaseline="middle";ctx.fillText(initials(S.name),L.w/2,L.w/2+L.w*0.03);
- dl(safe()+"-favicon.png",c.toDataURL("image/png"));toast("Favicon downloaded (512px)");};
+
+$("dlsvg").onclick=()=>{
+  const blob=new Blob([toSVG(curL,true)],{type:"image/svg+xml"});
+  dl(safe()+".svg",URL.createObjectURL(blob));toast("SVG downloaded");
+};
+$("copysvg").onclick=async()=>{
+  try{await navigator.clipboard.writeText(toSVG(curL,true));toast("SVG copied");}
+  catch(e){toast("Copy blocked — use Download SVG");}
+};
+$("dlpng").onclick=async()=>{
+  await document.fonts.ready;
+  const c=document.createElement("canvas");
+  const ctx=c.getContext("2d");
+  await drawCanvas(ctx,layout(S),3);
+  dl(safe()+".png",c.toDataURL("image/png"));
+  toast("PNG downloaded (3×)");
+};
+$("dlfav").onclick=async()=>{
+  await document.fonts.ready;
+  const c=document.createElement("canvas");
+  const ctx=c.getContext("2d");
+  c.width=c.height=512;
+  if(S.symbol){
+    // Use symbol for favicon
+    const icon=getIcon(S.symbol);
+    const encType = S.enclosure!=="none" ? S.enclosure : "circle"; // default circle for favicon
+    const bgCol = S.bg==="dark"?"#16140f":S.color;
+    const iconCol = encType!=="none" ? "#ffffff" : S.color;
+    // Draw rounded square bg
+    const rr=80;ctx.fillStyle=bgCol;ctx.beginPath();
+    ctx.moveTo(rr,0);ctx.arcTo(512,0,512,512,rr);ctx.arcTo(512,512,0,512,rr);ctx.arcTo(0,512,0,0,rr);ctx.arcTo(0,0,512,0,rr);ctx.closePath();ctx.fill();
+    // Draw icon centered
+    const pad=56, sz=512-pad*2;
+    const svgStr=`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">${icon.paths.replace(/currentColor/g,iconCol)}</svg>`;
+    await new Promise(resolve=>{
+      const img=new Image();
+      img.onload=()=>{ctx.drawImage(img,pad,pad,sz,sz);resolve();};
+      img.onerror=()=>resolve();
+      img.src="data:image/svg+xml;charset=utf-8,"+encodeURIComponent(svgStr);
+    });
+  } else {
+    // Monogram favicon (original logic)
+    const o={...S,layout:"monogram",tag:""};
+    const L=layout(o);
+    const s=512/L.w;ctx.scale(s,s);
+    ctx.fillStyle=S.bg==="dark"?"#16140f":S.color;
+    const rr=L.w*0.18;ctx.beginPath();ctx.moveTo(rr,0);ctx.arcTo(L.w,0,L.w,L.w,rr);ctx.arcTo(L.w,L.w,0,L.w,rr);ctx.arcTo(0,L.w,0,0,rr);ctx.arcTo(0,0,L.w,0,rr);ctx.fill();
+    ctx.fillStyle="#fff";ctx.font=S.font.w+" "+(L.w*0.5)+"px "+S.font.f;
+    ctx.textAlign="center";ctx.textBaseline="middle";
+    ctx.fillText(initials(S.name),L.w/2,L.w/2+L.w*0.03);
+  }
+  dl(safe()+"-favicon.png",c.toDataURL("image/png"));
+  toast("Favicon downloaded (512px)");
+};
+
+// ─── BOOT ───────────────────────────────────────────────────────────────────
 document.fonts.ready.then(render);render();
 </script>
 </body></html>
