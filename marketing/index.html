@@ -49,6 +49,7 @@ h1,h2,h3{font-variant-ligatures:none}
   <div class="card"><div class="ic">✍️</div><h3>Content &amp; social posts</h3><p>A few branded posts/updates a month to GBP and social, so the profile looks active and current.</p><span class="tag managed">Managed monthly</span></div>
   <a class="card" href="/social/" style="text-decoration:none;color:inherit"><div class="ic">📣</div><h3>Social Studio →</h3><p>Compose posts for all 7 channels, preview per platform, queue your calendar, and hand off to Postiz to publish — open the studio to draft your next post.</p><span class="tag live">Open tool ↗</span></a>
   <div class="card"><div class="ic">🤖</div><h3>AI assistant + lead capture</h3><p>The on-site chat assistant answers FAQs and books calls 24/7 — built into every demo, included on the plan.</p><span class="tag live">Live on sites</span></div>
+  <a class="card" href="#video-planner" style="text-decoration:none;color:inherit"><div class="ic">🎬</div><h3>Video content planner</h3><p>Turn any topic into a scroll-stopping short: a content pillar, three hook options, a timed 35-second script, and a ready-to-post caption — tuned to the client's industry.</p><span class="tag live">Live tool ↓</span></a>
 </div>
 
 <div class="gh">Quick tool — review request composer</div>
@@ -65,6 +66,50 @@ h1,h2,h3{font-variant-ligatures:none}
     <div class="msg"><span class="lbl">SMS</span><span id="sms"></span><button class="copy" onclick="cp('sms')">Copy</button></div>
     <div class="msg"><span class="lbl">Email</span><span id="email"></span><button class="copy" onclick="cp('email')">Copy</button></div>
   </div>
+</div>
+
+<div class="gh">Quick tool — AI video content planner</div>
+<div class="tool" id="video-planner">
+  <h2>Plan a short video</h2>
+  <div class="sub">Give it a topic and it returns a content pillar, three hook options, a timed 35-second script with on-screen text, and a ready caption — the fastest way to get a client posting video that actually gets found.</div>
+  <div class="row2">
+    <div class="fld"><label>Business name</label><input id="vpBiz" placeholder="The Vaughn Law Offices"></div>
+    <div class="fld"><label>Industry</label>
+      <select id="vpInd" style="width:100%;padding:11px 13px;border:1px solid var(--line);border-radius:9px;font:inherit;background:#fcfbf8">
+        <option value="dental">Dentist / Orthodontist</option>
+        <option value="medical">Doctor / Medical</option>
+        <option value="medspa">Med spa / Aesthetics</option>
+        <option value="law">Law firm</option>
+        <option value="home">Home services (HVAC, plumbing, etc.)</option>
+        <option value="salon">Salon / Barber</option>
+        <option value="fitness">Gym / Fitness</option>
+        <option value="restaurant">Restaurant / Food</option>
+        <option value="realestate">Real estate</option>
+        <option value="financial">Financial / Insurance</option>
+        <option value="church">Church / Faith</option>
+        <option value="other">Other / General</option>
+      </select>
+    </div>
+  </div>
+  <div class="row2">
+    <div class="fld"><label>Goal of this video</label>
+      <select id="vpGoal" style="width:100%;padding:11px 13px;border:1px solid var(--line);border-radius:9px;font:inherit;background:#fcfbf8">
+        <option value="found">Get found (reach new people)</option>
+        <option value="trust">Build trust / show your face</option>
+        <option value="offer">Promote an offer or event</option>
+        <option value="faq">Answer a common question</option>
+      </select>
+    </div>
+    <div class="fld"><label>Topic (optional)</label><input id="vpTopic" placeholder="e.g. teeth whitening, first visit, spring AC tune-up"></div>
+  </div>
+  <button class="btn" onclick="vplan()">Plan the video →</button>
+  <div class="out" id="vpOut">
+    <div class="msg"><span class="lbl">Content pillar</span><span id="vpPillar"></span><button class="copy" onclick="cp('vpPillar')">Copy</button></div>
+    <div class="msg"><span class="lbl">Hook options (pick one)</span><span id="vpHooks" style="white-space:pre-line"></span><button class="copy" onclick="cp('vpHooks')">Copy</button></div>
+    <div class="msg"><span class="lbl">35-second script</span><span id="vpScript" style="white-space:pre-line"></span><button class="copy" onclick="cp('vpScript')">Copy</button></div>
+    <div class="msg"><span class="lbl">Caption + hashtags</span><span id="vpCap" style="white-space:pre-line"></span><button class="copy" onclick="cp('vpCap')">Copy</button></div>
+  </div>
+  <p class="foot" style="padding:14px 0 0">Every line is an editable starting point — swap in the client's real details before posting. Shoot vertical (9:16), keep captions on, and put the hook on screen in the first 3 seconds.</p>
 </div>
 
 <div class="gh">Review growth playbook — get more reviews, legally</div>
@@ -101,6 +146,55 @@ h1,h2,h3{font-variant-ligatures:none}
 <div class="toast" id="toast"></div>
 <script>
 function esc(s){return (s||"").trim();}
+function vcap(s){return s?s.charAt(0).toUpperCase()+s.slice(1):s;}
+function vplan(){
+  var biz=esc(document.getElementById('vpBiz').value)||"your business";
+  var ind=document.getElementById('vpInd').value;
+  var goal=document.getElementById('vpGoal').value;
+  var topic=esc(document.getElementById('vpTopic').value);
+  var aud={dental:"patients",medical:"patients",medspa:"clients",law:"clients",home:"homeowners",salon:"clients",fitness:"members",restaurant:"guests",realestate:"buyers and sellers",financial:"clients",church:"neighbors",other:"customers"}[ind]||"customers";
+  var defTopic={dental:"a brighter, healthier smile",medical:"feeling your best",medspa:"glowing, natural-looking skin",law:"protecting what matters to you",home:"a comfortable, worry-free home",salon:"a look you love",fitness:"getting stronger",restaurant:"your next favorite meal",realestate:"your next move",financial:"peace of mind with your money",church:"finding a place to belong",other:"what we do best"}[ind]||"what we do best";
+  var T=topic||defTopic;
+  var pillars={
+    found:"Educate & get discovered — teach one genuinely useful thing about "+T+".",
+    trust:"Show your face & build trust — the real people and care behind "+biz+".",
+    offer:"Promote a timely offer — give people a clear reason to act now.",
+    faq:"Answer a real question — remove the biggest hesitation about "+T+"."};
+  var hooks={
+    found:["The one thing most people get wrong about "+T+".","Save this before you decide anything about "+T+".","3 things we wish every "+aud.replace(/s$/,'')+" knew about "+T+"."],
+    trust:["Come behind the scenes at "+biz+".","Here's exactly what your first visit looks like.","Why our "+aud+" keep coming back."],
+    offer:["We rarely do this — but this month at "+biz+"…","Been putting off "+T+"? This is your sign.","Limited spots — here's the deal, plainly."],
+    faq:["\""+vcap(T)+"\" — here's the honest answer.","You asked, so here's the real truth about "+T+".","The question we get every week: "+T+"."]};
+  var value={
+    found:"1) Name the common mistake people make. 2) Explain what to do instead, in plain words. 3) Give one quick win they can try today.",
+    trust:"Point the camera at your team and your space. Share one small thing you do that the big chains don't. Keep it warm and real — no script-reading.",
+    offer:"State the offer clearly, say exactly who it's perfect for, and give the deadline. Don't bury it — say the price or deal out loud.",
+    faq:"Give the short honest answer first. Add the one caveat people should know. Then tell them the simple next step."};
+  var cta={
+    found:"Follow for more like this — and if you'd rather we just handle it, the link's in our bio.",
+    trust:"Come see us — book a visit through the link in our bio.",
+    offer:"Claim it before it's gone — tap the link in our bio.",
+    faq:"Still have questions? Send us a message or book through the link in bio."}[goal];
+  var chosen=hooks[goal][Math.floor(Math.random()*hooks[goal].length)];
+  var onscreen=chosen.length>42?chosen.slice(0,40).replace(/[.,\s]+$/,'')+"…":chosen;
+  var script=
+    "[0:00–0:03]  HOOK\n"+
+    "On screen: \""+onscreen+"\"\n"+
+    "Say: "+chosen+"\n\n"+
+    "[0:03–0:10]  SET UP\n"+
+    "Say: I'm with "+biz+" — if you care about "+T+", here's what actually matters.\n\n"+
+    "[0:10–0:28]  VALUE\n"+
+    value[goal]+"\n\n"+
+    "[0:28–0:35]  CALL TO ACTION\n"+
+    "On screen: \""+ (goal==='offer'?'Offer ends soon':'Link in bio') +"\"\n"+
+    "Say: "+cta;
+  var tags={dental:"#dentist #smilemakeover #dentalcare",medical:"#healthtips #doctorsofinstagram #wellness",medspa:"#medspa #skincare #selfcare",law:"#knowyourrights #legaltips #attorney",home:"#homeservices #homeimprovement #hvac",salon:"#hairtransformation #salonlife #beforeandafter",fitness:"#fitnessmotivation #gymtok #getstrong",restaurant:"#foodie #eatlocal #whatsforlunch",realestate:"#realestate #justlisted #homebuying",financial:"#moneytips #financialfreedom #planahead",church:"#church #faith #community",other:"#smallbusiness #local #behindthescenes"}[ind]||"#smallbusiness #local";
+  document.getElementById('vpPillar').textContent=pillars[goal];
+  document.getElementById('vpHooks').textContent="• "+hooks[goal].join("\n• ");
+  document.getElementById('vpScript').textContent=script;
+  document.getElementById('vpCap').textContent=vcap(T)+" — here's what you should know. 👀 "+biz+"\n\n"+tags+" #[yourcity]  (add your city + neighborhood tags)";
+  document.getElementById('vpOut').classList.add('show');
+}
 function gen(){
   const biz=esc(document.getElementById('biz').value)||"our team";
   const cust=esc(document.getElementById('cust').value);
