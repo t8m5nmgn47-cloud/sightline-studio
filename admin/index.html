@@ -120,36 +120,64 @@ h1,h2,h3,h4{font-variant-ligatures:none}
   <div class="step"><div class="n">3</div><div class="b"><h4>Deploy</h4><p>Run <code>./deploy.sh "added &lt;business&gt;"</code> — it re-checks QA and pushes live. The new funnel appears at <code>/p/&lt;slug&gt;/</code> and in the pipeline. Send the link.</p></div></div>
   <div class="step"><div class="n">4</div><div class="b"><h4>When they buy → add them as a subscriber &amp; go live</h4><p>Add them in <b>Subscribers</b> above, finalize content, switch on the add-ons they bought, point <em>their</em> domain at the site, turn on the secure portal (legal/medical), and install the legal pages. (Full steps in the Operations Playbook &amp; Go-Live Runbook.)</p></div></div>
 </div>
-<div class="note"><b>🔒 Lock this admin.</b> This page is <code>noindex</code> and unlinked, but not password-protected. Subscriber data here is saved <b>only in this browser</b> (localStorage) — it never leaves your device. To truly restrict the page, enable <b>Vercel → Project → Settings → Deployment Protection (Password)</b>. Don't share the <code>/admin/</code>, <code>/pipeline/</code> or <code>/marketing/</code> URLs publicly until then.</div>
+<div class="note"><b>🔒 Lock this admin.</b> Subscriber data now lives in your <b>Supabase database</b> behind a magic-link sign-in — the same account that protects Leads — so it syncs across devices and stays private. The rest of this page is <code>noindex</code> and unlinked but not password-protected; to fully restrict it, enable <b>Vercel → Project → Settings → Deployment Protection (Password)</b>. Don't share the <code>/admin/</code>, <code>/pipeline/</code> or <code>/marketing/</code> URLs publicly until then.</div>
 
 <footer class="foot">Sightline Admin · internal · not for public distribution.</footer>
 </div>
 <div class="toast" id="toast"></div>
 <script>
-const KEY='sl_subscribers';
-let subs=[]; try{subs=JSON.parse(localStorage.getItem(KEY)||'[]')}catch(e){subs=[]}
-let editId=null;
-function save(){localStorage.setItem(KEY,JSON.stringify(subs))}
+/* Subscribers now persist in the shared Supabase database (same project as Leads),
+   behind magic-link sign-in. Requires a `subscribers` table (see SQL handed to Kris). */
+const SUPA_URL="https://vtqmtecoxljduqomtkbw.supabase.co";
+const SUPA_KEY="sb_publishable_tOVldxTzrH4_9U0x-GZGHw_UFM57C2c";
+let subs=[]; let editId=null; let sb=null; let authed=false;
 function money(n){return '$'+(Math.round(n*100)/100).toLocaleString(undefined,{minimumFractionDigits:n%1?2:0,maximumFractionDigits:2})}
 function slug(d){return (d||'').replace(/^https?:\/\//,'').replace(/\/.*$/,'').replace(/\./g,'-')}
 function toast(m){const e=document.getElementById('toast');e.textContent=m;e.classList.add('show');setTimeout(()=>e.classList.remove('show'),1800)}
 function planChange(){const v=document.getElementById('fPlan').value;if(v!=='custom')document.getElementById('fMo').value=v}
-function toggleAdd(){const b=document.getElementById('addbar');const showing=b.style.display!=='none';b.style.display=showing?'none':'block';if(showing){editId=null;document.getElementById('addform').reset();document.getElementById('fMo').value='99.99'}}
-function addSub(e){e.preventDefault();
+function toggleAdd(){if(!authed){toast('Sign in first to manage subscribers');showLogin();return}
+  const b=document.getElementById('addbar');const showing=b.style.display!=='none';b.style.display=showing?'none':'block';if(showing){editId=null;document.getElementById('addform').reset();document.getElementById('fMo').value='99.99'}}
+(async function initDB(){
+  try{ const {createClient}=await import("https://esm.sh/@supabase/supabase-js@2"); sb=createClient(SUPA_URL,SUPA_KEY); }
+  catch(e){ document.getElementById('subList').innerHTML='<div class="empty">Couldn’t reach the database. Retry in a moment.</div>'; return; }
+  const {data:{session}}=await sb.auth.getSession(); authed=!!session;
+  if(authed){ loadSubs(); } else { showLogin(); }
+})();
+function showLogin(){
+  document.getElementById('kMrr').textContent='—';
+  document.getElementById('kSubs').textContent='—';
+  document.getElementById('subList').innerHTML='<div class="empty" style="text-align:left;padding:24px 22px"><b>Sign in to manage subscribers.</b><br>Your subscriber list &amp; revenue are stored privately in your database — sign in to view or edit them.<form id="lf" style="margin-top:14px;display:flex;gap:8px;flex-wrap:wrap"><input id="le" type="email" placeholder="you@email.com" required style="padding:9px 11px;border:1px solid var(--line);border-radius:8px;font:inherit;min-width:220px"><button class="mini" type="submit">Email me a login link</button></form><div id="ln" style="color:var(--mut);font-size:.84rem;margin-top:10px"></div></div>';
+  document.getElementById('lf').onsubmit=async e=>{e.preventDefault();const email=document.getElementById('le').value.trim();
+    document.getElementById('ln').textContent='Sending…';
+    const {error}=await sb.auth.signInWithOtp({email,options:{emailRedirectTo:location.href}});
+    document.getElementById('ln').textContent=error?("Couldn't send: "+error.message):("Check "+email+" for your login link.");};
+}
+async function loadSubs(){
+  const {data,error}=await sb.from('subscribers').select('*').order('created_at',{ascending:false});
+  if(error){ document.getElementById('subList').innerHTML='<div class="empty">'+esc(error.message)+'</div>'; return; }
+  subs=data||[]; render();
+}
+async function addSub(e){e.preventDefault();
   const name=document.getElementById('fName').value.trim();if(!name)return false;
   const dom=document.getElementById('fDom').value.trim();
   const mo=parseFloat(document.getElementById('fMo').value)||0;
   const planSel=document.getElementById('fPlan');const plan=planSel.options[planSel.selectedIndex].text;
-  if(editId){const s=subs.find(x=>x.id===editId);if(s){s.name=name;s.dom=dom;s.mo=mo;s.plan=plan}editId=null}
-  else subs.push({id:Date.now()+''+Math.floor(Math.random()*1e3),name,dom,mo,plan,status:'active'});
-  save();render();toggleAdd();toast('Saved');return false}
+  let error;
+  if(editId){ ({error}=await sb.from('subscribers').update({name,dom,mo,plan}).eq('id',editId)); editId=null; }
+  else { ({error}=await sb.from('subscribers').insert({name,dom,mo,plan,status:'active'})); }
+  if(error){toast(error.message);return false;}
+  await loadSubs(); toggleAdd(); toast('Saved'); return false}
 function edit(id){const s=subs.find(x=>x.id===id);if(!s)return;editId=id;
   document.getElementById('addbar').style.display='block';
   document.getElementById('fName').value=s.name;document.getElementById('fDom').value=s.dom||'';
   document.getElementById('fMo').value=s.mo;
   window.scrollTo({top:document.querySelector('.panel').offsetTop-80,behavior:'smooth'})}
-function cycle(id){const s=subs.find(x=>x.id===id);if(!s)return;const o=['active','paused','canceled'];s.status=o[(o.indexOf(s.status)+1)%3];save();render()}
-function del(id){if(!confirm('Remove this subscriber?'))return;subs=subs.filter(x=>x.id!==id);save();render()}
+async function cycle(id){const s=subs.find(x=>x.id===id);if(!s)return;const o=['active','paused','canceled'];const st=o[(o.indexOf(s.status)+1)%3];
+  const {error}=await sb.from('subscribers').update({status:st}).eq('id',id);
+  if(error){toast(error.message);return;} s.status=st;render()}
+async function del(id){if(!confirm('Remove this subscriber?'))return;
+  const {error}=await sb.from('subscribers').delete().eq('id',id);
+  if(error){toast(error.message);return;} subs=subs.filter(x=>x.id!==id);render()}
 function render(){
   const active=subs.filter(s=>s.status==='active');
   const mrr=active.reduce((a,s)=>a+(s.mo||0),0);

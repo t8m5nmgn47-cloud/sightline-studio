@@ -108,8 +108,65 @@ h1,h2,h3{font-variant-ligatures:none}
     <div class="msg"><span class="lbl">Hook options (pick one)</span><span id="vpHooks" style="white-space:pre-line"></span><button class="copy" onclick="cp('vpHooks')">Copy</button></div>
     <div class="msg"><span class="lbl">35-second script</span><span id="vpScript" style="white-space:pre-line"></span><button class="copy" onclick="cp('vpScript')">Copy</button></div>
     <div class="msg"><span class="lbl">Caption + hashtags</span><span id="vpCap" style="white-space:pre-line"></span><button class="copy" onclick="cp('vpCap')">Copy</button></div>
+    <div class="msg"><span class="lbl">Content ideas to film next</span><span id="vpIdeas" style="white-space:pre-line"></span><button class="copy" onclick="cp('vpIdeas')">Copy</button></div>
   </div>
   <p class="foot" style="padding:14px 0 0">Every line is an editable starting point — swap in the client's real details before posting. Shoot vertical (9:16), keep captions on, and put the hook on screen in the first 3 seconds.</p>
+</div>
+
+<style>
+.hk{display:block;width:100%;text-align:left;background:#fcfbf8;border:1px solid var(--line);border-radius:8px;padding:9px 11px;margin-top:8px;font:inherit;font-size:.86rem;color:var(--ink);cursor:pointer;line-height:1.4}
+.hk:hover{border-color:var(--ac);background:#fff}
+.hkcat{display:block;font-size:.72rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--ac);margin-bottom:2px}
+</style>
+<div class="gh">Swipe file — proven hook library</div>
+<div class="tool">
+  <h2>Steal a hook</h2>
+  <div class="sub">Tap any hook to copy it, then swap the [brackets] for the client's real words. The first three seconds decide whether a video gets watched — start here.</div>
+  <div class="grid" style="margin-top:6px">
+    <div class="card"><span class="hkcat">Curiosity</span>
+      <button class="hk" onclick="cph(this)">The one thing nobody tells you about [topic].</button>
+      <button class="hk" onclick="cph(this)">I wish someone told me this about [topic] sooner.</button>
+      <button class="hk" onclick="cph(this)">Here's what [topic] really costs — the honest number.</button>
+      <button class="hk" onclick="cph(this)">Watch this before you spend a dollar on [topic].</button>
+      <button class="hk" onclick="cph(this)">The [topic] mistake I see almost every week.</button>
+    </div>
+    <div class="card"><span class="hkcat">Problem / pain</span>
+      <button class="hk" onclick="cph(this)">Struggling with [problem]? You're not doing it wrong — you were told wrong.</button>
+      <button class="hk" onclick="cph(this)">If [problem] keeps happening, it's usually one of these three things.</button>
+      <button class="hk" onclick="cph(this)">Stop wasting money on [thing that doesn't work].</button>
+      <button class="hk" onclick="cph(this)">[Problem] isn't your fault — here's the real cause.</button>
+      <button class="hk" onclick="cph(this)">Tired of [problem]? Do this instead.</button>
+    </div>
+    <div class="card"><span class="hkcat">List</span>
+      <button class="hk" onclick="cph(this)">3 things every [audience] should know about [topic].</button>
+      <button class="hk" onclick="cph(this)">5 signs it's time to [action].</button>
+      <button class="hk" onclick="cph(this)">4 questions to ask before you [decision].</button>
+      <button class="hk" onclick="cph(this)">2 quick wins you can try today for [goal].</button>
+      <button class="hk" onclick="cph(this)">The only 3 things you actually need for [goal].</button>
+    </div>
+    <div class="card"><span class="hkcat">Bold claim</span>
+      <button class="hk" onclick="cph(this)">This changes how you think about [topic].</button>
+      <button class="hk" onclick="cph(this)">Most [audience] are doing [topic] backwards.</button>
+      <button class="hk" onclick="cph(this)">You've probably been told the wrong thing about [topic].</button>
+      <button class="hk" onclick="cph(this)">[Result] in [timeframe] — here's exactly how.</button>
+      <button class="hk" onclick="cph(this)">This is the best-kept secret in [industry].</button>
+    </div>
+    <div class="card"><span class="hkcat">Question</span>
+      <button class="hk" onclick="cph(this)">Is [common belief] actually true? Let's settle it.</button>
+      <button class="hk" onclick="cph(this)">Should you [option A] or [option B]? Here's the honest answer.</button>
+      <button class="hk" onclick="cph(this)">Ever wonder why [thing happens]? Here's why.</button>
+      <button class="hk" onclick="cph(this)">What would you do if [scenario]?</button>
+      <button class="hk" onclick="cph(this)">Can you really [claim]? Yes — here's how.</button>
+    </div>
+    <div class="card"><span class="hkcat">Story</span>
+      <button class="hk" onclick="cph(this)">A client came in with [problem]. Here's what happened.</button>
+      <button class="hk" onclick="cph(this)">This almost went wrong — here's what we caught in time.</button>
+      <button class="hk" onclick="cph(this)">Six months ago they [starting point]. Today, [result].</button>
+      <button class="hk" onclick="cph(this)">Here's the moment I knew [insight].</button>
+      <button class="hk" onclick="cph(this)">True story from this week: [short setup]…</button>
+    </div>
+  </div>
+  <p class="foot" style="padding:14px 0 0">Pair any hook with the video planner above — paste it in as your opening line, then build the 35-second script around it.</p>
 </div>
 
 <div class="gh">Review growth playbook — get more reviews, legally</div>
@@ -167,9 +224,22 @@ function vplan(){
     faq:["\""+vcap(T)+"\" — here's the honest answer.","You asked, so here's the real truth about "+T+".","The question we get every week: "+T+"."]};
   var value={
     found:"1) Name the common mistake people make. 2) Explain what to do instead, in plain words. 3) Give one quick win they can try today.",
-    trust:"Point the camera at your team and your space. Share one small thing you do that the big chains don't. Keep it warm and real — no script-reading.",
+    trust:"Point the camera at your real team and space. Share one small thing you do that most places skip. Keep it warm and human — no script-reading.",
     offer:"State the offer clearly, say exactly who it's perfect for, and give the deadline. Don't bury it — say the price or deal out loud.",
     faq:"Give the short honest answer first. Add the one caveat people should know. Then tell them the simple next step."};
+  var ideas={
+    dental:["A day in the life at the office","'Do whitening strips actually work?'","Meet the hygienist","What a first cleaning really involves"],
+    medical:["3 myths about a condition you treat","Meet the care team","What your annual physical actually covers","When to come in vs. wait it out"],
+    medspa:["A treatment start to finish (calm & clean)","'Botox vs. filler — the real difference'","One skincare mistake to stop today","Before & after (with written consent)"],
+    law:["'Do I really need a lawyer for this?'","The first 24 hours after it happens","Meet your attorney","One clause everyone forgets to check"],
+    home:["Seasonal maintenance checklist","'Why is my system making that noise?'","Before & after of a real job","One thing that voids your warranty"],
+    salon:["Transformation reveal","How to make the style last at home","Meet your stylist","Products worth it vs. skip"],
+    fitness:["One move, done right","A member's honest progress (with consent)","What your first session looks like","Fix for a common form mistake"],
+    restaurant:["How a signature dish is made","Meet the chef","This week's special","Behind the pass on a busy night"],
+    realestate:["Just-listed walkthrough","'How much home can you afford?'","Neighborhood tour","First-time buyer mistake to avoid"],
+    financial:["One money habit to start this week","'Do you actually need this product?'","Meet your advisor","A mistake that quietly costs thousands"],
+    church:["What a first Sunday really feels like","Meet a pastor","Tour of kids & family ministry","An honest answer to a question people are afraid to ask"],
+    other:["A day in the life","Behind the scenes of how you work","Meet the team","Answer your most-asked question"]};
   var cta={
     found:"Follow for more like this — and if you'd rather we just handle it, the link's in our bio.",
     trust:"Come see us — book a visit through the link in our bio.",
@@ -193,6 +263,7 @@ function vplan(){
   document.getElementById('vpHooks').textContent="• "+hooks[goal].join("\n• ");
   document.getElementById('vpScript').textContent=script;
   document.getElementById('vpCap').textContent=vcap(T)+" — here's what you should know. 👀 "+biz+"\n\n"+tags+" #[yourcity]  (add your city + neighborhood tags)";
+  document.getElementById('vpIdeas').textContent="• "+(ideas[ind]||ideas.other).join("\n• ");
   document.getElementById('vpOut').classList.add('show');
 }
 function gen(){
@@ -205,6 +276,7 @@ function gen(){
   document.getElementById('out').classList.add('show');
 }
 function cp(id){const t=document.getElementById(id).textContent;navigator.clipboard&&navigator.clipboard.writeText(t);toast('Copied to clipboard');}
+function cph(el){const t=(el.textContent||'').trim();navigator.clipboard&&navigator.clipboard.writeText(t);toast('Hook copied');}
 function toast(m){const e=document.getElementById('toast');e.textContent=m;e.classList.add('show');setTimeout(()=>e.classList.remove('show'),1800);}
 </script>
 </body></html>
