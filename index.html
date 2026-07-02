@@ -284,6 +284,16 @@
   .hp .model .mcta{opacity:1;transform:none}
 }
 
+/* ---- ambient hero video (revealed only if it loads; graceful fallback) ---- */
+.hp .sl-hero-video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:1;
+  opacity:0;transition:opacity 1.3s ease;pointer-events:none}
+.hp .sl-hero.has-video .sl-hero-video{opacity:.5}
+.hp .sl-hero-veil{position:absolute;inset:0;z-index:1;opacity:0;transition:opacity 1.3s ease;pointer-events:none;
+  background:linear-gradient(90deg,rgba(8,20,40,.94),rgba(8,20,40,.72) 42%,rgba(8,20,40,.34) 100%),
+             linear-gradient(0deg,rgba(8,20,40,.9),transparent 55%)}
+.hp .sl-hero.has-video .sl-hero-veil{opacity:1}
+@media(prefers-reduced-motion:reduce){.hp .sl-hero-video{display:none}}
+
 /* ---- HERO v2: clearer headline + offering pillars + layered visual ---- */
 .hp .sl-h1v2{font-family:var(--head);font-weight:800;color:#fff;line-height:1.02;letter-spacing:-.025em;
   font-size:clamp(2.5rem,5.1vw,4.15rem);margin:0 0 22px;max-width:15ch}
@@ -441,6 +451,11 @@
 
 <!-- ===================== HERO ===================== -->
 <section class="dark sl-hero">
+  <video class="sl-hero-video" muted loop playsinline preload="metadata" poster="/assets/video/hero-poster.jpg" aria-hidden="true">
+    <source src="/assets/video/hero.webm" type="video/webm">
+    <source src="/assets/video/hero.mp4" type="video/mp4">
+  </video>
+  <div class="sl-hero-veil" aria-hidden="true"></div>
   <div class="wrap sl-hero-grid">
     <div class="sl-hero-copy reveal">
       <span class="kicker">Websites · Monitoring · Marketing — for local business</span>
@@ -927,6 +942,14 @@
       art.style.transform='translate('+(dx*16).toFixed(1)+'px,'+(dy*13).toFixed(1)+'px)';
     });
     hero.addEventListener('pointerleave', function(){ art.style.transform=''; });
+  })();
+
+  /* 4. ambient hero video — reveal only if it actually loads (else hero stays as-is) */
+  (function(){
+    var hero=document.querySelector('.hp .sl-hero'), v=hero&&hero.querySelector('.sl-hero-video');
+    if(!hero||!v) return;
+    v.addEventListener('loadeddata', function(){ hero.classList.add('has-video'); var p=v.play(); if(p&&p.catch)p.catch(function(){}); });
+    try{ v.load(); }catch(e){}
   })();
 })();
 </script>
