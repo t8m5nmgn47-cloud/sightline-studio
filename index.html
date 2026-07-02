@@ -205,6 +205,81 @@
 .hp .close-note{margin-top:22px;color:var(--ink-low);font-family:var(--mono);font-size:.82rem;letter-spacing:.04em}
 .hp .close-note a{color:var(--ink-mid);text-decoration:underline}
 
+/* ---- WEBSITE MODELS gallery ---- */
+.hp .models{background:#fff;padding:90px 0}
+.hp .model-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:46px}
+.hp .model{position:relative;display:block;border-radius:var(--radius);overflow:hidden;aspect-ratio:4/3;
+  border:1px solid var(--mist);box-shadow:var(--shadow);text-decoration:none;--ac:var(--teal)}
+.hp .model .mimg{position:absolute;inset:0;background-size:cover;background-position:top center;transition:transform .6s cubic-bezier(.2,.6,.2,1)}
+.hp .model:hover .mimg{transform:scale(1.06)}
+.hp .model .mscrim{position:absolute;inset:0;background:linear-gradient(180deg,transparent 38%,rgba(8,20,40,.86))}
+.hp .model .mbar{position:absolute;top:0;left:0;right:0;height:4px;background:var(--ac)}
+.hp .model .mbody{position:absolute;left:0;right:0;bottom:0;padding:20px;color:#fff}
+.hp .model .mvert{font-family:var(--mono);font-size:.64rem;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.78)}
+.hp .model h3{color:#fff;font-size:1.14rem;margin:6px 0 0;line-height:1.15}
+.hp .model .mcta{margin-top:8px;display:inline-flex;align-items:center;gap:7px;font-size:.86rem;font-weight:600;color:#fff;
+  opacity:0;transform:translateY(6px);transition:opacity .3s,transform .3s}
+.hp .model .mcta svg{width:15px;height:15px}
+.hp .model:hover .mcta{opacity:1;transform:none}
+.hp .models-foot{text-align:center;margin-top:38px}
+
+/* ---- BUSINESS INTELLIGENCE (dark) ---- */
+.hp .bi{padding:96px 0}
+.hp .bi-grid{display:grid;grid-template-columns:.92fr 1.08fr;gap:58px;align-items:center}
+.hp .bi .kicker{color:var(--w-sky);display:block;margin-bottom:16px}
+.hp .bi h2{color:#fff;font-size:clamp(1.9rem,3.6vw,2.7rem);font-weight:700;letter-spacing:-.01em;margin:0 0 16px}
+.hp .bi p{color:var(--ink-mid);font-size:1.08rem;margin:0 0 22px;max-width:44ch}
+.hp .bi .feats li{color:var(--ink-hi)} .hp .bi .feats svg{stroke:var(--w-sky)}
+.hp .bi .link-cta{background:var(--w-sky);color:#fff} .hp .bi .link-cta:hover{box-shadow:0 12px 26px rgba(61,125,214,.35)}
+.hp .bi-panel .panel{padding:22px}
+.hp .chart{position:relative;background:rgba(3,14,30,.5);border:1px solid var(--line);border-radius:14px;padding:16px 16px 8px}
+.hp .chart-head{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:6px}
+.hp .chart-head .c-label{font-family:var(--mono);font-size:.66rem;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-low)}
+.hp .chart-head .c-up{font-family:var(--mono);font-size:.74rem;color:var(--w-teal)}
+.hp .chart svg{display:block;width:100%;height:96px}
+.hp .bi-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:14px}
+.hp .bi-stat{background:rgba(255,255,255,.05);border:1px solid var(--line);border-radius:13px;padding:14px}
+.hp .bi-stat .bl{font-size:.68rem;color:var(--ink-mid);display:block;margin-bottom:7px;letter-spacing:.02em}
+.hp .bi-stat .bv{font-family:var(--head);font-weight:700;font-size:1.5rem;color:#fff;display:flex;align-items:baseline;gap:6px}
+.hp .bi-stat .bv em{font-style:normal;font-family:var(--mono);font-size:.72rem;color:var(--w-teal)}
+.hp .bi-stat .bv .from{color:var(--ink-low);font-size:1rem}
+
+/* ---- SOCIAL (light) ---- */
+.hp .social{background:var(--cloud);padding:96px 0}
+.hp .social-grid{display:grid;grid-template-columns:1.02fr .98fr;gap:58px;align-items:center}
+.hp .social.flip .social-media{order:-1}
+.hp .social .onum{font-family:var(--mono);font-size:.8rem;letter-spacing:.2em;color:var(--slate-2)}
+.hp .social .otag{display:inline-flex;margin:14px 0 16px;font-family:var(--mono);font-size:.72rem;font-weight:600;letter-spacing:.16em;
+  text-transform:uppercase;padding:6px 12px;border-radius:99px;color:#8a5cd6;background:rgba(138,92,214,.12)}
+.hp .social h3{font-family:var(--head);font-weight:700;font-size:clamp(1.6rem,2.8vw,2.15rem);line-height:1.08;margin:0 0 14px;color:var(--navy)}
+.hp .social .odesc{color:var(--slate);font-size:1.05rem;margin:0 0 22px;max-width:46ch}
+.hp .social .feats svg{stroke:#8a5cd6}
+.hp .social .link-cta{background:#8a5cd6;color:#fff} .hp .social .link-cta:hover{box-shadow:0 12px 26px rgba(138,92,214,.34)}
+.hp .post{background:#fff;border:1px solid var(--mist);border-radius:var(--radius);box-shadow:var(--shadow-lg);padding:18px;max-width:400px;margin-left:auto}
+.hp .post-top{display:flex;align-items:center;gap:11px;margin-bottom:12px}
+.hp .post-top .av{width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,var(--teal),var(--sky));flex:none}
+.hp .post-top b{display:block;color:var(--navy);font-family:var(--head);font-size:.98rem}
+.hp .post-top span{font-size:.8rem;color:var(--slate-2)}
+.hp .post-top .plat{margin-left:auto;width:26px;height:26px;border-radius:8px;background:var(--cloud);display:grid;place-items:center}
+.hp .post-top .plat svg{width:15px;height:15px;stroke:var(--slate)}
+.hp .post-img{height:120px;border-radius:12px;background:linear-gradient(135deg,#c9e7e3,#dbe7fb);margin-bottom:11px}
+.hp .post p{color:var(--ink);font-size:.92rem;margin:0 0 12px}
+.hp .post-eng{display:flex;gap:18px;color:var(--slate-2);font-size:.82rem;border-top:1px solid var(--mist);padding-top:11px}
+.hp .post-eng span{display:inline-flex;align-items:center;gap:6px}
+.hp .post-eng svg{width:15px;height:15px;stroke:var(--slate-2)}
+.hp .mon-strip{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px;max-width:400px;margin-left:auto}
+.hp .mon-chip{display:inline-flex;align-items:center;gap:8px;background:#fff;border:1px solid var(--mist);border-radius:99px;padding:8px 13px;font-size:.8rem;color:var(--slate);box-shadow:var(--shadow)}
+.hp .mon-chip b{color:var(--navy);font-family:var(--mono)}
+.hp .mon-chip i{width:8px;height:8px;border-radius:50%;background:var(--ok)}
+
+@media(max-width:900px){
+  .hp .model-grid{grid-template-columns:1fr;max-width:420px;margin-left:auto;margin-right:auto}
+  .hp .bi-grid,.hp .social-grid{grid-template-columns:1fr;gap:36px}
+  .hp .social.flip .social-media{order:0}
+  .hp .bi-panel .panel,.hp .post,.hp .mon-strip{max-width:none;margin:0}
+  .hp .model .mcta{opacity:1;transform:none}
+}
+
 /* ---- reveal (scoped, overrides base for a richer feel) ---- */
 .hp .reveal{opacity:0;transform:translateY(22px);transition:opacity .7s cubic-bezier(.2,.6,.2,1),transform .7s cubic-bezier(.2,.6,.2,1)}
 .hp .reveal.in{opacity:1;transform:none}
@@ -388,6 +463,123 @@
           <div style="margin-top:2px"><span class="mk-pill">✦ Ask for a review</span><span class="mk-pill">▶ Plan a video</span></div>
           <div class="mk-card" style="margin-top:12px"><div class="mk-top"><span class="av" style="background:linear-gradient(135deg,#3D7DD6,#295da8)"></span><span class="stars">★★★★★</span></div><p>“The monthly report is the only tech thing I actually read.”</p></div>
         </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== WEBSITE MODELS ===================== -->
+<section class="models">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="kicker">Real sites we've built</span>
+      <h2>Not templates. Sites made for the business.</h2>
+      <p>Every model starts from the business — its trade, its town, its customers. Here are a few concepts. Click any one to walk through the live site.</p>
+    </div>
+    <div class="model-grid">
+      <a class="model reveal" href="/vaughn-law-com/" style="--ac:#2E5496">
+        <div class="mimg" style="background-image:url(/thumbs/vaughn-law-com.jpg)"></div>
+        <div class="mscrim"></div><div class="mbar"></div>
+        <div class="mbody">
+          <span class="mvert">Legal · Lone Tree</span>
+          <h3>The Vaughn Law Offices</h3>
+          <span class="mcta">Walk the live site <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+        </div>
+      </a>
+      <a class="model reveal" href="/cotitleescrow-com/" style="--ac:#54c464;transition-delay:.08s">
+        <div class="mimg" style="background-image:url(/thumbs/cotitleescrow-com.jpg)"></div>
+        <div class="mscrim"></div><div class="mbar"></div>
+        <div class="mbody">
+          <span class="mvert">Title &amp; Escrow · Parker</span>
+          <h3>Colorado Title &amp; Escrow</h3>
+          <span class="mcta">Walk the live site <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+        </div>
+      </a>
+      <a class="model reveal" href="/aspenfallslandscaping-com/" style="--ac:#3f9b57;transition-delay:.16s">
+        <div class="mimg" style="background-image:url(/thumbs/aspenfallslandscaping-com.jpg)"></div>
+        <div class="mscrim"></div><div class="mbar"></div>
+        <div class="mbody">
+          <span class="mvert">Landscaping · Denver</span>
+          <h3>Aspen Falls Landscaping</h3>
+          <span class="mcta">Walk the live site <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+        </div>
+      </a>
+    </div>
+    <div class="models-foot reveal">
+      <a class="btn btn-ghost btn-lg" href="/gallery">Browse the full gallery <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== BUSINESS INTELLIGENCE ===================== -->
+<section class="dark bi">
+  <div class="wrap bi-grid">
+    <div class="bi-copy reveal">
+      <span class="kicker">Business intelligence</span>
+      <h2>Stop guessing. Watch the numbers go up.</h2>
+      <p>We turn your online presence into a scoreboard you can actually read — then help you move it. See exactly what’s lifting your score, where your leads come from, and what to do next to drive more of them to your site.</p>
+      <ul class="feats">
+        <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l4.5 4.5L19 7"/></svg>Track your presence score month over month</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l4.5 4.5L19 7"/></svg>See where leads come from — and which pages convert</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l4.5 4.5L19 7"/></svg>Clear next moves, ranked by what drives business</li>
+      </ul>
+      <a class="link-cta" href="/bi">Open the dashboard <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+    </div>
+    <div class="bi-panel reveal" style="transition-delay:.1s" aria-hidden="true">
+      <div class="panel">
+        <div class="panel-head"><span class="panel-title">Growth dashboard</span><span class="live"><i></i> 6-mo trend</span></div>
+        <div class="chart">
+          <div class="chart-head"><span class="c-label">Presence score</span><span class="c-up">▲ +21 pts</span></div>
+          <svg viewBox="0 0 300 96" preserveAspectRatio="none">
+            <defs><linearGradient id="biFill" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#3D7DD6" stop-opacity=".45"/><stop offset="1" stop-color="#3D7DD6" stop-opacity="0"/></linearGradient></defs>
+            <path d="M0,74 L50,68 L100,70 L150,52 L200,40 L250,26 L300,14 L300,96 L0,96 Z" fill="url(#biFill)"/>
+            <path d="M0,74 L50,68 L100,70 L150,52 L200,40 L250,26 L300,14" fill="none" stroke="#3D7DD6" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+            <circle cx="300" cy="14" r="4" fill="#10B6A8"/>
+          </svg>
+        </div>
+        <div class="bi-stats">
+          <div class="bi-stat"><span class="bl">Presence score</span><span class="bv"><span class="from">61</span>→ 82</span></div>
+          <div class="bi-stat"><span class="bl">Leads / month</span><span class="bv">+38% <em>▲</em></span></div>
+          <div class="bi-stat"><span class="bl">Found on Google</span><span class="bv"><span class="from">#7</span>→ #1</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== SOCIAL ===================== -->
+<section class="social">
+  <div class="wrap social-grid">
+    <div class="social-copy reveal">
+      <span class="onum">Social studio</span>
+      <div><span class="otag">Show up daily</span></div>
+      <h3>Meet your customers where they already scroll.</h3>
+      <p class="odesc">The rules changed — customers check your feed before they call. We keep an eye on your social and reviews, tell you what people are saying, and hand you posts ready to publish, so staying visible doesn’t eat your week.</p>
+      <ul class="feats">
+        <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l4.5 4.5L19 7"/></svg>We monitor mentions, reviews &amp; comments across platforms</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l4.5 4.5L19 7"/></svg>Ready-to-post updates with live previews before you publish</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l4.5 4.5L19 7"/></svg>A calm plan for the times, not another thing to dread</li>
+      </ul>
+      <a class="link-cta" href="/social">See the Social Studio <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+    </div>
+    <div class="social-media reveal" style="transition-delay:.1s" aria-hidden="true">
+      <div class="post">
+        <div class="post-top">
+          <span class="av"></span>
+          <span><b>Northvale Home Co.</b><span>@northvalehome · now</span></span>
+          <span class="plat"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" stroke="none"/></svg></span>
+        </div>
+        <div class="post-img"></div>
+        <p>Spring booking is open ☀️ Swipe to see the patio we just wrapped in Parker — and tap the link to grab an estimate this week.</p>
+        <div class="post-eng">
+          <span><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-4.5-9.5-9A5 5 0 0112 5a5 5 0 019.5 7c-2.5 4.5-9.5 9-9.5 9z"/></svg>128</span>
+          <span><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a8 8 0 01-11.5 7.2L4 20l1-4.8A8 8 0 1121 12z"/></svg>24</span>
+          <span><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12v7a1 1 0 001 1h14a1 1 0 001-1v-7"/><path d="M16 6l-4-4-4 4"/><path d="M12 2v14"/></svg>Share</span>
+        </div>
+      </div>
+      <div class="mon-strip">
+        <span class="mon-chip"><i></i>New mentions this week <b>12</b></span>
+        <span class="mon-chip"><i></i>Avg. reply time <b>2h</b></span>
       </div>
     </div>
   </div>
