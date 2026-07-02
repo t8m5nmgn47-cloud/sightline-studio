@@ -56,13 +56,14 @@ h1,h2,h3{font-variant-ligatures:none}
           <span><span class="t"><span class="big">$299.99</span> to start, then <span class="big">$49.99</span>/mo</span><br><span class="s">A little up front, lower monthly.</span></span></label>
       </div>
       <div class="row2">
-        <div class="fld"><label>Your name</label><input id="cname" autocomplete="name" placeholder="Jordan Smith"></div>
-        <div class="fld"><label>Email *</label><input id="email" type="email" autocomplete="email" required placeholder="you@business.com"></div>
+        <div class="fld"><label>First name</label><input id="fname" autocomplete="given-name" placeholder="Jordan"></div>
+        <div class="fld"><label>Last name</label><input id="lname" autocomplete="family-name" placeholder="Smith"></div>
       </div>
       <div class="row2">
+        <div class="fld"><label>Email *</label><input id="email" type="email" autocomplete="email" required placeholder="you@business.com"></div>
         <div class="fld"><label>Mobile (for your link &amp; updates)</label><input id="phone" type="tel" autocomplete="tel" placeholder="(303) 555-0148"></div>
-        <div class="fld"><label>Your domain (if you have one)</label><input id="domain" placeholder="yourbusiness.com"></div>
       </div>
+      <div class="fld"><label>Your domain (if you have one)</label><input id="domain" placeholder="yourbusiness.com"></div>
       <div class="fld"><label>Anything we should know? (optional)</label><textarea id="notes" placeholder="Logo, photos, services to feature, a deadline…"></textarea></div>
       <button class="btn" id="go" type="submit">Start my site →</button>
       <div class="err" id="err"></div>
@@ -107,7 +108,8 @@ $("#f").addEventListener("submit",async e=>{
   const go=$("#go"); go.disabled=true; go.textContent="Starting…";
   const plan=(document.querySelector('input[name=plan]:checked')||{}).value||"zerodown";
   const lead={ biz:BIZ||null, slug:SLUG||null, source:"funnel:"+(SLUG||"direct"), plan:planLabel(plan),
-    contact_name:$("#cname").value.trim()||null, email, phone:$("#phone").value.trim()||null,
+    first_name:$("#fname").value.trim()||null, last_name:$("#lname").value.trim()||null,
+    contact_name:[$("#fname").value.trim(),$("#lname").value.trim()].filter(Boolean).join(" ")||null, email, phone:$("#phone").value.trim()||null,
     domain:$("#domain").value.trim()||null, notes:$("#notes").value.trim()||null };
   let saved=false;
   try{ const {createClient}=await import("https://esm.sh/@supabase/supabase-js@2");
@@ -124,7 +126,7 @@ $("#f").addEventListener("submit",async e=>{
   const link=STRIPE[plan]||"";
   $("#app").innerHTML=`<div class="card done">
     <div class="chk"><svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
-    <h2>You're in${$("#cname").value.trim()?(", "+$("#cname").value.trim().split(" ")[0]):""}.</h2>
+    <h2>You're in${$("#fname").value.trim()?(", "+$("#fname").value.trim()):""}.</h2>
     <p>${BIZ?esc(BIZ)+" — your":"Your"} ${esc(planLabel(plan))} plan is reserved. ${link?"One last step — complete your first payment and we start building today.":"We'll send a secure payment link to <b>"+esc(email)+"</b> shortly — once it's done, we start building right away."}</p>
     ${link?`<a class="btn" href="${link}" style="text-decoration:none;display:block">Complete checkout →</a>`:""}
     <div class="reassure" style="justify-content:center"><span>✓ First month free</span><span>✓ 30-day money-back</span><span>✓ Cancel anytime</span></div>
