@@ -34,5 +34,12 @@ create trigger customers_set_updated_at
   before update on public.customers
   for each row execute function public.set_updated_at();
 
--- Enable RLS with no anon policies: only the service role (server-side) can read/write.
+-- RLS: the public (anon) role gets nothing. The service role (api/customer.js)
+-- bypasses RLS for public intake. Signed-in accounts (magic-link) manage the CRM
+-- from /crm — same model as leads/subscribers.
 alter table public.customers enable row level security;
+
+create policy "authenticated read customers"   on public.customers for select to authenticated using (true);
+create policy "authenticated insert customers" on public.customers for insert to authenticated with check (true);
+create policy "authenticated update customers" on public.customers for update to authenticated using (true) with check (true);
+create policy "authenticated delete customers" on public.customers for delete to authenticated using (true);
