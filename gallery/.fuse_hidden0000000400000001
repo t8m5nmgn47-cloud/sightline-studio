@@ -1,0 +1,485 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Sightline Studio — Test-drive concepts</title>
+<meta name="description" content="Sightline Studio designs premium, on-brand websites for local businesses — a test-drive concept for each, in its best-fit style.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0f0d0b;--ink:#f4efe9;--mut:#a89f95;--line:rgba(244,239,233,.14);--head:'Fraunces',Georgia,serif;--body:'Inter',system-ui,sans-serif;--ease:cubic-bezier(.16,1,.3,1)}
+*{box-sizing:border-box;margin:0}html{scroll-behavior:smooth;font-size:115%}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+a{color:inherit;text-decoration:none}
+.wrap{max-width:1320px;margin:0 auto;padding:0 clamp(20px,5vw,56px)}
+.top{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:24px 0;flex-wrap:wrap}
+.logo{display:flex;align-items:center;gap:11px;font-family:var(--head);font-weight:600;font-size:1.25rem}
+.dot{width:11px;height:11px;border-radius:50%;background:var(--ink);box-shadow:0 0 0 4px rgba(244,239,233,.12)}
+.top nav{display:flex;gap:9px;flex-wrap:wrap}
+.tag{color:var(--mut);font-size:.82rem;border:1px solid var(--line);padding:8px 15px;border-radius:100px}.tag:hover{color:var(--ink)}
+.hero{padding:clamp(40px,8vw,104px) 0 clamp(26px,4vw,52px)}
+.hero .kick{color:var(--mut);font-size:.8rem;letter-spacing:.3em;text-transform:uppercase;font-weight:600;margin-bottom:22px}
+.hero h1{font-family:var(--head);font-weight:400;font-size:clamp(2.5rem,1.4rem + 4.4vw,5.6rem);line-height:.98;letter-spacing:-.025em;max-width:17ch}
+.hero h1 em{font-style:italic;color:#c9a96a}
+.hero p{color:var(--mut);font-size:clamp(1.05rem,.95rem + .5vw,1.3rem);max-width:60ch;margin-top:26px;line-height:1.55}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:clamp(16px,1.8vw,24px);padding:30px 0 70px}
+.card{position:relative;border-radius:14px;overflow:hidden;min-height:400px;display:flex;border:1px solid var(--line);background:#16120f;transition:transform .5s var(--ease),box-shadow .5s}
+.card:hover{transform:translateY(-6px);box-shadow:0 30px 70px rgba(0,0,0,.5)}
+.card-img{position:absolute;inset:0;background-size:cover;background-position:center;transition:transform .8s var(--ease)}
+.card:hover .card-img{transform:scale(1.06)}
+.card-scrim{position:absolute;inset:0;background:linear-gradient(to top,rgba(15,13,11,.95) 6%,rgba(15,13,11,.5) 50%,rgba(15,13,11,.22) 100%)}
+.card-body{position:relative;align-self:flex-end;padding:26px;width:100%}
+.card-vert{display:inline-block;color:var(--ac);font-weight:600;font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;background:rgba(255,255,255,.08);border:1px solid var(--line);padding:5px 11px;border-radius:100px;backdrop-filter:blur(6px)}
+.card h3{font-family:var(--head);font-weight:500;font-size:1.6rem;line-height:1.05;letter-spacing:-.01em;margin:14px 0 12px}
+.tags{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:14px}
+.t-style{font-size:.68rem;font-weight:600;letter-spacing:.04em;color:var(--ink);background:rgba(255,255,255,.1);border:1px solid var(--line);padding:4px 9px;border-radius:6px}
+.t-td{font-size:.68rem;font-weight:600;letter-spacing:.04em;color:#0f0d0b;background:#cdb787;padding:4px 9px;border-radius:6px}
+.card-cta{font-weight:600;font-size:.94rem;color:var(--ink);opacity:0;transform:translateY(8px);transition:opacity .4s,transform .4s}
+.card:hover .card-cta{opacity:1;transform:none}
+.note{border-top:1px solid var(--line);padding:30px 0;color:var(--mut);font-size:.86rem;display:flex;justify-content:space-between;flex-wrap:wrap;gap:14px}
+.note b{color:var(--ink);font-weight:600}
+.rv{opacity:0;transform:translateY(26px)}.rv.in{opacity:1;transform:none;transition:opacity .7s var(--ease),transform .7s var(--ease)}
+@media(prefers-reduced-motion:reduce){.rv{opacity:1;transform:none}.card-cta{opacity:1;transform:none}.card-img{transition:none}}
+</style></head>
+<body>
+<header class="wrap top"><div class="logo"><span class="dot"></span>Sightline Studio</div>
+<nav><a class="tag" href="styles/">Style variants &rarr;</a><a class="tag" href="teardowns/">Competitor teardowns &rarr;</a><a class="tag" href="builder/">Build your site &rarr;</a><a class="tag" href="logo/">Logo Studio &rarr;</a><a class="tag" href="legal/">Legal pages &rarr;</a><a class="tag" href="generator/">Brand Art Studio &rarr;</a></nav></header>
+<section class="wrap hero">
+  <div class="kick rv">Test-drive gallery · 43 concepts</div>
+  <h1 class="rv">Your business,<br><em>reimagined.</em></h1>
+  <p class="rv">A premium, on-brand website for each of the top 43 local prospects — built from their real logo, colours and photography, in the design style that fits their industry. Pick any concept to open the live demo.</p>
+</section>
+<section class="wrap"><div class="grid">
+  <a class="card rv" href="vaughn-law-com/" style="--ac:#2E5496;animation-delay:0ms">
+    <div class="card-img" style="background-image:url(thumbs/vaughn-law-com.jpg)"></div>
+    <div class="card-scrim"></div>
+    <div class="card-body">
+      <span class="card-vert">Legal · Lone Tree</span>
+      <h3>The Vaughn Law Offices, PLLC</h3>
+      <div class="tags"><span class="t-style">Editorial Luxe</span><span class="t-td">#6/7 local</span></div>
+      <span class="card-cta">View the concept &rarr;</span>
+    </div>
+  </a>
+  <a class="card rv" href="compfm-com/" style="--ac:#003366;animation-delay:45ms">
+    <div class="card-img" style="background:linear-gradient(135deg,#003366,#0f0d0b)"></div>
+    <div class="card-scrim"></div>
+    <div class="card-body">
+      <span class="card-vert">Medical · Highlands Ranch</span>
+      <h3>Comprehensive Family Medicine</h3>
+      <div class="tags"><span class="t-style">Clean Minimal</span><span class="t-td">#7/7 local</span></div>
+      <span class="card-cta">View the concept &rarr;</span>
+    </div>
+  </a>
+  <a class="card rv" href="cherryhillsdentist-com/" style="--ac:#fbbf24;animation-delay:90ms">
+    <div class="card-img" style="background:linear-gradient(135deg,#fbbf24,#0f0d0b)"></div>
+    <div class="card-scrim"></div>
+    <div class="card-body">
+      <span class="card-vert">Dental · Englewood</span>
+      <h3>Cherry Hills Dental Associates</h3>
+      <div class="tags"><span class="t-style">Warm Local</span><span class="t-td">#7/7 local</span></div>
+      <span class="card-cta">View the concept &rarr;</span>
+    </div>
+  </a>
+  <a class="card rv" href="cotitleescrow-com/" style="--ac:#54c464;animation-delay:135ms">
+    <div class="card-img" style="background-image:url(thumbs/cotitleescrow-com.jpg)"></div>
+    <div class="card-scrim"></div>
+    <div class="card-body">
+      <span class="card-vert">Title/Escrow · Parker</span>
+      <h3>Colorado Title &amp; Escrow</h3>
+      <div class="tags"><span class="t-style">Clean Minimal</span><span class="t-td">#4/7 local</span></div>
+      <span class="card-cta">View the concept &rarr;</span>
+    </div>
+  </a>
+  <a class="card rv" href="mckeanins-com/" style="--ac:#c1ab63;animation-delay:180ms">
+    <div class="card-img" style="background:linear-gradient(135deg,#c1ab63,#0f0d0b)"></div>
+    <div class="card-scrim"></div>
+    <div class="card-body">
+      <span class="card-vert">Insurance · Parker</span>
+      <h3>McKean Insurance Agency</h3>
+      <div class="tags"><span class="t-style">Clean Minimal</span><span class="t-td">#7/7 local</span></div>
+      <span class="card-cta">View the concept &rarr;</span>
+    </div>
+  </a>
+  <a class="card rv" href="milehighsmilesandesthetics-com/" style="--ac:#479a88;animation-delay:225ms">
+    <div class="card-img" style="background-image:url(thumbs/milehighsmilesandesthetics-com.jpg)"></div>
+    <div class="card-scrim"></div>
+    <div class="card-body">
+      <span class="card-vert">Dental · Lone Tree</span>
+      <h3>Mile High Smiles &amp; Esthetics</h3>
+      <div class="tags"><span class="t-style">Warm Local</span><span class="t-td">#7/7 local</span></div>
+      <span class="card-cta">View the concept &rarr;</span>
+    </div>
+  </a>
+  <a class="card rv" href="heidiosterobgyn-com/" style="--ac:#be4c5e;animation-delay:270ms">
+    <div class="card-img" style="background-image:url(thumbs/heidiosterobgyn-com.jpg)"></div>
+    <div class="card-scrim"></div>
+    <div class="card-body">
+      <span class="card-vert">Medical · Lone Tree</span>
+      <h3>Dr. Heidi Oster, MD (OB/GYN)</h3>
+      <div class="tags"><span class="t-style">Clean Minimal</span><span class="t-td">#6/7 local</span></div>
+      <span class="card-cta">View the concept &rarr;</span>
+    </div>
+  </a>
+  <a class="card rv" href="homesteadtc-com/" style="--ac:#a3b846;animation-delay:315ms">
+    <div class="card-img" style="background-image:url(thumbs/homesteadtc-com.jpg)"></div>
+    <div class="card-scrim"></div>
+    <div class="card-body">
+      <span class="card-vert">Title/Escrow · Greenwood Village</span>
+      <h3>Homestead Title &amp; Escrow</h3>
+      <div class="tags"><span class="t-style">Clean Minimal</span><span class="t-td">#5/7 local</span></div>
+      <span class="card-cta">View the concept &rarr;</span>
+    </div>
+  </a>
+  <a class="card rv" href="wamboltwealth-com/" style="--ac:#d6b556;animation-delay:360ms">
+    <div class="card-img" style="background:linear-gradient(135deg,#d6b556,#0f0d0b)"></div>
+    <div class="card-scrim"></div>
+    <div class="card-body">
+      <span class="card-vert">Finance · Littleton</span>
+      <h3>Wambolt &amp; Associates (RIA)</h3>
+      <div class="tags"><span class="t-style">Editorial Luxe</span><span class="t-td">#3/7 local</span></div>
+      <span class="card-cta">View the concept &rarr;</span>
+    </div>
+  </a>
+  <a class="card rv" href="griffithslawpc-com/" style="--ac:#525ddc;animation-delay:405ms">
+    <div class="card-img" style="background-image:url(thumbs/griffithslawpc-com.jpg)"></div>
+    <div class="card-scrim"></div>
+    <div class="card-body">
+      <span class="card-vert">Legal · Lone Tree</span>
+      <h3>Griffiths Law PC</h3>
+      <div class="tags"><span class="t-style">Editorial Luxe</span><span class="t-td">#3/7 local</span></div>
+      <span class="card-cta">View the concept &rarr;</span>
+    </div>
+  </a>
+  <a class="card rv" href="truebeautymedspa-com/" style="--ac:#6b9c98;animation-delay:450ms">
+    <div class="card-img" style="background-image:url(thumbs/truebeautymedspa-com.jpg)"></div>
+    <div class="card-scrim"></div>
+    <div class="card-body">
+      <span class="card-vert">Med Spa · Littleton</span>
+      <h3>True Beauty Med Spa</h3>
+      <div class="tags"><span class="t-style">Editorial Luxe</span><span class="t-td">#7/7 local</span></div>
+      <span class="card-cta">View the concept &rarr;</span>
+    </div>
+  </a>
+  <a class="card rv" href="araoent-com/" style="--ac:#b2a94c;animation-delay:495ms">
+    <div class="card-img" style="background:linear-gradient(135deg,#b2a94c,#0f0d0b)"></div>
+    <div class="card-scrim"></div>
+    <div class="card-body">
+      <span class="card-vert">Medical · Littleton</span>
+      <h3>South Denver ENT &amp; Allergy</h3>
+      <div class="tags"><span class="t-style">Clean Minimal</span><span class="t-td">#3/7 local</span></div>
+      <span class="card-cta">View the concept &rarr;</span>
+    </div>
+  </a>
+  <a class="card rv" href="rosslawcolorado-com/" style="--ac:#04fbfb;animation-delay:540ms">
+    <div class="card-img" style="background-image:url(thumbs/rosslawcolorado-com.jpg)"></div>
+    <div class="card-scrim"></div>
+    <div class="card-body">
+      <span class="card-vert">Legal · Centennial</span>
+      <h3>Ross Law PC</h3>
+      <div class="tags"><span class="t-style">Editorial Luxe</span><span class="t-td">#4/7 local</span></div>
+      <span class="card-cta">View the concept &rarr;</span>
+    </div>
+  </a>
+  <a class="card rv" href="kcmortgagecolorado-com/" style="--ac:#0a5cae;animation-delay:585ms">
+    <div class="card-img" style="background-image:url(thumbs/kcmortgagecolorado-com.jpg)"></div>
+    <div class="card-scrim"></div>
+    <div class="card-body">
+      <span class="card-vert">Mortgage · Castle Rock</span>
+      <h3>KC Mortgage (Kay Cleland)</h3>
+      <div class="tags"><span class="t-style">Clean Minimal</span><span class="t-td">#1/7 local</span></div>
+      <span class="card-cta">View the concept &rarr;</span>
+    </div>
+  </a>
+  <a class="card rv" href="castlerockcpa-com/" style="--ac:#2E5496;animation-delay:630ms">
+    <div class="card-img" style="background:linear-gradient(135deg,#2E5496,#0f0d0b)"></div>
+    <div class="card-scrim"></div>
+    <div class="card-body">
+      <span class="card-vert">Accounting · Castle Rock</span>
+      <h3>Castle Rock CPA</h3>
+      <div class="tags"><span class="t-style">Clean Minimal</span><span class="t-td">#7/7 local</span></div>
+      <span class="card-cta">View the concept &rarr;</span>
+    </div>
+  </a>
+  <a class="card rv" href="coloradolendingteam-com/" style="--ac:#409eff;animation-delay:675ms">
+    <div class="card-img" style="background-image:url(thumbs/coloradolendingteam-com.jpg)"></div>
+    <div class="card-scrim"></div>
+    <div class="card-body">
+      <span class="card-vert">Mortgage · Englewood</span>
+      <h3>Colorado Lending Team</h3>
+      <div class="tags"><span class="t-style">Clean Minimal</span><span class="t-td">#5/7 local</span></div>
+      <span class="card-cta">View the concept &rarr;</span>
+    </div>
+  </a>
+  <a class="card rv" href="stoneaspen-com/" style="--ac:#f0523d;animation-delay:720ms">
+    <div class="card-img" style="background-image:url(thumbs/stoneaspen-com.jpg)"></div>
+    <div class="card-scrim"></div>
+    <div class="card-body">
+      <span class="card-vert">Custom builder · Castle Rock</span>
+      <h3>Stone Aspen Signature Builders</h3>
+      <div class="tags"><span class="t-style">Editorial Luxe</span><span class="t-td">#3/7 local</span></div>
+      <span class="card-cta">View the concept &rarr;</span>
+    </div>
+  </a>
+  <a class="card rv" href="acaciadentalgroup-com/" style="--ac:#4c7cb4;animation-delay:765ms">
+    <div class="card-img" style="background-image:url(thumbs/acaciadentalgroup-com.jpg)"></div>
+    <div class="card-scrim"></div>
+    <div class="card-body">
+      <span class="card-vert">Dental · Englewood</span>
+      <h3>Acacia Dental Group</h3>
+      <div class="tags"><span class="t-style">Warm Local</span><span class="t-td">#3/7 local</span></div>
+      <span class="card-cta">View the concept &rarr;</span>
+    </div>
+  </a>
+  <a class="card rv" href="attorneysofhighlandsranch-com/" style="--ac:#3f3fbf;animation-delay:810ms">
+    <div class="card-img" style="background-image:url(thumbs/attorneysofhighlandsranch-com.jpg)"></div>
+    <div class="card-scrim"></div>
+    <div class="card-body">
+      <span class="card-vert">Legal · Highlands Ranch</span>
+      <h3>Town &amp; Town (Attorneys of HR)</h3>
+      <div class="tags"><span class="t-style">Editorial Luxe</span><span class="t-td">#7/7 local</span></div>
+      <span class="card-cta">View the concept &rarr;</span>
+    </div>
+  </a>
+  <a class="card rv" href="montessoriatlonetree-com/" style="--ac:#fcd50d;animation-delay:855ms">
+    <div class="card-img" style="background-image:url(thumbs/montessoriatlonetree-com.jpg)"></div>
+    <div class="card-scrim"></div>
+    <div class="card-body">
+      <span class="card-vert">Childcare/Edu · Lone Tree</span>
+      <h3>Montessori School at Lone Tree</h3>
+      <div class="tags"><span class="t-style">Warm Local</span><span class="t-td">#7/7 local</span></div>
+      <span class="card-cta">View the concept &rarr;</span>
+    </div>
+  </a>
+  <a class="card rv" href="copelandfamilydental-com/" style="--ac:#f0ae43;animation-delay:900ms">
+    <div class="card-img" style="background-image:url(thumbs/copelandfamilydental-com.jpg)"></div>
+    <div class="card-scrim"></div>
+    <div class="card-body">
+      <span class="card-vert">Dental · Highlands Ranch</span>
+      <h3>Copeland Family Dental</h3>
+      <div class="tags"><span class="t-style">Warm Local</span><span class="t-td">#1/7 local</span></div>
+      <span class="card-cta">View the concept &rarr;</span>
+    </div>
+  </a>
+  <a class="card rv" href="coloradodermatology-com/" style="--ac:#2E5496;animation-delay:945ms">
+    <div class="card-img" style="background:linear-gradient(135deg,#2E5496,#0f0d0b)"></div>
+    <div class="card-scrim"></div>
+    <div class="card-body">
+      <span class="card-vert">Medical · Lone Tree</span>
+      <h3>Dermatology &amp; Laser Institute</h3>
+      <div class="tags"><span class="t-style">Clean Minimal</span><span class="t-td">#7/7 local</span></div>
+      <span class="card-cta">View the concept &rarr;</span>
+    </div>
+  </a>
+  <a class="card rv" href="buildabath-net/" style="--ac:#fdf497;animation-delay:990ms">
+    <div class="card-img" style="background-image:url(thumbs/buildabath-net.jpg)"></div>
+    <div class="card-scrim"></div>
+    <div class="card-body">
+      <span class="card-vert">Remodeling · Highlands Ranch</span>
+      <h3>Build A Bath &amp; Kitchen</h3>
+      <div class="tags"><span class="t-style">Editorial Luxe</span><span class="t-td">#7/7 local</span></div>
+      <span class="card-cta">View the concept &rarr;</span>
+    </div>
+  </a>
+  <a class="card rv" href="paramounttitle-com/" style="--ac:#3fbf7f;animation-delay:1035ms">
+    <div class="card-img" style="background-image:url(thumbs/paramounttitle-com.jpg)"></div>
+    <div class="card-scrim"></div>
+    <div class="card-body">
+      <span class="card-vert">Title/Escrow · Greenwood Village</span>
+      <h3>Paramount Title Agency</h3>
+      <div class="tags"><span class="t-style">Clean Minimal</span><span class="t-td">#6/7 local</span></div>
+      <span class="card-cta">View the concept &rarr;</span>
+    </div>
+  </a>
+  <a class="card rv" href="aspenfallslandscaping-com/" style="--ac:#2b5672;animation-delay:1080ms">
+    <div class="card-img" style="background-image:url(thumbs/aspenfallslandscaping-com.jpg)"></div>
+    <div class="card-scrim"></div>
+    <div class="card-body">
+      <span class="card-vert">Landscape · Centennial</span>
+      <h3>Aspen Falls Landscape &amp; Const.</h3>
+      <div class="tags"><span class="t-style">Editorial Luxe</span><span class="t-td">#7/7 local</span></div>
+      <span class="card-cta">View the concept &rarr;</span>
+    </div>
+  </a>
+  <a class="card rv" href="firmmedspa-com/" style="--ac:#5897fb;animation-delay:1125ms">
+    <div class="card-img" style="background-image:url(thumbs/firmmedspa-com.jpg)"></div>
+    <div class="card-scrim"></div>
+    <div class="card-body">
+      <span class="card-vert">Med Spa · Lone Tree</span>
+      <h3>The Firm Medspa</h3>
+      <div class="tags"><span class="t-style">Editorial Luxe</span><span class="t-td">#7/7 local</span></div>
+      <span class="card-cta">View the concept &rarr;</span>
+    </div>
+  </a>
+  <a class="card rv" href="niedermaninsurance-com/" style="--ac:#3c4c84;animation-delay:1170ms">
+    <div class="card-img" style="background-image:url(thumbs/niedermaninsurance-com.jpg)"></div>
+    <div class="card-scrim"></div>
+    <div class="card-body">
+      <span class="card-vert">Insurance · Highlands Ranch</span>
+      <h3>Niederman Insurance Agency</h3>
+      <div class="tags"><span class="t-style">Clean Minimal</span><span class="t-td">#4/7 local</span></div>
+      <span class="card-cta">View the concept &rarr;</span>
+    </div>
+  </a>
+  <a class="card rv" href="elevatemyeyes-com/" style="--ac:#8db25f;animation-delay:1215ms">
+    <div class="card-img" style="background-image:url(thumbs/elevatemyeyes-com.jpg)"></div>
+    <div class="card-scrim"></div>
+    <div class="card-body">
+      <span class="card-vert">Optometry · Highlands Ranch</span>
+      <h3>Highlands Ranch Vision Center</h3>
+      <div class="tags"><span class="t-style">Warm Local</span><span class="t-td">#3/7 local</span></div>
+      <span class="card-cta">View the concept &rarr;</span>
+    </div>
+  </a>
+  <a class="card rv" href="southwestheating-com/" style="--ac:#0e3793;animation-delay:1260ms">
+    <div class="card-img" style="background-image:url(thumbs/southwestheating-com.jpg)"></div>
+    <div class="card-scrim"></div>
+    <div class="card-body">
+      <span class="card-vert">HVAC · Littleton</span>
+      <h3>Southwest Heating &amp; Cooling</h3>
+      <div class="tags"><span class="t-style">Editorial Luxe</span><span class="t-td">#3/7 local</span></div>
+      <span class="card-cta">View the concept &rarr;</span>
+    </div>
+  </a>
+  <a class="card rv" href="myrkmhome-com/" style="--ac:#caa025;animation-delay:1305ms">
+    <div class="card-img" style="background-image:url(thumbs/myrkmhome-com.jpg)"></div>
+    <div class="card-scrim"></div>
+    <div class="card-body">
+      <span class="card-vert">Custom builder · Castle Rock</span>
+      <h3>RKM Homes</h3>
+      <div class="tags"><span class="t-style">Editorial Luxe</span><span class="t-td">#3/7 local</span></div>
+      <span class="card-cta">View the concept &rarr;</span>
+    </div>
+  </a>
+  <a class="card rv" href="southdenverobgyn-com/" style="--ac:#3858e9;animation-delay:1350ms">
+    <div class="card-img" style="background-image:url(thumbs/southdenverobgyn-com.jpg)"></div>
+    <div class="card-scrim"></div>
+    <div class="card-body">
+      <span class="card-vert">Medical · Littleton</span>
+      <h3>South Denver OB/GYN &amp; Midwives</h3>
+      <div class="tags"><span class="t-style">Clean Minimal</span><span class="t-td">#7/7 local</span></div>
+      <span class="card-cta">View the concept &rarr;</span>
+    </div>
+  </a>
+  <a class="card rv" href="denverfamilylawmatters-com/" style="--ac:#2E5496;animation-delay:1395ms">
+    <div class="card-img" style="background:linear-gradient(135deg,#2E5496,#0f0d0b)"></div>
+    <div class="card-scrim"></div>
+    <div class="card-body">
+      <span class="card-vert">Legal · Brighton</span>
+      <h3>Tolison &amp; Williams</h3>
+      <div class="tags"><span class="t-style">Editorial Luxe</span><span class="t-td">#4/7 local</span></div>
+      <span class="card-cta">View the concept &rarr;</span>
+    </div>
+  </a>
+  <a class="card rv" href="biondijewelry-com/" style="--ac:#599985;animation-delay:1440ms">
+    <div class="card-img" style="background-image:url(thumbs/biondijewelry-com.jpg)"></div>
+    <div class="card-scrim"></div>
+    <div class="card-body">
+      <span class="card-vert">E-commerce · Aurora</span>
+      <h3>Biondi Diamond Jewelers</h3>
+      <div class="tags"><span class="t-style">Editorial Luxe</span><span class="t-td">#5/7 local</span></div>
+      <span class="card-cta">View the concept &rarr;</span>
+    </div>
+  </a>
+  <a class="card rv" href="thrivechurch-com/" style="--ac:#3077e1;animation-delay:1485ms">
+    <div class="card-img" style="background-image:url(thumbs/thrivechurch-com.jpg)"></div>
+    <div class="card-scrim"></div>
+    <div class="card-body">
+      <span class="card-vert">Church · Lone Tree</span>
+      <h3>Thrive Church</h3>
+      <div class="tags"><span class="t-style">Heritage Trust</span><span class="t-td">#3/8 local</span></div>
+      <span class="card-cta">View the concept &rarr;</span>
+    </div>
+  </a>
+  <a class="card rv" href="equippedchurch-net/" style="--ac:#3498db;animation-delay:1530ms">
+    <div class="card-img" style="background-image:url(thumbs/equippedchurch-net.jpg)"></div>
+    <div class="card-scrim"></div>
+    <div class="card-body">
+      <span class="card-vert">Church · Highlands Ranch</span>
+      <h3>Equipped Church</h3>
+      <div class="tags"><span class="t-style">Heritage Trust</span><span class="t-td">#1/8 local</span></div>
+      <span class="card-cta">View the concept &rarr;</span>
+    </div>
+  </a>
+  <a class="card rv" href="paxchristi-org/" style="--ac:#f7951d;animation-delay:1575ms">
+    <div class="card-img" style="background-image:url(thumbs/paxchristi-org.jpg)"></div>
+    <div class="card-scrim"></div>
+    <div class="card-body">
+      <span class="card-vert">Church · Lone Tree</span>
+      <h3>Pax Christi Catholic Community</h3>
+      <div class="tags"><span class="t-style">Heritage Trust</span><span class="t-td">#6/8 local</span></div>
+      <span class="card-cta">View the concept &rarr;</span>
+    </div>
+  </a>
+  <a class="card rv" href="missionhills-org/" style="--ac:#00afd7;animation-delay:1620ms">
+    <div class="card-img" style="background-image:url(thumbs/missionhills-org.jpg)"></div>
+    <div class="card-scrim"></div>
+    <div class="card-body">
+      <span class="card-vert">Church · Castle Rock</span>
+      <h3>Mission Hills Church</h3>
+      <div class="tags"><span class="t-style">Heritage Trust</span><span class="t-td">#3/8 local</span></div>
+      <span class="card-cta">View the concept &rarr;</span>
+    </div>
+  </a>
+  <a class="card rv" href="smokyhillumc-org/" style="--ac:#fcc40c;animation-delay:1665ms">
+    <div class="card-img" style="background-image:url(thumbs/smokyhillumc-org.jpg)"></div>
+    <div class="card-scrim"></div>
+    <div class="card-body">
+      <span class="card-vert">Church · Centennial</span>
+      <h3>Smoky Hill United Methodist Church</h3>
+      <div class="tags"><span class="t-style">Heritage Trust</span><span class="t-td">#8/8 local</span></div>
+      <span class="card-cta">View the concept &rarr;</span>
+    </div>
+  </a>
+  <a class="card rv" href="new3c-org/" style="--ac:#5c8c24;animation-delay:1710ms">
+    <div class="card-img" style="background-image:url(thumbs/new3c-org.jpg)"></div>
+    <div class="card-scrim"></div>
+    <div class="card-body">
+      <span class="card-vert">Church · Highlands Ranch</span>
+      <h3>New Covenant Community Church</h3>
+      <div class="tags"><span class="t-style">Heritage Trust</span><span class="t-td">#8/8 local</span></div>
+      <span class="card-cta">View the concept &rarr;</span>
+    </div>
+  </a>
+  <a class="card rv" href="summitchurch-online/" style="--ac:#c83636;animation-delay:1755ms">
+    <div class="card-img" style="background-image:url(thumbs/summitchurch-online.jpg)"></div>
+    <div class="card-scrim"></div>
+    <div class="card-body">
+      <span class="card-vert">Church · Centennial</span>
+      <h3>Summit Church</h3>
+      <div class="tags"><span class="t-style">Heritage Trust</span><span class="t-td">#7/8 local</span></div>
+      <span class="card-cta">View the concept &rarr;</span>
+    </div>
+  </a>
+  <a class="card rv" href="clchr-org/" style="--ac:#ed412c;animation-delay:1800ms">
+    <div class="card-img" style="background-image:url(thumbs/clchr-org.jpg)"></div>
+    <div class="card-scrim"></div>
+    <div class="card-body">
+      <span class="card-vert">Church · Highlands Ranch</span>
+      <h3>Christ Lutheran Church</h3>
+      <div class="tags"><span class="t-style">Heritage Trust</span><span class="t-td">#7/8 local</span></div>
+      <span class="card-cta">View the concept &rarr;</span>
+    </div>
+  </a>
+  <a class="card rv" href="visitcrcc-org/" style="--ac:#f89a6b;animation-delay:1845ms">
+    <div class="card-img" style="background-image:url(thumbs/visitcrcc-org.jpg)"></div>
+    <div class="card-scrim"></div>
+    <div class="card-body">
+      <span class="card-vert">Church · Castle Rock</span>
+      <h3>Castle Rock Community Church</h3>
+      <div class="tags"><span class="t-style">Heritage Trust</span><span class="t-td">#8/8 local</span></div>
+      <span class="card-cta">View the concept &rarr;</span>
+    </div>
+  </a>
+  <a class="card rv" href="hrcoc-org/" style="--ac:#116dff;animation-delay:1890ms">
+    <div class="card-img" style="background:linear-gradient(135deg,#116dff,#0f0d0b)"></div>
+    <div class="card-scrim"></div>
+    <div class="card-body">
+      <span class="card-vert">Church · Highlands Ranch</span>
+      <h3>Highlands Ranch Church of Christ</h3>
+      <div class="tags"><span class="t-style">Heritage Trust</span><span class="t-td">#6/8 local</span></div>
+      <span class="card-cta">View the concept &rarr;</span>
+    </div>
+  </a></div></section>
+<footer class="wrap note"><span>Built by <b>Sightline Studio</b> — the design arm of Sightline.</span><span>43 live concepts · 43 with competitor teardowns · Highlands Ranch &amp; the Front Range</span></footer>
+<script>
+const io=new IntersectionObserver((es)=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})},{threshold:.08});
+document.querySelectorAll('.rv').forEach(el=>io.observe(el));
+</script>
+</body></html>

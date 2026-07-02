@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Outside-In Exposure Dashboard — Northvale Home Co. (Sample)</title>
+<style>
+  :root{
+    --bg:#eef1f5; --panel:#ffffff; --ink:#1f2a37; --muted:#6b7785; --line:#e3e8ee;
+    --navy:#1f3864; --blue:#4e79a7; --teal:#76b7b2; --green:#59a14f; --amber:#edc948;
+    --orange:#f28e2b; --red:#e15759; --gray:#bab0ac;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    font-size:14px;line-height:1.45;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:1180px;margin:0 auto;padding:20px 22px 40px}
+  /* header */
+  .top{display:flex;justify-content:space-between;align-items:flex-end;gap:16px;
+    border-bottom:3px solid var(--navy);padding-bottom:14px;margin-bottom:6px}
+  .top .eyebrow{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--blue);font-weight:700}
+  .top h1{margin:4px 0 2px;font-size:26px;color:var(--navy);letter-spacing:-.01em}
+  .top .sub{color:var(--muted);font-size:13px}
+  .gradePill{display:flex;flex-direction:column;align-items:center;justify-content:center;
+    min-width:96px;padding:8px 14px;border-radius:10px;color:#fff;line-height:1}
+  .gradePill .g{font-size:30px;font-weight:800}
+  .gradePill .l{font-size:11px;letter-spacing:.08em;text-transform:uppercase;margin-top:4px;opacity:.95}
+  .ribbon{background:#fff7e0;border:1px solid #f0dca0;color:#7a5b00;font-size:12px;
+    padding:8px 12px;border-radius:8px;margin:14px 0 18px}
+  .ribbon b{color:#6a4f00}
+  /* grid helpers */
+  .kpis{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-bottom:16px}
+  .kpi{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:14px 16px;
+    box-shadow:0 1px 2px rgba(20,40,70,.04)}
+  .kpi .lab{font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);font-weight:600}
+  .kpi .num{font-size:30px;font-weight:800;margin-top:6px;line-height:1}
+  .kpi .meta{font-size:12px;color:var(--muted);margin-top:4px}
+  .row{display:grid;gap:14px;margin-bottom:16px}
+  .row.three{grid-template-columns:1fr 1.15fr 1fr}
+  .row.two{grid-template-columns:1fr 1fr}
+  .panel{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:16px 18px;
+    box-shadow:0 1px 2px rgba(20,40,70,.04)}
+  .panel h3{margin:0 0 14px;font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);font-weight:700}
+  .center{display:flex;align-items:center;justify-content:center}
+  /* gauge */
+  .gaugewrap{display:flex;flex-direction:column;align-items:center;gap:6px}
+  .gaugewrap .cap{font-size:12px;color:var(--muted)}
+  /* pillar bars */
+  .bar{margin-bottom:14px}
+  .bar:last-child{margin-bottom:2px}
+  .bar .bl{display:flex;justify-content:space-between;font-size:13px;margin-bottom:5px}
+  .bar .bl b{font-weight:700}
+  .track{position:relative;height:16px;background:#eef1f5;border-radius:8px;overflow:hidden}
+  .fill{height:100%;border-radius:8px}
+  .target{position:absolute;top:-3px;bottom:-3px;width:2px;background:#33415580}
+  .legend{display:flex;gap:14px;flex-wrap:wrap;font-size:12px;color:var(--muted);margin-top:8px}
+  .legend span{display:inline-flex;align-items:center;gap:6px}
+  .dot{width:10px;height:10px;border-radius:50%;display:inline-block}
+  /* theme bars */
+  .theme{display:grid;grid-template-columns:130px 1fr 34px;align-items:center;gap:10px;margin-bottom:9px;font-size:13px}
+  .theme .tt{color:var(--ink)}
+  .theme .tb{height:14px;border-radius:7px;background:var(--blue)}
+  .theme .tv{text-align:right;color:var(--muted);font-variant-numeric:tabular-nums}
+  .theme.pos .tb{background:var(--green)}
+  /* strengths */
+  .str{display:flex;gap:10px;align-items:flex-start;margin-bottom:10px;font-size:13px}
+  .str svg{flex:0 0 auto;margin-top:1px}
+  /* findings */
+  .filters{display:flex;flex-wrap:wrap;gap:14px;align-items:center;margin-bottom:12px}
+  .fgroup{display:flex;gap:6px;flex-wrap:wrap}
+  .fgroup .glab{font-size:11px;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);
+    align-self:center;margin-right:2px;font-weight:600}
+  .btn{border:1px solid var(--line);background:#fff;color:var(--ink);font-size:12px;
+    padding:5px 11px;border-radius:999px;cursor:pointer;font-weight:600}
+  .btn:hover{border-color:var(--blue);color:var(--blue)}
+  .btn.active{background:var(--navy);color:#fff;border-color:var(--navy)}
+  table{width:100%;border-collapse:collapse}
+  th{font-size:11px;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);
+    text-align:left;padding:8px 10px;border-bottom:2px solid var(--line)}
+  td{padding:11px 10px;border-bottom:1px solid var(--line);vertical-align:top;font-size:13px}
+  tr.f{border-left:4px solid transparent}
+  .chip{display:inline-block;font-size:11px;font-weight:700;padding:3px 9px;border-radius:999px;white-space:nowrap}
+  .area{display:inline-block;font-size:11px;font-weight:600;color:var(--navy);background:#eef2f8;
+    padding:3px 9px;border-radius:999px;white-space:nowrap}
+  .ftitle{font-weight:700}
+  .fdetail{color:var(--muted);margin-top:3px}
+  .ffix{color:var(--ink)}
+  /* action board */
+  .board{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+  .col h4{margin:0 0 10px;font-size:13px;color:var(--navy);display:flex;justify-content:space-between}
+  .col h4 span{color:var(--muted);font-weight:600}
+  .card{background:#fff;border:1px solid var(--line);border-left:4px solid var(--gray);
+    border-radius:8px;padding:9px 11px;margin-bottom:9px;font-size:13px;display:flex;gap:8px;align-items:flex-start}
+  .card .pd{width:9px;height:9px;border-radius:50%;margin-top:5px;flex:0 0 auto}
+  .foot{color:var(--muted);font-size:12px;margin-top:18px;border-top:1px solid var(--line);padding-top:14px}
+  /* solutions */
+  .benefit{color:var(--green);font-weight:600}
+  .beforeafter{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+  .framehead{font-size:11px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;padding:2px 0 8px;display:flex;align-items:center;gap:7px}
+  .framehead.b{color:var(--red)} .framehead.a{color:var(--green)}
+  .bro{border:1px solid var(--line);border-radius:10px;overflow:hidden;background:#fff;box-shadow:0 2px 8px rgba(20,40,70,.06)}
+  .bro .bar{display:flex;align-items:center;gap:6px;padding:7px 10px;background:#f3f5f8;border-bottom:1px solid var(--line)}
+  .bro .bar i{width:9px;height:9px;border-radius:50%;display:inline-block;background:#cfd6df}
+  .bro .url{flex:1;background:#fff;border:1px solid var(--line);border-radius:6px;font-size:10px;color:var(--muted);padding:3px 8px;margin-left:4px}
+  .scr{padding:12px;min-height:248px}
+  .m-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
+  .m-logo{font-weight:800;font-size:13px;color:var(--navy)}
+  .m-line{height:8px;border-radius:4px;background:#e7ebf0}
+  .m-search{flex:1;height:14px;border-radius:7px;background:#e9eef7;margin:0 8px}
+  .m-hero{border-radius:8px;padding:14px;margin-bottom:10px}
+  .m-hero.before{background:#eceff3;text-align:center}
+  .m-hero.after{background:linear-gradient(120deg,#e8f0fb,#f1f7ea)}
+  .m-btn{display:inline-block;background:var(--blue);color:#fff;font-size:11px;font-weight:700;padding:6px 13px;border-radius:6px}
+  .m-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+  .m-card{border:1px solid var(--line);border-radius:6px;padding:7px}
+  .m-th{height:36px;border-radius:4px;background:#dde3ea;margin-bottom:6px}
+  .m-th.c{background:#e9eef7}
+  .m-badges{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px}
+  .m-badge{font-size:10px;background:#eef6ec;color:#3d7a36;border:1px solid #cfe6c8;border-radius:999px;padding:2px 8px;font-weight:600}
+  .m-star{color:#f5a623;font-size:11px;letter-spacing:1px}
+  .loadchip{font-size:10px;font-weight:700;border-radius:999px;padding:2px 9px}
+  .loadchip.slow{background:#fce4e4;color:#a72c2f} .loadchip.fast{background:#e5f1e3;color:#3d7a36}
+  .annos{display:flex;flex-wrap:wrap;gap:6px;margin-top:11px}
+  .anno{font-size:11px;border-radius:999px;padding:3px 9px;font-weight:600}
+  .anno.bad{background:#fce4e4;color:#a72c2f} .anno.good{background:#e5f1e3;color:#3d7a36}
+  .fgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+  .fcard{border:1px solid var(--line);border-top:3px solid var(--blue);border-radius:9px;padding:12px 13px;background:#fff}
+  .fcard .ft{font-weight:700;font-size:13px;margin:0 0 4px}
+  .fcard .fd{font-size:12px;color:var(--muted);line-height:1.4}
+  .fcard .fi{display:inline-block;margin-top:9px;font-size:11px;font-weight:700;color:#3d7a36;background:#eef6ec;border-radius:999px;padding:2px 9px}
+  @media(max-width:980px){.kpis{grid-template-columns:repeat(2,1fr)}.row.three,.row.two{grid-template-columns:1fr}.board{grid-template-columns:1fr}.beforeafter{grid-template-columns:1fr}.fgrid{grid-template-columns:1fr 1fr}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="top">
+    <div>
+      <div class="eyebrow">Outside-In Exposure Report</div>
+      <h1>Northvale Home Co.</h1>
+      <div class="sub">Online homeware retailer &nbsp;·&nbsp; June 2026 &nbsp;·&nbsp; Method: public information only (passive)</div>
+    </div>
+    <div class="gradePill" id="gradePill">
+      <div class="g" id="gradeLetter">D</div>
+      <div class="l">Overall</div>
+    </div>
+  </div>
+
+  <div class="ribbon"><b>SAMPLE dashboard</b> — fictional business and illustrative figures, shown to demonstrate the format. Swap in real, verified findings before sending to a client.</div>
+
+  <div class="kpis" id="kpis"></div>
+
+  <div class="row three">
+    <div class="panel">
+      <h3>Overall score</h3>
+      <div class="gaugewrap">
+        <div id="gauge"></div>
+        <div class="cap">Blended across the three scored areas</div>
+      </div>
+    </div>
+    <div class="panel">
+      <h3>Score by area &nbsp;·&nbsp; target 80</h3>
+      <div id="pillars"></div>
+      <div class="legend">
+        <span><i class="dot" style="background:var(--red)"></i>&lt;60</span>
+        <span><i class="dot" style="background:var(--orange)"></i>60–69</span>
+        <span><i class="dot" style="background:var(--amber)"></i>70–79</span>
+        <span><i class="dot" style="background:var(--green)"></i>80+</span>
+      </div>
+    </div>
+    <div class="panel">
+      <h3>Issues by priority</h3>
+      <div class="center" style="gap:18px;flex-wrap:wrap">
+        <div id="donut"></div>
+        <div id="donutLegend" style="font-size:13px"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row two">
+    <div class="panel">
+      <h3>Top public complaint themes &nbsp;·&nbsp; by volume</h3>
+      <div id="themes"></div>
+    </div>
+    <div class="panel">
+      <h3>What you're doing well</h3>
+      <div id="strengths"></div>
+    </div>
+  </div>
+
+  <div class="panel" style="margin-bottom:16px">
+    <h3>Findings &amp; recommended fixes</h3>
+    <div class="filters">
+      <div class="fgroup" id="areaFilters"><span class="glab">Area</span></div>
+      <div class="fgroup" id="priFilters"><span class="glab">Priority</span></div>
+    </div>
+    <table>
+      <thead><tr><th style="width:14%">Area</th><th style="width:42%">Finding</th><th style="width:10%">Priority</th><th style="width:34%">Recommended fix</th></tr></thead>
+      <tbody id="findingsBody"></tbody>
+    </table>
+  </div>
+
+  <div class="panel" style="margin-bottom:16px">
+    <h3>Website improvements &nbsp;·&nbsp; problem → solution → benefit</h3>
+    <table>
+      <thead><tr><th style="width:28%">Problem today</th><th style="width:40%">Recommended solution</th><th style="width:32%">Expected benefit</th></tr></thead>
+      <tbody>
+        <tr><td>Mobile pages load in ~4.8s</td><td>Compress &amp; lazy-load images, trim scripts, add a CDN</td><td class="benefit">Faster pages — roughly +8% conversion for every 0.1s saved</td></tr>
+        <tr><td>Checkout is clunky / fails on mobile</td><td>One-page checkout with Apple&nbsp;Pay &amp; Google&nbsp;Pay</td><td class="benefit">Fewer abandoned carts, smoother mobile buying</td></tr>
+        <tr><td>No reviews or trust signals on the page</td><td>Show ★ ratings, recent reviews and trust badges</td><td class="benefit">More confidence at the point of purchase</td></tr>
+        <tr><td>“Where is my order?” complaints</td><td>Automatic order tracking and proactive shipping updates</td><td class="benefit">Removes the single biggest complaint theme</td></tr>
+        <tr><td>Accessibility gaps (contrast, labels)</td><td>Fix contrast, add alt text and form labels</td><td class="benefit">Wider audience and lower legal risk</td></tr>
+        <tr><td>Broken links &amp; thin SEO</td><td>Repair links, add unique titles &amp; descriptions</td><td class="benefit">More organic traffic and a cleaner journey</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="panel" style="margin-bottom:16px">
+    <h3>What the improved site could look like</h3>
+    <div class="beforeafter">
+      <div>
+        <div class="framehead b">● Before — today</div>
+        <div class="bro">
+          <div class="bar"><i></i><i></i><i></i><div class="url">northvalehome.co</div></div>
+          <div class="scr">
+            <div class="m-head"><div class="m-logo">NORTHVALE</div><div class="m-line" style="width:64px"></div></div>
+            <div class="m-hero before"><div style="font-size:12px;color:#7a828c">Welcome to our store</div><div class="m-line" style="width:70%;margin:9px auto 0"></div></div>
+            <div class="m-grid">
+              <div class="m-card"><div class="m-th"></div><div class="m-line" style="width:80%"></div></div>
+              <div class="m-card"><div class="m-th"></div><div class="m-line" style="width:80%"></div></div>
+              <div class="m-card"><div class="m-th"></div><div class="m-line" style="width:80%"></div></div>
+            </div>
+            <div style="margin-top:10px"><span class="loadchip slow">Loads in 4.8s</span></div>
+            <div class="annos">
+              <span class="anno bad">No reviews shown</span>
+              <span class="anno bad">No trust badges</span>
+              <span class="anno bad">Checkout = 4 steps</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="framehead a">● After — improved</div>
+        <div class="bro">
+          <div class="bar"><i></i><i></i><i></i><div class="url">https://northvalehome.co</div></div>
+          <div class="scr">
+            <div class="m-head"><div class="m-logo">NORTHVALE</div><div class="m-search"></div><div class="m-line" style="width:30px;background:#dbe3ee"></div></div>
+            <div class="m-hero after">
+              <div style="font-weight:700;font-size:13px;color:#1f3864">Beautiful homeware, delivered fast.</div>
+              <div class="m-star" style="margin-top:4px">★★★★★ <span style="color:#6b7785">4.6 · 1,200 reviews</span></div>
+              <div style="margin-top:9px"><span class="m-btn">Shop now</span></div>
+            </div>
+            <div class="m-grid">
+              <div class="m-card"><div class="m-th c"></div><div class="m-star">★★★★★</div></div>
+              <div class="m-card"><div class="m-th c"></div><div class="m-star">★★★★★</div></div>
+              <div class="m-card"><div class="m-th c"></div><div class="m-star">★★★★★</div></div>
+            </div>
+            <div class="m-badges"><span class="m-badge">Secure checkout</span><span class="m-badge">Free returns</span><span class="m-badge">Fast delivery</span></div>
+            <div style="margin-top:10px"><span class="loadchip fast">Loads in 1.1s</span></div>
+            <div class="annos">
+              <span class="anno good">Reviews visible</span>
+              <span class="anno good">Trust badges</span>
+              <span class="anno good">1-page checkout</span>
+              <span class="anno good">Apple / Google Pay</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div style="font-size:12px;color:var(--muted);margin-top:11px">Illustrative mock-up of the same store after the recommended fixes — a vision to align on, not a finished design.</div>
+  </div>
+
+  <div class="panel" style="margin-bottom:16px">
+    <h3>Function &amp; experience upgrades</h3>
+    <div class="fgrid">
+      <div class="fcard"><div class="ft">One-page checkout</div><div class="fd">Collapse 4 steps into 1 and add Apple Pay / Google Pay.</div><span class="fi">Fewer abandoned carts</span></div>
+      <div class="fcard"><div class="ft">Faster pages</div><div class="fd">Compress images, lazy-load, and serve from a CDN.</div><span class="fi">~+8% conversion per 0.1s</span></div>
+      <div class="fcard"><div class="ft">Reviews on product pages</div><div class="fd">Show ratings and recent reviews right where people buy.</div><span class="fi">Higher buyer confidence</span></div>
+      <div class="fcard"><div class="ft">Trust signals</div><div class="fd">Secure-checkout badge, clear returns &amp; shipping info.</div><span class="fi">Less checkout hesitation</span></div>
+      <div class="fcard"><div class="ft">Proactive order tracking</div><div class="fd">Automatic shipping updates and a self-serve tracking page.</div><span class="fi">Cuts the #1 complaint</span></div>
+      <div class="fcard"><div class="ft">Smart search &amp; filters</div><div class="fd">Help shoppers find the right product fast.</div><span class="fi">More products discovered</span></div>
+      <div class="fcard"><div class="ft">Accessibility</div><div class="fd">Fix contrast, add labels and alt text throughout.</div><span class="fi">Wider reach, lower risk</span></div>
+      <div class="fcard"><div class="ft">Mobile-first polish</div><div class="fd">Design for phones first — where most traffic is.</div><span class="fi">Better mobile conversion</span></div>
+    </div>
+  </div>
+
+  <div class="panel">
+    <h3>Prioritised action plan</h3>
+    <div class="board" id="board"></div>
+  </div>
+
+  <div class="foot" id="foot"></div>
+
+</div>
+
+<script>
+const C = {Urgent:"#e15759",Soon:"#edc948",Low:"#bab0ac",Good:"#59a14f"};
+const CHIPTEXT = {Urgent:"#a72c2f",Soon:"#7a6200",Low:"#5a6470",Good:"#3d7a36"};
+const CHIPBG = {Urgent:"#fce4e4",Soon:"#fbf3d0",Low:"#eef0f2",Good:"#e5f1e3"};
+
+const DATA = {
+  overall:{score:64, grade:"D"},
+  pillars:[
+    {name:"Security exposure", score:58, grade:"F"},
+    {name:"Website quality", score:71, grade:"C"},
+    {name:"Reputation & social", score:64, grade:"D"}
+  ],
+  themes:[
+    {label:"Shipping delays", value:38, pos:false},
+    {label:"Mobile checkout fails", value:17, pos:false},
+    {label:"Slow loading", value:12, pos:false},
+    {label:"Refund / billing", value:9, pos:false},
+    {label:"Can't log in", value:6, pos:false},
+    {label:"Love the product", value:21, pos:true}
+  ],
+  strengths:[
+    "Customers love the product — sentiment on quality & design is strongly positive.",
+    "Site runs on HTTPS and is mobile-friendly in layout.",
+    "No exposed file storage or leaked staff code was found."
+  ],
+  findings:[
+    {area:"Security",title:"Email can be spoofed (DMARC not enforced)",detail:"Anti-spoofing is in “monitor only”, so scammers can still send mail that looks like you.",priority:"Urgent",fix:"Move DMARC to quarantine, then reject, after a short monitoring period."},
+    {area:"Security",title:"Store software is several versions out of date",detail:"Detectable in public pages; outdated stores are the main target of card-skimming.",priority:"Urgent",fix:"Update to the current release and enable automatic security patches."},
+    {area:"Security",title:"3 staff logins found in past breaches",detail:"Company emails appear in third-party breaches with exposed passwords.",priority:"Urgent",fix:"Force password resets and enforce two-factor authentication."},
+    {area:"Security",title:"Admin login is openly reachable",detail:"The admin sign-in page is public with no visible extra protection.",priority:"Soon",fix:"Add 2FA and limit who can reach the page."},
+    {area:"Security",title:"Forgotten test site is public",detail:"A staging copy is publicly reachable and indexed by search engines.",priority:"Soon",fix:"Take it offline or put it behind a password."},
+    {area:"Security",title:"Look-alike domain registered by someone else",detail:"A near-identical domain is registered by a third party.",priority:"Soon",fix:"Monitor it; consider registering close variants and report misuse."},
+    {area:"Security",title:"TLS allows an outdated protocol",detail:"Certificate is valid but an older, weaker protocol is still permitted.",priority:"Low",fix:"Disable the outdated protocol in hosting settings."},
+    {area:"Website",title:"Slow on mobile (4.8s to load)",detail:"Target is under 2.5s; over half of mobile visitors leave after 3s.",priority:"Urgent",fix:"Compress images, lazy-load, and review heavy scripts."},
+    {area:"Website",title:"Checkout struggles on mobile",detail:"Speed/script issues on checkout match customer complaints about payment failing.",priority:"Urgent",fix:"Test and streamline the mobile checkout flow."},
+    {area:"Website",title:"Accessibility gaps",detail:"30+ low-contrast issues, missing image descriptions and unlabeled form fields.",priority:"Soon",fix:"Fix worst contrast and add labels, starting with checkout."},
+    {area:"Website",title:"Broken links in the menu",detail:"Some navigation links lead to “page not found”.",priority:"Soon",fix:"Find and repair or redirect broken links."},
+    {area:"Website",title:"Missing SEO basics",detail:"Several category pages lack descriptions and share duplicate titles.",priority:"Low",fix:"Write unique titles and descriptions for key pages."},
+    {area:"Website",title:"Secure & mobile-friendly layout",detail:"Loads over HTTPS and adapts to phone screens — a solid foundation.",priority:"Good",fix:"No action needed."},
+    {area:"Reputation",title:"Top complaint: shipping delays",detail:"“Where is my order?” is the most common theme and drives most negative sentiment.",priority:"Urgent",fix:"Review fulfilment; set clearer delivery expectations and proactive updates."},
+    {area:"Reputation",title:"Reviews mention failed mobile checkout",detail:"Recurring complaint about payment failing on phones — ties to the website finding.",priority:"Soon",fix:"Fix mobile checkout, then reply to affected reviewers."},
+    {area:"Reputation",title:"No reviews are being answered",detail:"None of the last ~40 public reviews got a reply; 80% of shoppers prefer businesses that respond.",priority:"Soon",fix:"Reply to every review — thank positives, address negatives calmly."},
+    {area:"Reputation",title:"4.1★ average rating",detail:"Many shoppers now filter for 4.5★+. You're close.",priority:"Soon",fix:"Resolve the top complaint and invite happy customers to review."},
+    {area:"Reputation",title:"Outage chatter during a sale",detail:"A spike of “site's down” mentions during a sale weekend suggests traffic-peak strain.",priority:"Low",fix:"Check hosting capacity before the next promotion."},
+    {area:"Reputation",title:"Customers love the product",detail:"Sentiment on quality and design is strongly positive.",priority:"Good",fix:"Amplify: feature positive reviews on site and social."},
+    {area:"Employee",title:"Leadership, finance & IT roles are easy to map",detail:"Key staff are identifiable from public profiles — the info used for targeted phishing / BEC.",priority:"Soon",fix:"Brief finance & exec staff; verify payment changes by phone."},
+    {area:"Employee",title:"Tech stack is visible in job ads",detail:"Postings name the specific IT/security tools you use.",priority:"Soon",fix:"Keep postings generic — skills, not exact products."},
+    {area:"Employee",title:"Staff emails appear in past breaches",detail:"Raises password-reuse risk (also in Security).",priority:"Urgent",fix:"Force resets and enforce 2FA for all staff."},
+    {area:"Employee",title:"Employer-review themes hint at strain",detail:"Aggregate reviews trend down with high support-team turnover — an early warning.",priority:"Low",fix:"Watch: support churn tends to surface in customer complaints next."},
+    {area:"Employee",title:"Some public oversharing",detail:"A few posts show internal screens and an event badge.",priority:"Low",fix:"Share a short “what's best not to post” guideline."},
+    {area:"Employee",title:"No leaked code from staff accounts",detail:"No public employee repos exposing secrets were found.",priority:"Good",fix:"No action needed."}
+  ],
+  actions:[
+    {task:"Reply to all open customer reviews",when:"This week",priority:"Soon"},
+    {task:"Force staff password resets + turn on 2FA",when:"This week",priority:"Urgent"},
+    {task:"Protect the admin login (2FA + access limit)",when:"This week",priority:"Soon"},
+    {task:"Compress images to speed up mobile pages",when:"This week",priority:"Urgent"},
+    {task:"Enforce DMARC (stop email spoofing)",when:"This month",priority:"Urgent"},
+    {task:"Update the store platform to latest version",when:"This month",priority:"Urgent"},
+    {task:"Fix the mobile checkout flow",when:"This month",priority:"Urgent"},
+    {task:"Fix top accessibility & broken-link issues",when:"This month",priority:"Soon"},
+    {task:"Take the public test site offline",when:"This month",priority:"Soon"},
+    {task:"Security-awareness briefing for finance & exec",when:"This month",priority:"Soon"},
+    {task:"Review shipping process (the #1 complaint)",when:"This quarter",priority:"Urgent"},
+    {task:"Monitor the look-alike domain",when:"This quarter",priority:"Soon"},
+    {task:"Make job postings stack-generic",when:"This quarter",priority:"Low"},
+    {task:"Tidy SEO titles & descriptions",when:"This quarter",priority:"Low"}
+  ]
+};
+
+function scoreColor(s){return s>=80?"var(--green)":s>=70?"var(--amber)":s>=60?"var(--orange)":"var(--red)";}
+function scoreHex(s){return s>=80?"#59a14f":s>=70?"#edc948":s>=60?"#f28e2b":"#e15759";}
+
+// header grade pill
+document.getElementById("gradeLetter").textContent = DATA.overall.grade;
+document.getElementById("gradePill").style.background = scoreHex(DATA.overall.score);
+
+// KPIs
+const counts = DATA.findings.reduce((a,f)=>{a[f.priority]=(a[f.priority]||0)+1;return a;},{});
+const kpis = [
+  {lab:"Overall score", num:DATA.overall.score, meta:"Grade "+DATA.overall.grade+" · /100", color:scoreHex(DATA.overall.score)},
+  {lab:"Urgent issues", num:counts.Urgent||0, meta:"fix now", color:"#e15759"},
+  {lab:"Fix soon", num:counts.Soon||0, meta:"next few weeks", color:"#b8941f"},
+  {lab:"Total findings", num:DATA.findings.length, meta:"across 4 areas", color:"#1f3864"},
+  {lab:"Strengths", num:counts.Good||0, meta:"things working well", color:"#59a14f"}
+];
+document.getElementById("kpis").innerHTML = kpis.map(k=>
+  `<div class="kpi"><div class="lab">${k.lab}</div><div class="num" style="color:${k.color||'var(--navy)'}">${k.num}</div><div class="meta">${k.meta}</div></div>`
+).join("");
+
+// gauge (ring)
+(function(){
+  const s=DATA.overall.score, r=78, c=2*Math.PI*r, off=c*(1-s/100), col=scoreHex(s);
+  document.getElementById("gauge").innerHTML =
+  `<svg width="180" height="180" viewBox="0 0 200 200">
+     <circle cx="100" cy="100" r="${r}" fill="none" stroke="#eef1f5" stroke-width="18"/>
+     <circle cx="100" cy="100" r="${r}" fill="none" stroke="${col}" stroke-width="18"
+       stroke-linecap="round" stroke-dasharray="${c}" stroke-dashoffset="${off}"
+       transform="rotate(-90 100 100)"/>
+     <text x="100" y="96" text-anchor="middle" font-size="46" font-weight="800" fill="${col}">${s}</text>
+     <text x="100" y="122" text-anchor="middle" font-size="14" fill="#6b7785">Grade ${DATA.overall.grade}</text>
+   </svg>`;
+})();
+
+// pillar bars
+document.getElementById("pillars").innerHTML = DATA.pillars.map(pp=>
+  `<div class="bar">
+     <div class="bl"><span>${pp.name}</span><b style="color:${scoreColor(pp.score)}">${pp.score} · ${pp.grade}</b></div>
+     <div class="track"><div class="fill" style="width:${pp.score}%;background:${scoreColor(pp.score)}"></div><div class="target" style="left:80%"></div></div>
+   </div>`
+).join("");
+
+// donut (issues by priority, excl. Good)
+(function(){
+  const segs=[["Urgent",counts.Urgent||0],["Soon",counts.Soon||0],["Low",counts.Low||0]];
+  const total=segs.reduce((a,s)=>a+s[1],0), r=64, c=2*Math.PI*r; let acc=0;
+  const circles=segs.map(([k,v])=>{
+    const len=c*(v/total), gap=c-len, dash=`${len} ${gap}`, off=c*0.25 - acc; acc+=len;
+    return `<circle cx="90" cy="90" r="${r}" fill="none" stroke="${C[k]}" stroke-width="24"
+      stroke-dasharray="${dash}" stroke-dashoffset="${off}" transform="rotate(-90 90 90)"/>`;
+  }).join("");
+  document.getElementById("donut").innerHTML =
+   `<svg width="170" height="170" viewBox="0 0 180 180">${circles}
+      <text x="90" y="84" text-anchor="middle" font-size="34" font-weight="800" fill="#1f3864">${total}</text>
+      <text x="90" y="106" text-anchor="middle" font-size="12" fill="#6b7785">issues</text></svg>`;
+  document.getElementById("donutLegend").innerHTML = segs.map(([k,v])=>
+   `<div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">
+      <span class="dot" style="background:${C[k]}"></span><b>${v}</b>&nbsp;<span style="color:var(--muted)">${k}</span></div>`
+  ).join("") + `<div style="display:flex;align-items:center;gap:8px"><span class="dot" style="background:${C.Good}"></span><b>${counts.Good||0}</b>&nbsp;<span style="color:var(--muted)">Strengths</span></div>`;
+})();
+
+// theme bars
+(function(){
+  const max=Math.max(...DATA.themes.map(t=>t.value));
+  document.getElementById("themes").innerHTML = DATA.themes.map(t=>
+   `<div class="theme ${t.pos?'pos':''}"><div class="tt">${t.label}</div>
+      <div class="tb" style="width:${Math.round(t.value/max*100)}%"></div>
+      <div class="tv">${t.value}</div></div>`
+  ).join("") + `<div style="font-size:12px;color:var(--muted);margin-top:6px">Green = a positive theme worth amplifying.</div>`;
+})();
+
+// strengths
+document.getElementById("strengths").innerHTML = DATA.strengths.map(s=>
+ `<div class="str"><svg width="16" height="16" viewBox="0 0 16 16"><circle cx="8" cy="8" r="8" fill="#59a14f"/><path d="M4.5 8.2l2.2 2.2 4.8-4.8" stroke="#fff" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg><div>${s}</div></div>`
+).join("");
+
+// findings table + filters
+let areaF="All", priF="All";
+const areas=["All","Security","Website","Reputation","Employee"];
+const pris=["All","Urgent","Soon","Low","Good"];
+function mkBtns(host,arr,cur,onpick){
+  document.getElementById(host).querySelectorAll(".btn").forEach(b=>b.remove());
+  arr.forEach(a=>{
+    const b=document.createElement("button");
+    b.className="btn"+(a===cur?" active":""); b.textContent=a;
+    b.onclick=()=>onpick(a); document.getElementById(host).appendChild(b);
+  });
+}
+function renderFindings(){
+  const rows=DATA.findings.filter(f=>(areaF==="All"||f.area===areaF)&&(priF==="All"||f.priority===priF));
+  document.getElementById("findingsBody").innerHTML = rows.map(f=>
+   `<tr class="f" style="border-left-color:${C[f.priority]}">
+      <td><span class="area">${f.area}</span></td>
+      <td><div class="ftitle">${f.title}</div><div class="fdetail">${f.detail}</div></td>
+      <td><span class="chip" style="background:${CHIPBG[f.priority]};color:${CHIPTEXT[f.priority]}">${f.priority}</span></td>
+      <td class="ffix">${f.fix}</td></tr>`
+  ).join("") || `<tr><td colspan="4" style="color:var(--muted);padding:18px">No findings match this filter.</td></tr>`;
+}
+function refreshBtns(){
+  mkBtns("areaFilters",areas,areaF,a=>{areaF=a;refreshBtns();renderFindings();});
+  mkBtns("priFilters",pris,priF,a=>{priF=a;refreshBtns();renderFindings();});
+}
+refreshBtns(); renderFindings();
+
+// action board
+(function(){
+  const cols=["This week","This month","This quarter"];
+  document.getElementById("board").innerHTML = cols.map(w=>{
+    const items=DATA.actions.filter(a=>a.when===w);
+    return `<div class="col"><h4>${w}<span>${items.length}</span></h4>`+
+      items.map(a=>`<div class="card" style="border-left-color:${C[a.priority]}"><span class="pd" style="background:${C[a.priority]}"></span><div>${a.task}</div></div>`).join("")+
+    `</div>`;
+  }).join("");
+})();
+
+document.getElementById("foot").innerHTML =
+ "Scope: passive, public-information only — no systems were accessed, logged into, or scanned without authorisation. "+
+ "Employee signals are reported in aggregate; no individuals are profiled. Point-in-time snapshot; not a penetration test, guarantee, or compliance certification. "+
+ "Prepared by Sightline · sightline.report.";
+</script>
+</body>
+</html>

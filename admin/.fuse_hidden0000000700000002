@@ -57,7 +57,7 @@ h1,h2,h3,h4{font-variant-ligatures:none}
 .toast{position:fixed;left:50%;bottom:22px;transform:translateX(-50%);background:#161a1d;color:#fff;padding:10px 16px;border-radius:10px;font-size:.86rem;opacity:0;transition:opacity .25s;pointer-events:none;z-index:50}.toast.show{opacity:1}
 </style></head>
 <body>
-<header class="wrap top"><div class="lg"><span class="dot"></span>Sightline · Admin</div><a href="../gallery/">View public studio →</a></header>
+<header class="wrap top"><div class="lg"><span class="dot"></span>Sightline · Admin</div><a href="../">View public studio →</a></header>
 <div class="wrap">
 <section class="hd"><h1>Your control center.</h1><p>Run Sightline end to end — subscribers &amp; revenue, the sales pipeline, the marketing engine, and every studio tool, in one place.</p></section>
 
@@ -90,7 +90,7 @@ h1,h2,h3,h4{font-variant-ligatures:none}
   <a class="card lead" href="../pipeline/"><div class="ic">📊</div><h3>Pipeline / CRM</h3><p>Every prospect with their funnel link, ready email, and status — contacted → opened → booked → won.</p><div class="go">Open pipeline →</div></a>
   <a class="card" href="../leads/"><div class="ic">📥</div><h3>Leads — self-serve signups</h3><p>Everyone who clicked "Start my site" on a funnel: name, plan, contact, status. Private, login-protected.</p><div class="go">Open leads →</div></a>
   <a class="card" href="../p/"><div class="ic">🎯</div><h3>Prospect funnels</h3><p>33 personalized landing pages (demo + audit + offer). Copy a link and send it.</p><div class="go">All funnels →</div></a>
-  <a class="card" href="../gallery/"><div class="ic">🖼️</div><h3>Concept gallery</h3><p>All demos — 8 design options each — to show on a call.</p><div class="go">Open gallery →</div></a>
+  <a class="card" href="../"><div class="ic">🖼️</div><h3>Concept gallery</h3><p>All demos — 8 design options each — to show on a call.</p><div class="go">Open gallery →</div></a>
   <a class="card" href="../demo/"><div class="ic">📄</div><h3>Sample report</h3><p>The interactive "Outside-In Exposure" audit dashboard (fictional sample) — send prospects a real report they can click through.</p><div class="go">Open sample report →</div></a>
   <a class="card" href="../teardowns/"><div class="ic">🔍</div><h3>Competitor teardowns</h3><p>How each prospect ranks vs. their local field on public signals.</p><div class="go">View teardowns →</div></a>
   <a class="card" href="../faith/"><div class="ic">⛪</div><h3>Faith / Church demo</h3><p>The church offering — online worship, sermons, giving &amp; plan-your-visit. Show faith-org prospects.</p><div class="go">Open church demo →</div></a>
