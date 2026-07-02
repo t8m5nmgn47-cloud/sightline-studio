@@ -174,7 +174,7 @@
     <div class="ph">Add-ons — switch on what you need</div>
     <div id="addons"></div>
     <div class="hbadge" id="hbadge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M12 3l7 3v5c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6z"/><path d="M9 12l2 2 4-4"/></svg> HIPAA-ready stack — BAA included, PHI kept off the public site</div>
-    <div class="totalbar"><div><div class="l">Your plan</div><div class="n" id="total">$99<small>/mo</small></div></div><button>Start with this →</button></div>
+    <div class="totalbar"><div><div class="l">Your plan</div><div class="n" id="total">$99<small>/mo</small></div></div><button id="tocheckout">Continue to checkout →</button></div>
     <button class="reset" id="reset">Reset to just the website</button>
     <div class="samp">Illustrative pricing — Sightline base website $99/mo + add-ons.</div>
   </aside>
@@ -253,6 +253,9 @@ function openModal(id){const a=ADDONS.find(x=>x.id===id);
 document.getElementById("mx").onclick=()=>modal.hidden=true;
 document.getElementById("mback").onclick=()=>modal.hidden=true;
 document.getElementById("reset").onclick=()=>{[...state].forEach(id=>setOn(id,false));activePreset=null;syncPresetBtns();update();};
+document.getElementById("tocheckout").onclick=()=>{const q=new URLSearchParams(location.search);const p=new URLSearchParams();
+ const nm=q.get("name")||q.get("biz");if(nm)p.set("name",nm);if(q.get("slug"))p.set("slug",q.get("slug"));if(q.get("color"))p.set("color",q.get("color"));
+ if(state.size)p.set("addons",[...state].join(","));location.href="/checkout/"+(p.toString()?("?"+p.toString()):"");};
 update();
 </script>
 </body></html>
