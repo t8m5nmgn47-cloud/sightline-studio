@@ -377,6 +377,21 @@
   .hp .bi-line{stroke-dashoffset:0;transition:none}
 }
 
+/* ---- add-ons strip (in pricing) ---- */
+.hp .addons-block{margin-top:58px;padding-top:46px;border-top:1px solid var(--mist);text-align:center}
+.hp .addons-lead{max-width:620px;margin:0 auto 34px}
+.hp .addons-lead .kicker{color:var(--teal-ink);display:block;margin-bottom:12px}
+.hp .addons-lead h3{font-family:var(--head);font-weight:700;font-size:clamp(1.5rem,2.6vw,2rem);color:var(--navy);margin:0 0 10px}
+.hp .addons-lead p{color:var(--slate);margin:0}
+.hp .addons-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:30px}
+.hp .addon-tile{display:flex;align-items:center;justify-content:space-between;gap:10px;background:var(--cloud);
+  border:1px solid var(--mist);border-radius:12px;padding:13px 16px;transition:border-color .2s ease,transform .2s ease,box-shadow .2s ease}
+.hp .addon-tile:hover{border-color:var(--teal);transform:translateY(-2px);box-shadow:var(--shadow)}
+.hp .addon-tile .at-n{font-weight:600;font-size:.92rem;color:var(--navy);text-align:left}
+.hp .addon-tile .at-p{font-family:var(--mono);font-size:.74rem;color:var(--teal-ink);font-weight:600;white-space:nowrap}
+@media(max-width:900px){.hp .addons-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:520px){.hp .addons-grid{grid-template-columns:1fr}}
+
 /* ---- reveal (scoped, overrides base for a richer feel) ---- */
 .hp .reveal{opacity:0;transform:translateY(22px);transition:opacity .7s cubic-bezier(.2,.6,.2,1),transform .7s cubic-bezier(.2,.6,.2,1)}
 .hp .reveal.in{opacity:1;transform:none}
@@ -785,7 +800,29 @@
         <a class="btn btn-ghost btn-lg" href="/how-it-works">See what's checked</a>
       </div>
     </div>
-    <p class="price-foot reveal">Marketing &amp; social available as add-ons · <a href="/pricing">See full pricing →</a></p>
+    <div class="addons-block reveal">
+      <div class="addons-lead">
+        <span class="kicker">Add-ons</span>
+        <h3>Switch on exactly what you need.</h3>
+        <p>Every site starts lean — add capabilities à la carte and pay only for what you turn on.</p>
+      </div>
+      <div class="addons-grid">
+        <span class="addon-tile"><span class="at-n">Online Booking</span><span class="at-p">+$19</span></span>
+        <span class="addon-tile"><span class="at-n">Online Store</span><span class="at-p">+$25</span></span>
+        <span class="addon-tile"><span class="at-n">Shipping — UPS &amp; USPS</span><span class="at-p">+$15</span></span>
+        <span class="addon-tile"><span class="at-n">Online Payments</span><span class="at-p">+$10</span></span>
+        <span class="addon-tile"><span class="at-n">Reviews &amp; Reputation</span><span class="at-p">+$39</span></span>
+        <span class="addon-tile"><span class="at-n">AI Assistant</span><span class="at-p">+$49</span></span>
+        <span class="addon-tile"><span class="at-n">Security &amp; Monitoring</span><span class="at-p">+$29</span></span>
+        <span class="addon-tile"><span class="at-n">Customer Database (CRM)</span><span class="at-p">+$19</span></span>
+        <span class="addon-tile"><span class="at-n">Photo Gallery</span><span class="at-p">+$9</span></span>
+        <span class="addon-tile"><span class="at-n">Patient Intake Forms</span><span class="at-p">+$20</span></span>
+        <span class="addon-tile"><span class="at-n">Legal Pages</span><span class="at-p">+$15</span></span>
+        <span class="addon-tile"><span class="at-n">Logo &amp; Brand Kit</span><span class="at-p">Free</span></span>
+      </div>
+      <a class="btn btn-primary btn-lg" href="/builder">Build your plan <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+    </div>
+    <p class="price-foot reveal">All add-ons are managed month-to-month · <a href="/pricing">See full pricing →</a></p>
   </div>
 </section>
 
