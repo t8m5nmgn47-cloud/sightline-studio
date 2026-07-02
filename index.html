@@ -86,7 +86,7 @@
 .hp .gauge{display:flex;align-items:center;gap:18px}
 .hp .ring{position:relative;width:104px;height:104px;flex:none}
 .hp .ring b{position:absolute;inset:0;display:grid;place-items:center;font-family:var(--head);font-weight:700;font-size:1.9rem;color:#fff}
-.hp .ring small{position:absolute;left:0;right:0;bottom:14px;text-align:center;font-family:var(--mono);font-size:.55rem;letter-spacing:.18em;color:var(--ink-low);text-transform:uppercase}
+.hp .ring small{position:absolute;left:0;right:0;bottom:19px;text-align:center;font-family:var(--mono);font-size:.48rem;letter-spacing:.05em;color:var(--ink-low);text-transform:uppercase}
 .hp .metrics{display:flex;flex-direction:column;gap:10px;flex:1}
 .hp .metric{display:grid;grid-template-columns:1fr auto;gap:4px 12px;align-items:center}
 .hp .metric span{font-size:.82rem;color:var(--ink-mid)}
@@ -181,6 +181,10 @@
 .hp .fit-node{display:flex;flex-direction:column;align-items:center;gap:10px;width:150px;text-align:center}
 .hp .fit-node .ic{width:56px;height:56px;border-radius:16px;display:grid;place-items:center;background:var(--cloud);border:1px solid var(--mist)}
 .hp .fit-node .ic svg{width:26px;height:26px;stroke:var(--navy)}
+.hp .fit-node.s1 .ic{background:rgba(16,182,168,.1);border-color:rgba(16,182,168,.32)} .hp .fit-node.s1 .ic svg{stroke:var(--teal-ink)}
+.hp .fit-node.s2 .ic{background:rgba(61,125,214,.1);border-color:rgba(61,125,214,.32)} .hp .fit-node.s2 .ic svg{stroke:#295da8}
+.hp .fit-node.s3 .ic{background:rgba(232,169,59,.14);border-color:rgba(232,169,59,.36)} .hp .fit-node.s3 .ic svg{stroke:#9a6a12}
+.hp .fit-node .ic{transition:transform .2s} .hp .fit-node:hover .ic{transform:translateY(-3px)}
 .hp .fit-node b{font-family:var(--head);font-size:1rem;color:var(--navy)}
 .hp .fit-node span{font-size:.82rem;color:var(--slate)}
 .hp .fit-arrow{color:var(--slate-2);flex:none}
@@ -499,7 +503,7 @@
 <section class="offers">
   <div class="wrap">
     <div class="sec-head reveal">
-      <span class="kicker">Three ways we help</span>
+      <span class="kicker">How we help</span>
       <h2>Your whole online presence, handled by one team.</h2>
       <p>Most owners juggle a web guy, a security worry, and a marketing to-do list. Sightline Studio is all three — talking to each other, reported in language that makes sense.</p>
     </div>
@@ -666,11 +670,11 @@
       <p>No big commitment. See where you stand, fix what matters, and add what you need — one step at a time.</p>
     </div>
     <div class="fit-row reveal">
-      <div class="fit-node"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="2.6"/></svg></span><b>Free scan</b><span>See how you look from the outside</span></div>
+      <div class="fit-node s1"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="2.6"/></svg></span><b>Free scan</b><span>See how you look from the outside</span></div>
       <span class="fit-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
-      <div class="fit-node"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 14a8 8 0 0116 0"/><path d="M12 14l4-3"/></svg></span><b>Fix &amp; build</b><span>New site or fixes to the one you have</span></div>
+      <div class="fit-node s2"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 14a8 8 0 0116 0"/><path d="M12 14l4-3"/></svg></span><b>Fix &amp; build</b><span>New site or fixes to the one you have</span></div>
       <span class="fit-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
-      <div class="fit-node"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v5c0 4.5-3 8-7 10-4-2-7-5.5-7-10V6z"/><path d="M9 12l2 2 4-4"/></svg></span><b>Monitor &amp; grow</b><span>We watch monthly and keep you found</span></div>
+      <div class="fit-node s3"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v5c0 4.5-3 8-7 10-4-2-7-5.5-7-10V6z"/><path d="M9 12l2 2 4-4"/></svg></span><b>Monitor &amp; grow</b><span>We watch monthly and keep you found</span></div>
     </div>
     <p class="center" style="margin-top:34px"><a class="btn btn-primary btn-lg" href="/free-scan">Get my free scan <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></p>
   </div>
@@ -695,8 +699,8 @@
 <section class="dark close">
   <div class="wrap">
     <span class="kicker reveal">Start free</span>
-    <h2 class="reveal">See your business the way the public already does.</h2>
-    <p class="reveal">A free, plain-English scan of your website, security, and reviews. No card, no commitment, nothing to install — just a clear picture and a few things worth fixing.</p>
+    <h2 class="reveal">Let's make your business unmissable online.</h2>
+    <p class="reveal">Start with a free, plain-English scan of your website, security, and reviews — no card, no commitment, nothing to install. From there we build, watch, and grow whatever you need, at one clear price.</p>
     <div class="close-actions reveal" style="transition-delay:.08s">
       <a class="btn btn-teal btn-lg" href="/free-scan">Get my free scan <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
       <a class="btn btn-ghost-d btn-lg" href="/pricing">See pricing</a>
