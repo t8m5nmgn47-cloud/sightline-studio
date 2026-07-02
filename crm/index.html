@@ -46,6 +46,17 @@ h1,h2,h3{font-variant-ligatures:none}
 .empty{text-align:center;color:var(--mut);padding:50px 20px}
 .foot{color:var(--mut);font-size:.78rem;padding:24px 0 50px}
 .toast{position:fixed;left:50%;bottom:22px;transform:translateX(-50%);background:#161a1d;color:#fff;padding:10px 16px;border-radius:10px;font-size:.86rem;opacity:0;transition:.25s;pointer-events:none;z-index:50}.toast.show{opacity:1}
+.tagbar{display:flex;flex-wrap:wrap;gap:7px;margin:-2px 0 14px;align-items:center}
+.tagpill{font-size:.76rem;font-weight:600;color:var(--ac);background:#fff;border:1px solid #d6e5df;border-radius:999px;padding:5px 12px;cursor:pointer}
+.tagpill.on{background:var(--ac);color:#fff;border-color:var(--ac)}
+.tagclear{font-size:.76rem;color:var(--mut);background:none;border:0;cursor:pointer}
+.tags{display:flex;flex-wrap:wrap;gap:5px;margin-top:8px}
+.tagchip{font-size:.7rem;font-weight:600;color:var(--ac);background:#eef4f1;border:1px solid #d6e5df;border-radius:999px;padding:3px 4px 3px 10px;cursor:pointer;display:inline-flex;align-items:center;gap:5px}
+.tagchip:hover{background:#e0ede8}
+.tagchip i{font-style:normal;color:var(--mut);background:#fff;border-radius:50%;width:15px;height:15px;display:inline-flex;align-items:center;justify-content:center;font-size:.72rem}
+.tagchip i:hover{color:#b4453a}
+.tagadd{font-size:.7rem;color:var(--mut);background:none;border:1px dashed var(--line);border-radius:999px;padding:3px 10px;cursor:pointer}
+.tagadd:hover{border-color:var(--ac);color:var(--ac)}
 </style></head>
 <body>
 <header class="wrap top"><div class="lg"><span class="dot"></span>Sightline · Customer Database</div><div><a href="/admin/">← Dashboard</a> <button id="out" style="display:none;margin-left:14px">Sign out</button></div></header>
@@ -60,7 +71,7 @@ const app=document.getElementById("app"), outBtn=document.getElementById("out");
 const esc=s=>(s||"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 function toast(m){const e=document.getElementById("toast");e.textContent=m;e.classList.add("show");setTimeout(()=>e.classList.remove("show"),1800);}
 function fmt(ts){const d=new Date(ts);return d.toLocaleDateString([], {month:"short",day:"numeric"})+" · "+d.toLocaleTimeString([], {hour:"numeric",minute:"2-digit"});}
-let sb, rows=[], filter="all", q="", adding=false;
+let sb, rows=[], filter="all", q="", adding=false, tagFilter=null;
 const ORDER=["lead","prospect","customer","archived"];
 
 (async function(){
@@ -96,13 +107,29 @@ async function removeRow(id){ if(!confirm("Delete this contact permanently?"))re
   const {error}=await sb.from("customers").delete().eq("id",id);
   if(error){toast(error.message);return;} rows=rows.filter(x=>x.id!==id); render(); toast("Deleted"); }
 async function addContact(f){
+  const tags=(f.tags.value||"").split(",").map(t=>t.trim()).filter(Boolean);
   const rec={name:f.name.value.trim(),email:f.email.value.trim()||null,phone:f.phone.value.trim()||null,
-    company:f.company.value.trim()||null,status:f.status.value,notes:f.notes.value.trim()||null,source:"manual"};
+    company:f.company.value.trim()||null,status:f.status.value,tags:tags.length?tags:null,
+    notes:f.notes.value.trim()||null,source:"manual"};
   if(!rec.name){toast("Name is required");return;}
   if(!rec.email&&!rec.phone){toast("Add an email or phone");return;}
   const {data,error}=await sb.from("customers").insert(rec).select();
   if(error){toast(error.message);return;}
   if(data&&data[0])rows.unshift(data[0]); adding=false; render(); toast("Contact added");
+}
+async function addTag(id){
+  const r=rows.find(x=>x.id===id); if(!r)return;
+  const t=(prompt("Add a tag (e.g. VIP, referral, follow-up):")||"").trim(); if(!t)return;
+  const tags=[...(r.tags||[])]; if(tags.includes(t)){toast("Already tagged");return;}
+  tags.push(t);
+  const {error}=await sb.from("customers").update({tags}).eq("id",id);
+  if(error){toast(error.message);return;} r.tags=tags; render();
+}
+async function removeTag(id,tag){
+  const r=rows.find(x=>x.id===id); if(!r)return;
+  const tags=(r.tags||[]).filter(t=>t!==tag);
+  const {error}=await sb.from("customers").update({tags:tags.length?tags:null}).eq("id",id);
+  if(error){toast(error.message);return;} r.tags=tags; if(tagFilter&&!rows.some(x=>(x.tags||[]).includes(tagFilter)))tagFilter=null; render();
 }
 
 function render(){
@@ -110,7 +137,9 @@ function render(){
   const by=s=>rows.filter(r=>r.status===s).length;
   const term=q.trim().toLowerCase();
   let shown=filter==="all"?rows:rows.filter(r=>r.status===filter);
-  if(term)shown=shown.filter(r=>[r.name,r.email,r.phone,r.company,r.notes].some(v=>(v||"").toLowerCase().includes(term)));
+  if(term)shown=shown.filter(r=>[r.name,r.email,r.phone,r.company,r.notes].some(v=>(v||"").toLowerCase().includes(term))||(r.tags||[]).some(t=>t.toLowerCase().includes(term)));
+  if(tagFilter)shown=shown.filter(r=>(r.tags||[]).includes(tagFilter));
+  const allTags=[...new Set(rows.flatMap(r=>r.tags||[]))].sort();
   app.innerHTML=`<section class="hd"><h1>Customer database</h1><p>Every lead, prospect and client in one place. Tap a status to move it along.</p></section>
   <div class="kpis">
     <div class="kpi"><div class="n">${rows.length}</div><div class="l">Total contacts</div></div>
@@ -123,11 +152,13 @@ function render(){
     <div class="filters">${["all",...ORDER].map(f=>`<button class="fb ${filter===f?'on':''}" data-f="${f}">${f[0].toUpperCase()+f.slice(1)}${f!=="all"?" "+by(f):" "+rows.length}</button>`).join("")}</div>
     <button class="addbtn" id="addToggle">${adding?"Close":"+ Add contact"}</button>
   </div>
+  ${allTags.length?`<div class="tagbar">${allTags.map(t=>`<button class="tagpill ${tagFilter===t?'on':''}" data-tf="${esc(t)}">${esc(t)}</button>`).join("")}${tagFilter?`<button class="tagclear" id="tagClear">Clear tag ✕</button>`:""}</div>`:""}
   <form class="addform ${adding?'show':''}" id="addform" autocomplete="off">
     <input name="name" placeholder="Full name *" required>
     <input name="company" placeholder="Company">
     <input name="email" type="email" placeholder="Email">
     <input name="phone" placeholder="Phone">
+    <input name="tags" placeholder="Tags — comma separated (e.g. VIP, referral)">
     <select name="status">${ORDER.map(s=>`<option value="${s}">${s[0].toUpperCase()+s.slice(1)}</option>`).join("")}</select>
     <textarea name="notes" placeholder="Notes (optional)"></textarea>
     <div class="row2"><button type="button" class="cancel" id="addCancel">Cancel</button><button type="submit" class="save">Save contact</button></div>
@@ -135,7 +166,8 @@ function render(){
   ${shown.length?shown.map(r=>`<div class="cust">
     <div><div class="nm">${esc(r.name||"(no name)")}</div>${r.company?`<div class="bz">${esc(r.company)}</div>`:""}
       <div class="when">Added ${fmt(r.created_at)}</div>
-      ${r.notes?`<div class="notes">${esc(r.notes)}</div>`:""}</div>
+      ${r.notes?`<div class="notes">${esc(r.notes)}</div>`:""}
+      <div class="tags">${(r.tags||[]).map(t=>`<span class="tagchip" data-tag="${esc(t)}">${esc(t)} <i data-rmtag="${esc(t)}" data-id="${r.id}">×</i></span>`).join("")}<button class="tagadd" data-addtag="${r.id}">+ tag</button></div></div>
     <div class="meta">${r.email?`✉ <a href="mailto:${esc(r.email)}">${esc(r.email)}</a><br>`:""}${r.phone?`☎ <a href="tel:${esc(r.phone)}">${esc(r.phone)}</a>`:""}</div>
     <div class="right"><span class="badge ${r.status}" data-id="${r.id}">${r.status}</span>
       <button class="mini del" data-del="${r.id}">Delete</button></div>
@@ -147,6 +179,11 @@ function render(){
   const af=document.getElementById("addform"); if(af)af.onsubmit=e=>{e.preventDefault();addContact(e.target);};
   document.querySelectorAll(".badge").forEach(b=>b.onclick=()=>{const r=rows.find(x=>x.id===b.dataset.id);if(!r)return;setStatus(r.id,ORDER[(ORDER.indexOf(r.status)+1)%ORDER.length]);});
   document.querySelectorAll("[data-del]").forEach(b=>b.onclick=()=>removeRow(b.dataset.del));
+  document.querySelectorAll(".tagpill").forEach(b=>b.onclick=()=>{tagFilter=tagFilter===b.dataset.tf?null:b.dataset.tf;render();});
+  const tclr=document.getElementById("tagClear"); if(tclr)tclr.onclick=()=>{tagFilter=null;render();};
+  document.querySelectorAll(".tagchip").forEach(b=>b.onclick=e=>{if(e.target.dataset.rmtag)return;tagFilter=b.dataset.tag;render();});
+  document.querySelectorAll("[data-rmtag]").forEach(b=>b.onclick=e=>{e.stopPropagation();removeTag(b.dataset.id,b.dataset.rmtag);});
+  document.querySelectorAll("[data-addtag]").forEach(b=>b.onclick=()=>addTag(b.dataset.addtag));
 }
 </script>
 </body></html>
