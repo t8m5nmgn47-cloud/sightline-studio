@@ -334,6 +334,49 @@
 }
 @media(prefers-reduced-motion:reduce){.hp .float-site,.hp .float-review{animation:none}}
 
+/* ---- offering spec chips (concrete depth) ---- */
+.hp .spec{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 24px}
+.hp .spec span{display:inline-flex;align-items:center;gap:7px;font-family:var(--mono);font-size:.64rem;letter-spacing:.07em;
+  text-transform:uppercase;color:var(--slate);background:var(--cloud);border:1px solid var(--mist);border-radius:99px;padding:7px 12px}
+.hp .spec span::before{content:"";width:5px;height:5px;border-radius:50%;background:var(--teal)}
+.hp .offer.sky .spec span::before{background:var(--w-sky)}
+.hp .offer.amber .spec span::before{background:#E8A93B}
+
+/* ---- BI chart draw-in ---- */
+.hp .bi-fill{opacity:0;transition:opacity 1s ease .5s}
+.hp .bi-line{stroke-dasharray:640;stroke-dashoffset:640;transition:stroke-dashoffset 1.7s cubic-bezier(.3,.6,.2,1) .15s}
+.hp .bi-dot{opacity:0;transition:opacity .5s ease 1.35s}
+.hp .bi-panel.in .bi-fill{opacity:1}
+.hp .bi-panel.in .bi-line{stroke-dashoffset:0}
+.hp .bi-panel.in .bi-dot{opacity:1}
+
+/* ---- PRICING teaser ---- */
+.hp .pricing{background:#fff;padding:94px 0}
+.hp .price-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:50px;align-items:stretch}
+.hp .price-card{position:relative;display:flex;flex-direction:column;background:#fff;border:1px solid var(--mist);border-radius:var(--radius);
+  padding:32px 28px;box-shadow:var(--shadow);transition:transform .2s ease,box-shadow .2s ease}
+.hp .price-card:hover{transform:translateY(-4px);box-shadow:var(--shadow-lg)}
+.hp .price-card.feat{border-color:var(--teal);box-shadow:0 26px 64px -22px rgba(16,182,168,.45)}
+.hp .price-badge{position:absolute;top:-13px;left:50%;transform:translateX(-50%);white-space:nowrap;background:var(--teal);color:#04221f;
+  font-family:var(--mono);font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;font-weight:600;padding:6px 13px;border-radius:99px}
+.hp .price-name{font-family:var(--mono);font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;color:var(--slate-2)}
+.hp .price-amt{font-family:var(--head);font-weight:800;color:var(--navy);font-size:2.5rem;line-height:1;margin:14px 0 6px;display:flex;align-items:baseline;gap:5px}
+.hp .price-amt small{font-size:.95rem;font-weight:600;color:var(--slate-2)}
+.hp .price-sub{color:var(--slate);font-size:.9rem;margin:0 0 20px;min-height:42px}
+.hp .price-feats{list-style:none;margin:0 0 24px;padding:0;display:flex;flex-direction:column;gap:10px;flex:1}
+.hp .price-feats li{display:flex;gap:10px;font-size:.92rem;color:var(--ink);line-height:1.45}
+.hp .price-feats svg{width:18px;height:18px;stroke:var(--teal-ink);flex:none;margin-top:2px}
+.hp .price-card .btn{width:100%;justify-content:center}
+.hp .price-foot{text-align:center;margin-top:32px;color:var(--slate);font-size:.94rem}
+
+@media(max-width:900px){
+  .hp .price-grid{grid-template-columns:1fr;max-width:440px;margin-left:auto;margin-right:auto}
+}
+@media(prefers-reduced-motion:reduce){
+  .hp .bi-fill,.hp .bi-dot{opacity:1;transition:none}
+  .hp .bi-line{stroke-dashoffset:0;transition:none}
+}
+
 /* ---- reveal (scoped, overrides base for a richer feel) ---- */
 .hp .reveal{opacity:0;transform:translateY(22px);transition:opacity .7s cubic-bezier(.2,.6,.2,1),transform .7s cubic-bezier(.2,.6,.2,1)}
 .hp .reveal.in{opacity:1;transform:none}
@@ -512,9 +555,10 @@
     <div class="offer teal reveal">
       <div class="offer-copy">
         <span class="onum">01 / Websites</span>
-        <div><span class="otag">Look sharp</span></div>
+        <div><span class="otag">Built for you</span></div>
         <h3>A site that makes you look as good as you are.</h3>
         <p class="odesc">Pick a style, we make it yours, and you launch a fast, modern website — no drag-and-drop headaches, no agency price tag. Built to win the customer who’s deciding in ten seconds.</p>
+        <div class="spec"><span>7 designer styles</span><span>Hosting included</span><span>Mobile-first</span></div>
         <ul class="feats">
           <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l4.5 4.5L19 7"/></svg>Seven designer styles — clinical, warm, modern &amp; more</li>
           <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l4.5 4.5L19 7"/></svg>Fast on phones, built to be found on Google</li>
@@ -535,9 +579,10 @@
     <div class="offer sky flip reveal">
       <div class="offer-copy">
         <span class="onum">02 / Monitoring</span>
-        <div><span class="otag">Stay safe</span></div>
+        <div><span class="otag">Watched monthly</span></div>
         <h3>A second set of eyes on your business, every month.</h3>
         <p class="odesc">We check your site, your security, and your reviews the way the public already can — then tell you the few things worth fixing, ranked and explained. You’ll know before your customers do.</p>
+        <div class="spec"><span>Website</span><span>Exposure</span><span>Reputation</span></div>
         <ul class="feats">
           <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l4.5 4.5L19 7"/></svg>Website, exposure &amp; reputation in one report</li>
           <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l4.5 4.5L19 7"/></svg>Alerts the moment something changes</li>
@@ -563,9 +608,10 @@
     <div class="offer amber reveal">
       <div class="offer-copy">
         <span class="onum">03 / Marketing</span>
-        <div><span class="otag">Get found</span></div>
+        <div><span class="otag">Growth engine</span></div>
         <h3>The steady drip that turns happy customers into new ones.</h3>
         <p class="odesc">Our marketing engine nudges you to ask for reviews at the right moment, hands you video ideas and ready-to-post hooks, and keeps your listings working — no marketing degree required.</p>
+        <div class="spec"><span>Reviews</span><span>Social</span><span>Local search</span></div>
         <ul class="feats">
           <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l4.5 4.5L19 7"/></svg>Review requests that actually get sent</li>
           <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l4.5 4.5L19 7"/></svg>Short-video plans &amp; hooks worth stealing</li>
@@ -608,15 +654,15 @@
           <div class="chart-head"><span class="c-label">Presence score</span><span class="c-up">▲ +21 pts</span></div>
           <svg viewBox="0 0 300 96" preserveAspectRatio="none">
             <defs><linearGradient id="biFill" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#3D7DD6" stop-opacity=".45"/><stop offset="1" stop-color="#3D7DD6" stop-opacity="0"/></linearGradient></defs>
-            <path d="M0,74 L50,68 L100,70 L150,52 L200,40 L250,26 L300,14 L300,96 L0,96 Z" fill="url(#biFill)"/>
-            <path d="M0,74 L50,68 L100,70 L150,52 L200,40 L250,26 L300,14" fill="none" stroke="#3D7DD6" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
-            <circle cx="300" cy="14" r="4" fill="#10B6A8"/>
+            <path class="bi-fill" d="M0,74 L50,68 L100,70 L150,52 L200,40 L250,26 L300,14 L300,96 L0,96 Z" fill="url(#biFill)"/>
+            <path class="bi-line" d="M0,74 L50,68 L100,70 L150,52 L200,40 L250,26 L300,14" fill="none" stroke="#3D7DD6" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+            <circle class="bi-dot" cx="300" cy="14" r="4" fill="#10B6A8"/>
           </svg>
         </div>
         <div class="bi-stats">
-          <div class="bi-stat"><span class="bl">Presence score</span><span class="bv"><span class="from">61</span>→ 82</span></div>
-          <div class="bi-stat"><span class="bl">Leads / month</span><span class="bv">+38% <em>▲</em></span></div>
-          <div class="bi-stat"><span class="bl">Found on Google</span><span class="bv"><span class="from">#7</span>→ #1</span></div>
+          <div class="bi-stat"><span class="bl">Presence score</span><span class="bv"><span class="from">61</span>→ <span data-count data-from="61" data-to="82">82</span></span></div>
+          <div class="bi-stat"><span class="bl">Leads / month</span><span class="bv"><span data-count data-from="0" data-to="38" data-prefix="+" data-suffix="%">+38%</span> <em>▲</em></span></div>
+          <div class="bi-stat"><span class="bl">Found on Google</span><span class="bv"><span class="from">#7</span>→ <span data-count data-from="7" data-to="1" data-prefix="#">#1</span></span></div>
         </div>
       </div>
     </div>
@@ -695,6 +741,54 @@
   </div>
 </section>
 
+<!-- ===================== PRICING ===================== -->
+<section class="pricing">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="kicker">Simple, honest pricing</span>
+      <h2>Start free. Add what you need.</h2>
+      <p>No setup surprises, no contracts. One clear price for each piece — mix and match as your business grows.</p>
+    </div>
+    <div class="price-grid">
+      <div class="price-card reveal">
+        <span class="price-name">Free scan</span>
+        <div class="price-amt">$0</div>
+        <p class="price-sub">See exactly where you stand — no card, no signup.</p>
+        <ul class="price-feats">
+          <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l4.5 4.5L19 7"/></svg>Website, exposure &amp; reputation snapshot</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l4.5 4.5L19 7"/></svg>Plain-English report, emailed to you</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l4.5 4.5L19 7"/></svg>Nothing to install</li>
+        </ul>
+        <a class="btn btn-ghost btn-lg" href="/free-scan">Get my free scan</a>
+      </div>
+      <div class="price-card feat reveal" style="transition-delay:.08s">
+        <span class="price-badge">Most popular</span>
+        <span class="price-name">Website</span>
+        <div class="price-amt">$99.99<small>/mo</small></div>
+        <p class="price-sub">$0 down — or $49.99/mo with $299.99 to start.</p>
+        <ul class="price-feats">
+          <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l4.5 4.5L19 7"/></svg>A modern site, built for you &amp; hosted</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l4.5 4.5L19 7"/></svg>Seven designer styles to choose from</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l4.5 4.5L19 7"/></svg>You approve every page before launch</li>
+        </ul>
+        <a class="btn btn-teal btn-lg" href="/start">Start your site</a>
+      </div>
+      <div class="price-card reveal" style="transition-delay:.16s">
+        <span class="price-name">Monitoring</span>
+        <div class="price-amt">$49<small>/mo</small></div>
+        <p class="price-sub">Or $490/year — two months free.</p>
+        <ul class="price-feats">
+          <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l4.5 4.5L19 7"/></svg>A full report every month</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l4.5 4.5L19 7"/></svg>Alerts the moment something changes</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l4.5 4.5L19 7"/></svg>Cancel anytime · 30-day money-back</li>
+        </ul>
+        <a class="btn btn-ghost btn-lg" href="/how-it-works">See what's checked</a>
+      </div>
+    </div>
+    <p class="price-foot reveal">Marketing &amp; social available as add-ons · <a href="/pricing">See full pricing →</a></p>
+  </div>
+</section>
+
 <!-- ===================== CLOSE ===================== -->
 <section class="dark close">
   <div class="wrap">
@@ -749,21 +843,54 @@
 </footer>
 <script src="/assets/js/main.js" defer></script>
 <script>
-/* hero presence-score count-up (skips when reduced motion is preferred) */
+/* homepage motion & micro-interactions (all skipped when reduced motion is preferred) */
 (function(){
-  try{ if(window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches) return; }catch(e){}
-  var num=document.querySelector('.hp .ring b'), arc=document.querySelector('.hp .ring-arc');
-  if(!num||!arc) return;
-  var target=parseInt(num.textContent,10)||0, FULL=314, END=82, start=null, DUR=1400;
-  num.textContent='0'; arc.setAttribute('stroke-dashoffset', FULL);
-  function step(ts){
-    if(!start) start=ts;
-    var p=Math.min((ts-start)/DUR,1), e=1-Math.pow(1-p,3);
-    num.textContent=Math.round(target*e);
-    arc.setAttribute('stroke-dashoffset', FULL-(FULL-END)*e);
-    if(p<1) requestAnimationFrame(step);
-  }
-  requestAnimationFrame(function(){ requestAnimationFrame(step); });
+  var reduce=false;
+  try{ reduce=window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches; }catch(e){}
+  if(reduce) return;
+
+  var ease=function(p){ return 1-Math.pow(1-p,3); };
+
+  /* 1. hero presence-score count-up + ring fill */
+  (function(){
+    var num=document.querySelector('.hp .ring b'), arc=document.querySelector('.hp .ring-arc');
+    if(!num||!arc) return;
+    var target=parseInt(num.textContent,10)||0, FULL=314, END=82, start=null, DUR=1400;
+    num.textContent='0'; arc.setAttribute('stroke-dashoffset', FULL);
+    function step(ts){ if(!start)start=ts; var p=Math.min((ts-start)/DUR,1), e=ease(p);
+      num.textContent=Math.round(target*e); arc.setAttribute('stroke-dashoffset', FULL-(FULL-END)*e);
+      if(p<1) requestAnimationFrame(step); }
+    requestAnimationFrame(function(){ requestAnimationFrame(step); });
+  })();
+
+  /* 2. BI stat count-ups when the section scrolls into view */
+  (function(){
+    var sec=document.querySelector('.hp .bi'); if(!sec) return;
+    function run(el){
+      var from=parseFloat(el.getAttribute('data-from'))||0, to=parseFloat(el.getAttribute('data-to'))||0,
+          pre=el.getAttribute('data-prefix')||'', suf=el.getAttribute('data-suffix')||'', start=null, DUR=1500;
+      function step(ts){ if(!start)start=ts; var p=Math.min((ts-start)/DUR,1), e=ease(p);
+        el.textContent=pre+Math.round(from+(to-from)*e)+suf; if(p<1) requestAnimationFrame(step); }
+      requestAnimationFrame(step);
+    }
+    if(!('IntersectionObserver' in window)){ return; }
+    var io=new IntersectionObserver(function(es){ es.forEach(function(en){ if(en.isIntersecting){
+      en.target.querySelectorAll('[data-count]').forEach(run); io.unobserve(en.target); } }); },{rootMargin:'0px 0px -18% 0px'});
+    io.observe(sec);
+  })();
+
+  /* 3. subtle hero parallax (fine-pointer devices only) */
+  (function(){
+    var hero=document.querySelector('.hp .sl-hero'), art=document.querySelector('.hp .sl-hero-art');
+    if(!hero||!art) return;
+    try{ if(!matchMedia('(pointer:fine)').matches) return; }catch(e){ return; }
+    art.style.transition='transform .3s cubic-bezier(.2,.6,.2,1)';
+    hero.addEventListener('pointermove', function(ev){
+      var r=hero.getBoundingClientRect(), dx=(ev.clientX-r.left)/r.width-0.5, dy=(ev.clientY-r.top)/r.height-0.5;
+      art.style.transform='translate('+(dx*16).toFixed(1)+'px,'+(dy*13).toFixed(1)+'px)';
+    });
+    hero.addEventListener('pointerleave', function(){ art.style.transform=''; });
+  })();
 })();
 </script>
 </body>
