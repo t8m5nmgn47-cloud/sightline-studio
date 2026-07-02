@@ -42,9 +42,9 @@ h1,h2,h3,h4{overflow-wrap:break-word}
 /* HERO cover */
 .hero{position:relative;min-height:100svh;display:flex;align-items:flex-end;color:#fff;overflow:hidden;isolation:isolate}
 .hero-bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:-2;animation:kb 16s var(--ease) forwards}
-.hero-bg-vid{opacity:0;transition:opacity .8s var(--ease);animation:none}
-.hero.has-court .hero-bg-vid{opacity:1}
-@media(prefers-reduced-motion:reduce){.hero-bg-vid{display:none}}
+.hero-court-img{transform-origin:62% 40%;animation:courtpull 9s var(--ease) forwards;will-change:transform;backface-visibility:hidden;transform:translateZ(0)}
+@keyframes courtpull{from{transform:scale(1.6)}to{transform:scale(1)}}
+@media(prefers-reduced-motion:reduce){.hero-court-img{animation:none;transform:none}}
 @keyframes kb{from{transform:scale(1.12)}to{transform:scale(1)}}
 .hero-fallback{position:absolute;inset:0;z-index:-2;background:
   radial-gradient(125% 95% at 82% -12%, color-mix(in srgb, var(--p) 42%, #161a22) 0%, transparent 56%),
@@ -258,8 +258,7 @@ h1,h2,h3,h4{overflow-wrap:break-word}
   <a class="navcta" href="#contact">Request a consultation</a>
 </nav>
 <header class="hero" id="top" data-qc-section="hero">
-  <img class="hero-bg" src="/assets/stock/law-court.jpg" alt="Historic courtroom — The Vaughn Law Offices, PLLC">
-  <video class="hero-bg hero-bg-vid" muted playsinline preload="metadata" poster="/assets/video/vaughn-hero-court-poster.jpg" aria-hidden="true"><source src="/assets/video/vaughn-hero-court.mp4" type="video/mp4"></video>
+  <img class="hero-bg hero-court-img" src="/assets/stock/law-court.jpg" alt="Historic courtroom — The Vaughn Law Offices, PLLC">
   <div class="hero-scrim"></div>
   <div class="wrap hero-inner">
     <span class="kicker">Trusted counsel · Lone Tree</span>
@@ -338,6 +337,4 @@ var io=new IntersectionObserver(function(e){e.forEach(function(x){if(x.isInterse
 document.querySelectorAll('.rv').forEach(function(el){io.observe(el)});
 var cw=document.getElementById('chatw');if(cw){document.getElementById('chatBtn').onclick=function(){cw.classList.toggle('open')};document.getElementById('chatX').onclick=function(){cw.classList.remove('open')};document.querySelectorAll('.cchips button').forEach(function(btn){btn.onclick=function(){var body=document.getElementById('chatBody');var chips=body.querySelector('.cchips');var u=document.createElement('div');u.className='cmsg cuser';u.textContent=btn.textContent;body.insertBefore(u,chips);var r=document.createElement('div');r.className='cmsg';r.style.marginTop='10px';r.textContent='Thanks! A team member will be right with you — or call and we’ll help straight away.';setTimeout(function(){body.insertBefore(r,chips);body.scrollTop=body.scrollHeight},480);body.scrollTop=body.scrollHeight}})}})();
 </script>
-<script>(function(){var car=document.getElementById('car');if(!car)return;var tr=document.getElementById('carTrack'),dots=[].slice.call(car.querySelectorAll('.cd')),n=tr.children.length,idx=0,timer;function go(i){idx=(i+n)%n;tr.style.transform='translateX('+(-idx*100)+'%)';dots.forEach(function(d,j){d.classList.toggle('on',j===idx)})}function rs(){clearInterval(timer);timer=setInterval(function(){go(idx+1)},5000)}var pv=document.getElementById('carPrev'),nx=document.getElementById('carNext');if(pv)pv.onclick=function(){go(idx-1);rs()};if(nx)nx.onclick=function(){go(idx+1);rs()};dots.forEach(function(d){d.onclick=function(){go(+d.getAttribute('data-i'));rs()}});var x0=null;car.addEventListener('touchstart',function(e){x0=e.touches[0].clientX},{passive:true});car.addEventListener('touchend',function(e){if(x0==null)return;var dx=e.changedTouches[0].clientX-x0;if(Math.abs(dx)>40){go(idx+(dx<0?1:-1));rs()}x0=null});rs();})();</script>
-<script>(function(){var h=document.querySelector('.hero'),v=h&&h.querySelector('.hero-bg-vid');if(!h||!v)return;try{if(window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches)return;}catch(e){}v.addEventListener('loadeddata',function(){h.classList.add('has-court');var p=v.play();if(p&&p.catch)p.catch(function(){});});try{v.load();}catch(e){}})();</script>
-</body></html>
+<script>(function(){var car=document.getElementById('car');if(!car)return;var tr=document.getElementById('carTrack'),dots=[].slice.call(car.querySelectorAll('.cd')),n=tr.children.length,idx=0,timer;function go(i){idx=(i+n)%n;tr.style.transform='translateX('+(-idx*100)+'%)';dots.forEach(function(d,j){d.classList.toggle('on',j===idx)})}function rs(){clearInterval(timer);timer=setInterval(function(){go(idx+1)},5000)}var pv=document.getElementById('carPrev'),nx=document.getElementById('carNext');if(pv)pv.onclick=function(){go(idx-1);rs()};if(nx)nx.onclick=function(){go(idx+1);rs()};dots.forEach(function(d){d.onclick=function(){go(+d.getAttribute('data-i'));rs()}});var x0=null;car.addEventListener('touchstart',function(e){x0=e.touches[0].clientX},{passive:true});car.addEventListener('touchend',function(e){if(x0==null)return;var dx=e.changedTouches[0].clientX-x0;if(Math.abs(dx)>40){go(idx+(dx<0?1:-1));rs()}x0=null});rs();})();</script></body></html>
