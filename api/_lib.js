@@ -28,12 +28,13 @@ export function readBody(req) {
   return {};
 }
 
-// Insert a lead into Supabase via the REST API (no SDK dependency).
-export async function insertLead(row) {
+// Insert a row into a Supabase table via the REST API (no SDK dependency).
+// Uses the service-role key, so it bypasses RLS — keep this server-side only.
+export async function sbInsert(table, row) {
   if (!SUPABASE_URL || !SUPABASE_SERVICE_ROLE_KEY) {
     throw new Error("Supabase env vars are not configured");
   }
-  const res = await fetch(`${SUPABASE_URL}/rest/v1/leads`, {
+  const res = await fetch(`${SUPABASE_URL}/rest/v1/${table}`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -48,6 +49,10 @@ export async function insertLead(row) {
     throw new Error(`Supabase insert failed (${res.status}): ${detail}`);
   }
 }
+
+export const insertLead = (row) => sbInsert("leads", row);
+export const insertOrder = (row) => sbInsert("orders", row);
+export const insertCustomer = (row) => sbInsert("customers", row);
 
 // Optional Slack notification. No-ops if SLACK_WEBHOOK_URL is unset.
 // Never throws — a failed notification must not fail the lead capture.

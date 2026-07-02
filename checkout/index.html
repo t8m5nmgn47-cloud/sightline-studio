@@ -105,7 +105,7 @@ const ADDONS=[
  {id:"intake",name:"Patient Intake Forms",price:20,blurb:"Secure HIPAA-BAA new-patient forms."},
  {id:"legal",name:"Legal Pages",price:15,blurb:"Privacy, terms, cookies — auto-updating."},
  {id:"logo",name:"Logo &amp; Brand Kit",price:0,blurb:"Free wordmark, monogram &amp; favicon."},
- {id:"crm",name:"Customer Database (CRM)",price:null,blurb:"Your contacts, leads &amp; clients in one secure place (Supabase-backed)."},
+ {id:"crm",name:"Customer Database (CRM)",price:19,blurb:"Your contacts, leads &amp; clients in one secure place (Supabase-backed)."},
  {id:"email",name:"Secure Email",price:null,blurb:"Professional email at your domain, encrypted."}
 ];
 let planId="zerodown"; const chosen=new Set();
@@ -149,11 +149,9 @@ $("#go").addEventListener("click",async()=>{
    first_name:$("#fname").value.trim()||null,last_name:$("#lname").value.trim()||null,
    email,phone:$("#phone").value.trim()||null,domain:$("#domain").value.trim()||null,notes:$("#notes").value.trim()||null };
  let saved=false;
- try{const {createClient}=await import("https://esm.sh/@supabase/supabase-js@2");
-  const sb=createClient(SUPA_URL,SUPA_KEY);
-  const {error}=await sb.from("orders").insert(order);saved=!error;
-  if(error)console.warn("order insert:",error.message);
- }catch(e){console.warn("supabase load failed",e);}
+ try{const res=await fetch("/api/order",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(order)});
+  saved=res.ok; if(!res.ok)console.warn("order insert failed:",res.status);
+ }catch(e){console.warn("order post failed",e);}
  if(!saved){
   const body="New order%0D%0A"+Object.entries(order).map(([k,v])=>k+': '+(typeof v==='object'?JSON.stringify(v):(v||''))).join('%0D%0A');
   window.location.href="mailto:"+CONTACT_EMAIL+"?subject="+encodeURIComponent("New order"+(BIZ?(" — "+BIZ):""))+"&body="+body; return;
