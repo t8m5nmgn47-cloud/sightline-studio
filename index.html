@@ -3,12 +3,12 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Sightline — see your business the way the public already does</title>
-<meta name="description" content="A plain-English report on your website, security, and reviews — built only from public information. Start with a free scan. No signup, nothing to install.">
+<title>Sightline — websites, monitoring & marketing for local business</title>
+<meta name="description" content="One studio for your whole online presence: a website that wins customers, plain-English monitoring that keeps you safe, and marketing that gets you found. Start with a free scan — no signup, nothing to install.">
 <link rel="canonical" href="https://sightline-studio.vercel.app/">
 <meta property="og:type" content="website">
-<meta property="og:title" content="Sightline — see your business the way the public already does">
-<meta property="og:description" content="A plain-English report on your website, security, and reviews — built only from public information. Start with a free scan. No signup, nothing to install.">
+<meta property="og:title" content="Sightline — websites, monitoring & marketing for local business">
+<meta property="og:description" content="One studio for your whole online presence: a site that wins customers, monitoring that keeps you safe, and marketing that gets you found. Start with a free scan.">
 <meta property="og:url" content="https://sightline-studio.vercel.app/">
 <meta property="og:site_name" content="Sightline">
 <meta name="twitter:card" content="summary_large_image">
@@ -21,13 +21,215 @@
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,600;12..96,700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,600;12..96,700;12..96,800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/assets/css/styles.css">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"Sightline","url":"https://sightline-studio.vercel.app","slogan":"See your business the way the public already does.","description":"A plain-English report on your website, security, and reviews — built only from public information. Start with a free scan. No signup, nothing to install."}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"Sightline","url":"https://sightline-studio.vercel.app","slogan":"Look sharp. Stay safe. Get found.","description":"One studio for your whole online presence: websites, monitoring and marketing for local business. Start with a free scan."}</script>
 <script>window.va=window.va||function(){(window.vaq=window.vaq||[]).push(arguments);};</script>
 <script defer src="/_vercel/insights/script.js"></script>
+<style>
+/* ============================================================
+   Homepage 2.0 — "Mission control for your online presence"
+   Scoped under .hp so nothing here can touch other pages.
+   ============================================================ */
+.hp{--mono:'JetBrains Mono',ui-monospace,SFMono-Regular,Menlo,monospace;
+  --w-teal:#10B6A8; --w-sky:#3D7DD6; --w-amber:#E8A93B;
+  --ink-hi:#EAF2FF; --ink-mid:#9DB2CE; --ink-low:#5E76A0;
+  --line:rgba(255,255,255,.10); --glass:rgba(255,255,255,.045);}
+.hp .kicker{font-family:var(--mono);font-weight:600;font-size:.74rem;letter-spacing:.22em;text-transform:uppercase}
+
+/* ---- shared dark shell / atmosphere ---- */
+.hp .dark{position:relative;background:#08203f;color:var(--ink-hi);overflow:clip}
+.hp .dark::before{content:"";position:absolute;inset:0;
+  background:
+    radial-gradient(60% 55% at 15% 0%, rgba(16,182,168,.20), transparent 60%),
+    radial-gradient(55% 50% at 90% 15%, rgba(61,125,214,.22), transparent 60%),
+    radial-gradient(70% 60% at 60% 110%, rgba(11,36,71,.9), transparent 60%),
+    #0B2447;}
+.hp .dark::after{content:"";position:absolute;inset:0;opacity:.5;pointer-events:none;
+  background-image:radial-gradient(rgba(255,255,255,.10) 1px,transparent 1.4px);
+  background-size:26px 26px;
+  -webkit-mask-image:radial-gradient(80% 70% at 50% 30%,#000,transparent 85%);
+          mask-image:radial-gradient(80% 70% at 50% 30%,#000,transparent 85%);}
+.hp .dark > .wrap{position:relative;z-index:2}
+
+/* ---- HERO ---- */
+.hp .sl-hero{padding:64px 0 86px}
+.hp .sl-hero-grid{display:grid;grid-template-columns:1.08fr .92fr;gap:56px;align-items:center}
+.hp .sl-hero .kicker{color:var(--w-teal);display:inline-flex;align-items:center;gap:10px;margin-bottom:22px}
+.hp .sl-hero .kicker::before{content:"";width:26px;height:1px;background:linear-gradient(90deg,var(--w-teal),transparent)}
+.hp .sl-h1{font-family:var(--head);font-weight:800;color:#fff;line-height:.98;letter-spacing:-.02em;
+  font-size:clamp(2.9rem,6.4vw,5rem);margin:0 0 22px}
+.hp .sl-h1 span{display:block}
+.hp .sl-h1 .w1{color:var(--w-teal)} .hp .sl-h1 .w2{color:var(--w-sky)} .hp .sl-h1 .w3{color:var(--w-amber)}
+.hp .sl-lede{color:var(--ink-mid);font-size:1.18rem;line-height:1.6;max-width:33ch;margin:0 0 30px}
+.hp .sl-lede b{color:var(--ink-hi);font-weight:600}
+.hp .sl-hero-actions{display:flex;gap:14px;flex-wrap:wrap;align-items:center}
+.hp .sl-hero-actions .btn-teal{box-shadow:0 12px 30px rgba(16,182,168,.28)}
+.hp .btn-ghost-d{background:rgba(255,255,255,.04);color:#fff;border:1.5px solid var(--line)}
+.hp .btn-ghost-d:hover{border-color:rgba(255,255,255,.4);background:rgba(255,255,255,.08);transform:translateY(-1px)}
+.hp .sl-hero-micro{margin:22px 0 0;color:var(--ink-low);font-size:.9rem;font-family:var(--mono);letter-spacing:.02em}
+
+/* ---- HERO instrument panel ---- */
+.hp .panel{position:relative;border:1px solid var(--line);border-radius:20px;
+  background:linear-gradient(180deg,rgba(255,255,255,.06),rgba(255,255,255,.02));
+  box-shadow:0 40px 90px -30px rgba(0,0,0,.6),inset 0 1px 0 rgba(255,255,255,.08);
+  padding:20px;overflow:hidden}
+.hp .panel-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px}
+.hp .panel-title{font-family:var(--mono);font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-low)}
+.hp .live{display:inline-flex;align-items:center;gap:7px;font-family:var(--mono);font-size:.66rem;letter-spacing:.16em;color:var(--w-teal);text-transform:uppercase}
+.hp .live i{width:7px;height:7px;border-radius:50%;background:var(--w-teal);box-shadow:0 0 0 0 rgba(16,182,168,.55);animation:sl-pulse 2.4s infinite}
+@keyframes sl-pulse{0%{box-shadow:0 0 0 0 rgba(16,182,168,.5)}70%{box-shadow:0 0 0 9px rgba(16,182,168,0)}100%{box-shadow:0 0 0 0 rgba(16,182,168,0)}}
+.hp .scanwrap{position:relative;border-radius:14px;background:rgba(3,14,30,.55);border:1px solid var(--line);padding:18px 18px 20px;overflow:hidden}
+.hp .scanwrap::after{content:"";position:absolute;left:0;right:0;top:0;height:38%;
+  background:linear-gradient(180deg,rgba(16,182,168,.18),transparent);animation:sl-scan 4.2s cubic-bezier(.4,0,.2,1) infinite}
+@keyframes sl-scan{0%{transform:translateY(-100%)}100%{transform:translateY(320%)}}
+.hp .gauge{display:flex;align-items:center;gap:18px}
+.hp .ring{position:relative;width:104px;height:104px;flex:none}
+.hp .ring b{position:absolute;inset:0;display:grid;place-items:center;font-family:var(--head);font-weight:700;font-size:1.9rem;color:#fff}
+.hp .ring small{position:absolute;left:0;right:0;bottom:14px;text-align:center;font-family:var(--mono);font-size:.55rem;letter-spacing:.18em;color:var(--ink-low);text-transform:uppercase}
+.hp .metrics{display:flex;flex-direction:column;gap:10px;flex:1}
+.hp .metric{display:grid;grid-template-columns:1fr auto;gap:4px 12px;align-items:center}
+.hp .metric span{font-size:.82rem;color:var(--ink-mid)}
+.hp .metric b{font-family:var(--mono);font-size:.82rem;color:#fff}
+.hp .bar{grid-column:1/-1;height:5px;border-radius:99px;background:rgba(255,255,255,.10);overflow:hidden}
+.hp .bar i{display:block;height:100%;border-radius:99px}
+.hp .rows{margin-top:16px;display:flex;flex-direction:column;gap:9px}
+.hp .row{display:flex;align-items:center;gap:11px;font-size:.86rem;color:var(--ink-mid);
+  background:rgba(255,255,255,.03);border:1px solid var(--line);border-radius:11px;padding:9px 12px}
+.hp .row .dot{width:8px;height:8px;border-radius:50%;flex:none}
+.hp .dot.red{background:var(--w-amber)} .hp .dot.blue{background:var(--w-sky)} .hp .dot.green{background:var(--w-teal)}
+.hp .row .tag{margin-left:auto;font-family:var(--mono);font-size:.6rem;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-low)}
+
+/* ---- marquee of the three verbs -> trust strip ---- */
+.hp .hero-strip{margin-top:52px;padding-top:26px;border-top:1px solid var(--line);
+  display:flex;gap:26px;flex-wrap:wrap;align-items:center;color:var(--ink-low);font-family:var(--mono);font-size:.74rem;letter-spacing:.08em}
+.hp .hero-strip svg{width:16px;height:16px;stroke:var(--ink-mid);vertical-align:-3px;margin-right:7px}
+.hp .hero-strip .sep{color:rgba(255,255,255,.2)}
+
+/* ---- OFFERINGS ---- */
+.hp .offers{background:var(--cloud);padding:96px 0 40px}
+.hp .sec-head{max-width:660px;margin:0 auto 60px;text-align:center}
+.hp .sec-head .kicker{color:var(--teal-ink);display:block;margin-bottom:14px}
+.hp .sec-head h2{font-size:clamp(1.9rem,3.6vw,2.7rem);font-weight:700}
+.hp .sec-head p{color:var(--slate);font-size:1.1rem;margin:0}
+
+.hp .offer{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;
+  padding:60px 0;border-top:1px solid var(--mist)}
+.hp .offer:first-of-type{border-top:0}
+.hp .offer.flip .offer-media{order:-1}
+.hp .offer-copy .onum{font-family:var(--mono);font-size:.8rem;letter-spacing:.2em;color:var(--slate-2)}
+.hp .offer-copy .otag{display:inline-flex;align-items:center;gap:9px;margin:14px 0 16px;
+  font-family:var(--mono);font-size:.72rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;
+  padding:6px 12px;border-radius:99px}
+.hp .offer-copy h3{font-family:var(--head);font-weight:700;font-size:clamp(1.6rem,2.8vw,2.15rem);line-height:1.08;margin:0 0 14px;color:var(--navy)}
+.hp .offer-copy .odesc{color:var(--slate);font-size:1.05rem;margin:0 0 22px;max-width:46ch}
+.hp .feats{list-style:none;margin:0 0 26px;padding:0;display:flex;flex-direction:column;gap:12px}
+.hp .feats li{display:flex;gap:12px;align-items:flex-start;color:var(--ink);font-size:.98rem}
+.hp .feats svg{width:20px;height:20px;flex:none;margin-top:1px}
+.hp .link-cta{display:inline-flex;align-items:center;gap:9px;font-family:var(--body);font-weight:600;font-size:1rem;
+  padding:12px 22px;border-radius:999px;color:#fff;transition:transform .15s,box-shadow .15s}
+.hp .link-cta svg{width:18px;height:18px}
+.hp .link-cta:hover{transform:translateY(-1px);text-decoration:none}
+
+/* per-offer accent theming */
+.hp .offer.teal  .otag{color:var(--teal-ink);background:rgba(16,182,168,.12)} .hp .offer.teal .otag i,.hp .offer.teal .feats svg{color:var(--teal-ink);stroke:var(--teal-ink)}
+.hp .offer.teal  .link-cta{background:var(--teal);color:#04221f}.hp .offer.teal .link-cta:hover{box-shadow:0 12px 26px rgba(16,182,168,.32)}
+.hp .offer.sky   .otag{color:#295da8;background:rgba(61,125,214,.13)} .hp .offer.sky .feats svg{stroke:var(--w-sky)}
+.hp .offer.sky   .link-cta{background:var(--w-sky)}.hp .offer.sky .link-cta:hover{box-shadow:0 12px 26px rgba(61,125,214,.32)}
+.hp .offer.amber .otag{color:#9a6a12;background:rgba(232,169,59,.16)} .hp .offer.amber .feats svg{stroke:#c98a1e}
+.hp .offer.amber .link-cta{background:#E8A93B;color:#3a2803}.hp .offer.amber .link-cta:hover{box-shadow:0 12px 26px rgba(232,169,59,.36)}
+
+/* offer media cards */
+.hp .media{position:relative;border-radius:var(--radius);padding:26px;overflow:hidden;
+  border:1px solid var(--mist);box-shadow:var(--shadow-lg);min-height:300px}
+.hp .media.d{background:#0B2447;border-color:transparent;color:#fff}
+.hp .media .m-kicker{font-family:var(--mono);font-size:.66rem;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-low);margin-bottom:16px}
+/* websites media: browser windows stack */
+.hp .win{position:absolute;border-radius:12px;overflow:hidden;box-shadow:0 20px 45px -12px rgba(11,36,71,.4);border:1px solid rgba(255,255,255,.6)}
+.hp .win .tb{height:22px;background:#fff;display:flex;align-items:center;gap:5px;padding:0 9px;border-bottom:1px solid var(--mist)}
+.hp .win .tb i{width:6px;height:6px;border-radius:50%;background:var(--mist)}
+.hp .win .bd{padding:12px}
+.hp .win .hh{height:9px;border-radius:4px;background:var(--navy);width:52%;margin-bottom:8px}
+.hp .win .ll{height:6px;border-radius:4px;background:var(--mist);margin-bottom:6px}
+.hp .win .ll.s{width:70%}
+.hp .win .btnm{margin-top:10px;height:16px;width:64px;border-radius:8px;background:var(--teal)}
+.hp .win.a{top:34px;left:32px;width:60%;background:#fff}
+.hp .win.b{bottom:30px;right:26px;width:52%;background:#fff;transform:rotate(3deg)}
+.hp .win.b .hh{background:var(--teal-ink)}.hp .win.b .btnm{background:var(--navy)}
+.hp .chipset{position:absolute;bottom:20px;left:26px;display:flex;gap:7px;flex-wrap:wrap;max-width:44%}
+.hp .chip{font-family:var(--mono);font-size:.6rem;letter-spacing:.08em;background:#fff;border:1px solid var(--mist);color:var(--slate);padding:5px 9px;border-radius:99px}
+/* monitoring media: readout on dark */
+.hp .mon-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-top:6px}
+.hp .stat{background:rgba(255,255,255,.05);border:1px solid var(--line);border-radius:13px;padding:14px}
+.hp .stat span{font-size:.72rem;color:var(--ink-mid);display:block;margin-bottom:6px}
+.hp .stat b{font-family:var(--head);font-size:1.9rem;font-weight:700}
+.hp .stat.t-teal b{color:var(--w-teal)}.hp .stat.t-sky b{color:var(--w-sky)}.hp .stat.t-amber b{color:var(--w-amber)}
+.hp .spark{grid-column:1/-1;display:flex;align-items:flex-end;gap:6px;height:56px;background:rgba(255,255,255,.04);border:1px solid var(--line);border-radius:13px;padding:12px}
+.hp .spark i{flex:1;border-radius:4px 4px 0 0;background:linear-gradient(180deg,var(--w-sky),rgba(61,125,214,.25))}
+/* marketing media */
+.hp .media.warm{background:linear-gradient(160deg,#fff7ec,#fdeccf);border-color:#f3d9a6}
+.hp .mk-card{background:#fff;border:1px solid #f0dcae;border-radius:14px;padding:14px 16px;box-shadow:0 10px 26px -12px rgba(154,106,18,.4);margin-bottom:12px}
+.hp .mk-card .mk-top{display:flex;align-items:center;gap:9px;margin-bottom:8px}
+.hp .mk-card .av{width:26px;height:26px;border-radius:50%;background:linear-gradient(135deg,#E8A93B,#d98f1e)}
+.hp .mk-card .stars{color:#E8A93B;letter-spacing:2px;font-size:.9rem}
+.hp .mk-card p{margin:0;font-size:.84rem;color:var(--slate)}
+.hp .mk-pill{display:inline-flex;align-items:center;gap:7px;background:#fff;border:1px solid #f0dcae;border-radius:99px;padding:7px 13px;font-size:.78rem;color:#9a6a12;font-weight:600;margin-right:8px}
+
+/* ---- how it fits ---- */
+.hp .fits{background:#fff;padding:70px 0 20px}
+.hp .fit-row{display:flex;align-items:center;justify-content:center;gap:14px;flex-wrap:wrap;margin-top:34px}
+.hp .fit-node{display:flex;flex-direction:column;align-items:center;gap:10px;width:150px;text-align:center}
+.hp .fit-node .ic{width:56px;height:56px;border-radius:16px;display:grid;place-items:center;background:var(--cloud);border:1px solid var(--mist)}
+.hp .fit-node .ic svg{width:26px;height:26px;stroke:var(--navy)}
+.hp .fit-node b{font-family:var(--head);font-size:1rem;color:var(--navy)}
+.hp .fit-node span{font-size:.82rem;color:var(--slate)}
+.hp .fit-arrow{color:var(--slate-2);flex:none}
+.hp .fit-arrow svg{width:26px;height:26px}
+
+/* ---- trust ---- */
+.hp .trust2{background:var(--cloud);padding:80px 0}
+.hp .t-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:44px}
+.hp .t-card{background:#fff;border:1px solid var(--mist);border-radius:var(--radius);padding:26px;box-shadow:var(--shadow)}
+.hp .t-card .ic{width:46px;height:46px;border-radius:12px;background:rgba(16,182,168,.12);display:grid;place-items:center;margin-bottom:16px}
+.hp .t-card .ic svg{width:24px;height:24px;stroke:var(--teal-ink)}
+.hp .t-card h3{font-size:1.12rem;margin:0 0 8px}
+.hp .t-card p{color:var(--slate);font-size:.95rem;margin:0}
+
+/* ---- pricing + final CTA ---- */
+.hp .close{padding:96px 0}
+.hp .close .wrap{text-align:center}
+.hp .close .kicker{color:var(--w-teal);display:block;margin-bottom:16px}
+.hp .close h2{color:#fff;font-size:clamp(2rem,4vw,3rem);font-weight:800;letter-spacing:-.02em;margin:0 0 14px}
+.hp .close p{color:var(--ink-mid);font-size:1.12rem;max-width:52ch;margin:0 auto 30px}
+.hp .close-actions{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+.hp .close-note{margin-top:22px;color:var(--ink-low);font-family:var(--mono);font-size:.82rem;letter-spacing:.04em}
+.hp .close-note a{color:var(--ink-mid);text-decoration:underline}
+
+/* ---- reveal (scoped, overrides base for a richer feel) ---- */
+.hp .reveal{opacity:0;transform:translateY(22px);transition:opacity .7s cubic-bezier(.2,.6,.2,1),transform .7s cubic-bezier(.2,.6,.2,1)}
+.hp .reveal.in{opacity:1;transform:none}
+@media(prefers-reduced-motion:reduce){
+  .hp .reveal{opacity:1;transform:none;transition:none}
+  .hp .scanwrap::after,.hp .live i{animation:none}
+}
+
+/* ---- responsive ---- */
+@media(max-width:900px){
+  .hp .sl-hero-grid{grid-template-columns:1fr;gap:44px}
+  .hp .offer{grid-template-columns:1fr;gap:34px;padding:48px 0}
+  .hp .offer.flip .offer-media{order:0}
+  .hp .t-cards{grid-template-columns:1fr}
+  .hp .sl-lede{max-width:none}
+  .hp .fit-arrow{transform:rotate(90deg)}
+}
+@media(max-width:560px){
+  .hp .sl-hero{padding:40px 0 60px}
+  .hp .offers{padding:64px 0 30px}
+  .hp .media{min-height:260px}
+}
+</style>
 </head>
-<body class="home" data-lang>
+<body class="home hp" data-lang>
 <a class="skip" href="#main">Skip to content</a>
 <header class="site-header" id="top">
   <div class="wrap header-inner">
@@ -35,7 +237,7 @@
     <span class="logo-mark" aria-hidden="true"><svg viewBox="0 0 32 32" fill="none"><rect width="32" height="32" rx="8" fill="#0B2447"/><path d="M16 6l8 3.4v5.2c0 5-3.3 8.9-8 10.8-4.7-1.9-8-5.8-8-10.8V9.4z" fill="none" stroke="#10B6A8" stroke-width="2" stroke-linejoin="round"/><path d="M12 16.2l2.6 2.6L21 12.4" stroke="#10B6A8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg></span>
     <span class="logo-word">Sightline</span>
   </a>
-    <nav class="nav" aria-label="Primary"><a href="/how-it-works">How it works</a><a href="/what-we-check">What we check</a><a href="/sample-report">Sample report</a><a href="/pricing">Pricing</a></nav>
+    <nav class="nav" aria-label="Primary"><a href="/start">Websites</a><a href="/how-it-works">Monitoring</a><a href="/marketing">Marketing</a><a href="/pricing">Pricing</a></nav>
     <div class="header-cta">
       <a class="btn btn-primary" href="/free-scan">Get my free scan</a>
     </div>
@@ -44,169 +246,201 @@
     </button>
   </div>
   <div class="mobile-nav" id="mobile-nav" hidden>
-    <a href="/how-it-works">How it works</a><a href="/what-we-check">What we check</a><a href="/sample-report">Sample report</a><a href="/pricing">Pricing</a>
+    <a href="/start">Websites</a><a href="/how-it-works">Monitoring</a><a href="/marketing">Marketing</a><a href="/pricing">Pricing</a>
     <a class="btn btn-primary" href="/free-scan">Get my free scan</a>
   </div>
 </header>
 <main id="main">
 
-<section class="hero">
-  <div class="wrap hero-grid">
-    <div class="hero-copy reveal">
-      <span class="eyebrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="2.6"/></svg> The outside-in checkup for local business</span>
-      <h1>See your business the way the public already does.</h1>
-      <p class="lede">A plain-English report on your website, your security, and your reviews — built only from public information. Start with a free scan. No signup, no software to install.</p>
-      <div class="hero-actions">
-        <a class="btn btn-primary btn-lg" href="/free-scan">Get my free scan <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
-        <a class="btn btn-ghost btn-lg" href="/sample-report">See a real sample</a>
+<!-- ===================== HERO ===================== -->
+<section class="dark sl-hero">
+  <div class="wrap sl-hero-grid">
+    <div class="sl-hero-copy reveal">
+      <span class="kicker">The complete online-presence studio</span>
+      <h1 class="sl-h1"><span class="w1">Look sharp.</span><span class="w2">Stay safe.</span><span class="w3">Get found.</span></h1>
+      <p class="sl-lede">One studio for everything customers see about your local business — <b>a website that wins them over</b>, <b>monitoring that keeps you safe</b>, and <b>marketing that gets you found</b>. All in plain English.</p>
+      <div class="sl-hero-actions">
+        <a class="btn btn-teal btn-lg" href="/free-scan">Get my free scan <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        <a class="btn btn-ghost-d btn-lg" href="/gallery">See our work</a>
       </div>
-      <p class="micro">Free. No credit card. We only look at what’s already public.</p>
+      <p class="sl-hero-micro">Free scan · no credit card · nothing to install</p>
     </div>
-    <div class="hero-art reveal" aria-hidden="true">
-      <div class="mock">
-        <div class="mock-bar"><span></span><span></span><span></span><em>sightline.report/report</em></div>
-        <div class="mock-body">
-          <div class="mock-score">
-            <div class="ring"><svg viewBox="0 0 120 120"><circle cx="60" cy="60" r="50" fill="none" stroke="#E6EBF2" stroke-width="12"/><circle cx="60" cy="60" r="50" fill="none" stroke="#10B6A8" stroke-width="12" stroke-linecap="round" stroke-dasharray="314" stroke-dashoffset="86" transform="rotate(-90 60 60)"/></svg><b>72</b></div>
-            <div class="mock-kpis">
-              <div><span>Website</span><b>71</b></div>
-              <div><span>Exposure</span><b>58</b></div>
-              <div><span>Reputation</span><b>64</b></div>
+
+    <div class="sl-hero-art reveal" style="transition-delay:.12s" aria-hidden="true">
+      <div class="panel">
+        <div class="panel-head">
+          <span class="panel-title">Presence report</span>
+          <span class="live"><i></i> Live scan</span>
+        </div>
+        <div class="scanwrap">
+          <div class="gauge">
+            <div class="ring">
+              <svg viewBox="0 0 120 120"><circle cx="60" cy="60" r="50" fill="none" stroke="rgba(255,255,255,.12)" stroke-width="11"/><circle cx="60" cy="60" r="50" fill="none" stroke="#10B6A8" stroke-width="11" stroke-linecap="round" stroke-dasharray="314" stroke-dashoffset="82" transform="rotate(-90 60 60)"/></svg>
+              <b>74</b><small>overall</small>
+            </div>
+            <div class="metrics">
+              <div class="metric"><span>Website</span><b>81</b><div class="bar"><i style="width:81%;background:var(--w-teal)"></i></div></div>
+              <div class="metric"><span>Exposure</span><b>63</b><div class="bar"><i style="width:63%;background:var(--w-sky)"></i></div></div>
+              <div class="metric"><span>Reputation</span><b>68</b><div class="bar"><i style="width:68%;background:var(--w-amber)"></i></div></div>
             </div>
           </div>
-          <div class="mock-rows">
-            <div class="mock-row"><i class="dot red"></i>Email isn’t spoof-protected<i class="tag">Fix now</i></div>
-            <div class="mock-row"><i class="dot amber"></i>Slow on mobile (4.8s)<i class="tag">Soon</i></div>
-            <div class="mock-row"><i class="dot green"></i>Customers love the product<i class="tag">Good</i></div>
+          <div class="rows">
+            <div class="row"><i class="dot red"></i>Email isn’t spoof-protected<span class="tag">Fix now</span></div>
+            <div class="row"><i class="dot blue"></i>Slow on mobile — 4.8s to load<span class="tag">Soon</span></div>
+            <div class="row"><i class="dot green"></i>Customers love the service<span class="tag">Good</span></div>
           </div>
         </div>
       </div>
     </div>
   </div>
-  <div class="wrap trust-strip reveal">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="4.5" y="10.5" width="15" height="10" rx="2"/><path d="M8 10.5V8a4 4 0 018 0v2.5"/></svg><span>Built on public information only</span><span class="sep">·</span><span>Your data is never sold</span><span class="sep">·</span><span>Cancel anytime</span>
+
+  <div class="wrap hero-strip reveal" style="transition-delay:.2s">
+    <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="4.5" y="10.5" width="15" height="10" rx="2"/><path d="M8 10.5V8a4 4 0 018 0v2.5"/></svg>Public information only</span>
+    <span class="sep">/</span>
+    <span>Plain English, always</span>
+    <span class="sep">/</span>
+    <span>Your data is never sold</span>
+    <span class="sep">/</span>
+    <span>Cancel anytime</span>
   </div>
 </section>
 
-<section class="band problem reveal">
-  <div class="wrap narrow center">
-    <h2>You’re busy running the place. Nobody’s watching the online side.</h2>
-    <p class="lede">Your website, your Google listing, your reviews, the technical bits behind your site — they’re all out there, working for you or against you, around the clock. Most owners have no idea how their business looks from the outside. Not because they don’t care, but because no one ever showed them, in language that actually makes sense.</p>
-  </div>
-  <div class="wrap cards-3 pain">
-    <div class="card soft reveal"><div class="pill-icon ghost"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 14a8 8 0 0116 0"/><path d="M12 14l4-3"/><circle cx="12" cy="14" r="1.3" fill="currentColor"/></svg></div><p>A slow or broken website quietly turns customers away — and you never see the ones who left.</p></div>
-    <div class="card soft reveal"><div class="pill-icon ghost"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h16v11H8l-4 3z"/></svg></div><p>One outdated listing or bad review can outrank everything else when someone Googles you.</p></div>
-    <div class="card soft reveal"><div class="pill-icon ghost"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v5c0 4.5-3 8-7 10-4-2-7-5.5-7-10V6z"/><path d="M9 12l2 2 4-4"/></svg></div><p>Small things you can’t see — an exposed login, an old setting — are easy to quietly close off, once you know they’re there.</p></div>
-  </div>
-</section>
-
-<section class="band steps-band reveal">
+<!-- ===================== OFFERINGS ===================== -->
+<section class="offers">
   <div class="wrap">
-    <div class="section-head center">
-      <h2>Three steps. Zero technical work from you.</h2>
-      <p>You give us a web address. We do everything else.</p>
+    <div class="sec-head reveal">
+      <span class="kicker">Three ways we help</span>
+      <h2>Your whole online presence, handled by one team.</h2>
+      <p>Most owners juggle a web guy, a security worry, and a marketing to-do list. Sightline is all three — talking to each other, reported in language that makes sense.</p>
     </div>
-    <ol class="steps">
-      <li class="reveal"><span class="step-n">1</span><h3>Tell us your web address</h3><p>Just your website — or even your business name. Nothing to install, no passwords to hand over.</p></li>
-      <li class="reveal"><span class="step-n">2</span><h3>We look from the outside</h3><p>We check the same public places your customers can see — and quietly check for things you can’t. You do nothing.</p></li>
-      <li class="reveal"><span class="step-n">3</span><h3>You get a plain-English report</h3><p>A clear snapshot you can actually read, with the few things worth fixing — ranked, explained, no jargon.</p></li>
-    </ol>
-    <p class="center muted">Then, if you like, we keep an eye on it for you every month. <a href="/pricing">See pricing →</a></p>
-  </div>
-</section>
 
-<section class="band reveal">
-  <div class="wrap">
-    <div class="section-head center">
-      <h2>Three things every local business should know.</h2>
-      <p>One report. Plain English. Security is just one part — and never the scary part.</p>
+    <!-- 1. Websites -->
+    <div class="offer teal reveal">
+      <div class="offer-copy">
+        <span class="onum">01 / Websites</span>
+        <div><span class="otag">Look sharp</span></div>
+        <h3>A site that makes you look as good as you are.</h3>
+        <p class="odesc">Pick a style, we make it yours, and you launch a fast, modern website — no drag-and-drop headaches, no agency price tag. Built to win the customer who’s deciding in ten seconds.</p>
+        <ul class="feats">
+          <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l4.5 4.5L19 7"/></svg>Seven designer styles — clinical, warm, modern &amp; more</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l4.5 4.5L19 7"/></svg>Fast on phones, built to be found on Google</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l4.5 4.5L19 7"/></svg>You approve every page before it goes live</li>
+        </ul>
+        <a class="link-cta" href="/start">Start your site <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+      </div>
+      <div class="offer-media">
+        <div class="media">
+          <div class="win a"><div class="tb"><i></i><i></i><i></i></div><div class="bd"><div class="hh"></div><div class="ll"></div><div class="ll s"></div><div class="btnm"></div></div></div>
+          <div class="win b"><div class="tb"><i></i><i></i><i></i></div><div class="bd"><div class="hh"></div><div class="ll"></div><div class="ll s"></div><div class="btnm"></div></div></div>
+          <div class="chipset"><span class="chip">Clinical</span><span class="chip">Warm</span><span class="chip">Modern</span><span class="chip">Heritage</span></div>
+        </div>
+      </div>
     </div>
-    <div class="cards-3">
-    <article class="card pillar reveal">
-      <div class="pill-icon icon-web"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 14a8 8 0 0116 0"/><path d="M12 14l4-3"/><circle cx="12" cy="14" r="1.3" fill="currentColor"/></svg></div>
-      <h3>Your website</h3>
-      <p class="pill-q">Does it help or hurt?</p>
-      <p>Is it fast, does it work on phones, and are there broken pages or trust-killers that quietly send customers away?</p>
-      <p class="eg">“Your contact page takes 9 seconds to load on mobile — most visitors leave by three.”</p>
-    </article>
-    <article class="card pillar reveal">
-      <div class="pill-icon icon-sec"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v5c0 4.5-3 8-7 10-4-2-7-5.5-7-10V6z"/><path d="M9 12l2 2 4-4"/></svg></div>
-      <h3>Your exposure</h3>
-      <p class="pill-q">Is the front door locked?</p>
-      <p>Using only public information, we flag things that are visible to anyone but probably shouldn’t be.</p>
-      <p class="eg">“An old admin login page is publicly reachable and easy to find.”</p>
-    </article>
-    <article class="card pillar reveal">
-      <div class="pill-icon icon-rep"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h16v11H8l-4 3z"/></svg></div>
-      <h3>Your reputation</h3>
-      <p class="pill-q">What people are saying.</p>
-      <p>Your reviews, ratings, and mentions across the web — pulled into one place, with what’s new and what’s slipping.</p>
-      <p class="eg">“Two recent two-star reviews mention the same wait-time issue.”</p>
-    </article>
-  </div>
-    <p class="center"><a class="link-arrow" href="/what-we-check">See exactly what’s in a report <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></p>
-  </div>
-</section>
 
-<section class="band demo-band reveal">
-  <div class="wrap demo-inner">
-    <div class="demo-copy">
-      <span class="eyebrow light"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg> Live, interactive</span>
-      <h2>Don’t take our word for it. Open a real report.</h2>
-      <p>This is the same dashboard you’d get, filled with example data for a fictional shop. Click around — no signup. Built from public information only.</p>
-      <a class="btn btn-teal btn-lg" href="/sample-report">Open the live sample <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+    <!-- 2. Monitoring -->
+    <div class="offer sky flip reveal">
+      <div class="offer-copy">
+        <span class="onum">02 / Monitoring</span>
+        <div><span class="otag">Stay safe</span></div>
+        <h3>A second set of eyes on your business, every month.</h3>
+        <p class="odesc">We check your site, your security, and your reviews the way the public already can — then tell you the few things worth fixing, ranked and explained. You’ll know before your customers do.</p>
+        <ul class="feats">
+          <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l4.5 4.5L19 7"/></svg>Website, exposure &amp; reputation in one report</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l4.5 4.5L19 7"/></svg>Alerts the moment something changes</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l4.5 4.5L19 7"/></svg>Built on public info only — we never log in</li>
+        </ul>
+        <a class="link-cta" href="/how-it-works">See how it works <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+      </div>
+      <div class="offer-media">
+        <div class="media d">
+          <div class="m-kicker">Monthly report · plain English</div>
+          <div class="mon-grid">
+            <div class="stat t-teal"><span>Website</span><b>81</b></div>
+            <div class="stat t-sky"><span>Exposure</span><b>63</b></div>
+            <div class="stat t-amber"><span>Open issues</span><b>4</b></div>
+            <div class="stat t-teal"><span>Reviews</span><b>4.6★</b></div>
+            <div class="spark"><i style="height:52%"></i><i style="height:64%"></i><i style="height:48%"></i><i style="height:72%"></i><i style="height:60%"></i><i style="height:83%"></i><i style="height:76%"></i></div>
+          </div>
+        </div>
+      </div>
     </div>
-    <div class="demo-frame" aria-hidden="true">
-      <div class="mock small">
-        <div class="mock-bar dark"><span></span><span></span><span></span><em>sightline.report/sample</em></div>
-        <div class="mock-grid">
-          <div class="mg-card"><span>Overall</span><b class="t-amber">72</b></div>
-          <div class="mg-card"><span>Urgent</span><b class="t-red">7</b></div>
-          <div class="mg-card"><span>Strengths</span><b class="t-green">3</b></div>
-          <div class="mg-bars"><i style="height:60%"></i><i style="height:74%"></i><i style="height:48%"></i><i style="height:82%"></i><i style="height:66%"></i></div>
+
+    <!-- 3. Marketing -->
+    <div class="offer amber reveal">
+      <div class="offer-copy">
+        <span class="onum">03 / Marketing</span>
+        <div><span class="otag">Get found</span></div>
+        <h3>The steady drip that turns happy customers into new ones.</h3>
+        <p class="odesc">Our marketing engine nudges you to ask for reviews at the right moment, hands you video ideas and ready-to-post hooks, and keeps your listings working — no marketing degree required.</p>
+        <ul class="feats">
+          <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l4.5 4.5L19 7"/></svg>Review requests that actually get sent</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l4.5 4.5L19 7"/></svg>Short-video plans &amp; hooks worth stealing</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l4.5 4.5L19 7"/></svg>Honest advice on what’s worth your time</li>
+        </ul>
+        <a class="link-cta" href="/marketing">Explore the engine <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+      </div>
+      <div class="offer-media">
+        <div class="media warm">
+          <div class="mk-card">
+            <div class="mk-top"><span class="av"></span><span class="stars">★★★★★</span></div>
+            <p>“Fixed my slow site and now I show up first for ‘plumber near me.’ Worth every penny.”</p>
+          </div>
+          <div style="margin-top:2px"><span class="mk-pill">✦ Ask for a review</span><span class="mk-pill">▶ Plan a video</span></div>
+          <div class="mk-card" style="margin-top:12px"><div class="mk-top"><span class="av" style="background:linear-gradient(135deg,#3D7DD6,#295da8)"></span><span class="stars">★★★★★</span></div><p>“The monthly report is the only tech thing I actually read.”</p></div>
         </div>
       </div>
     </div>
   </div>
 </section>
 
-<section class="band trust reveal">
+<!-- ===================== HOW IT FITS ===================== -->
+<section class="fits">
   <div class="wrap">
-    <div class="section-head center"><h2>Built to be trusted, on purpose.</h2><p>For a service that could sound invasive, restraint is the whole point.</p></div>
-    <div class="cards-3">
-      <div class="card soft reveal"><div class="pill-icon ghost"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="4.5" y="10.5" width="15" height="10" rx="2"/><path d="M8 10.5V8a4 4 0 018 0v2.5"/></svg></div><h3>Public information only</h3><p>We never log in, never break in, never touch your systems. We look at what’s already out there — like walking across the street to see your own shop window.</p></div>
-      <div class="card soft reveal"><div class="pill-icon ghost"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="2.6"/></svg></div><h3>Plain English, always</h3><p>Written for busy owners, not IT departments. If you can read a menu, you can read your report.</p></div>
-      <div class="card soft reveal"><div class="pill-icon ghost"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="13" rx="2"/><path d="M8 21h8M12 17v4"/></svg></div><h3>A second set of eyes</h3><p>We watch monthly and tell you when something changes — so you find out before your customers do.</p></div>
+    <div class="sec-head reveal">
+      <span class="kicker">How it fits together</span>
+      <h2>Start with a free scan. Grow from there.</h2>
+      <p>No big commitment. See where you stand, fix what matters, and add what you need — one step at a time.</p>
     </div>
-    <p class="center"><a class="link-arrow" href="/ethics">Read exactly how we stay on the right side of the line <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></p>
+    <div class="fit-row reveal">
+      <div class="fit-node"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="2.6"/></svg></span><b>Free scan</b><span>See how you look from the outside</span></div>
+      <span class="fit-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+      <div class="fit-node"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 14a8 8 0 0116 0"/><path d="M12 14l4-3"/></svg></span><b>Fix &amp; build</b><span>New site or fixes to the one you have</span></div>
+      <span class="fit-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+      <div class="fit-node"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v5c0 4.5-3 8-7 10-4-2-7-5.5-7-10V6z"/><path d="M9 12l2 2 4-4"/></svg></span><b>Monitor &amp; grow</b><span>We watch monthly and keep you found</span></div>
+    </div>
+    <p class="center" style="margin-top:34px"><a class="btn btn-primary btn-lg" href="/free-scan">Get my free scan <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></p>
   </div>
 </section>
 
-<section class="band pricing-teaser reveal">
-  <div class="wrap narrow center">
-    <h2>Start free. Keep watch from $49 a month.</h2>
-    <div class="price-card">
-      <div class="price-top"><span class="price-name">Sightline Monitoring</span><span class="price-amt">$49<small>/mo</small></span></div>
-      <ul class="ticks">
-        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l4.5 4.5L19 7"/></svg> A full report every month — website, exposure, reputation</li>
-        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l4.5 4.5L19 7"/></svg> Alerts the moment something changes</li>
-        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l4.5 4.5L19 7"/></svg> Plain-English fixes, ranked by what matters</li>
-        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l4.5 4.5L19 7"/></svg> Cancel anytime · 30-day money-back</li>
-      </ul>
-      <a class="btn btn-primary btn-lg" href="/free-scan">Start with a free scan <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
-      <p class="micro">No setup fee. No contract. <a href="/pricing">See full pricing →</a></p>
+<!-- ===================== TRUST ===================== -->
+<section class="trust2">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="kicker">Built to be trusted</span>
+      <h2>For a service this close to your business, restraint is the point.</h2>
+    </div>
+    <div class="t-cards">
+      <div class="t-card reveal"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="4.5" y="10.5" width="15" height="10" rx="2"/><path d="M8 10.5V8a4 4 0 018 0v2.5"/></svg></div><h3>Public information only</h3><p>We never log in, never break in, never touch your systems. We look at what’s already out there — like crossing the street to see your own shop window.</p></div>
+      <div class="t-card reveal" style="transition-delay:.08s"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="2.6"/></svg></div><h3>Plain English, always</h3><p>Written for busy owners, not IT departments. If you can read a menu, you can read your report — and know exactly what to do next.</p></div>
+      <div class="t-card reveal" style="transition-delay:.16s"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="13" rx="2"/><path d="M8 21h8M12 17v4"/></svg></div><h3>No lock-in, ever</h3><p>Start free, cancel anytime, keep your website if you leave. We earn the next month every month — 30-day money-back on monitoring.</p></div>
     </div>
   </div>
 </section>
 
-<section class="band cta-band reveal">
-  <div class="wrap cta-inner">
-    <h2>See what the internet says about your business.</h2>
-    <p>Free scan. Plain-English report. No card, no commitment, nothing to install.</p>
-    <a class="btn btn-primary btn-lg" href="/free-scan">Get my free scan <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
-    <p class="micro">Takes 30 seconds to request. We do the rest.</p>
+<!-- ===================== CLOSE ===================== -->
+<section class="dark close">
+  <div class="wrap">
+    <span class="kicker reveal">Start free</span>
+    <h2 class="reveal">See your business the way the public already does.</h2>
+    <p class="reveal">A free, plain-English scan of your website, security, and reviews. No card, no commitment, nothing to install — just a clear picture and a few things worth fixing.</p>
+    <div class="close-actions reveal" style="transition-delay:.08s">
+      <a class="btn btn-teal btn-lg" href="/free-scan">Get my free scan <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+      <a class="btn btn-ghost-d btn-lg" href="/pricing">See pricing</a>
+    </div>
+    <p class="close-note reveal">Takes 30 seconds to request · <a href="/sample-report">or open a live sample report →</a></p>
   </div>
 </section>
+
 </main>
 <footer class="site-footer">
   <div class="wrap footer-grid">
@@ -215,12 +449,14 @@
     <span class="logo-mark" aria-hidden="true"><svg viewBox="0 0 32 32" fill="none"><rect width="32" height="32" rx="8" fill="#0B2447"/><path d="M16 6l8 3.4v5.2c0 5-3.3 8.9-8 10.8-4.7-1.9-8-5.8-8-10.8V9.4z" fill="none" stroke="#10B6A8" stroke-width="2" stroke-linejoin="round"/><path d="M12 16.2l2.6 2.6L21 12.4" stroke="#10B6A8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg></span>
     <span class="logo-word">Sightline</span>
   </a>
-      <p class="footer-tag">See your business the way the public already does.</p>
+      <p class="footer-tag">Look sharp. Stay safe. Get found.</p>
       <p class="footer-note">Built only from public information. We never sell your data.</p>
     </div>
     <div class="footer-col">
       <h4>Product</h4>
-      <a href="/how-it-works">How it works</a>
+      <a href="/start">Websites</a>
+      <a href="/how-it-works">Monitoring</a>
+      <a href="/marketing">Marketing</a>
       <a href="/what-we-check">What we check</a>
       <a href="/sample-report">Sample report</a>
       <a href="/pricing">Pricing</a>
