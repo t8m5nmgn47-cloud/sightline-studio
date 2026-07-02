@@ -27,7 +27,7 @@ h1,h2,h3,h4{overflow-wrap:break-word}
 /* NAV */
 .nav{position:fixed;inset:0 0 auto 0;z-index:60;display:flex;align-items:center;justify-content:space-between;padding:20px clamp(22px,5vw,64px);color:var(--navc);transition:background .35s,color .35s,box-shadow .35s,padding .35s}
 .nav.scd{background:rgba(255,255,255,.94);backdrop-filter:blur(12px);color:var(--ink);box-shadow:0 1px 0 rgba(20,18,16,.08);padding:14px clamp(22px,5vw,64px)}
-.brand{font-family:var(--head);font-weight:600;font-size:1.62rem;letter-spacing:-.01em;font-variant-ligatures:none;font-feature-settings:"liga" 0,"dlig" 0,"clig" 0;}
+.brand{font-family:var(--head);font-weight:600;font-size:1.94rem;letter-spacing:-.01em;font-variant-ligatures:none;font-feature-settings:"liga" 0,"dlig" 0,"clig" 0;}
 .logo-img{height:58px;width:auto;max-width:260px;display:block;background:#fff;padding:9px 16px;border-radius:10px;box-shadow:0 1px 4px rgba(0,0,0,.12)}
 .bmono{display:inline-flex;align-items:center;justify-content:center;width:1.5em;height:1.5em;border-radius:7px;background:var(--p);color:#fff;font-weight:700;font-size:.72em;letter-spacing:0;margin-right:.42em;vertical-align:-.18em;font-family:var(--body);text-transform:none}
 .navlinks{display:flex;gap:32px;font-size:.96rem;font-weight:500}.navlinks a{opacity:.92}.navlinks a:hover{opacity:1}
@@ -37,7 +37,7 @@ h1,h2,h3,h4{overflow-wrap:break-word}
 /* on small screens a long brand name + a long CTA ("Request an appointment") would overrun the bar and force
    horizontal page scroll. Tighten padding + truncate the brand; on tablets shrink the CTA, and on phones drop it
    entirely (the hero keeps its own CTA) so the row always fits the viewport. */
-@media(max-width:560px){.nav{padding-left:16px;padding-right:16px;gap:10px}.brand{font-size:1.1rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:58vw}.navcta{padding:7px 12px;font-size:.78rem;white-space:nowrap;flex:0 0 auto}}
+@media(max-width:560px){.nav{padding-left:16px;padding-right:16px;gap:10px}.brand{font-size:1.32rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:58vw}.navcta{padding:7px 12px;font-size:.78rem;white-space:nowrap;flex:0 0 auto}}
 @media(max-width:480px){.navcta{display:none}}
 /* HERO cover */
 .hero{position:relative;min-height:100svh;display:flex;align-items:flex-end;color:#fff;overflow:hidden;isolation:isolate}
@@ -55,7 +55,7 @@ h1,h2,h3,h4{overflow-wrap:break-word}
 .nav:not(.scd){text-shadow:0 1px 20px rgba(0,0,0,.55)}
 .hero h1,.hero-sub{text-shadow:0 2px 36px rgba(0,0,0,.5)}
 .hero-inner{padding-bottom:clamp(54px,8vw,96px);padding-top:140px;width:100%}
-.hero .kicker{color:#fff;opacity:.92;margin-bottom:22px}
+.hero .kicker{color:#fff;opacity:.92;margin-bottom:22px;font-size:clamp(.864rem,.82rem + .24vw,.984rem)}
 .hero h1{color:#fff;font-size:var(--fs-hero);line-height:.98;letter-spacing:-.03em;max-width:15ch;font-weight:400}
 .hero h1 .ln{display:block;overflow:hidden;padding:.06em .02em .14em}
 .hero h1 .ln+.ln{margin-top:-.16em}
