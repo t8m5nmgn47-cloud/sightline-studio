@@ -1,0 +1,160 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Sightline · Business Intelligence</title>
+<meta name="robots" content="noindex,nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.5.0/dist/chart.umd.js"></script>
+<style>
+:root{--ink:#16140f;--mut:#6b6660;--line:#e7e2d8;--bg:#f4f1ea;--ac:#1f6f5c;--gold:#c2a04a;--head:'Fraunces',Georgia,serif;--body:'Inter',system-ui,sans-serif;--num:"Helvetica Neue",Helvetica,Arial,sans-serif}
+*{box-sizing:border-box;margin:0}body{background:var(--bg);color:var(--ink);font-family:var(--body);-webkit-font-smoothing:antialiased}
+.wrap{max-width:1100px;margin:0 auto;padding:0 clamp(18px,4vw,40px)}
+.top{display:flex;align-items:center;justify-content:space-between;padding:16px 0;border-bottom:1px solid var(--line)}
+.lg{display:flex;gap:10px;align-items:center;font-family:var(--head);font-weight:600;font-size:1.2rem}.dot{width:11px;height:11px;border-radius:50%;background:var(--ac)}
+.top a,.top button{color:var(--mut);text-decoration:none;font-size:.85rem;background:none;border:0;cursor:pointer;font:inherit}
+.hd{padding:30px 0 6px}.hd h1{font-family:var(--head);font-weight:400;font-size:clamp(2rem,1.4rem+2vw,2.9rem);letter-spacing:-.02em}.hd p{color:var(--mut);margin-top:8px;font-size:1.05rem}
+.kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:24px}@media(max-width:760px){.kpis{grid-template-columns:1fr 1fr}}
+.kpi{background:#fff;border:1px solid var(--line);border-radius:14px;padding:18px}
+.kpi .n{font-family:var(--num);font-weight:800;font-size:2.1rem;letter-spacing:-.02em;line-height:1}
+.kpi .l{color:var(--mut);font-size:.82rem;margin-top:7px;font-weight:500}
+.kpi .d{font-size:.76rem;margin-top:6px;font-weight:600}
+.kpi.accent{background:#11271f;border-color:#11271f}.kpi.accent .n{color:#fff}.kpi.accent .l{color:#9fe3c4}
+.up{color:#1f8d57}.down{color:#b4453a}
+.gh{font-size:.74rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--mut);margin:34px 0 14px}
+.charts{display:grid;grid-template-columns:1fr 1fr;gap:14px}@media(max-width:760px){.charts{grid-template-columns:1fr}}
+.chart{background:#fff;border:1px solid var(--line);border-radius:14px;padding:18px 18px 12px}
+.chart h3{font-size:.95rem;font-weight:700;margin-bottom:10px}
+.chart .cw{position:relative;height:240px}
+.insight{background:#fff;border:1px solid var(--line);border-left:4px solid var(--ac);border-radius:12px;padding:16px 18px;margin-top:12px;font-size:.94rem;line-height:1.6}
+.insight b{color:var(--ink)}
+.note{background:#fff7e6;border:1px solid #e8d6a8;color:#5a4a1f;border-radius:12px;padding:12px 15px;margin-top:12px;font-size:.86rem;line-height:1.5}
+.empty{padding:40px 22px;color:var(--mut);text-align:center}.empty b{color:var(--ink)}
+.login{max-width:420px;margin:60px auto;background:#fff;border:1px solid var(--line);border-radius:16px;padding:30px;text-align:center}
+.login h2{font-family:var(--head);font-weight:600;margin:10px 0 6px}.login p{color:var(--mut);font-size:.9rem;margin-bottom:16px}
+.login input{width:100%;padding:12px 13px;border:1px solid var(--line);border-radius:9px;font:inherit;margin-bottom:10px}
+.btn{background:var(--ac);color:#fff;border:0;border-radius:9px;padding:11px 18px;font-weight:700;cursor:pointer;font:inherit;width:100%}
+.foot{color:var(--mut);font-size:.8rem;padding:26px 0 50px;line-height:1.6}
+</style></head>
+<body>
+<header class="wrap top"><div class="lg"><span class="dot"></span>Sightline · Business Intelligence</div><div><a href="../admin/">← Dashboard</a> <button id="rf" style="display:none">↻ Refresh</button> <button id="out" style="display:none">Sign out</button></div></header>
+<div class="wrap"><div id="app"><div class="empty">Loading…</div></div></div>
+<footer class="foot wrap">Live from your Supabase database · leads + subscribers. Figures update on refresh. Private — visible only to your signed-in account.</footer>
+
+<script>
+const SUPA_URL="https://vtqmtecoxljduqomtkbw.supabase.co";
+const SUPA_KEY="sb_publishable_tOVldxTzrH4_9U0x-GZGHw_UFM57C2c";
+const app=document.getElementById("app"), rfBtn=document.getElementById("rf"), outBtn=document.getElementById("out");
+const esc=s=>(s||"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const money=n=>'$'+(Math.round(n*100)/100).toLocaleString(undefined,{minimumFractionDigits:n%1?2:0,maximumFractionDigits:2});
+let sb=null, charts=[];
+
+(async function(){
+  try{ const {createClient}=await import("https://esm.sh/@supabase/supabase-js@2"); sb=createClient(SUPA_URL,SUPA_KEY); }
+  catch(e){ app.innerHTML='<div class="empty">Couldn’t reach the database. Retry in a moment.</div>'; return; }
+  const {data:{session}}=await sb.auth.getSession();
+  if(!session) return login();
+  outBtn.style.display="inline"; rfBtn.style.display="inline";
+  outBtn.onclick=async()=>{await sb.auth.signOut();location.reload();};
+  rfBtn.onclick=()=>loadAll();
+  loadAll();
+})();
+
+function login(){
+  app.innerHTML='<div class="login"><div style="font-size:1.6rem">🔒</div><h2>Sign in to view BI</h2><p>Your revenue and pipeline numbers are private. We’ll email you a one-time login link.</p><form id="lf"><input type="email" id="le" placeholder="you@email.com" required><button class="btn">Email me a login link</button></form><div id="ln" style="color:var(--mut);font-size:.84rem;margin-top:12px"></div></div>';
+  document.getElementById("lf").onsubmit=async e=>{e.preventDefault();const email=document.getElementById("le").value.trim();
+    document.getElementById("ln").textContent="Sending…";
+    const {error}=await sb.auth.signInWithOtp({email,options:{emailRedirectTo:location.href}});
+    document.getElementById("ln").textContent=error?("Couldn't send: "+error.message):("Check "+email+" for your login link.");};
+}
+
+async function loadAll(){
+  charts.forEach(c=>{try{c.destroy()}catch(e){}}); charts=[];
+  // leads (signups) — exists; subscribers — may not exist yet
+  const leadsRes=await sb.from("signups").select("*").order("created_at",{ascending:false});
+  const subsRes=await sb.from("subscribers").select("*").order("created_at",{ascending:false});
+  const leads=leadsRes.data||[];
+  const subsMissing=!!subsRes.error;
+  const subs=subsRes.data||[];
+  render(leads,subs,subsMissing);
+}
+
+function monthKey(ts){const d=new Date(ts);return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0");}
+function lastMonths(n){const out=[];const d=new Date();d.setDate(1);for(let i=n-1;i>=0;i--){const m=new Date(d.getFullYear(),d.getMonth()-i,1);out.push({key:m.getFullYear()+"-"+String(m.getMonth()+1).padStart(2,"0"),label:m.toLocaleString(undefined,{month:"short"})});}return out;}
+
+function render(leads,subs,subsMissing){
+  const now=Date.now();
+  // ---- leads metrics ----
+  const st=s=>leads.filter(l=>l.status===s).length;
+  const won=st("won"), lost=st("lost"), contacted=st("contacted"), fresh=st("new");
+  const conv=leads.length?Math.round(won/leads.length*100):0;
+  const new30=leads.filter(l=>now-Date.parse(l.created_at)<30*864e5).length;
+  const prev30=leads.filter(l=>{const a=now-Date.parse(l.created_at);return a>=30*864e5&&a<60*864e5;}).length;
+  const d30=prev30?Math.round((new30-prev30)/prev30*100):(new30?100:0);
+  // ---- subscriber / revenue metrics ----
+  const active=subs.filter(s=>s.status==="active");
+  const mrr=active.reduce((a,s)=>a+(+s.mo||0),0);
+  const arr=mrr*12;
+  const paused=subs.filter(s=>s.status==="paused").length, canceled=subs.filter(s=>s.status==="canceled").length;
+  const arpa=active.length?mrr/active.length:0;
+
+  app.innerHTML=`
+  <section class="hd"><h1>Business intelligence.</h1><p>Live revenue and pipeline health, straight from your database.</p></section>
+  <div class="kpis">
+    <div class="kpi accent"><div class="n">${money(mrr)}</div><div class="l">Monthly recurring revenue</div><div class="d" style="color:#9fe3c4">${money(arr)} annualized</div></div>
+    <div class="kpi"><div class="n">${active.length}</div><div class="l">Active subscribers</div><div class="d">${money(arpa)}/mo avg</div></div>
+    <div class="kpi"><div class="n">${leads.length}</div><div class="l">Total leads</div><div class="d ${d30>=0?'up':'down'}">${d30>=0?'▲':'▼'} ${Math.abs(d30)}% vs prior 30d</div></div>
+    <div class="kpi"><div class="n">${conv}%</div><div class="l">Lead → won conversion</div><div class="d">${won} won · ${lost} lost</div></div>
+  </div>
+
+  ${subsMissing?'<div class="note">💡 Revenue figures are $0 because the <b>subscribers</b> table doesn’t exist yet. Run <code>sightline_subscribers_table.sql</code> in Supabase to turn on MRR/ARR.</div>':''}
+
+  <div class="gh">Pipeline &amp; revenue</div>
+  <div class="charts">
+    <div class="chart"><h3>Lead pipeline by stage</h3><div class="cw"><canvas id="cStage"></canvas></div></div>
+    <div class="chart"><h3>New leads — last 6 months</h3><div class="cw"><canvas id="cTrend"></canvas></div></div>
+    <div class="chart"><h3>Subscribers by status</h3><div class="cw"><canvas id="cSubs"></canvas></div></div>
+    <div class="chart"><h3>MRR by plan</h3><div class="cw"><canvas id="cPlan"></canvas></div></div>
+  </div>
+
+  <div class="gh">What the numbers say</div>
+  <div id="insights"></div>`;
+
+  const ACC="#1f6f5c", GOLD="#c2a04a", INK="#16140f", MUT="#b8b1a4", RED="#b4453a", BLUE="#3a5bbf";
+  const noData=!leads.length&&!subs.length;
+
+  // stage bar
+  charts.push(new Chart(document.getElementById("cStage"),{type:"bar",
+    data:{labels:["New","Contacted","Won","Lost"],datasets:[{data:[fresh,contacted,won,lost],backgroundColor:[GOLD,BLUE,ACC,RED],borderRadius:6}]},
+    options:{plugins:{legend:{display:false}},scales:{y:{beginAtZero:true,ticks:{precision:0}}},maintainAspectRatio:false}}));
+
+  // trend line
+  const months=lastMonths(6);
+  const counts=months.map(m=>leads.filter(l=>monthKey(l.created_at)===m.key).length);
+  charts.push(new Chart(document.getElementById("cTrend"),{type:"line",
+    data:{labels:months.map(m=>m.label),datasets:[{data:counts,borderColor:ACC,backgroundColor:"rgba(31,111,92,.12)",fill:true,tension:.3,pointRadius:3}]},
+    options:{plugins:{legend:{display:false}},scales:{y:{beginAtZero:true,ticks:{precision:0}}},maintainAspectRatio:false}}));
+
+  // subscribers doughnut
+  charts.push(new Chart(document.getElementById("cSubs"),{type:"doughnut",
+    data:{labels:["Active","Paused","Canceled"],datasets:[{data:[active.length,paused,canceled],backgroundColor:[ACC,GOLD,RED]}]},
+    options:{plugins:{legend:{position:"bottom"}},maintainAspectRatio:false}}));
+
+  // MRR by plan
+  const planMap={}; active.forEach(s=>{const p=s.plan||"Other";planMap[p]=(planMap[p]||0)+(+s.mo||0);});
+  const planLabels=Object.keys(planMap), planVals=planLabels.map(p=>planMap[p]);
+  charts.push(new Chart(document.getElementById("cPlan"),{type:"bar",
+    data:{labels:planLabels.length?planLabels:["No active plans"],datasets:[{data:planVals.length?planVals:[0],backgroundColor:ACC,borderRadius:6}]},
+    options:{indexAxis:"y",plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>money(c.parsed.x)}}},scales:{x:{beginAtZero:true,ticks:{callback:v=>'$'+v}}},maintainAspectRatio:false}}));
+
+  // insights (computed, honest)
+  const ins=[];
+  if(noData){ins.push("No leads or subscribers in the database yet — as signups and clients come in, this page fills with live numbers.");}
+  else{
+    ins.push(`You have <b>${leads.length}</b> total leads and <b>${active.length}</b> active subscribers generating <b>${money(mrr)}/mo</b> (<b>${money(arr)}</b> annualized).`);
+    ins.push(`<b>${new30}</b> new leads in the last 30 days — ${d30>=0?'up':'down'} <b>${Math.abs(d30)}%</b> vs the prior 30 days.`);
+    ins.push(`Conversion from lead to won is <b>${conv}%</b>. ${contacted} leads are contacted and still open — the closest to becoming revenue.`);
+    if(canceled) ins.push(`<b>${canceled}</b> subscriber(s) have canceled — worth a win-back touch.`);
+  }
+  document.getElementById("insights").innerHTML=ins.map(t=>`<div class="insight">${t}</div>`).join("");
+}
+</script>
+</body></html>
