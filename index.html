@@ -280,6 +280,56 @@
   .hp .model .mcta{opacity:1;transform:none}
 }
 
+/* ---- HERO v2: clearer headline + offering pillars + layered visual ---- */
+.hp .sl-h1v2{font-family:var(--head);font-weight:800;color:#fff;line-height:1.02;letter-spacing:-.025em;
+  font-size:clamp(2.5rem,5.1vw,4.15rem);margin:0 0 22px;max-width:15ch}
+.hp .sl-h1v2 .hl{color:var(--w-teal)}
+.hp .sl-hero .kicker{color:var(--w-teal);display:inline-flex;align-items:center;gap:10px;margin-bottom:22px;flex-wrap:wrap}
+.hp .sl-hero .kicker::before{content:"";width:26px;height:1px;background:linear-gradient(90deg,var(--w-teal),transparent);flex:none}
+
+/* offering pillars (the "what we do", unmistakable) */
+.hp .hero-pillars{margin-top:56px;padding-top:34px;border-top:1px solid var(--line);
+  display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.hp .pillar-h{position:relative;display:block;text-decoration:none;padding:22px 22px 22px 26px;border-radius:16px;
+  background:var(--glass);border:1px solid var(--line);transition:transform .22s ease,border-color .22s,background .22s}
+.hp .pillar-h:hover{transform:translateY(-4px);border-color:rgba(255,255,255,.3);background:rgba(255,255,255,.07)}
+.hp .pillar-h::before{content:"";position:absolute;left:0;top:20px;bottom:20px;width:3px;border-radius:0 3px 3px 0;background:var(--pac)}
+.hp .pillar-h .p-ic{width:40px;height:40px;border-radius:11px;display:grid;place-items:center;background:rgba(255,255,255,.06);margin-bottom:15px}
+.hp .pillar-h .p-ic svg{width:21px;height:21px;stroke:var(--pac)}
+.hp .pillar-h .p-eyebrow{font-family:var(--mono);font-size:.64rem;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-mid)}
+.hp .pillar-h .p-title{font-family:var(--head);font-weight:700;font-size:1.22rem;color:var(--pac);margin:4px 0 6px}
+.hp .pillar-h .p-desc{font-size:.88rem;color:var(--ink-mid);margin:0;line-height:1.5}
+.hp .pillar-h .p-go{position:absolute;top:22px;right:20px;color:var(--ink-low);opacity:0;transform:translateX(-4px);transition:opacity .2s,transform .2s}
+.hp .pillar-h .p-go svg{width:18px;height:18px}
+.hp .pillar-h:hover .p-go{opacity:1;transform:none;color:var(--pac)}
+
+/* layered floating visual */
+.hp .sl-hero-art{position:relative}
+.hp .float{position:absolute;z-index:4;border-radius:14px;border:1px solid rgba(255,255,255,.5);
+  box-shadow:0 26px 55px -18px rgba(0,0,0,.7)}
+.hp .float-site{top:-24px;left:-26px;width:196px;background:#fff;overflow:hidden;animation:sl-float 6.5s ease-in-out infinite}
+.hp .float-site .fs-tb{height:20px;background:#eef2f7;display:flex;align-items:center;gap:4px;padding:0 8px;border-bottom:1px solid var(--mist)}
+.hp .float-site .fs-tb i{width:5px;height:5px;border-radius:50%;background:#cbd5e1}
+.hp .float-site .fs-bd{padding:12px 13px 14px}
+.hp .float-site .fs-h{height:8px;width:58%;border-radius:4px;background:var(--navy);margin-bottom:8px}
+.hp .float-site .fs-l{height:5px;border-radius:4px;background:var(--mist);margin-bottom:6px}
+.hp .float-site .fs-l.s{width:70%}
+.hp .float-site .fs-btn{margin-top:10px;height:14px;width:58px;border-radius:7px;background:var(--teal)}
+.hp .float-review{bottom:-22px;left:-30px;background:#fff;padding:12px 15px;display:flex;align-items:center;gap:12px;
+  max-width:258px;animation:sl-float 6.5s ease-in-out infinite .9s}
+.hp .float-review .fr-av{width:34px;height:34px;border-radius:50%;background:linear-gradient(135deg,#E8A93B,#d98f1e);flex:none}
+.hp .float-review .fr-stars{color:#E8A93B;font-size:.82rem;letter-spacing:1px;line-height:1}
+.hp .float-review b{color:var(--navy);font-size:.82rem;font-family:var(--head);display:block;margin-bottom:2px}
+.hp .float-review span{display:block;font-size:.72rem;color:var(--slate)}
+@keyframes sl-float{0%,100%{transform:translateY(0)}50%{transform:translateY(-9px)}}
+
+@media(max-width:900px){
+  .hp .hero-pillars{grid-template-columns:1fr;gap:12px;margin-top:40px;padding-top:26px}
+  .hp .float{display:none}
+  .hp .sl-h1v2{max-width:none}
+}
+@media(prefers-reduced-motion:reduce){.hp .float-site,.hp .float-review{animation:none}}
+
 /* ---- reveal (scoped, overrides base for a richer feel) ---- */
 .hp .reveal{opacity:0;transform:translateY(22px);transition:opacity .7s cubic-bezier(.2,.6,.2,1),transform .7s cubic-bezier(.2,.6,.2,1)}
 .hp .reveal.in{opacity:1;transform:none}
@@ -312,7 +362,7 @@
     <span class="logo-mark" aria-hidden="true"><svg viewBox="0 0 32 32" fill="none"><rect width="32" height="32" rx="8" fill="#0B2447"/><path d="M16 6l8 3.4v5.2c0 5-3.3 8.9-8 10.8-4.7-1.9-8-5.8-8-10.8V9.4z" fill="none" stroke="#10B6A8" stroke-width="2" stroke-linejoin="round"/><path d="M12 16.2l2.6 2.6L21 12.4" stroke="#10B6A8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg></span>
     <span class="logo-word">Sightline Studio</span>
   </a>
-    <nav class="nav" aria-label="Primary"><a href="/start">Websites</a><a href="/how-it-works">Monitoring</a><a href="/marketing">Marketing</a><a href="/pricing">Pricing</a></nav>
+    <nav class="nav" aria-label="Primary"><a href="/gallery">Websites</a><a href="/how-it-works">Monitoring</a><a href="/marketing">Marketing</a><a href="/pricing">Pricing</a></nav>
     <div class="header-cta">
       <a class="btn btn-primary" href="/free-scan">Get my free scan</a>
     </div>
@@ -321,7 +371,7 @@
     </button>
   </div>
   <div class="mobile-nav" id="mobile-nav" hidden>
-    <a href="/start">Websites</a><a href="/how-it-works">Monitoring</a><a href="/marketing">Marketing</a><a href="/pricing">Pricing</a>
+    <a href="/gallery">Websites</a><a href="/how-it-works">Monitoring</a><a href="/marketing">Marketing</a><a href="/pricing">Pricing</a>
     <a class="btn btn-primary" href="/free-scan">Get my free scan</a>
   </div>
 </header>
@@ -331,9 +381,9 @@
 <section class="dark sl-hero">
   <div class="wrap sl-hero-grid">
     <div class="sl-hero-copy reveal">
-      <span class="kicker">The complete online-presence studio</span>
-      <h1 class="sl-h1"><span class="w1">Look sharp.</span><span class="w2">Stay safe.</span><span class="w3">Get found.</span></h1>
-      <p class="sl-lede">One studio for everything customers see about your local business — <b>a website that wins them over</b>, <b>monitoring that keeps you safe</b>, and <b>marketing that gets you found</b>. All in plain English.</p>
+      <span class="kicker">Websites · Monitoring · Marketing — for local business</span>
+      <h1 class="sl-h1v2">Everything customers see about your business, <span class="hl">working for you.</span></h1>
+      <p class="sl-lede">Sightline Studio builds your website, watches your security and reviews, and gets you found — <b>the whole online side of your business, handled by one team</b>. In plain English, for one clear price.</p>
       <div class="sl-hero-actions">
         <a class="btn btn-teal btn-lg" href="/free-scan">Get my free scan <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
         <a class="btn btn-ghost-d btn-lg" href="/gallery">See our work</a>
@@ -342,6 +392,10 @@
     </div>
 
     <div class="sl-hero-art reveal" style="transition-delay:.12s" aria-hidden="true">
+      <div class="float float-site">
+        <div class="fs-tb"><i></i><i></i><i></i></div>
+        <div class="fs-bd"><div class="fs-h"></div><div class="fs-l"></div><div class="fs-l s"></div><div class="fs-btn"></div></div>
+      </div>
       <div class="panel">
         <div class="panel-head">
           <span class="panel-title">Presence report</span>
@@ -350,7 +404,7 @@
         <div class="scanwrap">
           <div class="gauge">
             <div class="ring">
-              <svg viewBox="0 0 120 120"><circle cx="60" cy="60" r="50" fill="none" stroke="rgba(255,255,255,.12)" stroke-width="11"/><circle cx="60" cy="60" r="50" fill="none" stroke="#10B6A8" stroke-width="11" stroke-linecap="round" stroke-dasharray="314" stroke-dashoffset="82" transform="rotate(-90 60 60)"/></svg>
+              <svg viewBox="0 0 120 120"><circle cx="60" cy="60" r="50" fill="none" stroke="rgba(255,255,255,.12)" stroke-width="11"/><circle class="ring-arc" cx="60" cy="60" r="50" fill="none" stroke="#10B6A8" stroke-width="11" stroke-linecap="round" stroke-dasharray="314" stroke-dashoffset="82" transform="rotate(-90 60 60)"/></svg>
               <b>74</b><small>overall</small>
             </div>
             <div class="metrics">
@@ -366,18 +420,36 @@
           </div>
         </div>
       </div>
+      <div class="float float-review">
+        <span class="fr-av"></span>
+        <span><b>New 5-star review</b><span class="fr-stars">★★★★★</span></span>
+      </div>
     </div>
   </div>
 
-  <div class="wrap hero-strip reveal" style="transition-delay:.2s">
-    <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="4.5" y="10.5" width="15" height="10" rx="2"/><path d="M8 10.5V8a4 4 0 018 0v2.5"/></svg>Public information only</span>
-    <span class="sep">/</span>
-    <span>Plain English, always</span>
-    <span class="sep">/</span>
-    <span>Your data is never sold</span>
-    <span class="sep">/</span>
-    <span>Cancel anytime</span>
-  </div>
+  <nav class="wrap hero-pillars reveal" style="transition-delay:.2s" aria-label="What we do">
+    <a class="pillar-h" href="/gallery" style="--pac:var(--w-teal)">
+      <span class="p-ic"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="14" rx="2"/><path d="M3 8h18M7 21h10"/></svg></span>
+      <span class="p-eyebrow">Websites</span>
+      <span class="p-title">Look sharp.</span>
+      <p class="p-desc">A fast, modern site built to win the customer deciding in ten seconds.</p>
+      <span class="p-go"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+    </a>
+    <a class="pillar-h" href="/how-it-works" style="--pac:var(--w-sky)">
+      <span class="p-ic"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v5c0 4.5-3 8-7 10-4-2-7-5.5-7-10V6z"/><path d="M9 12l2 2 4-4"/></svg></span>
+      <span class="p-eyebrow">Monitoring</span>
+      <span class="p-title">Stay safe.</span>
+      <p class="p-desc">Eyes on your security, site health, and reviews — a plain-English report every month.</p>
+      <span class="p-go"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+    </a>
+    <a class="pillar-h" href="/marketing" style="--pac:var(--w-amber)">
+      <span class="p-ic"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9h4l7-5v16l-7-5H4z"/><path d="M18 8a4 4 0 010 8"/></svg></span>
+      <span class="p-eyebrow">Marketing</span>
+      <span class="p-title">Get found.</span>
+      <p class="p-desc">Reviews, social, and search working together to bring new customers to your door.</p>
+      <span class="p-go"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+    </a>
+  </nav>
 </section>
 
 <!-- ===================== WEBSITE MODELS ===================== -->
@@ -646,7 +718,7 @@
     </div>
     <div class="footer-col">
       <h4>Product</h4>
-      <a href="/start">Websites</a>
+      <a href="/gallery">Websites</a>
       <a href="/how-it-works">Monitoring</a>
       <a href="/marketing">Marketing</a>
       <a href="/what-we-check">What we check</a>
@@ -672,5 +744,23 @@
   </div>
 </footer>
 <script src="/assets/js/main.js" defer></script>
+<script>
+/* hero presence-score count-up (skips when reduced motion is preferred) */
+(function(){
+  try{ if(window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches) return; }catch(e){}
+  var num=document.querySelector('.hp .ring b'), arc=document.querySelector('.hp .ring-arc');
+  if(!num||!arc) return;
+  var target=parseInt(num.textContent,10)||0, FULL=314, END=82, start=null, DUR=1400;
+  num.textContent='0'; arc.setAttribute('stroke-dashoffset', FULL);
+  function step(ts){
+    if(!start) start=ts;
+    var p=Math.min((ts-start)/DUR,1), e=1-Math.pow(1-p,3);
+    num.textContent=Math.round(target*e);
+    arc.setAttribute('stroke-dashoffset', FULL-(FULL-END)*e);
+    if(p<1) requestAnimationFrame(step);
+  }
+  requestAnimationFrame(function(){ requestAnimationFrame(step); });
+})();
+</script>
 </body>
 </html>
