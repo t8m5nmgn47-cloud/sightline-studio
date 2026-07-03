@@ -41,8 +41,18 @@ async function get(url, opts = {}) {
   finally { clearTimeout(t); }
 }
 
+// Reduce a verbose prospect location to a geocodable "City, State".
+// e.g. "Littleton, Colorado (multiple campuses…)" -> "Littleton, Colorado".
+export function cleanLocation(loc) {
+  let s = String(loc || "").replace(/\([^)]*\)/g, " ").replace(/\s+/g, " ").trim();
+  const st = s.match(/\b(Colorado|CO|[A-Z]{2})\b/);
+  const city = (s.split(",")[0] || "").trim();
+  if (city && /[a-z]/i.test(city)) return st ? `${city}, ${st[1]}` : city;
+  return s;
+}
+
 export async function geocode(location) {
-  const url = `${NOMINATIM}?q=${encodeURIComponent(location)}&format=json&limit=1&countrycodes=us`;
+  const url = `${NOMINATIM}?q=${encodeURIComponent(cleanLocation(location))}&format=json&limit=1&countrycodes=us`;
   const r = await get(url);
   if (!r.ok) return null;
   const d = await r.json().catch(() => []);
