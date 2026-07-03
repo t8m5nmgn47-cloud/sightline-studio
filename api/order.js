@@ -45,6 +45,8 @@ export default async function handler(req, res) {
 
   const who = [row.first_name, row.last_name].filter(Boolean).join(" ") || "—";
   const addonLine = addons && addons.length ? ` · ${addons.length} add-on${addons.length > 1 ? "s" : ""}` : "";
-  await notifySlack(`🧾 New order — ${plan}${row.biz ? " · " + row.biz : ""} · $${total}/mo${addonLine}\n${who} · ${email || "no email"}`);
+  const oneTime = (addons || []).filter((a) => a && a.once).reduce((s, a) => s + (Number(a.price) || 0), 0);
+  const oneTimeLine = oneTime ? ` · $${oneTime} one-time` : "";
+  await notifySlack(`🧾 New order — ${plan}${row.biz ? " · " + row.biz : ""} · $${total}/mo${oneTimeLine}${addonLine}\n${who} · ${email || "no email"}`);
   return res.status(200).json({ ok: true });
 }

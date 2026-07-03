@@ -96,7 +96,8 @@ const PLANS=[
 // Real add-on catalog + prices (from the Sightline configurator). price=null => quoted on proposal.
 const ADDONS=[
  {id:"growth",name:"★ Growth Bundle",price:89,blurb:"Reviews + AI Assistant + Security together — save $28/mo.",bundle:["reviews","assistant","security"]},
- {id:"sermons",name:"Sermons &amp; Live Streaming",price:29,blurb:"Live services, on-demand sermon library &amp; podcast feed."},
+ {id:"sermons",name:"Sermons &amp; Live Streaming",price:29,blurb:"Your stream, pro on your own site — searchable library &amp; podcast. Keep your free YouTube/FB feed."},
+ {id:"streamsetup",name:"Streaming Setup Consult",price:199,once:true,blurb:"One-time: we spec your gear &amp; configure OBS + a sound-board audio feed — the two hardest steps."},
  {id:"booking",name:"Online Booking",price:19,blurb:"Self-book 24/7 with reminders."},
  {id:"store",name:"Online Store + Inventory",price:25,blurb:"Sell products with live stock."},
  {id:"shipping",name:"Shipping — UPS &amp; USPS",price:15,blurb:"Live rates + labels; ship direct to the customer."},
@@ -133,7 +134,7 @@ function renderPlans(){
 function renderAddons(){
  $("#addons").innerHTML=ADDONS.map(a=>{
   const on=chosen.has(a.id);
-  const price=a.price===null?'<span class="prop">on proposal</span>':(a.price===0?'<span class="ap">Free</span>':'<span class="ap">+'+money(a.price)+'/mo</span>');
+  const price=a.price===null?'<span class="prop">on proposal</span>':(a.price===0?'<span class="ap">Free</span>':'<span class="ap">+'+money(a.price)+(a.once?' one-time':'/mo')+'</span>');
   return `<label class="ad${on?' on':''}" data-a="${a.id}"><input type="checkbox" ${on?'checked':''}><div><div class="an">${a.name}</div><div class="ab">${a.blurb}</div><div>${price}</div></div></label>`;
  }).join("");
  document.querySelectorAll(".ad").forEach(el=>{el.querySelector("input").onchange=e=>{const id=el.dataset.a;
@@ -144,12 +145,14 @@ function renderAddons(){
    renderAddons();renderSum();};});
 }
 function selectedAddons(){return ADDONS.filter(a=>chosen.has(a.id));}
-function monthlyTotal(){const p=PLANS.find(x=>x.id===planId).mo;return p+selectedAddons().reduce((s,a)=>s+(a.price||0),0);}
+function monthlyTotal(){const p=PLANS.find(x=>x.id===planId).mo;return p+selectedAddons().reduce((s,a)=>s+(a.once?0:(a.price||0)),0);}
+function oneTimeTotal(){const st=PLANS.find(x=>x.id===planId).start||0;return st+selectedAddons().reduce((s,a)=>s+(a.once?(a.price||0):0),0);}
 function renderSum(){
  const plan=PLANS.find(x=>x.id===planId);
  let lines=`<div class="sline"><span>${plan.name.split(',')[0]} plan</span><span>${money(plan.mo)}/mo</span></div>`;
- selectedAddons().forEach(a=>{lines+=`<div class="sline"><span class="m">${a.name.replace(/&amp;/g,'&')}</span><span>${a.price===null?'on proposal':(a.price===0?'Free':'+'+money(a.price)+'/mo')}</span></div>`;});
- if(plan.start)lines+=`<div class="sline"><span class="m">One-time to start</span><span>${money(plan.start)}</span></div>`;
+ selectedAddons().forEach(a=>{const v=a.price===null?'on proposal':(a.price===0?'Free':'+'+money(a.price)+(a.once?' one-time':'/mo'));lines+=`<div class="sline"><span class="m">${a.name.replace(/&amp;/g,'&')}</span><span>${v}</span></div>`;});
+ const ot=oneTimeTotal();
+ if(ot)lines+=`<div class="sline"><span class="m">Due at setup (one-time)</span><span>${money(ot)}</span></div>`;
  $("#slines").innerHTML=lines;
  $("#tot").textContent=money(monthlyTotal());
 }
@@ -161,7 +164,7 @@ $("#go").addEventListener("click",async()=>{
  err.classList.remove("show");
  const go=$("#go");go.disabled=true;go.textContent="Sending…";
  const order={ biz:BIZ||null, slug:SLUG||null, plan:PLANS.find(x=>x.id===planId).name,
-   addons:selectedAddons().map(a=>({id:a.id,name:a.name.replace(/&amp;/g,'&'),price:a.price})),
+   addons:selectedAddons().map(a=>({id:a.id,name:a.name.replace(/&amp;/g,'&'),price:a.price,once:a.once||false})),
    monthly_total:monthlyTotal(),
    first_name:$("#fname").value.trim()||null,last_name:$("#lname").value.trim()||null,
    email,phone:$("#phone").value.trim()||null,domain:$("#domain").value.trim()||null,notes:$("#notes").value.trim()||null };
