@@ -15,7 +15,7 @@
     finance:    { label: "Finance / Pro",   ids: ["crm", "security", "legal", "booking", "reviews"] },
     home:       { label: "Home Services",   ids: ["booking", "reviews", "gallery", "payments", "crm"] },
     retail:     { label: "Retail / Shop",   ids: ["store", "payments", "shipping", "gallery", "reviews"] },
-    faith:      { label: "Faith / Church",  ids: ["payments", "gallery", "security"] },
+    faith:      { label: "Faith / Church",  ids: ["sermons", "payments", "gallery", "security"] },
     school:     { label: "School",          ids: ["booking", "gallery", "intake", "payments"] },
     restaurant: { label: "Restaurant",      ids: ["booking", "reviews", "gallery", "payments"] }
   };
