@@ -50,7 +50,7 @@ h1,h2,h3{font-variant-ligatures:none}
     <form id="f">
       <div class="plans">
         <label class="plan on"><input type="radio" name="plan" value="zerodown" checked>
-          <span><span class="t">$0 down — <span class="big">$99.99</span>/mo</span><br><span class="s">Nothing up front. Cancel-friendly. Most popular.</span></span>
+          <span><span class="t">$0 down — <span style="opacity:.5;text-decoration:line-through;margin-right:5px">$199.99</span><span class="big">$149.99</span>/mo</span><br><span class="s">Nothing up front. Limited-time — regularly $199.99/mo.</span></span>
           <span class="tag">Most popular</span></label>
         <label class="plan"><input type="radio" name="plan" value="deposit">
           <span><span class="t"><span class="big">$299.99</span> to start, then <span class="big">$49.99</span>/mo</span><br><span class="s">A little up front, lower monthly.</span></span></label>
@@ -97,7 +97,7 @@ $("#textus").href=CONTACT.phone?("sms:"+CONTACT.phone.replace(/[^0-9+]/g,"")):ma
 // plan radio styling
 document.querySelectorAll(".plan").forEach(p=>p.addEventListener("click",()=>{document.querySelectorAll(".plan").forEach(x=>x.classList.remove("on"));p.classList.add("on");p.querySelector("input").checked=true;}));
 
-function planLabel(v){return v==="deposit"?"$299.99 to start, then $49.99/mo":"$0 down, then $99.99/mo";}
+function planLabel(v){return v==="deposit"?"$299.99 to start, then $49.99/mo":"$0 down, then $149.99/mo";}
 
 $("#f").addEventListener("submit",async e=>{
   e.preventDefault();
