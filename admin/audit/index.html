@@ -58,6 +58,14 @@ pre{background:var(--acd);color:#e8f3ee;border-radius:12px;padding:16px;overflow
     <input id="prospect" type="text" placeholder="prospect-domain.com" autocomplete="off" spellcheck="false">
     <label style="margin-top:12px">Competitor domains (one per line — use genuinely local competitors)</label>
     <textarea id="competitors" placeholder="competitor-one.com&#10;competitor-two.com"></textarea>
+    <div class="two" style="margin-top:6px">
+      <div><label>Location (for local discovery)</label><input id="loc" type="text" placeholder="Highlands Ranch, CO" autocomplete="off"></div>
+      <div><label>Category</label><input id="cat" type="text" placeholder="Dental practice" autocomplete="off"></div>
+    </div>
+    <div style="display:flex;gap:10px;align-items:center;margin-top:8px;flex-wrap:wrap">
+      <button id="find" class="btn" style="background:#fff;border:1px solid var(--line);color:var(--ink);margin:0">Find local competitors</button>
+      <span id="findstatus" class="status" style="margin:0"></span>
+    </div>
     <button id="go" class="btn">Run live audit</button>
     <div id="status" class="status"></div>
   </div>
@@ -141,6 +149,24 @@ function exportData(){
   };
 }
 
+async function findCompetitors(){
+  const location=$("loc").value.trim(), category=$("cat").value.trim();
+  const prospect=$("prospect").value.trim().replace(/^https?:\/\//,"").replace(/\/.*$/,"");
+  if(!location){ $("findstatus").className="status err"; $("findstatus").textContent="Enter a location first."; return; }
+  $("find").disabled=true; $("findstatus").className="status"; $("findstatus").textContent="Searching nearby "+(category||"businesses")+"…";
+  try{
+    const res=await fetch("/api/discover",{method:"POST",headers:{"content-type":"application/json"},body:JSON.stringify({location,category,exclude_domain:prospect})});
+    const d=await res.json();
+    if(!d.ok) throw new Error(d.error||"Discovery failed");
+    const existing=new Set($("competitors").value.split(/[\n,]/).map(x=>x.trim().replace(/^https?:\/\//,"").replace(/^www\./,"")).filter(Boolean));
+    const fresh=(d.competitors||[]).filter(c=>!existing.has(c.domain.replace(/^www\./,"")));
+    const lines=fresh.map(c=>c.domain);
+    $("competitors").value=[$("competitors").value.trim(),...lines].filter(Boolean).join("\n");
+    $("findstatus").textContent=`Added ${fresh.length} local competitor(s)${d.count>fresh.length?` (${d.count} found)`:""} near ${d.center||location}. Review & trim, then audit.`;
+  }catch(e){ $("findstatus").className="status err"; $("findstatus").textContent=e.message; }
+  finally{ $("find").disabled=false; }
+}
+$("find").onclick=findCompetitors;
 $("go").onclick=run;
 $("prospect").addEventListener("keydown",e=>{if(e.key==="Enter")run();});
 $("copy").onclick=async()=>{try{await navigator.clipboard.writeText($("out").textContent);$("copy").textContent="Copied ✓";setTimeout(()=>$("copy").textContent="Copy",1400);}catch(e){}};
