@@ -1,0 +1,1958 @@
+{
+ "generated_at": "2026-07-03T03:01:59.189Z",
+ "prospects": {
+  "acaciadentalgroup-com": {
+   "rank": 3,
+   "count": 9,
+   "score": 81,
+   "field_avg": 64,
+   "leads": false,
+   "top_gap": "A couple of web-security headers are missing",
+   "dmarc": "reject",
+   "competitors": [
+    {
+     "name": "Pacific Dental Services",
+     "domain": "www.pacificdentalservices.com",
+     "score": 90
+    },
+    {
+     "name": "Sopris Smiles",
+     "domain": "www.soprissmiles.com",
+     "score": 82
+    },
+    {
+     "name": "Colorado Dental Wellness Center",
+     "domain": "coloradodentalwellness.com",
+     "score": 75
+    },
+    {
+     "name": "Corson Dentistry",
+     "domain": "corsondentistry.com",
+     "score": 71
+    },
+    {
+     "name": "Comfort Dental",
+     "domain": "comfortdental.com",
+     "score": 67
+    },
+    {
+     "name": "Paradise Dentistry & Orthodontics",
+     "domain": "www.paradisedentistryorthodenver.com",
+     "score": 66
+    },
+    {
+     "name": "Cody Dental Group",
+     "domain": "www.codydental.com",
+     "score": 37
+    },
+    {
+     "name": "Happy Canyon Dental",
+     "domain": "www.happycanyondental.com",
+     "score": 9
+    }
+   ],
+   "source": "local"
+  },
+  "araoent-com": {
+   "rank": 5,
+   "count": 9,
+   "score": 73,
+   "field_avg": 76,
+   "leads": false,
+   "top_gap": "Missing web-security headers (clickjacking & content protections)",
+   "dmarc": "quarantine",
+   "competitors": [
+    {
+     "name": "Planned Parenthood",
+     "domain": "www.plannedparenthood.org",
+     "score": 88
+    },
+    {
+     "name": "MedNow Clinic",
+     "domain": "www.mednowclinics.com",
+     "score": 87
+    },
+    {
+     "name": "Colorado Eye Consultants",
+     "domain": "www.coloradoeyeconsultants.com",
+     "score": 84
+    },
+    {
+     "name": "Associates of Otolaryngology",
+     "domain": "www.denvercoloradoearnosethroatallergysinusdoctors.com",
+     "score": 74
+    },
+    {
+     "name": "AFC Urgent Care",
+     "domain": "www.carenow.com",
+     "score": 70
+    },
+    {
+     "name": "Swedish Cancer Care Center",
+     "domain": "swedishhospital.com",
+     "score": 70
+    },
+    {
+     "name": "Conceptions RMA",
+     "domain": "www.conceptionsrepro.com",
+     "score": 70
+    },
+    {
+     "name": "Continuum Autism Spectrum Alliance Denver",
+     "domain": "www.autismspectrumalliance.com",
+     "score": 70
+    }
+   ],
+   "source": "local"
+  },
+  "aspenfallslandscaping-com": {
+   "rank": 3,
+   "count": 7,
+   "score": 80,
+   "field_avg": 70,
+   "leads": false,
+   "top_gap": "No DMARC record — your email domain can be impersonated",
+   "dmarc": "",
+   "competitors": [
+    {
+     "name": "Garden Supply",
+     "domain": "genhydro.com",
+     "score": 86
+    },
+    {
+     "name": "Epic Lawn Pro",
+     "domain": "www.epiclawnpro.com",
+     "score": 85
+    },
+    {
+     "name": "The Bronze Petal",
+     "domain": "www.thebronzepetal.com",
+     "score": 73
+    },
+    {
+     "name": "Walmart Garden Center",
+     "domain": "www.walmart.com",
+     "score": 66
+    },
+    {
+     "name": "Denver Landscape Company",
+     "domain": "denverlandscapecompany.com",
+     "score": 56
+    },
+    {
+     "name": "Tagawa Gardens",
+     "domain": "www.tagawagardens.com",
+     "score": 45
+    }
+   ],
+   "source": "local"
+  },
+  "attorneysofhighlandsranch-com": {
+   "rank": 5,
+   "count": 7,
+   "score": 58,
+   "field_avg": 68,
+   "leads": false,
+   "top_gap": "No DMARC record — your email domain can be impersonated",
+   "dmarc": "",
+   "competitors": [
+    {
+     "name": "Law Offices of M. Colin Bresee",
+     "domain": "bresee.com",
+     "score": 90
+    },
+    {
+     "name": "The Littleton Law Office of Bahr, Kreidle & Flicker",
+     "domain": "littletonlawyers.com",
+     "score": 75
+    },
+    {
+     "name": "Plog & Stein, P.C.",
+     "domain": "www.plogsteinlaw.com",
+     "score": 72
+    },
+    {
+     "name": "Griffiths Law PC",
+     "domain": "www.griffithslawpc.com",
+     "score": 70
+    },
+    {
+     "name": "Colorado Trusts & Taxes",
+     "domain": "cotruststaxes.com",
+     "score": 57
+    },
+    {
+     "name": "The Boyle Law Firm",
+     "domain": "www.boyleinjurylaw.com",
+     "score": 56
+    }
+   ],
+   "source": "local"
+  },
+  "biondijewelry-com": {
+   "rank": 1,
+   "count": 6,
+   "score": 87,
+   "field_avg": 65,
+   "leads": true,
+   "top_gap": "DMARC isn't enforced (p=none) — your email can be spoofed by scammers",
+   "dmarc": "none",
+   "competitors": [
+    {
+     "name": "Pandora",
+     "domain": "pandoraonthehill.com",
+     "score": 81
+    },
+    {
+     "name": "Diamond Mine",
+     "domain": "dmjewelry.com",
+     "score": 63
+    },
+    {
+     "name": "Len Larson Jewelry",
+     "domain": "lenlarson.com",
+     "score": 63
+    },
+    {
+     "name": "Denver Crystals & Gems",
+     "domain": "www.denvercrystalsandgems.com",
+     "score": 54
+    },
+    {
+     "name": "Colorado Diamonds and Design",
+     "domain": "www.coloradodiamondsanddesign.com",
+     "score": 44
+    }
+   ],
+   "source": "local"
+  },
+  "buildabath-net": {
+   "rank": 1,
+   "count": 6,
+   "score": 94,
+   "field_avg": 85,
+   "leads": true,
+   "top_gap": "DMARC isn't enforced (p=none) — your email can be spoofed by scammers",
+   "dmarc": "none",
+   "competitors": [
+    {
+     "name": "Mini U Storage",
+     "domain": "www.miniustorage.com",
+     "score": 92
+    },
+    {
+     "name": "Extra Space Storage",
+     "domain": "extraspace.com",
+     "score": 88
+    },
+    {
+     "name": "Public Storage",
+     "domain": "www.publicstorage.com",
+     "score": 84
+    },
+    {
+     "name": "The Home Depot",
+     "domain": "www.homedepot.com",
+     "score": 81
+    },
+    {
+     "name": "Print & Copy Centers of Colorado",
+     "domain": "www.printandcopyco.com",
+     "score": 68
+    }
+   ],
+   "source": "local"
+  },
+  "castlerockcpa-com": {
+   "rank": 1,
+   "count": 6,
+   "score": 81,
+   "field_avg": 68,
+   "leads": true,
+   "top_gap": "DMARC isn't enforced (p=none) — your email can be spoofed by scammers",
+   "dmarc": "none",
+   "competitors": [
+    {
+     "name": "SBA CPA",
+     "domain": "thesbacpa.com",
+     "score": 78
+    },
+    {
+     "name": "Steven J Wick & Associates PC",
+     "domain": "sjwickcpa.com",
+     "score": 73
+    },
+    {
+     "name": "AuerCPA",
+     "domain": "auercpa.com",
+     "score": 69
+    },
+    {
+     "name": "Profiscal Solutions",
+     "domain": "profiscalsolutions.com",
+     "score": 63
+    },
+    {
+     "name": "Evergreen CPAs",
+     "domain": "evergreencpas.com",
+     "score": 41
+    }
+   ],
+   "source": "prior"
+  },
+  "cherryhillsdentist-com": {
+   "rank": 7,
+   "count": 9,
+   "score": 41,
+   "field_avg": 60,
+   "leads": false,
+   "top_gap": "DMARC isn't enforced (p=none) — your email can be spoofed by scammers",
+   "dmarc": "none",
+   "competitors": [
+    {
+     "name": "Pacific Dental Services",
+     "domain": "www.pacificdentalservices.com",
+     "score": 90
+    },
+    {
+     "name": "Sopris Smiles",
+     "domain": "www.soprissmiles.com",
+     "score": 82
+    },
+    {
+     "name": "Colorado Dental Wellness Center",
+     "domain": "coloradodentalwellness.com",
+     "score": 75
+    },
+    {
+     "name": "Corson Dentistry",
+     "domain": "corsondentistry.com",
+     "score": 71
+    },
+    {
+     "name": "Comfort Dental",
+     "domain": "comfortdental.com",
+     "score": 67
+    },
+    {
+     "name": "Paradise Dentistry & Orthodontics",
+     "domain": "www.paradisedentistryorthodenver.com",
+     "score": 66
+    },
+    {
+     "name": "Cody Dental Group",
+     "domain": "www.codydental.com",
+     "score": 37
+    },
+    {
+     "name": "Happy Canyon Dental",
+     "domain": "www.happycanyondental.com",
+     "score": 9
+    }
+   ],
+   "source": "local"
+  },
+  "clchr-org": {
+   "rank": 3,
+   "count": 9,
+   "score": 77,
+   "field_avg": 66,
+   "leads": false,
+   "top_gap": "DMARC isn't enforced (p=none) — your email can be spoofed by scammers",
+   "dmarc": "none",
+   "competitors": [
+    {
+     "name": "Pax Christi Catholic Church",
+     "domain": "paxchristi.org",
+     "score": 84
+    },
+    {
+     "name": "Connections Church",
+     "domain": "myconnections.church",
+     "score": 79
+    },
+    {
+     "name": "Saint Timothy's Episcopal Church",
+     "domain": "www.sttims.net",
+     "score": 69
+    },
+    {
+     "name": "Legacy Chapel",
+     "domain": "legacychapel.org",
+     "score": 66
+    },
+    {
+     "name": "Highlands Baptist Church",
+     "domain": "www.highlandsbaptistchurch.org",
+     "score": 66
+    },
+    {
+     "name": "Abiding Word Lutheran Church",
+     "domain": "www.awlc.org",
+     "score": 57
+    },
+    {
+     "name": "St. Luke's United Methodist Church",
+     "domain": "stlukeshr.com",
+     "score": 56
+    },
+    {
+     "name": "Denver Colorado Temple",
+     "domain": "www.churchofjesuschrist.org",
+     "score": 40
+    }
+   ],
+   "source": "local"
+  },
+  "coloradodermatology-com": {
+   "rank": 8,
+   "count": 8,
+   "score": 23,
+   "field_avg": 63,
+   "leads": false,
+   "top_gap": "No proper HTTPS — browsers can warn visitors your site isn't secure",
+   "dmarc": "none",
+   "competitors": [
+    {
+     "name": "National Jewish Health Highlands Ranch",
+     "domain": "www.nationaljewish.org",
+     "score": 80
+    },
+    {
+     "name": "Castle Rock Hormone Health",
+     "domain": "crhormonehealth.com",
+     "score": 77
+    },
+    {
+     "name": "South Denver Gastroenterology",
+     "domain": "southdenvergi.com",
+     "score": 70
+    },
+    {
+     "name": "Locketz Facial Plastic Surgery",
+     "domain": "www.locketzfacialplastics.com",
+     "score": 70
+    },
+    {
+     "name": "Integrated Ear Nose and Throat",
+     "domain": "www.integratedent.com",
+     "score": 64
+    },
+    {
+     "name": "Austin Brown Podiatry & Wound Care",
+     "domain": "www.abpwc.com",
+     "score": 60
+    },
+    {
+     "name": "Robinson Cosmetic Surgery, LLC",
+     "domain": "www.robinsoncosmeticsurgery.com",
+     "score": 56
+    }
+   ],
+   "source": "local"
+  },
+  "coloradolendingteam-com": {
+   "rank": 5,
+   "count": 6,
+   "score": 61,
+   "field_avg": 69,
+   "leads": false,
+   "top_gap": "DMARC isn't enforced (p=none) — your email can be spoofed by scammers",
+   "dmarc": "none",
+   "competitors": [
+    {
+     "name": "Brighton Jones",
+     "domain": "www.brightonjones.com",
+     "score": 87
+    },
+    {
+     "name": "Mosaic Retirement Planning, LLC",
+     "domain": "www.mosaicretirementplanning.com",
+     "score": 73
+    },
+    {
+     "name": "Edward Jones",
+     "domain": "www.edwardjones.com",
+     "score": 71
+    },
+    {
+     "name": "Riser Accounting",
+     "domain": "www.riseraccounting.com",
+     "score": 67
+    },
+    {
+     "name": "JPL Wealth Management",
+     "domain": "www.jplwm.com",
+     "score": 52
+    }
+   ],
+   "source": "local"
+  },
+  "compfm-com": {
+   "rank": 7,
+   "count": 7,
+   "score": 9,
+   "field_avg": 67,
+   "leads": false,
+   "top_gap": "No proper HTTPS — browsers can warn visitors your site isn't secure",
+   "dmarc": "",
+   "competitors": [
+    {
+     "name": "Planned Parenthood",
+     "domain": "www.plannedparenthood.org",
+     "score": 88
+    },
+    {
+     "name": "Colorado Eye Consultants",
+     "domain": "www.coloradoeyeconsultants.com",
+     "score": 84
+    },
+    {
+     "name": "Children's Hospital Colorado Therapy Care, Highlands Ranch",
+     "domain": "www.childrenscolorado.org",
+     "score": 82
+    },
+    {
+     "name": "National Jewish Health Highlands Ranch",
+     "domain": "www.nationaljewish.org",
+     "score": 80
+    },
+    {
+     "name": "Conceptions RMA",
+     "domain": "www.conceptionsrepro.com",
+     "score": 70
+    },
+    {
+     "name": "OnPoint Urgent Care",
+     "domain": "www.onpointurgentcare.com",
+     "score": 56
+    }
+   ],
+   "source": "local"
+  },
+  "copelandfamilydental-com": {
+   "rank": 4,
+   "count": 9,
+   "score": 78,
+   "field_avg": 70,
+   "leads": false,
+   "top_gap": "Missing web-security headers (clickjacking & content protections)",
+   "dmarc": "reject",
+   "competitors": [
+    {
+     "name": "Pacific Dental Services",
+     "domain": "www.pacificdentalservices.com",
+     "score": 90
+    },
+    {
+     "name": "Sopris Smiles",
+     "domain": "www.soprissmiles.com",
+     "score": 82
+    },
+    {
+     "name": "Dentists of Littleton",
+     "domain": "www.dentistsoflittleton.com",
+     "score": 80
+    },
+    {
+     "name": "303 Dental Group Amy Roberts DDS, PLLC",
+     "domain": "303dentalgroup.com",
+     "score": 73
+    },
+    {
+     "name": "Clear Smile Dental Care",
+     "domain": "www.cleardentalcentennial.com",
+     "score": 72
+    },
+    {
+     "name": "Comfort Dental",
+     "domain": "comfortdental.com",
+     "score": 67
+    },
+    {
+     "name": "Secora Family Dentistry",
+     "domain": "www.secoradentistry.com",
+     "score": 52
+    },
+    {
+     "name": "Chatfield Smiles Dentistry",
+     "domain": "chatfieldsmiles.com",
+     "score": 39
+    }
+   ],
+   "source": "local"
+  },
+  "cotitleescrow-com": {
+   "rank": 1,
+   "count": 5,
+   "score": 78,
+   "field_avg": 58,
+   "leads": true,
+   "top_gap": "A couple of web-security headers are missing",
+   "dmarc": "reject",
+   "competitors": [
+    {
+     "name": "Kris Kellar Coldwell Banker",
+     "domain": "parkercoloradohousesforsale.com",
+     "score": 60
+    },
+    {
+     "name": "Mountain Financial Mortgage Group",
+     "domain": "mfmloans.com",
+     "score": 53
+    },
+    {
+     "name": "Beattie Team - Alliance Mortgage Group",
+     "domain": "www.amglending.com",
+     "score": 53
+    },
+    {
+     "name": "Tasha Beckman - EXIT Mosaic Realty | Mama Bear Team",
+     "domain": "www.exitmosaicrealty.com",
+     "score": 45
+    }
+   ],
+   "source": "local"
+  },
+  "denverfamilylawmatters-com": {
+   "rank": 1,
+   "count": 3,
+   "score": 80,
+   "field_avg": 76,
+   "leads": true,
+   "top_gap": "DMARC isn't enforced (p=none) — your email can be spoofed by scammers",
+   "dmarc": "none",
+   "competitors": [
+    {
+     "name": "Catherine Brown, LLC",
+     "domain": "www.cbrownlaw.com",
+     "score": 78
+    },
+    {
+     "name": "The Murphy Law Firm",
+     "domain": "www.brianmurphy.net",
+     "score": 70
+    }
+   ],
+   "source": "local"
+  },
+  "elevatemyeyes-com": {
+   "rank": 1,
+   "count": 7,
+   "score": 89,
+   "field_avg": 70,
+   "leads": true,
+   "top_gap": "A couple of web-security headers are missing",
+   "dmarc": "quarantine",
+   "competitors": [
+    {
+     "name": "Great Western Lodging",
+     "domain": "gwlodging.com",
+     "score": 87
+    },
+    {
+     "name": "Envision Eye Care",
+     "domain": "envision-eyecare.com",
+     "score": 83
+    },
+    {
+     "name": "Copeland Family Dental",
+     "domain": "copelandfamilydental.com",
+     "score": 78
+    },
+    {
+     "name": "Highlands Family Chiropractic",
+     "domain": "highlandsfamilychiropractic.com",
+     "score": 75
+    },
+    {
+     "name": "Highlands Ranch Family Dentistry",
+     "domain": "hrfamilydentistry.com",
+     "score": 68
+    },
+    {
+     "name": "Comprehensive Family Medicine",
+     "domain": "compfm.com",
+     "score": 9
+    }
+   ],
+   "source": "prior"
+  },
+  "equippedchurch-net": {
+   "rank": 1,
+   "count": 9,
+   "score": 86,
+   "field_avg": 68,
+   "leads": true,
+   "top_gap": "DMARC isn't enforced (p=none) — your email can be spoofed by scammers",
+   "dmarc": "none",
+   "competitors": [
+    {
+     "name": "Pax Christi Catholic Church",
+     "domain": "paxchristi.org",
+     "score": 84
+    },
+    {
+     "name": "Connections Church",
+     "domain": "myconnections.church",
+     "score": 79
+    },
+    {
+     "name": "Christ Lutheran Church",
+     "domain": "www.clchr.org",
+     "score": 75
+    },
+    {
+     "name": "Legacy Chapel",
+     "domain": "legacychapel.org",
+     "score": 66
+    },
+    {
+     "name": "Highlands Baptist Church",
+     "domain": "www.highlandsbaptistchurch.org",
+     "score": 66
+    },
+    {
+     "name": "Abiding Word Lutheran Church",
+     "domain": "www.awlc.org",
+     "score": 57
+    },
+    {
+     "name": "St. Luke's United Methodist Church",
+     "domain": "stlukeshr.com",
+     "score": 56
+    },
+    {
+     "name": "Denver Colorado Temple",
+     "domain": "www.churchofjesuschrist.org",
+     "score": 40
+    }
+   ],
+   "source": "local"
+  },
+  "firmmedspa-com": {
+   "rank": 8,
+   "count": 8,
+   "score": 39,
+   "field_avg": 67,
+   "leads": false,
+   "top_gap": "No proper HTTPS — browsers can warn visitors your site isn't secure",
+   "dmarc": "none",
+   "competitors": [
+    {
+     "name": "Planned Parenthood",
+     "domain": "www.plannedparenthood.org",
+     "score": 88
+    },
+    {
+     "name": "National Jewish Health Highlands Ranch",
+     "domain": "www.nationaljewish.org",
+     "score": 80
+    },
+    {
+     "name": "Castle Rock Hormone Health",
+     "domain": "crhormonehealth.com",
+     "score": 77
+    },
+    {
+     "name": "South Denver Gastroenterology",
+     "domain": "southdenvergi.com",
+     "score": 70
+    },
+    {
+     "name": "Integrated Ear Nose and Throat",
+     "domain": "www.integratedent.com",
+     "score": 64
+    },
+    {
+     "name": "Austin Brown Podiatry & Wound Care",
+     "domain": "www.abpwc.com",
+     "score": 60
+    },
+    {
+     "name": "Robinson Cosmetic Surgery, LLC",
+     "domain": "www.robinsoncosmeticsurgery.com",
+     "score": 56
+    }
+   ],
+   "source": "local"
+  },
+  "griffithslawpc-com": {
+   "rank": 3,
+   "count": 9,
+   "score": 75,
+   "field_avg": 70,
+   "leads": false,
+   "top_gap": "Missing web-security headers (clickjacking & content protections)",
+   "dmarc": "quarantine",
+   "competitors": [
+    {
+     "name": "Law Offices of M. Colin Bresee",
+     "domain": "bresee.com",
+     "score": 90
+    },
+    {
+     "name": "Robinson & Henry, P.C.",
+     "domain": "www.robinsonandhenry.com",
+     "score": 76
+    },
+    {
+     "name": "The Littleton Law Office of Bahr, Kreidle & Flicker",
+     "domain": "littletonlawyers.com",
+     "score": 75
+    },
+    {
+     "name": "Plog & Stein, P.C.",
+     "domain": "www.plogsteinlaw.com",
+     "score": 72
+    },
+    {
+     "name": "Palmer Family Law",
+     "domain": "www.palmerfamilylawco.com",
+     "score": 70
+    },
+    {
+     "name": "Andrew T. Brake, P.C.",
+     "domain": "www.brakelaw.com",
+     "score": 61
+    },
+    {
+     "name": "Colorado Trusts & Taxes",
+     "domain": "cotruststaxes.com",
+     "score": 57
+    },
+    {
+     "name": "The Boyle Law Firm",
+     "domain": "www.boyleinjurylaw.com",
+     "score": 56
+    }
+   ],
+   "source": "local"
+  },
+  "heidiosterobgyn-com": {
+   "rank": 6,
+   "count": 8,
+   "score": 63,
+   "field_avg": 70,
+   "leads": false,
+   "top_gap": "No DMARC record — your email domain can be impersonated",
+   "dmarc": "",
+   "competitors": [
+    {
+     "name": "Planned Parenthood",
+     "domain": "www.plannedparenthood.org",
+     "score": 88
+    },
+    {
+     "name": "National Jewish Health Highlands Ranch",
+     "domain": "www.nationaljewish.org",
+     "score": 80
+    },
+    {
+     "name": "Castle Rock Hormone Health",
+     "domain": "crhormonehealth.com",
+     "score": 77
+    },
+    {
+     "name": "South Denver Gastroenterology",
+     "domain": "southdenvergi.com",
+     "score": 70
+    },
+    {
+     "name": "Integrated Ear Nose and Throat",
+     "domain": "www.integratedent.com",
+     "score": 64
+    },
+    {
+     "name": "Austin Brown Podiatry & Wound Care",
+     "domain": "www.abpwc.com",
+     "score": 60
+    },
+    {
+     "name": "Robinson Cosmetic Surgery, LLC",
+     "domain": "www.robinsoncosmeticsurgery.com",
+     "score": 56
+    }
+   ],
+   "source": "local"
+  },
+  "homesteadtc-com": {
+   "rank": 4,
+   "count": 8,
+   "score": 75,
+   "field_avg": 69,
+   "leads": false,
+   "top_gap": "Missing web-security headers (clickjacking & content protections)",
+   "dmarc": "quarantine",
+   "competitors": [
+    {
+     "name": "Hurl & Hurl Insurance Agency",
+     "domain": "davidhurl.net",
+     "score": 87
+    },
+    {
+     "name": "Fred Loya Insurance",
+     "domain": "www.fredloya.com",
+     "score": 86
+    },
+    {
+     "name": "Covered Insurance",
+     "domain": "itscovered.com",
+     "score": 81
+    },
+    {
+     "name": "State Farm",
+     "domain": "www.statefarm.com",
+     "score": 72
+    },
+    {
+     "name": "Stailey Insurance",
+     "domain": "www.staileycorp.com",
+     "score": 62
+    },
+    {
+     "name": "C-M Car Insurance",
+     "domain": "alluscarinsurance.com",
+     "score": 46
+    },
+    {
+     "name": "Chad Thielen: Allstate Insurance",
+     "domain": "agents.allstate.com",
+     "score": 45
+    }
+   ],
+   "source": "local"
+  },
+  "hrcoc-org": {
+   "rank": 4,
+   "count": 9,
+   "score": 71,
+   "field_avg": 66,
+   "leads": false,
+   "top_gap": "No DMARC record — your email domain can be impersonated",
+   "dmarc": "",
+   "competitors": [
+    {
+     "name": "Pax Christi Catholic Church",
+     "domain": "paxchristi.org",
+     "score": 84
+    },
+    {
+     "name": "Connections Church",
+     "domain": "myconnections.church",
+     "score": 79
+    },
+    {
+     "name": "Christ Lutheran Church",
+     "domain": "www.clchr.org",
+     "score": 75
+    },
+    {
+     "name": "Legacy Chapel",
+     "domain": "legacychapel.org",
+     "score": 66
+    },
+    {
+     "name": "Highlands Baptist Church",
+     "domain": "www.highlandsbaptistchurch.org",
+     "score": 66
+    },
+    {
+     "name": "Abiding Word Lutheran Church",
+     "domain": "www.awlc.org",
+     "score": 57
+    },
+    {
+     "name": "St. Luke's United Methodist Church",
+     "domain": "stlukeshr.com",
+     "score": 56
+    },
+    {
+     "name": "Denver Colorado Temple",
+     "domain": "www.churchofjesuschrist.org",
+     "score": 40
+    }
+   ],
+   "source": "local"
+  },
+  "kcmortgagecolorado-com": {
+   "rank": 2,
+   "count": 6,
+   "score": 82,
+   "field_avg": 65,
+   "leads": true,
+   "top_gap": "DMARC isn't enforced (p=none) — your email can be spoofed by scammers",
+   "dmarc": "none",
+   "competitors": [
+    {
+     "name": "Bowman Financial Strategies",
+     "domain": "www.bowmanfinancialstrategies.com",
+     "score": 87
+    },
+    {
+     "name": "Mosaic Retirement Planning, LLC",
+     "domain": "www.mosaicretirementplanning.com",
+     "score": 73
+    },
+    {
+     "name": "Mountain Financial Mortgage Group",
+     "domain": "mfmloans.com",
+     "score": 53
+    },
+    {
+     "name": "Beattie Team - Alliance Mortgage Group",
+     "domain": "www.amglending.com",
+     "score": 53
+    },
+    {
+     "name": "Three Peaks Capital Management",
+     "domain": "www.threepeaks.com",
+     "score": 40
+    }
+   ],
+   "source": "local"
+  },
+  "mckeanins-com": {
+   "rank": 1,
+   "count": 8,
+   "score": 85,
+   "field_avg": 70,
+   "leads": true,
+   "top_gap": "Missing web-security headers (clickjacking & content protections)",
+   "dmarc": "reject",
+   "competitors": [
+    {
+     "name": "State Farm",
+     "domain": "www.matthewfry.net",
+     "score": 77
+    },
+    {
+     "name": "State Farm",
+     "domain": "theparkeragent.com",
+     "score": 75
+    },
+    {
+     "name": "Farmers Insurance - Troy Gardner",
+     "domain": "agents.farmers.com",
+     "score": 73
+    },
+    {
+     "name": "Lucy Buck State Farm Insurance",
+     "domain": "www.lucybuck.com",
+     "score": 71
+    },
+    {
+     "name": "State Farm",
+     "domain": "krististearns.com",
+     "score": 67
+    },
+    {
+     "name": "Kirsch Insurance",
+     "domain": "ikirsch.com",
+     "score": 57
+    },
+    {
+     "name": "Gerald L Lukton Co",
+     "domain": "luktoncompany.com",
+     "score": 57
+    }
+   ],
+   "source": "local"
+  },
+  "milehighsmilesandesthetics-com": {
+   "rank": 8,
+   "count": 8,
+   "score": 9,
+   "field_avg": 65,
+   "leads": false,
+   "top_gap": "No proper HTTPS — browsers can warn visitors your site isn't secure",
+   "dmarc": "",
+   "competitors": [
+    {
+     "name": "Smile Doctors Braces",
+     "domain": "www.smiledoctors.com",
+     "score": 91
+    },
+    {
+     "name": "My Kid’s Dentist and Orthodontics",
+     "domain": "www.mykidsdentistlonetree.com",
+     "score": 80
+    },
+    {
+     "name": "Lone Tree Dentist",
+     "domain": "www.lonetreedentalgroup.com",
+     "score": 80
+    },
+    {
+     "name": "Comfort Dental",
+     "domain": "www.comfortdentalkids.com",
+     "score": 76
+    },
+    {
+     "name": "Redd Orthodontics",
+     "domain": "www.reddortho.com",
+     "score": 75
+    },
+    {
+     "name": "Highlands Ranch Smiles",
+     "domain": "highlandsranchcoloradodentist.com",
+     "score": 71
+    },
+    {
+     "name": "Highlands Ranch Dental Group",
+     "domain": "highlandsranchdentalgroup.com",
+     "score": 39
+    }
+   ],
+   "source": "local"
+  },
+  "missionhills-org": {
+   "rank": 2,
+   "count": 9,
+   "score": 77,
+   "field_avg": 65,
+   "leads": false,
+   "top_gap": "DMARC isn't enforced (p=none) — your email can be spoofed by scammers",
+   "dmarc": "none",
+   "competitors": [
+    {
+     "name": "Sanctuary Christian Fellowship",
+     "domain": "www.scf.church",
+     "score": 91
+    },
+    {
+     "name": "Saint Timothy's Episcopal Church",
+     "domain": "www.sttims.net",
+     "score": 69
+    },
+    {
+     "name": "Congregation Beth Shalom",
+     "domain": "www.cbsdenver.org",
+     "score": 68
+    },
+    {
+     "name": "Family Worship Center",
+     "domain": "www.fwcenter.org",
+     "score": 64
+    },
+    {
+     "name": "First Presbyterian Church of Englewood",
+     "domain": "1stpresenglewood.org",
+     "score": 64
+    },
+    {
+     "name": "Saint Louis Catholic Church",
+     "domain": "www.stlouiscatholicparish.org",
+     "score": 55
+    },
+    {
+     "name": "Our Lady of Mount Carmel Catholic Church",
+     "domain": "www.olmcfssp.org",
+     "score": 49
+    },
+    {
+     "name": "Saint Herman Orthodox Church",
+     "domain": "www.sthermanoca.org",
+     "score": 49
+    }
+   ],
+   "source": "local"
+  },
+  "montessoriatlonetree-com": {
+   "rank": 7,
+   "count": 9,
+   "score": 70,
+   "field_avg": 75,
+   "leads": false,
+   "top_gap": "No DMARC record — your email domain can be impersonated",
+   "dmarc": "",
+   "competitors": [
+    {
+     "name": "New Horizon Academy",
+     "domain": "newhorizonacademy.net",
+     "score": 90
+    },
+    {
+     "name": "SkyView Academy",
+     "domain": "www.skyviewacademy.org",
+     "score": 89
+    },
+    {
+     "name": "cms.dcsdk12.org",
+     "domain": "cms.dcsdk12.org",
+     "score": 85
+    },
+    {
+     "name": "Eagle Academy",
+     "domain": "ea.dcsdk12.org",
+     "score": 85
+    },
+    {
+     "name": "Mountain Ridge Middle School",
+     "domain": "mrms.dcsdk12.org",
+     "score": 85
+    },
+    {
+     "name": "Arrowwood Elementary School",
+     "domain": "awe.dcsdk12.org",
+     "score": 75
+    },
+    {
+     "name": "Highlands Ranch High School",
+     "domain": "www.hrhsfalcons.com",
+     "score": 58
+    },
+    {
+     "name": "Saint Thomas More Catholic School",
+     "domain": "www.stmcatholic.org",
+     "score": 36
+    }
+   ],
+   "source": "local"
+  },
+  "myrkmhome-com": {
+   "rank": 2,
+   "count": 7,
+   "score": 86,
+   "field_avg": 73,
+   "leads": true,
+   "top_gap": "No DMARC record — your email domain can be impersonated",
+   "dmarc": "",
+   "competitors": [
+    {
+     "name": "Coleman Custom Homes",
+     "domain": "cchvail.com",
+     "score": 87
+    },
+    {
+     "name": "Westover Construction",
+     "domain": "westoverconstruction.com",
+     "score": 79
+    },
+    {
+     "name": "Stone Aspen Signature Builders",
+     "domain": "stoneaspen.com",
+     "score": 77
+    },
+    {
+     "name": "Premier Mountain Builders",
+     "domain": "premiermountainbuilders.com",
+     "score": 74
+    },
+    {
+     "name": "Kinley Built",
+     "domain": "kinleybuilt.com",
+     "score": 56
+    },
+    {
+     "name": "ULFBUILT",
+     "domain": "ulfbuilt.com",
+     "score": 53
+    }
+   ],
+   "source": "prior"
+  },
+  "new3c-org": {
+   "rank": 7,
+   "count": 7,
+   "score": 29,
+   "field_avg": 65,
+   "leads": false,
+   "top_gap": "DMARC isn't enforced (p=none) — your email can be spoofed by scammers",
+   "dmarc": "none",
+   "competitors": [
+    {
+     "name": "Sanctuary Christian Fellowship",
+     "domain": "www.scf.church",
+     "score": 91
+    },
+    {
+     "name": "Greenwood Community Church",
+     "domain": "greenwoodcc.com",
+     "score": 71
+    },
+    {
+     "name": "Saint Timothy's Episcopal Church",
+     "domain": "www.sttims.net",
+     "score": 69
+    },
+    {
+     "name": "Congregation Beth Shalom",
+     "domain": "www.cbsdenver.org",
+     "score": 68
+    },
+    {
+     "name": "Family Worship Center",
+     "domain": "www.fwcenter.org",
+     "score": 64
+    },
+    {
+     "name": "First Presbyterian Church of Englewood",
+     "domain": "1stpresenglewood.org",
+     "score": 64
+    }
+   ],
+   "source": "local"
+  },
+  "niedermaninsurance-com": {
+   "rank": 2,
+   "count": 8,
+   "score": 86,
+   "field_avg": 72,
+   "leads": true,
+   "top_gap": "DMARC isn't enforced (p=none) — your email can be spoofed by scammers",
+   "dmarc": "none",
+   "competitors": [
+    {
+     "name": "Premier Group Insurance Corporate Office",
+     "domain": "www.thinkpremierfirst.com",
+     "score": 91
+    },
+    {
+     "name": "State Farm",
+     "domain": "theparkeragent.com",
+     "score": 75
+    },
+    {
+     "name": "Farmers Insurance - Troy Gardner",
+     "domain": "agents.farmers.com",
+     "score": 73
+    },
+    {
+     "name": "Lucy Buck State Farm Insurance",
+     "domain": "www.lucybuck.com",
+     "score": 71
+    },
+    {
+     "name": "State Farm",
+     "domain": "krististearns.com",
+     "score": 67
+    },
+    {
+     "name": "Gerald L Lukton Co",
+     "domain": "luktoncompany.com",
+     "score": 57
+    },
+    {
+     "name": "Kirsch Insurance",
+     "domain": "ikirsch.com",
+     "score": 57
+    }
+   ],
+   "source": "local"
+  },
+  "originalhardware-com": {
+   "rank": 1,
+   "count": 6,
+   "score": 90,
+   "field_avg": 79,
+   "leads": true,
+   "top_gap": "DMARC isn't enforced (p=none) — your email can be spoofed by scammers",
+   "dmarc": "none",
+   "competitors": [
+    {
+     "name": "Mountain Standard Goods",
+     "domain": "mstgoods.com",
+     "score": 85
+    },
+    {
+     "name": "White Oak Boutique",
+     "domain": "thewhiteoakboutique.com",
+     "score": 83
+    },
+    {
+     "name": "ElseWear Collective",
+     "domain": "elsewearcollective.com",
+     "score": 82
+    },
+    {
+     "name": "Shirt Off My Back",
+     "domain": "shirtoffmybacklittleton.com",
+     "score": 82
+    },
+    {
+     "name": "J Claire Women's Fashion",
+     "domain": "jclairewomensfashion.com",
+     "score": 54
+    }
+   ],
+   "source": "prior"
+  },
+  "paramounttitle-com": {
+   "rank": 1,
+   "count": 6,
+   "score": 91,
+   "field_avg": 63,
+   "leads": true,
+   "top_gap": "No DMARC record — your email domain can be impersonated",
+   "dmarc": "",
+   "competitors": [
+    {
+     "name": "Farmers Insurance - Troy Gardner",
+     "domain": "agents.farmers.com",
+     "score": 73
+    },
+    {
+     "name": "Lucy Buck State Farm Insurance",
+     "domain": "www.lucybuck.com",
+     "score": 71
+    },
+    {
+     "name": "Stailey Insurance",
+     "domain": "www.staileycorp.com",
+     "score": 62
+    },
+    {
+     "name": "Gerald L Lukton Co",
+     "domain": "luktoncompany.com",
+     "score": 57
+    },
+    {
+     "name": "CoWest Insurance Associates",
+     "domain": "www.cowestassociates.com",
+     "score": 23
+    }
+   ],
+   "source": "local"
+  },
+  "paxchristi-org": {
+   "rank": 3,
+   "count": 8,
+   "score": 84,
+   "field_avg": 76,
+   "leads": false,
+   "top_gap": "No DMARC record — your email domain can be impersonated",
+   "dmarc": "",
+   "competitors": [
+    {
+     "name": "Bethany Lutheran Church (ELCA)",
+     "domain": "bethany-denver.org",
+     "score": 94
+    },
+    {
+     "name": "Temple Sinai",
+     "domain": "www.sinaidenver.org",
+     "score": 87
+    },
+    {
+     "name": "Greenwood Community Church",
+     "domain": "greenwoodcc.com",
+     "score": 71
+    },
+    {
+     "name": "Saint Timothy's Episcopal Church",
+     "domain": "www.sttims.net",
+     "score": 69
+    },
+    {
+     "name": "Congregation Hebrew Educational Alliance",
+     "domain": "headenver.org",
+     "score": 69
+    },
+    {
+     "name": "Congregation Beth Shalom",
+     "domain": "www.cbsdenver.org",
+     "score": 68
+    },
+    {
+     "name": "Family Worship Center",
+     "domain": "www.fwcenter.org",
+     "score": 64
+    }
+   ],
+   "source": "local"
+  },
+  "rosslawcolorado-com": {
+   "rank": 1,
+   "count": 8,
+   "score": 90,
+   "field_avg": 75,
+   "leads": true,
+   "top_gap": "DMARC isn't enforced (p=none) — your email can be spoofed by scammers",
+   "dmarc": "none",
+   "competitors": [
+    {
+     "name": "Law Offices of M. Colin Bresee",
+     "domain": "bresee.com",
+     "score": 90
+    },
+    {
+     "name": "www.m2lawyers.com",
+     "domain": "www.m2lawyers.com",
+     "score": 86
+    },
+    {
+     "name": "The Wilhite Law Firm - Personal Injury Attorney",
+     "domain": "www.wilhitelawfirm.com",
+     "score": 76
+    },
+    {
+     "name": "Plog & Stein, P.C.",
+     "domain": "www.plogsteinlaw.com",
+     "score": 72
+    },
+    {
+     "name": "Griffiths Law PC",
+     "domain": "www.griffithslawpc.com",
+     "score": 70
+    },
+    {
+     "name": "Andrew T. Brake, P.C.",
+     "domain": "www.brakelaw.com",
+     "score": 61
+    },
+    {
+     "name": "Colorado Trusts & Taxes",
+     "domain": "cotruststaxes.com",
+     "score": 57
+    }
+   ],
+   "source": "local"
+  },
+  "smokyhillumc-org": {
+   "rank": 1,
+   "count": 9,
+   "score": 84,
+   "field_avg": 74,
+   "leads": true,
+   "top_gap": "A couple of web-security headers are missing",
+   "dmarc": "reject",
+   "competitors": [
+    {
+     "name": "Saint Catherine Greek Orthodox Church",
+     "domain": "stcatherinechurch.org",
+     "score": 79
+    },
+    {
+     "name": "National Fire & Safety",
+     "domain": "natfiresafety.com",
+     "score": 77
+    },
+    {
+     "name": "Saint Thomas More Catholic Church",
+     "domain": "stthomasmore.org",
+     "score": 76
+    },
+    {
+     "name": "Covenant Presbyterian DTC",
+     "domain": "covenantdtc.org",
+     "score": 75
+    },
+    {
+     "name": "Hope United Methodist Church",
+     "domain": "www.hopechangeslives.org",
+     "score": 73
+    },
+    {
+     "name": "Church of Christ of Cherry Vista",
+     "domain": "www.cherryvistachurchofchrist.org",
+     "score": 70
+    },
+    {
+     "name": "Aish Denver",
+     "domain": "aishdenver.com",
+     "score": 70
+    },
+    {
+     "name": "Red Rocks Church",
+     "domain": "www.redrockschurch.com",
+     "score": 66
+    }
+   ],
+   "source": "local"
+  },
+  "southdenverobgyn-com": {
+   "rank": 4,
+   "count": 7,
+   "score": 61,
+   "field_avg": 58,
+   "leads": false,
+   "top_gap": "Missing web-security headers (clickjacking & content protections)",
+   "dmarc": "reject",
+   "competitors": [
+    {
+     "name": "Associates of Otolaryngology",
+     "domain": "www.denvercoloradoearnosethroatallergysinusdoctors.com",
+     "score": 74
+    },
+    {
+     "name": "Swedish Cancer Care Center",
+     "domain": "swedishhospital.com",
+     "score": 70
+    },
+    {
+     "name": "Continuum Autism Spectrum Alliance Denver",
+     "domain": "www.autismspectrumalliance.com",
+     "score": 70
+    },
+    {
+     "name": "OnPoint Urgent Care",
+     "domain": "www.onpointurgentcare.com",
+     "score": 56
+    },
+    {
+     "name": "Rutledge Psychiatry",
+     "domain": "www.rutledgemd.com",
+     "score": 43
+    },
+    {
+     "name": "Foothills Family Practice",
+     "domain": "www.foothillsfamilypractice.com",
+     "score": 31
+    }
+   ],
+   "source": "local"
+  },
+  "southwestheating-com": {
+   "rank": 3,
+   "count": 9,
+   "score": 77,
+   "field_avg": 68,
+   "leads": false,
+   "top_gap": "DMARC isn't enforced (p=none) — your email can be spoofed by scammers",
+   "dmarc": "none",
+   "competitors": [
+    {
+     "name": "Simply Mechanical AC, Furnace & Boiler Repair",
+     "domain": "simplymechanicalco.com",
+     "score": 83
+    },
+    {
+     "name": "Fireside Heating and Cooling",
+     "domain": "www.firesidehvac.com",
+     "score": 81
+    },
+    {
+     "name": "Littleton Hot Water Heaters LLC",
+     "domain": "littletonhotwaterheater.com",
+     "score": 76
+    },
+    {
+     "name": "Befort Plumbing & Heating",
+     "domain": "www.befortplumbingandheating.com",
+     "score": 71
+    },
+    {
+     "name": "Premier Electrical Staffing",
+     "domain": "www.premierelectricalstaffing.com",
+     "score": 65
+    },
+    {
+     "name": "Defense Plumbing",
+     "domain": "www.defenseplumbing.com",
+     "score": 60
+    },
+    {
+     "name": "Master Rooter",
+     "domain": "masterrooter.plumbing",
+     "score": 60
+    },
+    {
+     "name": "Odin Electric",
+     "domain": "odinelec.com",
+     "score": 41
+    }
+   ],
+   "source": "local"
+  },
+  "stoneaspen-com": {
+   "rank": 4,
+   "count": 7,
+   "score": 77,
+   "field_avg": 73,
+   "leads": false,
+   "top_gap": "No DMARC record — your email domain can be impersonated",
+   "dmarc": "",
+   "competitors": [
+    {
+     "name": "Coleman Custom Homes",
+     "domain": "cchvail.com",
+     "score": 87
+    },
+    {
+     "name": "RKM Homes",
+     "domain": "myrkmhome.com",
+     "score": 86
+    },
+    {
+     "name": "Westover Construction",
+     "domain": "westoverconstruction.com",
+     "score": 79
+    },
+    {
+     "name": "Premier Mountain Builders",
+     "domain": "premiermountainbuilders.com",
+     "score": 74
+    },
+    {
+     "name": "Kinley Built",
+     "domain": "kinleybuilt.com",
+     "score": 56
+    },
+    {
+     "name": "ULFBUILT",
+     "domain": "ulfbuilt.com",
+     "score": 53
+    }
+   ],
+   "source": "prior"
+  },
+  "summitchurch-online": {
+   "rank": 6,
+   "count": 8,
+   "score": 68,
+   "field_avg": 74,
+   "leads": false,
+   "top_gap": "DMARC isn't enforced (p=none) — your email can be spoofed by scammers",
+   "dmarc": "none",
+   "competitors": [
+    {
+     "name": "Bethany Lutheran Church (ELCA)",
+     "domain": "bethany-denver.org",
+     "score": 94
+    },
+    {
+     "name": "Temple Sinai",
+     "domain": "www.sinaidenver.org",
+     "score": 87
+    },
+    {
+     "name": "Greenwood Community Church",
+     "domain": "greenwoodcc.com",
+     "score": 71
+    },
+    {
+     "name": "Saint Timothy's Episcopal Church",
+     "domain": "www.sttims.net",
+     "score": 69
+    },
+    {
+     "name": "Congregation Hebrew Educational Alliance",
+     "domain": "headenver.org",
+     "score": 69
+    },
+    {
+     "name": "Congregation Beth Shalom",
+     "domain": "www.cbsdenver.org",
+     "score": 68
+    },
+    {
+     "name": "Family Worship Center",
+     "domain": "www.fwcenter.org",
+     "score": 64
+    }
+   ],
+   "source": "local"
+  },
+  "thrivechurch-com": {
+   "rank": 1,
+   "count": 8,
+   "score": 94,
+   "field_avg": 69,
+   "leads": true,
+   "top_gap": "DMARC isn't enforced (p=none) — your email can be spoofed by scammers",
+   "dmarc": "none",
+   "competitors": [
+    {
+     "name": "Equipped Church",
+     "domain": "equippedchurch.net",
+     "score": 86
+    },
+    {
+     "name": "Mile High Calvary",
+     "domain": "milehighcalvary.com",
+     "score": 85
+    },
+    {
+     "name": "Cherry Hills Community Church",
+     "domain": "chcc.org",
+     "score": 73
+    },
+    {
+     "name": "Highlands Ranch Church of Christ",
+     "domain": "hrcoc.org",
+     "score": 71
+    },
+    {
+     "name": "St. Mark Catholic Church",
+     "domain": "stmarkhr.org",
+     "score": 63
+    },
+    {
+     "name": "Castle Rock Community Church",
+     "domain": "visitcrcc.org",
+     "score": 54
+    },
+    {
+     "name": "New Covenant Community Church",
+     "domain": "new3c.org",
+     "score": 29
+    }
+   ],
+   "source": "prior"
+  },
+  "truebeautymedspa-com": {
+   "rank": 4,
+   "count": 9,
+   "score": 82,
+   "field_avg": 77,
+   "leads": false,
+   "top_gap": "No DMARC record — your email domain can be impersonated",
+   "dmarc": "",
+   "competitors": [
+    {
+     "name": "Planned Parenthood",
+     "domain": "www.plannedparenthood.org",
+     "score": 88
+    },
+    {
+     "name": "MedNow Clinic",
+     "domain": "www.mednowclinics.com",
+     "score": 87
+    },
+    {
+     "name": "Colorado Eye Consultants",
+     "domain": "www.coloradoeyeconsultants.com",
+     "score": 84
+    },
+    {
+     "name": "Associates of Otolaryngology",
+     "domain": "www.denvercoloradoearnosethroatallergysinusdoctors.com",
+     "score": 74
+    },
+    {
+     "name": "AFC Urgent Care",
+     "domain": "www.carenow.com",
+     "score": 70
+    },
+    {
+     "name": "Swedish Cancer Care Center",
+     "domain": "swedishhospital.com",
+     "score": 70
+    },
+    {
+     "name": "Conceptions RMA",
+     "domain": "www.conceptionsrepro.com",
+     "score": 70
+    },
+    {
+     "name": "Continuum Autism Spectrum Alliance Denver",
+     "domain": "www.autismspectrumalliance.com",
+     "score": 70
+    }
+   ],
+   "source": "local"
+  },
+  "vaughn-law-com": {
+   "rank": 6,
+   "count": 6,
+   "score": 77,
+   "field_avg": 84,
+   "leads": false,
+   "top_gap": "No DMARC record — your email domain can be impersonated",
+   "dmarc": "",
+   "competitors": [
+    {
+     "name": "The McKenzie Law Firm",
+     "domain": "themckenziefirm.com",
+     "score": 94
+    },
+    {
+     "name": "Colorado Estate Matters",
+     "domain": "coloradoestatematters.com",
+     "score": 87
+    },
+    {
+     "name": "Antommaria Ilevska Elder LLC",
+     "domain": "arcoloradolaw.com",
+     "score": 87
+    },
+    {
+     "name": "Law Office of Anna L. Burr",
+     "domain": "burr-law.com",
+     "score": 79
+    },
+    {
+     "name": "Goodman and Wallace PC",
+     "domain": "goodmanwallace.com",
+     "score": 78
+    }
+   ],
+   "source": "prior"
+  },
+  "visitcrcc-org": {
+   "rank": 4,
+   "count": 6,
+   "score": 54,
+   "field_avg": 61,
+   "leads": false,
+   "top_gap": "No DMARC record — your email domain can be impersonated",
+   "dmarc": "",
+   "competitors": [
+    {
+     "name": "Saint Francis of Assisi Catholic Church",
+     "domain": "www.stfranciscr.org",
+     "score": 79
+    },
+    {
+     "name": "Faith Life Fellowship",
+     "domain": "faithlifefellowship.us",
+     "score": 71
+    },
+    {
+     "name": "New Hope Presbyterian Church",
+     "domain": "www.newhopepres.org",
+     "score": 71
+    },
+    {
+     "name": "Epiphany Lutheran Church",
+     "domain": "epiphanylc.org",
+     "score": 53
+    },
+    {
+     "name": "The Connection Church of Nazarene",
+     "domain": "connectionnaz.org",
+     "score": 39
+    }
+   ],
+   "source": "local"
+  },
+  "wamboltwealth-com": {
+   "rank": 3,
+   "count": 6,
+   "score": 79,
+   "field_avg": 74,
+   "leads": false,
+   "top_gap": "Missing web-security headers (clickjacking & content protections)",
+   "dmarc": "quarantine",
+   "competitors": [
+    {
+     "name": "Brighton Jones",
+     "domain": "www.brightonjones.com",
+     "score": 87
+    },
+    {
+     "name": "Fidelity Investments",
+     "domain": "www.fidelity.com",
+     "score": 80
+    },
+    {
+     "name": "Mosaic Retirement Planning, LLC",
+     "domain": "www.mosaicretirementplanning.com",
+     "score": 73
+    },
+    {
+     "name": "Edward Jones",
+     "domain": "www.edwardjones.com",
+     "score": 71
+    },
+    {
+     "name": "JPL Wealth Management",
+     "domain": "www.jplwm.com",
+     "score": 52
+    }
+   ],
+   "source": "local"
+  }
+ }
+}
