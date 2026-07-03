@@ -203,6 +203,7 @@
   </main>
 </section>
 <div class="modal" id="modal" hidden><div class="mback" id="mback"></div><div class="mbox"><button class="mx" id="mx" aria-label="Close">×</button><div id="mbody"></div></div></div>
+<script src="/assets/js/kits.js"></script>
 <script>
 const I={booking:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 9h18M8 3v4M16 3v4"/></svg>',store:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l1-5h16l1 5M4 9v10a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1V9M3 9h18"/></svg>',shipping:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7h11v8H3zM14 10h4l3 3v2h-7z"/><circle cx="7" cy="18" r="1.6"/><circle cx="17.5" cy="18" r="1.6"/></svg>',payments:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="6" width="18" height="12" rx="2"/><path d="M3 10h18"/></svg>',reviews:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l2.6 5.3 5.9.9-4.3 4.1 1 5.8L12 16.9 6.8 19.2l1-5.8L3.5 9.2l5.9-.9z"/></svg>',assistant:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.4 8.4 0 0 1-8.5 8.5 8.5 8.5 0 0 1-3.8-.9L3 21l1.9-5.7a8.5 8.5 0 0 1-.9-3.8A8.4 8.4 0 0 1 12.5 3 8.4 8.4 0 0 1 21 11.5z"/></svg>',security:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v5c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6z"/><path d="M9 12l2 2 4-4"/></svg>',gallery:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="8.5" cy="9.5" r="1.5"/><path d="M21 16l-5-5-7 7"/></svg>',intake:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M9 4h6a2 2 0 0 1 2 2v14H7V6a2 2 0 0 1 2-2z"/><path d="M9 9h6M9 13h6M9 17h3"/></svg>',logo:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v3M12 18v3M4.5 7.5l2 1M17.5 15.5l2 1M4.5 16.5l2-1M17.5 8.5l2-1"/><circle cx="12" cy="12" r="4"/></svg>',legal:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18M7 21h10M6 7h12M12 4l6 3M12 4L6 7M6 7l-2.2 5a3 3 0 0 0 6 0zM18 7l2.2 5a3 3 0 0 1-6 0z"/></svg>',crm:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="3" width="14" height="18" rx="2"/><circle cx="10.5" cy="10" r="2.2"/><path d="M7.5 16.5a3 3 0 0 1 6 0"/><path d="M18 8h2M18 12h2M18 16h2"/></svg>'};
 const ADDONS=[
@@ -233,14 +234,12 @@ const MOD={
  crm:'<div class="mod" data-m="crm"><div class="modhd"><div><h4>Customer database</h4><div class="ms">Every lead &amp; client in one secure place.</div></div><span class="badge2">248 contacts</span></div><div class="crmbar"><span class="crmsrch">🔍 Search contacts…</span><span class="crmadd">+ Add</span></div><div class="crmlist"><div class="crmrow"><span class="crmav">JR</span><span class="crmnm"><b>Jamie Rivera</b><small>jamie@example.com</small></span><span class="crmtag t-cust">Customer</span></div><div class="crmrow"><span class="crmav">PM</span><span class="crmnm"><b>Pat Morgan</b><small>(303) 555-0148</small></span><span class="crmtag t-lead">Lead</span></div><div class="crmrow"><span class="crmav">AL</span><span class="crmnm"><b>Alex Lee</b><small>alex@example.com</small></span><span class="crmtag t-pros">Prospect</span></div></div></div>'
 };
 const PREVIEW=Object.assign({},MOD,{assistant:'<div class="pchatprev"><div class="ch"><i></i> Your Business · online</div><div class="cb">Hi 👋 How can we help today?<br><span class="u">Book an appointment</span></div></div>'});
+// The "most popular" Growth bundle, then the per-industry kits (attach-model
+// aligned, defined once in /assets/js/kits.js and shared with checkout).
+const GROWTH=window.SL_GROWTH||{ids:["reviews","assistant","security"],price:89,list:117};
 const PRESETS=[
- {key:"medspa",label:"Med Spa",ids:["booking","reviews","payments","assistant","security","gallery"],hipaa:true},
- {key:"dental",label:"Dental / Medical",ids:["booking","intake","reviews","security","assistant"],hipaa:true},
- {key:"law",label:"Law / Pro",ids:["booking","payments","reviews","security","assistant","crm"]},
- {key:"restaurant",label:"Restaurant",ids:["booking","reviews","gallery","payments"]},
- {key:"retail",label:"Retail / Shop",ids:["store","shipping","payments","reviews","security"]},
- {key:"home",label:"Home Services",ids:["booking","payments","reviews","security","gallery","crm"]}
-];
+ {key:"growth",label:"★ Growth (popular)",ids:GROWTH.ids,growth:true}
+].concat(Object.keys(window.SL_KITS||{}).map(k=>Object.assign({key:k},window.SL_KITS[k])));
 const BASE=99, state=new Set(); let activePreset=null;
 const host=document.getElementById("addons"),presetHost=document.getElementById("presets"),mods=document.getElementById("modules"),hint=document.getElementById("hint"),pchat=document.getElementById("pchat"),total=document.getElementById("total"),hbadge=document.getElementById("hbadge"),modal=document.getElementById("modal"),mbody=document.getElementById("mbody");
 PRESETS.forEach(p=>{const b=document.createElement("button");b.className="preset";b.dataset.p=p.key;b.textContent=p.label;b.onclick=()=>applyPreset(p);presetHost.appendChild(b);});
@@ -256,7 +255,10 @@ function toggle(id){setOn(id,!state.has(id));reorder();update();}
 function applyPreset(p){[...state].forEach(id=>setOn(id,false));p.ids.forEach(id=>setOn(id,true));activePreset=p;syncPresetBtns();reorder();update();}
 function syncPresetBtns(){document.querySelectorAll(".preset").forEach(b=>b.classList.toggle("on",activePreset&&b.dataset.p===activePreset.key));}
 function reorder(){ADDONS.map(a=>a.id).filter(id=>state.has(id)&&id!=="assistant").forEach(id=>{const el=mods.querySelector('[data-m="'+id+'"]');if(el)mods.appendChild(el);});}
-function update(){let sum=BASE;state.forEach(id=>sum+=ADDONS.find(x=>x.id===id).price);total.innerHTML='$'+sum+'<small>/mo</small>';
+function growthActive(){return GROWTH.ids.every(id=>state.has(id));}
+function update(){let sum=BASE;state.forEach(id=>sum+=ADDONS.find(x=>x.id===id).price);
+ let save=0; if(growthActive()){const comp=GROWTH.ids.reduce((s,id)=>s+ADDONS.find(x=>x.id===id).price,0);save=comp-GROWTH.price;sum-=save;}
+ total.innerHTML='$'+sum+'<small>/mo</small>'+(save>0?' <span style="display:inline-block;margin-left:8px;font-size:.62rem;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:#1f6f5c;background:#eef4f1;padding:3px 8px;border-radius:20px;vertical-align:middle">Growth bundle · save $'+save+'/mo</span>':'');
  const hasMods=[...state].some(id=>id!=="assistant");hint.style.display=hasMods?"none":"block";
  const hip=(activePreset&&activePreset.hipaa)||state.has("intake");hbadge.classList.toggle("show",hip);}
 function openModal(id){const a=ADDONS.find(x=>x.id===id);
@@ -267,7 +269,10 @@ document.getElementById("mback").onclick=()=>modal.hidden=true;
 document.getElementById("reset").onclick=()=>{[...state].forEach(id=>setOn(id,false));activePreset=null;syncPresetBtns();update();};
 document.getElementById("tocheckout").onclick=()=>{const q=new URLSearchParams(location.search);const p=new URLSearchParams();
  const nm=q.get("name")||q.get("biz");if(nm)p.set("name",nm);if(q.get("slug"))p.set("slug",q.get("slug"));if(q.get("color"))p.set("color",q.get("color"));
- if(state.size)p.set("addons",[...state].join(","));location.href="/checkout/"+(p.toString()?("?"+p.toString()):"");};
+ if(state.size)p.set("addons",[...state].join(","));if(growthActive())p.set("bundle","growth");location.href="/checkout/"+(p.toString()?("?"+p.toString()):"");};
 update();
+// Land the prospect on their most-likely add-ons (from ?industry= or ?slug=).
+(function(){const q=new URLSearchParams(location.search);const key=window.SL_resolveKit?window.SL_resolveKit(q):null;
+ if(key){const p=PRESETS.find(x=>x.key===key);if(p)applyPreset(p);}})();
 </script>
 </body></html>
