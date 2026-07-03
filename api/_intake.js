@@ -188,6 +188,65 @@ function orgFacts(nodes) {
   };
 }
 
+// The old site's primary navigation — the "key tabs" to mirror in the rebuild.
+const NAV_SKIP = /^(home|search|menu|toggle navigation|skip to (main )?content|»|›|‹|\.\.\.)$/i;
+function navTabs($, base) {
+  const out = [];
+  const seen = new Set();
+  let host = "";
+  try { host = new URL(base).host; } catch {}
+  $("header nav a, nav a, header a, .nav a, #nav a, .menu a, .navbar a, .navigation a").each((_, el) => {
+    if (out.length >= 10) return;
+    const a = el.attribs || {};
+    const href = a.href || "";
+    const label = $(el).text().replace(/\s+/g, " ").trim();
+    if (!label || label.length > 28 || NAV_SKIP.test(label)) return;
+    if (/^(tel:|mailto:|javascript:|#)/i.test(href)) return;
+    let abs;
+    try { abs = new URL(href, base); } catch { return; }
+    if (host && abs.host !== host) return; // internal links only
+    const key = label.toLowerCase();
+    if (seen.has(key)) return;
+    seen.add(key);
+    out.push({ label, href: abs.href });
+  });
+  return out;
+}
+
+// Candidate mottos / key phrases — hero headings, tagline/slogan elements.
+function heroPhrases($) {
+  const out = [];
+  const seen = new Set();
+  const add = (t) => {
+    const s = (t || "").replace(/\s+/g, " ").trim();
+    if (s.length >= 8 && s.length <= 120 && !seen.has(s.toLowerCase())) { seen.add(s.toLowerCase()); out.push(s); }
+  };
+  $("h1").slice(0, 2).each((_, el) => add($(el).text()));
+  $("[class]").each((_, el) => {
+    if (out.length >= 8) return;
+    const c = (el.attribs.class || "").toLowerCase();
+    if (/tagline|slogan|motto|subtitle|hero__|lead-text/.test(c)) add($(el).text());
+  });
+  $("h2").slice(0, 3).each((_, el) => add($(el).text()));
+  return out.slice(0, 8);
+}
+
+// Officers / team from JSON-LD Person nodes (name, title, headshot).
+function peopleFromLd(nodes, base) {
+  const out = [];
+  const seen = new Set();
+  nodes.forEach((n) => {
+    if (!ldType(n).some((t) => /Person/i.test(t))) return;
+    const name = (typeof n.name === "string" ? n.name : "").trim();
+    if (!name || seen.has(name.toLowerCase())) return;
+    seen.add(name.toLowerCase());
+    const img = typeof n.image === "string" ? n.image : (n.image && n.image.url) || "";
+    const title = typeof n.jobTitle === "string" ? n.jobTitle : (typeof n.description === "string" ? n.description : "");
+    out.push({ name, title, headshot: img ? absolutize(base, img) : "" });
+  });
+  return out.slice(0, 12);
+}
+
 // Turn raw HTML into the deterministic signal bundle.
 export function extractSignals(html, finalUrl) {
   const $ = cheerio.load(html);
@@ -200,7 +259,10 @@ export function extractSignals(html, finalUrl) {
   });
 
   const logos = logoCandidates($, finalUrl, ldNodes);
-  const text = visibleText($); // NB: mutates $ (strips script/style) — do logo/meta work before this
+  const nav_tabs = navTabs($, finalUrl);
+  const hero_phrases = heroPhrases($);
+  const people = peopleFromLd(ldNodes, finalUrl);
+  const text = visibleText($); // NB: mutates $ (strips script/style) — do DOM work above this
 
   return {
     finalUrl,
@@ -212,6 +274,9 @@ export function extractSignals(html, finalUrl) {
     ...orgFacts(ldNodes),
     logo_candidates: logos,
     color_signals: colorSignals(html, themeColor),
+    nav_tabs,
+    hero_phrases,
+    people,
     js_shell: text.length < 400,
     visible_text: text,
   };
@@ -247,6 +312,8 @@ const PROFILE_SCHEMA = {
     phone: { type: "string" },
     email: { type: "string" },
     differentiators: { type: "array", items: { type: "string" }, description: "2-4 genuine, specific differentiators" },
+    motto: { type: "string", description: "the single best short slogan/tagline in their own words, if any (else empty)" },
+    key_phrases: { type: "array", items: { type: "string" }, description: "3-6 distinctive phrases or value-props they actually use on the site" },
     notes: { type: "string" },
   },
 };
@@ -272,9 +339,12 @@ export async function normalizeWithClaude(signals) {
     `Structured-data location: ${signals.ld_location || ""}\n` +
     `Structured-data phone: ${signals.ld_phone || ""}\n` +
     `Structured-data email: ${signals.ld_email || ""}\n` +
-    `Social profiles: ${(signals.ld_social || []).join(", ")}\n\n` +
+    `Social profiles: ${(signals.ld_social || []).join(", ")}\n` +
+    `Hero / headline phrases seen on the page: ${(signals.hero_phrases || []).map((p) => `"${p}"`).join(" | ")}\n\n` +
     `Visible page text (truncated):\n"""${signals.visible_text}"""\n\n` +
-    `Return the clean profile object. Prefer structured-data values for name/phone/location when present.`;
+    `Return the clean profile object. Prefer structured-data values for name/phone/location when present. ` +
+    `For "motto" pick the single best real slogan/tagline (from the hero phrases or text) — or leave empty. ` +
+    `For "key_phrases" list 3-6 distinctive phrases/value-props they actually use.`;
 
   const body = {
     model: "claude-opus-4-8",

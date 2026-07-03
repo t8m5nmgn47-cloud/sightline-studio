@@ -88,6 +88,13 @@
         <div id="colors" class="sw"></div>
         <div class="addc"><input id="pick" type="color" value="#1f6f5c"><button class="lnk" id="addColor">+ add color</button></div>
       </div>
+
+      <div class="panel" style="margin-top:20px">
+        <h2>Key tabs <span style="font-weight:400;color:var(--mut);font-size:.8rem">— their old site's pages</span></h2>
+        <div id="navtabs" style="display:flex;flex-wrap:wrap;gap:7px"></div>
+        <div class="sub">Team &amp; headshots</div>
+        <div id="team" style="display:flex;flex-direction:column;gap:8px"></div>
+      </div>
     </div>
 
     <div>
@@ -105,6 +112,9 @@
         </div>
         <div class="f"><label>Owner / principal</label><input id="owner" type="text"></div>
         <div class="f"><label>Who & where they serve</label><input id="serves" type="text"></div>
+        <div class="f"><label>Motto / slogan</label><input id="motto" type="text"></div>
+        <div class="sub">Key phrases (one per line)</div>
+        <div class="f"><textarea id="keyphrases" rows="3"></textarea></div>
 
         <div class="sub">Services / practice areas</div>
         <div id="services"></div>
@@ -174,6 +184,12 @@ function fill(domain, data){
   $("serves").value        = g("serves") || "";
   $("notes").value         = g("notes") || "";
   $("differentiators").value = (p && Array.isArray(p.differentiators)) ? p.differentiators.join("\n") : "";
+  $("motto").value         = g("motto") || (s.hero_phrases && s.hero_phrases[0]) || "";
+  $("keyphrases").value    = (p && Array.isArray(p.key_phrases) && p.key_phrases.length ? p.key_phrases : (s.hero_phrases||[])).join("\n");
+
+  // key tabs (their old site's IA) + team (headshots)
+  renderTabs((s.nav_tabs||[]).map(t=>({label:t.label||"",href:t.href||""})));
+  renderTeam((s.people||[]).map(m=>({name:m.name||"",title:m.title||"",headshot:m.headshot||""})));
 
   // services
   $("services").innerHTML = "";
@@ -269,6 +285,44 @@ function addService(name, blurb){
 }
 $("addSvc").onclick = () => { addService("",""); };
 
+/* ---- key tabs ---- */
+let navTabs = [];
+function renderTabs(list){
+  if(list) navTabs = list;
+  const wrap = $("navtabs"); wrap.innerHTML = "";
+  if(!navTabs.length){ wrap.innerHTML = '<span style="color:var(--mut);font-size:.83rem">No tabs detected — Chromium render may find more on JS sites.</span>'; }
+  navTabs.forEach((t,i)=>{
+    const c = document.createElement("span"); c.className="chip"; c.title = t.href||"";
+    c.innerHTML = `${(t.label||"").replace(/</g,"&lt;")}<span class="x">×</span>`;
+    c.querySelector(".x").onclick = () => { navTabs.splice(i,1); renderTabs(); syncOut(); };
+    wrap.appendChild(c);
+  });
+  syncOut();
+}
+
+/* ---- team ---- */
+let team = [];
+function renderTeam(list){
+  if(list) team = list;
+  const wrap = $("team"); wrap.innerHTML = "";
+  if(!team.length){ wrap.innerHTML = '<span style="color:var(--mut);font-size:.83rem">No team found in structured data. The multi-page crawl (Phase 2) reads About/Team pages.</span>'; }
+  team.forEach((m,i)=>{
+    const el = document.createElement("div");
+    el.style.cssText = "display:flex;gap:10px;align-items:center;border:1px solid var(--line);border-radius:10px;padding:8px;background:#faf8f3";
+    const av = m.headshot ? `<span style="flex:none;width:42px;height:42px;border-radius:50%;background:#eef4f1 center/cover no-repeat;background-image:url('${m.headshot.replace(/&amp;/g,'&')}')"></span>`
+                          : `<span style="flex:none;width:42px;height:42px;border-radius:50%;background:#eef4f1;display:flex;align-items:center;justify-content:center;color:var(--ac);font-size:.7rem">—</span>`;
+    el.innerHTML = `${av}<span style="flex:1;min-width:0;display:flex;flex-direction:column;gap:4px">
+      <input class="mn" type="text" placeholder="Name" value="${(m.name||"").replace(/"/g,"&quot;")}" style="border:1px solid var(--line);border-radius:7px;padding:5px 8px;font-size:.85rem">
+      <input class="mt" type="text" placeholder="Title" value="${(m.title||"").replace(/"/g,"&quot;")}" style="border:1px solid var(--line);border-radius:7px;padding:5px 8px;font-size:.8rem;color:var(--mut)"></span>
+      <span class="x" style="cursor:pointer;color:var(--mut);font-weight:700;align-self:flex-start">×</span>`;
+    el.querySelector(".x").onclick = () => { team.splice(i,1); renderTeam(); syncOut(); };
+    el.querySelector(".mn").addEventListener("input", e=>{ team[i].name=e.target.value; syncOut(); });
+    el.querySelector(".mt").addEventListener("input", e=>{ team[i].title=e.target.value; syncOut(); });
+    wrap.appendChild(el);
+  });
+  syncOut();
+}
+
 /* ---- output ---- */
 function collect(){
   const domain = $("domain").value.trim().replace(/^https?:\/\//,"").replace(/\/.*$/,"").toLowerCase();
@@ -277,6 +331,7 @@ function collect(){
     blurb: el.querySelector(".sb").value.trim()
   })).filter(s=>s.name);
   const diffs = $("differentiators").value.split("\n").map(x=>x.trim()).filter(Boolean);
+  const phrases = $("keyphrases").value.split("\n").map(x=>x.trim()).filter(Boolean);
   return {
     slug: slugFromDomain(domain), domain, reachable: true,
     business_name: $("business_name").value.trim(),
@@ -286,6 +341,9 @@ function collect(){
     location: $("location").value.trim(), owner: $("owner").value.trim(),
     phone: $("phone").value.trim(), email: $("email").value.trim(),
     differentiators: diffs, notes: $("notes").value.trim(),
+    motto: $("motto").value.trim(), key_phrases: phrases,
+    nav_tabs: navTabs.filter(t=>t.label).map(t=>({label:t.label,href:t.href||""})),
+    team: team.filter(m=>m.name).map(m=>({name:m.name,title:m.title||"",headshot:m.headshot||""})),
     logo: $("logoUrl").value.trim(), brand_colors: colors
   };
 }
@@ -294,7 +352,7 @@ function syncOut(){ $("out").textContent = JSON.stringify(collect(), null, 2); }
 $("go").onclick = run;
 $("domain").addEventListener("keydown", e=>{ if(e.key==="Enter") run(); });
 $("logoUrl").addEventListener("input", ()=>{ selectedLogo=$("logoUrl").value.trim(); syncOut(); });
-["business_name","category","tagline","location","phone","email","owner","serves","notes","differentiators"]
+["business_name","category","tagline","location","phone","email","owner","serves","notes","differentiators","motto","keyphrases"]
   .forEach(id=>$(id).addEventListener("input", syncOut));
 $("copy").onclick = async () => {
   try{ await navigator.clipboard.writeText($("out").textContent); $("copy").textContent="Copied ✓"; setTimeout(()=>$("copy").textContent="Copy",1400); }catch(e){}
