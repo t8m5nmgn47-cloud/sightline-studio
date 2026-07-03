@@ -1,0 +1,269 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow">
+<title>The Church Growth Playbook — Sightline Studio</title>
+<style>
+:root{
+  --ground:#F3EEE3; --panel:#FBF8F1; --ink:#211E18; --ink-soft:#4a453b;
+  --indigo:#1B2340; --indigo-2:#26305a; --ruby:#7B2233; --gold:#C6A24A; --gold-deep:#a9862f;
+  --muted:#8C8375; --line:#E4DCCC; --line-dk:rgba(198,162,74,.28);
+  --serif:Georgia,'Times New Roman',serif;
+  --sans:ui-sans-serif,-apple-system,"Helvetica Neue",Arial,sans-serif;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--ground);color:var(--ink);font-family:var(--serif);line-height:1.62;
+  -webkit-font-smoothing:antialiased;font-size:18px}
+.wrap{max-width:920px;margin:0 auto;padding:0 clamp(20px,5vw,40px)}
+.eyebrow{font-family:var(--sans);font-size:.72rem;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--gold-deep)}
+h1,h2,h3{font-weight:400;text-wrap:balance;letter-spacing:-.01em;line-height:1.08;margin:0}
+p{margin:0}
+.lead{font-size:1.22rem;color:var(--ink-soft);line-height:1.55}
+em{font-style:italic}
+.num{font-variant-numeric:tabular-nums}
+
+/* ---- section rhythm ---- */
+section{padding:clamp(56px,8vw,104px) 0}
+.band{background:var(--indigo);color:#EDE7D6}
+.band .eyebrow{color:var(--gold)}
+.band h2{color:#fff}
+.panel-band{background:linear-gradient(180deg,#f7f2e8,#efe8da)}
+
+/* ---- HERO ---- */
+.hero{position:relative;overflow:hidden;background:linear-gradient(165deg,#20294c 0%,#161c34 62%,#12172b 100%);color:#efe9d8;padding:clamp(80px,13vw,150px) 0 clamp(64px,9vw,110px)}
+.hero .wrap{position:relative;z-index:2}
+.glass{position:absolute;inset:0;z-index:1;display:flex;justify-content:center;gap:clamp(10px,2.4vw,30px);opacity:.5;pointer-events:none}
+.glass i{flex:0 0 auto;width:clamp(46px,7vw,96px);height:120%;margin-top:-6%;
+  border:1px solid var(--line-dk);border-bottom:0;
+  border-radius:50% 50% 0 0 / 34% 34% 0 0;
+  background:linear-gradient(180deg,rgba(198,162,74,.10),rgba(123,34,51,.05) 55%,transparent)}
+.glass i:nth-child(3n){background:linear-gradient(180deg,rgba(123,34,51,.12),rgba(27,35,64,.05) 60%,transparent)}
+.glass i:nth-child(3n+2){background:linear-gradient(180deg,rgba(60,84,150,.14),transparent 65%)}
+.hero-top{font-family:var(--sans);font-size:.72rem;font-weight:700;letter-spacing:.24em;text-transform:uppercase;color:var(--gold);margin-bottom:26px}
+.hero h1{font-size:clamp(2.6rem,1.7rem+4.4vw,5.2rem);color:#fff;letter-spacing:-.02em}
+.hero h1 em{color:var(--gold);font-style:italic}
+.hero .sub{margin-top:26px;max-width:30ch;font-size:clamp(1.12rem,1rem+.6vw,1.4rem);color:#d7d0bd;line-height:1.5}
+.rule{height:1px;background:linear-gradient(90deg,var(--gold),transparent);border:0;margin:34px 0 0;max-width:220px}
+.hero-foot{margin-top:40px;font-family:var(--sans);font-size:.82rem;letter-spacing:.02em;color:#a9a289;max-width:52ch}
+
+/* ---- stats ---- */
+.statgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(20px,4vw,52px);margin-top:8px}
+@media(max-width:680px){.statgrid{grid-template-columns:1fr 1fr;gap:30px 24px}}
+.stat .n{font-family:var(--serif);font-size:clamp(2.6rem,1.8rem+2.6vw,3.7rem);line-height:1;color:var(--gold-deep);letter-spacing:-.02em}
+.band .stat .n{color:var(--gold)}
+.stat .l{font-family:var(--sans);font-size:.86rem;line-height:1.4;color:var(--ink-soft);margin-top:12px;max-width:26ch}
+.band .stat .l{color:#c9c2ac}
+
+/* ---- generic heads ---- */
+.sechead{max-width:34ch}
+.sechead h2{font-size:clamp(1.9rem,1.4rem+1.8vw,2.9rem);margin-top:14px}
+.sechead .lead{margin-top:18px}
+
+/* ---- two-column need list ---- */
+.needs{margin-top:40px;display:flex;flex-direction:column;gap:2px;border-top:1px solid var(--line)}
+.need{display:grid;grid-template-columns:1fr 1fr;gap:clamp(16px,4vw,48px);padding:22px 0;border-bottom:1px solid var(--line);align-items:start}
+@media(max-width:640px){.need{grid-template-columns:1fr;gap:6px}}
+.need .q{font-size:1.16rem}
+.need .q .k{display:block;font-family:var(--sans);font-size:.7rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--ruby);margin-bottom:8px}
+.need .a{color:var(--ink-soft);font-size:1rem;line-height:1.55}
+.need .a .k{display:block;font-family:var(--sans);font-size:.7rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--gold-deep);margin-bottom:8px}
+
+/* ---- big message ---- */
+.creed{font-size:clamp(1.7rem,1.2rem+2.2vw,3rem);line-height:1.24;color:#fff;letter-spacing:-.01em;max-width:20ch}
+.creed em{color:var(--gold);font-style:italic}
+.creed-sub{margin-top:26px;color:#c9c2ac;font-family:var(--sans);font-size:.95rem;max-width:56ch}
+
+/* ---- growth engine ---- */
+.engine{margin-top:44px;position:relative;padding-left:34px}
+.engine::before{content:"";position:absolute;left:9px;top:8px;bottom:8px;width:2px;background:linear-gradient(180deg,var(--gold),var(--ruby))}
+.step{position:relative;padding:0 0 34px 22px}
+.step:last-child{padding-bottom:0}
+.step::before{content:"";position:absolute;left:-30px;top:4px;width:16px;height:16px;border-radius:50%;background:var(--ground);border:2px solid var(--gold)}
+.step h3{font-size:1.28rem}
+.step .verb{font-family:var(--sans);font-size:.7rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--gold-deep);display:block;margin-bottom:5px}
+.step p{color:var(--ink-soft);font-size:1.02rem;margin-top:8px;max-width:60ch}
+.step .stat-in{font-family:var(--sans);font-size:.82rem;color:var(--muted);margin-top:8px}
+.step .stat-in b{color:var(--ruby);font-weight:700}
+
+/* ---- offering ---- */
+.offer{margin-top:38px;display:grid;grid-template-columns:1.1fr .9fr;gap:clamp(20px,4vw,44px)}
+@media(max-width:720px){.offer{grid-template-columns:1fr}}
+.stylechips{display:flex;flex-wrap:wrap;gap:9px;margin-top:6px}
+.chip{font-family:var(--sans);font-size:.82rem;padding:7px 13px;border:1px solid var(--line-dk);border-radius:30px;background:var(--panel);color:var(--ink-soft)}
+.chip b{color:var(--ink);font-weight:600}
+.pack{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:26px}
+.pack h3{font-size:1.2rem;margin-bottom:6px}
+.pack ul{list-style:none;margin:14px 0 0;padding:0;display:flex;flex-direction:column;gap:11px}
+.pack li{display:flex;gap:11px;font-size:.98rem;color:var(--ink-soft);align-items:baseline}
+.pack li .d{flex:0 0 auto;width:7px;height:7px;border-radius:50%;background:var(--gold);transform:translateY(-2px)}
+.pack .price{margin-top:20px;padding-top:16px;border-top:1px solid var(--line);font-family:var(--sans);font-size:.9rem;color:var(--muted)}
+.pack .price b{font-family:var(--serif);font-size:1.5rem;color:var(--ink);font-weight:400}
+
+/* ---- prospecting sheet ---- */
+.sheet{margin-top:38px;background:var(--panel);border:1px solid var(--line);border-radius:16px;overflow:hidden}
+.sheet-h{display:grid;grid-template-columns:1.5fr .8fr .8fr 1.4fr;gap:12px;padding:14px 22px;background:#f0e9da;border-bottom:1px solid var(--line);font-family:var(--sans);font-size:.68rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.sheet-r{display:grid;grid-template-columns:1.5fr .8fr .8fr 1.4fr;gap:12px;padding:16px 22px;border-bottom:1px solid var(--line);align-items:center}
+.sheet-r:last-child{border-bottom:0}
+.sheet-r .nm{font-size:1.02rem}.sheet-r .nm small{display:block;font-family:var(--sans);font-size:.76rem;color:var(--muted)}
+.frontdoor{font-family:var(--sans);font-weight:700;font-size:.92rem}
+.fd-lo{color:var(--ruby)}.fd-mid{color:var(--gold-deep)}.fd-hi{color:#2f7d4f}
+.gap{font-family:var(--sans);font-size:.82rem;color:var(--ink-soft)}
+.sheet-scroll{overflow-x:auto}
+@media(max-width:640px){.sheet-h,.sheet-r{grid-template-columns:1.4fr .7fr 1.3fr;min-width:520px}.sheet-h span:nth-child(3),.sheet-r>span:nth-child(3){display:none}}
+.note{font-family:var(--sans);font-size:.88rem;color:var(--ink-soft);background:var(--panel);border-left:3px solid var(--gold);padding:14px 18px;margin-top:26px;line-height:1.55;border-radius:0 8px 8px 0}
+
+/* ---- footer / sources ---- */
+.foot{background:var(--indigo);color:#a9a289;font-family:var(--sans);font-size:.8rem;line-height:1.6;padding:44px 0}
+.foot b{color:#e7e0cd;font-weight:600}
+.foot .src{margin-top:14px;color:#7f7a66;font-size:.74rem}
+
+.reveal{opacity:0;transform:translateY(16px);transition:opacity .7s ease,transform .7s ease}
+.reveal.in{opacity:1;transform:none}
+@media(prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none}}
+</style>
+</head><body>
+<a href="/admin/" style="position:fixed;top:16px;right:18px;z-index:50;font-family:ui-sans-serif,-apple-system,sans-serif;font-size:.78rem;letter-spacing:.02em;color:#c9c2ac;text-decoration:none;background:rgba(27,35,64,.55);border:1px solid rgba(198,162,74,.35);padding:7px 13px;border-radius:30px;backdrop-filter:blur(4px)">&larr; Admin</a>
+
+<header class="hero">
+  <div class="glass" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+  <div class="wrap">
+    <div class="hero-top">Sightline Studio · Church Growth Playbook</div>
+    <h1>The front door<br>is <em>online</em> now.</h1>
+    <p class="sub">People are invited by a friend — but they decide on your website. That's where curiosity becomes a Sunday visit.</p>
+    <hr class="rule">
+    <p class="hero-foot">A strategy for winning the church vertical — what churches need, the message that moves a pastor, and how a Sightline site turns the people already looking you up into people in a pew.</p>
+  </div>
+</header>
+
+<section class="panel-band">
+  <div class="wrap">
+    <div class="sechead reveal"><span class="eyebrow">The opportunity</span>
+      <h2>A wide field, quietly under-served.</h2>
+      <p class="lead">There are hundreds of thousands of congregations, most of them small, most of them competing for attention with a website they're embarrassed by. The decline is real — but it's leveling off, and tens of millions are open to coming back.</p>
+    </div>
+    <div class="statgrid reveal" style="margin-top:44px">
+      <div class="stat"><div class="n num">373,000</div><div class="l">US congregations — the largest local vertical there is <span style="color:var(--muted)">(Hartford)</span></div></div>
+      <div class="stat"><div class="n">~70</div><div class="l">Median weekly attendance — down from 137 in 2000. Small, and hungry to grow <span style="color:var(--muted)">(Duke NCS)</span></div></div>
+      <div class="stat"><div class="n num">40M</div><div class="l">"Dechurched" US adults — and over half say they're open to returning <span style="color:var(--muted)">(The Great Dechurching)</span></div></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="sechead reveal"><span class="eyebrow">The insight</span>
+      <h2>The website is where they decide.</h2>
+      <p class="lead">Discovery still starts with a personal invitation. But the moment someone is curious about a church, they don't call — they look it up. The website is now the <em>#1 digital research channel</em> a church-seeker uses.</p>
+    </div>
+    <div class="statgrid reveal" style="margin-top:44px">
+      <div class="stat"><div class="n num">37%</div><div class="l">of church-seekers use the church <b>website</b> while deciding — ahead of social (29%) and search (27%) <span style="color:var(--muted)">(Lifeway 2023)</span></div></div>
+      <div class="stat"><div class="n num">17.4M</div><div class="l">US adults who <b>don't</b> regularly attend visited a church website in a year <span style="color:var(--muted)">(Grey Matter)</span></div></div>
+      <div class="stat"><div class="n num">1M+</div><div class="l">monthly US searches for <b>"churches near me"</b> — the front door has a doorbell</div></div>
+    </div>
+    <p class="note reveal">We build this pitch on <b>primary research</b> — Lifeway, Barna, Pew, Hartford, Duke. The famous "80% check the website first" line is vendor folklore with no real source; we don't use it. Honest numbers earn a pastor's trust.</p>
+  </div>
+</section>
+
+<section class="panel-band">
+  <div class="wrap">
+    <div class="sechead reveal"><span class="eyebrow">What a church actually needs</span>
+      <h2>Answer the questions in a nervous first-timer's head.</h2>
+      <p class="lead">A visitor's anxiety isn't theological — it's practical and social. "Where do I park? What do I wear? What about my kids? Will anyone talk to me?" The site's job is to remove every reason not to come.</p>
+    </div>
+    <div class="needs reveal">
+      <div class="need"><div class="q"><span class="k">They're wondering</span>"When are services, and where do I go?"</div><div class="a"><span class="k">The site answers</span>Service times and address above the fold — the single most-sought item (43% look for times, 28% for directions).</div></div>
+      <div class="need"><div class="q"><span class="k">They're wondering</span>"What is this going to be like — will I stick out?"</div><div class="a"><span class="k">The site answers</span>A "Plan Your Visit / What to Expect" page: how long, what to wear, real photos of real people. Unchurched adults want <b>calm and welcome</b>, not hype (Barna: 80% prefer calm).</div></div>
+      <div class="need"><div class="q"><span class="k">They're wondering</span>"Is my family safe here — what happens with my kids?"</div><div class="a"><span class="k">The site answers</span>Clear kids &amp; childcare info — check-in, safety, ages. For families it's a top decider.</div></div>
+      <div class="need"><div class="q"><span class="k">They're wondering</span>"Can I get a feel for it before I show up?"</div><div class="a"><span class="k">The site answers</span>Watch a recent service online. Online is an <b>on-ramp, not a substitute</b> — only ~5% stay online-only; most who watch also come in person (Pew/Burge).</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="band">
+  <div class="wrap">
+    <span class="eyebrow">The message</span>
+    <p class="creed reveal" style="margin-top:22px">Help more of the people God is <em>already sending</em> to your door actually walk through it.</p>
+    <p class="creed-sub reveal">To a pastor, this is never about revenue or funnels. It's souls, welcome, and not being the barrier to someone's first step back. Frame the whole conversation around the family checking the site on Saturday night, the newcomer who just moved to town, the dechurched neighbor quietly ready to try again.</p>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="sechead reveal"><span class="eyebrow">The growth engine</span>
+      <h2>How a Sightline church site pulls people in.</h2>
+      <p class="lead">Six moves, in the order a new person actually experiences them — each backed by what the research says works.</p>
+    </div>
+    <div class="engine reveal">
+      <div class="step"><span class="verb">Found</span><h3>Show up when they search.</h3><p>Google Business Profile + local SEO for "churches near me," so the curious neighbor finds you first.</p><p class="stat-in"><b>1M+</b> monthly "churches near me" searches</p></div>
+      <div class="step"><span class="verb">Decided</span><h3>Win the Saturday-night look-up.</h3><p>A warm, fast, mobile front door that answers times, location, and "what to expect" instantly.</p><p class="stat-in">website = <b>#1</b> research channel for seekers (Lifeway)</p></div>
+      <div class="step"><span class="verb">Invited</span><h3>One dead-simple "Plan Your Visit."</h3><p>A single clear step that collects a name — so a real person can welcome them before Sunday.</p><p class="stat-in">removes the <b>#1 fear</b>: showing up unknown (Barna)</p></div>
+      <div class="step"><span class="verb">Reached</span><h3>Sermons everywhere — live, on-demand, podcast.</h3><p>A low-commitment on-ramp for the hesitant and a lifeline for the traveling and homebound.</p><p class="stat-in">~<b>75%</b> of churches already stream; online feeds in-person (Hartford/Pew)</p></div>
+      <div class="step"><span class="verb">Given</span><h3>Make generosity effortless.</h3><p>Branded online &amp; recurring giving that funds the mission all week, not just when the plate passes.</p><p class="stat-in">digital givers give <b>33% more</b>, and more often (Dunham+Co.)</p></div>
+      <div class="step"><span class="verb">Kept</span><h3>Follow up fast, welcome well.</h3><p>Automatic email/text follow-up turns a first visit into a second — the moment assimilation begins.</p><p class="stat-in">speed of follow-up is the difference between a guest and a member</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="panel-band">
+  <div class="wrap">
+    <div class="sechead reveal"><span class="eyebrow">The offering</span>
+      <h2>Built for the church, priced for the small church.</h2>
+      <p class="lead">The median church runs on ~$100k a year with a few thousand for tech. So we lead with mission and stewardship, and price for the 70-person congregation — not the megachurch.</p>
+    </div>
+    <div class="offer reveal">
+      <div>
+        <p style="font-family:var(--sans);font-size:.9rem;color:var(--ink-soft);margin-bottom:12px">Six church-native looks — pick the feel that fits the congregation:</p>
+        <div class="stylechips">
+          <span class="chip"><b>Sanctuary</b> · liturgical</span>
+          <span class="chip"><b>Modern Worship</b> · contemporary</span>
+          <span class="chip"><b>Quiet</b> · minimal</span>
+          <span class="chip"><b>Warm Community</b> · family-first</span>
+          <span class="chip"><b>Heritage</b> · established</span>
+          <span class="chip"><b>Evergreen</b> · balanced</span>
+        </div>
+        <p style="font-family:var(--sans);font-size:.88rem;color:var(--muted);margin-top:20px;line-height:1.55">Every style ships the full site: Plan-a-Visit, online worship, ministries, giving, prayer, and a connect form — the whole front door, not a template.</p>
+      </div>
+      <div class="pack">
+        <h3>The Church Pack</h3>
+        <p style="font-family:var(--sans);font-size:.86rem;color:var(--muted)">The four things that actually grow a church, bundled:</p>
+        <ul>
+          <li><span class="d"></span><span><b>Sermons &amp; Live Streaming</b> — live, on-demand library &amp; podcast</span></li>
+          <li><span class="d"></span><span><b>Online Giving</b> — recurring tithes, funds, text-to-give</span></li>
+          <li><span class="d"></span><span><b>Events &amp; Calendar</b> — service times, RSVPs</span></li>
+          <li><span class="d"></span><span><b>Plan-a-Visit + follow-up</b> — capture &amp; welcome guests</span></li>
+        </ul>
+        <div class="price">Site from <b>$149.99/mo</b> · Church Pack <b>+$49/mo</b><br><span style="font-size:.8rem">Well inside a small church's tech budget.</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="sechead reveal"><span class="eyebrow">The prospecting sheet</span>
+      <h2>Churches get their own board.</h2>
+      <p class="lead">Not the business pipeline. A church is scored on one question — <em>how ready is your front door to welcome the person already looking?</em> — and pitched with an invitation, never a "you rank #7."</p>
+    </div>
+    <div class="sheet reveal">
+      <div class="sheet-scroll">
+      <div class="sheet-h"><span>Church · city</span><span>Size</span><span>Front door</span><span>The one thing to fix</span></div>
+      <div class="sheet-r"><span class="nm">Mission Hills Church<small>Castle Rock · non-denom</small></span><span class="gap num">~1,200</span><span class="frontdoor fd-mid">Fair</span><span class="gap">No online giving; livestream buried</span></div>
+      <div class="sheet-r"><span class="nm">Christ Lutheran<small>Highlands Ranch · Lutheran</small></span><span class="gap num">~250</span><span class="frontdoor fd-lo">Weak</span><span class="gap">No "Plan a Visit"; email spoofable (DMARC)</span></div>
+      <div class="sheet-r"><span class="nm">Smoky Hill UMC<small>Centennial · Methodist</small></span><span class="gap num">~180</span><span class="frontdoor fd-hi">Strong</span><span class="gap">Add sermons-on-demand + follow-up</span></div>
+      </div>
+    </div>
+    <p class="note reveal">The church board tracks what matters to a church: <b>congregation size &amp; campuses, denomination, a "Front-door readiness" score</b> (times &amp; directions clear? mobile? plan-a-visit? sermons online? giving? found on Google?), and a warm, invitational outreach note — generated per church, mission-first.</p>
+  </div>
+</section>
+
+<footer class="foot">
+  <div class="wrap">
+    <b>Sightline Studio — Church Growth Playbook.</b> Churches are our largest opportunity, approached on their own terms: their needs, their message, their board.
+    <div class="src">Sources: Lifeway Research (2023 Church Switchers); Grey Matter Research (Online Church); Barna Group (unchurched &amp; visitors); Pew Research / Ryan Burge (online attendance); Hartford Institute (FACT / EPIC); Duke National Congregations Study; Dunham+Company / Campbell Rinker (digital giving); Davis &amp; Graham, <em>The Great Dechurching</em>. Vendor/aggregator "rules of thumb" (e.g., "80% check the website first") are intentionally excluded.</div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});},{threshold:.12});
+  document.querySelectorAll('.reveal').forEach(function(el){io.observe(el);});
+})();
+</script>
+</body></html>

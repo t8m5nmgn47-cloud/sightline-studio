@@ -1,0 +1,102 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Sightline · Church Board</title>
+<meta name="robots" content="noindex,nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#20211d;--mut:#6b6660;--line:#e4dccb;--bg:#f3eee3;--panel:#fbf8f1;--indigo:#1B2340;--gold:#a9862f;--gold-br:#C6A24A;--ruby:#7B2233;--grn:#2f7d4f;--head:'Fraunces',Georgia,serif;--body:'Inter',system-ui,sans-serif;--mono:'JetBrains Mono',monospace}
+*{box-sizing:border-box;margin:0}body{background:var(--bg);color:var(--ink);font-family:var(--body);-webkit-font-smoothing:antialiased}
+.wrap{max-width:1120px;margin:0 auto;padding:0 clamp(18px,4vw,40px)}
+.top{display:flex;align-items:center;justify-content:space-between;padding:16px 0;border-bottom:1px solid var(--line)}
+.lg{display:flex;gap:10px;align-items:center;font-family:var(--head);font-weight:600;font-size:1.2rem}.dot{width:11px;height:11px;border-radius:50%;background:var(--indigo)}
+.top a{color:var(--mut);text-decoration:none;font-size:.85rem}
+.hd{padding:30px 0 4px}.hd h1{font-family:var(--head);font-weight:400;font-size:clamp(2rem,1.4rem+2vw,2.8rem);letter-spacing:-.02em}
+.hd p{color:var(--mut);margin-top:8px;font-size:1.02rem;max-width:64ch}
+.bar{display:flex;gap:8px;flex-wrap:wrap;margin:22px 0 6px}
+.chipf{font-family:var(--body);font-size:.82rem;border:1px solid var(--line);background:var(--panel);border-radius:30px;padding:7px 13px;cursor:pointer;color:var(--mut)}
+.chipf.on{background:var(--indigo);color:#fff;border-color:var(--indigo)}.chipf b{color:inherit;font-weight:700}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;padding:14px 0 60px}@media(max-width:820px){.grid{grid-template-columns:1fr}}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:22px;display:flex;flex-direction:column;gap:14px}
+.card.hide{display:none}
+.chead{display:flex;justify-content:space-between;gap:14px;align-items:flex-start}
+.chead h3{font-family:var(--head);font-weight:600;font-size:1.24rem;line-height:1.15}
+.chead .den{font-family:var(--body);font-size:.82rem;color:var(--mut);margin-top:4px}
+.fd{flex:0 0 auto;text-align:center;min-width:82px}
+.fd .g{font-family:var(--mono);font-weight:500;font-size:1.5rem;line-height:1;padding:8px 0 4px}
+.fd .gl{font-family:var(--body);font-size:.62rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--mut)}
+.g-hi{color:var(--grn)}.g-mid{color:var(--gold)}.g-lo{color:var(--ruby)}
+.ess{display:flex;flex-wrap:wrap;gap:7px}
+.e{font-size:.76rem;font-family:var(--body);padding:5px 10px;border-radius:8px;display:inline-flex;gap:6px;align-items:center;border:1px solid var(--line)}
+.e.ok{color:var(--grn);background:#eef6f0;border-color:#cfe8d8}.e.no{color:var(--ruby);background:#f8ece9;border-color:#eccdc7}
+.e.add{color:var(--gold);background:#fbf3e0;border-color:#eeddb4}
+.opp{font-size:.92rem;color:var(--ink)}.opp b{color:var(--ruby)}
+.opp .k{display:block;font-size:.68rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--mut);margin-bottom:4px;font-family:var(--body)}
+.foot{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;border-top:1px solid var(--line);padding-top:14px;margin-top:auto}
+.lnks{display:flex;gap:12px;flex-wrap:wrap}.lnks a{font-size:.82rem;font-weight:600;color:var(--indigo);text-decoration:none}
+.cp{font-family:var(--body);font-size:.82rem;font-weight:600;background:var(--indigo);color:#fff;border:0;border-radius:8px;padding:8px 13px;cursor:pointer}
+.st{font:inherit;font-size:.82rem;border:1px solid var(--line);border-radius:8px;padding:7px 10px;background:#fff;color:var(--ink)}
+.samp{color:var(--mut);font-size:.82rem;padding:0 0 30px}
+.toast{position:fixed;left:50%;bottom:22px;transform:translateX(-50%);background:var(--indigo);color:#fff;padding:10px 16px;border-radius:10px;font-size:.86rem;opacity:0;transition:opacity .25s;pointer-events:none;z-index:60}.toast.show{opacity:1}
+</style></head>
+<body>
+<header class="wrap top"><div class="lg"><span class="dot"></span>Sightline · Church Board</div><a href="/admin/">← Admin</a></header>
+<div class="wrap">
+  <section class="hd"><h1>Churches, on their own terms.</h1>
+    <p>Separate from the business pipeline. Each church is scored on one question — <em>how ready is your front door to welcome the person already looking you up?</em> — and reached with an invitation, never a sales rank. <a href="/admin/church-playbook/" style="color:var(--gold);text-decoration:none">Read the playbook →</a></p>
+  </section>
+  <div class="bar" id="bar"></div>
+  <div class="grid" id="grid"></div>
+  <p class="samp">Front-door readiness is measured from public signals (mobile, security, findability, service-info clarity). Plan-a-Visit, sermons-online &amp; giving are the growth layer a rebuild adds. Status is saved on this device.</p>
+</div>
+<div class="toast" id="toast"></div>
+
+<script>
+const CHURCHES=[{"slug":"missionhills-org","name":"Mission Hills Church","city":"Castle Rock","denom":"Non-denom · multi-campus","domain":"missionhills.org","score":77,"sig":{"mobile":true,"secure":true,"email":false,"found":true,"info":true}},{"slug":"paxchristi-org","name":"Pax Christi Catholic Community","city":"Lone Tree","denom":"Catholic","domain":"paxchristi.org","score":84,"sig":{"mobile":true,"secure":true,"email":false,"found":true,"info":true}},{"slug":"equippedchurch-net","name":"Equipped Church","city":"Highlands Ranch","denom":"Non-denominational","domain":"equippedchurch.net","score":86,"sig":{"mobile":true,"secure":true,"email":false,"found":true,"info":true}},{"slug":"clchr-org","name":"Christ Lutheran Church","city":"Highlands Ranch","denom":"Lutheran (ELCA)","domain":"clchr.org","score":77,"sig":{"mobile":true,"secure":true,"email":false,"found":true,"info":true}},{"slug":"smokyhillumc-org","name":"Smoky Hill United Methodist Church","city":"Centennial","denom":"United Methodist","domain":"smokyhillumc.org","score":84,"sig":{"mobile":true,"secure":true,"email":true,"found":true,"info":true}},{"slug":"hrcoc-org","name":"Highlands Ranch Church of Christ","city":"Highlands Ranch","denom":"Church of Christ","domain":"hrcoc.org","score":71,"sig":{"mobile":true,"secure":true,"email":false,"found":true,"info":false}},{"slug":"new3c-org","name":"New Covenant Community Church","city":"Highlands Ranch","denom":"Non-denom · Reformed","domain":"new3c.org","score":29,"sig":{"mobile":false,"secure":true,"email":false,"found":false,"info":false}},{"slug":"summitchurch-online","name":"Summit Church","city":"Centennial","denom":"Non-denominational","domain":"summitchurch.online","score":68,"sig":{"mobile":true,"secure":true,"email":false,"found":true,"info":true}},{"slug":"thrivechurch-com","name":"Thrive Church","city":"Lone Tree","denom":"Non-denominational","domain":"thrivechurch.com","score":94,"sig":{"mobile":true,"secure":true,"email":false,"found":true,"info":true}},{"slug":"visitcrcc-org","name":"Castle Rock Community Church","city":"Castle Rock","denom":"Community · non-denom","domain":"visitcrcc.org","score":54,"sig":{"mobile":true,"secure":true,"email":false,"found":true,"info":true}}];
+const STAGES=[["all","All"],["toreach","To reach"],["reached","Reached"],["sent","Demo sent"],["meeting","Meeting"],["won","Won"]];
+const KEY=s=>"sl_church_"+s;
+const grade=s=>s>=80?["Strong","g-hi"]:s>=60?["Fair","g-mid"]:["Weak","g-lo"];
+function topOpp(c){const s=c.sig;
+  if(!s.mobile)return "the site isn't mobile-friendly — and most first-timers look on a phone";
+  if(!s.info)return "service times &amp; what-to-expect aren't clear to a newcomer";
+  if(!s.found)return "you're hard to find when someone searches nearby";
+  if(!s.email)return "your email can be impersonated (no enforced DMARC)";
+  return "there's no one-tap Plan-a-Visit or sermons-on-demand yet";}
+function invite(c){
+  const strong=c.score>=80, opp=topOpp(c).replace(/&amp;/g,"&");
+  const funnel="https://sightline-studio.vercel.app/p/"+c.slug+"/";
+  const open=strong
+    ? "Your site is already one of the stronger church front doors around "+c.city+" — so this isn't a fix-it note. It's about reaching even more of the people quietly checking you out before they ever visit."
+    : "I build websites for "+c.city+"-area churches, and I put together a demo of a warmer, clearer front door for "+c.name+". When someone's considering a visit, they check the website first — and the thing most likely to lose them right now is: "+opp+".";
+  return {subject:c.name+" — a warmer front door for the people already looking you up",
+    body:"Hi there,\n\n"+open+"\n\nMost first-time guests decide on the website before they ever walk in — service times, what to expect, whether their kids will be cared for, whether they'll be welcomed. I built a demo of "+c.name+" with all of that up front, plus one-tap Plan-a-Visit, sermons online, and simple giving.\n\nHere's the demo and a quick read on your current front door:\n"+funnel+"\n\nNo pitch, no pressure — just something that might help more of the people God is already sending your way actually walk through the doors. Glad to show you around it.\n\n— Sightline Studio"};
+}
+let filter="all";
+function counts(){const c={all:CHURCHES.length};STAGES.forEach(([k])=>{if(k!=="all")c[k]=CHURCHES.filter(x=>getSt(x.slug)===k).length;});return c;}
+function getSt(s){return localStorage.getItem(KEY(s))||"toreach";}
+function setSt(s,v){localStorage.setItem(KEY(s),v);render();}
+function toast(m){const t=document.getElementById("toast");t.textContent=m;t.classList.add("show");setTimeout(()=>t.classList.remove("show"),1500);}
+function ess(c){const s=c.sig;
+  const m=(ok,lab)=>'<span class="e '+(ok?"ok":"no")+'">'+(ok?"✓":"✕")+' '+lab+'</span>';
+  const add=lab=>'<span class="e add">+ '+lab+'</span>';
+  return m(s.mobile,"Mobile")+m(s.info,"Service info")+m(s.found,"Found online")+m(s.secure&&s.email,"Trusted email")+add("Plan-a-Visit")+add("Sermons online")+add("Giving");}
+function render(){
+  const cs=counts();
+  document.getElementById("bar").innerHTML=STAGES.map(([k,l])=>'<button class="chipf'+(filter===k?" on":"")+'" data-k="'+k+'">'+l+' <b>'+(cs[k]||0)+'</b></button>').join("");
+  document.querySelectorAll(".chipf").forEach(b=>b.onclick=()=>{filter=b.dataset.k;render();});
+  const list=[...CHURCHES].sort((a,b)=>a.score-b.score); // weakest front door first = biggest opportunity
+  document.getElementById("grid").innerHTML=list.map(c=>{const st=getSt(c.slug);if(filter!=="all"&&st!==filter)return "";
+    const [gl,gc]=grade(c.score);
+    return '<div class="card"><div class="chead"><div><h3>'+c.name+'</h3><div class="den">'+c.denom+' · '+c.city+'</div></div>'+
+      '<div class="fd"><div class="g '+gc+'">'+c.score+'</div><div class="gl">'+gl+' front door</div></div></div>'+
+      '<div class="ess">'+ess(c)+'</div>'+
+      '<div class="opp"><span class="k">Biggest opportunity</span><b>'+topOpp(c)+'</b></div>'+
+      '<div class="foot"><div class="lnks"><a href="https://'+c.domain+'" target="_blank" rel="noopener">Their site ↗</a><a href="/p/'+c.slug+'/" target="_blank">Demo ↗</a><a href="/teardowns/'+c.slug+'/" target="_blank">Front-door read ↗</a></div>'+
+      '<div style="display:flex;gap:8px"><button class="cp" data-c="'+c.slug+'">Copy invitation</button>'+
+      '<select class="st" data-s="'+c.slug+'">'+STAGES.filter(([k])=>k!=="all").map(([k,l])=>'<option value="'+k+'"'+(st===k?" selected":"")+'>'+l+'</option>').join("")+'</select></div></div></div>';
+  }).join("")||'<p class="samp">No churches in this view.</p>';
+  document.querySelectorAll(".st").forEach(sel=>sel.onchange=()=>setSt(sel.dataset.s,sel.value));
+  document.querySelectorAll(".cp").forEach(b=>b.onclick=async()=>{const c=CHURCHES.find(x=>x.slug===b.dataset.c);const e=invite(c);try{await navigator.clipboard.writeText("Subject: "+e.subject+"\n\n"+e.body);toast("Invitation copied — paste into your mail app");}catch(x){toast("Copy blocked");}});
+}
+render();
+</script>
+</body></html>
