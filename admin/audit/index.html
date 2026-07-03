@@ -1,0 +1,148 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Sightline · Exposure Audit</title>
+<meta name="robots" content="noindex,nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#16140f;--mut:#6b6660;--line:#e7e2d8;--bg:#f4f1ea;--ac:#1f6f5c;--acd:#11271f;--gold:#c2a04a;--red:#b4453a;--head:'Fraunces',Georgia,serif;--body:'Inter',system-ui,sans-serif;--mono:'JetBrains Mono',ui-monospace,monospace}
+*{box-sizing:border-box;margin:0}body{background:var(--bg);color:var(--ink);font-family:var(--body);-webkit-font-smoothing:antialiased}
+.wrap{max-width:1040px;margin:0 auto;padding:0 clamp(18px,4vw,40px)}
+.top{display:flex;align-items:center;justify-content:space-between;padding:16px 0;border-bottom:1px solid var(--line)}
+.lg{display:flex;gap:10px;align-items:center;font-family:var(--head);font-weight:600;font-size:1.2rem}.dot{width:11px;height:11px;border-radius:50%;background:var(--ac)}
+.top a{color:var(--mut);text-decoration:none;font-size:.85rem}
+.hd{padding:28px 0 6px}.hd h1{font-family:var(--head);font-weight:400;font-size:clamp(2rem,1.4rem+2vw,2.6rem);letter-spacing:-.02em}
+.hd p{color:var(--mut);margin-top:8px;font-size:1.02rem;max-width:62ch}
+.run{background:#fff;border:1px solid var(--line);border-radius:14px;padding:16px;margin-top:22px}
+.run label{display:block;font-size:.78rem;font-weight:600;color:var(--mut);margin-bottom:5px}
+.run input,.run textarea{width:100%;border:1px solid var(--line);border-radius:10px;padding:10px 12px;font-family:var(--mono);font-size:.9rem;color:var(--ink)}
+.run textarea{resize:vertical;min-height:70px;margin-bottom:4px}
+.run .two{display:grid;grid-template-columns:1fr 1fr;gap:14px}@media(max-width:640px){.run .two{grid-template-columns:1fr}}
+.btn{background:var(--acd);color:#fff;border:0;border-radius:10px;padding:11px 20px;font-weight:600;font-size:.92rem;cursor:pointer;margin-top:12px}
+.btn:disabled{opacity:.5}
+.status{font-size:.85rem;color:var(--mut);min-height:1.2em;margin:10px 2px 0}.status.err{color:var(--red)}
+.meta{font-size:.8rem;color:var(--mut);margin:18px 2px 6px}
+.board{border:1px solid var(--line);border-radius:14px;overflow:hidden;background:#fff}
+.hrow,.brow{display:grid;grid-template-columns:36px 1fr 78px 1fr;gap:12px;align-items:center;padding:12px 16px}
+.hrow{background:#faf8f3;border-bottom:1px solid var(--line);font-size:.72rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--mut)}
+.brow{border-top:1px solid var(--line);cursor:pointer}
+.brow:hover{background:#faf8f3}
+.brow .rk{font-family:var(--mono);color:var(--mut)}
+.brow .nm b{font-weight:600}.brow .nm .dm{display:block;font-family:var(--mono);font-size:.74rem;color:var(--mut)}
+.you{background:var(--ac);color:#fff;font-size:.6rem;font-weight:700;padding:2px 6px;border-radius:20px;margin-left:6px;letter-spacing:.04em}
+.pill{font-family:var(--mono);font-weight:600;font-size:1.05rem;padding:4px 10px;border-radius:8px;text-align:center}
+.g-A{background:#e7f3ec;color:#1f7a52}.g-B{background:#fbf1dd;color:#8a6a1e}.g-C{background:#f7e7e4;color:#b4453a}
+.bars{display:flex;flex-direction:column;gap:4px}
+.bar{display:grid;grid-template-columns:58px 1fr 40px;gap:8px;align-items:center;font-size:.72rem;color:var(--mut)}
+.bt{height:7px;background:#eee9df;border-radius:20px;overflow:hidden}.bt i{display:block;height:100%;background:var(--ac);border-radius:20px}
+.detail{padding:0 16px 14px;display:none;background:#faf8f3;border-top:1px dashed var(--line)}
+.detail.open{display:block}
+.checks{display:grid;grid-template-columns:1fr 1fr;gap:4px 20px;padding-top:12px}@media(max-width:640px){.checks{grid-template-columns:1fr}}
+.chk{display:flex;align-items:center;gap:8px;font-size:.83rem;padding:3px 0}
+.chk .s{color:#1f7a52;font-weight:700}.chk .x{color:var(--red);font-weight:700}
+.chk .pt{margin-left:auto;font-family:var(--mono);font-size:.72rem;color:var(--mut)}
+.chk .note{color:var(--red);font-size:.74rem}
+.outbar{display:flex;justify-content:space-between;align-items:center;margin:22px 0 10px}.outbar h2{font-family:var(--head);font-weight:600;font-size:1.1rem}
+pre{background:var(--acd);color:#e8f3ee;border-radius:12px;padding:16px;overflow:auto;font-family:var(--mono);font-size:.76rem;max-height:360px}
+.hide{display:none}
+</style></head>
+<body>
+<div class="wrap">
+  <div class="top"><div class="lg"><span class="dot"></span>Sightline Studio</div><a href="/admin/">← Admin</a></div>
+  <div class="hd">
+    <h1>Exposure Audit</h1>
+    <p>Measures the real public signals a customer (or attacker) can see — HTTPS, security headers, email (DMARC/SPF), mobile, site quality &amp; presence — for a prospect and their competitors. Every number is probed live; nothing is authored. Use it to build an honest, dated teardown.</p>
+  </div>
+
+  <div class="run">
+    <label>Prospect domain</label>
+    <input id="prospect" type="text" placeholder="prospect-domain.com" autocomplete="off" spellcheck="false">
+    <label style="margin-top:12px">Competitor domains (one per line — use genuinely local competitors)</label>
+    <textarea id="competitors" placeholder="competitor-one.com&#10;competitor-two.com"></textarea>
+    <button id="go" class="btn">Run live audit</button>
+    <div id="status" class="status"></div>
+  </div>
+
+  <div id="results" class="hide">
+    <div class="meta" id="meta"></div>
+    <div class="board">
+      <div class="hrow"><span>#</span><span>Business</span><span>Score</span><span>Security · Quality · Presence</span></div>
+      <div id="rows"></div>
+    </div>
+    <div class="outbar"><h2>Verified teardown data (JSON)</h2><button id="copy" class="btn" style="margin:0">Copy</button></div>
+    <pre id="out"></pre>
+    <p class="status">Save this alongside the teardown — it's dated and every finding is measured, so the page can say "verified as of" honestly.</p>
+  </div>
+</div>
+
+<script>
+const $=(id)=>document.getElementById(id);
+const grade=(n)=>n>=85?"g-A":n>=70?"g-B":"g-C";
+let DATA=null;
+
+async function run(){
+  const prospect=$("prospect").value.trim();
+  const comps=$("competitors").value.split(/[\n,]/).map(x=>x.trim()).filter(Boolean);
+  const domains=[prospect,...comps].filter(Boolean);
+  if(!domains.length){return;}
+  $("go").disabled=true; $("status").className="status"; $("status").textContent="Probing "+domains.length+" site(s) live — HTTPS, headers, DNS…";
+  $("results").classList.add("hide");
+  try{
+    const res=await fetch("/api/audit",{method:"POST",headers:{"content-type":"application/json"},body:JSON.stringify({domains})});
+    const data=await res.json();
+    if(!data.ok) throw new Error(data.error||"Audit failed");
+    DATA={prospect:prospect.replace(/^https?:\/\//,"").replace(/\/.*$/,"").toLowerCase(),...data};
+    render();
+    $("status").textContent="Done — "+data.count+" site(s) audited.";
+  }catch(e){ $("status").className="status err"; $("status").textContent=e.message; }
+  finally{ $("go").disabled=false; }
+}
+
+function render(){
+  const results=[...DATA.results].sort((a,b)=>(b.score.overall||0)-(a.score.overall||0));
+  const field=results.filter(r=>r.ok);
+  const avg=field.length?Math.round(field.reduce((s,r)=>s+r.score.overall,0)/field.length):0;
+  const rank=results.findIndex(r=>r.domain===DATA.prospect)+1;
+  $("meta").innerHTML="Verified as of <b>"+new Date(DATA.generated_at).toLocaleString()+"</b> · "+results.length+" sites · field avg <b>"+avg+"</b>"+(rank?" · prospect ranks <b>#"+rank+" of "+results.length+"</b>":"");
+  $("rows").innerHTML="";
+  results.forEach((r,i)=>{
+    const you=r.domain===DATA.prospect;
+    const sc=r.score||{overall:0,areas:{},maxes:{}}; const a=sc.areas||{}, mx=sc.maxes||{security:40,quality:34,presence:26};
+    const bar=(area,max)=>`<div class="bar"><span>${area[0].toUpperCase()+area.slice(1)}</span><span class="bt"><i style="width:${Math.round((a[area]||0)/max*100)}%"></i></span><span>${a[area]||0}/${max}</span></div>`;
+    const row=document.createElement("div");
+    row.innerHTML=`<div class="brow"><span class="rk">${i+1}</span>
+      <span class="nm"><b>${r.domain}</b>${you?'<span class="you">PROSPECT</span>':''}<span class="dm">${r.ok?(r.final_url||''):'unreachable'}</span></span>
+      <span><span class="pill ${grade(sc.overall)}">${r.ok?sc.overall:'—'}</span></span>
+      <span class="bars">${r.ok?bar('security',mx.security||40)+bar('quality',mx.quality||34)+bar('presence',mx.presence||26):'<span style="font-size:.8rem;color:var(--mut)">'+(r.error||'not reachable')+'</span>'}</span></div>
+      <div class="detail">${r.ok?checksHtml(sc.checks):''}</div>`;
+    const brow=row.querySelector(".brow"), det=row.querySelector(".detail");
+    brow.onclick=()=>det.classList.toggle("open");
+    $("rows").appendChild(row);
+  });
+  $("out").textContent=JSON.stringify(exportData(),null,2);
+  $("results").classList.remove("hide");
+}
+
+function checksHtml(checks){
+  return '<div class="checks">'+(checks||[]).map(c=>
+    `<div class="chk"><span class="${c.ok?'s':'x'}">${c.ok?'✓':'✕'}</span><span>${c.label}</span>`+
+    (c.note?`<span class="note">${c.note}</span>`:'')+`<span class="pt">${c.ok?c.points:0}/${c.points}</span></div>`
+  ).join("")+'</div>';
+}
+
+function exportData(){
+  return {
+    generated_at:DATA.generated_at, prospect:DATA.prospect,
+    field:[...DATA.results].sort((a,b)=>(b.score.overall||0)-(a.score.overall||0)).map(r=>({
+      domain:r.domain, reachable:r.ok, overall:r.score.overall, areas:r.score.areas,
+      dmarc:r.email?r.email.dmarc_policy:null, https:r.https?r.https.ok:false,
+      socials:r.page?r.page.socials:[],
+      findings:(r.score.checks||[]).filter(c=>!c.ok).map(c=>({issue:c.label,note:c.note||""}))
+    }))
+  };
+}
+
+$("go").onclick=run;
+$("prospect").addEventListener("keydown",e=>{if(e.key==="Enter")run();});
+$("copy").onclick=async()=>{try{await navigator.clipboard.writeText($("out").textContent);$("copy").textContent="Copied ✓";setTimeout(()=>$("copy").textContent="Copy",1400);}catch(e){}};
+</script>
+</body></html>
