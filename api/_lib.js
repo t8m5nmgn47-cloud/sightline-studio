@@ -54,6 +54,28 @@ export const insertLead = (row) => sbInsert("leads", row);
 export const insertOrder = (row) => sbInsert("orders", row);
 export const insertCustomer = (row) => sbInsert("customers", row);
 
+// Read rows from a table (service-role; bypasses RLS). `query` is a PostgREST
+// query string, e.g. "select=*&order=updated_at.asc&limit=6".
+export async function sbSelect(table, query = "select=*") {
+  if (!SUPABASE_URL || !SUPABASE_SERVICE_ROLE_KEY) throw new Error("Supabase env vars are not configured");
+  const res = await fetch(`${SUPABASE_URL}/rest/v1/${table}?${query}`, {
+    headers: { apikey: SUPABASE_SERVICE_ROLE_KEY, Authorization: `Bearer ${SUPABASE_SERVICE_ROLE_KEY}` },
+  });
+  if (!res.ok) throw new Error(`Supabase select failed (${res.status}): ${await res.text().catch(() => "")}`);
+  return res.json();
+}
+
+// Patch rows matching a PostgREST filter, e.g. filter="slug=eq.foo".
+export async function sbUpdate(table, filter, row) {
+  if (!SUPABASE_URL || !SUPABASE_SERVICE_ROLE_KEY) throw new Error("Supabase env vars are not configured");
+  const res = await fetch(`${SUPABASE_URL}/rest/v1/${table}?${filter}`, {
+    method: "PATCH",
+    headers: { "Content-Type": "application/json", apikey: SUPABASE_SERVICE_ROLE_KEY, Authorization: `Bearer ${SUPABASE_SERVICE_ROLE_KEY}`, Prefer: "return=minimal" },
+    body: JSON.stringify(row),
+  });
+  if (!res.ok) throw new Error(`Supabase update failed (${res.status}): ${await res.text().catch(() => "")}`);
+}
+
 // Optional Slack notification. No-ops if SLACK_WEBHOOK_URL is unset.
 // Never throws — a failed notification must not fail the lead capture.
 export async function notifySlack(text) {
