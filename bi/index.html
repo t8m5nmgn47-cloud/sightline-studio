@@ -152,6 +152,7 @@ function render(leads,subs,subsMissing){
     ins.push(`You have <b>${leads.length}</b> total leads and <b>${active.length}</b> active subscribers generating <b>${money(mrr)}/mo</b> (<b>${money(arr)}</b> annualized).`);
     ins.push(`<b>${new30}</b> new leads in the last 30 days — ${d30>=0?'up':'down'} <b>${Math.abs(d30)}%</b> vs the prior 30 days.`);
     ins.push(`Conversion from lead to won is <b>${conv}%</b>. ${contacted} leads are contacted and still open — the closest to becoming revenue.`);
+    if(active.length) ins.push(`<b>Add-on upside (modeled):</b> the attach model projects ~<b>$96/mo</b> in add-ons per client, which would roughly double per-client revenue. Across ${active.length} active subscriber(s) that's ~<b>${money(active.length*96)}/mo</b> (${money(active.length*96*12)}/yr) of potential add-on revenue — Reviews, AI Assistant &amp; Security are the biggest drivers. <i>Projection, not live billing.</i>`);
     if(canceled) ins.push(`<b>${canceled}</b> subscriber(s) have canceled — worth a win-back touch.`);
   }
   document.getElementById("insights").innerHTML=ins.map(t=>`<div class="insight">${t}</div>`).join("");
