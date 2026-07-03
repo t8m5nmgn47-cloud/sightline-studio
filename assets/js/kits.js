@@ -15,13 +15,16 @@
     finance:    { label: "Finance / Pro",   ids: ["crm", "security", "legal", "booking", "reviews"] },
     home:       { label: "Home Services",   ids: ["booking", "reviews", "gallery", "payments", "crm"] },
     retail:     { label: "Retail / Shop",   ids: ["store", "payments", "shipping", "gallery", "reviews"] },
-    faith:      { label: "Faith / Church",  ids: ["sermons", "payments", "gallery", "security"] },
+    faith:      { label: "Faith / Church",  ids: ["sermons", "giving", "events", "gallery"] },
     school:     { label: "School",          ids: ["booking", "gallery", "intake", "payments"] },
     restaurant: { label: "Restaurant",      ids: ["booking", "reviews", "gallery", "payments"] }
   };
 
-  // The Growth bundle: three highest-revenue add-ons, discounted.
-  var GROWTH = { id: "growth", ids: ["reviews", "assistant", "security"], price: 89, list: 117 };
+  // Bundles: a set of add-ons offered together at a discount. Kept generic so
+  // checkout/builder can handle any number of them.
+  var GROWTH = { id: "growth", label: "Growth", ids: ["reviews", "assistant", "security"], price: 89, list: 117 };
+  var CHURCHPACK = { id: "churchpack", label: "Church Pack", ids: ["sermons", "giving", "events", "gallery"], price: 49, list: 69 };
+  var BUNDLES = [GROWTH, CHURCHPACK];
 
   // slug -> kit, generated from data/prospects.json categories.
   var KITMAP = {"acaciadentalgroup-com":"dental","araoent-com":"medical","aspenfallslandscaping-com":"home","attorneysofhighlandsranch-com":"law","biondijewelry-com":"retail","buildabath-net":"home","castlerockcpa-com":"finance","cherryhillsdentist-com":"dental","clchr-org":"faith","coloradodermatology-com":"medical","coloradolendingteam-com":"finance","compfm-com":"medical","copelandfamilydental-com":"dental","cotitleescrow-com":"finance","denverfamilylawmatters-com":"law","elevatemyeyes-com":"medical","equippedchurch-net":"faith","firmmedspa-com":"medspa","griffithslawpc-com":"law","heidiosterobgyn-com":"medical","homesteadtc-com":"finance","hrcoc-org":"faith","kcmortgagecolorado-com":"finance","mckeanins-com":"finance","milehighsmilesandesthetics-com":"dental","missionhills-org":"faith","montessoriatlonetree-com":"school","myrkmhome-com":"home","new3c-org":"faith","niedermaninsurance-com":"finance","paramounttitle-com":"finance","paxchristi-org":"faith","rosslawcolorado-com":"law","smokyhillumc-org":"faith","southdenverobgyn-com":"medical","southwestheating-com":"home","stoneaspen-com":"home","summitchurch-online":"faith","thrivechurch-com":"faith","truebeautymedspa-com":"medspa","visitcrcc-org":"faith","wamboltwealth-com":"finance"};
@@ -37,5 +40,7 @@
   w.SL_KITS = KITS;
   w.SL_KITMAP = KITMAP;
   w.SL_GROWTH = GROWTH;
+  w.SL_CHURCHPACK = CHURCHPACK;
+  w.SL_BUNDLES = BUNDLES;
   w.SL_resolveKit = resolveKit;
 })(window);

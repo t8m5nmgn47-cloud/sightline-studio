@@ -96,7 +96,10 @@ const PLANS=[
 // Real add-on catalog + prices (from the Sightline configurator). price=null => quoted on proposal.
 const ADDONS=[
  {id:"growth",name:"★ Growth Bundle",price:89,blurb:"Reviews + AI Assistant + Security together — save $28/mo.",bundle:["reviews","assistant","security"]},
+ {id:"churchpack",name:"★ Church Pack",price:49,blurb:"Sermons + Giving + Events + Gallery — save $20/mo.",bundle:["sermons","giving","events","gallery"]},
  {id:"sermons",name:"Sermons &amp; Live Streaming",price:29,blurb:"Your stream, pro on your own site — searchable library &amp; podcast. Keep your free YouTube/FB feed."},
+ {id:"giving",name:"Online Giving",price:19,blurb:"Recurring tithes &amp; donations, multiple funds, text-to-give."},
+ {id:"events",name:"Events &amp; Calendar",price:12,blurb:"Service times, events &amp; RSVPs on a live calendar."},
  {id:"streamsetup",name:"Streaming Setup Consult",price:199,once:true,blurb:"One-time: we spec your gear &amp; configure OBS + a sound-board audio feed — the two hardest steps."},
  {id:"booking",name:"Online Booking",price:19,blurb:"Self-book 24/7 with reminders."},
  {id:"store",name:"Online Store + Inventory",price:25,blurb:"Sell products with live stock."},
@@ -118,13 +121,14 @@ let planId="zerodown"; const chosen=new Set();
 if(qs.get("plan")&&PLANS.some(x=>x.id===qs.get("plan"))) planId=qs.get("plan");
 // Industry preselect: when no explicit add-ons/bundle were passed, land the
 // prospect on their most-likely add-ons (from ?industry= or ?slug=).
-const GROWTH=window.SL_GROWTH||{id:"growth",ids:["reviews","assistant","security"]};
+const BUNDLES=window.SL_BUNDLES||[{id:"growth",ids:["reviews","assistant","security"]}];
+const bundleParam=(qs.get("bundle")||"").split(",").map(x=>x.trim()).filter(Boolean);
 if(!(qs.get("addons")||qs.get("bundle"))){ const key=window.SL_resolveKit?window.SL_resolveKit(qs):null;
  if(key&&window.SL_KITS&&window.SL_KITS[key]) window.SL_KITS[key].ids.forEach(id=>{ if(ADDONS.some(a=>a.id===id)) chosen.add(id); }); }
-// Growth bundle: honor ?bundle=growth or a full component set, then keep it
-// mutually exclusive with its three components.
-if(qs.get("bundle")==="growth"||GROWTH.ids.every(id=>chosen.has(id))) chosen.add("growth");
-if(chosen.has("growth")) GROWTH.ids.forEach(id=>chosen.delete(id));
+// Bundles: honor ?bundle=<id>[,<id>] or a full component set, then keep each
+// bundle mutually exclusive with its components.
+BUNDLES.forEach(bn=>{ if((bundleParam.includes(bn.id)||bn.ids.every(id=>chosen.has(id)))&&ADDONS.some(a=>a.id===bn.id)) chosen.add(bn.id); });
+BUNDLES.forEach(bn=>{ if(chosen.has(bn.id)) bn.ids.forEach(id=>chosen.delete(id)); });
 
 function money(n){return '$'+(Math.round(n*100)/100).toLocaleString(undefined,{minimumFractionDigits:n%1?2:0,maximumFractionDigits:2});}
 function renderPlans(){
@@ -139,8 +143,9 @@ function renderAddons(){
  }).join("");
  document.querySelectorAll(".ad").forEach(el=>{el.querySelector("input").onchange=e=>{const id=el.dataset.a;
    if(e.target.checked){chosen.add(id);
-     if(id==="growth")GROWTH.ids.forEach(x=>chosen.delete(x)); // bundle replaces its parts
-     else if(GROWTH.ids.includes(id))chosen.delete("growth"); // picking a part drops the bundle
+     const asBundle=BUNDLES.find(bn=>bn.id===id);
+     if(asBundle)asBundle.ids.forEach(x=>chosen.delete(x)); // bundle replaces its parts
+     else BUNDLES.forEach(bn=>{if(bn.ids.includes(id))chosen.delete(bn.id);}); // a part drops its bundle
    } else chosen.delete(id);
    renderAddons();renderSum();};});
 }
