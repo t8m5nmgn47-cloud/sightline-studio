@@ -36,7 +36,7 @@ const profile=normalize(sig,{
     cta:{ title:'Your best smile starts here.', lead:'Book your first visit — new patients welcome this week.' },
   },
 });
-const site=assemble(profile,{archetype:'minimal', theme:'modern', mood:'none', useCapturedPalette:true, vertical:'dental', concierge:false});
+const site=assemble(profile,{archetype:'minimal', theme:'modern', mood:'none', useCapturedPalette:true, vertical:"dental"});
 const dir=path.join(ROOT,'engine/preview/BIZ_dental-cherryhills'); fs.mkdirSync(dir,{recursive:true});
 fs.writeFileSync(path.join(dir,'index.html'),site);
 console.log('wrote BIZ_dental-cherryhills',(site.length/1024|0)+'KB','brand:',profile.palette.brand,'phone:',phone);
