@@ -527,11 +527,26 @@ h1,h2,h3{font-family:'__DISPLAY__',Georgia,serif;font-weight:600;line-height:1.0
   linear-gradient(101deg,transparent 50%,rgba(255,250,238,.07) 62%,transparent 78%)}
 .mood-candle .glow{display:block;inset:0;animation:flick 5s ease-in-out infinite;
   background:radial-gradient(58% 60% at 50% 84%,color-mix(in srgb,var(--accent) 42%,#ffb066),transparent 66%)}
-/* archetype tweaks */
-.arch-editorial .hero{align-items:center}.arch-editorial .hero-in{margin:0 auto;text-align:center;max-width:900px}
-.arch-editorial .cta-row{justify-content:center}
+/* ARCHETYPE: editorial — a framed magazine cover. Headline ABOVE a boxed image on a light ground. */
+.arch-editorial .nav{position:relative;background:var(--bg);color:var(--ink);border-bottom:1px solid var(--line)}
+.arch-editorial .nav .logo{filter:none}.arch-editorial .navlinks a{color:var(--ink)}
+.arch-editorial .hero{display:flex;flex-direction:column;min-height:auto;background:var(--bg);color:var(--ink);padding:clamp(28px,5vw,68px) clamp(20px,5vw,64px)}
+.arch-editorial .hero-in{order:0;position:relative;z-index:1;max-width:1080px;margin:0 auto 26px;padding:0;width:100%}
+.arch-editorial .hero .kick{color:var(--brand)}
+.arch-editorial .hero h1{color:var(--ink);text-shadow:none;font-size:clamp(2.6rem,7vw,5rem);max-width:16ch}
+.arch-editorial .hero-sub{color:var(--mut);text-shadow:none;max-width:52ch}
+.arch-editorial .hero-bg{position:relative;inset:auto;z-index:0;order:1;width:100%;max-width:1080px;margin:0 auto;
+  height:min(58vh,540px);border-radius:calc(var(--rad)*2.2px);transform:none;box-shadow:0 30px 70px rgba(0,0,0,.16)}
+.arch-editorial .scrim,.arch-editorial .glow{display:none}
+/* ARCHETYPE: modern — a bold brand-color poster. Oversized type; photo becomes a luminous texture. */
+.arch-modern .hero{align-items:center;background:linear-gradient(135deg,var(--brand),var(--brand-d));color:#fff}
+.arch-modern .hero-bg{opacity:.30;mix-blend-mode:luminosity}
+.arch-modern .scrim{background:linear-gradient(180deg,rgba(0,0,0,.15),transparent 40%,rgba(0,0,0,.25))}
+.arch-modern .hero-in{max-width:960px}
+.arch-modern .hero h1{font-size:clamp(3rem,9vw,6.5rem);letter-spacing:-.03em;line-height:.98}
+.arch-modern .hero .kick{opacity:.9}
+.arch-modern .btn{border-radius:100px}.arch-modern .btn.lg{padding:16px 32px}
 .arch-modern .nav .btn{border-radius:100px}.arch-modern .card{border:none;box-shadow:0 10px 40px rgba(0,0,0,.06)}
-.arch-modern .btn{border-radius:100px}
 /* ARCHETYPE: split — real image beside text on a light ground (no overlay) */
 .arch-split .nav{position:relative;color:var(--ink);background:var(--bg);border-bottom:1px solid var(--line)}
 .arch-split .nav .logo{filter:none}.arch-split .navlinks a{color:var(--ink)}

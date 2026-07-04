@@ -65,6 +65,7 @@
     ]
   },
   "location": "Littleton · Castle Rock · North Littleton · Español",
+  "phone": "",
   "serviceTimes": [
     "Monday – Thursday | 8:30 AM",
     "Friday | 8:30 AM",
@@ -163,6 +164,6 @@
       "lead": "Come as you are — this Sunday."
     }
   },
-  "heroImage": "/assets/stock/church-2.webp",
+  "heroImage": "/assets/captured/missionhills-org/hero-crop.jpg",
   "finalUrl": "https://www.missionhills.org/"
 }
