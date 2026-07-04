@@ -1,0 +1,168 @@
+{
+  "slug": "missionhills-org",
+  "name": "Mission Hills Church",
+  "tagline": "",
+  "mission": "We Exist To Help You Become Like Jesus And Join Him On Mission",
+  "description": "Mission Hills is a place (church) where you can be accepted as you are (mess and all), experience freedom, receive grace and heal from your past.",
+  "logo": "/assets/captured/missionhills-org/logo.png",
+  "palette": {
+    "brand": "#00afd7",
+    "brandD": "#0090b0",
+    "accent": "#0056a7",
+    "ink": "#212121",
+    "bg": "#f4f4f4",
+    "surf": "#ffffff",
+    "mut": "#6a6a72",
+    "line": "rgba(0,0,0,.10)"
+  },
+  "nav": [
+    {
+      "label": "LITTLETON",
+      "href": "https://www.missionhills.org/littleton/"
+    },
+    {
+      "label": "CASTLE ROCK",
+      "href": "https://www.missionhills.org/castle-rock/"
+    },
+    {
+      "label": "ESPAÑOL",
+      "href": "https://www.missionhills.org/es/"
+    },
+    {
+      "label": "NORTH LITTLETON",
+      "href": "https://www.missionhills.org/north-littleton/"
+    },
+    {
+      "label": "JOIN US THIS WEEKEND",
+      "href": "https://www.missionhills.org/im-new/plan-a-visit/"
+    },
+    {
+      "label": "GIVE",
+      "href": "https://www.missionhills.org/give"
+    }
+  ],
+  "phrases": [
+    "REZA ZEDAH",
+    "CRAIG SMITH",
+    "WE EXIST TO HELP YOU BECOME LIKE JESUS AND JOIN HIM ON MISSION",
+    "OR SIMPLY START BY WATCHING A MESSAGE",
+    "CONNECT WITH US"
+  ],
+  "hero": {
+    "kick": "● South Denver Metro",
+    "headline": "“Come to me, all you who are weary and burdened, and I will give you rest.”",
+    "sub": "— Matthew 11:28. Come as you are, and be made new.",
+    "ctas": [
+      {
+        "label": "Plan Your Visit →",
+        "href": "#visit"
+      },
+      {
+        "label": "Watch Online",
+        "href": "#watch",
+        "ghost": true
+      }
+    ]
+  },
+  "location": "Littleton · Castle Rock · North Littleton · Español",
+  "serviceTimes": [
+    "Monday – Thursday | 8:30 AM",
+    "Friday | 8:30 AM",
+    "Saturday nights at 4 PM",
+    "Sunday mornings at 8, 9:15, or 11 AM"
+  ],
+  "gallery": [],
+  "sections": {
+    "services": {
+      "kicker": "New here?",
+      "title": "Here's exactly what your first Sunday looks like.",
+      "lead": "No pressure, no spotlight. Walk in, grab a coffee, and stay as long as you like.",
+      "items": [
+        {
+          "h": "Easy parking",
+          "p": "Free lot with reserved first-time spots near the main doors."
+        },
+        {
+          "h": "Walk right in",
+          "p": "A friendly host greets you and points you to coffee and a seat."
+        },
+        {
+          "h": "Kids are covered",
+          "p": "Safe, secure check-in for newborn through 5th grade."
+        },
+        {
+          "h": "About an hour",
+          "p": "Music, a down-to-earth message, and you’re free to head out."
+        }
+      ]
+    },
+    "events": {
+      "kicker": "Coming up",
+      "title": "What's happening",
+      "items": [
+        {
+          "when": "",
+          "h": "Extreme Color Wars",
+          "p": ""
+        },
+        {
+          "when": "",
+          "h": "Known Nights: Color Wars",
+          "p": ""
+        },
+        {
+          "when": "",
+          "h": "Castle Rock Men’s BBQ",
+          "p": ""
+        },
+        {
+          "when": "",
+          "h": "Extreme Pizza Olympics",
+          "p": ""
+        },
+        {
+          "when": "",
+          "h": "Kids Water Weekend",
+          "p": ""
+        },
+        {
+          "when": "",
+          "h": "Amplify: Student Worship + Tech Camp",
+          "p": ""
+        }
+      ]
+    },
+    "team": {
+      "kicker": "Our team",
+      "title": "People you'll meet",
+      "items": [
+        {
+          "name": "Craig Smith",
+          "role": "Lead Pastor"
+        }
+      ]
+    },
+    "giving": {
+      "kicker": "Give",
+      "title": "Generosity, made simple.",
+      "lead": "Secure online giving in under a minute — one-time or recurring.",
+      "cta": "Give online"
+    },
+    "nextsteps": {},
+    "groups": {},
+    "serve": {},
+    "care": {},
+    "sermons": {
+      "latest": {
+        "title": "This weekend’s message",
+        "speaker": "Pastor Craig Smith"
+      }
+    },
+    "cta": {
+      "title": "We saved you a seat.",
+      "lead": "Come as you are — this Sunday."
+    }
+  },
+  "heroImage": "/assets/stock/church-2.webp",
+  "finalUrl": "https://www.missionhills.org/"
+}

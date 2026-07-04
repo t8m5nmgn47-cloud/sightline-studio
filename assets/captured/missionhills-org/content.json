@@ -1,0 +1,56 @@
+{
+  "serviceTimes": [
+    "Monday – Thursday | 8:30 AM",
+    "Friday | 8:30 AM",
+    "Saturday nights at 4 PM",
+    "Sunday mornings at 8, 9:15, or 11 AM"
+  ],
+  "staff": [
+    {
+      "name": "Craig Smith",
+      "role": "Lead Pastor"
+    }
+  ],
+  "events": [
+    {
+      "title": "Extreme Color Wars",
+      "when": "",
+      "loc": ""
+    },
+    {
+      "title": "Known Nights: Color Wars",
+      "when": "",
+      "loc": ""
+    },
+    {
+      "title": "Castle Rock Men’s BBQ",
+      "when": "",
+      "loc": ""
+    },
+    {
+      "title": "Extreme Pizza Olympics",
+      "when": "",
+      "loc": ""
+    },
+    {
+      "title": "Kids Water Weekend",
+      "when": "",
+      "loc": ""
+    },
+    {
+      "title": "Amplify: Student Worship + Tech Camp",
+      "when": "",
+      "loc": ""
+    }
+  ],
+  "gallery": [
+    "https://www.missionhills.org/wp-content/uploads/2026/04/Extreme-Color-Wars-Hero.jpg",
+    "https://www.missionhills.org/wp-content/uploads/2026/04/Known-Night-Color-War-Hero.jpg",
+    "https://www.missionhills.org/wp-content/uploads/2025/05/CR-Mens-BBQ_Web-Banner.jpg",
+    "https://www.missionhills.org/wp-content/uploads/2026/04/Pizza-Olympics-Hero.jpg",
+    "https://www.missionhills.org/wp-content/uploads/2026/05/Water-Weekend-Hero-2.jpg",
+    "https://www.missionhills.org/wp-content/uploads/2024/04/Amplify-Web-Event-Banner-2024.jpg",
+    "https://www.missionhills.org/wp-content/uploads/2025/01/YA-Nights-Web-Event-Banner-2025.jpg",
+    "https://www.missionhills.org/wp-content/uploads/2025/03/Craig-Smith-Headshot.jpg"
+  ]
+}

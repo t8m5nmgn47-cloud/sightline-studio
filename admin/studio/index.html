@@ -1,0 +1,90 @@
+<!doctype html><html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Sightline Studio — Site Engine</title>
+<meta name="robots" content="noindex">
+<style>
+  :root{--bg:#14161a;--panel:#1c1f26;--line:#2b2f39;--ink:#eef0f4;--mut:#9aa1af;--brand:#4a9;--accent:#c6a24a}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
+    display:grid;grid-template-columns:340px 1fr;height:100vh;overflow:hidden}
+  .rail{background:var(--panel);border-right:1px solid var(--line);padding:20px;overflow-y:auto}
+  .rail h1{font-size:1.05rem;margin:0 0 2px}.rail .sub{color:var(--mut);font-size:.82rem;margin-bottom:18px}
+  .rail a.back{color:var(--mut);text-decoration:none;font-size:.8rem}
+  fieldset{border:1px solid var(--line);border-radius:10px;margin:0 0 14px;padding:12px 14px}
+  legend{font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);padding:0 6px}
+  .opts{display:flex;flex-wrap:wrap;gap:6px}
+  .opt{font:inherit;font-size:.82rem;padding:7px 11px;border-radius:7px;border:1px solid var(--line);
+    background:#20242c;color:var(--ink);cursor:pointer;transition:.15s}
+  .opt:hover{border-color:#3a404d}.opt.on{background:var(--accent);color:#181818;border-color:var(--accent);font-weight:600}
+  .toggle{display:flex;align-items:center;gap:8px;font-size:.85rem;padding:5px 0;color:var(--mut)}
+  .btn{width:100%;font:inherit;font-weight:600;padding:11px;border-radius:9px;border:none;cursor:pointer;margin-top:4px}
+  .btn.primary{background:var(--accent);color:#181818}.btn.ghost{background:#20242c;color:var(--ink);border:1px solid var(--line);margin-top:8px}
+  .why{font-size:.78rem;color:var(--mut);margin-top:10px;line-height:1.4;min-height:2.4em}
+  .stage{position:relative;background:#0c0d10;display:flex;flex-direction:column}
+  .bar{display:flex;align-items:center;gap:10px;padding:10px 16px;border-bottom:1px solid var(--line);color:var(--mut);font-size:.8rem}
+  .bar .u{background:#20242c;border-radius:6px;padding:4px 12px}
+  .bar .recipe{margin-left:auto;font-variant:tabular-nums}
+  iframe{flex:1;width:100%;border:0;background:#fff}
+  select{font:inherit;background:#20242c;color:var(--ink);border:1px solid var(--line);border-radius:7px;padding:7px;width:100%}
+</style></head>
+<body>
+<aside class="rail">
+  <a class="back" href="../">← Admin</a>
+  <h1>Site Engine</h1>
+  <div class="sub" id="who">Mission Hills Church</div>
+
+  <button class="btn primary" id="reco">✨ Auto-recommend from brand</button>
+  <div class="why" id="why"></div>
+
+  <fieldset><legend>Tradition — content & vocabulary</legend><div class="opts" id="trad"></div></fieldset>
+  <fieldset><legend>Archetype — structure</legend><div class="opts" id="arch"></div></fieldset>
+  <fieldset><legend>Theme — palette & type</legend><div class="opts" id="theme"></div>
+    <label class="toggle" style="margin-top:8px"><input type="checkbox" id="usecap"> Use captured brand colors</label></fieldset>
+  <fieldset><legend>Hero motion</legend><div class="opts" id="mood"></div></fieldset>
+
+  <button class="btn ghost" id="open">Open full preview ↗</button>
+</aside>
+<main class="stage">
+  <div class="bar"><span class="u" id="url">missionhills.org</span><span class="recipe" id="rlabel"></span></div>
+  <iframe id="pv" title="Live preview"></iframe>
+</main>
+
+<script type="module">
+import { assemble, THEMES, ARCHETYPES, MOODS, TRADITIONS, recommendRecipe } from '/engine/site-engine.mjs';
+const profile = await (await fetch('/engine/preview/missionhills-profile.json')).json();
+// give the profile enough Catholic content that switching tradition shows real sections
+profile.sections = Object.assign({ mass:{confession:'Saturdays 3:30 PM',adoration:'Wednesdays 9 AM–5 PM'},
+  sacraments:{}, sermons:profile.sections?.sermons||{latest:{title:'This weekend’s message'}} }, profile.sections||{});
+
+const recipe = { archetype:'journey', theme:'evergreen', mood:'godrays', useCapturedPalette:true, tradition:'contemporary' };
+const pretty = { cathedral:'Cathedral', editorial:'Editorial', modern:'Modern', split:'Split', minimal:'Minimal', journey:'Journey',
+  sanctuary:'Sanctuary', community:'Warm Community', heritage:'Heritage', quiet:'Quiet',
+  godrays:'Godrays', drift:'Drift', candle:'Candlelight', none:'Still',
+  contemporary:'Contemporary', catholic:'Catholic' };
+
+function chips(id, keys, prop){
+  const box = document.getElementById(id);
+  box.innerHTML = keys.map(k=>`<button class="opt" data-v="${k}">${pretty[k]||k}</button>`).join('');
+  box.onclick = e => { const b=e.target.closest('.opt'); if(!b) return; recipe[prop]=b.dataset.v; render(); };
+}
+chips('trad', Object.keys(TRADITIONS), 'tradition');
+chips('arch', Object.keys(ARCHETYPES), 'archetype');
+chips('theme', Object.keys(THEMES), 'theme');
+chips('mood', Object.keys(MOODS), 'mood');
+document.getElementById('usecap').onchange = e => { recipe.useCapturedPalette = e.target.checked; render(); };
+
+function render(){
+  document.querySelectorAll('#arch .opt').forEach(o=>o.classList.toggle('on',o.dataset.v===recipe.archetype));
+  document.querySelectorAll('#theme .opt').forEach(o=>o.classList.toggle('on',o.dataset.v===recipe.theme));
+  document.querySelectorAll('#mood .opt').forEach(o=>o.classList.toggle('on',o.dataset.v===recipe.mood));
+  document.querySelectorAll('#trad .opt').forEach(o=>o.classList.toggle('on',o.dataset.v===recipe.tradition));
+  document.getElementById('usecap').checked = !!recipe.useCapturedPalette;
+  document.getElementById('rlabel').textContent = `${pretty[recipe.archetype]} · ${pretty[recipe.theme]} · ${pretty[recipe.mood]}${recipe.useCapturedPalette?' · brand':''}`;
+  document.getElementById('pv').srcdoc = assemble(profile, recipe);
+}
+document.getElementById('reco').onclick = ()=>{ const r=recommendRecipe(profile);
+  Object.assign(recipe, r); document.getElementById('why').textContent = '→ '+r.why; render(); };
+document.getElementById('open').onclick = ()=>{ const w=window.open(); w.document.write(assemble(profile,recipe)); w.document.close(); };
+render();
+</script>
+</body></html>

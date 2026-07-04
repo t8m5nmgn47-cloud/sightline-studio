@@ -3,3 +3,7 @@ supabase/.temp/
 .vercel/
 .DS_Store
 *.log
+
+# Research/scraped artifacts — not for production
+assets/harvest/
+assets/captured/*/pages/

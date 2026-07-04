@@ -49,11 +49,13 @@ h1,h2,h3{font-variant-ligatures:none}
   <div class="card">
     <form id="f">
       <div class="plans">
-        <label class="plan on"><input type="radio" name="plan" value="zerodown" checked>
-          <span><span class="t">$0 down — <span style="opacity:.5;text-decoration:line-through;margin-right:5px">$199.99</span><span class="big">$149.99</span>/mo</span><br><span class="s">Nothing up front. Limited-time — regularly $199.99/mo.</span></span>
+        <label class="plan"><input type="radio" name="plan" value="site">
+          <span><span class="t"><span class="big">$59</span>/mo</span><br><span class="s"><b>Site</b> — we build it, you own it. Bespoke site, hosting, security &amp; the guest concierge. $0 down.</span></span></label>
+        <label class="plan on"><input type="radio" name="plan" value="frontdoor" checked>
+          <span><span class="t"><span class="big">$129</span>/mo</span><br><span class="s"><b>Front Door</b> — everything in Site, kept fresh: monthly edits, SEO, sermons/events. You never touch it.</span></span>
           <span class="tag">Most popular</span></label>
-        <label class="plan"><input type="radio" name="plan" value="deposit">
-          <span><span class="t"><span class="big">$299.99</span> to start, then <span class="big">$49.99</span>/mo</span><br><span class="s">A little up front, lower monthly.</span></span></label>
+        <label class="plan"><input type="radio" name="plan" value="frontdesk">
+          <span><span class="t"><span class="big">$199</span>/mo</span><br><span class="s"><b>Front Desk</b> — your whole front door + front desk: reputation, reviews, Google profile &amp; social, handled.</span></span></label>
       </div>
       <div class="row2">
         <div class="fld"><label>First name</label><input id="fname" autocomplete="given-name" placeholder="Jordan"></div>
@@ -80,7 +82,7 @@ const SUPA_URL="https://vtqmtecoxljduqomtkbw.supabase.co";
 const SUPA_KEY="sb_publishable_tOVldxTzrH4_9U0x-GZGHw_UFM57C2c";
 // ── Kris: paste your Stripe Payment Link URLs here after you create them (one per plan). Until then,
 //    signups are captured and the page tells the customer you'll send a secure payment link. ──
-const STRIPE={ zerodown:"", deposit:"" };
+const STRIPE={ site:"", frontdoor:"", frontdesk:"" };
 const CONTACT={ phone:"", email:"hello@sightlinehq.com", book:"/book/" };
 
 const qs=new URLSearchParams(location.search);
@@ -97,7 +99,7 @@ $("#textus").href=CONTACT.phone?("sms:"+CONTACT.phone.replace(/[^0-9+]/g,"")):ma
 // plan radio styling
 document.querySelectorAll(".plan").forEach(p=>p.addEventListener("click",()=>{document.querySelectorAll(".plan").forEach(x=>x.classList.remove("on"));p.classList.add("on");p.querySelector("input").checked=true;}));
 
-function planLabel(v){return v==="deposit"?"$299.99 to start, then $49.99/mo":"$0 down, then $149.99/mo";}
+function planLabel(v){return v==="site"?"Site — $59/mo":v==="frontdesk"?"Front Desk — $199/mo":"Front Door — $129/mo";}
 
 $("#f").addEventListener("submit",async e=>{
   e.preventDefault();
@@ -106,7 +108,7 @@ $("#f").addEventListener("submit",async e=>{
   if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)){ err.textContent="Please enter a valid email so we can send your site.";err.classList.add("show");return; }
   err.classList.remove("show");
   const go=$("#go"); go.disabled=true; go.textContent="Starting…";
-  const plan=(document.querySelector('input[name=plan]:checked')||{}).value||"zerodown";
+  const plan=(document.querySelector('input[name=plan]:checked')||{}).value||"frontdoor";
   const lead={ biz:BIZ||null, slug:SLUG||null, source:"funnel:"+(SLUG||"direct"), plan:planLabel(plan),
     first_name:$("#fname").value.trim()||null, last_name:$("#lname").value.trim()||null,
     contact_name:[$("#fname").value.trim(),$("#lname").value.trim()].filter(Boolean).join(" ")||null, email, phone:$("#phone").value.trim()||null,
