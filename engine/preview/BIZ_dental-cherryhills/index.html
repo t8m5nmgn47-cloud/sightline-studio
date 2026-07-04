@@ -314,6 +314,58 @@ body:not(.arch-split):not(.arch-minimal) .nav.scrolled{background:color-mix(in s
   <div class="foot-fine">Site by Sightline</div>
 </div></footer>
 
+<button class="cx-bubble" aria-label="Ask a question" id="cxOpen">💬</button>
+<div class="cx-panel" id="cxPanel" role="dialog" aria-label="Front desk" hidden>
+  <div class="cx-head"><b>Front desk</b><span>Quick answers — hours, booking, insurance</span><button class="cx-x" id="cxClose" aria-label="Close">×</button></div>
+  <div class="cx-log" id="cxLog"></div>
+  <div class="cx-chips" id="cxChips"></div>
+  <form class="cx-in" id="cxForm"><input id="cxText" placeholder="Ask about hours, booking, insurance…" autocomplete="off"><button type="submit" aria-label="Send">→</button></form>
+</div>
+<script>(function(){
+  var D={"biz":true,"adv":"medical","name":"Cherry Hills Dentistry","times":[],"location":"Cherry Hills · Denver, CO","phone":"(303) 757-8446","services":["Cleanings & checkups","Cosmetic & whitening","Implants & restorative","Same-day emergencies"],"kids":"Yes — kids are welcome and cared for at every service.","giving":false,"watch":false,"money":true,"book":true};
+  var log=document.getElementById('cxLog'), chips=document.getElementById('cxChips');
+  function push(who,html){var d=document.createElement('div');d.className='cx-msg '+who;d.innerHTML=html;log.appendChild(d);log.scrollTop=log.scrollHeight;}
+  function callCta(){return D.phone?['Call '+D.phone,'tel:'+D.phone.replace(/[^0-9]/g,'')]:['Send a message','#connect'];}
+  function bizAnswer(q){
+    // GUARDRAIL: never give medical or legal advice — route to a booked professional
+    if(D.adv==='legal' && /should i (sue|settle|sign|plead)|is (it|this) legal|can i sue|lawsuit|will i win|charged with|my (case|charges)|legal advice|do i have a case/.test(q))
+      return {t:"I can’t give legal advice — but our attorneys can, in a consultation. Want me to point you to booking one?",cta:['Request a consult','#book']};
+    if(D.adv!=='legal' && /is (this|it) (normal|serious|ok|infected)|should i (be worried|see|worry)|diagnos|what does it mean|symptom|my (pain|tooth|skin) (is|hurts)|swelling|is it an emergency|urgent/.test(q))
+      return {t:"I can’t give medical advice. If it’s urgent, please call the office now (or 911 for an emergency). Otherwise the best next step is a quick visit — want to book?",cta:['Book a visit','#book']};
+    if(/hour|open|when|close|today|available/.test(q))
+      return {t: D.times.length? "Our hours:<ul>"+D.times.map(function(x){return '<li>'+x+'</li>'}).join('')+"</ul>" : "See our hours on this page — or call and we’ll help.",cta:callCta()};
+    if(/book|appoint|schedul|reserve|see (someone|the)/.test(q)) return {t:"Booking takes under a minute — new patients &amp; clients welcome.",cta:['Book now','#book']};
+    if(/insuranc|cost|price|pay|financ|afford|how much|quote/.test(q)) return {t: D.money? "We accept most major insurance and offer financing. Exact cost depends on your visit — the best way to get a real number is a quick consult." : "Costs depend on your visit — we’ll give you a clear number up front. Want to book a consult?",cta:['Book a consult','#book']};
+    if(/service|treat|do you|offer|help with|practice area/.test(q)) return {t: D.services.length? "We offer:<ul>"+D.services.map(function(x){return '<li>'+x+'</li>'}).join('')+"</ul>" : "See our services on this page — happy to help you find the right one.",cta:['Book','#book']};
+    if(/where|address|direction|park|location|find you/.test(q)) return {t:"We’re at "+(D.location||'our office')+". There’s parking on-site — call if you need directions.",cta:callCta()};
+    if(/new|first (time|visit)/.test(q)) return {t:"Welcome! New patients &amp; clients are what we love. Book your first visit and we’ll take great care of you.",cta:['Book your first visit','#book']};
+    return {t:"Happy to help — the fastest way is to book online or give us a call.",cta:['Book now','#book']};
+  }
+  function churchAnswer(q){
+    if(/pray|prayer|grie|griev|hurt|struggl|depress|anxious|suicid|crisis|died|death|sick|hospital|counsel|marriage|divorce/.test(q))
+      return {t:"I'm just the welcome desk, so I'm not the right one for that — but a real person on our care team is. If you share a note below, someone will reach out personally.",cta:['Reach our care team','#connect']};
+    if(/time|when|service|mass|worship|sunday|saturday|hour/.test(q))
+      return {t: D.times.length? "Here’s when we gather:<ul>"+D.times.map(function(x){return '<li>'+x+'</li>'}).join('')+"</ul>" : "We’d love to see you — check the service times on this page."};
+    if(/park|where|address|direction|location|find|campus/.test(q))
+      return {t:"We’re in "+(D.location||'your area')+". There’s free parking with reserved first-time spots near the main doors — look for the Welcome signs."};
+    if(/kid|child|nursery|baby|family|youth/.test(q)) return {t:D.kids};
+    if(/give|giving|donate|tithe|money|offering/.test(q)) return D.giving?{t:"Giving is simple and secure — one-time or recurring.",cta:['Give online','#give']}:{t:"You can give at any service, or ask our team about online giving."};
+    if(/watch|online|stream|live|video/.test(q)) return D.watch?{t:"Every service streams live, and past messages are always available.",cta:['Watch','#watch']}:{t:"Ask our team about watching online."};
+    if(/visit|new|first|expect|come|attend/.test(q)) return {t:"So glad you’re thinking of coming! Come as you are — walk in, grab coffee, and stay as long as you like. Want to let us know you’re coming?",cta:['Plan your visit','#visit']};
+    return {t:"Great question — the best person to answer that is our team. Leave a note and we’ll get right back to you.",cta:['Message us','#connect']};
+  }
+  function answer(q){ q=q.toLowerCase(); return D.biz? bizAnswer(q) : churchAnswer(q); }
+  function ask(q){push('me',q);var a=answer(q);setTimeout(function(){push('bot',a.t+(a.cta?'<br><a class="cx-cta" href="'+a.cta[1]+'">'+a.cta[0]+' →</a>':''));},260);}
+  var seeds= D.biz? ['Hours','Book an appointment','Services','Insurance &amp; pricing'] : ['Service times','Where do I park?','Are kids welcome?','Watch online'];
+  chips.innerHTML=seeds.map(function(s){return '<button class="cx-chip" type="button">'+s+'</button>'}).join('');
+  chips.onclick=function(e){var b=e.target.closest('.cx-chip');if(b)ask(b.textContent.replace('&amp;','&'));};
+  document.getElementById('cxForm').onsubmit=function(e){e.preventDefault();var t=document.getElementById('cxText');if(t.value.trim()){ask(t.value.trim());t.value='';}};
+  var panel=document.getElementById('cxPanel'), first=true;
+  var greet= D.biz? '👋 Hi! I’m the front desk for '+D.name+'. I can help with hours, booking, services, and insurance. What do you need?'
+                  : '👋 Welcome to '+D.name+'! I can help with service times, parking, kids, and planning your first visit. What can I help you find?';
+  document.getElementById('cxOpen').onclick=function(){panel.hidden=false;this.style.display='none';if(first){first=false;push('bot',greet);}};
+  document.getElementById('cxClose').onclick=function(){panel.hidden=true;document.getElementById('cxOpen').style.display='';};
+})();</script>
 <script>
 (function(){var n=document.querySelector('.nav');
  if(n)addEventListener('scroll',function(){n.classList.toggle('scrolled',scrollY>40)},{passive:true});
