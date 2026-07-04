@@ -530,52 +530,292 @@
     "winPct": 60,
     "expected": 1433,
     "benchmark": {
-      "catN": 6,
+      "catN": 11,
       "catLabel": "business businesses",
-      "avg": 52,
+      "avg": 47,
       "max": 76,
-      "delta": -44
+      "delta": -39
     },
     "competitorGaps": [
       {
-        "label": "Call / contact prominent",
-        "why": "A visible phone number + clear contact path captures the callers who won't fill a form.",
-        "peerPct": 83
-      },
-      {
         "label": "Team & credentials",
         "why": "Meet-the-team, credentials, awards and an about story build the trust a service purchase requires.",
-        "peerPct": 83
+        "peerPct": 82
+      },
+      {
+        "label": "Call / contact prominent",
+        "why": "A visible phone number + clear contact path captures the callers who won't fill a form.",
+        "peerPct": 73
+      },
+      {
+        "label": "Services / what we do",
+        "why": "Clear services (and for whom) is how a searcher confirms you solve their problem.",
+        "peerPct": 64
       },
       {
         "label": "Financing / insurance / pricing",
         "why": "Insurance accepted, financing, or pricing transparency removes the biggest hesitation.",
-        "peerPct": 83
-      },
-      {
-        "label": "Reviews & social proof",
-        "why": "~9 in 10 people read reviews before choosing a local business — star ratings/testimonials on-site convert.",
-        "peerPct": 67
+        "peerPct": 64
       }
     ],
     "talkingPoints": [
       {
+        "label": "Team & credentials",
+        "why": "Meet-the-team, credentials, awards and an about story build the trust a service purchase requires.",
+        "peerPct": 82
+      },
+      {
         "label": "Call / contact prominent",
         "why": "A visible phone number + clear contact path captures the callers who won't fill a form.",
-        "peerPct": 83
+        "peerPct": 73
       },
+      {
+        "label": "Services / what we do",
+        "why": "Clear services (and for whom) is how a searcher confirms you solve their problem.",
+        "peerPct": 64
+      }
+    ],
+    "opener": "Hi — I pulled up Castlerockcpa and noticed you don't have team & credentials, but 82% of business businesses do — it's probably costing you bookings every week. I built a version of your site that fixes it. Two minutes to show you?"
+  },
+  {
+    "type": "business",
+    "domain": "cotitleescrow.com",
+    "name": "CO Title & Escrow",
+    "platform": "—",
+    "tradition": "business",
+    "score": 20,
+    "tier": "HOT",
+    "gaps": [
+      "Book / request appointment",
+      "Call / contact prominent",
+      "Reviews & social proof",
+      "Team & credentials",
+      "New-customer offer",
+      "Photos / results",
+      "Financing / insurance / pricing"
+    ],
+    "pitch": "Leaking leads — missing book / request appointment, call / contact prominent, reviews & social proof. Scores 20/100; each fix is booked revenue.",
+    "dead": false,
+    "dims": [
+      {
+        "l": "Book / request appointment",
+        "f": false,
+        "w": "The #1 conversion action — online booking or a request-appointment form turns a visitor into revenue."
+      },
+      {
+        "l": "Call / contact prominent",
+        "f": false,
+        "w": "A visible phone number + clear contact path captures the callers who won't fill a form."
+      },
+      {
+        "l": "Services / what we do",
+        "f": true,
+        "w": "Clear services (and for whom) is how a searcher confirms you solve their problem."
+      },
+      {
+        "l": "Reviews & social proof",
+        "f": false,
+        "w": "~9 in 10 people read reviews before choosing a local business — star ratings/testimonials on-site convert."
+      },
+      {
+        "l": "Team & credentials",
+        "f": false,
+        "w": "Meet-the-team, credentials, awards and an about story build the trust a service purchase requires."
+      },
+      {
+        "l": "Hours, location & map",
+        "f": true,
+        "w": "Hours, address, and a map are table-stakes for a local visit."
+      },
+      {
+        "l": "New-customer offer",
+        "f": false,
+        "w": "A new-patient special / free consult is the hook that turns comparison-shoppers into bookings."
+      },
+      {
+        "l": "Photos / results",
+        "f": false,
+        "w": "Real photos (office, team, before/after results) prove quality far better than stock."
+      },
+      {
+        "l": "Financing / insurance / pricing",
+        "f": false,
+        "w": "Insurance accepted, financing, or pricing transparency removes the biggest hesitation."
+      },
+      {
+        "l": "Fast, mobile & secure",
+        "f": true,
+        "w": "Mobile, HTTPS, and accessibility decide whether a phone searcher stays or bounces."
+      }
+    ],
+    "mrr": 199,
+    "annual": 2388,
+    "winPct": 56,
+    "expected": 1337,
+    "benchmark": {
+      "catN": 11,
+      "catLabel": "business businesses",
+      "avg": 47,
+      "max": 76,
+      "delta": -27
+    },
+    "competitorGaps": [
       {
         "label": "Team & credentials",
         "why": "Meet-the-team, credentials, awards and an about story build the trust a service purchase requires.",
-        "peerPct": 83
+        "peerPct": 82
+      },
+      {
+        "label": "Call / contact prominent",
+        "why": "A visible phone number + clear contact path captures the callers who won't fill a form.",
+        "peerPct": 73
       },
       {
         "label": "Financing / insurance / pricing",
         "why": "Insurance accepted, financing, or pricing transparency removes the biggest hesitation.",
-        "peerPct": 83
+        "peerPct": 64
+      },
+      {
+        "label": "Reviews & social proof",
+        "why": "~9 in 10 people read reviews before choosing a local business — star ratings/testimonials on-site convert.",
+        "peerPct": 55
       }
     ],
-    "opener": "Hi — I pulled up Castlerockcpa and noticed you don't have call / contact prominent, but 83% of business businesses do — it's probably costing you bookings every week. I built a version of your site that fixes it. Two minutes to show you?"
+    "talkingPoints": [
+      {
+        "label": "Team & credentials",
+        "why": "Meet-the-team, credentials, awards and an about story build the trust a service purchase requires.",
+        "peerPct": 82
+      },
+      {
+        "label": "Call / contact prominent",
+        "why": "A visible phone number + clear contact path captures the callers who won't fill a form.",
+        "peerPct": 73
+      },
+      {
+        "label": "Financing / insurance / pricing",
+        "why": "Insurance accepted, financing, or pricing transparency removes the biggest hesitation.",
+        "peerPct": 64
+      }
+    ],
+    "opener": "Hi — I pulled up CO Title & Escrow and noticed you don't have team & credentials, but 82% of business businesses do — it's probably costing you bookings every week. I built a version of your site that fixes it. Two minutes to show you?"
+  },
+  {
+    "type": "business",
+    "domain": "montessoriatlonetree.com",
+    "name": "Montessori School at Lone Tree",
+    "platform": "—",
+    "tradition": "business",
+    "score": 23,
+    "tier": "HOT",
+    "gaps": [
+      "Book / request appointment",
+      "Services / what we do",
+      "Reviews & social proof",
+      "New-customer offer",
+      "Photos / results",
+      "Financing / insurance / pricing"
+    ],
+    "pitch": "Leaking leads — missing book / request appointment, services / what we do, reviews & social proof. Scores 23/100; each fix is booked revenue.",
+    "dead": false,
+    "dims": [
+      {
+        "l": "Book / request appointment",
+        "f": false,
+        "w": "The #1 conversion action — online booking or a request-appointment form turns a visitor into revenue."
+      },
+      {
+        "l": "Call / contact prominent",
+        "f": true,
+        "w": "A visible phone number + clear contact path captures the callers who won't fill a form."
+      },
+      {
+        "l": "Services / what we do",
+        "f": false,
+        "w": "Clear services (and for whom) is how a searcher confirms you solve their problem."
+      },
+      {
+        "l": "Reviews & social proof",
+        "f": false,
+        "w": "~9 in 10 people read reviews before choosing a local business — star ratings/testimonials on-site convert."
+      },
+      {
+        "l": "Team & credentials",
+        "f": true,
+        "w": "Meet-the-team, credentials, awards and an about story build the trust a service purchase requires."
+      },
+      {
+        "l": "Hours, location & map",
+        "f": true,
+        "w": "Hours, address, and a map are table-stakes for a local visit."
+      },
+      {
+        "l": "New-customer offer",
+        "f": false,
+        "w": "A new-patient special / free consult is the hook that turns comparison-shoppers into bookings."
+      },
+      {
+        "l": "Photos / results",
+        "f": false,
+        "w": "Real photos (office, team, before/after results) prove quality far better than stock."
+      },
+      {
+        "l": "Financing / insurance / pricing",
+        "f": false,
+        "w": "Insurance accepted, financing, or pricing transparency removes the biggest hesitation."
+      },
+      {
+        "l": "Fast, mobile & secure",
+        "f": true,
+        "w": "Mobile, HTTPS, and accessibility decide whether a phone searcher stays or bounces."
+      }
+    ],
+    "mrr": 199,
+    "annual": 2388,
+    "winPct": 55,
+    "expected": 1305,
+    "benchmark": {
+      "catN": 11,
+      "catLabel": "business businesses",
+      "avg": 47,
+      "max": 76,
+      "delta": -24
+    },
+    "competitorGaps": [
+      {
+        "label": "Services / what we do",
+        "why": "Clear services (and for whom) is how a searcher confirms you solve their problem.",
+        "peerPct": 64
+      },
+      {
+        "label": "Financing / insurance / pricing",
+        "why": "Insurance accepted, financing, or pricing transparency removes the biggest hesitation.",
+        "peerPct": 64
+      },
+      {
+        "label": "Reviews & social proof",
+        "why": "~9 in 10 people read reviews before choosing a local business — star ratings/testimonials on-site convert.",
+        "peerPct": 55
+      }
+    ],
+    "talkingPoints": [
+      {
+        "label": "Services / what we do",
+        "why": "Clear services (and for whom) is how a searcher confirms you solve their problem.",
+        "peerPct": 64
+      },
+      {
+        "label": "Financing / insurance / pricing",
+        "why": "Insurance accepted, financing, or pricing transparency removes the biggest hesitation.",
+        "peerPct": 64
+      },
+      {
+        "label": "Reviews & social proof",
+        "why": "~9 in 10 people read reviews before choosing a local business — star ratings/testimonials on-site convert.",
+        "peerPct": 55
+      }
+    ],
+    "opener": "Hi — I pulled up Montessori School at Lone Tree and noticed you don't have services / what we do, but 64% of business businesses do — it's probably costing you bookings every week. I built a version of your site that fixes it. Two minutes to show you?"
   },
   {
     "type": "church",
@@ -1029,27 +1269,27 @@
     "winPct": 47,
     "expected": 1112,
     "benchmark": {
-      "catN": 6,
+      "catN": 11,
       "catLabel": "business businesses",
-      "avg": 52,
+      "avg": 47,
       "max": 76,
-      "delta": -11
+      "delta": -6
     },
     "competitorGaps": [
       {
         "label": "Reviews & social proof",
         "why": "~9 in 10 people read reviews before choosing a local business — star ratings/testimonials on-site convert.",
-        "peerPct": 67
+        "peerPct": 55
       }
     ],
     "talkingPoints": [
       {
         "label": "Reviews & social proof",
         "why": "~9 in 10 people read reviews before choosing a local business — star ratings/testimonials on-site convert.",
-        "peerPct": 67
+        "peerPct": 55
       }
     ],
-    "opener": "Hi — I pulled up Aspen Falls Landscape and Construction and noticed you don't have reviews & social proof, but 67% of business businesses do — it's probably costing you bookings every week. I built a version of your site that fixes it. Two minutes to show you?"
+    "opener": "Hi — I pulled up Aspen Falls Landscape and Construction and noticed you don't have reviews & social proof, but 55% of business businesses do — it's probably costing you bookings every week. I built a version of your site that fixes it. Two minutes to show you?"
   },
   {
     "type": "church",
@@ -1173,6 +1413,100 @@
     "opener": "Hi — I pulled up Faith Tabernacle - South FL and noticed you don't have serve & volunteer, but 70% of contemporary churches do — it's probably costing you visitors every week. I built a version of your site that fixes it. Two minutes to show you?"
   },
   {
+    "type": "business",
+    "domain": "myrkmhome.com",
+    "name": "RKM Homes",
+    "platform": "—",
+    "tradition": "business",
+    "score": 47,
+    "tier": "WARM",
+    "gaps": [
+      "Book / request appointment",
+      "Reviews & social proof",
+      "New-customer offer"
+    ],
+    "pitch": "Leaking leads — missing book / request appointment, reviews & social proof, new-customer offer. Scores 47/100; each fix is booked revenue.",
+    "dead": false,
+    "dims": [
+      {
+        "l": "Book / request appointment",
+        "f": false,
+        "w": "The #1 conversion action — online booking or a request-appointment form turns a visitor into revenue."
+      },
+      {
+        "l": "Call / contact prominent",
+        "f": true,
+        "w": "A visible phone number + clear contact path captures the callers who won't fill a form."
+      },
+      {
+        "l": "Services / what we do",
+        "f": true,
+        "w": "Clear services (and for whom) is how a searcher confirms you solve their problem."
+      },
+      {
+        "l": "Reviews & social proof",
+        "f": false,
+        "w": "~9 in 10 people read reviews before choosing a local business — star ratings/testimonials on-site convert."
+      },
+      {
+        "l": "Team & credentials",
+        "f": true,
+        "w": "Meet-the-team, credentials, awards and an about story build the trust a service purchase requires."
+      },
+      {
+        "l": "Hours, location & map",
+        "f": true,
+        "w": "Hours, address, and a map are table-stakes for a local visit."
+      },
+      {
+        "l": "New-customer offer",
+        "f": false,
+        "w": "A new-patient special / free consult is the hook that turns comparison-shoppers into bookings."
+      },
+      {
+        "l": "Photos / results",
+        "f": true,
+        "w": "Real photos (office, team, before/after results) prove quality far better than stock."
+      },
+      {
+        "l": "Financing / insurance / pricing",
+        "f": true,
+        "w": "Insurance accepted, financing, or pricing transparency removes the biggest hesitation."
+      },
+      {
+        "l": "Fast, mobile & secure",
+        "f": true,
+        "w": "Mobile, HTTPS, and accessibility decide whether a phone searcher stays or bounces."
+      }
+    ],
+    "mrr": 199,
+    "annual": 2388,
+    "winPct": 44,
+    "expected": 1047,
+    "benchmark": {
+      "catN": 11,
+      "catLabel": "business businesses",
+      "avg": 47,
+      "max": 76,
+      "delta": 0
+    },
+    "competitorGaps": [
+      {
+        "label": "Reviews & social proof",
+        "why": "~9 in 10 people read reviews before choosing a local business — star ratings/testimonials on-site convert.",
+        "peerPct": 55
+      }
+    ],
+    "talkingPoints": [
+      {
+        "label": "Reviews & social proof",
+        "why": "~9 in 10 people read reviews before choosing a local business — star ratings/testimonials on-site convert.",
+        "peerPct": 55
+      }
+    ],
+    "opener": "Hi — I pulled up RKM Homes and noticed you don't have reviews & social proof, but 55% of business businesses do — it's probably costing you bookings every week. I built a version of your site that fixes it. Two minutes to show you?"
+  },
+  {
     "type": "church",
     "domain": "ebenezerdacula.org",
     "name": "Ebenezer Baptist Church",
@@ -1292,6 +1626,111 @@
       }
     ],
     "opener": "Hi — I pulled up Ebenezer Baptist Church and noticed you don't have plan your visit, but 80% of contemporary churches do — it's probably costing you visitors every week. I built a version of your site that fixes it. Two minutes to show you?"
+  },
+  {
+    "type": "business",
+    "domain": "stoneaspen.com",
+    "name": "Stone Aspen Signature Builders | Castle Rock Custom Home Builder and Design-Build | Colorado",
+    "platform": "—",
+    "tradition": "business",
+    "score": 49,
+    "tier": "WARM",
+    "gaps": [
+      "Call / contact prominent",
+      "New-customer offer",
+      "Photos / results",
+      "Financing / insurance / pricing"
+    ],
+    "pitch": "Leaking leads — missing call / contact prominent, new-customer offer, photos / results. Scores 49/100; each fix is booked revenue.",
+    "dead": false,
+    "dims": [
+      {
+        "l": "Book / request appointment",
+        "f": true,
+        "w": "The #1 conversion action — online booking or a request-appointment form turns a visitor into revenue."
+      },
+      {
+        "l": "Call / contact prominent",
+        "f": false,
+        "w": "A visible phone number + clear contact path captures the callers who won't fill a form."
+      },
+      {
+        "l": "Services / what we do",
+        "f": true,
+        "w": "Clear services (and for whom) is how a searcher confirms you solve their problem."
+      },
+      {
+        "l": "Reviews & social proof",
+        "f": true,
+        "w": "~9 in 10 people read reviews before choosing a local business — star ratings/testimonials on-site convert."
+      },
+      {
+        "l": "Team & credentials",
+        "f": true,
+        "w": "Meet-the-team, credentials, awards and an about story build the trust a service purchase requires."
+      },
+      {
+        "l": "Hours, location & map",
+        "f": true,
+        "w": "Hours, address, and a map are table-stakes for a local visit."
+      },
+      {
+        "l": "New-customer offer",
+        "f": false,
+        "w": "A new-patient special / free consult is the hook that turns comparison-shoppers into bookings."
+      },
+      {
+        "l": "Photos / results",
+        "f": false,
+        "w": "Real photos (office, team, before/after results) prove quality far better than stock."
+      },
+      {
+        "l": "Financing / insurance / pricing",
+        "f": false,
+        "w": "Insurance accepted, financing, or pricing transparency removes the biggest hesitation."
+      },
+      {
+        "l": "Fast, mobile & secure",
+        "f": true,
+        "w": "Mobile, HTTPS, and accessibility decide whether a phone searcher stays or bounces."
+      }
+    ],
+    "mrr": 199,
+    "annual": 2388,
+    "winPct": 43,
+    "expected": 1026,
+    "benchmark": {
+      "catN": 11,
+      "catLabel": "business businesses",
+      "avg": 47,
+      "max": 76,
+      "delta": 2
+    },
+    "competitorGaps": [
+      {
+        "label": "Call / contact prominent",
+        "why": "A visible phone number + clear contact path captures the callers who won't fill a form.",
+        "peerPct": 73
+      },
+      {
+        "label": "Financing / insurance / pricing",
+        "why": "Insurance accepted, financing, or pricing transparency removes the biggest hesitation.",
+        "peerPct": 64
+      }
+    ],
+    "talkingPoints": [
+      {
+        "label": "Call / contact prominent",
+        "why": "A visible phone number + clear contact path captures the callers who won't fill a form.",
+        "peerPct": 73
+      },
+      {
+        "label": "Financing / insurance / pricing",
+        "why": "Insurance accepted, financing, or pricing transparency removes the biggest hesitation.",
+        "peerPct": 64
+      }
+    ],
+    "opener": "Hi — I pulled up Stone Aspen Signature Builders | Castle Rock Custom Home Builder and Design-Build | Colorado and noticed you don't have call / contact prominent, but 73% of business businesses do — it's probably costing you bookings every week. I built a version of your site that fixes it. Two minutes to show you?"
   },
   {
     "type": "church",
@@ -1484,11 +1923,11 @@
     "winPct": 42,
     "expected": 993,
     "benchmark": {
-      "catN": 6,
+      "catN": 11,
       "catLabel": "business businesses",
-      "avg": 52,
+      "avg": 47,
       "max": 76,
-      "delta": 0
+      "delta": 5
     },
     "competitorGaps": [],
     "talkingPoints": [
@@ -1503,7 +1942,7 @@
         "peerPct": 0
       }
     ],
-    "opener": "Hi — I looked at Dr. Heidi Oster MD, PC's site (scored it 52/100 vs a 52 average for business businesses). I rebuilt a sharper version — can I send it over?"
+    "opener": "Hi — I looked at Dr. Heidi Oster MD, PC's site (scored it 52/100 vs a 47 average for business businesses). I rebuilt a sharper version — can I send it over?"
   },
   {
     "type": "church",
@@ -1614,6 +2053,100 @@
       }
     ],
     "opener": "Hi — I pulled up Vriesland Church and noticed you don't have service times & campus, but 77% of contemporary churches do — it's probably costing you visitors every week. I built a version of your site that fixes it. Two minutes to show you?"
+  },
+  {
+    "type": "business",
+    "domain": "homesteadtc.com",
+    "name": "Homestead Title and Escrow",
+    "platform": "—",
+    "tradition": "dental",
+    "score": 54,
+    "tier": "WARM",
+    "gaps": [
+      "Book / request appointment",
+      "New-customer offer",
+      "Photos / results"
+    ],
+    "pitch": "Leaking leads — missing book / request appointment, new-customer offer, photos / results. Scores 54/100; each fix is booked revenue.",
+    "dead": false,
+    "dims": [
+      {
+        "l": "Book / request appointment",
+        "f": false,
+        "w": "The #1 conversion action — online booking or a request-appointment form turns a visitor into revenue."
+      },
+      {
+        "l": "Call / contact prominent",
+        "f": true,
+        "w": "A visible phone number + clear contact path captures the callers who won't fill a form."
+      },
+      {
+        "l": "Services / what we do",
+        "f": true,
+        "w": "Clear services (and for whom) is how a searcher confirms you solve their problem."
+      },
+      {
+        "l": "Reviews & social proof",
+        "f": true,
+        "w": "~9 in 10 people read reviews before choosing a local business — star ratings/testimonials on-site convert."
+      },
+      {
+        "l": "Team & credentials",
+        "f": true,
+        "w": "Meet-the-team, credentials, awards and an about story build the trust a service purchase requires."
+      },
+      {
+        "l": "Hours, location & map",
+        "f": true,
+        "w": "Hours, address, and a map are table-stakes for a local visit."
+      },
+      {
+        "l": "New-customer offer",
+        "f": false,
+        "w": "A new-patient special / free consult is the hook that turns comparison-shoppers into bookings."
+      },
+      {
+        "l": "Photos / results",
+        "f": false,
+        "w": "Real photos (office, team, before/after results) prove quality far better than stock."
+      },
+      {
+        "l": "Financing / insurance / pricing",
+        "f": true,
+        "w": "Insurance accepted, financing, or pricing transparency removes the biggest hesitation."
+      },
+      {
+        "l": "Fast, mobile & secure",
+        "f": true,
+        "w": "Mobile, HTTPS, and accessibility decide whether a phone searcher stays or bounces."
+      }
+    ],
+    "mrr": 249,
+    "annual": 2988,
+    "winPct": 41,
+    "expected": 1216,
+    "benchmark": {
+      "catN": 3,
+      "catLabel": "dental businesses",
+      "avg": 61,
+      "max": 72,
+      "delta": -7
+    },
+    "competitorGaps": [
+      {
+        "label": "New-customer offer",
+        "why": "A new-patient special / free consult is the hook that turns comparison-shoppers into bookings.",
+        "peerPct": 67
+      }
+    ],
+    "talkingPoints": [
+      {
+        "label": "New-customer offer",
+        "why": "A new-patient special / free consult is the hook that turns comparison-shoppers into bookings.",
+        "peerPct": 67
+      }
+    ],
+    "opener": "Hi — I pulled up Homestead Title and Escrow and noticed you don't have new-customer offer, but 67% of dental businesses do — it's probably costing you bookings every week. I built a version of your site that fixes it. Two minutes to show you?"
   },
   {
     "type": "church",
@@ -1735,6 +2268,99 @@
       }
     ],
     "opener": "Hi — I pulled up Move Church and noticed you don't have service times & campus, but 77% of contemporary churches do — it's probably costing you visitors every week. I built a version of your site that fixes it. Two minutes to show you?"
+  },
+  {
+    "type": "business",
+    "domain": "niedermaninsurance.com",
+    "name": "Colorado Group & Individual Health, Life, Disability, Long Term Care Insurance broker in Highlands Ranch Colorado - Niederman Insurance Agency",
+    "platform": "—",
+    "tradition": "dental",
+    "score": 56,
+    "tier": "WARM",
+    "gaps": [
+      "Book / request appointment",
+      "Services / what we do"
+    ],
+    "pitch": "Leaking leads — missing book / request appointment, services / what we do. Scores 56/100; each fix is booked revenue.",
+    "dead": false,
+    "dims": [
+      {
+        "l": "Book / request appointment",
+        "f": false,
+        "w": "The #1 conversion action — online booking or a request-appointment form turns a visitor into revenue."
+      },
+      {
+        "l": "Call / contact prominent",
+        "f": true,
+        "w": "A visible phone number + clear contact path captures the callers who won't fill a form."
+      },
+      {
+        "l": "Services / what we do",
+        "f": false,
+        "w": "Clear services (and for whom) is how a searcher confirms you solve their problem."
+      },
+      {
+        "l": "Reviews & social proof",
+        "f": true,
+        "w": "~9 in 10 people read reviews before choosing a local business — star ratings/testimonials on-site convert."
+      },
+      {
+        "l": "Team & credentials",
+        "f": true,
+        "w": "Meet-the-team, credentials, awards and an about story build the trust a service purchase requires."
+      },
+      {
+        "l": "Hours, location & map",
+        "f": true,
+        "w": "Hours, address, and a map are table-stakes for a local visit."
+      },
+      {
+        "l": "New-customer offer",
+        "f": true,
+        "w": "A new-patient special / free consult is the hook that turns comparison-shoppers into bookings."
+      },
+      {
+        "l": "Photos / results",
+        "f": true,
+        "w": "Real photos (office, team, before/after results) prove quality far better than stock."
+      },
+      {
+        "l": "Financing / insurance / pricing",
+        "f": true,
+        "w": "Insurance accepted, financing, or pricing transparency removes the biggest hesitation."
+      },
+      {
+        "l": "Fast, mobile & secure",
+        "f": true,
+        "w": "Mobile, HTTPS, and accessibility decide whether a phone searcher stays or bounces."
+      }
+    ],
+    "mrr": 249,
+    "annual": 2988,
+    "winPct": 40,
+    "expected": 1189,
+    "benchmark": {
+      "catN": 3,
+      "catLabel": "dental businesses",
+      "avg": 61,
+      "max": 72,
+      "delta": -5
+    },
+    "competitorGaps": [
+      {
+        "label": "Services / what we do",
+        "why": "Clear services (and for whom) is how a searcher confirms you solve their problem.",
+        "peerPct": 67
+      }
+    ],
+    "talkingPoints": [
+      {
+        "label": "Services / what we do",
+        "why": "Clear services (and for whom) is how a searcher confirms you solve their problem.",
+        "peerPct": 67
+      }
+    ],
+    "opener": "Hi — I pulled up Colorado Group & Individual Health, Life, Disability, Long Term Care Insurance broker in Highlands Ranch Colorado - Niederman Insurance Agency and noticed you don't have services / what we do, but 67% of dental businesses do — it's probably costing you bookings every week. I built a version of your site that fixes it. Two minutes to show you?"
   },
   {
     "type": "church",
@@ -2642,27 +3268,31 @@
     "winPct": 35,
     "expected": 843,
     "benchmark": {
-      "catN": 6,
+      "catN": 11,
       "catLabel": "business businesses",
-      "avg": 52,
+      "avg": 47,
       "max": 76,
-      "delta": 14
+      "delta": 19
     },
-    "competitorGaps": [
-      {
-        "label": "Photos / results",
-        "why": "Real photos (office, team, before/after results) prove quality far better than stock.",
-        "peerPct": 50
-      }
-    ],
+    "competitorGaps": [],
     "talkingPoints": [
       {
+        "label": "Book / request appointment",
+        "why": "The #1 conversion action — online booking or a request-appointment form turns a visitor into revenue.",
+        "peerPct": 0
+      },
+      {
+        "label": "New-customer offer",
+        "why": "A new-patient special / free consult is the hook that turns comparison-shoppers into bookings.",
+        "peerPct": 0
+      },
+      {
         "label": "Photos / results",
         "why": "Real photos (office, team, before/after results) prove quality far better than stock.",
-        "peerPct": 50
+        "peerPct": 0
       }
     ],
-    "opener": "Hi — I pulled up Jewelry Store in Aurora, CO and noticed you don't have photos / results, but 50% of business businesses do — it's probably costing you bookings every week. I built a version of your site that fixes it. Two minutes to show you?"
+    "opener": "Hi — I looked at Jewelry Store in Aurora, CO's site (scored it 66/100 vs a 47 average for business businesses). I rebuilt a sharper version — can I send it over?"
   },
   {
     "type": "business",
@@ -2937,37 +3567,113 @@
     "winPct": 34,
     "expected": 821,
     "benchmark": {
-      "catN": 6,
+      "catN": 11,
       "catLabel": "business businesses",
-      "avg": 52,
+      "avg": 47,
       "max": 76,
-      "delta": 16
+      "delta": 21
     },
     "competitorGaps": [
       {
         "label": "Services / what we do",
         "why": "Clear services (and for whom) is how a searcher confirms you solve their problem.",
-        "peerPct": 50
-      },
-      {
-        "label": "Photos / results",
-        "why": "Real photos (office, team, before/after results) prove quality far better than stock.",
-        "peerPct": 50
+        "peerPct": 64
       }
     ],
     "talkingPoints": [
       {
         "label": "Services / what we do",
         "why": "Clear services (and for whom) is how a searcher confirms you solve their problem.",
-        "peerPct": 50
-      },
-      {
-        "label": "Photos / results",
-        "why": "Real photos (office, team, before/after results) prove quality far better than stock.",
-        "peerPct": 50
+        "peerPct": 64
       }
     ],
-    "opener": "Hi — I pulled up Colorado Lending Team | Carrie Bakunas & Scott Baade Mortgage and noticed you don't have services / what we do, but 50% of business businesses do — it's probably costing you bookings every week. I built a version of your site that fixes it. Two minutes to show you?"
+    "opener": "Hi — I pulled up Colorado Lending Team | Carrie Bakunas & Scott Baade Mortgage and noticed you don't have services / what we do, but 64% of business businesses do — it's probably costing you bookings every week. I built a version of your site that fixes it. Two minutes to show you?"
+  },
+  {
+    "type": "business",
+    "domain": "paramounttitle.com",
+    "name": "Denver, Littleton, Centennial, CO | Paramount Title Agency",
+    "platform": "—",
+    "tradition": "business",
+    "score": 68,
+    "tier": "MILD",
+    "gaps": [
+      "Book / request appointment"
+    ],
+    "pitch": "Leaking leads — missing book / request appointment. Scores 68/100; each fix is booked revenue.",
+    "dead": false,
+    "dims": [
+      {
+        "l": "Book / request appointment",
+        "f": false,
+        "w": "The #1 conversion action — online booking or a request-appointment form turns a visitor into revenue."
+      },
+      {
+        "l": "Call / contact prominent",
+        "f": true,
+        "w": "A visible phone number + clear contact path captures the callers who won't fill a form."
+      },
+      {
+        "l": "Services / what we do",
+        "f": true,
+        "w": "Clear services (and for whom) is how a searcher confirms you solve their problem."
+      },
+      {
+        "l": "Reviews & social proof",
+        "f": true,
+        "w": "~9 in 10 people read reviews before choosing a local business — star ratings/testimonials on-site convert."
+      },
+      {
+        "l": "Team & credentials",
+        "f": true,
+        "w": "Meet-the-team, credentials, awards and an about story build the trust a service purchase requires."
+      },
+      {
+        "l": "Hours, location & map",
+        "f": true,
+        "w": "Hours, address, and a map are table-stakes for a local visit."
+      },
+      {
+        "l": "New-customer offer",
+        "f": true,
+        "w": "A new-patient special / free consult is the hook that turns comparison-shoppers into bookings."
+      },
+      {
+        "l": "Photos / results",
+        "f": true,
+        "w": "Real photos (office, team, before/after results) prove quality far better than stock."
+      },
+      {
+        "l": "Financing / insurance / pricing",
+        "f": true,
+        "w": "Insurance accepted, financing, or pricing transparency removes the biggest hesitation."
+      },
+      {
+        "l": "Fast, mobile & secure",
+        "f": true,
+        "w": "Mobile, HTTPS, and accessibility decide whether a phone searcher stays or bounces."
+      }
+    ],
+    "mrr": 199,
+    "annual": 2388,
+    "winPct": 34,
+    "expected": 821,
+    "benchmark": {
+      "catN": 11,
+      "catLabel": "business businesses",
+      "avg": 47,
+      "max": 76,
+      "delta": 21
+    },
+    "competitorGaps": [],
+    "talkingPoints": [
+      {
+        "label": "Book / request appointment",
+        "why": "The #1 conversion action — online booking or a request-appointment form turns a visitor into revenue.",
+        "peerPct": 0
+      }
+    ],
+    "opener": "Hi — I looked at Denver, Littleton, Centennial, CO | Paramount Title Agency's site (scored it 68/100 vs a 47 average for business businesses). I rebuilt a sharper version — can I send it over?"
   },
   {
     "type": "church",
@@ -3339,26 +4045,27 @@
     "winPct": 33,
     "expected": 974,
     "benchmark": {
-      "catN": 1,
+      "catN": 3,
       "catLabel": "dental businesses",
-      "avg": 72,
+      "avg": 61,
       "max": 72,
-      "delta": 0
+      "delta": 11
     },
-    "competitorGaps": [],
-    "talkingPoints": [
-      {
-        "label": "Photos / results",
-        "why": "Real photos (office, team, before/after results) prove quality far better than stock.",
-        "peerPct": 0
-      },
+    "competitorGaps": [
       {
         "label": "Financing / insurance / pricing",
         "why": "Insurance accepted, financing, or pricing transparency removes the biggest hesitation.",
-        "peerPct": 0
+        "peerPct": 67
       }
     ],
-    "opener": "Hi — I looked at Cherry Hills Dental Associates's site (scored it 72/100 vs a 72 average for dental businesses). I rebuilt a sharper version — can I send it over?"
+    "talkingPoints": [
+      {
+        "label": "Financing / insurance / pricing",
+        "why": "Insurance accepted, financing, or pricing transparency removes the biggest hesitation.",
+        "peerPct": 67
+      }
+    ],
+    "opener": "Hi — I pulled up Cherry Hills Dental Associates and noticed you don't have financing / insurance / pricing, but 67% of dental businesses do — it's probably costing you bookings every week. I built a version of your site that fixes it. Two minutes to show you?"
   },
   {
     "type": "business",
@@ -3712,27 +4419,27 @@
     "winPct": 31,
     "expected": 736,
     "benchmark": {
-      "catN": 6,
+      "catN": 11,
       "catLabel": "business businesses",
-      "avg": 52,
+      "avg": 47,
       "max": 76,
-      "delta": 24
+      "delta": 29
     },
     "competitorGaps": [
       {
         "label": "Services / what we do",
         "why": "Clear services (and for whom) is how a searcher confirms you solve their problem.",
-        "peerPct": 50
+        "peerPct": 64
       }
     ],
     "talkingPoints": [
       {
         "label": "Services / what we do",
         "why": "Clear services (and for whom) is how a searcher confirms you solve their problem.",
-        "peerPct": 50
+        "peerPct": 64
       }
     ],
-    "opener": "Hi — I pulled up KC Mortgage Kay Cleland - First Time Homebuyer Loans, Manufactured Homes in Castle Rock, Colorado Springs, Parker and noticed you don't have services / what we do, but 50% of business businesses do — it's probably costing you bookings every week. I built a version of your site that fixes it. Two minutes to show you?"
+    "opener": "Hi — I pulled up KC Mortgage Kay Cleland - First Time Homebuyer Loans, Manufactured Homes in Castle Rock, Colorado Springs, Parker and noticed you don't have services / what we do, but 64% of business businesses do — it's probably costing you bookings every week. I built a version of your site that fixes it. Two minutes to show you?"
   },
   {
     "type": "church",
