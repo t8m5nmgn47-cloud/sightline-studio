@@ -12,7 +12,7 @@ const content = JSON.parse(fs.readFileSync(path.join(CAP,'content.json'),'utf8')
 const profile = normalize(sig, {
   slug:'missionhills-org',
   logo:'/assets/captured/missionhills-org/logo.png',
-  heroImage:'/assets/stock/church-2.webp',
+  heroImage:'/assets/captured/missionhills-org/hero-crop.jpg',
   location:'Littleton · Castle Rock · North Littleton · Español',
   announce:'This weekend: Saturday 4 PM · Sunday 8, 9:15 & 11 AM — kids programming at every service.',
   serviceTimes: content.serviceTimes,     // REAL captured times
