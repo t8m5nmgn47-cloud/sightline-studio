@@ -1,0 +1,876 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{{NAME}} — {{TAGLINE}}</title>
+<meta name="description" content="{{NAME}} — {{TAGLINE}} {{LEDE}}">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,300..600&family=Archivo:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   CHERRY HILLS DENTISTRY — "Editorial Authority"
+   Design system
+   ============================================================ */
+:root{
+  /* palette */
+  --ink:        #0C2724;   /* deep pine-teal — hero + footer */
+  --ink-2:      #113330;
+  --ink-3:      #1B4540;
+  --paper:      #F4F0E8;   /* warm ivory */
+  --paper-2:    #ECE6D9;
+  --paper-3:    #E2DBCB;
+  --brass:      #B4894C;   /* understated gold accent */
+  --brass-lite: #CBA669;
+  --brass-deep: #8C6A38;
+  --sage:       #83A198;   /* muted secondary teal */
+  --sage-deep:  #476059;
+  --text:       #16302C;   /* body on paper */
+  --muted:      #566762;   /* secondary text on paper */
+  --line:       #C9C0AE;   /* hairline on paper */
+  --line-ink:   rgba(244,240,232,.16); /* hairline on ink */
+  --paper-dim:  rgba(244,240,232,.62);
+  --paper-mute: rgba(244,240,232,.42);
+
+  /* type */
+  --serif: "Fraunces", Georgia, "Times New Roman", serif;
+  --sans:  "Archivo", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+
+  /* fluid type scale */
+  --t-eyebrow: .74rem;
+  --t-sm:  clamp(.86rem, .83rem + .15vw, .95rem);
+  --t-base: clamp(1rem, .96rem + .2vw, 1.075rem);
+  --t-lead: clamp(1.15rem, 1.05rem + .5vw, 1.4rem);
+  --t-h4:  clamp(1.15rem, 1.05rem + .5vw, 1.4rem);
+  --t-h3:  clamp(1.5rem, 1.25rem + 1.1vw, 2.15rem);
+  --t-h2:  clamp(2rem, 1.5rem + 2.4vw, 3.4rem);
+  --t-h1:  clamp(2.9rem, 1.7rem + 5.6vw, 6.6rem);
+  --t-num: clamp(2.6rem, 1.6rem + 4vw, 5rem);
+
+  /* spacing */
+  --gap: clamp(1rem, .6rem + 1.4vw, 1.6rem);
+  --pad-x: clamp(1.25rem, .4rem + 4vw, 5.5rem);
+  --sec-y: clamp(4.5rem, 3rem + 6vw, 9rem);
+  --maxw: 1320px;
+
+  --ease: cubic-bezier(.22,.61,.36,1);
+}
+
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0;
+  font-family:var(--sans);
+  font-size:var(--t-base);
+  line-height:1.6;
+  color:var(--text);
+  background:var(--paper);
+  -webkit-font-smoothing:antialiased;
+  text-rendering:optimizeLegibility;
+  overflow-x:hidden;
+}
+img{max-width:100%;display:block}
+a{color:inherit;text-decoration:none}
+h1,h2,h3,h4{margin:0;font-weight:500;line-height:1.02;letter-spacing:-.015em}
+p{margin:0}
+::selection{background:var(--brass);color:var(--ink)}
+
+.serif{font-family:var(--serif)}
+.wrap{max-width:var(--maxw);margin:0 auto;padding-left:var(--pad-x);padding-right:var(--pad-x)}
+
+/* focus */
+a:focus-visible,button:focus-visible{
+  outline:2px solid var(--brass);
+  outline-offset:3px;
+  border-radius:2px;
+}
+
+/* eyebrow / labels */
+.eyebrow{
+  font-family:var(--sans);
+  font-size:var(--t-eyebrow);
+  font-weight:600;
+  letter-spacing:.24em;
+  text-transform:uppercase;
+  display:inline-flex;
+  align-items:center;
+  gap:.7em;
+  color:var(--brass-deep);
+}
+.eyebrow::before{
+  content:"";
+  width:26px;height:1px;
+  background:currentColor;
+  display:inline-block;
+}
+.eyebrow.on-ink{color:var(--brass-lite)}
+.tnum{font-variant-numeric:tabular-nums;font-feature-settings:"tnum" 1}
+
+/* buttons */
+.btn{
+  --bg:var(--ink); --fg:var(--paper);
+  font-family:var(--sans);
+  font-size:.9rem;
+  font-weight:600;
+  letter-spacing:.02em;
+  padding:.95em 1.6em;
+  background:var(--bg);
+  color:var(--fg);
+  border:1px solid var(--bg);
+  display:inline-flex;align-items:center;gap:.6em;
+  cursor:pointer;
+  border-radius:1px;
+  position:relative;
+  transition:transform .4s var(--ease), background .3s var(--ease), color .3s var(--ease), border-color .3s var(--ease);
+}
+.btn .arw{transition:transform .4s var(--ease)}
+.btn:hover{transform:translateY(-2px)}
+.btn:hover .arw{transform:translate(4px,-0px)}
+.btn--brass{--bg:var(--brass);--fg:var(--ink);border-color:var(--brass)}
+.btn--brass:hover{--bg:var(--brass-lite);border-color:var(--brass-lite)}
+.btn--ghost{--bg:transparent;--fg:var(--paper);border-color:var(--line-ink)}
+.btn--ghost:hover{--bg:rgba(244,240,232,.06);border-color:var(--paper-dim)}
+.btn--dark-ghost{--bg:transparent;--fg:var(--ink);border-color:var(--line)}
+.btn--dark-ghost:hover{--bg:transparent;border-color:var(--ink)}
+
+/* ============================================================ NAV */
+.nav{
+  position:fixed;top:0;left:0;right:0;z-index:60;
+  transition:background .5s var(--ease), box-shadow .5s var(--ease), padding .4s var(--ease);
+  padding:1.15rem 0;
+}
+.nav__in{display:flex;align-items:center;justify-content:space-between;gap:1.5rem}
+.brand{display:flex;align-items:baseline;gap:.6rem;color:var(--paper);transition:color .4s var(--ease)}
+.brand__mark{
+  font-family:var(--serif);font-weight:500;font-size:1.35rem;letter-spacing:-.02em;
+  font-optical-sizing:auto;
+}
+.brand__sub{
+  font-size:.62rem;font-weight:600;letter-spacing:.22em;text-transform:uppercase;
+  color:var(--paper-mute);transition:color .4s var(--ease);
+  white-space:nowrap;
+}
+.nav__links{display:flex;align-items:center;gap:2.1rem;list-style:none;margin:0;padding:0}
+.nav__links a{
+  font-size:.83rem;font-weight:500;letter-spacing:.02em;color:var(--paper-dim);
+  position:relative;padding:.3em 0;transition:color .3s var(--ease);
+}
+.nav__links a::after{
+  content:"";position:absolute;left:0;right:100%;bottom:0;height:1px;background:var(--brass-lite);
+  transition:right .35s var(--ease);
+}
+.nav__links a:hover{color:var(--paper)}
+.nav__links a:hover::after{right:0}
+.nav__cta{display:flex;align-items:center;gap:1.4rem}
+.nav__phone{
+  font-family:var(--serif);font-size:1.02rem;color:var(--paper);white-space:nowrap;
+  transition:color .4s var(--ease);
+}
+.nav__phone span{color:var(--paper-mute);font-family:var(--sans);font-size:.62rem;font-weight:600;letter-spacing:.2em;text-transform:uppercase;display:block;line-height:1}
+
+/* scrolled state */
+.nav.is-solid{
+  background:rgba(9,30,27,.86);
+  -webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);
+  box-shadow:0 1px 0 var(--line-ink), 0 18px 40px -30px rgba(0,0,0,.8);
+  padding:.7rem 0;
+}
+
+/* ============================================================ HERO */
+.hero{
+  position:relative;
+  background:var(--ink);
+  color:var(--paper);
+  padding-top:clamp(8rem,6rem + 7vw,11rem);
+  padding-bottom:clamp(3rem,2rem + 4vw,5rem);
+  overflow:hidden;
+  isolation:isolate;
+}
+.hero__bg{position:absolute;inset:0;z-index:-2}
+.hero__bg::before{ /* layered gradients */
+  content:"";position:absolute;inset:0;
+  background:
+    radial-gradient(120% 90% at 88% -10%, rgba(180,137,76,.20), transparent 55%),
+    radial-gradient(80% 70% at 8% 108%, rgba(131,161,152,.16), transparent 60%),
+    linear-gradient(180deg, #0A211E 0%, #0C2724 46%, #0E2E29 100%);
+}
+.hero__grain{position:absolute;inset:0;z-index:-1;opacity:.5;pointer-events:none;mix-blend-mode:overlay}
+/* faint structural grid lines */
+.hero__grid{position:absolute;inset:0;z-index:-1;pointer-events:none;
+  max-width:var(--maxw);margin:0 auto;padding:0 var(--pad-x);}
+.hero__grid i{position:absolute;top:0;bottom:0;width:1px;background:var(--line-ink)}
+
+.hero__top{
+  display:flex;justify-content:space-between;align-items:flex-start;gap:2rem;
+  padding-bottom:clamp(2rem,1.4rem + 2vw,3rem);
+}
+.hero__loc{max-width:22ch}
+.hero__loc p{color:var(--paper-dim);font-size:var(--t-sm);margin-top:.9rem;line-height:1.5}
+.hero__rating{text-align:right;white-space:nowrap}
+.hero__stars{color:var(--brass-lite);letter-spacing:.15em;font-size:1rem}
+.hero__rating b{font-family:var(--serif);font-weight:500;font-size:1.15rem}
+.hero__rating small{display:block;color:var(--paper-mute);font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;margin-top:.35rem}
+
+.hero__grid-main{
+  display:grid;
+  grid-template-columns:minmax(0,1fr) minmax(240px,.62fr);
+  gap:clamp(1.5rem,1rem + 3vw,4rem);
+  align-items:end;
+}
+.hero__h1{
+  font-family:var(--serif);
+  font-optical-sizing:auto;
+  font-weight:340;
+  font-size:var(--t-h1);
+  line-height:.94;
+  letter-spacing:-.028em;
+  max-width:15ch;
+}
+.hero__h1 em{
+  font-style:italic;font-weight:340;
+  color:var(--brass-lite);
+  position:relative;
+}
+.hero__h1 .u{
+  display:inline-block;position:relative;
+}
+.hero__lede{
+  color:var(--paper-dim);
+  font-size:var(--t-lead);
+  line-height:1.5;
+  max-width:40ch;
+  margin-top:clamp(1.4rem,1rem + 1.5vw,2rem);
+  font-weight:400;
+}
+.hero__actions{display:flex;flex-wrap:wrap;gap:.9rem;margin-top:clamp(1.8rem,1.2rem + 2vw,2.6rem)}
+
+/* hero offer card */
+.hero__card{
+  border:1px solid var(--line-ink);
+  background:linear-gradient(160deg, rgba(244,240,232,.05), rgba(244,240,232,.01));
+  padding:1.9rem 1.7rem 1.6rem;
+  border-radius:2px;
+  position:relative;
+  backdrop-filter:blur(2px);
+}
+.hero__card .kicker{font-size:.68rem;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:var(--brass-lite)}
+.hero__card .price{font-family:var(--serif);font-size:var(--t-num);line-height:1;margin:.6rem 0 .1rem;letter-spacing:-.02em}
+.hero__card .price span{font-size:.42em;color:var(--paper-mute);vertical-align:.55em;margin-right:.05em}
+.hero__card .desc{color:var(--paper-dim);font-size:var(--t-sm);line-height:1.5}
+.hero__card hr{border:none;border-top:1px solid var(--line-ink);margin:1.2rem 0}
+.hero__card .fine{color:var(--paper-mute);font-size:.72rem;letter-spacing:.02em}
+
+/* ============================================================ TRUST BAR */
+.trust{background:var(--ink-2);color:var(--paper);border-top:1px solid var(--line-ink);position:relative;z-index:1}
+.trust__in{display:grid;grid-template-columns:repeat(4,1fr);gap:0}
+.trust__item{padding:clamp(1.6rem,1rem + 1.6vw,2.3rem) clamp(1rem,.4rem + 1.4vw,2rem);border-left:1px solid var(--line-ink)}
+.trust__item:first-child{border-left:none}
+.trust__item b{display:block;font-family:var(--serif);font-weight:500;font-size:clamp(1.5rem,1.1rem + 1.5vw,2.2rem);line-height:1;letter-spacing:-.02em}
+.trust__item span{display:block;color:var(--paper-dim);font-size:var(--t-sm);margin-top:.5rem;line-height:1.4}
+
+/* ============================================================ generic section */
+section{position:relative}
+.sec-head{
+  display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.05fr);
+  gap:clamp(1rem,.5rem + 2vw,3rem);align-items:end;
+  padding-bottom:clamp(2.2rem,1.5rem + 2vw,3.5rem);
+}
+.sec-head__title{font-family:var(--serif);font-weight:360;font-size:var(--t-h2);line-height:1.02;letter-spacing:-.02em;max-width:16ch;margin-top:1.1rem}
+.sec-head__body{color:var(--muted);font-size:var(--t-lead);line-height:1.5;max-width:44ch}
+
+/* ============================================================ SERVICES */
+.services{padding:var(--sec-y) 0;background:var(--paper)}
+.svc-list{border-top:1px solid var(--line)}
+.svc{
+  display:grid;
+  grid-template-columns:5.5rem minmax(0,1fr) minmax(0,1.15fr) 2.5rem;
+  gap:clamp(1rem,.5rem + 2vw,3rem);
+  align-items:center;
+  padding:clamp(1.5rem,1rem + 1.6vw,2.4rem) 0;
+  border-bottom:1px solid var(--line);
+  position:relative;
+  transition:padding-left .45s var(--ease);
+}
+.svc::before{
+  content:"";position:absolute;left:-2vw;right:-2vw;top:0;bottom:0;z-index:0;
+  background:var(--ink);opacity:0;transition:opacity .45s var(--ease);
+}
+.svc>*{position:relative;z-index:1;transition:color .4s var(--ease)}
+.svc__num{font-family:var(--serif);font-size:1.1rem;color:var(--brass-deep);font-variant-numeric:tabular-nums;transition:color .4s var(--ease)}
+.svc__name{font-family:var(--serif);font-weight:400;font-size:var(--t-h3);letter-spacing:-.02em;line-height:1.05}
+.svc__desc{color:var(--muted);font-size:var(--t-base);line-height:1.5;max-width:46ch}
+.svc__arw{justify-self:end;color:var(--brass-deep);opacity:.4;transition:opacity .4s var(--ease), transform .4s var(--ease);font-size:1.2rem}
+.svc:hover{padding-left:clamp(1rem,.4rem + 2vw,2.2rem)}
+.svc:hover::before{opacity:1}
+.svc:hover .svc__name{color:var(--paper)}
+.svc:hover .svc__desc{color:var(--paper-dim)}
+.svc:hover .svc__num{color:var(--brass-lite)}
+.svc:hover .svc__arw{opacity:1;transform:translateX(4px);color:var(--brass-lite)}
+
+/* ============================================================ OFFER */
+.offer{background:var(--ink);color:var(--paper);padding:var(--sec-y) 0;position:relative;overflow:hidden;isolation:isolate}
+.offer__bg{position:absolute;inset:0;z-index:-1;
+  background:radial-gradient(90% 120% at 82% 10%, rgba(180,137,76,.16), transparent 55%),
+             radial-gradient(70% 90% at 0% 100%, rgba(131,161,152,.12), transparent 60%);}
+.offer__grain{position:absolute;inset:0;z-index:-1;opacity:.4;mix-blend-mode:overlay;pointer-events:none}
+.offer__in{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:clamp(2rem,1rem + 4vw,5rem);align-items:center}
+.offer__big{font-family:var(--serif);font-weight:340;font-size:clamp(4.5rem,2rem + 11vw,11rem);line-height:.82;letter-spacing:-.03em;font-variant-numeric:tabular-nums}
+.offer__big span{font-size:.28em;vertical-align:.9em;color:var(--brass-lite);margin-right:.05em}
+.offer__title{font-family:var(--serif);font-weight:360;font-size:var(--t-h3);line-height:1.05;letter-spacing:-.02em;margin:1.4rem 0 1rem;max-width:20ch}
+.offer__body{color:var(--paper-dim);font-size:var(--t-lead);line-height:1.55;max-width:42ch}
+.offer__list{list-style:none;margin:1.8rem 0 2rem;padding:0;display:grid;gap:.9rem}
+.offer__list li{display:flex;gap:.85rem;align-items:baseline;color:var(--paper);font-size:var(--t-base)}
+.offer__list li::before{content:"";flex:0 0 auto;width:14px;height:1px;background:var(--brass-lite);transform:translateY(-.4em)}
+.offer__actions{display:flex;flex-wrap:wrap;gap:.9rem;align-items:center}
+
+/* ============================================================ WHY-US */
+.why{background:var(--paper-2);padding:var(--sec-y) 0}
+.why__grid{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:clamp(2rem,1rem + 4vw,5.5rem);align-items:start}
+.why__lead{font-family:var(--serif);font-weight:360;font-size:var(--t-h3);line-height:1.16;letter-spacing:-.015em}
+.why__lead b{color:var(--brass-deep);font-weight:360;font-style:italic}
+.why__p{color:var(--muted);font-size:var(--t-base);line-height:1.65;margin-top:1.4rem;max-width:52ch}
+.why__stats{display:grid;grid-template-columns:1fr 1fr;gap:0;margin-top:2.4rem;border-top:1px solid var(--line)}
+.why__stat{padding:1.5rem 1.4rem 1.5rem 0;border-bottom:1px solid var(--line)}
+.why__stat:nth-child(even){padding-left:1.6rem;border-left:1px solid var(--line)}
+.why__stat b{display:block;font-family:var(--serif);font-weight:400;font-size:clamp(2rem,1.4rem + 2vw,3rem);line-height:1;letter-spacing:-.02em;font-variant-numeric:tabular-nums}
+.why__stat span{display:block;color:var(--muted);font-size:var(--t-sm);margin-top:.55rem;letter-spacing:.01em}
+
+/* credential chips */
+.creds{display:flex;flex-wrap:wrap;gap:.7rem;margin-top:2.2rem}
+.creds li{list-style:none;font-size:.8rem;font-weight:500;letter-spacing:.06em;text-transform:uppercase;color:var(--sage-deep);border:1px solid var(--line);padding:.55em .9em;border-radius:1px;background:var(--paper)}
+
+/* ============================================================ REVIEWS */
+.reviews{background:var(--paper);padding:var(--sec-y) 0}
+.reviews__grid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(1.5rem,.5rem + 3vw,4rem);margin-top:.5rem}
+.quote{border-top:2px solid var(--ink);padding-top:2rem;display:flex;flex-direction:column;height:100%}
+.quote__stars{color:var(--brass);letter-spacing:.2em;font-size:.95rem;margin-bottom:1.3rem}
+.quote__text{font-family:var(--serif);font-weight:360;font-size:clamp(1.35rem,1rem + 1.4vw,2rem);line-height:1.24;letter-spacing:-.015em;color:var(--text)}
+.quote__text::before{content:"\201C";color:var(--brass);margin-right:.05em}
+.quote__by{margin-top:auto;padding-top:1.8rem;display:flex;align-items:center;gap:1rem}
+.quote__av{width:44px;height:44px;border-radius:50%;background:var(--ink-3);color:var(--paper);display:grid;place-items:center;font-family:var(--serif);font-size:1.05rem;flex:0 0 auto}
+.quote__by b{display:block;font-weight:600;font-size:.95rem;letter-spacing:.01em}
+.quote__by span{display:block;color:var(--muted);font-size:.82rem;margin-top:.1rem}
+
+/* ============================================================ TEAM */
+.team{background:var(--ink-2);color:var(--paper);padding:var(--sec-y) 0}
+.team .sec-head__title{color:var(--paper)}
+.team .sec-head__body{color:var(--paper-dim)}
+.team__grid{display:grid;grid-template-columns:repeat(3,1fr);gap:0;border-top:1px solid var(--line-ink)}
+.member{padding:clamp(1.6rem,1rem + 1.6vw,2.4rem) clamp(1.2rem,.6rem + 1.4vw,2rem) clamp(1.6rem,1rem + 1.6vw,2.4rem) 0;border-left:1px solid var(--line-ink)}
+.member:first-child{border-left:none;padding-left:0}
+.member__ph{
+  aspect-ratio:4/5;width:100%;margin-bottom:1.3rem;border-radius:2px;position:relative;overflow:hidden;
+  background:linear-gradient(160deg,#16403A,#0E2E2A);border:1px solid var(--line-ink);
+  display:grid;place-items:center;
+}
+.member__ph span{font-family:var(--serif);font-size:2.6rem;color:var(--brass-lite);opacity:.85}
+.member__ph::after{content:"";position:absolute;inset:0;background:radial-gradient(80% 60% at 50% 0%,rgba(180,137,76,.14),transparent 60%)}
+.member h4{font-family:var(--serif);font-weight:400;font-size:1.35rem;letter-spacing:-.01em}
+.member p{color:var(--brass-lite);font-size:.78rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;margin-top:.5rem}
+.member em{display:block;color:var(--paper-dim);font-style:normal;font-size:var(--t-sm);line-height:1.5;margin-top:.9rem}
+
+/* ============================================================ BOOKING / HOURS */
+.book{background:var(--paper);padding:var(--sec-y) 0}
+.book__grid{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);gap:clamp(2rem,1rem + 4vw,5.5rem);align-items:start}
+.book__title{font-family:var(--serif);font-weight:340;font-size:var(--t-h2);line-height:1.02;letter-spacing:-.02em;max-width:14ch;margin-top:1.1rem}
+.book__p{color:var(--muted);font-size:var(--t-lead);line-height:1.55;margin-top:1.4rem;max-width:40ch}
+.book__actions{display:flex;flex-wrap:wrap;gap:.9rem;margin-top:2rem}
+.book__phone{margin-top:2.4rem;display:flex;align-items:baseline;gap:1rem;flex-wrap:wrap}
+.book__phone a{font-family:var(--serif);font-size:clamp(1.6rem,1.2rem + 1.5vw,2.4rem);letter-spacing:-.01em;color:var(--ink);font-variant-numeric:tabular-nums;transition:color .3s var(--ease)}
+.book__phone a:hover{color:var(--brass-deep)}
+.book__phone small{color:var(--muted);font-size:.75rem;letter-spacing:.18em;text-transform:uppercase}
+
+.hours{background:var(--ink);color:var(--paper);border-radius:2px;padding:clamp(1.8rem,1.2rem + 2vw,2.6rem);position:relative;overflow:hidden;isolation:isolate}
+.hours__bg{position:absolute;inset:0;z-index:-1;background:radial-gradient(90% 80% at 100% 0%,rgba(180,137,76,.14),transparent 60%)}
+.hours h3{font-family:var(--serif);font-weight:360;font-size:1.5rem;letter-spacing:-.01em;margin-bottom:.4rem}
+.hours .sub{color:var(--paper-dim);font-size:var(--t-sm);margin-bottom:1.6rem}
+.hours__row{display:flex;justify-content:space-between;align-items:baseline;padding:.85rem 0;border-top:1px solid var(--line-ink);gap:1rem}
+.hours__row:first-of-type{border-top:none}
+.hours__row .d{color:var(--paper-dim);font-size:var(--t-sm);letter-spacing:.02em}
+.hours__row .t{font-family:var(--serif);font-size:1.1rem;font-variant-numeric:tabular-nums;white-space:nowrap}
+.hours__row.is-today .d{color:var(--paper)}
+.hours__row.is-today .t{color:var(--brass-lite)}
+.hours__note{margin-top:1.6rem;padding-top:1.4rem;border-top:1px solid var(--line-ink);display:flex;gap:.8rem;align-items:baseline;color:var(--paper-dim);font-size:var(--t-sm);line-height:1.5}
+.hours__note b{color:var(--brass-lite);font-weight:600;white-space:nowrap}
+.addr{margin-top:1.4rem;color:var(--paper-dim);font-size:var(--t-sm);line-height:1.6}
+
+/* ============================================================ FOOTER */
+.foot{background:var(--ink);color:var(--paper);padding:clamp(3.5rem,2.5rem + 3vw,5.5rem) 0 2rem;border-top:1px solid var(--line-ink)}
+.foot__top{display:grid;grid-template-columns:minmax(0,1.4fr) repeat(3,minmax(0,1fr));gap:clamp(1.5rem,.5rem + 2vw,3rem);padding-bottom:clamp(2.5rem,1.5rem + 2vw,4rem)}
+.foot__brand .brand__mark{font-size:1.7rem}
+.foot__tag{color:var(--paper-dim);font-size:var(--t-base);line-height:1.55;max-width:32ch;margin-top:1.3rem;font-family:var(--serif);font-style:italic;font-weight:340}
+.foot__col h5{font-size:.68rem;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--brass-lite);margin:0 0 1.2rem}
+.foot__col ul{list-style:none;margin:0;padding:0;display:grid;gap:.75rem}
+.foot__col a,.foot__col li{color:var(--paper-dim);font-size:var(--t-sm);line-height:1.4}
+.foot__col a{transition:color .3s var(--ease)}
+.foot__col a:hover{color:var(--paper)}
+.foot__bot{display:flex;justify-content:space-between;align-items:center;gap:1rem;flex-wrap:wrap;padding-top:1.8rem;border-top:1px solid var(--line-ink);color:var(--paper-mute);font-size:.78rem}
+.foot__bot .stars{color:var(--brass-lite);letter-spacing:.15em}
+
+/* ============================================================ MOTION */
+[data-reveal]{opacity:0;transform:translateY(26px);transition:opacity .9s var(--ease),transform .9s var(--ease)}
+[data-reveal].in{opacity:1;transform:none}
+[data-reveal][data-d="1"]{transition-delay:.08s}
+[data-reveal][data-d="2"]{transition-delay:.16s}
+[data-reveal][data-d="3"]{transition-delay:.24s}
+[data-reveal][data-d="4"]{transition-delay:.32s}
+
+/* hero load reveal */
+.load [data-hero]{opacity:0;transform:translateY(30px)}
+.hero-in [data-hero]{opacity:1;transform:none;transition:opacity 1s var(--ease),transform 1s var(--ease)}
+.hero-in [data-hero="1"]{transition-delay:.1s}
+.hero-in [data-hero="2"]{transition-delay:.22s}
+.hero-in [data-hero="3"]{transition-delay:.34s}
+.hero-in [data-hero="4"]{transition-delay:.46s}
+.hero-in [data-hero="5"]{transition-delay:.58s}
+.hero-in [data-hero="6"]{transition-delay:.4s}
+
+/* animated hero underline */
+.u::after{
+  content:"";position:absolute;left:0;bottom:.06em;height:3px;width:100%;
+  background:var(--brass);transform:scaleX(0);transform-origin:left;
+  transition:transform 1.1s var(--ease) .9s;
+}
+.hero-in .u::after{transform:scaleX(1)}
+
+/* ============================================================ RESPONSIVE */
+@media (max-width:1080px){
+  .hero__grid-main{grid-template-columns:1fr;align-items:start}
+  .hero__card{max-width:420px}
+  .why__grid{grid-template-columns:1fr;gap:2.5rem}
+  .book__grid{grid-template-columns:1fr;gap:2.5rem}
+}
+@media (max-width:900px){
+  .nav__links{display:none}
+  .sec-head{grid-template-columns:1fr;gap:1.2rem}
+  .offer__in{grid-template-columns:1fr;gap:1.5rem}
+  .team__grid{grid-template-columns:1fr 1fr}
+  .foot__top{grid-template-columns:1fr 1fr}
+  .svc{grid-template-columns:3rem 1fr;grid-template-areas:"num name" "num desc";row-gap:.5rem}
+  .svc__num{grid-area:num;align-self:start}
+  .svc__name{grid-area:name}
+  .svc__desc{grid-area:desc}
+  .svc__arw{display:none}
+}
+@media (max-width:680px){
+  .trust__in{grid-template-columns:1fr 1fr}
+  .trust__item{border-left:none;border-top:1px solid var(--line-ink)}
+  .trust__item:nth-child(-n+2){border-top:none}
+  .trust__item:nth-child(even){border-left:1px solid var(--line-ink)}
+  .reviews__grid{grid-template-columns:1fr;gap:2.5rem}
+  .team__grid{grid-template-columns:1fr}
+  .member{border-left:none;border-top:1px solid var(--line-ink);padding-left:0;padding-top:2rem}
+  .member:first-child{border-top:none}
+  .member__ph{aspect-ratio:16/10}
+  .foot__top{grid-template-columns:1fr;gap:2.2rem}
+  .hero__top{flex-direction:column;gap:1.4rem}
+  .hero__rating{text-align:left}
+  .nav__phone{display:none}
+  .brand__sub{display:none}
+  .nav{padding:.85rem 0}
+  .nav .btn{padding:.75em 1.1em;font-size:.82rem}
+  .nav .btn .arw{display:none}
+}
+@media (max-width:420px){
+  .why__stats{grid-template-columns:1fr}
+  .why__stat:nth-child(even){padding-left:0;border-left:none}
+}
+
+@media (prefers-reduced-motion:reduce){
+  *{animation:none!important;transition-duration:.001ms!important}
+  [data-reveal],.load [data-hero]{opacity:1!important;transform:none!important}
+  .u::after{transform:scaleX(1)!important}
+}
+</style>
+</head>
+<body class="load">
+
+<!-- ============ NAV ============ -->
+<header class="nav" id="nav">
+  <div class="wrap nav__in">
+    <a class="brand" href="#top" aria-label="{{NAME}} — home">
+      <span class="brand__mark">{{NAME_SHORT}}</span>
+      <span class="brand__sub">Est. {{EST}}</span>
+    </a>
+    <nav aria-label="Primary">
+      <ul class="nav__links">
+        <li><a href="#services">Services</a></li>
+        <li><a href="#offer">New Clients</a></li>
+        <li><a href="#why">Why Us</a></li>
+        <li><a href="#reviews">Reviews</a></li>
+        <li><a href="#book">Hours &amp; Location</a></li>
+      </ul>
+    </nav>
+    <div class="nav__cta">
+      <a class="nav__phone tnum" href="tel:{{PHONE}}"><span>Call us</span>{{PHONE}}</a>
+      <a class="btn btn--brass" href="{{BOOK_URL}}">Book an appointment <span class="arw" aria-hidden="true">→</span></a>
+    </div>
+  </div>
+</header>
+
+<main id="top">
+
+<!-- ============ HERO ============ -->
+<section class="hero" aria-labelledby="hero-title">
+  <div class="hero__bg"></div>
+  <div class="hero__grain" id="grain-hero"></div>
+  <div class="hero__grid" aria-hidden="true"><i style="left:33%"></i><i style="left:66%"></i></div>
+
+  <div class="wrap">
+    <div class="hero__top">
+      <div class="hero__loc" data-hero="1">
+        <span class="eyebrow on-ink">{{LOCALE}}</span>
+        <p>{{TAGLINE}}</p>
+      </div>
+      <div class="hero__rating" data-hero="1">
+        <div class="hero__stars" aria-hidden="true">★★★★★</div>
+        <b class="tnum">{{RATING}} / 5.0</b>
+        <small>{{REVIEW_COUNT}} verified reviews</small>
+      </div>
+    </div>
+
+    <div class="hero__grid-main">
+      <div>
+        <h1 class="hero__h1" id="hero-title" data-hero="2">
+          {{HERO_LEAD}} <em class="u">{{HERO_ACCENT}}</em>
+        </h1>
+        <p class="hero__lede" data-hero="3">
+          {{LEDE}}
+        </p>
+        <div class="hero__actions" data-hero="4">
+          <a class="btn btn--brass" href="{{BOOK_URL}}">Book an appointment <span class="arw" aria-hidden="true">→</span></a>
+          <a class="btn btn--ghost" href="#services">Explore our services</a>
+        </div>
+      </div>
+
+      <aside class="hero__card" data-hero="6" aria-label="New client offer">
+        <div class="kicker">The welcome offer</div>
+        <div class="price tnum"><span>{{OFFER_CUR}}</span>{{OFFER_NUM}}</div>
+        <div class="desc">{{OFFER_DESC}}</div>
+        <hr>
+        <div class="fine">Same-week appointments · New clients welcome</div>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<!-- ============ TRUST BAR ============ -->
+<section class="trust" aria-label="Why patients choose us">
+  <div class="wrap trust__in">
+    <div class="trust__item" data-reveal data-d="1"><b class="tnum">Same-week</b><span>Appointments available, including urgent care</span></div>
+    <div class="trust__item" data-reveal data-d="2"><b class="tnum">20+ years</b><span>Serving families across the Village</span></div>
+    <div class="trust__item" data-reveal data-d="3"><b class="tnum">500+</b><span>Five-star patient reviews and counting</span></div>
+    <div class="trust__item" data-reveal data-d="4"><b>Insurance</b><span>Most major plans accepted &amp; filed for you</span></div>
+  </div>
+</section>
+
+<!-- ============ SERVICES ============ -->
+<section class="services" id="services" aria-labelledby="svc-title">
+  <div class="wrap">
+    <div class="sec-head">
+      <div data-reveal>
+        <span class="eyebrow">What we do</span>
+        <h2 class="sec-head__title" id="svc-title">Complete care, under one calm roof.</h2>
+      </div>
+      <p class="sec-head__body" data-reveal data-d="1">
+        Focused disciplines, one continuous relationship. You'll see the same familiar
+        faces from your first visit to your finished result — no handoffs, no cold referrals.
+      </p>
+    </div>
+
+    <div class="svc-list">
+      <a class="svc" href="#book" data-reveal>
+        <span class="svc__num tnum">01</span>
+        <span class="svc__name">General &amp; Family Dentistry</span>
+        <span class="svc__desc">Cleanings, checkups, fillings, and preventive care for every age — the steady foundation of a healthy smile.</span>
+        <span class="svc__arw" aria-hidden="true">→</span>
+      </a>
+      <a class="svc" href="#book" data-reveal>
+        <span class="svc__num tnum">02</span>
+        <span class="svc__name">Cosmetic &amp; Veneers</span>
+        <span class="svc__desc">Porcelain veneers, whitening, and bonding designed around your face — natural-looking, never overdone.</span>
+        <span class="svc__arw" aria-hidden="true">→</span>
+      </a>
+      <a class="svc" href="#book" data-reveal>
+        <span class="svc__num tnum">03</span>
+        <span class="svc__name">Dental Implants</span>
+        <span class="svc__desc">Permanent, natural-feeling tooth replacement — placed and restored in-house, start to finish.</span>
+        <span class="svc__arw" aria-hidden="true">→</span>
+      </a>
+      <a class="svc" href="#book" data-reveal>
+        <span class="svc__num tnum">04</span>
+        <span class="svc__name">Invisalign® Clear Aligners</span>
+        <span class="svc__desc">Discreet, comfortable alignment on your schedule, guided by 3D planning from day one.</span>
+        <span class="svc__arw" aria-hidden="true">→</span>
+      </a>
+      <a class="svc" href="#book" data-reveal>
+        <span class="svc__num tnum">05</span>
+        <span class="svc__name">Emergency Care</span>
+        <span class="svc__desc">Chipped, aching, or knocked out — call us and we'll make room the same day whenever we can.</span>
+        <span class="svc__arw" aria-hidden="true">→</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ OFFER ============ -->
+<section class="offer" id="offer" aria-labelledby="offer-title">
+  <div class="offer__bg"></div>
+  <div class="offer__grain" id="grain-offer"></div>
+  <div class="wrap offer__in">
+    <div data-reveal>
+      <span class="eyebrow on-ink">The welcome offer</span>
+      <div class="offer__big tnum"><span>{{OFFER_CUR}}</span>{{OFFER_NUM}}</div>
+    </div>
+    <div data-reveal data-d="1">
+      <h2 class="offer__title" id="offer-title">{{OFFER_TITLE}}</h2>
+      <p class="offer__body">{{OFFER_DESC}}</p>
+      <ul class="offer__list">
+        <li>A comprehensive first consultation</li>
+        <li>A personalized plan built around you</li>
+        <li>Clear pricing — no surprises</li>
+      </ul>
+      <div class="offer__actions">
+        <a class="btn btn--brass" href="{{BOOK_URL}}">Claim your {{OFFER_PRICE}} offer <span class="arw" aria-hidden="true">→</span></a>
+        <span class="fine" style="color:var(--paper-mute);font-size:.8rem">New clients only · Limited-time welcome</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ WHY US ============ -->
+<section class="why" id="why" aria-labelledby="why-title">
+  <div class="wrap why__grid">
+    <div data-reveal>
+      <span class="eyebrow">The practice</span>
+      <p class="why__lead" id="why-title" style="margin-top:1.1rem">
+        For years, neighbors have trusted us with what matters most —
+        <b>because we do the work the way we'd want it done for us.</b>
+      </p>
+      <p class="why__p">
+        {{NAME}} was founded on a simple idea: that genuine expertise and a truly calm,
+        personal experience belong together. Years and thousands of clients later,
+        that standard hasn't moved.
+      </p>
+      <ul class="creds">
+        <li>Licensed &amp; Insured</li>
+        <li>Locally Trusted</li>
+        <li>Modern Facility</li>
+        <li>Highly Rated</li>
+      </ul>
+    </div>
+    <div data-reveal data-d="1">
+      <div class="why__stats">
+        <div class="why__stat"><b class="tnum">{{EST}}</b><span>Serving the community</span></div>
+        <div class="why__stat"><b class="tnum">{{REVIEW_COUNT}}</b><span>Happy clients &amp; counting</span></div>
+        <div class="why__stat"><b class="tnum">{{RATING}}★</b><span>Average across reviews</span></div>
+        <div class="why__stat"><b class="tnum">98%</b><span>Would recommend us</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ REVIEWS ============ -->
+<section class="reviews" id="reviews" aria-labelledby="rev-title">
+  <div class="wrap">
+    <div class="sec-head">
+      <div data-reveal>
+        <span class="eyebrow">In their words</span>
+        <h2 class="sec-head__title" id="rev-title">In our clients' own words.</h2>
+      </div>
+      <p class="sec-head__body" data-reveal data-d="1">
+        We're proud of our work, but we're prouder of how it feels to be a client here.
+        A few notes from the people who know us best.
+      </p>
+    </div>
+    <div class="reviews__grid">
+      <figure class="quote" data-reveal>
+        <div class="quote__stars" aria-label="5 out of 5 stars">★★★★★</div>
+        <blockquote class="quote__text">I used to dread the dentist. Now my whole family goes here — they explain everything, never rush, and somehow my kids leave excited for the next visit.</blockquote>
+        <figcaption class="quote__by">
+          <span class="quote__av" aria-hidden="true">M</span>
+          <span><b>Marisol R.</b><span>Patient since 2016 · Cherry Hills Village</span></span>
+        </figcaption>
+      </figure>
+      <figure class="quote" data-reveal data-d="1">
+        <div class="quote__stars" aria-label="5 out of 5 stars">★★★★★</div>
+        <blockquote class="quote__text">Chipped a front tooth on a Friday and panicked. They fit me in that afternoon and matched it perfectly — you truly cannot tell. This is real, unhurried care.</blockquote>
+        <figcaption class="quote__by">
+          <span class="quote__av" aria-hidden="true">D</span>
+          <span><b>Daniel K.</b><span>Emergency &amp; cosmetic patient · Greenwood Village</span></span>
+        </figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<!-- ============ TEAM ============ -->
+<section class="team" aria-labelledby="team-title">
+  <div class="wrap">
+    <div class="sec-head">
+      <div data-reveal>
+        <span class="eyebrow on-ink">The people</span>
+        <h2 class="sec-head__title" id="team-title">Familiar faces, every visit.</h2>
+      </div>
+      <p class="sec-head__body" data-reveal data-d="1">
+        A small, tenured team who'll remember your name, your history, and how you take your care.
+      </p>
+    </div>
+    <div class="team__grid">
+      <article class="member" data-reveal>
+        <div class="member__ph" role="img" aria-label="Portrait of Dr. Elena Marsh"><span>EM</span></div>
+        <h4>Dr. Elena Marsh</h4>
+        <p>Founder</p>
+        <em>The founding vision and a hands-on approach. Two decades of gentle, personal care.</em>
+      </article>
+      <article class="member" data-reveal data-d="1">
+        <div class="member__ph" role="img" aria-label="Portrait of Dr. Priya Anand"><span>PA</span></div>
+        <h4>Dr. Priya Anand</h4>
+        <p>Lead Clinician</p>
+        <em>Advanced treatments and technology. Known for a light touch and even lighter conversation.</em>
+      </article>
+      <article class="member" data-reveal data-d="2">
+        <div class="member__ph" role="img" aria-label="Portrait of Sofia Reyes"><span>SR</span></div>
+        <h4>Sofia Reyes</h4>
+        <p>Client Care Lead</p>
+        <em>The reason so many first-timers become regulars. Fifteen years with the practice.</em>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ============ BOOKING / HOURS ============ -->
+<section class="book" id="book" aria-labelledby="book-title">
+  <div class="wrap book__grid">
+    <div data-reveal>
+      <span class="eyebrow">Book your visit</span>
+      <h2 class="book__title" id="book-title">We'd love to meet you.</h2>
+      <p class="book__p">
+        New clients are welcome, and same-week appointments are usually available. Reserve online
+        or call the front desk — a real person answers.
+      </p>
+      <div class="book__actions">
+        <a class="btn btn--brass" href="{{BOOK_URL}}">Book an appointment <span class="arw" aria-hidden="true">→</span></a>
+        <a class="btn btn--dark-ghost" href="#offer">Explore the {{OFFER_PRICE}} offer</a>
+      </div>
+      <div class="book__phone">
+        <a class="tnum" href="tel:{{PHONE}}">{{PHONE}}</a>
+        <small>Mon–Fri, 8–5</small>
+      </div>
+    </div>
+
+    <div class="hours" data-reveal data-d="1">
+      <div class="hours__bg"></div>
+      <h3>Office Hours</h3>
+      <p class="sub">{{LOCALE}} · by appointment</p>
+      <div class="hours__row"><span class="d">Monday – Thursday</span><span class="t tnum">8:00 – 5:00</span></div>
+      <div class="hours__row"><span class="d">Friday</span><span class="t tnum">8:00 – 5:00</span></div>
+      <div class="hours__row"><span class="d">Saturday</span><span class="t tnum">By appointment</span></div>
+      <div class="hours__row"><span class="d">Sunday</span><span class="t">Closed</span></div>
+      <div class="hours__note"><b>Need us sooner?</b><span>Call us any weekday and we'll do everything we can to see you the same day.</span></div>
+      <p class="addr">{{LOCALE}}</p>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- ============ FOOTER ============ -->
+<footer class="foot">
+  <div class="wrap">
+    <div class="foot__top">
+      <div class="foot__brand">
+        <span class="brand__mark serif" style="color:var(--paper)">{{NAME}}</span>
+        <p class="foot__tag">{{TAGLINE}}</p>
+      </div>
+      <div class="foot__col">
+        <h5>Services</h5>
+        <ul>
+          <li><a href="#services">General &amp; Family</a></li>
+          <li><a href="#services">Cosmetic &amp; Veneers</a></li>
+          <li><a href="#services">Dental Implants</a></li>
+          <li><a href="#services">Clear Aligners</a></li>
+          <li><a href="#services">Emergency Care</a></li>
+        </ul>
+      </div>
+      <div class="foot__col">
+        <h5>Practice</h5>
+        <ul>
+          <li><a href="#why">Why {{NAME_SHORT}}</a></li>
+          <li><a href="#reviews">Client Reviews</a></li>
+          <li><a href="#offer">Welcome offer · {{OFFER_PRICE}}</a></li>
+          <li><a href="#book">Hours &amp; Location</a></li>
+        </ul>
+      </div>
+      <div class="foot__col">
+        <h5>Visit</h5>
+        <ul>
+          <li>{{LOCALE}}</li>
+          <li><a class="tnum" href="tel:{{PHONE}}">{{PHONE}}</a></li>
+          <li>Mon–Fri 8:00–5:00<br>Sat by appointment</li>
+        </ul>
+      </div>
+    </div>
+    <div class="foot__bot">
+      <span>© 2026 {{NAME}}. All rights reserved.</span>
+      <span><span class="stars" aria-hidden="true">★★★★★</span> <span class="tnum">{{RATING}}</span> across {{REVIEW_COUNT}} verified reviews</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* --- grain texture via SVG data URI --- */
+  var grain = "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.55'/%3E%3C/svg%3E\")";
+  ['grain-hero','grain-offer'].forEach(function(id){
+    var el=document.getElementById(id);
+    if(el){el.style.backgroundImage=grain;el.style.backgroundSize='240px 240px';}
+  });
+
+  /* --- hero load reveal --- */
+  window.requestAnimationFrame(function(){
+    document.body.classList.remove('load');
+    document.body.classList.add('hero-in');
+  });
+
+  /* --- scroll reveals --- */
+  var items = document.querySelectorAll('[data-reveal]');
+  if(reduce || !('IntersectionObserver' in window)){
+    items.forEach(function(el){el.classList.add('in');});
+  } else {
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}
+      });
+    },{threshold:.14,rootMargin:'0px 0px -8% 0px'});
+    items.forEach(function(el){io.observe(el);});
+  }
+
+  /* --- sticky nav solid state --- */
+  var nav=document.getElementById('nav');
+  function onScroll(){
+    if(window.scrollY>40){nav.classList.add('is-solid');}
+    else{nav.classList.remove('is-solid');}
+  }
+  onScroll();
+  window.addEventListener('scroll',onScroll,{passive:true});
+
+  /* --- smooth anchor scroll with nav offset --- */
+  document.querySelectorAll('a[href^="#"]').forEach(function(a){
+    a.addEventListener('click',function(e){
+      var id=a.getAttribute('href');
+      if(id.length<2)return;
+      var t=document.querySelector(id);
+      if(!t)return;
+      e.preventDefault();
+      var y=t.getBoundingClientRect().top+window.scrollY-72;
+      window.scrollTo({top:y,behavior:reduce?'auto':'smooth'});
+    });
+  });
+})();
+</script>
+</body>
+</html>

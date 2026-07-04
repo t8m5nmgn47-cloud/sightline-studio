@@ -1,0 +1,805 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{{NAME}}</title>
+<meta name="description" content="{{NAME}} — {{LEDE}}">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bevan:ital@0;1&family=Spectral:ital,wght@0,300;0,400;0,500;0,600;1,400&family=Archivo:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   {{NAME}} — "Heritage Craft" art direction
+   Design tokens
+   ============================================================ */
+:root{
+  /* palette — aged parchment ground, espresso ink, oxblood + ochre + pine */
+  --paper:      #E7DCC4;   /* deeper, greener-warm than the cream cliché */
+  --paper-2:    #DFD2B5;
+  --paper-3:    #D5C6A4;
+  --ink:        #221A12;   /* espresso near-black */
+  --ink-2:      #40342610; /* hairline ink for rules (with alpha helpers below) */
+  --ink-soft:   #4E4132;
+  --ink-mute:   #6B5A46;
+  --oxblood:    #7C2E27;   /* primary — deep maroon, NOT terracotta */
+  --oxblood-2:  #611F1A;
+  --oxblood-3:  #4A1713;
+  --ochre:      #C0871F;   /* mustard/gold accent */
+  --ochre-2:    #A16E12;
+  --ochre-hi:   #E0B24B;
+  --pine:       #2C4432;   /* forest */
+  --pine-2:     #21331F;
+  --pine-hi:    #4C6B4E;
+  --cream-hi:   #F3ECD9;   /* light type on dark grounds */
+  --cream-lo:   #C9B896;
+
+  /* ink alphas */
+  --ink-a06: rgba(34,26,18,.06);
+  --ink-a10: rgba(34,26,18,.10);
+  --ink-a14: rgba(34,26,18,.14);
+  --ink-a22: rgba(34,26,18,.22);
+  --ink-a40: rgba(34,26,18,.40);
+  --ink-a62: rgba(34,26,18,.62);
+
+  /* type */
+  --display: 'Bevan', Georgia, serif;
+  --serif:   'Spectral', 'Iowan Old Style', Georgia, serif;
+  --sans:    'Archivo', system-ui, sans-serif;
+
+  /* scale */
+  --step--1: clamp(.78rem, .74rem + .18vw, .86rem);
+  --step-0:  clamp(1rem, .96rem + .2vw, 1.1rem);
+  --step-1:  clamp(1.2rem, 1.1rem + .5vw, 1.45rem);
+  --step-2:  clamp(1.5rem, 1.3rem + .9vw, 2rem);
+  --step-3:  clamp(2rem, 1.6rem + 1.9vw, 3rem);
+  --step-4:  clamp(2.6rem, 1.9rem + 3.4vw, 4.75rem);
+  --step-5:  clamp(3.4rem, 2.2rem + 5.6vw, 7rem);
+
+  --maxw: 1200px;
+  --gutter: clamp(1.15rem, 4vw, 3rem);
+  --radius: 3px;
+  --shadow-1: 0 1px 0 var(--ink-a10), 0 12px 30px -18px rgba(34,26,18,.5);
+  --shadow-2: 0 2px 0 var(--ink-a14), 0 30px 60px -30px rgba(34,26,18,.55);
+  --ease: cubic-bezier(.22,.61,.36,1);
+}
+
+/* ---------- reset ---------- */
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0}
+img,svg{display:block;max-width:100%}
+button{font:inherit;color:inherit;cursor:pointer}
+a{color:inherit;text-decoration:none}
+h1,h2,h3,h4,p,figure,blockquote,ul,ol{margin:0}
+ul{list-style:none;padding:0}
+:focus-visible{outline:2.5px solid var(--ochre);outline-offset:3px;border-radius:2px}
+
+/* ---------- base ---------- */
+body{
+  font-family:var(--sans);
+  color:var(--ink);
+  background:var(--paper);
+  font-size:var(--step-0);
+  line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+  text-rendering:optimizeLegibility;
+  overflow-x:hidden;
+  /* paper grain, whole page */
+  background-image:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.045'/%3E%3C/svg%3E");
+}
+.tnum{font-variant-numeric:tabular-nums;font-feature-settings:"tnum" 1}
+
+/* ---------- layout helpers ---------- */
+.wrap{max-width:var(--maxw);margin-inline:auto;padding-inline:var(--gutter)}
+.section{padding-block:clamp(3.5rem,7vw,7rem)}
+.eyebrow{
+  font-family:var(--sans);
+  font-weight:700;
+  font-size:var(--step--1);
+  letter-spacing:.28em;
+  text-transform:uppercase;
+  color:var(--oxblood);
+  display:inline-flex;align-items:center;gap:.7rem;
+}
+.eyebrow::before{content:"";width:1.9rem;height:2px;background:currentColor;opacity:.6}
+.eyebrow.center::after{content:"";width:1.9rem;height:2px;background:currentColor;opacity:.6}
+.h-display{font-family:var(--display);font-weight:400;line-height:.98;letter-spacing:-.005em}
+.lede{font-family:var(--serif);font-size:var(--step-1);line-height:1.5;color:var(--ink-soft)}
+
+/* decorative letterpress hairline */
+.rule{height:0;border:0;border-top:1.5px solid var(--ink-a14);position:relative}
+.rule::after{content:"";position:absolute;top:2px;left:0;right:0;border-top:1px solid var(--ink-a06)}
+
+/* ============================================================
+   NAV
+   ============================================================ */
+.nav{
+  position:sticky;top:0;z-index:60;
+  background:color-mix(in srgb, var(--paper) 86%, transparent);
+  backdrop-filter:blur(9px) saturate(1.1);
+  -webkit-backdrop-filter:blur(9px) saturate(1.1);
+  border-bottom:1.5px solid var(--ink-a14);
+  transition:box-shadow .4s var(--ease), background .4s var(--ease);
+}
+.nav.scrolled{box-shadow:0 12px 28px -22px rgba(34,26,18,.7);background:color-mix(in srgb, var(--paper) 94%, transparent)}
+.nav__row{display:flex;align-items:center;gap:1.5rem;height:72px}
+.brand{display:flex;align-items:center;gap:.7rem;flex-shrink:0}
+.brand__seal{width:34px;height:34px;flex:none}
+.brand__name{font-family:var(--display);font-size:1.12rem;letter-spacing:-.01em;color:var(--ink);line-height:1}
+.brand__sub{font-family:var(--sans);font-size:.56rem;letter-spacing:.34em;text-transform:uppercase;color:var(--ochre-2);font-weight:700;margin-top:2px}
+.nav__links{display:none;gap:2rem;margin-left:auto}
+.nav__links a{font-size:.86rem;font-weight:500;letter-spacing:.02em;color:var(--ink-soft);position:relative;padding-block:.4rem}
+.nav__links a::after{content:"";position:absolute;left:0;bottom:0;width:100%;height:2px;background:var(--oxblood);transform:scaleX(0);transform-origin:left;transition:transform .3s var(--ease)}
+.nav__links a:hover{color:var(--ink)}
+.nav__links a:hover::after{transform:scaleX(1)}
+.nav__phone{display:none;align-items:center;gap:.45rem;font-weight:600;font-size:.9rem;color:var(--ink)}
+.nav__phone svg{width:15px;height:15px;color:var(--oxblood)}
+.btn{
+  --bg:var(--oxblood);--fg:var(--cream-hi);
+  display:inline-flex;align-items:center;justify-content:center;gap:.5rem;
+  font-family:var(--sans);font-weight:600;font-size:.92rem;letter-spacing:.01em;
+  color:var(--fg);background:var(--bg);
+  padding:.72rem 1.25rem;border:1.5px solid var(--oxblood-2);border-radius:var(--radius);
+  box-shadow:0 1px 0 rgba(255,255,255,.12) inset, 0 10px 22px -14px var(--oxblood-3);
+  transition:transform .25s var(--ease), box-shadow .25s var(--ease), background .25s var(--ease);
+  position:relative;overflow:hidden;
+}
+.btn:hover{transform:translateY(-2px);box-shadow:0 1px 0 rgba(255,255,255,.16) inset,0 16px 30px -14px var(--oxblood-3)}
+.btn:active{transform:translateY(0)}
+.btn--sm{padding:.55rem 1rem;font-size:.85rem}
+.btn--ghost{--bg:transparent;--fg:var(--ink);border-color:var(--ink-a22);box-shadow:none}
+.btn--ghost:hover{background:var(--ink);--fg:var(--cream-hi);border-color:var(--ink)}
+.btn--gold{--bg:var(--ochre);--fg:#241703;border-color:var(--ochre-2)}
+.btn--nav{display:none}
+.nav__toggle{margin-left:auto;display:inline-flex;flex-direction:column;gap:5px;background:none;border:0;padding:8px}
+.nav__toggle span{width:24px;height:2px;background:var(--ink);transition:.3s var(--ease)}
+
+@media(min-width:940px){
+  .nav__links{display:flex}
+  .nav__phone{display:inline-flex}
+  .btn--nav{display:inline-flex}
+  .nav__toggle{display:none}
+  .nav__links{margin-left:auto}
+  .nav__phone,.btn--nav{margin-left:0}
+}
+
+/* ============================================================
+   HERO — no photo. Warm textured ground + seal + type.
+   ============================================================ */
+.hero{
+  position:relative;isolation:isolate;color:var(--cream-hi);overflow:hidden;
+  background:
+    radial-gradient(120% 90% at 78% -8%, rgba(192,135,31,.30), transparent 46%),
+    radial-gradient(100% 120% at 10% 120%, rgba(44,68,50,.55), transparent 52%),
+    linear-gradient(150deg, var(--oxblood-2) 0%, var(--oxblood-3) 42%, #33130F 100%);
+}
+/* engraved concentric arcs behind everything */
+.hero__engrave{position:absolute;inset:0;z-index:-2;opacity:.5;mix-blend-mode:soft-light;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1600' height='900'%3E%3Cg fill='none' stroke='%23F3ECD9' stroke-width='1'%3E%3Ccircle cx='1300' cy='120' r='120'/%3E%3Ccircle cx='1300' cy='120' r='200'/%3E%3Ccircle cx='1300' cy='120' r='290'/%3E%3Ccircle cx='1300' cy='120' r='390'/%3E%3Ccircle cx='1300' cy='120' r='500'/%3E%3Ccircle cx='1300' cy='120' r='620'/%3E%3C/g%3E%3C/svg%3E");
+  background-repeat:no-repeat;background-position:right -140px top -120px;background-size:1100px auto}
+/* halftone dot field bottom-left */
+.hero__halftone{position:absolute;inset:0;z-index:-2;opacity:.14;
+  background-image:radial-gradient(var(--cream-hi) 1.4px, transparent 1.6px);
+  background-size:13px 13px;
+  -webkit-mask-image:radial-gradient(90% 80% at 6% 108%, #000, transparent 60%);
+  mask-image:radial-gradient(90% 80% at 6% 108%, #000, transparent 60%)}
+/* grain */
+.hero::after{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;opacity:.5;mix-blend-mode:overlay;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E")}
+
+.hero__inner{display:grid;gap:clamp(2rem,4vw,3.5rem);grid-template-columns:1fr;align-items:center;
+  padding-block:clamp(3.2rem,7vw,6rem) clamp(3.5rem,7vw,6.5rem)}
+@media(min-width:1000px){.hero__inner{grid-template-columns:1.35fr .9fr}}
+
+.hero__flag{display:inline-flex;align-items:center;gap:.7rem;font-family:var(--sans);font-weight:700;
+  font-size:var(--step--1);letter-spacing:.26em;text-transform:uppercase;color:var(--ochre-hi)}
+.hero__flag::before,.hero__flag::after{content:"";height:1.5px;width:2rem;background:currentColor;opacity:.55}
+.hero__flag::after{display:none}
+.hero h1{font-family:var(--display);font-weight:400;font-size:var(--step-5);line-height:.95;letter-spacing:-.012em;
+  margin-top:1.2rem;text-shadow:0 2px 30px rgba(0,0,0,.28)}
+.hero h1 em{font-style:italic;color:var(--ochre-hi);position:relative}
+.hero h1 .swash{font-family:var(--serif);font-style:italic;font-weight:400;font-size:.5em;color:var(--cream-lo);
+  display:block;letter-spacing:0;margin-bottom:.35rem;line-height:1}
+.hero__lede{font-family:var(--serif);font-size:var(--step-1);line-height:1.5;color:#EBDFC6;max-width:34ch;margin-top:1.5rem}
+.hero__cta{display:flex;flex-wrap:wrap;gap:.9rem;margin-top:2rem;align-items:center}
+.hero__note{display:flex;align-items:center;gap:.55rem;font-size:.9rem;color:var(--cream-lo);font-family:var(--serif);font-style:italic}
+.hero__note strong{color:var(--ochre-hi);font-style:normal;font-family:var(--sans);font-weight:600}
+.hero .btn--ghost{--fg:var(--cream-hi);border-color:rgba(243,236,217,.4)}
+.hero .btn--ghost:hover{background:var(--cream-hi);--fg:var(--oxblood-2);border-color:var(--cream-hi)}
+
+/* seal / badge column */
+.hero__seal{justify-self:center;width:min(340px,72vw);filter:drop-shadow(0 22px 40px rgba(0,0,0,.45))}
+.hero__seal svg{width:100%;height:auto}
+.seal-spin{animation:sealspin 60s linear infinite;transform-origin:250px 250px}
+.seal-name{text-transform:uppercase}
+
+/* offer ribbon pinned in hero */
+.hero__ribbon{margin-top:1.6rem;display:inline-flex;align-items:stretch;border:1.5px solid rgba(224,178,75,.55);
+  border-radius:var(--radius);overflow:hidden;background:rgba(34,19,15,.35);backdrop-filter:blur(2px)}
+.hero__ribbon .price{font-family:var(--display);font-size:1.6rem;color:var(--ochre-hi);background:rgba(224,178,75,.1);
+  padding:.55rem .95rem;display:flex;align-items:center;line-height:1;border-right:1.5px solid rgba(224,178,75,.3)}
+.hero__ribbon .txt{padding:.5rem .95rem;font-size:.85rem;line-height:1.25;color:#EFE4CC;align-self:center}
+.hero__ribbon .txt b{color:var(--cream-hi)}
+
+@keyframes sealspin{to{transform:rotate(360deg)}}
+
+/* ============================================================
+   TRUST BAR
+   ============================================================ */
+.trust{background:var(--ink);color:var(--cream-hi);position:relative;z-index:1}
+.trust__grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:rgba(243,236,217,.12)}
+@media(min-width:760px){.trust__grid{grid-template-columns:repeat(4,1fr)}}
+.trust__cell{background:var(--ink);padding:1.5rem clamp(1rem,2.5vw,1.8rem);display:flex;flex-direction:column;gap:.15rem;
+  transition:background .3s var(--ease)}
+.trust__cell:hover{background:#2C221826}
+.trust__num{font-family:var(--display);font-size:clamp(1.6rem,3.5vw,2.15rem);color:var(--ochre-hi);line-height:1}
+.trust__lab{font-size:.8rem;color:var(--cream-lo);letter-spacing:.03em}
+
+/* ============================================================
+   SERVICES
+   ============================================================ */
+.sec-head{display:grid;gap:1rem;max-width:60ch}
+.sec-head h2{font-size:var(--step-3);color:var(--ink)}
+.sec-head p{color:var(--ink-mute);max-width:52ch}
+
+.svc-grid{display:grid;grid-template-columns:1fr;gap:1px;background:var(--ink-a14);
+  border:1.5px solid var(--ink-a14);border-radius:var(--radius);overflow:hidden;margin-top:clamp(2rem,4vw,3rem)}
+@media(min-width:640px){.svc-grid{grid-template-columns:repeat(2,1fr)}}
+@media(min-width:1000px){.svc-grid{grid-template-columns:repeat(3,1fr)}}
+.svc{background:var(--paper);padding:clamp(1.6rem,2.5vw,2.1rem);position:relative;overflow:hidden;
+  transition:background .35s var(--ease), transform .35s var(--ease)}
+.svc::before{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent,var(--oxblood-3));
+  opacity:0;transition:opacity .4s var(--ease);z-index:0}
+.svc__no{font-family:var(--display);font-size:.9rem;color:var(--ochre-2);letter-spacing:.02em}
+.svc__ico{width:42px;height:42px;margin:.4rem 0 1rem;color:var(--oxblood);transition:color .35s var(--ease)}
+.svc__ico svg{width:100%;height:100%}
+.svc h3{font-family:var(--serif);font-weight:600;font-size:var(--step-1);color:var(--ink);position:relative;z-index:1}
+.svc p{margin-top:.5rem;color:var(--ink-mute);font-size:.94rem;position:relative;z-index:1;line-height:1.55}
+.svc__more{margin-top:1rem;font-family:var(--sans);font-weight:600;font-size:.82rem;letter-spacing:.04em;text-transform:uppercase;
+  color:var(--oxblood);display:inline-flex;align-items:center;gap:.4rem;position:relative;z-index:1;transition:gap .3s var(--ease),color .35s}
+.svc__more svg{width:14px;height:14px}
+.svc:hover{background:var(--oxblood);z-index:2;transform:translateY(-3px)}
+.svc:hover .svc__no{color:var(--ochre-hi)}
+.svc:hover h3,.svc:hover p{color:var(--cream-hi)}
+.svc:hover .svc__ico{color:var(--ochre-hi)}
+.svc:hover .svc__more{color:var(--ochre-hi);gap:.7rem}
+
+/* ============================================================
+   OFFER band
+   ============================================================ */
+.offer{background:var(--pine);color:var(--cream-hi);position:relative;overflow:hidden}
+.offer__engrave{position:absolute;inset:0;opacity:.5;mix-blend-mode:soft-light;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60'%3E%3Cpath d='M0 60L60 0M-15 15L15 -15M45 75L75 45' stroke='%23F3ECD9' stroke-width='1'/%3E%3C/svg%3E")}
+.offer__inner{position:relative;display:grid;grid-template-columns:1fr;gap:clamp(1.8rem,4vw,3rem);align-items:center}
+@media(min-width:860px){.offer__inner{grid-template-columns:1fr auto}}
+.offer .eyebrow{color:var(--ochre-hi)}
+.offer h2{font-family:var(--display);font-size:var(--step-3);line-height:1;margin-top:1rem}
+.offer h2 .big{color:var(--ochre-hi);font-size:1.35em;display:inline-block}
+.offer p{margin-top:1rem;color:#DFE7DC;max-width:46ch;font-family:var(--serif);font-size:var(--step-0)}
+.offer__coupon{background:var(--paper);color:var(--ink);border-radius:var(--radius);padding:1.6rem 1.8rem;
+  position:relative;min-width:min(300px,80vw);box-shadow:var(--shadow-2);
+  border:2px dashed var(--pine-hi)}
+.offer__coupon::before,.offer__coupon::after{content:"";position:absolute;width:22px;height:22px;border-radius:50%;background:var(--pine);top:50%;transform:translateY(-50%)}
+.offer__coupon::before{left:-13px}.offer__coupon::after{right:-13px}
+.offer__coupon .lab{font-family:var(--sans);font-weight:700;letter-spacing:.22em;text-transform:uppercase;font-size:.7rem;color:var(--oxblood)}
+.offer__coupon .amt{font-family:var(--display);font-size:clamp(3rem,8vw,4.2rem);line-height:.9;color:var(--ink);margin:.3rem 0 .1rem}
+.offer__coupon .amt sup{font-size:.42em;top:-.9em;color:var(--ochre-2)}
+.offer__coupon .desc{font-family:var(--serif);color:var(--ink-soft);font-size:.95rem}
+.offer__coupon .fine{margin-top:.9rem;font-size:.72rem;color:var(--ink-mute)}
+
+/* ============================================================
+   WHY US
+   ============================================================ */
+.why{background:var(--paper-2)}
+.why__inner{display:grid;grid-template-columns:1fr;gap:clamp(2rem,4vw,3.5rem)}
+@media(min-width:920px){.why__inner{grid-template-columns:.85fr 1.15fr;align-items:start}}
+.why__list{display:grid;gap:1.3rem}
+.why__item{display:grid;grid-template-columns:auto 1fr;gap:1.1rem;padding-bottom:1.3rem;border-bottom:1.5px solid var(--ink-a14)}
+.why__item:last-child{border-bottom:0;padding-bottom:0}
+.why__badge{width:52px;height:52px;flex:none;border:1.5px solid var(--ink-a22);border-radius:50%;
+  display:grid;place-items:center;color:var(--oxblood);background:var(--paper);
+  box-shadow:inset 0 0 0 3px var(--paper), inset 0 0 0 4px var(--ink-a10)}
+.why__badge svg{width:24px;height:24px}
+.why__item h3{font-family:var(--serif);font-weight:600;font-size:var(--step-1);color:var(--ink)}
+.why__item p{color:var(--ink-mute);font-size:.94rem;margin-top:.2rem}
+.why__quote{background:var(--ink);color:var(--cream-hi);border-radius:var(--radius);padding:clamp(1.8rem,3vw,2.6rem);
+  position:relative;box-shadow:var(--shadow-2);align-self:stretch;display:flex;flex-direction:column;justify-content:center}
+.why__quote .mark{font-family:var(--display);font-size:5rem;line-height:.6;color:var(--ochre);opacity:.5}
+.why__quote blockquote{font-family:var(--serif);font-size:var(--step-2);line-height:1.35;font-style:italic;color:var(--cream-hi);margin-top:.3rem}
+.why__quote figcaption{margin-top:1.4rem;font-size:.85rem;color:var(--cream-lo);letter-spacing:.02em}
+.why__quote figcaption b{color:var(--ochre-hi);font-weight:600;letter-spacing:.06em;text-transform:uppercase;font-size:.78rem;display:block}
+
+/* ============================================================
+   REVIEWS
+   ============================================================ */
+.reviews__head{display:flex;flex-wrap:wrap;gap:1rem 2rem;align-items:flex-end;justify-content:space-between}
+.stars{display:inline-flex;gap:3px;color:var(--ochre)}
+.stars svg{width:18px;height:18px}
+.reviews__score{display:flex;align-items:center;gap:.8rem}
+.reviews__score .n{font-family:var(--display);font-size:2rem;color:var(--ink);line-height:1}
+.reviews__score .t{font-size:.85rem;color:var(--ink-mute)}
+.rev-grid{display:grid;grid-template-columns:1fr;gap:1.5rem;margin-top:clamp(2rem,4vw,3rem)}
+@media(min-width:800px){.rev-grid{grid-template-columns:1fr 1fr}}
+.rev{background:var(--paper);border:1.5px solid var(--ink-a14);border-radius:var(--radius);padding:clamp(1.6rem,3vw,2.2rem);
+  box-shadow:var(--shadow-1);position:relative;transition:transform .35s var(--ease),box-shadow .35s var(--ease)}
+.rev:hover{transform:translateY(-4px);box-shadow:var(--shadow-2)}
+.rev__stars{margin-bottom:1rem}
+.rev blockquote{font-family:var(--serif);font-size:var(--step-1);line-height:1.5;color:var(--ink)}
+.rev figcaption{margin-top:1.4rem;display:flex;align-items:center;gap:.85rem}
+.rev__ava{width:44px;height:44px;border-radius:50%;flex:none;background:var(--oxblood);color:var(--cream-hi);
+  display:grid;place-items:center;font-family:var(--display);font-size:1.05rem}
+.rev__who b{display:block;font-family:var(--sans);font-weight:600;font-size:.95rem;color:var(--ink)}
+.rev__who span{font-size:.82rem;color:var(--ink-mute)}
+
+/* ============================================================
+   TEAM teaser
+   ============================================================ */
+.team{background:var(--pine-2);color:var(--cream-hi);position:relative;overflow:hidden}
+.team__halftone{position:absolute;inset:0;opacity:.1;
+  background-image:radial-gradient(var(--cream-hi) 1.3px,transparent 1.5px);background-size:14px 14px;
+  -webkit-mask-image:radial-gradient(80% 90% at 90% 10%,#000,transparent 62%);mask-image:radial-gradient(80% 90% at 90% 10%,#000,transparent 62%)}
+.team__inner{position:relative;display:grid;grid-template-columns:1fr;gap:clamp(2rem,4vw,3.5rem);align-items:center}
+@media(min-width:920px){.team__inner{grid-template-columns:1fr 1fr}}
+.team .eyebrow{color:var(--ochre-hi)}
+.team h2{font-family:var(--display);font-size:var(--step-3);margin-top:1rem;line-height:1.02}
+.team p{margin-top:1.2rem;color:#D9E0D5;font-family:var(--serif);font-size:var(--step-0);max-width:46ch}
+.team__cta{margin-top:1.8rem}
+.team__cta .btn--gold{--fg:#241703}
+.crew{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem}
+.crew__card{background:rgba(243,236,217,.05);border:1.5px solid rgba(243,236,217,.16);border-radius:var(--radius);
+  padding:1.2rem 1rem;text-align:center;transition:transform .35s var(--ease),background .35s var(--ease)}
+.crew__card:hover{transform:translateY(-4px);background:rgba(243,236,217,.1)}
+.crew__mono{width:64px;height:64px;margin:0 auto .8rem;border-radius:50%;border:1.5px solid var(--ochre);
+  display:grid;place-items:center;font-family:var(--display);font-size:1.4rem;color:var(--ochre-hi);background:rgba(192,135,31,.08)}
+.crew__card b{display:block;font-family:var(--serif);font-weight:600;font-size:1rem;color:var(--cream-hi)}
+.crew__card span{font-size:.76rem;color:var(--cream-lo);letter-spacing:.04em}
+
+/* ============================================================
+   HOURS + BOOK
+   ============================================================ */
+.book__inner{display:grid;grid-template-columns:1fr;gap:clamp(2rem,4vw,3.5rem)}
+@media(min-width:920px){.book__inner{grid-template-columns:1fr 1fr}}
+.hours{background:var(--paper);border:1.5px solid var(--ink-a14);border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow-1)}
+.hours__top{background:var(--ink);color:var(--cream-hi);padding:1.4rem 1.6rem;display:flex;align-items:center;justify-content:space-between;gap:1rem}
+.hours__top h3{font-family:var(--display);font-size:1.2rem}
+.hours__open{display:inline-flex;align-items:center;gap:.5rem;font-size:.82rem;color:var(--ochre-hi);font-weight:600}
+.hours__open .dot{width:8px;height:8px;border-radius:50%;background:#7FB287;box-shadow:0 0 0 3px rgba(127,178,135,.25)}
+.hours__list{padding:.6rem 1.6rem 1.4rem}
+.hours__row{display:flex;justify-content:space-between;align-items:baseline;padding:.7rem 0;border-bottom:1px solid var(--ink-a10);gap:1rem}
+.hours__row:last-child{border-bottom:0}
+.hours__row.is-today{color:var(--oxblood);font-weight:600}
+.hours__row .d{font-family:var(--sans);font-weight:500}
+.hours__row .t{font-family:var(--sans);color:var(--ink-soft)}
+.hours__row.is-today .t{color:var(--oxblood)}
+.hours__foot{padding:1.1rem 1.6rem;border-top:1.5px solid var(--ink-a14);background:var(--paper-2);display:flex;flex-direction:column;gap:.7rem}
+.hours__foot a{display:flex;align-items:center;gap:.7rem;font-weight:600;font-size:.95rem;color:var(--ink)}
+.hours__foot a svg{width:18px;height:18px;color:var(--oxblood);flex:none}
+.hours__foot a span small{display:block;font-weight:400;font-size:.78rem;color:var(--ink-mute)}
+
+.bookcard{background:var(--oxblood);color:var(--cream-hi);border-radius:var(--radius);padding:clamp(1.8rem,3.5vw,2.6rem);
+  position:relative;overflow:hidden;box-shadow:var(--shadow-2)}
+.bookcard__engrave{position:absolute;inset:0;opacity:.4;mix-blend-mode:soft-light;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='800' height='600'%3E%3Cg fill='none' stroke='%23F3ECD9' stroke-width='1'%3E%3Ccircle cx='680' cy='500' r='90'/%3E%3Ccircle cx='680' cy='500' r='160'/%3E%3Ccircle cx='680' cy='500' r='240'/%3E%3C/g%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right bottom}
+.bookcard>*{position:relative}
+.bookcard .eyebrow{color:var(--ochre-hi)}
+.bookcard h3{font-family:var(--display);font-size:var(--step-2);margin-top:.9rem;line-height:1.02}
+.bookcard p{margin-top:.9rem;color:#F0DFC9;font-family:var(--serif)}
+.book-form{margin-top:1.6rem;display:grid;gap:.9rem}
+@media(min-width:520px){.book-form{grid-template-columns:1fr 1fr}}
+.field{display:flex;flex-direction:column;gap:.35rem}
+.field.full{grid-column:1/-1}
+.field label{font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;font-weight:700;color:var(--ochre-hi)}
+.field input,.field select{font:inherit;font-size:.95rem;padding:.7rem .85rem;border-radius:var(--radius);
+  border:1.5px solid rgba(243,236,217,.28);background:rgba(34,19,15,.35);color:var(--cream-hi)}
+.field input::placeholder{color:rgba(243,236,217,.45)}
+.field input:focus,.field select:focus{outline:2.5px solid var(--ochre-hi);outline-offset:1px;border-color:transparent}
+.field select{appearance:none;-webkit-appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='none' stroke='%23E0B24B' stroke-width='2'%3E%3Cpath d='M2 4l4 4 4-4'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right .85rem center;padding-right:2rem}
+.book-form .btn--gold{grid-column:1/-1;--fg:#241703;justify-content:center;padding-block:.85rem}
+.bookcard__fine{margin-top:1rem;font-size:.78rem;color:#E9D8C0;display:flex;align-items:center;gap:.5rem}
+.bookcard__fine svg{width:14px;height:14px;color:var(--ochre-hi);flex:none}
+
+/* ============================================================
+   FOOTER
+   ============================================================ */
+.foot{background:var(--ink);color:var(--cream-lo);padding-block:clamp(3rem,5vw,4.5rem) 2rem}
+.foot__top{display:grid;grid-template-columns:1fr;gap:2.5rem}
+@media(min-width:760px){.foot__top{grid-template-columns:1.4fr 1fr 1fr}}
+.foot__brand .brand__name{color:var(--cream-hi)}
+.foot__brand p{margin-top:1rem;font-family:var(--serif);color:var(--cream-lo);max-width:34ch;font-size:.95rem}
+.foot__brand .seal-mini{margin-top:1.4rem}
+.foot h4{font-family:var(--sans);font-weight:700;letter-spacing:.16em;text-transform:uppercase;font-size:.74rem;color:var(--ochre-hi);margin-bottom:1rem}
+.foot ul{display:grid;gap:.6rem}
+.foot ul a{font-size:.92rem;color:var(--cream-lo);transition:color .25s}
+.foot ul a:hover{color:var(--cream-hi)}
+.foot__contact li{font-size:.92rem;display:flex;gap:.6rem;align-items:flex-start}
+.foot__contact svg{width:16px;height:16px;color:var(--oxblood);flex:none;margin-top:3px}
+.foot__contact a{color:var(--cream-lo)}
+.foot__bar{margin-top:3rem;padding-top:1.5rem;border-top:1px solid rgba(243,236,217,.14);
+  display:flex;flex-wrap:wrap;gap:1rem;justify-content:space-between;align-items:center;font-size:.8rem;color:var(--cream-lo)}
+.foot__bar .made{color:var(--ochre-2)}
+
+/* ============================================================
+   MOTION
+   ============================================================ */
+.reveal{opacity:0;transform:translateY(26px);transition:opacity .9s var(--ease), transform .9s var(--ease)}
+.reveal.in{opacity:1;transform:none}
+.reveal[data-d="1"]{transition-delay:.08s}
+.reveal[data-d="2"]{transition-delay:.16s}
+.reveal[data-d="3"]{transition-delay:.24s}
+.reveal[data-d="4"]{transition-delay:.32s}
+.reveal[data-d="5"]{transition-delay:.4s}
+
+/* orchestrated hero load */
+.hl{opacity:0;transform:translateY(20px)}
+.hero.ready .hl{animation:heroin .95s var(--ease) forwards}
+.hero.ready .hl[data-d="1"]{animation-delay:.1s}
+.hero.ready .hl[data-d="2"]{animation-delay:.22s}
+.hero.ready .hl[data-d="3"]{animation-delay:.34s}
+.hero.ready .hl[data-d="4"]{animation-delay:.46s}
+.hero.ready .hl[data-d="5"]{animation-delay:.58s}
+.hero__seal.hl{transform:translateY(20px) scale(.94)}
+.hero.ready .hero__seal.hl{animation:sealin 1.1s var(--ease) .3s forwards}
+@keyframes heroin{to{opacity:1;transform:none}}
+@keyframes sealin{to{opacity:1;transform:none}}
+
+@media(prefers-reduced-motion:reduce){
+  *{animation:none!important;transition:none!important}
+  .reveal,.hl,.hero__seal.hl{opacity:1!important;transform:none!important}
+  .seal-spin{animation:none!important}
+}
+</style>
+</head>
+<body>
+
+<!-- ===================== NAV ===================== -->
+<header class="nav" id="nav">
+  <div class="wrap nav__row">
+    <a class="brand" href="#top" aria-label="{{NAME}} — home">
+      <svg class="brand__seal" viewBox="0 0 100 100" aria-hidden="true">
+        <circle cx="50" cy="50" r="47" fill="none" stroke="#7C2E27" stroke-width="2.5"/>
+        <circle cx="50" cy="50" r="40" fill="none" stroke="#C0871F" stroke-width="1.5"/>
+        <path d="M50 32c-6 0-9 3-9 3s-3-3-9-3c-6 0-10 6-10 12 0 12 10 24 13 24 1.6 0 2.4-5 6-5s4.4 5 6 5c3 0 13-12 13-24 0-6-4-12-10-12z" fill="#7C2E27"/>
+      </svg>
+      <span>
+        <span class="brand__name">{{NAME_SHORT}}</span>
+        <span class="brand__sub">Est. {{EST}}</span>
+      </span>
+    </a>
+    <nav class="nav__links" aria-label="Primary">
+      <a href="#services">Services</a>
+      <a href="#offer">Offer</a>
+      <a href="#why">Why Us</a>
+      <a href="#reviews">Reviews</a>
+      <a href="#book">Hours</a>
+    </nav>
+    <a class="nav__phone" href="tel:{{PHONE}}">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></svg>
+      <span class="tnum">{{PHONE}}</span>
+    </a>
+    <a class="btn btn--sm btn--nav" href="{{BOOK_URL}}">Book an appointment</a>
+    <button class="nav__toggle" id="navToggle" aria-label="Open menu" aria-expanded="false"><span></span><span></span><span></span></button>
+  </div>
+</header>
+
+<main id="top">
+
+<!-- ===================== HERO ===================== -->
+<section class="hero" id="hero">
+  <div class="hero__engrave" aria-hidden="true"></div>
+  <div class="hero__halftone" aria-hidden="true"></div>
+  <div class="wrap hero__inner">
+    <div class="hero__copy">
+      <span class="hero__flag hl" data-d="1">{{LOCALE}}</span>
+      <h1 class="hl" data-d="2">
+        <span class="swash">{{HERO_LEAD}}</span>
+        {{HERO_ACCENT}}
+      </h1>
+      <p class="hero__lede hl" data-d="3">{{LEDE}}</p>
+      <div class="hero__cta hl" data-d="4">
+        <a class="btn" href="{{BOOK_URL}}">Book an appointment
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </a>
+        <a class="btn btn--ghost" href="tel:{{PHONE}}">Call {{PHONE}}</a>
+      </div>
+      <div class="hero__ribbon hl" data-d="5">
+        <span class="price tnum">{{OFFER_PRICE}}</span>
+        <span class="txt"><b>{{OFFER_TITLE}}</b><br>{{OFFER_DESC}}</span>
+      </div>
+    </div>
+
+    <div class="hero__seal hl">
+      <svg viewBox="0 0 500 500" role="img" aria-label="{{NAME}} heritage seal, established {{EST}}">
+        <defs>
+          <path id="arcTop" d="M 90,250 A 160,160 0 0 1 410,250" fill="none"/>
+          <path id="arcBot" d="M 96,250 A 154,154 0 0 0 404,250" fill="none"/>
+        </defs>
+        <!-- outer engraved rings -->
+        <circle cx="250" cy="250" r="240" fill="none" stroke="#E0B24B" stroke-width="2" opacity=".55"/>
+        <circle cx="250" cy="250" r="220" fill="#33130F" opacity=".35"/>
+        <circle cx="250" cy="250" r="220" fill="none" stroke="#E0B24B" stroke-width="4"/>
+        <circle cx="250" cy="250" r="188" fill="none" stroke="#E0B24B" stroke-width="1.5" opacity=".7"/>
+        <!-- rotating circular text -->
+        <g class="seal-spin">
+          <text class="seal-name" font-family="Bevan, serif" font-size="21" fill="#F3ECD9" letter-spacing="2.5">
+            <textPath href="#arcTop" startOffset="50%" text-anchor="middle">{{NAME}}</textPath>
+          </text>
+          <text class="seal-name" font-family="Archivo, sans-serif" font-weight="700" font-size="14" fill="#E0B24B" letter-spacing="3.5">
+            <textPath href="#arcBot" startOffset="50%" text-anchor="middle">{{TAGLINE}}</textPath>
+          </text>
+          <!-- side stars -->
+          <g fill="#E0B24B">
+            <path d="M70 250l4 9 10 1-7 7 2 10-9-5-9 5 2-10-7-7 10-1z"/>
+            <path d="M430 250l-4 9-10 1 7 7-2 10 9-5 9 5-2-10 7-7-10-1z"/>
+          </g>
+        </g>
+        <!-- inner medallion -->
+        <circle cx="250" cy="250" r="150" fill="none" stroke="#E0B24B" stroke-width="1.5" opacity=".55"/>
+        <!-- crest emblem -->
+        <path d="M250 150c-16 0-25 9-25 9s-9-9-25-9c-18 0-27 16-27 34 0 31 27 62 33 62 4 0 6-13 19-13s15 13 19 13c6 0 33-31 33-62 0-18-9-34-27-34z" fill="#7C2E27" stroke="#E0B24B" stroke-width="2"/>
+        <path d="M234 204q16 12 32 0" fill="none" stroke="#F3ECD9" stroke-width="3.5" stroke-linecap="round"/>
+        <!-- established banner -->
+        <g transform="translate(250,320)">
+          <rect x="-92" y="-4" width="184" height="46" rx="3" fill="#2C4432" stroke="#E0B24B" stroke-width="1.5"/>
+          <text x="0" y="26" text-anchor="middle" font-family="Bevan, serif" font-size="26" fill="#F3ECD9" letter-spacing="4">EST. {{EST}}</text>
+        </g>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== TRUST BAR ===================== -->
+<section class="trust" aria-label="At a glance">
+  <div class="trust__grid"><!--TRUST-START-->
+    <div class="trust__cell reveal" data-d="1"><span class="trust__num tnum">Same-week</span><span class="trust__lab">appointments available</span></div>
+    <div class="trust__cell reveal" data-d="2"><span class="trust__num tnum">20+ yrs</span><span class="trust__lab">serving the neighborhood</span></div>
+    <div class="trust__cell reveal" data-d="3"><span class="trust__num tnum">500+</span><span class="trust__lab">five-star reviews</span></div>
+    <div class="trust__cell reveal" data-d="4"><span class="trust__num">Most</span><span class="trust__lab">insurance accepted</span></div>
+  <!--TRUST-END--></div>
+</section>
+
+<!-- ===================== SERVICES ===================== -->
+<section class="section" id="services">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="eyebrow">What we do</span>
+      <h2 class="h-display">Every kind of care, under one warm roof.</h2>
+      <p>Thoughtfully done, plainly explained, never rushed. Here's what we're known for.</p>
+    </div>
+
+    <div class="svc-grid"><!--SVC-START-->
+      <article class="svc reveal" data-d="1">
+        <span class="svc__no">No. 01</span>
+        <div class="svc__ico"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M24 6l3.5 7 7.7 1.1-5.6 5.4 1.3 7.6L24 30.9l-6.9 3.2 1.3-7.6-5.6-5.4 7.7-1.1z"/><path d="M13 40h22"/></svg></div>
+        <h3>Signature Service</h3>
+        <p>The steady, dependable backbone of what we do — done with genuine craft and care.</p>
+        <a class="svc__more" href="#book">Learn more <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+      </article>
+    <!--SVC-END--></div>
+  </div>
+</section>
+
+<!-- ===================== OFFER ===================== -->
+<section class="offer section" id="offer">
+  <div class="offer__engrave" aria-hidden="true"></div>
+  <div class="wrap offer__inner">
+    <div class="reveal">
+      <span class="eyebrow">{{OFFER_TITLE}}</span>
+      <h2 class="h-display">Get started for<br><span class="big tnum">{{OFFER_PRICE}}</span>.</h2>
+      <p>{{OFFER_DESC}}</p>
+    </div>
+    <figure class="offer__coupon reveal" data-d="2" aria-label="New client offer coupon">
+      <span class="lab">{{OFFER_TITLE}}</span>
+      <div class="amt tnum"><sup>{{OFFER_CUR}}</sup>{{OFFER_NUM}}</div>
+      <div class="desc">{{OFFER_DESC}}</div>
+      <div class="fine">For new clients. Mention this offer when you book. Cannot be combined with other offers.</div>
+    </figure>
+  </div>
+</section>
+
+<!-- ===================== WHY US ===================== -->
+<section class="why section" id="why">
+  <div class="wrap why__inner">
+    <div class="reveal">
+      <span class="eyebrow">Why {{NAME_SHORT}}</span>
+      <h2 class="h-display sec-head" style="margin-top:1rem;font-size:var(--step-3)">A practice built on craft &amp; care.</h2>
+      <div class="why__list" style="margin-top:2rem">
+        <div class="why__item">
+          <span class="why__badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 2 4 6v6c0 5 3.5 8 8 10 4.5-2 8-5 8-10V6z"/><path d="m9 12 2 2 4-4"/></svg></span>
+          <div><h3>The same trusted faces</h3><p>Low turnover means the person who knows your history is the one who greets you — visit after visit, year after year.</p></div>
+        </div>
+        <div class="why__item">
+          <span class="why__badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></span>
+          <div><h3>Respect for your time</h3><p>Same-week appointments and a schedule we actually keep. We honor the hour we promised you.</p></div>
+        </div>
+        <div class="why__item">
+          <span class="why__badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h10"/></svg></span>
+          <div><h3>Plain-spoken plans</h3><p>Clear estimates before we begin, flexible options, and honest guidance — no jargon, no pressure.</p></div>
+        </div>
+      </div>
+    </div>
+    <figure class="why__quote reveal" data-d="2">
+      <span class="mark" aria-hidden="true">&ldquo;</span>
+      <blockquote>We built the kind of place we'd want to visit ourselves — unhurried, honest, and genuinely glad to see you.</blockquote>
+      <figcaption><b>{{NAME}}</b>Serving the neighborhood since {{EST}}</figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- ===================== REVIEWS ===================== -->
+<section class="section" id="reviews">
+  <div class="wrap">
+    <div class="reviews__head reveal">
+      <div>
+        <span class="eyebrow">Word of mouth</span>
+        <h2 class="h-display sec-head" style="margin-top:1rem;font-size:var(--step-3)">Loved by the neighborhood.</h2>
+      </div>
+      <div class="reviews__score">
+        <span class="stars" role="img" aria-label="5 out of 5 stars">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2l3 6.9 7.5.6-5.7 5 1.7 7.5L12 18.3 5.5 22l1.7-7.5L1.5 9.5 9 8.9z"/></svg>
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2l3 6.9 7.5.6-5.7 5 1.7 7.5L12 18.3 5.5 22l1.7-7.5L1.5 9.5 9 8.9z"/></svg>
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2l3 6.9 7.5.6-5.7 5 1.7 7.5L12 18.3 5.5 22l1.7-7.5L1.5 9.5 9 8.9z"/></svg>
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2l3 6.9 7.5.6-5.7 5 1.7 7.5L12 18.3 5.5 22l1.7-7.5L1.5 9.5 9 8.9z"/></svg>
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2l3 6.9 7.5.6-5.7 5 1.7 7.5L12 18.3 5.5 22l1.7-7.5L1.5 9.5 9 8.9z"/></svg>
+        </span>
+        <span><span class="n tnum">{{RATING}}</span> <span class="t">/ 5 · <b class="tnum">{{REVIEW_COUNT}}</b> reviews</span></span>
+      </div>
+    </div>
+
+    <div class="rev-grid"><!--REV-START-->
+      <figure class="rev reveal" data-d="1">
+        <span class="rev__stars stars" role="img" aria-label="5 out of 5 stars">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2l3 6.9 7.5.6-5.7 5 1.7 7.5L12 18.3 5.5 22l1.7-7.5L1.5 9.5 9 8.9z"/></svg>
+        </span>
+        <blockquote>A genuinely wonderful experience from start to finish.</blockquote>
+        <figcaption><span class="rev__ava" aria-hidden="true">A</span><span class="rev__who"><b>A Happy Client</b><span>Verified review</span></span></figcaption>
+      </figure>
+    <!--REV-END--></div>
+  </div>
+</section>
+
+<!-- ===================== TEAM ===================== -->
+<!--TEAM-SECTION-START--><section class="team section" id="team">
+  <div class="team__halftone" aria-hidden="true"></div>
+  <div class="wrap team__inner">
+    <div class="reveal">
+      <span class="eyebrow">The people in the room</span>
+      <h2 class="h-display">A small, seasoned crew who'll know your name.</h2>
+      <p>No revolving door of strangers. Our tight-knit team has cared for neighbors for years — many of our clients have been with us since the very first year.</p>
+      <div class="team__cta"><a class="btn btn--gold" href="{{BOOK_URL}}">Meet the team &amp; book</a></div>
+    </div>
+    <div class="crew reveal" data-d="2"><!--TEAM-START-->
+      <figure class="crew__card">
+        <span class="crew__mono">AB</span><b>A. Bell</b><span>Founder</span>
+      </figure>
+    <!--TEAM-END--></div>
+  </div>
+</section><!--TEAM-SECTION-END-->
+
+<!-- ===================== HOURS + BOOK ===================== -->
+<section class="section" id="book">
+  <div class="wrap">
+    <div class="sec-head reveal" style="margin-bottom:clamp(2rem,4vw,3rem)">
+      <span class="eyebrow">Hours &amp; booking</span>
+      <h2 class="h-display">Come see us — the chair's warm.</h2>
+    </div>
+    <div class="book__inner">
+      <div class="hours reveal" data-d="1">
+        <div class="hours__top">
+          <h3>Opening Hours</h3>
+          <span class="hours__open"><span class="dot" aria-hidden="true"></span> Open today</span>
+        </div>
+        <div class="hours__list"><!--HOURS-START-->
+          <div class="hours__row is-today"><span class="d">Monday</span><span class="t tnum">8:00 – 5:00</span></div>
+          <div class="hours__row"><span class="d">Tuesday</span><span class="t tnum">8:00 – 5:00</span></div>
+          <div class="hours__row"><span class="d">Wednesday</span><span class="t tnum">8:00 – 5:00</span></div>
+          <div class="hours__row"><span class="d">Thursday</span><span class="t tnum">8:00 – 5:00</span></div>
+          <div class="hours__row"><span class="d">Friday</span><span class="t tnum">8:00 – 5:00</span></div>
+          <div class="hours__row"><span class="d">Saturday</span><span class="t">By appointment</span></div>
+          <div class="hours__row"><span class="d">Sunday</span><span class="t">Closed</span></div>
+        <!--HOURS-END--></div>
+        <div class="hours__foot">
+          <a href="tel:{{PHONE}}">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></svg>
+            <span class="tnum">{{PHONE}}</span>
+          </a>
+          <a href="https://maps.google.com/?q={{LOCALE}}" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            <span>{{LOCALE}}</span>
+          </a>
+        </div>
+      </div>
+
+      <div class="bookcard reveal" data-d="2">
+        <div class="bookcard__engrave" aria-hidden="true"></div>
+        <span class="eyebrow">Request a visit</span>
+        <h3 class="h-display">Book your {{OFFER_PRICE}} first visit.</h3>
+        <p>Send us a note and we'll confirm a same-week time that fits your day.</p>
+        <form class="book-form" onsubmit="return false" aria-label="Appointment request">
+          <div class="field"><label for="fn">First name</label><input id="fn" type="text" name="fn" placeholder="Jane" autocomplete="given-name" required></div>
+          <div class="field"><label for="ln">Last name</label><input id="ln" type="text" name="ln" placeholder="Doe" autocomplete="family-name" required></div>
+          <div class="field"><label for="ph">Phone</label><input id="ph" type="tel" name="ph" placeholder="(000) 000-0000" autocomplete="tel" required></div>
+          <div class="field"><label for="sv">Interested in</label>
+            <select id="sv" name="sv"><!--SELECT-START-->
+              <option>{{OFFER_TITLE}}</option>
+              <option>Signature Service</option>
+            <!--SELECT-END--></select>
+          </div>
+          <button class="btn btn--gold" type="submit">Request my appointment</button>
+        </form>
+        <p class="bookcard__fine"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 2 4 6v6c0 5 3.5 8 8 10 4.5-2 8-5 8-10V6z"/></svg> We'll never share your details.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- ===================== FOOTER ===================== -->
+<footer class="foot">
+  <div class="wrap">
+    <div class="foot__top">
+      <div class="foot__brand">
+        <span class="brand">
+          <svg class="brand__seal" viewBox="0 0 100 100" aria-hidden="true">
+            <circle cx="50" cy="50" r="47" fill="none" stroke="#C0871F" stroke-width="2.5"/>
+            <path d="M50 32c-6 0-9 3-9 3s-3-3-9-3c-6 0-10 6-10 12 0 12 10 24 13 24 1.6 0 2.4-5 6-5s4.4 5 6 5c3 0 13-12 13-24 0-6-4-12-10-12z" fill="#C0871F"/>
+          </svg>
+          <span><span class="brand__name">{{NAME_SHORT}}</span><span class="brand__sub">Est. {{EST}}</span></span>
+        </span>
+        <p>{{LEDE}}</p>
+      </div>
+      <div>
+        <h4>What we do</h4>
+        <ul><!--FOOTSVC-START-->
+          <li><a href="#services">Signature Service</a></li>
+        <!--FOOTSVC-END--></ul>
+      </div>
+      <div>
+        <h4>Visit</h4>
+        <ul class="foot__contact">
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg><span>{{LOCALE}}</span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></svg><a href="tel:{{PHONE}}" class="tnum">{{PHONE}}</a></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg><a href="#book">See opening hours</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="foot__bar">
+      <span>&copy; <span class="tnum">2026</span> {{NAME}}. All rights reserved.</span>
+      <span class="made">Handcrafted · Est. {{EST}}</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var rm = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // Orchestrated hero load
+  var hero = document.getElementById('hero');
+  requestAnimationFrame(function(){ requestAnimationFrame(function(){ hero.classList.add('ready'); }); });
+
+  // Scroll reveals
+  if('IntersectionObserver' in window && !rm){
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); }
+      });
+    }, {threshold:0.12, rootMargin:'0px 0px -8% 0px'});
+    document.querySelectorAll('.reveal').forEach(function(el){ io.observe(el); });
+  } else {
+    document.querySelectorAll('.reveal').forEach(function(el){ el.classList.add('in'); });
+  }
+
+  // Nav shadow on scroll
+  var nav = document.getElementById('nav');
+  var onScroll = function(){ nav.classList.toggle('scrolled', window.scrollY > 12); };
+  onScroll(); window.addEventListener('scroll', onScroll, {passive:true});
+
+  // Mobile nav toggle -> jump to booking (simple, no menu drawer)
+  var toggle = document.getElementById('navToggle');
+  if(toggle){ toggle.addEventListener('click', function(){ document.getElementById('book').scrollIntoView({behavior: rm ? 'auto':'smooth'}); }); }
+})();
+</script>
+</body>
+</html>

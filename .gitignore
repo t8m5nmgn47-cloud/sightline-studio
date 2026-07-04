@@ -15,6 +15,7 @@ Thumbs.db
 # Research/scraped artifacts — analysis only, not for production
 assets/harvest/
 assets/captured/*/pages/
+engine/preview/national/
 
 # Generated per-prospect demos (build output; publish a specific one with: git add -f demos/<slug>)
 demos/

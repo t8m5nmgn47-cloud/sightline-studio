@@ -1,0 +1,33 @@
+{
+  "slug": "paxchristi",
+  "name": "Pax Christi",
+  "nameFull": "Pax Christi Catholic Parish",
+  "tradition": "catholic",
+  "locale": "Highlands Ranch · Lone Tree",
+  "verse": "Peace I leave with you; my peace I give you.",
+  "verseRef": "John 14:27",
+  "phone": "(303) 799-1036",
+  "hero": "/assets/captured/missionhills-org/hero-crop.jpg",
+  "headline": { "lead": "You belong at the table.", "accent": "Come home to Mass." },
+  "announce": "This week — First Friday Adoration begins at 7:00 PM in the main chapel.",
+  "lede": "A Catholic community in the south metro — come as you are to the table. Whether you're returning to the faith or seeking it for the first time, there's a place for you at Mass.",
+  "campaign": { "kicker": "The Renew Our Parish campaign", "head": "Restoring the sanctuary for the next generation.", "raised": "$1,340,000", "goal": "$2,000,000", "pct": 67, "donors": "980 families pledged" },
+  "times": [
+    { "label": "Saturday Vigil", "time": "5:00 PM" },
+    { "label": "Sunday Mass", "time": "7:30 · 9:00 · 11:00 AM" },
+    { "label": "Misa en Español", "time": "Domingos 1:00 PM" },
+    { "label": "Daily Mass", "time": "Mon–Fri 8:00 AM" }
+  ],
+  "campuses": [
+    { "name": "Main Church", "note": "The historic parish sanctuary", "times": "Sat 5 PM · Sun 7:30, 9 & 11 AM" },
+    { "name": "Adoration Chapel", "note": "Open for prayer daily", "times": "6 AM – 9 PM, seven days" },
+    { "name": "Parish Center", "note": "Faith formation & fellowship", "times": "Classes weeknights" },
+    { "name": "Español", "note": "Una comunidad, en tu idioma", "times": "Domingos 1 PM" }
+  ],
+  "events": [
+    { "date": "Fri · Jul 11", "title": "First Friday Adoration", "detail": "Main Chapel · 7:00 PM", "cta": "Learn more →" },
+    { "date": "Sun · Jul 20", "title": "RCIA Inquiry Night", "detail": "Parish Center · 6:30 PM", "cta": "Save my spot →" },
+    { "date": "Sat · Jul 26", "title": "Parish Festival & Blessing", "detail": "All families welcome · 11:00 AM", "cta": "Details →" }
+  ],
+  "story": { "cite": "Elena, parishioner since 2019" }
+}

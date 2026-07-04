@@ -1,0 +1,544 @@
+<!doctype html><html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>{{NAME_FULL}} — Rest for the weary</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;1,6..72,300;1,6..72,400&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#22201c;        /* deep charcoal ink */
+  --bg:#fbfaf7;         /* soft off-white */
+  --sage:#54614a;       /* muted sage */
+  --sage-deep:#5c6754;
+  --stone:#6e6656;      /* warm stone / taupe */
+  --line:#e6e2da;
+  --mut:#54503f;
+  --disp:'Newsreader',Georgia,serif;
+  --body:'Inter',system-ui,sans-serif;
+  --ease:cubic-bezier(.22,.61,.36,1);
+  --gap:clamp(6.5rem,15vw,13rem);   /* the breath between sections */
+}
+*{box-sizing:border-box;margin:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:clamp(.94rem,.5vw + .8rem,1rem);line-height:1.75;-webkit-font-smoothing:antialiased;overflow-x:hidden;font-weight:400}
+::selection{background:var(--sage);color:#fff}
+a{color:inherit}
+img{max-width:100%;display:block}
+:focus-visible{outline:2px solid var(--sage);outline-offset:4px;border-radius:2px}
+h1,h2,h3{font-family:var(--disp);font-weight:300;line-height:1.08;letter-spacing:-.012em;text-wrap:balance}
+em{font-style:italic}
+.wrap{max-width:1180px;margin:0 auto;padding:0 clamp(1.5rem,6vw,5.5rem)}
+.narrow{max-width:760px}
+
+/* small refined section label */
+.kicker{font-family:var(--body);font-size:.68rem;font-weight:500;letter-spacing:.32em;text-transform:uppercase;color:var(--stone)}
+.rule{width:34px;height:1px;background:var(--stone);opacity:.6}
+
+/* ── top bar ─────────────────────────────── */
+.topbar{position:absolute;top:0;left:0;right:0;z-index:30;display:flex;align-items:center;justify-content:space-between;padding:clamp(1.6rem,3vw,2.6rem) clamp(1.5rem,6vw,5.5rem)}
+.brand{text-decoration:none;font-family:var(--disp);font-weight:400;font-size:1.15rem;letter-spacing:.02em;color:var(--ink);display:flex;align-items:center;gap:.6rem}
+.brand .mk{font-size:.7rem;color:var(--sage);letter-spacing:.05em}
+.nav{display:flex;gap:clamp(1.4rem,2.4vw,2.6rem);font-size:.78rem;letter-spacing:.04em;color:var(--mut)}
+.nav a{text-decoration:none;transition:color .4s var(--ease)}
+.nav a:hover{color:var(--ink)}
+.nav .give{color:var(--sage-deep);border-bottom:1px solid var(--sage);padding-bottom:2px}
+@media(max-width:820px){.nav a:not(.give){display:none}}
+
+/* ── announce (whisper, not shout) ───────── */
+.announce{text-align:center;font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;color:var(--mut);padding:1rem;background:transparent;border-bottom:1px solid var(--line)}
+.announce a{color:var(--sage-deep);text-decoration:none;border-bottom:1px solid var(--line)}
+
+/* ── HERO — restrained, a soft band of image ─ */
+.hero{position:relative;padding:clamp(9rem,20vh,13rem) 0 clamp(4rem,9vw,7rem)}
+.hero .wrap{position:relative;z-index:2}
+.hero .eyebrow{color:var(--stone);margin-bottom:2rem;display:flex;align-items:center;gap:1rem}
+.hero h1{font-size:clamp(2.6rem,7vw,5.6rem);font-weight:300;letter-spacing:-.02em;max-width:16ch}
+.hero h1 em{color:var(--sage);font-weight:300}
+.hero .lede{max-width:44ch;color:var(--mut);font-size:clamp(1.02rem,1.4vw,1.18rem);line-height:1.7;margin:2.2rem 0 2.8rem}
+.hero-actions{display:flex;gap:2rem;align-items:center;flex-wrap:wrap}
+
+/* the calm image band — faded, duotone-ish, sits low */
+.hero-band{position:relative;margin-top:clamp(4rem,8vw,7rem);height:clamp(200px,34vw,420px);overflow:hidden}
+.hero-band img{width:100%;height:100%;object-fit:cover;object-position:center 32%;filter:grayscale(.5) sepia(.14) brightness(1.03) contrast(.94);opacity:.9}
+.hero-band::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,var(--bg) 0%,transparent 22%,transparent 72%,rgba(251,250,247,.82) 100%),linear-gradient(90deg,rgba(121,134,111,.12),transparent 40%,transparent 60%,rgba(168,154,134,.12))}
+
+/* text link (the primary "button" — restrained) */
+.link{display:inline-flex;align-items:center;gap:.6rem;text-decoration:none;font-size:.9rem;letter-spacing:.02em;color:var(--ink);padding-bottom:.35rem;border-bottom:1px solid var(--ink);transition:gap .4s var(--ease),border-color .4s,color .4s}
+.link:hover{gap:1rem;color:var(--sage-deep);border-color:var(--sage)}
+.link.subtle{color:var(--mut);border-color:var(--line)}
+.link.subtle:hover{color:var(--ink);border-color:var(--stone)}
+.link .ar{transition:transform .4s var(--ease)}
+.link:hover .ar{transform:translateX(3px)}
+
+/* ── SCRIPTURE — the still point ─────────── */
+.scripture{padding:var(--gap) 0;text-align:center}
+.scripture blockquote{font-family:var(--disp);font-weight:300;font-style:italic;font-size:clamp(1.7rem,4.2vw,3.2rem);line-height:1.28;letter-spacing:-.01em;max-width:19ch;margin:0 auto;color:var(--ink)}
+.scripture cite{display:block;margin-top:2.4rem;font-style:normal}
+
+/* generic section head */
+.head{max-width:52ch;margin-bottom:clamp(3rem,6vw,5rem)}
+.head .kicker{display:block;margin-bottom:1.4rem}
+.head h2{font-size:clamp(1.9rem,4vw,3.1rem);font-weight:300}
+.head p{color:var(--mut);margin-top:1.4rem;max-width:46ch}
+
+/* ── MISSION ─────────────────────────────── */
+.mission{padding:var(--gap) 0}
+.mission .big{font-family:var(--disp);font-weight:300;font-size:clamp(1.7rem,3.6vw,2.9rem);line-height:1.32;letter-spacing:-.01em;max-width:24ch}
+.mission .big em{color:var(--sage)}
+.mission .row{display:grid;grid-template-columns:1.4fr 1fr;gap:clamp(2rem,6vw,5rem);align-items:end;margin-top:clamp(3rem,6vw,5rem);padding-top:2.6rem;border-top:1px solid var(--line)}
+@media(max-width:760px){.mission .row{grid-template-columns:1fr;gap:2.4rem}}
+.mission .row p{color:var(--mut);max-width:42ch}
+.stats{display:flex;gap:clamp(2rem,5vw,3.5rem)}
+.stat b{font-family:var(--disp);font-weight:300;font-size:clamp(2.6rem,5vw,3.6rem);line-height:1;display:block;color:var(--sage-deep)}
+.stat span{font-size:.8rem;color:var(--mut);letter-spacing:.02em}
+
+/* ── FIRST VISIT — quiet numbered rows ───── */
+.visit{padding:var(--gap) 0}
+.steps{display:grid;grid-template-columns:repeat(2,1fr);gap:0}
+@media(max-width:620px){.steps{grid-template-columns:1fr}}
+.step{padding:2.4rem 0;border-top:1px solid var(--line);display:grid;grid-template-columns:auto 1fr;gap:clamp(1.4rem,3vw,2.6rem);align-items:baseline}
+.step:nth-child(odd){padding-right:clamp(1.4rem,4vw,3rem)}
+.step:nth-child(even){padding-left:clamp(1.4rem,4vw,3rem)}
+@media(min-width:621px){.step:nth-child(even){border-left:1px solid var(--line)}}
+.step .n{font-family:var(--disp);font-weight:300;font-size:1.1rem;color:var(--stone);font-variant-numeric:tabular-nums}
+.step h3{font-size:1.28rem;font-weight:400;margin-bottom:.6rem}
+.step p{color:var(--mut);font-size:.92rem;line-height:1.65}
+
+/* ── NEXT STEPS — a slow, spare list ─────── */
+.path{padding:var(--gap) 0}
+.pathlist{border-top:1px solid var(--line)}
+.pline{display:grid;grid-template-columns:3rem 1fr auto;gap:clamp(1rem,3vw,2.4rem);align-items:baseline;padding:1.9rem 0;border-bottom:1px solid var(--line);transition:padding-left .5s var(--ease)}
+.pline:hover{padding-left:.8rem}
+.pline .idx{font-family:var(--disp);font-weight:300;color:var(--stone);font-variant-numeric:tabular-nums}
+.pline h3{font-size:clamp(1.2rem,2.4vw,1.7rem);font-weight:300}
+.pline p{color:var(--mut);font-size:.9rem;margin-top:.2rem;max-width:40ch}
+@media(max-width:640px){.pline{grid-template-columns:2rem 1fr}.pline .p-desc{grid-column:2}}
+
+/* ── WATCH — spare split ─────────────────── */
+.watch{padding:var(--gap) 0}
+.watch .grid{display:grid;grid-template-columns:1fr .85fr;gap:clamp(2.5rem,6vw,5rem);align-items:center}
+@media(max-width:820px){.watch .grid{grid-template-columns:1fr;gap:2.5rem}}
+.player{position:relative;aspect-ratio:4/3;overflow:hidden;background:#2a2b26}
+.player img{width:100%;height:100%;object-fit:cover;filter:grayscale(.4) brightness(.82);transition:transform 1.2s var(--ease),filter 1.2s}
+.player:hover img{transform:scale(1.03);filter:grayscale(.15) brightness(.9)}
+.player .play{position:absolute;inset:0;display:grid;place-items:center;text-decoration:none}
+.player .play span{width:76px;height:76px;border-radius:50%;border:1px solid rgba(255,255,255,.7);color:#fff;display:grid;place-items:center;font-size:1rem;padding-left:4px;transition:background .4s var(--ease),transform .4s}
+.player:hover .play span{background:rgba(255,255,255,.14);transform:scale(1.06)}
+.player .cap{position:absolute;left:1.4rem;bottom:1.3rem;color:#fff}
+.player .cap b{font-family:var(--disp);font-weight:400;font-size:1.1rem;display:block}
+.player .cap em{font-style:normal;font-size:.78rem;opacity:.8}
+.watch h2{font-size:clamp(1.8rem,3.6vw,2.7rem);font-weight:300}
+.watch p{color:var(--mut);margin:1.4rem 0 2.2rem;max-width:40ch}
+.watch .two{display:flex;gap:2rem;flex-wrap:wrap}
+
+/* ── BELONG — three quiet columns ────────── */
+.belong{padding:var(--gap) 0}
+.bcols{display:grid;grid-template-columns:repeat(3,1fr);gap:0;border-top:1px solid var(--line)}
+@media(max-width:760px){.bcols{grid-template-columns:1fr}}
+.bcol{padding:2.6rem clamp(1.4rem,3vw,2.4rem) 2.6rem 0;border-top:1px solid var(--line);margin-top:-1px}
+@media(min-width:761px){.bcol+.bcol{padding-left:clamp(1.4rem,3vw,2.4rem);border-left:1px solid var(--line)}}
+.bcol .gl{font-family:var(--disp);font-size:1.4rem;color:var(--sage);font-weight:300}
+.bcol h3{font-size:1.32rem;font-weight:400;margin:1rem 0 .7rem}
+.bcol p{color:var(--mut);font-size:.92rem;line-height:1.65;margin-bottom:1.4rem}
+
+/* ── MINISTRIES by age — restrained list ─── */
+.min{padding:var(--gap) 0}
+.mrow{display:grid;grid-template-columns:.8fr 1.4fr 1fr;gap:clamp(1rem,3vw,2.4rem);align-items:baseline;padding:2rem 0;border-bottom:1px solid var(--line);transition:padding-left .5s var(--ease)}
+.mrow:first-of-type{border-top:1px solid var(--line)}
+.mrow:hover{padding-left:.8rem}
+.mrow .age{font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;color:var(--stone)}
+.mrow h3{font-size:clamp(1.3rem,2.6vw,1.9rem);font-weight:300}
+.mrow p{color:var(--mut);font-size:.9rem}
+@media(max-width:700px){.mrow{grid-template-columns:1fr;gap:.4rem}}
+
+/* ── IMAGE BREAK — the one calm image ────── */
+.break{position:relative;height:clamp(280px,42vw,520px);overflow:hidden;margin:0}
+.break img{width:100%;height:100%;object-fit:cover;object-position:center 38%;filter:grayscale(.42) sepia(.12) brightness(.9);transform:scale(1.04)}
+.break .over{position:absolute;inset:0;display:grid;place-items:center;text-align:center;padding:2rem;background:linear-gradient(rgba(34,32,28,.28),rgba(34,32,28,.42))}
+.break .over p{font-family:var(--disp);font-weight:300;font-style:italic;font-size:clamp(1.4rem,3.4vw,2.6rem);color:#fff;max-width:20ch;line-height:1.3;letter-spacing:-.01em}
+
+/* ── CAMPAIGN — quiet fundraiser ─────────── */
+.campaign{padding:var(--gap) 0}
+.campaign .grid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(2.5rem,7vw,6rem);align-items:center}
+@media(max-width:820px){.campaign .grid{grid-template-columns:1fr;gap:2.8rem}}
+.campaign h2{font-size:clamp(1.9rem,4vw,3rem);font-weight:300}
+.campaign p{color:var(--mut);margin:1.4rem 0;max-width:42ch}
+.raise .amt{font-family:var(--disp);font-weight:300;font-size:clamp(2.4rem,5vw,3.6rem);line-height:1;color:var(--sage-deep)}
+.raise .amt small{font-family:var(--body);display:block;font-size:.82rem;color:var(--mut);margin-top:.7rem;letter-spacing:.02em}
+.track{height:3px;background:var(--line);margin:2rem 0 1rem;overflow:hidden}
+.track .fill{height:100%;background:var(--sage);width:0;transition:width 2s var(--ease)}
+.raise .meta{display:flex;justify-content:space-between;font-size:.78rem;letter-spacing:.06em;color:var(--mut);text-transform:uppercase}
+.raise .link{margin-top:2rem}
+
+/* ── GIVE ────────────────────────────────── */
+.give{padding:var(--gap) 0}
+.give .grid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(2.5rem,7vw,6rem);align-items:start}
+@media(max-width:820px){.give .grid{grid-template-columns:1fr;gap:2.4rem}}
+.give h2{font-size:clamp(1.9rem,4vw,3rem);font-weight:300}
+.give p{color:var(--mut);margin:1.4rem 0 2rem;max-width:40ch}
+.gopt{padding:1.6rem 0;border-top:1px solid var(--line)}
+.gopt:last-child{border-bottom:1px solid var(--line)}
+.gopt b{font-weight:500;font-size:.98rem;display:block;margin-bottom:.35rem}
+.gopt span{color:var(--mut);font-size:.9rem}
+
+/* ── EVENTS — dated editorial rows ───────── */
+.events{padding:var(--gap) 0}
+.erow{display:grid;grid-template-columns:150px 1fr auto;gap:clamp(1rem,3vw,2.4rem);align-items:baseline;padding:2rem 0;border-bottom:1px solid var(--line);transition:padding-left .5s var(--ease)}
+.erow:first-of-type{border-top:1px solid var(--line)}
+.erow:hover{padding-left:.8rem}
+.erow .date{font-family:var(--disp);font-weight:300;font-size:1.05rem;color:var(--stone)}
+.erow h3{font-size:clamp(1.2rem,2.4vw,1.6rem);font-weight:300}
+.erow p{color:var(--mut);font-size:.86rem;margin-top:.3rem}
+.erow .go{font-size:.8rem;color:var(--sage-deep);text-decoration:none;border-bottom:1px solid var(--line);padding-bottom:2px;white-space:nowrap;transition:border-color .4s}
+.erow .go:hover{border-color:var(--sage)}
+@media(max-width:640px){.erow{grid-template-columns:1fr;gap:.4rem}.erow .go{display:none}}
+
+/* ── TIMES + CAMPUSES ────────────────────── */
+.gather{padding:var(--gap) 0}
+.gather .grid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(2.5rem,7vw,6rem);align-items:start}
+@media(max-width:820px){.gather .grid{grid-template-columns:1fr;gap:3rem}}
+.gather h2{font-size:clamp(1.9rem,4vw,3rem);font-weight:300}
+.gather .loc{color:var(--mut);margin-top:1.2rem;max-width:36ch}
+.tlist{list-style:none;padding:0;margin-top:.5rem}
+.tlist li{display:flex;justify-content:space-between;gap:1.5rem;padding:1.15rem 0;border-bottom:1px solid var(--line)}
+.tlist li:first-child{border-top:1px solid var(--line)}
+.tlist b{font-weight:500;font-size:.98rem}
+.tlist span{color:var(--sage-deep);font-variant-numeric:tabular-nums;font-size:.94rem}
+
+.campuses{padding:0 0 var(--gap)}
+.campgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:0;border-top:1px solid var(--line)}
+@media(max-width:760px){.campgrid{grid-template-columns:1fr}}
+.campus{padding:2.4rem clamp(1.2rem,2.6vw,2rem) 2.4rem 0;border-bottom:1px solid var(--line)}
+@media(min-width:761px){.campus{border-right:1px solid var(--line);padding-left:clamp(1.2rem,2.6vw,2rem)}.campus:first-child{padding-left:0}.campgrid .campus:nth-child(3n){border-right:none}}
+.campus h3{font-size:1.3rem;font-weight:400}
+.campus .adr{color:var(--mut);font-size:.86rem;margin:.7rem 0 1rem;line-height:1.6}
+.campus .t{font-size:.85rem;color:var(--sage-deep);font-variant-numeric:tabular-nums}
+.campus .link{margin-top:1.3rem}
+
+/* ── STORY / testimonial ─────────────────── */
+.story{padding:var(--gap) 0;text-align:center}
+.story blockquote{font-family:var(--disp);font-weight:300;font-style:italic;font-size:clamp(1.5rem,3.6vw,2.6rem);line-height:1.34;letter-spacing:-.01em;max-width:26ch;margin:0 auto;color:var(--ink)}
+.story cite{display:block;margin-top:2rem;font-style:normal}
+
+/* ── CONNECT — app + newsletter ──────────── */
+.connect{padding:var(--gap) 0}
+.congrid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(2.5rem,6vw,5rem)}
+@media(max-width:760px){.congrid{grid-template-columns:1fr;gap:3rem}}
+.conbox h3{font-size:clamp(1.5rem,3vw,2.1rem);font-weight:300}
+.conbox p{color:var(--mut);margin:1rem 0 1.8rem;max-width:36ch}
+.stores{display:flex;gap:1.5rem;flex-wrap:wrap}
+.nform{display:flex;gap:1rem;align-items:center;border-bottom:1px solid var(--ink);padding-bottom:.6rem;max-width:400px}
+.nform input{flex:1;border:0;background:transparent;font:inherit;color:var(--ink);padding:.3rem 0}
+.nform input::placeholder{color:var(--stone)}
+.nform input:focus{outline:none}
+.nform button{border:0;background:transparent;font:inherit;font-size:.85rem;color:var(--sage-deep);cursor:pointer;letter-spacing:.02em}
+
+/* ── CLOSING invite ──────────────────────── */
+.invite{padding:var(--gap) 0;text-align:center}
+.invite h2{font-size:clamp(2.2rem,6vw,4.6rem);font-weight:300;letter-spacing:-.02em}
+.invite p{color:var(--mut);margin:1.8rem auto 2.6rem;max-width:34ch;font-size:1.05rem}
+.invite .link{font-size:1rem}
+
+/* ── FOOTER ──────────────────────────────── */
+.foot{padding:clamp(3.5rem,7vw,6rem) 0 3rem;border-top:1px solid var(--line)}
+.foot .cols{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:clamp(1.6rem,4vw,3rem)}
+@media(max-width:760px){.foot .cols{grid-template-columns:1fr 1fr}}
+@media(max-width:460px){.foot .cols{grid-template-columns:1fr}}
+.foot .bn{font-family:var(--disp);font-size:1.4rem;font-weight:400}
+.foot .tag{color:var(--mut);font-size:.86rem;margin-top:1rem;max-width:30ch;line-height:1.6}
+.foot h4{font-size:.66rem;letter-spacing:.24em;text-transform:uppercase;color:var(--stone);margin-bottom:1.2rem;font-weight:500}
+.foot ul{list-style:none;padding:0;display:flex;flex-direction:column;gap:.8rem}
+.foot a{color:var(--mut);text-decoration:none;font-size:.9rem;transition:color .4s}
+.foot a:hover{color:var(--ink)}
+.foot .fine{margin-top:clamp(3rem,6vw,5rem);padding-top:1.6rem;border-top:1px solid var(--line);display:flex;justify-content:space-between;flex-wrap:wrap;gap:.8rem;font-size:.76rem;letter-spacing:.04em;color:var(--stone)}
+
+/* ── slow reveal ─────────────────────────── */
+.reveal{opacity:0;transform:translateY(18px);transition:opacity 1.4s var(--ease),transform 1.4s var(--ease)}
+.reveal.in{opacity:1;transform:none}
+@media(prefers-reduced-motion:reduce){
+  .reveal{opacity:1!important;transform:none!important;transition:none}
+  .track .fill{transition:none}
+  html{scroll-behavior:auto}
+}
+</style></head>
+<body>
+
+<div class="announce">This weekend · Easter services — Sat 4 &nbsp;·&nbsp; Sun 8, 9:15 &amp; 11 &nbsp; <a href="#visit">Plan your visit</a></div>
+
+<header class="hero">
+  <div class="topbar">
+    <a class="brand" href="#"><span class="mk">✦</span> {{NAME}}</a>
+    <nav class="nav">
+      <a href="#visit">Visit</a>
+      <a href="#watch">Watch</a>
+      <a href="#events">Events</a>
+      <a href="#gather">Campuses</a>
+      <a href="#give" class="give">Give</a>
+    </nav>
+  </div>
+  <div class="wrap">
+    <p class="eyebrow kicker">{{LOCALE}}</p>
+    <h1>{{HERO_LEAD}}<br><em>{{HERO_ACCENT}}</em></h1>
+    <p class="lede">One church across south Denver, holding a quiet space for anyone tired of carrying it alone. You don't have to have it together to belong here.</p>
+    <div class="hero-actions">
+      <a class="link" href="#visit">Plan your first visit <span class="ar">→</span></a>
+      <a class="link subtle" href="#watch">Watch a message</a>
+    </div>
+  </div>
+  <div class="hero-band" aria-hidden="true">
+    <img src="/assets/captured/missionhills-org/hero-crop.jpg" alt="">
+  </div>
+</header>
+
+<section class="scripture reveal">
+  <div class="wrap">
+    <blockquote>{{VERSE}}</blockquote>
+    <cite class="kicker">{{VERSE_REF}}</cite>
+  </div>
+</section>
+
+<section class="mission">
+  <div class="wrap">
+    <p class="big reveal">We exist to help people <em>become like Jesus</em> and join Him on mission — right where they already live, work, and play.</p>
+    <div class="row">
+      <p class="reveal">Four campuses, one family. Whether you've been in church your whole life or haven't set foot in one in years, there's room for you here — and no expectation that you arrive with it all figured out.</p>
+      <div class="stats reveal">
+        <div class="stat"><b>4</b><span>Campuses across<br>south Denver</span></div>
+        <div class="stat"><b>1</b><span>Church, meeting people<br>where they are</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="visit" id="visit">
+  <div class="wrap">
+    <div class="head reveal">
+      <span class="kicker">New here?</span>
+      <h2>Your first Sunday, minus the mystery.</h2>
+      <p>No pressure, no spotlight. Here is exactly what to expect — so the only thing you have to think about is showing up.</p>
+    </div>
+    <div class="steps">
+      <div class="step reveal"><span class="n">01</span><div><h3>Easy parking</h3><p>Reserved first-time spots right by the doors. Look for the welcome team.</p></div></div>
+      <div class="step reveal"><span class="n">02</span><div><h3>Come as you are</h3><p>Jeans, coffee in hand, whatever. You'll be welcomed, never sized up.</p></div></div>
+      <div class="step reveal"><span class="n">03</span><div><h3>Kids are covered</h3><p>Safe, secure check-in for newborn through 5th grade, staffed by people who love it.</p></div></div>
+      <div class="step reveal"><span class="n">04</span><div><h3>About an hour</h3><p>Music, an honest message, and you're free — stay for coffee if you like.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<section class="path" id="next-steps">
+  <div class="wrap">
+    <div class="head reveal">
+      <span class="kicker">Your next step</span>
+      <h2>Not sure where to start? Start here.</h2>
+      <p>Faith isn't a leap — it's a path. Here is the well-worn one thousands have walked at {{NAME}}.</p>
+    </div>
+    <div class="pathlist">
+      <div class="pline reveal"><span class="idx">1</span><h3>Plan a visit</h3><p class="p-desc">Tell us you're coming — we'll be watching for you.</p></div>
+      <div class="pline reveal"><span class="idx">2</span><h3>Start a relationship</h3><p class="p-desc">Take the next step of faith and get baptized.</p></div>
+      <div class="pline reveal"><span class="idx">3</span><h3>Join a group</h3><p class="p-desc">Do life with people who'll know your name.</p></div>
+      <div class="pline reveal"><span class="idx">4</span><h3>Serve a team</h3><p class="p-desc">Use your gifts — belonging happens here.</p></div>
+      <div class="pline reveal"><span class="idx">5</span><h3>Live on mission</h3><p class="p-desc">Carry it into your everyday, everywhere.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="watch" id="watch">
+  <div class="wrap grid">
+    <a class="player reveal" href="#" aria-label="Watch: Real. Messy. New. — Week 3">
+      <img src="/assets/captured/missionhills-org/hero-crop.jpg" alt="Worship gathering">
+      <span class="play"><span aria-hidden="true">▶</span></span>
+      <span class="cap"><b>Real. Messy. New. — Week 3</b><em>Pastor Craig Smith · 38 min</em></span>
+    </a>
+    <div class="reveal">
+      <span class="kicker" style="display:block;margin-bottom:1.2rem">Watch</span>
+      <h2>Can't make it in person?</h2>
+      <p>Every service streams live, and the full message library is a tap away — a quiet way to sample before you step in.</p>
+      <div class="two">
+        <a class="link" href="#">Watch live <span class="ar">→</span></a>
+        <a class="link subtle" href="#">Past messages</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="belong">
+  <div class="wrap">
+    <div class="head reveal">
+      <span class="kicker">Belong</span>
+      <h2>A big church becomes family in a small room.</h2>
+      <p>Sunday is the front door — a group is where you actually get known. Find your people by season of life.</p>
+    </div>
+    <div class="bcols">
+      <div class="bcol reveal"><span class="gl">◎</span><h3>Find a group</h3><p>Life groups meeting all week across every campus and neighborhood.</p><a class="link subtle" href="#">Match me with a group</a></div>
+      <div class="bcol reveal"><span class="gl">✋</span><h3>Serve on a team</h3><p>Kids, worship, hospitality, tech, outreach — serving is how you belong.</p><a class="link subtle" href="#">Find your place</a></div>
+      <div class="bcol reveal"><span class="gl">✚</span><h3>Care &amp; prayer</h3><p>However you come, you don't come alone. Real people, ready to pray with you.</p><a class="link subtle" href="#">Request prayer</a></div>
+    </div>
+  </div>
+</section>
+
+<section class="min" id="ministries">
+  <div class="wrap">
+    <div class="head reveal">
+      <span class="kicker">For every age</span>
+      <h2>There's a place for your whole family.</h2>
+      <p>From the nursery to your teenager to you — everyone has somewhere to belong on Sunday.</p>
+    </div>
+    <div class="mrow reveal"><span class="age">Birth – 5th grade</span><h3>{{NAME}} Kids</h3><p>Safe, fun, and gospel-centered.</p></div>
+    <div class="mrow reveal"><span class="age">6th – 12th grade</span><h3>Students</h3><p>Where teens are actually known.</p></div>
+    <div class="mrow reveal"><span class="age">18 – 29</span><h3>Young Adults</h3><p>Community for this season of life.</p></div>
+    <div class="mrow reveal"><span class="age">Men · Women · Marriage</span><h3>Adults</h3><p>Grow deeper, together.</p></div>
+  </div>
+</section>
+
+<section class="break reveal" aria-hidden="true">
+  <img src="/assets/captured/missionhills-org/hero-crop.jpg" alt="">
+  <div class="over"><p>Come as you are. Rest a while.</p></div>
+</section>
+
+<section class="campaign" id="give-campaign">
+  <div class="wrap grid">
+    <div class="reveal">
+      <span class="kicker" style="display:block;margin-bottom:1.2rem">{{CAMPAIGN_KICKER}}</span>
+      <h2>{{CAMPAIGN_HEAD}}</h2>
+      <p>We're out of seats at our Castle Rock campus. Together we're building space so no one who shows up this Easter has to be turned away.</p>
+    </div>
+    <div class="raise reveal">
+      <div class="amt">{{RAISED}} <small>raised of a {{GOAL}} goal</small></div>
+      <div class="track"><div class="fill" data-pct="{{PCTN}}"></div></div>
+      <div class="meta"><span>{{PCT}} funded</span><span>{{DONORS}}</span></div>
+      <a class="link" href="#give">Give to the campaign <span class="ar">→</span></a>
+    </div>
+  </div>
+</section>
+
+<section class="give" id="give">
+  <div class="wrap grid">
+    <div class="reveal">
+      <span class="kicker" style="display:block;margin-bottom:1.2rem">Generosity</span>
+      <h2>Giving is worship, made simple.</h2>
+      <p>Everything we do — every campus, every kid cared for, every person reached — runs on the generosity of people like you. Give once, or set it and forget it.</p>
+      <a class="link" href="#">Give now <span class="ar">→</span></a>
+    </div>
+    <div class="gopts reveal">
+      <div class="gopt"><b>Recurring giving</b><span>Automate your generosity weekly or monthly — the easiest way to stay consistent.</span></div>
+      <div class="gopt"><b>Text to give</b><span>Text GIVE to (303) 555-0110 — it takes about fifteen seconds.</span></div>
+      <div class="gopt"><b>Stocks, DAF &amp; more</b><span>Give appreciated assets or from a donor-advised fund — we'll walk you through it.</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="events" id="events">
+  <div class="wrap">
+    <div class="head reveal">
+      <span class="kicker">Coming up</span>
+      <h2>Life together, on the calendar.</h2>
+    </div>
+    <div class="erow reveal"><span class="date">Fri · Jul 12</span><div><h3>Extreme Color Wars</h3><p>Student Ministry · Littleton Campus · 6:30 PM</p></div><a class="go" href="#">Register</a></div>
+    <div class="erow reveal"><span class="date">Sat · Jul 20</span><div><h3>Men's BBQ &amp; Baptism</h3><p>Castle Rock Campus · 11:00 AM</p></div><a class="go" href="#">Register</a></div>
+    <div class="erow reveal"><span class="date">Sun · Jul 28</span><div><h3>Starting Point — for anyone new</h3><p>All Campuses · after each service</p></div><a class="go" href="#">Save my spot</a></div>
+  </div>
+</section>
+
+<section class="gather" id="gather">
+  <div class="wrap grid">
+    <div class="reveal">
+      <span class="kicker" style="display:block;margin-bottom:1.2rem">This weekend</span>
+      <h2>Gather with us.</h2>
+      <p class="loc">Four campuses across the south Denver metro — plus online, anywhere you are.</p>
+    </div>
+    <ul class="tlist reveal">
+      <li><b>Saturday</b><span>4:00 PM</span></li>
+      <li><b>Sunday mornings</b><span>8:00 · 9:15 · 11:00 AM</span></li>
+      <li><b>Español</b><span>Sundays 1:00 PM</span></li>
+      <li><b>Online</b><span>Anytime</span></li>
+    </ul>
+  </div>
+</section>
+
+<section class="campuses">
+  <div class="wrap">
+    <div class="head reveal" style="margin-bottom:clamp(2rem,4vw,3rem)">
+      <span class="kicker">Find your campus</span>
+      <h2>One church, four rooms across the metro.</h2>
+    </div>
+    <div class="campgrid">
+      <div class="campus reveal"><h3>Littleton</h3><div class="adr">Our original campus · south of C-470</div><div class="t">Sat 4 · Sun 8, 9:15 &amp; 11 AM</div><a class="link subtle" href="#">Directions</a></div>
+      <div class="campus reveal"><h3>Castle Rock</h3><div class="adr">Growing fast — the Room for More campus</div><div class="t">Sun 9:15 &amp; 11 AM</div><a class="link subtle" href="#">Directions</a></div>
+      <div class="campus reveal"><h3>North Littleton</h3><div class="adr">Our newest neighborhood gathering</div><div class="t">Sun 10 AM</div><a class="link subtle" href="#">Directions</a></div>
+      <div class="campus reveal"><h3>Español</h3><div class="adr">Una familia, en tu idioma</div><div class="t">Domingos 1 PM</div><a class="link subtle" href="#">Cómo llegar</a></div>
+      <div class="campus reveal"><h3>Online</h3><div class="adr">Church wherever you are</div><div class="t">Live &amp; on-demand, anytime</div><a class="link subtle" href="#watch">Watch now</a></div>
+    </div>
+  </div>
+</section>
+
+<section class="story reveal">
+  <div class="wrap narrow">
+    <blockquote>"I hadn't been to church in fifteen years. I came for my kids and stayed because, for the first time, nobody expected me to have it all figured out."</blockquote>
+    <cite class="kicker">Marcus · Castle Rock campus</cite>
+  </div>
+</section>
+
+<section class="connect">
+  <div class="wrap congrid">
+    <div class="conbox reveal">
+      <h3>Carry church in your pocket.</h3>
+      <p>Messages, giving, notes, groups and your campus times — all in the {{NAME}} app.</p>
+      <div class="stores"><a class="link subtle" href="#">App Store</a><a class="link subtle" href="#">Google Play</a></div>
+    </div>
+    <div class="conbox reveal">
+      <h3>Stay in the loop.</h3>
+      <p>One friendly email a week — what's happening, and what's next.</p>
+      <form class="nform" onsubmit="return false">
+        <input type="email" placeholder="you@email.com" aria-label="Email address">
+        <button type="submit">Subscribe →</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<section class="invite">
+  <div class="wrap reveal">
+    <h2>We saved you a seat.</h2>
+    <p>However long it's been, this weekend is a good place to rest.</p>
+    <a class="link" href="#visit">Plan your visit <span class="ar">→</span></a>
+  </div>
+</section>
+
+<footer class="foot">
+  <div class="wrap">
+    <div class="cols">
+      <div>
+        <span class="bn">✦ {{NAME}}</span>
+        <p class="tag">Real. Messy. New. — helping the south Denver metro become like Jesus and join Him on mission.</p>
+      </div>
+      <div><h4>Explore</h4><ul><li><a href="#visit">Plan a Visit</a></li><li><a href="#watch">Watch</a></li><li><a href="#next-steps">Next Steps</a></li><li><a href="#ministries">Ministries</a></li><li><a href="#events">Events</a></li></ul></div>
+      <div><h4>Campuses</h4><ul><li><a href="#gather">Littleton</a></li><li><a href="#gather">Castle Rock</a></li><li><a href="#gather">North Littleton</a></li><li><a href="#gather">Español</a></li><li><a href="#watch">Online</a></li></ul></div>
+      <div><h4>Connect</h4><ul><li><a href="#give">Give</a></li><li><a href="#">Prayer</a></li><li><a href="#">Contact</a></li><li><a href="#">Instagram</a></li><li><a href="#">YouTube</a></li></ul></div>
+    </div>
+    <div class="fine"><span>© {{NAME_FULL}} · Littleton, Colorado</span><span>Site by Sightline</span></div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var reduce = matchMedia('(prefers-reduced-motion:reduce)').matches;
+  if(reduce){
+    document.querySelectorAll('.reveal').forEach(function(e){e.classList.add('in')});
+    var f=document.querySelector('.track .fill'); if(f)f.style.width=f.dataset.pct+'%';
+    return;
+  }
+  var io=new IntersectionObserver(function(es){
+    es.forEach(function(x){ if(x.isIntersecting){ x.target.classList.add('in'); io.unobserve(x.target); }});
+  },{threshold:.12,rootMargin:'0px 0px -8% 0px'});
+  document.querySelectorAll('.reveal').forEach(function(e){io.observe(e)});
+
+  var fill=document.querySelector('.track .fill');
+  if(fill){
+    var fo=new IntersectionObserver(function(es){
+      es.forEach(function(x){ if(x.isIntersecting){ fill.style.width=fill.dataset.pct+'%'; fo.disconnect(); }});
+    },{threshold:.5});
+    fo.observe(fill);
+  }
+})();
+</script>
+</body></html>
