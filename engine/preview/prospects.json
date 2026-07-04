@@ -1,0 +1,665 @@
+[
+  {
+    "type": "church",
+    "domain": "breakthroughchurchsd.com",
+    "name": "Breakthrough Church",
+    "platform": "FaithConnector",
+    "tradition": "contemporary",
+    "score": 0,
+    "tier": "DEAD",
+    "gaps": [
+      "Care & Prayer"
+    ],
+    "pitch": "Breakthrough Church has no working website — a dead placeholder where their front door should be.",
+    "dead": true
+  },
+  {
+    "type": "church",
+    "domain": "gfamilychurchmi.org",
+    "name": "gfamilychurchmi.org",
+    "platform": "FaithConnector",
+    "tradition": "contemporary",
+    "score": 0,
+    "tier": "DEAD",
+    "gaps": [
+      "Plan Your Visit",
+      "Service times & campus",
+      "Next Steps pathway",
+      "Groups & belonging",
+      "Serve & volunteer",
+      "Care & Prayer",
+      "Online giving",
+      "Kids & Families",
+      "Current & alive"
+    ],
+    "pitch": "gfamilychurchmi.org has no working website — a dead placeholder where their front door should be.",
+    "dead": true
+  },
+  {
+    "type": "church",
+    "domain": "totallife.org",
+    "name": "Total Life Church",
+    "platform": "FaithConnector",
+    "tradition": "contemporary",
+    "score": 0,
+    "tier": "DEAD",
+    "gaps": [
+      "Next Steps pathway",
+      "Serve & volunteer"
+    ],
+    "pitch": "Total Life Church has no working website — a dead placeholder where their front door should be.",
+    "dead": true
+  },
+  {
+    "type": "business",
+    "domain": "attorneysofhighlandsranch.com",
+    "name": "Checking your browser...",
+    "platform": "—",
+    "tradition": "business",
+    "score": 4,
+    "tier": "HOT",
+    "gaps": [
+      "Book / request appointment",
+      "Call / contact prominent",
+      "Services / what we do",
+      "Reviews & social proof",
+      "Team & credentials",
+      "Hours, location & map",
+      "New-customer offer",
+      "Photos / results",
+      "Financing / insurance / pricing"
+    ],
+    "pitch": "Leaking leads — missing book / request appointment, call / contact prominent, services / what we do. Scores 4/100; each fix is booked revenue.",
+    "dead": false
+  },
+  {
+    "type": "business",
+    "domain": "firmmedspa.com",
+    "name": "403",
+    "platform": "—",
+    "tradition": "business",
+    "score": 4,
+    "tier": "HOT",
+    "gaps": [
+      "Book / request appointment",
+      "Call / contact prominent",
+      "Services / what we do",
+      "Reviews & social proof",
+      "Team & credentials",
+      "Hours, location & map",
+      "New-customer offer",
+      "Photos / results",
+      "Financing / insurance / pricing"
+    ],
+    "pitch": "Leaking leads — missing book / request appointment, call / contact prominent, services / what we do. Scores 4/100; each fix is booked revenue.",
+    "dead": false
+  },
+  {
+    "type": "church",
+    "domain": "refugeindy.com",
+    "name": "Refuge Bible Church",
+    "platform": "FaithConnector",
+    "tradition": "contemporary",
+    "score": 35,
+    "tier": "HOT",
+    "gaps": [
+      "Plan Your Visit",
+      "Next Steps pathway",
+      "Groups & belonging",
+      "Online giving",
+      "Kids & Families",
+      "Current & alive"
+    ],
+    "pitch": "Pays for a site but it's missing plan your visit, next steps pathway, groups & belonging — scores 35/100 on congregation-readiness.",
+    "dead": false
+  },
+  {
+    "type": "church",
+    "domain": "asheville",
+    "name": "Asheville Church Network",
+    "platform": "FaithConnector",
+    "tradition": "contemporary",
+    "score": 42,
+    "tier": "HOT",
+    "gaps": [
+      "Service times & campus",
+      "Next Steps pathway",
+      "Groups & belonging",
+      "Serve & volunteer",
+      "Care & Prayer",
+      "Kids & Families"
+    ],
+    "pitch": "Pays for a site but it's missing service times & campus, next steps pathway, groups & belonging — scores 42/100 on congregation-readiness.",
+    "dead": false
+  },
+  {
+    "type": "church",
+    "domain": "greaterglorychurch.com",
+    "name": "Homepage",
+    "platform": "Nucleus",
+    "tradition": "contemporary",
+    "score": 44,
+    "tier": "HOT",
+    "gaps": [
+      "Service times & campus",
+      "Groups & belonging",
+      "Sermons / Watch",
+      "Kids & Families",
+      "Current & alive"
+    ],
+    "pitch": "Pays for a site but it's missing service times & campus, groups & belonging, sermons / watch — scores 44/100 on congregation-readiness.",
+    "dead": false
+  },
+  {
+    "type": "church",
+    "domain": "myfaithtab.com",
+    "name": "Faith Tabernacle - South FL",
+    "platform": "FaithConnector",
+    "tradition": "contemporary",
+    "score": 46,
+    "tier": "WARM",
+    "gaps": [
+      "Next Steps pathway",
+      "Groups & belonging",
+      "Serve & volunteer",
+      "Care & Prayer",
+      "Kids & Families"
+    ],
+    "pitch": "Pays for a site but it's missing next steps pathway, groups & belonging, serve & volunteer — scores 46/100 on congregation-readiness.",
+    "dead": false
+  },
+  {
+    "type": "church",
+    "domain": "ebenezerdacula.org",
+    "name": "Ebenezer Baptist Church",
+    "platform": "FaithConnector",
+    "tradition": "contemporary",
+    "score": 48,
+    "tier": "WARM",
+    "gaps": [
+      "Plan Your Visit",
+      "Next Steps pathway",
+      "Groups & belonging",
+      "Serve & volunteer",
+      "Care & Prayer"
+    ],
+    "pitch": "Pays for a site but it's missing plan your visit, next steps pathway, groups & belonging — scores 48/100 on congregation-readiness.",
+    "dead": false
+  },
+  {
+    "type": "church",
+    "domain": "urimperialbeach.com",
+    "name": "Upper Room Church",
+    "platform": "FaithConnector",
+    "tradition": "contemporary",
+    "score": 52,
+    "tier": "WARM",
+    "gaps": [
+      "Plan Your Visit",
+      "Next Steps pathway",
+      "Groups & belonging",
+      "Kids & Families"
+    ],
+    "pitch": "Pays for a site but it's missing plan your visit, next steps pathway, groups & belonging — scores 52/100 on congregation-readiness.",
+    "dead": false
+  },
+  {
+    "type": "church",
+    "domain": "vrieslandchurch.org",
+    "name": "Vriesland Church",
+    "platform": "Nucleus",
+    "tradition": "contemporary",
+    "score": 53,
+    "tier": "WARM",
+    "gaps": [
+      "Service times & campus",
+      "Groups & belonging",
+      "Care & Prayer",
+      "Kids & Families"
+    ],
+    "pitch": "Pays for a site but it's missing service times & campus, groups & belonging, care & prayer — scores 53/100 on congregation-readiness.",
+    "dead": false
+  },
+  {
+    "type": "church",
+    "domain": "movechurch.ca",
+    "name": "Move Church",
+    "platform": "FaithConnector",
+    "tradition": "contemporary",
+    "score": 55,
+    "tier": "WARM",
+    "gaps": [
+      "Service times & campus",
+      "Groups & belonging",
+      "Serve & volunteer",
+      "Care & Prayer",
+      "Current & alive"
+    ],
+    "pitch": "Pays for a site but it's missing service times & campus, groups & belonging, serve & volunteer — scores 55/100 on congregation-readiness.",
+    "dead": false
+  },
+  {
+    "type": "church",
+    "domain": "stmichaelelca.org",
+    "name": "St. Michael Lutheran Church",
+    "platform": "FaithConnector",
+    "tradition": "contemporary",
+    "score": 58,
+    "tier": "WARM",
+    "gaps": [
+      "Plan Your Visit",
+      "Next Steps pathway",
+      "Groups & belonging"
+    ],
+    "pitch": "Pays for a site but it's missing plan your visit, next steps pathway, groups & belonging — scores 58/100 on congregation-readiness.",
+    "dead": false
+  },
+  {
+    "type": "business",
+    "domain": "rosslawcolorado.com",
+    "name": "Family Lawyers Highlands Ranch, CO",
+    "platform": "—",
+    "tradition": "law",
+    "score": 58,
+    "tier": "WARM",
+    "gaps": [
+      "Book / request appointment",
+      "New-customer offer",
+      "Financing / insurance / pricing"
+    ],
+    "pitch": "Leaking leads — missing book / request appointment, new-customer offer, financing / insurance / pricing. Scores 58/100; each fix is booked revenue.",
+    "dead": false
+  },
+  {
+    "type": "church",
+    "domain": "hopewellchurch.online",
+    "name": "Hopewell Church",
+    "platform": "FaithConnector",
+    "tradition": "contemporary",
+    "score": 60,
+    "tier": "WARM",
+    "gaps": [
+      "Service times & campus",
+      "Groups & belonging",
+      "Care & Prayer",
+      "Kids & Families"
+    ],
+    "pitch": "Pays for a site but it's missing service times & campus, groups & belonging, care & prayer — scores 60/100 on congregation-readiness.",
+    "dead": false
+  },
+  {
+    "type": "church",
+    "domain": "kingdomculturephx.com",
+    "name": "Kingdom Culture",
+    "platform": "Nucleus",
+    "tradition": "contemporary",
+    "score": 61,
+    "tier": "WARM",
+    "gaps": [
+      "Service times & campus",
+      "Groups & belonging",
+      "Care & Prayer"
+    ],
+    "pitch": "Pays for a site but it's missing service times & campus, groups & belonging, care & prayer — scores 61/100 on congregation-readiness.",
+    "dead": false
+  },
+  {
+    "type": "church",
+    "domain": "northland",
+    "name": "Northland Bible Baptist Church",
+    "platform": "FaithConnector",
+    "tradition": "contemporary",
+    "score": 62,
+    "tier": "MILD",
+    "gaps": [
+      "Next Steps pathway",
+      "Groups & belonging",
+      "Serve & volunteer",
+      "Care & Prayer"
+    ],
+    "pitch": "Pays for a site but it's missing next steps pathway, groups & belonging, serve & volunteer — scores 62/100 on congregation-readiness.",
+    "dead": false
+  },
+  {
+    "type": "church",
+    "domain": "rosechurch.ca",
+    "name": "Rose Church",
+    "platform": "Nucleus",
+    "tradition": "contemporary",
+    "score": 62,
+    "tier": "MILD",
+    "gaps": [
+      "Groups & belonging",
+      "Care & Prayer",
+      "Sermons / Watch"
+    ],
+    "pitch": "Pays for a site but it's missing groups & belonging, care & prayer, sermons / watch — scores 62/100 on congregation-readiness.",
+    "dead": false
+  },
+  {
+    "type": "church",
+    "domain": "zionlincoln.org",
+    "name": "Zion Lutheran Church",
+    "platform": "FaithConnector",
+    "tradition": "mainline",
+    "score": 64,
+    "tier": "MILD",
+    "gaps": [
+      "Sermons / Watch",
+      "Mission & outreach",
+      "Music & worship arts",
+      "Care & prayer"
+    ],
+    "pitch": "Pays for a site but it's missing sermons / watch, mission & outreach, music & worship arts — scores 64/100 on congregation-readiness.",
+    "dead": false
+  },
+  {
+    "type": "church",
+    "domain": "friendshipbc.com",
+    "name": "Friendship Baptist Church",
+    "platform": "FaithConnector",
+    "tradition": "contemporary",
+    "score": 66,
+    "tier": "MILD",
+    "gaps": [
+      "Plan Your Visit",
+      "Groups & belonging",
+      "Care & Prayer"
+    ],
+    "pitch": "Pays for a site but it's missing plan your visit, groups & belonging, care & prayer — scores 66/100 on congregation-readiness.",
+    "dead": false
+  },
+  {
+    "type": "business",
+    "domain": "griffithslawpc.com",
+    "name": "Griffiths Law",
+    "platform": "—",
+    "tradition": "law",
+    "score": 66,
+    "tier": "MILD",
+    "gaps": [
+      "Reviews & social proof",
+      "New-customer offer"
+    ],
+    "pitch": "Leaking leads — missing reviews & social proof, new-customer offer. Scores 66/100; each fix is booked revenue.",
+    "dead": false
+  },
+  {
+    "type": "church",
+    "domain": "petrachurch.net",
+    "name": "Petra Church",
+    "platform": "FaithConnector",
+    "tradition": "contemporary",
+    "score": 68,
+    "tier": "MILD",
+    "gaps": [
+      "Next Steps pathway",
+      "Care & Prayer",
+      "Kids & Families"
+    ],
+    "pitch": "Pays for a site but it's missing next steps pathway, care & prayer, kids & families — scores 68/100 on congregation-readiness.",
+    "dead": false
+  },
+  {
+    "type": "church",
+    "domain": "cclongview.com",
+    "name": "Home",
+    "platform": "Nucleus",
+    "tradition": "contemporary",
+    "score": 69,
+    "tier": "MILD",
+    "gaps": [
+      "Groups & belonging",
+      "Kids & Families",
+      "Current & alive"
+    ],
+    "pitch": "Pays for a site but it's missing groups & belonging, kids & families, current & alive — scores 69/100 on congregation-readiness.",
+    "dead": false
+  },
+  {
+    "type": "business",
+    "domain": "araoent.com",
+    "name": "South Denver ENT & Allergy",
+    "platform": "—",
+    "tradition": "business",
+    "score": 70,
+    "tier": "MILD",
+    "gaps": [
+      "New-customer offer"
+    ],
+    "pitch": "Leaking leads — missing new-customer offer. Scores 70/100; each fix is booked revenue.",
+    "dead": false
+  },
+  {
+    "type": "business",
+    "domain": "truebeautymedspa.com",
+    "name": "True Beauty MedSpa",
+    "platform": "—",
+    "tradition": "medspa",
+    "score": 71,
+    "tier": "MILD",
+    "gaps": [
+      "New-customer offer",
+      "Financing / insurance / pricing"
+    ],
+    "pitch": "Leaking leads — missing new-customer offer, financing / insurance / pricing. Scores 71/100; each fix is booked revenue.",
+    "dead": false
+  },
+  {
+    "type": "church",
+    "domain": "lifepointecc.com",
+    "name": "Lifepointe Church",
+    "platform": "Nucleus",
+    "tradition": "contemporary",
+    "score": 72,
+    "tier": "MILD",
+    "gaps": [
+      "Groups & belonging",
+      "Serve & volunteer"
+    ],
+    "pitch": "Pays for a site but it's missing groups & belonging, serve & volunteer — scores 72/100 on congregation-readiness.",
+    "dead": false
+  },
+  {
+    "type": "business",
+    "domain": "cherryhillsdentist.com",
+    "name": "Cherry Hills Dental Associates",
+    "platform": "—",
+    "tradition": "dental",
+    "score": 72,
+    "tier": "MILD",
+    "gaps": [
+      "Photos / results",
+      "Financing / insurance / pricing"
+    ],
+    "pitch": "Leaking leads — missing photos / results, financing / insurance / pricing. Scores 72/100; each fix is booked revenue.",
+    "dead": false
+  },
+  {
+    "type": "business",
+    "domain": "coloradodermatology.com",
+    "name": "Colorado Dermatology Mohs Surgery",
+    "platform": "—",
+    "tradition": "medspa",
+    "score": 72,
+    "tier": "MILD",
+    "gaps": [
+      "Reviews & social proof"
+    ],
+    "pitch": "Leaking leads — missing reviews & social proof. Scores 72/100; each fix is booked revenue.",
+    "dead": false
+  },
+  {
+    "type": "church",
+    "domain": "calvarychapelnorthside.com",
+    "name": "Calvary Chapel Northside",
+    "platform": "Nucleus",
+    "tradition": "contemporary",
+    "score": 73,
+    "tier": "MILD",
+    "gaps": [
+      "Groups & belonging",
+      "Current & alive"
+    ],
+    "pitch": "Pays for a site but it's missing groups & belonging, current & alive — scores 73/100 on congregation-readiness.",
+    "dead": false
+  },
+  {
+    "type": "church",
+    "domain": "paxpres.com",
+    "name": "Patuxent Presbyterian Church",
+    "platform": "FaithConnector",
+    "tradition": "contemporary",
+    "score": 74,
+    "tier": "MILD",
+    "gaps": [
+      "Next Steps pathway",
+      "Care & Prayer"
+    ],
+    "pitch": "Pays for a site but it's missing next steps pathway, care & prayer — scores 74/100 on congregation-readiness.",
+    "dead": false
+  },
+  {
+    "type": "church",
+    "domain": "kccfamily.org",
+    "name": "Kempsville Christian Church",
+    "platform": "FaithConnector",
+    "tradition": "contemporary",
+    "score": 77,
+    "tier": "MILD",
+    "gaps": [
+      "Groups & belonging"
+    ],
+    "pitch": "Pays for a site but it's missing groups & belonging — scores 77/100 on congregation-readiness.",
+    "dead": false
+  },
+  {
+    "type": "business",
+    "domain": "copelandfamilydental.com",
+    "name": "Dentist Highland Ranch, CO | Copeland Family Dental",
+    "platform": "—",
+    "tradition": "dental",
+    "score": 78,
+    "tier": "MILD",
+    "gaps": [
+      "New-customer offer",
+      "Financing / insurance / pricing"
+    ],
+    "pitch": "Leaking leads — missing new-customer offer, financing / insurance / pricing. Scores 78/100; each fix is booked revenue.",
+    "dead": false
+  },
+  {
+    "type": "church",
+    "domain": "mosaicchurch.live",
+    "name": "Mosaic Church",
+    "platform": "Nucleus",
+    "tradition": "contemporary",
+    "score": 78,
+    "tier": "SERVED",
+    "gaps": [
+      "Groups & belonging",
+      "Care & Prayer"
+    ],
+    "pitch": "Pays for a site but it's missing groups & belonging, care & prayer — scores 78/100 on congregation-readiness.",
+    "dead": false
+  },
+  {
+    "type": "church",
+    "domain": "efcsweetwater.com",
+    "name": "Emmanuel Fellowship Church",
+    "platform": "FaithConnector",
+    "tradition": "contemporary",
+    "score": 80,
+    "tier": "SERVED",
+    "gaps": [
+      "Next Steps pathway",
+      "Serve & volunteer"
+    ],
+    "pitch": "Pays for a site but it's missing next steps pathway, serve & volunteer — scores 80/100 on congregation-readiness.",
+    "dead": false
+  },
+  {
+    "type": "church",
+    "domain": "faithconnector-demo",
+    "name": "Demolab 5",
+    "platform": "FaithConnector",
+    "tradition": "contemporary",
+    "score": 80,
+    "tier": "SERVED",
+    "gaps": [
+      "Next Steps pathway",
+      "Kids & Families"
+    ],
+    "pitch": "Pays for a site but it's missing next steps pathway, kids & families — scores 80/100 on congregation-readiness.",
+    "dead": false
+  },
+  {
+    "type": "church",
+    "domain": "oxfordbaptist.ca",
+    "name": "Homepage",
+    "platform": "Nucleus",
+    "tradition": "contemporary",
+    "score": 80,
+    "tier": "SERVED",
+    "gaps": [
+      "Groups & belonging",
+      "Care & Prayer"
+    ],
+    "pitch": "Pays for a site but it's missing groups & belonging, care & prayer — scores 80/100 on congregation-readiness.",
+    "dead": false
+  },
+  {
+    "type": "church",
+    "domain": "branchlife.church",
+    "name": "Branch Life Church",
+    "platform": "Nucleus",
+    "tradition": "contemporary",
+    "score": 83,
+    "tier": "SERVED",
+    "gaps": [
+      "Current & alive"
+    ],
+    "pitch": "Pays for a site but it's missing current & alive — scores 83/100 on congregation-readiness.",
+    "dead": false
+  },
+  {
+    "type": "church",
+    "domain": "westsidebaptist.org",
+    "name": "Church in Gainesville",
+    "platform": "Nucleus",
+    "tradition": "contemporary",
+    "score": 90,
+    "tier": "SERVED",
+    "gaps": [
+      "Care & Prayer"
+    ],
+    "pitch": "Pays for a site but it's missing care & prayer — scores 90/100 on congregation-readiness.",
+    "dead": false
+  },
+  {
+    "type": "business",
+    "domain": "acaciadentalgroup.com",
+    "name": "Dentist in Englewood CO",
+    "platform": "—",
+    "tradition": "dental",
+    "score": 94,
+    "tier": "SERVED",
+    "gaps": [
+      "Financing / insurance / pricing"
+    ],
+    "pitch": "Leaking leads — missing financing / insurance / pricing. Scores 94/100; each fix is booked revenue.",
+    "dead": false
+  },
+  {
+    "type": "church",
+    "domain": "newhopechristianchurch.com",
+    "name": "New Hope Christian Church",
+    "platform": "FaithConnector",
+    "tradition": "contemporary",
+    "score": 98,
+    "tier": "SERVED",
+    "gaps": [],
+    "pitch": "Strong site (98/100) — low priority.",
+    "dead": false
+  }
+]

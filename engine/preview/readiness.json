@@ -1,0 +1,480 @@
+[
+  {
+    "slug": "missionhills-org",
+    "name": "Mission Hills Church",
+    "tradition": "contemporary",
+    "benchmark": true,
+    "score": 100,
+    "grade": "Has it together",
+    "dims": [
+      {
+        "key": "visit",
+        "label": "Plan Your Visit",
+        "weight": 14,
+        "why": "A first-timer needs a clear \"I'm new → here's what to expect\" path — the #1 job of a church front door.",
+        "found": true,
+        "partial": false,
+        "pts": 14,
+        "evidence": "plan a visit · first time"
+      },
+      {
+        "key": "times",
+        "label": "Service times & campus",
+        "weight": 12,
+        "why": "43% of church-seekers come to find service times and where to go.",
+        "found": true,
+        "partial": false,
+        "pts": 12,
+        "evidence": "weekend service · join us this weekend"
+      },
+      {
+        "key": "next",
+        "label": "Next Steps pathway",
+        "weight": 10,
+        "why": "A defined \"what now?\" path turns a first visit into belonging.",
+        "found": true,
+        "partial": false,
+        "pts": 10,
+        "evidence": "next steps · get connected"
+      },
+      {
+        "key": "groups",
+        "label": "Groups & belonging",
+        "weight": 10,
+        "why": "People stay when they find their people — a group finder beats a static list.",
+        "found": true,
+        "partial": false,
+        "pts": 10,
+        "evidence": "group finder · find your group"
+      },
+      {
+        "key": "serve",
+        "label": "Serve & volunteer",
+        "weight": 8,
+        "why": "Serving is how attenders become members.",
+        "found": true,
+        "partial": false,
+        "pts": 8,
+        "evidence": "servefinder · serve"
+      },
+      {
+        "key": "care",
+        "label": "Care & Prayer",
+        "weight": 8,
+        "why": "Pastoral care/prayer signals a church that meets you in the hard moments — not transactional.",
+        "found": true,
+        "partial": false,
+        "pts": 8,
+        "evidence": "prayer request · care ministry"
+      },
+      {
+        "key": "giving",
+        "label": "Online giving",
+        "weight": 10,
+        "why": "Digital givers give 33% more; giving must be one tap.",
+        "found": true,
+        "partial": false,
+        "pts": 10,
+        "evidence": "give"
+      },
+      {
+        "key": "sermons",
+        "label": "Sermons / Watch",
+        "weight": 10,
+        "why": "Watch online is the on-ramp — it lets someone sample before they step in.",
+        "found": true,
+        "partial": false,
+        "pts": 10,
+        "evidence": "messages · watch live"
+      },
+      {
+        "key": "families",
+        "label": "Kids & Families",
+        "weight": 8,
+        "why": "Parents decide on kids' safety and programming first.",
+        "found": true,
+        "partial": false,
+        "pts": 8,
+        "evidence": "kids · student"
+      },
+      {
+        "key": "alive",
+        "label": "Current & alive",
+        "weight": 5,
+        "why": "Live announcements and dated upcoming events prove a real, active community.",
+        "found": true,
+        "partial": false,
+        "pts": 5,
+        "evidence": "this weekend · register"
+      },
+      {
+        "key": "access",
+        "label": "Accessible & solid",
+        "weight": 5,
+        "why": "Accessibility, mobile, and HTTPS say \"everyone is welcome and we're legit.\"",
+        "found": true,
+        "partial": false,
+        "pts": 5,
+        "evidence": "accessibility, mobile, HTTPS"
+      }
+    ]
+  },
+  {
+    "slug": "paxchristi-org",
+    "name": "Pax Christi Catholic Church",
+    "tradition": "catholic",
+    "benchmark": true,
+    "score": 90,
+    "grade": "Has it together",
+    "dims": [
+      {
+        "key": "mass",
+        "label": "Mass & confession times",
+        "weight": 14,
+        "why": "The first thing a Catholic seeks: when is Mass, and when is Reconciliation.",
+        "found": true,
+        "partial": false,
+        "pts": 14,
+        "evidence": "confession · reconciliation"
+      },
+      {
+        "key": "sacraments",
+        "label": "The Sacraments",
+        "weight": 14,
+        "why": "Baptism, Communion, Confirmation, Matrimony — the sacraments are the heart of parish life.",
+        "found": true,
+        "partial": false,
+        "pts": 14,
+        "evidence": "sacrament · confirmation"
+      },
+      {
+        "key": "ocia",
+        "label": "Becoming Catholic (OCIA)",
+        "weight": 8,
+        "why": "A clear path for inquirers and converts (OCIA/RCIA) is how a parish grows.",
+        "found": true,
+        "partial": false,
+        "pts": 8,
+        "evidence": "ocia · becoming catholic"
+      },
+      {
+        "key": "ministries",
+        "label": "Parish ministries",
+        "weight": 10,
+        "why": "Ministries and serving are how parishioners belong and contribute.",
+        "found": true,
+        "partial": false,
+        "pts": 10,
+        "evidence": "ministr · serving the"
+      },
+      {
+        "key": "devotions",
+        "label": "Prayer, worship & devotions",
+        "weight": 8,
+        "why": "Adoration, rosary, and devotional life signal a praying parish.",
+        "found": true,
+        "partial": false,
+        "pts": 8,
+        "evidence": "adoration · prayer ministr"
+      },
+      {
+        "key": "giving",
+        "label": "Online giving / stewardship",
+        "weight": 10,
+        "why": "Online offertory and stewardship keep the parish sustained.",
+        "found": true,
+        "partial": false,
+        "pts": 10,
+        "evidence": "giving · donate"
+      },
+      {
+        "key": "homilies",
+        "label": "Homilies / Mass online",
+        "weight": 8,
+        "why": "Livestreamed Mass and recorded homilies reach the homebound and the searching.",
+        "found": true,
+        "partial": false,
+        "pts": 8,
+        "evidence": "bulletin"
+      },
+      {
+        "key": "formation",
+        "label": "Faith formation & youth",
+        "weight": 8,
+        "why": "Religious education, youth, and school are the parish’s future.",
+        "found": true,
+        "partial": false,
+        "pts": 8,
+        "evidence": "faith formation · youth"
+      },
+      {
+        "key": "parishlife",
+        "label": "Parish life & events",
+        "weight": 5,
+        "why": "A living calendar shows an active parish community.",
+        "found": true,
+        "partial": false,
+        "pts": 5,
+        "evidence": "events · calendar"
+      },
+      {
+        "key": "care",
+        "label": "Pastoral care",
+        "weight": 8,
+        "why": "Anointing, funerals, and bereavement care meet people in their hardest moments.",
+        "found": false,
+        "partial": false,
+        "pts": 0,
+        "evidence": "—"
+      },
+      {
+        "key": "access",
+        "label": "Accessible & solid",
+        "weight": 7,
+        "why": "Accessibility, mobile, and HTTPS say everyone is welcome and the parish is legit.",
+        "found": true,
+        "partial": true,
+        "pts": 5,
+        "evidence": "mobile, HTTPS"
+      }
+    ]
+  },
+  {
+    "slug": "visitcrcc-org",
+    "name": "Castle Rock Community Church",
+    "tradition": "contemporary",
+    "score": 29,
+    "grade": "Wide open",
+    "dims": [
+      {
+        "key": "visit",
+        "label": "Plan Your Visit",
+        "weight": 14,
+        "why": "A first-timer needs a clear \"I'm new → here's what to expect\" path — the #1 job of a church front door.",
+        "found": false,
+        "partial": false,
+        "pts": 0,
+        "evidence": "—"
+      },
+      {
+        "key": "times",
+        "label": "Service times & campus",
+        "weight": 12,
+        "why": "43% of church-seekers come to find service times and where to go.",
+        "found": true,
+        "partial": false,
+        "pts": 12,
+        "evidence": "5pm"
+      },
+      {
+        "key": "next",
+        "label": "Next Steps pathway",
+        "weight": 10,
+        "why": "A defined \"what now?\" path turns a first visit into belonging.",
+        "found": false,
+        "partial": false,
+        "pts": 0,
+        "evidence": "—"
+      },
+      {
+        "key": "groups",
+        "label": "Groups & belonging",
+        "weight": 10,
+        "why": "People stay when they find their people — a group finder beats a static list.",
+        "found": false,
+        "partial": false,
+        "pts": 0,
+        "evidence": "—"
+      },
+      {
+        "key": "serve",
+        "label": "Serve & volunteer",
+        "weight": 8,
+        "why": "Serving is how attenders become members.",
+        "found": false,
+        "partial": false,
+        "pts": 0,
+        "evidence": "—"
+      },
+      {
+        "key": "care",
+        "label": "Care & Prayer",
+        "weight": 8,
+        "why": "Pastoral care/prayer signals a church that meets you in the hard moments — not transactional.",
+        "found": false,
+        "partial": false,
+        "pts": 0,
+        "evidence": "—"
+      },
+      {
+        "key": "giving",
+        "label": "Online giving",
+        "weight": 10,
+        "why": "Digital givers give 33% more; giving must be one tap.",
+        "found": true,
+        "partial": false,
+        "pts": 10,
+        "evidence": "give · tithe"
+      },
+      {
+        "key": "sermons",
+        "label": "Sermons / Watch",
+        "weight": 10,
+        "why": "Watch online is the on-ramp — it lets someone sample before they step in.",
+        "found": false,
+        "partial": false,
+        "pts": 0,
+        "evidence": "—"
+      },
+      {
+        "key": "families",
+        "label": "Kids & Families",
+        "weight": 8,
+        "why": "Parents decide on kids' safety and programming first.",
+        "found": true,
+        "partial": true,
+        "pts": 4,
+        "evidence": "children"
+      },
+      {
+        "key": "alive",
+        "label": "Current & alive",
+        "weight": 5,
+        "why": "Live announcements and dated upcoming events prove a real, active community.",
+        "found": false,
+        "partial": false,
+        "pts": 0,
+        "evidence": "—"
+      },
+      {
+        "key": "access",
+        "label": "Accessible & solid",
+        "weight": 5,
+        "why": "Accessibility, mobile, and HTTPS say \"everyone is welcome and we're legit.\"",
+        "found": true,
+        "partial": true,
+        "pts": 3,
+        "evidence": "mobile, HTTPS"
+      }
+    ]
+  },
+  {
+    "slug": "new3c-org",
+    "name": "New Covenant Community Church",
+    "tradition": "contemporary",
+    "score": 2,
+    "grade": "Wide open",
+    "dims": [
+      {
+        "key": "visit",
+        "label": "Plan Your Visit",
+        "weight": 14,
+        "why": "A first-timer needs a clear \"I'm new → here's what to expect\" path — the #1 job of a church front door.",
+        "found": false,
+        "partial": false,
+        "pts": 0,
+        "evidence": "—"
+      },
+      {
+        "key": "times",
+        "label": "Service times & campus",
+        "weight": 12,
+        "why": "43% of church-seekers come to find service times and where to go.",
+        "found": false,
+        "partial": false,
+        "pts": 0,
+        "evidence": "—"
+      },
+      {
+        "key": "next",
+        "label": "Next Steps pathway",
+        "weight": 10,
+        "why": "A defined \"what now?\" path turns a first visit into belonging.",
+        "found": false,
+        "partial": false,
+        "pts": 0,
+        "evidence": "—"
+      },
+      {
+        "key": "groups",
+        "label": "Groups & belonging",
+        "weight": 10,
+        "why": "People stay when they find their people — a group finder beats a static list.",
+        "found": false,
+        "partial": false,
+        "pts": 0,
+        "evidence": "—"
+      },
+      {
+        "key": "serve",
+        "label": "Serve & volunteer",
+        "weight": 8,
+        "why": "Serving is how attenders become members.",
+        "found": false,
+        "partial": false,
+        "pts": 0,
+        "evidence": "—"
+      },
+      {
+        "key": "care",
+        "label": "Care & Prayer",
+        "weight": 8,
+        "why": "Pastoral care/prayer signals a church that meets you in the hard moments — not transactional.",
+        "found": false,
+        "partial": false,
+        "pts": 0,
+        "evidence": "—"
+      },
+      {
+        "key": "giving",
+        "label": "Online giving",
+        "weight": 10,
+        "why": "Digital givers give 33% more; giving must be one tap.",
+        "found": false,
+        "partial": false,
+        "pts": 0,
+        "evidence": "—"
+      },
+      {
+        "key": "sermons",
+        "label": "Sermons / Watch",
+        "weight": 10,
+        "why": "Watch online is the on-ramp — it lets someone sample before they step in.",
+        "found": false,
+        "partial": false,
+        "pts": 0,
+        "evidence": "—"
+      },
+      {
+        "key": "families",
+        "label": "Kids & Families",
+        "weight": 8,
+        "why": "Parents decide on kids' safety and programming first.",
+        "found": false,
+        "partial": false,
+        "pts": 0,
+        "evidence": "—"
+      },
+      {
+        "key": "alive",
+        "label": "Current & alive",
+        "weight": 5,
+        "why": "Live announcements and dated upcoming events prove a real, active community.",
+        "found": false,
+        "partial": false,
+        "pts": 0,
+        "evidence": "—"
+      },
+      {
+        "key": "access",
+        "label": "Accessible & solid",
+        "weight": 5,
+        "why": "Accessibility, mobile, and HTTPS say \"everyone is welcome and we're legit.\"",
+        "found": true,
+        "partial": true,
+        "pts": 2,
+        "evidence": "HTTPS"
+      }
+    ]
+  }
+]

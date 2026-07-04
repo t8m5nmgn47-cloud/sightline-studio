@@ -90,8 +90,9 @@ if(qs.get("color")) document.documentElement.style.setProperty("--ac",qs.get("co
 if(BIZ){ $("#hl").textContent=BIZ+" — build your plan."; }
 
 const PLANS=[
- {id:"zerodown",name:"$0 down, then $149.99/mo",mo:149.99,was:199.99,start:0,s:"Nothing up front. Limited-time — regularly $199.99/mo."},
- {id:"deposit",name:"$299.99 to start, then $49.99/mo",mo:49.99,start:299.99,s:"A little up front, lower monthly."}
+ {id:"site",name:"Site — $59/mo",mo:59,start:0,s:"We build it, you own it. Your bespoke site, hosting, security & the guest concierge — done for you, live in days."},
+ {id:"frontdoor",name:"Front Door — $129/mo",mo:129,start:0,s:"Everything in Site, kept fresh — monthly edits, SEO, sermons/events, and readiness monitoring. You never touch it."},
+ {id:"frontdesk",name:"Front Desk — $199/mo",mo:199,start:0,s:"Your whole front door + front desk — reputation & reviews, Google Business Profile, and social, handled."}
 ];
 // Real add-on catalog + prices (from the Sightline configurator). price=null => quoted on proposal.
 const ADDONS=[
@@ -115,7 +116,7 @@ const ADDONS=[
  {id:"crm",name:"Customer Database (CRM)",price:19,blurb:"Your contacts, leads &amp; clients in one secure place (Supabase-backed)."},
  {id:"email",name:"Secure Email",price:null,blurb:"Professional email at your domain, encrypted."}
 ];
-let planId="zerodown"; const chosen=new Set();
+let planId="site"; const chosen=new Set();
 // deep-link prefill: /checkout/?addons=booking,reviews&plan=deposit
 (qs.get("addons")||"").split(",").map(x=>x.trim()).filter(Boolean).forEach(id=>{ if(ADDONS.some(a=>a.id===id)) chosen.add(id); });
 if(qs.get("plan")&&PLANS.some(x=>x.id===qs.get("plan"))) planId=qs.get("plan");
