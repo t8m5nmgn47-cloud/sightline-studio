@@ -1,0 +1,897 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>{{NAME}}</title>
+<meta name="description" content="{{NAME}} in {{LOCALE}}. {{TAGLINE}} {{LEDE}}" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,700;12..96,800&family=Archivo:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+<style>
+/* ============================================================
+   DESIGN SYSTEM — "Bold Modern"
+   ============================================================ */
+:root{
+  /* palette */
+  --ink:        #14121A;   /* near-black plum, dramatic base */
+  --ink-2:      #1E1B27;   /* raised dark surface */
+  --ink-soft:   #2A2634;   /* hairlines on dark */
+  --bone:       #F4F2EC;   /* warm off-white paper */
+  --bone-2:     #EAE6DB;   /* subtle tint panel */
+  --paper-card: #FFFFFF;
+
+  --vermilion:  #FF4D28;   /* primary accent — energetic */
+  --vermilion-d:#E23A18;
+  --volt:       #2B4BFF;   /* electric blue — cool contrast */
+  --mint:       #37D9B4;   /* fresh highlight */
+
+  --text-dk:    #17151C;   /* body text on light */
+  --text-mut:   #56505E;   /* muted on light */
+  --text-lt:    #F4F2EC;   /* text on dark */
+  --text-lt-mut:#A9A2B8;   /* muted on dark */
+
+  /* type scale (fluid) */
+  --step--1: clamp(0.82rem, 0.79rem + 0.15vw, 0.92rem);
+  --step-0:  clamp(1rem, 0.96rem + 0.22vw, 1.14rem);
+  --step-1:  clamp(1.2rem, 1.1rem + 0.5vw, 1.5rem);
+  --step-2:  clamp(1.6rem, 1.35rem + 1.2vw, 2.4rem);
+  --step-3:  clamp(2.2rem, 1.7rem + 2.5vw, 3.8rem);
+  --step-4:  clamp(3rem, 2rem + 5vw, 6.4rem);
+  --step-5:  clamp(3.4rem, 2rem + 6.4vw, 7.6rem);
+
+  /* spacing */
+  --sp-1:.5rem; --sp-2:1rem; --sp-3:1.5rem; --sp-4:2.5rem;
+  --sp-5:4rem;  --sp-6:6rem; --sp-7:9rem;
+
+  --maxw: 1240px;
+  --radius: 4px;
+  --radius-lg: 16px;
+  --ease: cubic-bezier(.2,.7,.2,1);
+}
+
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  font-family:"Archivo",system-ui,sans-serif;
+  background:var(--bone);
+  color:var(--text-dk);
+  font-size:var(--step-0);
+  line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+}
+h1,h2,h3,h4{
+  font-family:"Bricolage Grotesque",serif;
+  line-height:.98;
+  letter-spacing:-.02em;
+  font-weight:800;
+}
+a{color:inherit;text-decoration:none}
+img{max-width:100%;display:block}
+ul{list-style:none}
+.tnum{font-variant-numeric:tabular-nums}
+
+/* focus */
+a:focus-visible,button:focus-visible{
+  outline:3px solid var(--volt);
+  outline-offset:3px;
+  border-radius:2px;
+}
+
+/* layout helpers */
+.wrap{max-width:var(--maxw);margin-inline:auto;padding-inline:clamp(1.25rem,4vw,3rem)}
+.eyebrow{
+  font-family:"Archivo";font-weight:600;font-size:var(--step--1);
+  letter-spacing:.24em;text-transform:uppercase;
+  display:inline-flex;align-items:center;gap:.7rem;
+}
+.eyebrow::before{content:"";width:26px;height:2px;background:var(--vermilion)}
+.section{padding-block:clamp(4rem,9vw,8rem)}
+
+/* buttons */
+.btn{
+  --bg:var(--vermilion);--fg:#fff;
+  display:inline-flex;align-items:center;gap:.6rem;
+  background:var(--bg);color:var(--fg);
+  font-family:"Archivo";font-weight:700;font-size:var(--step-0);
+  padding:1rem 1.6rem;border:none;border-radius:var(--radius);
+  cursor:pointer;position:relative;overflow:hidden;
+  transition:transform .35s var(--ease), box-shadow .35s var(--ease);
+  box-shadow:0 0 0 rgba(255,77,40,0);
+}
+.btn .arw{transition:transform .35s var(--ease)}
+.btn:hover{transform:translateY(-3px);box-shadow:0 16px 34px -12px rgba(255,77,40,.7)}
+.btn:hover .arw{transform:translate(4px,-4px)}
+.btn--ghost{--bg:transparent;--fg:var(--text-lt);border:1.5px solid rgba(244,242,236,.28)}
+.btn--ghost:hover{--bg:rgba(244,242,236,.06);box-shadow:none;border-color:rgba(244,242,236,.5)}
+.btn--ink{--bg:var(--ink);--fg:var(--bone)}
+.btn--ink:hover{box-shadow:0 16px 34px -14px rgba(20,18,26,.6)}
+.btn--lg{padding:1.15rem 2rem}
+
+/* ============================================================
+   NAV
+   ============================================================ */
+.nav{
+  position:fixed;inset:0 0 auto 0;z-index:100;
+  transition:background .4s var(--ease), box-shadow .4s var(--ease), padding .4s var(--ease);
+  padding-block:1.35rem;
+}
+.nav.scrolled{
+  background:rgba(20,18,26,.82);
+  backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+  box-shadow:0 1px 0 rgba(255,255,255,.06);
+  padding-block:.85rem;
+}
+.nav__inner{display:flex;align-items:center;justify-content:space-between;gap:2rem}
+.brand{display:flex;align-items:center;gap:.7rem;color:var(--text-lt);font-weight:700}
+.brand__mark{
+  width:34px;height:34px;flex:none;position:relative;
+  display:grid;place-items:center;border-radius:8px;
+  background:linear-gradient(135deg,var(--vermilion),var(--vermilion-d));
+  box-shadow:0 6px 18px -6px rgba(255,77,40,.7);
+}
+.brand__mark svg{width:20px;height:20px}
+.brand__name{font-family:"Bricolage Grotesque";font-weight:700;font-size:1.15rem;letter-spacing:-.02em;line-height:1}
+.brand__name small{display:block;font-family:"Archivo";font-weight:500;font-size:.62rem;letter-spacing:.22em;text-transform:uppercase;color:var(--text-lt-mut);margin-top:2px}
+.nav__links{display:flex;align-items:center;gap:2.1rem}
+.nav__links a{color:var(--text-lt);font-weight:500;font-size:.95rem;position:relative;opacity:.85;transition:opacity .25s}
+.nav__links a::after{content:"";position:absolute;left:0;bottom:-6px;height:2px;width:0;background:var(--vermilion);transition:width .3s var(--ease)}
+.nav__links a:hover{opacity:1}
+.nav__links a:hover::after{width:100%}
+.nav__cta{display:flex;align-items:center;gap:1.2rem}
+.nav__phone{color:var(--text-lt);font-weight:600;font-size:.95rem;white-space:nowrap;opacity:.9}
+.nav__phone:hover{color:var(--mint)}
+.nav__burger{display:none;background:none;border:none;color:var(--text-lt);cursor:pointer}
+@media(max-width:920px){
+  .nav__links{display:none}
+  .nav__phone{display:none}
+}
+
+/* ============================================================
+   HERO
+   ============================================================ */
+.hero{
+  position:relative;background:var(--ink);color:var(--text-lt);
+  padding-top:clamp(7rem,13vh,9rem);padding-bottom:clamp(3.5rem,6vw,5.5rem);
+  overflow:hidden;isolation:isolate;
+}
+/* layered gradients */
+.hero__glow{position:absolute;inset:0;z-index:-2;pointer-events:none}
+.hero__glow::before{
+  content:"";position:absolute;width:70vw;height:70vw;max-width:900px;max-height:900px;
+  top:-24%;right:-14%;border-radius:50%;
+  background:radial-gradient(circle at center,rgba(255,77,40,.55),rgba(255,77,40,0) 62%);
+  filter:blur(6px);
+}
+.hero__glow::after{
+  content:"";position:absolute;width:60vw;height:60vw;max-width:760px;max-height:760px;
+  bottom:-30%;left:-18%;border-radius:50%;
+  background:radial-gradient(circle at center,rgba(43,75,255,.5),rgba(43,75,255,0) 60%);
+}
+.hero__mint{
+  position:absolute;z-index:-2;width:36vw;height:36vw;max-width:440px;max-height:440px;
+  top:36%;left:38%;border-radius:50%;
+  background:radial-gradient(circle at center,rgba(55,217,180,.28),rgba(55,217,180,0) 62%);
+  pointer-events:none;
+}
+/* grain */
+.grain{
+  position:absolute;inset:0;z-index:-1;pointer-events:none;opacity:.5;mix-blend-mode:overlay;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.55'/%3E%3C/svg%3E");
+}
+/* faint grid lines to reinforce architectural feel */
+.hero__ruler{position:absolute;inset:0;z-index:-1;pointer-events:none;opacity:.5;
+  background-image:linear-gradient(90deg,rgba(255,255,255,.04) 1px,transparent 1px);
+  background-size:calc(100%/6) 100%;
+}
+
+.hero__grid{display:grid;grid-template-columns:1.55fr .95fr;gap:clamp(2rem,4vw,4rem);align-items:start}
+.hero__badge{
+  display:inline-flex;align-items:center;gap:.6rem;
+  background:rgba(244,242,236,.07);border:1px solid rgba(244,242,236,.14);
+  padding:.5rem .9rem;border-radius:100px;font-size:var(--step--1);font-weight:500;
+  color:var(--text-lt);margin-bottom:1.8rem;
+}
+.hero__badge .dot{width:8px;height:8px;border-radius:50%;background:var(--mint);box-shadow:0 0 12px var(--mint)}
+.hero__badge b{color:var(--mint);font-weight:700}
+
+.hero h1{font-size:var(--step-5);letter-spacing:-.035em;max-width:14ch}
+.hero h1 .ln{display:block;overflow:hidden}
+.hero h1 em{font-style:normal;color:var(--vermilion);position:relative;white-space:nowrap}
+.hero h1 .u{
+  display:inline-block;position:relative;
+}
+.hero h1 .u::after{
+  content:"";position:absolute;left:-1%;right:-1%;bottom:.08em;height:.14em;
+  background:linear-gradient(90deg,var(--vermilion),var(--mint));border-radius:2px;
+  transform:scaleX(0);transform-origin:left;
+  transition:transform 1s var(--ease) .9s;
+}
+.loaded .hero h1 .u::after{transform:scaleX(1)}
+
+.hero__lede{color:var(--text-lt-mut);font-size:var(--step-1);line-height:1.45;max-width:34ch;margin-top:1.6rem;font-weight:400}
+.hero__actions{display:flex;flex-wrap:wrap;gap:1rem;margin-top:2.2rem;align-items:center}
+.hero__note{font-size:var(--step--1);color:var(--text-lt-mut)}
+.hero__note b{color:var(--text-lt);font-weight:700}
+
+/* hero side — stat stack / offer card */
+.hero__aside{display:flex;flex-direction:column;gap:1rem;padding-bottom:.4rem}
+.offer-card{
+  background:linear-gradient(160deg,var(--ink-2),#241f30);
+  border:1px solid var(--ink-soft);border-radius:var(--radius-lg);
+  padding:1.6rem;position:relative;overflow:hidden;
+}
+.offer-card::before{
+  content:"";position:absolute;top:-40%;right:-30%;width:70%;height:120%;
+  background:radial-gradient(circle,rgba(255,77,40,.4),transparent 65%);
+}
+.offer-card__tag{font-size:var(--step--1);letter-spacing:.2em;text-transform:uppercase;color:var(--mint);font-weight:700}
+.offer-card__price{font-family:"Bricolage Grotesque";font-weight:800;font-size:clamp(3rem,7vw,4.6rem);line-height:.9;margin:.3rem 0 .1rem;letter-spacing:-.04em}
+.offer-card__price sup{font-size:.42em;top:-.7em;color:var(--vermilion);font-weight:700}
+.offer-card__desc{color:var(--text-lt-mut);font-size:.95rem;line-height:1.4}
+.offer-card__desc b{color:var(--text-lt);font-weight:600}
+.hero__ministat{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+.ministat{background:rgba(244,242,236,.045);border:1px solid rgba(244,242,236,.1);border-radius:var(--radius);padding:1rem 1.1rem}
+.ministat b{display:block;font-family:"Bricolage Grotesque";font-weight:800;font-size:1.6rem;line-height:1;color:var(--text-lt)}
+.ministat span{font-size:.78rem;color:var(--text-lt-mut);letter-spacing:.02em}
+
+@media(max-width:860px){
+  .hero__grid{grid-template-columns:1fr;gap:2.4rem}
+  .hero__aside{max-width:440px}
+}
+
+/* ============================================================
+   TRUST MARQUEE
+   ============================================================ */
+.trust{background:var(--ink);color:var(--text-lt);border-top:1px solid var(--ink-soft);padding-block:0}
+.marquee{display:flex;overflow:hidden;-webkit-mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent)}
+.marquee__row{display:flex;flex:none;gap:0;animation:marq 34s linear infinite}
+.trust:hover .marquee__row{animation-play-state:paused}
+@keyframes marq{to{transform:translateX(-100%)}}
+.marquee__item{display:inline-flex;align-items:center;gap:.9rem;padding:1.5rem 2.4rem;white-space:nowrap;font-family:"Bricolage Grotesque";font-weight:600;font-size:clamp(1rem,2.2vw,1.5rem);color:var(--text-lt)}
+.marquee__item svg{width:20px;height:20px;color:var(--vermilion);flex:none}
+.marquee__item i{color:var(--ink-soft);font-style:normal;font-size:1.4em;line-height:0}
+
+/* ============================================================
+   SERVICES
+   ============================================================ */
+.services{background:var(--bone)}
+.sec-head{display:grid;grid-template-columns:auto 1fr;gap:2rem;align-items:end;margin-bottom:clamp(2.4rem,5vw,4rem)}
+.sec-head__title{font-size:var(--step-3);max-width:16ch}
+.sec-head__title .accent{color:var(--vermilion)}
+.sec-head__aside{max-width:38ch;color:var(--text-mut);justify-self:end;text-align:left;padding-bottom:.3rem}
+@media(max-width:760px){.sec-head{grid-template-columns:1fr;gap:1.2rem}.sec-head__aside{justify-self:start}}
+
+.svc-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:1.1rem}
+.svc{
+  grid-column:span 2;background:var(--paper-card);border:1px solid rgba(20,18,26,.08);
+  border-radius:var(--radius-lg);padding:1.7rem;position:relative;overflow:hidden;
+  transition:transform .4s var(--ease),box-shadow .4s var(--ease),border-color .4s var(--ease);
+  min-height:230px;display:flex;flex-direction:column;
+}
+.svc:hover{transform:translateY(-6px);box-shadow:0 26px 50px -30px rgba(20,18,26,.4);border-color:rgba(20,18,26,.16)}
+.svc__num{font-family:"Bricolage Grotesque";font-weight:800;font-size:.9rem;color:var(--text-mut);opacity:.5}
+.svc__ic{width:46px;height:46px;border-radius:12px;display:grid;place-items:center;background:var(--bone-2);color:var(--ink);margin:.2rem 0 auto;transition:background .4s,color .4s,transform .5s var(--ease)}
+.svc:hover .svc__ic{background:var(--vermilion);color:#fff;transform:rotate(-8deg) scale(1.05)}
+.svc__ic svg{width:24px;height:24px}
+.svc h3{font-size:var(--step-1);margin-top:1.2rem}
+.svc p{color:var(--text-mut);font-size:.94rem;margin-top:.5rem}
+/* grid-breaking feature card */
+.svc--feature{
+  grid-column:span 3;grid-row:span 1;background:var(--ink);color:var(--text-lt);
+  border-color:var(--ink-soft);
+}
+.svc--feature .svc__ic{background:rgba(244,242,236,.08);color:var(--mint)}
+.svc--feature:hover .svc__ic{background:var(--mint);color:var(--ink)}
+.svc--feature h3{font-size:var(--step-2)}
+.svc--feature p{color:var(--text-lt-mut)}
+.svc--feature .svc__num{color:var(--text-lt-mut)}
+.svc--wide{grid-column:span 3}
+@media(max-width:900px){
+  .svc-grid{grid-template-columns:repeat(2,1fr)}
+  .svc,.svc--feature,.svc--wide{grid-column:span 1}
+}
+@media(max-width:520px){
+  .svc-grid{grid-template-columns:1fr}
+  .svc,.svc--feature,.svc--wide{grid-column:span 1}
+}
+
+/* ============================================================
+   OFFER BAND (bold color block)
+   ============================================================ */
+.offer{background:var(--vermilion);color:#fff;position:relative;overflow:hidden;isolation:isolate}
+.offer .grain{opacity:.35;mix-blend-mode:soft-light}
+.offer__big{
+  position:absolute;z-index:-1;right:-2%;top:-8%;font-family:"Bricolage Grotesque";
+  font-weight:800;font-size:min(40vw,34rem);line-height:.7;color:rgba(255,255,255,.09);
+  letter-spacing:-.05em;pointer-events:none;user-select:none;
+}
+.offer__grid{display:grid;grid-template-columns:1.3fr .9fr;gap:clamp(2rem,5vw,4rem);align-items:center}
+.offer .eyebrow{color:#fff}
+.offer .eyebrow::before{background:#fff}
+.offer h2{font-size:var(--step-4);margin:1rem 0 1.2rem;max-width:14ch}
+.offer h2 .tnum{font-variant-numeric:tabular-nums}
+.offer__list{display:flex;flex-wrap:wrap;gap:.7rem 1.4rem;margin-bottom:2rem}
+.offer__list li{display:flex;align-items:center;gap:.55rem;font-weight:600}
+.offer__list svg{width:18px;height:18px;flex:none}
+.offer__cardwrap{display:flex;justify-content:center}
+.offer__ticket{
+  background:#fff;color:var(--ink);border-radius:var(--radius-lg);padding:2rem;width:100%;max-width:360px;
+  box-shadow:0 40px 80px -30px rgba(20,18,26,.6);position:relative;
+}
+.offer__ticket::before,.offer__ticket::after{content:"";position:absolute;width:26px;height:26px;background:var(--vermilion);border-radius:50%;top:50%;transform:translateY(-50%)}
+.offer__ticket::before{left:-13px}.offer__ticket::after{right:-13px}
+.offer__ticket .tk-tag{font-size:var(--step--1);letter-spacing:.2em;text-transform:uppercase;color:var(--text-mut);font-weight:700}
+.offer__ticket .tk-price{font-family:"Bricolage Grotesque";font-weight:800;font-size:5rem;line-height:.85;letter-spacing:-.05em;margin:.4rem 0}
+.offer__ticket .tk-price sup{font-size:.36em;top:-1.1em;color:var(--vermilion)}
+.offer__ticket .tk-old{color:var(--text-mut);text-decoration:line-through;font-weight:600;margin-left:.4rem;font-size:1.4rem;-webkit-text-decoration-color:var(--vermilion);text-decoration-color:var(--vermilion)}
+.offer__ticket .tk-inc{border-top:1px dashed rgba(20,18,26,.2);margin-top:1.2rem;padding-top:1.2rem;display:grid;gap:.5rem;font-size:.92rem;color:var(--text-mut)}
+.offer__ticket .btn{width:100%;justify-content:center;margin-top:1.3rem}
+@media(max-width:800px){.offer__grid{grid-template-columns:1fr;gap:2.5rem}}
+
+/* ============================================================
+   WHY US (split, image-free)
+   ============================================================ */
+.why{background:var(--bone)}
+.why__grid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(2rem,5vw,4.5rem);align-items:center}
+.why__panel{
+  background:linear-gradient(160deg,var(--ink),#221d2e);border-radius:var(--radius-lg);
+  padding:clamp(1.8rem,4vw,3rem);color:var(--text-lt);position:relative;overflow:hidden;isolation:isolate;
+}
+.why__panel .grain{opacity:.35}
+.why__panel .glow{position:absolute;inset:0;z-index:-1;background:radial-gradient(circle at 80% 10%,rgba(43,75,255,.4),transparent 55%),radial-gradient(circle at 0% 100%,rgba(255,77,40,.35),transparent 55%)}
+.why__stat{font-family:"Bricolage Grotesque";font-weight:800;font-size:clamp(3.4rem,9vw,5.6rem);line-height:.85;letter-spacing:-.04em}
+.why__stat .plus{color:var(--vermilion)}
+.why__statlabel{color:var(--text-lt-mut);margin-top:.6rem;max-width:24ch}
+.why__mini{display:grid;grid-template-columns:1fr 1fr;gap:1.3rem 1rem;margin-top:2.4rem;padding-top:2rem;border-top:1px solid var(--ink-soft)}
+.why__mini b{font-family:"Bricolage Grotesque";font-weight:800;font-size:1.9rem;color:var(--mint);display:block;line-height:1}
+.why__mini span{color:var(--text-lt-mut);font-size:.86rem}
+.why h2{font-size:var(--step-3);max-width:14ch}
+.why h2 .accent{color:var(--vermilion)}
+.why__lede{color:var(--text-mut);margin:1.4rem 0 2rem;font-size:var(--step-1);line-height:1.5;font-weight:400}
+.why__points{display:grid;gap:1.3rem}
+.why__pt{display:grid;grid-template-columns:auto 1fr;gap:1rem;align-items:start}
+.why__pt .ic{width:42px;height:42px;flex:none;border-radius:11px;background:var(--ink);color:var(--mint);display:grid;place-items:center}
+.why__pt .ic svg{width:22px;height:22px}
+.why__pt h4{font-size:1.15rem;font-family:"Archivo";font-weight:700;letter-spacing:0}
+.why__pt p{color:var(--text-mut);font-size:.94rem;margin-top:.2rem}
+@media(max-width:820px){.why__grid{grid-template-columns:1fr}.why__panel{order:2}}
+
+/* ============================================================
+   REVIEWS
+   ============================================================ */
+.reviews{background:var(--ink);color:var(--text-lt);position:relative;overflow:hidden;isolation:isolate}
+.reviews .grain{opacity:.4}
+.reviews .glow{position:absolute;z-index:-1;inset:0;background:radial-gradient(circle at 90% 100%,rgba(43,75,255,.25),transparent 50%)}
+.reviews__head{display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:1.5rem;margin-bottom:3rem}
+.reviews h2{font-size:var(--step-3);max-width:16ch}
+.reviews h2 .accent{color:var(--vermilion)}
+.reviews__score{text-align:right}
+.reviews__score .stars{color:var(--vermilion);font-size:1.4rem;letter-spacing:.1em}
+.reviews__score b{font-family:"Bricolage Grotesque";font-weight:800;font-size:2.6rem;display:block;line-height:1;margin-top:.3rem}
+.reviews__score span{color:var(--text-lt-mut);font-size:.85rem}
+.quotes{display:grid;grid-template-columns:1fr 1fr;gap:1.4rem}
+.quote{
+  background:rgba(244,242,236,.045);border:1px solid rgba(244,242,236,.1);
+  border-radius:var(--radius-lg);padding:clamp(1.6rem,3vw,2.4rem);position:relative;
+  transition:transform .4s var(--ease),border-color .4s var(--ease);
+}
+.quote:hover{transform:translateY(-5px);border-color:rgba(255,77,40,.4)}
+.quote .mark{font-family:"Bricolage Grotesque";font-weight:800;font-size:4rem;line-height:.6;color:var(--vermilion);height:2rem}
+.quote p{font-family:"Bricolage Grotesque";font-weight:400;font-size:var(--step-1);line-height:1.35;letter-spacing:-.01em;margin:1rem 0 1.6rem}
+.quote__by{display:flex;align-items:center;gap:.9rem}
+.quote__av{width:44px;height:44px;border-radius:50%;flex:none;display:grid;place-items:center;font-family:"Bricolage Grotesque";font-weight:800;color:#fff;font-size:1.1rem}
+.quote__by b{display:block;font-family:"Archivo";font-weight:700}
+.quote__by span{color:var(--text-lt-mut);font-size:.82rem}
+.quote__stars{color:var(--vermilion);position:absolute;top:clamp(1.6rem,3vw,2.4rem);right:clamp(1.6rem,3vw,2.4rem);letter-spacing:.08em}
+@media(max-width:760px){.quotes{grid-template-columns:1fr}.reviews__score{text-align:left}}
+
+/* ============================================================
+   TEAM TEASER
+   ============================================================ */
+.team{background:var(--bone)}
+.team__grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:1.2rem;margin-top:2.6rem}
+.tcard{
+  border-radius:var(--radius-lg);overflow:hidden;position:relative;aspect-ratio:3/3.6;
+  display:flex;flex-direction:column;justify-content:flex-end;padding:1.5rem;color:#fff;
+  isolation:isolate;transition:transform .4s var(--ease)}
+.tcard:hover{transform:translateY(-6px)}
+.tcard::before{content:"";position:absolute;inset:0;z-index:-2}
+.tcard::after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(180deg,transparent 30%,rgba(12,10,16,.85))}
+.tcard--1::before{background:linear-gradient(150deg,#2b2440,#4a2c66)}
+.tcard--2::before{background:linear-gradient(150deg,#1e3a5f,#2b4bff)}
+.tcard--3::before{background:linear-gradient(150deg,#5c2418,#ff4d28)}
+.tcard .init{position:absolute;top:1.3rem;left:1.5rem;font-family:"Bricolage Grotesque";font-weight:800;font-size:2.4rem;opacity:.35;z-index:-1}
+.tcard h4{font-size:1.4rem}
+.tcard span{color:rgba(255,255,255,.82);font-size:.9rem;margin-top:.2rem}
+.team__cta{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;margin-top:2.4rem}
+@media(max-width:760px){.team__grid{grid-template-columns:1fr 1fr}.tcard--3{grid-column:span 2;aspect-ratio:16/8}}
+@media(max-width:460px){.team__grid{grid-template-columns:1fr}.tcard--3{grid-column:span 1;aspect-ratio:3/3.6}}
+
+/* ============================================================
+   BOOKING / HOURS (dark, dramatic close)
+   ============================================================ */
+.book{background:var(--ink);color:var(--text-lt);position:relative;overflow:hidden;isolation:isolate}
+.book .grain{opacity:.4}
+.book__glow{position:absolute;inset:0;z-index:-1;pointer-events:none;
+  background:radial-gradient(circle at 15% 0%,rgba(255,77,40,.4),transparent 45%),radial-gradient(circle at 100% 100%,rgba(43,75,255,.4),transparent 50%)}
+.book__grid{display:grid;grid-template-columns:1.2fr .9fr;gap:clamp(2rem,5vw,4.5rem)}
+.book h2{font-size:var(--step-4);max-width:12ch}
+.book h2 em{font-style:normal;color:var(--vermilion)}
+.book__lede{color:var(--text-lt-mut);font-size:var(--step-1);margin:1.4rem 0 2.2rem;max-width:36ch;line-height:1.45}
+.book__actions{display:flex;flex-wrap:wrap;gap:1rem;align-items:center;margin-bottom:2.4rem}
+.book__contact{display:flex;flex-wrap:wrap;gap:2rem}
+.book__contact div span{display:block;font-size:.78rem;letter-spacing:.16em;text-transform:uppercase;color:var(--text-lt-mut);margin-bottom:.3rem}
+.book__contact div b{font-family:"Bricolage Grotesque";font-weight:700;font-size:1.25rem}
+.book__contact a b:hover{color:var(--mint)}
+/* hours card */
+.hours{background:rgba(244,242,236,.045);border:1px solid rgba(244,242,236,.12);border-radius:var(--radius-lg);padding:clamp(1.6rem,3vw,2.2rem)}
+.hours h3{font-family:"Archivo";font-weight:700;font-size:1.1rem;letter-spacing:.02em;display:flex;align-items:center;gap:.6rem;margin-bottom:1.3rem}
+.hours h3 .live{width:9px;height:9px;border-radius:50%;background:var(--mint);box-shadow:0 0 0 0 rgba(55,217,180,.6);animation:pulse 2.4s infinite}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(55,217,180,.5)}70%{box-shadow:0 0 0 10px rgba(55,217,180,0)}100%{box-shadow:0 0 0 0 rgba(55,217,180,0)}}
+.hours__row{display:flex;justify-content:space-between;align-items:baseline;padding:.75rem 0;border-bottom:1px solid var(--ink-soft);font-size:.98rem}
+.hours__row:last-child{border-bottom:none}
+.hours__row .d{color:var(--text-lt);font-weight:600}
+.hours__row .t{color:var(--text-lt-mut);font-weight:500}
+.hours__row.is-open .t{color:var(--mint);font-weight:600}
+.hours__note{margin-top:1.2rem;font-size:.85rem;color:var(--text-lt-mut);display:flex;gap:.5rem;align-items:flex-start}
+.hours__note svg{width:16px;height:16px;flex:none;color:var(--vermilion);margin-top:2px}
+@media(max-width:820px){.book__grid{grid-template-columns:1fr}}
+
+/* ============================================================
+   FOOTER
+   ============================================================ */
+.foot{background:#0D0B12;color:var(--text-lt);padding-block:clamp(3rem,6vw,4.5rem) 2rem}
+.foot__top{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:2rem;padding-bottom:2.6rem;border-bottom:1px solid var(--ink-soft)}
+.foot__brand p{color:var(--text-lt-mut);max-width:32ch;margin-top:1rem;font-size:.92rem}
+.foot h5{font-size:.78rem;letter-spacing:.16em;text-transform:uppercase;color:var(--text-lt-mut);margin-bottom:1.1rem;font-family:"Archivo";font-weight:600}
+.foot ul{display:grid;gap:.6rem}
+.foot ul a{color:var(--text-lt);opacity:.82;font-size:.94rem}
+.foot ul a:hover{opacity:1;color:var(--mint)}
+.foot__bottom{display:flex;justify-content:space-between;flex-wrap:wrap;gap:1rem;padding-top:1.6rem;color:var(--text-lt-mut);font-size:.82rem}
+.foot__bottom a:hover{color:var(--text-lt)}
+@media(max-width:760px){.foot__top{grid-template-columns:1fr 1fr}.foot__brand{grid-column:span 2}}
+
+/* ============================================================
+   MOTION — reveals
+   ============================================================ */
+.reveal{opacity:0;transform:translateY(28px);transition:opacity .8s var(--ease),transform .8s var(--ease)}
+.reveal.in{opacity:1;transform:none}
+.reveal[data-d="1"]{transition-delay:.08s}
+.reveal[data-d="2"]{transition-delay:.16s}
+.reveal[data-d="3"]{transition-delay:.24s}
+.reveal[data-d="4"]{transition-delay:.32s}
+.reveal[data-d="5"]{transition-delay:.4s}
+
+/* hero load orchestration */
+.hero .hero__badge,.hero h1 .ln>span,.hero__lede,.hero__actions,.hero__aside>*{
+  opacity:0;transform:translateY(26px);
+  transition:opacity .9s var(--ease),transform .9s var(--ease);
+}
+.loaded .hero .hero__badge{opacity:1;transform:none;transition-delay:.05s}
+.loaded .hero h1 .ln>span{opacity:1;transform:none}
+.loaded .hero h1 .ln:nth-child(1)>span{transition-delay:.18s}
+.loaded .hero h1 .ln:nth-child(2)>span{transition-delay:.30s}
+.loaded .hero h1 .ln:nth-child(3)>span{transition-delay:.42s}
+.loaded .hero__lede{opacity:1;transform:none;transition-delay:.55s}
+.loaded .hero__actions{opacity:1;transform:none;transition-delay:.66s}
+.loaded .hero__aside>*{opacity:1;transform:none}
+.loaded .hero__aside>*:nth-child(1){transition-delay:.5s}
+.loaded .hero__aside>*:nth-child(2){transition-delay:.62s}
+
+@media(prefers-reduced-motion:reduce){
+  *{animation:none!important;scroll-behavior:auto!important}
+  .reveal,.hero .hero__badge,.hero h1 .ln>span,.hero__lede,.hero__actions,.hero__aside>*{
+    opacity:1!important;transform:none!important;transition:none!important}
+  .hero h1 .u::after{transform:scaleX(1)!important;transition:none!important}
+}
+</style>
+</head>
+<body>
+
+<!-- ============ NAV ============ -->
+<header class="nav" id="nav">
+  <div class="wrap nav__inner">
+    <a class="brand" href="#top" aria-label="{{NAME}} home">
+      <span class="brand__mark" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M12 3c-2.5 0-3.5 1.2-5 1.2S4 3.6 3.2 4.6C2 6.2 3 10 4.2 13.6c.7 2 1.3 4.4 2.4 4.4 1 0 1.1-2 2.4-2s1.6 2 3 2 1.8-2.4 2.6-4.6C15.8 9.6 17 6 15.8 4.6 15 3.6 14.5 4.2 13 4.2S12 3 12 3Z" fill="#fff"/></svg>
+      </span>
+      <span class="brand__name">{{NAME_SHORT}}<small>{{NAME_SUB}}</small></span>
+    </a>
+    <nav class="nav__links" aria-label="Primary">
+      <a href="#services">Services</a>
+      <a href="#offer">{{OFFER_PRICE}} Offer</a>
+      <a href="#why">Why Us</a>
+      <a href="#reviews">Reviews</a>
+      <a href="#team">Team</a>
+    </nav>
+    <div class="nav__cta">
+      <a class="nav__phone tnum" href="tel:{{PHONE}}">{{PHONE}}</a>
+      <a class="btn btn--lg" href="{{BOOK_URL}}">Book appointment <span class="arw" aria-hidden="true">↗</span></a>
+    </div>
+  </div>
+</header>
+
+<main id="top">
+<!-- ============ HERO ============ -->
+<section class="hero" aria-labelledby="hero-h">
+  <div class="hero__glow" aria-hidden="true"></div>
+  <div class="hero__mint" aria-hidden="true"></div>
+  <div class="hero__ruler" aria-hidden="true"></div>
+  <div class="grain" aria-hidden="true"></div>
+  <div class="wrap">
+    <div class="hero__grid">
+      <div class="hero__main">
+        <span class="hero__badge"><span class="dot" aria-hidden="true"></span>Now welcoming new patients &nbsp;·&nbsp; <b>Same-week visits</b></span>
+        <h1 id="hero-h">
+          <span class="ln"><span>{{HERO_LEAD}}</span></span>
+          <span class="ln"><span><em class="u">{{HERO_ACCENT}}</em></span></span>
+        </h1>
+        <p class="hero__lede">{{LEDE}}</p>
+        <div class="hero__actions">
+          <a class="btn btn--lg" href="{{BOOK_URL}}">Book an appointment <span class="arw" aria-hidden="true">↗</span></a>
+          <a class="btn btn--lg btn--ghost" href="#offer">See the {{OFFER_PRICE}} offer</a>
+        </div>
+        <p class="hero__note" style="margin-top:1.6rem">Trusted by the neighborhood · <b>{{REVIEW_COUNT}}</b> five-star reviews</p>
+      </div>
+
+      <aside class="hero__aside" aria-label="New patient offer highlight">
+        <div class="offer-card">
+          <p class="offer-card__tag">{{OFFER_KICKER}}</p>
+          <p class="offer-card__price tnum"><sup>{{OFFER_SYMBOL}}</sup>{{OFFER_PRICE_NUM}}</p>
+          <p class="offer-card__desc"><b>{{OFFER_TITLE}}.</b> {{OFFER_DESC}}</p>
+        </div>
+        <div class="hero__ministat">
+          <div class="ministat"><b class="tnum">{{RATING}}★</b><span>Average rating</span></div>
+          <div class="ministat"><b>Most</b><span>Insurance accepted</span></div>
+        </div>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<!-- ============ TRUST MARQUEE ============ -->
+<section class="trust" aria-label="Why patients choose us">
+  <div class="marquee" aria-hidden="true">
+    <!--BOLD:MARQUEE-->
+    <div class="marquee__row">
+      <span class="marquee__item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M20 6 9 17l-5-5"/></svg>Same-week appointments <i>•</i></span>
+      <span class="marquee__item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M20 6 9 17l-5-5"/></svg>Most insurance accepted <i>•</i></span>
+      <span class="marquee__item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M20 6 9 17l-5-5"/></svg>20+ years in the community <i>•</i></span>
+      <span class="marquee__item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M20 6 9 17l-5-5"/></svg>500+ five-star reviews <i>•</i></span>
+    </div>
+    <div class="marquee__row">
+      <span class="marquee__item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M20 6 9 17l-5-5"/></svg>Same-week appointments <i>•</i></span>
+      <span class="marquee__item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M20 6 9 17l-5-5"/></svg>Most insurance accepted <i>•</i></span>
+      <span class="marquee__item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M20 6 9 17l-5-5"/></svg>20+ years in the community <i>•</i></span>
+      <span class="marquee__item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M20 6 9 17l-5-5"/></svg>500+ five-star reviews <i>•</i></span>
+    </div>
+    <!--/BOLD:MARQUEE-->
+  </div>
+</section>
+
+<!-- ============ SERVICES ============ -->
+<section class="section services" id="services" aria-labelledby="svc-h">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <h2 class="sec-head__title" id="svc-h">Everything you need, <span class="accent">under one roof.</span></h2>
+      <p class="sec-head__aside">From the everyday essentials to the work you've been putting off, our team handles it all with a light touch and modern tech — so you never have to shop your care around.</p>
+    </div>
+
+    <div class="svc-grid">
+      <!--BOLD:SVC-->
+      <article class="svc reveal" data-d="1">
+        <span class="svc__num">01</span>
+        <span class="svc__ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><path d="M12 4c-2 0-2.8 1-4 1s-1.8-.5-2.6.3C4 6.8 4.8 10 6 13.5c.6 1.8 1 3.5 2 3.5s1-2 2-2 1 2 2 2 1.4-1.7 2-3.5c1.2-3.5 2-6.7.6-8.2C15.8 4.5 15.2 5 14 5s-2-1-2-1Z"/></svg></span>
+        <h3>General &amp; Family</h3>
+        <p>Cleanings, checkups and preventive care for every age — one calm home for the whole family.</p>
+      </article>
+
+      <article class="svc svc--feature reveal" data-d="2">
+        <span class="svc__num">02</span>
+        <span class="svc__ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><path d="m12 2 2.4 5 5.5.8-4 3.9.95 5.5L12 20l-4.85 2.6.95-5.5-4-3.9 5.5-.8Z"/></svg></span>
+        <h3>Cosmetic &amp; Veneers</h3>
+        <p>Bespoke veneers and whitening designed around your face — natural, bright and unmistakably yours. This is the smile people remember.</p>
+      </article>
+
+      <article class="svc reveal" data-d="3">
+        <span class="svc__num">03</span>
+        <span class="svc__ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><path d="M12 3v18M8 7h8M9 11h6M10 15h4"/></svg></span>
+        <h3>Dental Implants</h3>
+        <p>Permanent, natural-feeling replacements that restore both bite and confidence for good.</p>
+      </article>
+
+      <article class="svc svc--wide reveal" data-d="1">
+        <span class="svc__num">04</span>
+        <span class="svc__ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><path d="M4 12a8 8 0 0 1 16 0M7 12h10M9 16h6"/><circle cx="12" cy="12" r="1.4" fill="currentColor" stroke="none"/></svg></span>
+        <h3>Invisalign®</h3>
+        <p>Clear, removable aligners that straighten discreetly — a modern path to the smile you've wanted, with fewer visits.</p>
+      </article>
+
+      <article class="svc svc--wide reveal" data-d="2">
+        <span class="svc__num">05</span>
+        <span class="svc__ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><path d="M13 2 4 13h6l-1 9 9-11h-6z"/></svg></span>
+        <h3>Emergency Care</h3>
+        <p>Sudden pain or a chipped tooth? Call us — we hold same-day slots for urgent visits so you're never left waiting.</p>
+      </article>
+      <!--/BOLD:SVC-->
+    </div>
+  </div>
+</section>
+
+<!-- ============ OFFER BAND ============ -->
+<section class="section offer" id="offer" aria-labelledby="offer-h">
+  <div class="grain" aria-hidden="true"></div>
+  <span class="offer__big tnum" aria-hidden="true">{{OFFER_PRICE_NUM}}</span>
+  <div class="wrap">
+    <div class="offer__grid">
+      <div class="offer__copy reveal">
+        <span class="eyebrow">{{OFFER_KICKER}}</span>
+        <h2 id="offer-h">{{OFFER_TITLE}}.</h2>
+        <ul class="offer__list">
+          <!--BOLD:OFFER_LIST-->
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6 9 17l-5-5"/></svg>Comprehensive consultation</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6 9 17l-5-5"/></svg>A personalized plan</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6 9 17l-5-5"/></svg>Transparent pricing</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6 9 17l-5-5"/></svg>No pressure, ever</li>
+          <!--/BOLD:OFFER_LIST-->
+        </ul>
+        <a class="btn btn--lg btn--ink" href="{{BOOK_URL}}">Claim the {{OFFER_PRICE}} offer <span class="arw" aria-hidden="true">↗</span></a>
+      </div>
+
+      <div class="offer__cardwrap reveal" data-d="2">
+        <div class="offer__ticket">
+          <p class="tk-tag">{{OFFER_KICKER}}</p>
+          <p class="tk-price tnum"><sup>{{OFFER_SYMBOL}}</sup>{{OFFER_PRICE_NUM}}<span class="tk-old">{{OFFER_OLD}}</span></p>
+          <div class="tk-inc">
+            <span>{{OFFER_DESC}}</span>
+          </div>
+          <a class="btn btn--lg" href="{{BOOK_URL}}">Book this visit <span class="arw" aria-hidden="true">↗</span></a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ WHY US ============ -->
+<section class="section why" id="why" aria-labelledby="why-h">
+  <div class="wrap">
+    <div class="why__grid">
+      <div class="why__panel reveal">
+        <div class="glow" aria-hidden="true"></div>
+        <div class="grain" aria-hidden="true"></div>
+        <p class="why__stat tnum">20<span class="plus">+</span></p>
+        <p class="why__statlabel">years caring for families across {{LOCALE}} — through every visit, big and small.</p>
+        <div class="why__mini">
+          <div><b class="tnum">{{REVIEW_COUNT}}</b><span>Five-star reviews</span></div>
+          <div><b class="tnum">98%</b><span>Would refer a friend</span></div>
+          <div><b>Same-week</b><span>Appointment access</span></div>
+          <div><b class="tnum">0</b><span>Judgment, ever</span></div>
+        </div>
+      </div>
+
+      <div class="why__body">
+        <span class="eyebrow reveal">Why patients stay</span>
+        <h2 class="reveal" data-d="1" id="why-h">Care that feels <span class="accent">refreshingly</span> human.</h2>
+        <p class="why__lede reveal" data-d="1">We built the practice we'd want for our own families — unhurried, straightforward and genuinely kind. No upselling, no lectures. Just great care.</p>
+        <div class="why__points">
+          <div class="why__pt reveal" data-d="2">
+            <span class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><path d="M12 21s-7-4.3-7-9.5A4.5 4.5 0 0 1 12 8a4.5 4.5 0 0 1 7 3.5C19 16.7 12 21 12 21Z"/></svg></span>
+            <div><h4>A calmer visit</h4><p>Warm rooms, noise-cancelling options and a team that explains before they act. Anxiety-friendly by design.</p></div>
+          </div>
+          <div class="why__pt reveal" data-d="3">
+            <span class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><path d="M12 2 3 6v6c0 5 3.8 8.5 9 10 5.2-1.5 9-5 9-10V6Z"/><path d="m9 12 2 2 4-4"/></svg></span>
+            <div><h4>Honest, transparent pricing</h4><p>Clear estimates up front and help maximizing your benefits — you'll always know what you're paying for.</p></div>
+          </div>
+          <div class="why__pt reveal" data-d="4">
+            <span class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><path d="M12 8v4l3 2"/><circle cx="12" cy="12" r="9"/></svg></span>
+            <div><h4>Time that respects yours</h4><p>On-schedule visits, same-week booking and modern tech that skips the hassle.</p></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ REVIEWS ============ -->
+<section class="section reviews" id="reviews" aria-labelledby="rev-h">
+  <div class="glow" aria-hidden="true"></div>
+  <div class="grain" aria-hidden="true"></div>
+  <div class="wrap">
+    <div class="reviews__head reveal">
+      <div>
+        <span class="eyebrow" style="color:var(--vermilion)">Real patients</span>
+        <h2 id="rev-h" style="margin-top:1rem">Loved by the neighborhood, <span class="accent">{{REVIEW_COUNT}} times over.</span></h2>
+      </div>
+      <div class="reviews__score">
+        <div class="stars" aria-hidden="true">★★★★★</div>
+        <b class="tnum">{{RATING}}</b>
+        <span>Across Google &amp; the web</span>
+      </div>
+    </div>
+
+    <div class="quotes">
+      <!--BOLD:QUOTES-->
+      <figure class="quote reveal" data-d="1">
+        <div class="quote__stars" aria-label="5 out of 5 stars">★★★★★</div>
+        <div class="mark" aria-hidden="true">&ldquo;</div>
+        <blockquote><p>I used to dread the dentist. Now I actually don't mind going. They talked me through every step, never made me feel rushed. Wish I'd found them years ago.</p></blockquote>
+        <figcaption class="quote__by">
+          <span class="quote__av" style="background:linear-gradient(135deg,var(--vermilion),var(--vermilion-d))" aria-hidden="true">M</span>
+          <span><b>Marisa T.</b><span>Patient since 2021</span></span>
+        </figcaption>
+      </figure>
+
+      <figure class="quote reveal" data-d="2">
+        <div class="quote__stars" aria-label="5 out of 5 stars">★★★★★</div>
+        <div class="mark" aria-hidden="true">&ldquo;</div>
+        <blockquote><p>The whole team is unbelievably patient and kind. My visit was a non-event — I came out asking when I could come back. That says everything.</p></blockquote>
+        <figcaption class="quote__by">
+          <span class="quote__av" style="background:linear-gradient(135deg,var(--volt),#1a2fb0)" aria-hidden="true">D</span>
+          <span><b>Daniel R.</b><span>Patient since 2019</span></span>
+        </figcaption>
+      </figure>
+      <!--/BOLD:QUOTES-->
+    </div>
+  </div>
+</section>
+
+<!-- ============ TEAM TEASER ============ -->
+<section class="section team" id="team" aria-labelledby="team-h">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <h2 class="sec-head__title" id="team-h">The people behind <span class="accent">it all.</span></h2>
+      <p class="sec-head__aside">A small, tight-knit team who genuinely likes what they do — and it shows the moment you walk in.</p>
+    </div>
+    <div class="team__grid">
+      <!--BOLD:TEAM-->
+      <article class="tcard tcard--1 reveal" data-d="1">
+        <span class="init" aria-hidden="true">EC</span>
+        <h4>Dr. Elena Cho</h4>
+        <span>Founder &amp; Lead · Cosmetic focus</span>
+      </article>
+      <article class="tcard tcard--2 reveal" data-d="2">
+        <span class="init" aria-hidden="true">MR</span>
+        <h4>Dr. Marcus Reed</h4>
+        <span>Restorative &amp; Implants</span>
+      </article>
+      <article class="tcard tcard--3 reveal" data-d="3">
+        <span class="init" aria-hidden="true">PT</span>
+        <h4>Priya &amp; the care team</h4>
+        <span>Comfort &amp; front desk</span>
+      </article>
+      <!--/BOLD:TEAM-->
+    </div>
+    <div class="team__cta reveal" data-d="2">
+      <p style="max-width:44ch;color:var(--text-mut)">Every visit is with a familiar face — no rotating chairs, no strangers.</p>
+      <a class="btn btn--ink btn--lg" href="{{BOOK_URL}}">Meet us in person <span class="arw" aria-hidden="true">↗</span></a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ BOOK / HOURS ============ -->
+<section class="section book" id="book" aria-labelledby="book-h">
+  <div class="book__glow" aria-hidden="true"></div>
+  <div class="grain" aria-hidden="true"></div>
+  <div class="wrap">
+    <div class="book__grid">
+      <div class="book__copy reveal">
+        <span class="eyebrow" style="color:var(--vermilion)">Let's get you booked</span>
+        <h2 id="book-h" style="margin-top:1rem">Book a visit, <em>on your terms.</em></h2>
+        <p class="book__lede">Same-week appointments are open now. Call us, or request a time online and we'll confirm within one business day.</p>
+        <div class="book__actions">
+          <a class="btn btn--lg" href="tel:{{PHONE}}">Call {{PHONE}} <span class="arw" aria-hidden="true">↗</span></a>
+          <a class="btn btn--lg btn--ghost" href="{{BOOK_URL}}">Request online</a>
+        </div>
+        <div class="book__contact">
+          <div>
+            <span>Call</span>
+            <a href="tel:{{PHONE}}"><b class="tnum">{{PHONE}}</b></a>
+          </div>
+          <div>
+            <span>Visit</span>
+            <b>{{LOCALE}}</b>
+          </div>
+          <div>
+            <span>New clients</span>
+            <b style="color:var(--mint)">{{OFFER_PRICE}} first visit</b>
+          </div>
+        </div>
+      </div>
+
+      <div class="hours reveal" data-d="2" aria-label="Office hours">
+        <h3><span class="live" aria-hidden="true"></span>Office hours</h3>
+        <!--BOLD:HOURS-->
+        <div class="hours__row is-open"><span class="d">Monday – Friday</span><span class="t tnum">8:00 – 5:00</span></div>
+        <div class="hours__row"><span class="d">Saturday</span><span class="t">By appointment</span></div>
+        <div class="hours__row"><span class="d">Sunday</span><span class="t">Closed</span></div>
+        <!--/BOLD:HOURS-->
+        <p class="hours__note"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2 4 13h6l-1 9 9-11h-6z"/></svg>Need us outside these hours? Call and follow the prompts — we'll help right away.</p>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<!-- ============ FOOTER ============ -->
+<footer class="foot">
+  <div class="wrap">
+    <div class="foot__top">
+      <div class="foot__brand">
+        <a class="brand" href="#top" aria-label="{{NAME}} home">
+          <span class="brand__mark" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M12 3c-2.5 0-3.5 1.2-5 1.2S4 3.6 3.2 4.6C2 6.2 3 10 4.2 13.6c.7 2 1.3 4.4 2.4 4.4 1 0 1.1-2 2.4-2s1.6 2 3 2 1.8-2.4 2.6-4.6C15.8 9.6 17 6 15.8 4.6 15 3.6 14.5 4.2 13 4.2S12 3 12 3Z" fill="#fff"/></svg>
+          </span>
+          <span class="brand__name">{{NAME_SHORT}}<small>{{NAME_SUB}}</small></span>
+        </a>
+        <p>{{TAGLINE}}</p>
+      </div>
+      <div>
+        <h5>Services</h5>
+        <ul>
+          <!--BOLD:FOOTER_SVC-->
+          <li><a href="#services">General &amp; Family</a></li>
+          <li><a href="#services">Cosmetic &amp; Veneers</a></li>
+          <li><a href="#services">Dental Implants</a></li>
+          <li><a href="#services">Invisalign®</a></li>
+          <li><a href="#services">Emergency Care</a></li>
+          <!--/BOLD:FOOTER_SVC-->
+        </ul>
+      </div>
+      <div>
+        <h5>Practice</h5>
+        <ul>
+          <li><a href="#why">Why Us</a></li>
+          <li><a href="#reviews">Reviews</a></li>
+          <li><a href="#team">Our Team</a></li>
+          <li><a href="#offer">{{OFFER_PRICE}} New Patient</a></li>
+        </ul>
+      </div>
+      <div>
+        <h5>Visit</h5>
+        <ul>
+          <li><a class="tnum" href="tel:{{PHONE}}">{{PHONE}}</a></li>
+          <li><span style="color:var(--text-lt-mut)">{{LOCALE}}</span></li>
+          <li><a href="{{BOOK_URL}}">Book appointment ↗</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="foot__bottom">
+      <span>© 2026 {{NAME}} · {{LOCALE}}</span>
+      <span><a href="#top">Privacy</a> &nbsp;·&nbsp; <a href="#top">Accessibility</a> &nbsp;·&nbsp; <a href="#top">Back to top ↑</a></span>
+    </div>
+  </div>
+</footer>
+
+<script>
+// page-load reveal
+window.addEventListener('load', function(){
+  requestAnimationFrame(function(){ document.body.classList.add('loaded'); });
+});
+document.addEventListener('DOMContentLoaded', function(){ setTimeout(function(){ document.body.classList.add('loaded'); }, 60); });
+
+// nav scrolled state
+var nav = document.getElementById('nav');
+var onScroll = function(){ nav.classList.toggle('scrolled', window.scrollY > 40); };
+onScroll();
+window.addEventListener('scroll', onScroll, {passive:true});
+
+// scroll reveals
+var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+var items = document.querySelectorAll('.reveal');
+if(reduced || !('IntersectionObserver' in window)){
+  items.forEach(function(el){ el.classList.add('in'); });
+} else {
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); }
+    });
+  }, {threshold:0.12, rootMargin:'0px 0px -8% 0px'});
+  items.forEach(function(el){ io.observe(el); });
+}
+</script>
+</body>
+</html>

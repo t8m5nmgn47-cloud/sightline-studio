@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>{{NAME}}</title>
+<meta name="description" content="{{NAME}} — {{LEDE}}" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,700;12..96,800&family=Hanken+Grotesk:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Newsreader:ital,opsz,wght@1,6..72,400;1,6..72,500&display=swap" rel="stylesheet" />
+<style>
+  /* ============ DESIGN TOKENS ============ */
+  :root{
+    /* Palette — "Fresh Light": bright mint ground, deep spruce ink, one crisp coral accent */
+    --ground:      #F4F9F6;   /* airy mint-white page ground */
+    --paper:       #FFFFFF;   /* card surface */
+    --mist:        #E8F2EC;   /* soft panel tint */
+    --mint:        #CFE9DC;   /* gradient mint */
+    --sky:         #D8ECF4;   /* gradient sky */
+    --butter:      #FBF0D6;   /* gradient warm light */
+    --ink:         #0E2A26;   /* deep spruce — primary text, high contrast */
+    --ink-2:       #38564F;   /* secondary text (passes AA on ground) */
+    --ink-3:       #5F7B73;   /* muted labels */
+    --line:        #DCE9E2;   /* hairlines */
+    --accent:      #FF6A4D;   /* crisp confident coral — the ONE accent */
+    --accent-deep: #E8492C;   /* coral for text-on-light where needed */
+    --accent-soft: #FFE6DF;   /* coral tint wash */
+    --teal:        #0E2A26;   /* button ink */
+    --teal-hi:     #1C4A42;
+
+    /* Type scale (fluid) */
+    --step--1: clamp(0.82rem, 0.79rem + 0.15vw, 0.9rem);
+    --step-0:  clamp(1rem, 0.96rem + 0.2vw, 1.12rem);
+    --step-1:  clamp(1.2rem, 1.1rem + 0.5vw, 1.5rem);
+    --step-2:  clamp(1.6rem, 1.35rem + 1.2vw, 2.25rem);
+    --step-3:  clamp(2.1rem, 1.6rem + 2.4vw, 3.25rem);
+    --step-hero: clamp(2.9rem, 1.9rem + 5vw, 6.2rem);
+
+    --font-display: "Bricolage Grotesque", system-ui, sans-serif;
+    --font-body: "Hanken Grotesk", system-ui, sans-serif;
+    --font-serif: "Newsreader", Georgia, serif;
+
+    /* Space */
+    --sp-1:.5rem; --sp-2:1rem; --sp-3:1.5rem; --sp-4:2rem; --sp-5:3rem; --sp-6:4.5rem; --sp-7:7rem;
+    --radius: 22px;
+    --radius-sm: 14px;
+    --shadow-soft: 0 1px 2px rgba(14,42,38,.04), 0 12px 32px -12px rgba(14,42,38,.12);
+    --shadow-lift: 0 2px 4px rgba(14,42,38,.05), 0 28px 60px -22px rgba(14,42,38,.22);
+    --maxw: 1200px;
+    --ease: cubic-bezier(.2,.7,.2,1);
+  }
+
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0; background:var(--ground); color:var(--ink);
+    font-family:var(--font-body); font-size:var(--step-0); line-height:1.6;
+    -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility;
+    overflow-x:hidden;
+  }
+  ::selection{background:var(--accent); color:#fff;}
+  a{color:inherit; text-decoration:none;}
+  img{max-width:100%; display:block;}
+  h1,h2,h3,h4{font-family:var(--font-display); font-weight:700; line-height:1.02; letter-spacing:-.02em; margin:0;}
+  p{margin:0;}
+  .tnum{font-variant-numeric:tabular-nums;}
+
+  /* Grain overlay */
+  body::after{
+    content:""; position:fixed; inset:0; z-index:2000; pointer-events:none; opacity:.05;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    mix-blend-mode:multiply;
+  }
+
+  .wrap{max-width:var(--maxw); margin-inline:auto; padding-inline:clamp(1.1rem,4vw,2.5rem);}
+
+  /* Focus */
+  a:focus-visible, button:focus-visible{
+    outline:3px solid var(--accent); outline-offset:3px; border-radius:6px;
+  }
+
+  /* ============ NAV ============ */
+  .nav{
+    position:sticky; top:0; z-index:1000;
+    backdrop-filter:saturate(1.4) blur(12px);
+    background:rgba(244,249,246,.72);
+    border-bottom:1px solid transparent;
+    transition:border-color .3s var(--ease), background .3s var(--ease);
+  }
+  .nav.scrolled{border-color:var(--line); background:rgba(244,249,246,.9);}
+  .nav-inner{display:flex; align-items:center; justify-content:space-between; gap:var(--sp-3); height:76px;}
+  .brand{display:flex; align-items:center; gap:.6rem; font-family:var(--font-display); font-weight:700; font-size:1.18rem; letter-spacing:-.02em;}
+  .brand .mark{width:34px; height:34px; flex:none;}
+  .brand small{display:block; font-family:var(--font-body); font-weight:500; font-size:.62rem; letter-spacing:.22em; text-transform:uppercase; color:var(--ink-3); margin-top:1px;}
+  .nav-links{display:flex; align-items:center; gap:clamp(1rem,2.4vw,2.1rem); font-weight:500; font-size:.95rem;}
+  .nav-links a{color:var(--ink-2); position:relative; padding:.3rem 0;}
+  .nav-links a::after{content:""; position:absolute; left:0; bottom:-2px; height:2px; width:0; background:var(--accent); transition:width .3s var(--ease);}
+  .nav-links a:hover{color:var(--ink);}
+  .nav-links a:hover::after{width:100%;}
+  .nav-cta{display:flex; align-items:center; gap:1rem;}
+  .nav-phone{display:flex; align-items:center; gap:.45rem; font-weight:600; color:var(--ink); font-size:.95rem;}
+  .nav-phone svg{color:var(--accent);}
+
+  .btn{
+    font-family:var(--font-body); font-weight:600; font-size:.96rem; letter-spacing:.005em;
+    display:inline-flex; align-items:center; gap:.55rem; cursor:pointer;
+    padding:.85rem 1.4rem; border-radius:999px; border:1px solid transparent;
+    transition:transform .25s var(--ease), box-shadow .25s var(--ease), background .25s var(--ease), color .25s var(--ease);
+    white-space:nowrap;
+  }
+  .btn-primary{background:var(--teal); color:#fff; box-shadow:0 10px 24px -10px rgba(14,42,38,.5);}
+  .btn-primary:hover{transform:translateY(-2px); box-shadow:0 16px 30px -12px rgba(14,42,38,.55); background:var(--teal-hi);}
+  .btn-primary .dot{width:8px; height:8px; border-radius:50%; background:var(--accent);}
+  .btn-ghost{background:transparent; color:var(--ink); border-color:var(--line);}
+  .btn-ghost:hover{border-color:var(--ink); transform:translateY(-2px); background:#fff;}
+  .btn-accent{background:var(--accent); color:#fff; box-shadow:0 12px 26px -10px rgba(255,106,77,.6);}
+  .btn-accent:hover{transform:translateY(-2px); background:var(--accent-deep); box-shadow:0 18px 32px -12px rgba(232,73,44,.6);}
+
+  .nav-toggle{display:none;}
+
+  /* ============ HERO ============ */
+  .hero{position:relative; overflow:hidden; padding-top:clamp(2.5rem,5vw,4.5rem); padding-bottom:clamp(3rem,6vw,6rem);}
+  .hero-bg{position:absolute; inset:0; z-index:0; pointer-events:none;}
+  .blob{position:absolute; border-radius:50%; filter:blur(46px);}
+  .b1{width:60vw; height:60vw; max-width:760px; max-height:760px; top:-24%; right:-14%; background:radial-gradient(circle at 40% 40%, var(--sky), transparent 70%); opacity:.9;}
+  .b2{width:48vw; height:48vw; max-width:620px; max-height:620px; bottom:-30%; left:-16%; background:radial-gradient(circle at 60% 40%, var(--mint), transparent 70%); opacity:.85;}
+  .b3{width:30vw; height:30vw; max-width:380px; max-height:380px; top:12%; left:34%; background:radial-gradient(circle at 50% 50%, var(--butter), transparent 68%); opacity:.75;}
+  .hero-grid-lines{position:absolute; inset:0; opacity:.35;
+    background-image:linear-gradient(var(--line) 1px, transparent 1px); background-size:100% 74px;
+    -webkit-mask-image:linear-gradient(180deg, transparent, #000 30%, #000 60%, transparent); mask-image:linear-gradient(180deg, transparent, #000 30%, #000 60%, transparent);}
+
+  .hero-inner{position:relative; z-index:1; display:grid; grid-template-columns:1.15fr .85fr; gap:clamp(2rem,4vw,4rem); align-items:center;}
+  .eyebrow{display:inline-flex; align-items:center; gap:.6rem; font-size:.78rem; font-weight:600; letter-spacing:.18em; text-transform:uppercase; color:var(--ink-2);
+    background:var(--paper); border:1px solid var(--line); padding:.5rem .9rem; border-radius:999px; box-shadow:var(--shadow-soft);}
+  .eyebrow .pip{width:7px; height:7px; border-radius:50%; background:var(--accent); box-shadow:0 0 0 4px var(--accent-soft);}
+  h1.hero-title{font-size:var(--step-hero); font-weight:800; margin-top:1.4rem; letter-spacing:-.035em;}
+  h1.hero-title .em{font-family:var(--font-serif); font-style:italic; font-weight:500; letter-spacing:-.01em; color:var(--accent-deep);}
+  .hero-sub{font-size:clamp(1.05rem,.98rem+.4vw,1.28rem); color:var(--ink-2); margin-top:1.5rem; max-width:34ch; line-height:1.55;}
+  .hero-actions{display:flex; flex-wrap:wrap; gap:.9rem; margin-top:2.1rem; align-items:center;}
+  .hero-note{font-size:.9rem; color:var(--ink-3); display:flex; align-items:center; gap:.5rem;}
+  .hero-note svg{color:var(--accent); flex:none;}
+
+  /* Hero visual card cluster (no photo) */
+  .hero-visual{position:relative; height:min(60vh,520px); min-height:420px;}
+  .glass{position:absolute; background:rgba(255,255,255,.72); backdrop-filter:blur(10px); border:1px solid rgba(255,255,255,.9); border-radius:var(--radius); box-shadow:var(--shadow-lift);}
+  .card-main{inset:6% 4% 26% 8%; padding:1.6rem; display:flex; flex-direction:column; justify-content:space-between; background:linear-gradient(155deg,#ffffff, #f2faf6);}
+  .card-main .ring{width:100%; aspect-ratio:1; max-width:170px; margin-inline:auto; position:relative;}
+  .rating-big{font-family:var(--font-display); font-weight:800; font-size:2.6rem; letter-spacing:-.03em; line-height:1;}
+  .stars{color:var(--accent); letter-spacing:2px; font-size:1.1rem;}
+  .card-main .row{display:flex; align-items:center; justify-content:space-between; gap:.5rem;}
+  .card-mini{right:-2%; bottom:6%; width:60%; padding:1.05rem 1.2rem; display:flex; align-items:center; gap:.85rem; background:linear-gradient(155deg,#0E2A26,#12352f); color:#fff; border-color:rgba(255,255,255,.12);}
+  .card-mini .ic{width:42px; height:42px; border-radius:12px; background:var(--accent); display:grid; place-items:center; flex:none; color:#fff;}
+  .card-mini b{display:block; font-family:var(--font-display); font-size:1.15rem; letter-spacing:-.02em;}
+  .card-mini span{font-size:.8rem; color:rgba(255,255,255,.72);}
+  .card-tag{top:2%; right:2%; padding:.7rem 1rem; background:var(--accent); color:#fff; border:none; font-weight:700; font-family:var(--font-display); font-size:.9rem; box-shadow:0 16px 30px -12px rgba(232,73,44,.55); border-radius:16px;}
+  .card-tag small{display:block; font-family:var(--font-body); font-weight:500; font-size:.66rem; letter-spacing:.14em; text-transform:uppercase; opacity:.85;}
+  .tooth-mark{position:absolute; top:44%; left:-6%; width:66px; height:66px; background:#fff; border-radius:20px; box-shadow:var(--shadow-lift); display:grid; place-items:center; color:var(--accent); z-index:3;}
+
+  /* ============ TRUST BAR ============ */
+  .trust{border-top:1px solid var(--line); border-bottom:1px solid var(--line); background:var(--paper);}
+  .trust-inner{display:grid; grid-template-columns:repeat(4,1fr); gap:1px; background:var(--line);}
+  .trust-cell{background:var(--paper); padding:clamp(1.4rem,3vw,2rem) clamp(1rem,2vw,1.6rem);}
+  .trust-cell .num{font-family:var(--font-display); font-weight:800; font-size:clamp(1.8rem,1.4rem+1.4vw,2.5rem); letter-spacing:-.03em; line-height:1;}
+  .trust-cell .lbl{font-size:.9rem; color:var(--ink-2); margin-top:.5rem;}
+  .trust-cell .num .accent{color:var(--accent);}
+
+  /* ============ SECTION SCAFFOLD ============ */
+  section{position:relative;}
+  .band{padding-block:clamp(3.5rem,7vw,6.5rem);}
+  .sec-head{max-width:640px; margin-bottom:clamp(2rem,4vw,3.2rem);}
+  .kicker{display:inline-flex; align-items:center; gap:.55rem; font-size:.76rem; font-weight:700; letter-spacing:.2em; text-transform:uppercase; color:var(--accent-deep); margin-bottom:1rem;}
+  .kicker::before{content:""; width:26px; height:2px; background:var(--accent);}
+  h2.sec-title{font-size:var(--step-3); font-weight:700; letter-spacing:-.03em;}
+  h2.sec-title .em{font-family:var(--font-serif); font-style:italic; font-weight:500; color:var(--ink-2);}
+  .sec-lead{color:var(--ink-2); font-size:var(--step-1); margin-top:1rem; line-height:1.5; font-weight:400;}
+
+  /* ============ SERVICES ============ */
+  .services-grid{display:grid; grid-template-columns:repeat(6,1fr); gap:1.1rem;}
+  .svc{grid-column:span 2; background:var(--paper); border:1px solid var(--line); border-radius:var(--radius); padding:1.7rem 1.6rem 1.6rem; position:relative; overflow:hidden; transition:transform .35s var(--ease), box-shadow .35s var(--ease), border-color .35s var(--ease);}
+  .svc:nth-child(1){grid-column:span 3;}
+  .svc:nth-child(2){grid-column:span 3;}
+  .svc:hover{transform:translateY(-6px); box-shadow:var(--shadow-lift); border-color:transparent;}
+  .svc::before{content:""; position:absolute; inset:0; background:radial-gradient(120% 90% at 100% 0%, var(--accent-soft), transparent 55%); opacity:0; transition:opacity .35s var(--ease);}
+  .svc:hover::before{opacity:1;}
+  .svc-ic{width:52px; height:52px; border-radius:14px; background:var(--mist); display:grid; place-items:center; color:var(--ink); margin-bottom:1.1rem; position:relative; z-index:1; transition:background .35s var(--ease), color .35s var(--ease);}
+  .svc:hover .svc-ic{background:var(--accent); color:#fff;}
+  .svc h3{font-size:1.32rem; letter-spacing:-.02em; position:relative; z-index:1;}
+  .svc p{color:var(--ink-2); font-size:.98rem; margin-top:.55rem; position:relative; z-index:1;}
+  .svc .arrow{position:absolute; top:1.7rem; right:1.6rem; color:var(--ink-3); opacity:0; transform:translate(-6px,6px); transition:.35s var(--ease); z-index:1;}
+  .svc:hover .arrow{opacity:1; transform:translate(0,0); color:var(--accent-deep);}
+
+  /* ============ OFFER BAND ============ */
+  .offer{position:relative;}
+  .offer-card{position:relative; overflow:hidden; border-radius:32px; background:linear-gradient(135deg,#0E2A26 0%, #143b34 60%, #17463d 100%); color:#fff; padding:clamp(2.2rem,4vw,3.6rem);
+    display:grid; grid-template-columns:1.3fr .9fr; gap:clamp(1.5rem,3vw,3rem); align-items:center; box-shadow:var(--shadow-lift);}
+  .offer-card .glow{position:absolute; width:420px; height:420px; border-radius:50%; background:radial-gradient(circle,var(--accent),transparent 62%); opacity:.4; top:-30%; right:-6%; filter:blur(10px);}
+  .offer-card .glow2{position:absolute; width:340px; height:340px; border-radius:50%; background:radial-gradient(circle,var(--sky),transparent 65%); opacity:.22; bottom:-40%; left:-6%;}
+  .offer-l{position:relative; z-index:1;}
+  .offer-l .kicker{color:#ffb8a8;}
+  .offer-l .kicker::before{background:var(--accent);}
+  .offer-l h2{font-size:var(--step-3); color:#fff; letter-spacing:-.03em;}
+  .offer-l p{color:rgba(255,255,255,.78); margin-top:1rem; max-width:44ch;}
+  .offer-l .fine{font-size:.82rem; color:rgba(255,255,255,.55); margin-top:1.3rem;}
+  .price-tile{position:relative; z-index:1; background:rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.14); border-radius:24px; padding:2rem; text-align:center; backdrop-filter:blur(6px);}
+  .price-tile .prewrap{display:flex; align-items:flex-start; justify-content:center; gap:.2rem; color:#fff;}
+  .price-tile .cur{font-family:var(--font-display); font-weight:700; font-size:1.8rem; margin-top:.6rem;}
+  .price-tile .amt{font-family:var(--font-display); font-weight:800; font-size:clamp(4rem,3rem+4vw,6rem); line-height:.9; letter-spacing:-.04em; color:#fff;}
+  .price-tile .inc{color:rgba(255,255,255,.72); font-size:.92rem; margin:.6rem 0 1.4rem;}
+  .price-tile .inc b{color:#fff; font-weight:600;}
+  .price-tile .strike{color:rgba(255,255,255,.5); text-decoration:line-through; font-size:.9rem;}
+
+  /* ============ WHY US ============ */
+  .why{background:var(--paper); border-block:1px solid var(--line);}
+  .why-grid{display:grid; grid-template-columns:1fr 1fr; gap:clamp(2rem,5vw,5rem); align-items:center;}
+  .why-list{display:grid; gap:1.4rem; margin-top:2rem;}
+  .why-item{display:flex; gap:1.1rem; align-items:flex-start;}
+  .why-item .chk{width:40px; height:40px; border-radius:12px; background:var(--accent-soft); color:var(--accent-deep); display:grid; place-items:center; flex:none;}
+  .why-item h4{font-family:var(--font-display); font-size:1.12rem; letter-spacing:-.01em;}
+  .why-item p{color:var(--ink-2); font-size:.96rem; margin-top:.25rem;}
+  .why-visual{position:relative; border-radius:28px; overflow:hidden; min-height:420px; background:linear-gradient(160deg,var(--mint),var(--sky) 55%, var(--butter)); box-shadow:var(--shadow-lift); display:flex; flex-direction:column; justify-content:flex-end; padding:2rem;}
+  .why-visual .quotemark{position:absolute; top:1.3rem; left:1.6rem; font-family:var(--font-serif); font-style:italic; font-size:6rem; color:rgba(14,42,38,.16); line-height:1;}
+  .why-visual .pull{position:relative; z-index:1; font-family:var(--font-serif); font-style:italic; font-size:clamp(1.4rem,1.1rem+1.2vw,2rem); color:var(--ink); line-height:1.3; max-width:24ch;}
+  .why-visual .pull cite{display:block; font-family:var(--font-body); font-style:normal; font-weight:600; font-size:.9rem; color:var(--ink-2); margin-top:1rem;}
+  .why-chip{position:absolute; top:1.6rem; right:1.6rem; background:rgba(255,255,255,.85); backdrop-filter:blur(6px); border-radius:14px; padding:.6rem .9rem; font-size:.8rem; font-weight:600; display:flex; align-items:center; gap:.5rem; box-shadow:var(--shadow-soft);}
+  .why-chip .pip{width:8px;height:8px;border-radius:50%;background:#2fbf71;box-shadow:0 0 0 4px rgba(47,191,113,.18);}
+
+  /* ============ REVIEWS ============ */
+  .reviews-grid{display:grid; grid-template-columns:1fr 1fr; gap:1.4rem;}
+  .review{background:var(--paper); border:1px solid var(--line); border-radius:var(--radius); padding:2rem; position:relative; transition:transform .35s var(--ease), box-shadow .35s var(--ease);}
+  .review:hover{transform:translateY(-4px); box-shadow:var(--shadow-lift);}
+  .review .stars{color:var(--accent); font-size:1.1rem; letter-spacing:2px;}
+  .review blockquote{margin:1rem 0 0; font-size:1.2rem; line-height:1.5; font-family:var(--font-serif); font-style:italic; color:var(--ink); letter-spacing:-.005em;}
+  .review .who{display:flex; align-items:center; gap:.85rem; margin-top:1.6rem;}
+  .review .av{width:44px; height:44px; border-radius:50%; display:grid; place-items:center; font-family:var(--font-display); font-weight:700; color:#fff; flex:none;}
+  .review .who b{font-family:var(--font-display); font-size:1rem; letter-spacing:-.01em;}
+  .review .who span{display:block; font-size:.82rem; color:var(--ink-3);}
+
+  /* ============ TEAM ============ */
+  .team-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:1.4rem; margin-top:2.6rem;}
+  .member{border-radius:var(--radius); overflow:hidden; border:1px solid var(--line); background:var(--paper); transition:transform .35s var(--ease), box-shadow .35s var(--ease);}
+  .member:hover{transform:translateY(-6px); box-shadow:var(--shadow-lift);}
+  .member .ph{aspect-ratio:4/3; background:linear-gradient(150deg,var(--mint),var(--sky)); position:relative; display:grid; place-items:center;}
+  .member:nth-child(2) .ph{background:linear-gradient(150deg,var(--butter),var(--mint));}
+  .member:nth-child(3) .ph{background:linear-gradient(150deg,var(--sky),var(--accent-soft));}
+  .member .ph .initial{font-family:var(--font-display); font-weight:800; font-size:3.4rem; color:rgba(14,42,38,.28); letter-spacing:-.03em;}
+  .member .body{padding:1.2rem 1.4rem 1.5rem;}
+  .member h4{font-family:var(--font-display); font-size:1.15rem; letter-spacing:-.01em;}
+  .member .role{color:var(--accent-deep); font-size:.85rem; font-weight:600; margin-top:.2rem;}
+  .member p{color:var(--ink-2); font-size:.9rem; margin-top:.6rem;}
+
+  /* ============ BOOKING / HOURS ============ */
+  .book{background:var(--paper); border-top:1px solid var(--line);}
+  .book-grid{display:grid; grid-template-columns:1fr 1fr; gap:clamp(2rem,5vw,4rem); align-items:stretch;}
+  .hours-card{background:var(--ground); border:1px solid var(--line); border-radius:var(--radius); padding:clamp(1.6rem,3vw,2.4rem);}
+  .hours-card h3{font-size:1.5rem; letter-spacing:-.02em; margin-bottom:1.4rem;}
+  .hours-row{display:flex; align-items:baseline; justify-content:space-between; gap:1rem; padding:.85rem 0; border-bottom:1px dashed var(--line);}
+  .hours-row:last-of-type{border-bottom:none;}
+  .hours-row .day{font-weight:600;}
+  .hours-row .time{color:var(--ink-2);}
+  .hours-row.today{color:var(--accent-deep);}
+  .hours-row.today .time{color:var(--accent-deep); font-weight:600;}
+  .badge-open{display:inline-flex; align-items:center; gap:.5rem; background:var(--accent-soft); color:var(--accent-deep); font-weight:700; font-size:.82rem; padding:.45rem .8rem; border-radius:999px; margin-bottom:1.2rem;}
+  .badge-open .pip{width:8px;height:8px;border-radius:50%;background:#2fbf71;box-shadow:0 0 0 4px rgba(47,191,113,.2);}
+  .contact-line{display:flex; align-items:center; gap:.7rem; margin-top:1.4rem; font-weight:600;}
+  .contact-line svg{color:var(--accent); flex:none;}
+
+  .book-cta{background:linear-gradient(160deg,var(--mist),var(--paper)); border:1px solid var(--line); border-radius:var(--radius); padding:clamp(1.8rem,3vw,2.6rem); display:flex; flex-direction:column; justify-content:center;}
+  .book-cta h3{font-size:var(--step-2); letter-spacing:-.03em; line-height:1.05;}
+  .book-cta h3 .em{font-family:var(--font-serif); font-style:italic; font-weight:500; color:var(--accent-deep);}
+  .book-cta p{color:var(--ink-2); margin-top:1rem; max-width:38ch;}
+  .book-cta .actions{display:flex; flex-wrap:wrap; gap:.8rem; margin-top:1.8rem;}
+  .mini-trust{display:flex; gap:1.4rem; margin-top:1.8rem; flex-wrap:wrap; color:var(--ink-3); font-size:.85rem;}
+  .mini-trust span{display:flex; align-items:center; gap:.4rem;}
+  .mini-trust svg{color:var(--accent);}
+
+  /* ============ FOOTER ============ */
+  footer{background:var(--ink); color:rgba(255,255,255,.7); padding-block:clamp(3rem,5vw,4.5rem) 2rem;}
+  .foot-grid{display:grid; grid-template-columns:1.5fr 1fr 1fr 1fr; gap:2rem;}
+  footer .brand{color:#fff;}
+  footer .brand small{color:rgba(255,255,255,.5);}
+  .foot-about{margin-top:1.2rem; max-width:34ch; font-size:.92rem; line-height:1.6;}
+  .foot-col h5{font-family:var(--font-display); font-weight:700; color:#fff; font-size:.95rem; letter-spacing:.02em; margin:0 0 1rem;}
+  .foot-col a, .foot-col p{display:block; color:rgba(255,255,255,.68); font-size:.92rem; padding:.32rem 0; transition:color .2s var(--ease);}
+  .foot-col a:hover{color:var(--accent);}
+  .foot-bottom{display:flex; justify-content:space-between; flex-wrap:wrap; gap:1rem; margin-top:3rem; padding-top:1.6rem; border-top:1px solid rgba(255,255,255,.12); font-size:.82rem; color:rgba(255,255,255,.5);}
+  .foot-bottom a:hover{color:var(--accent);}
+
+  /* ============ REVEAL MOTION ============ */
+  .reveal{opacity:0; transform:translateY(26px); transition:opacity .8s var(--ease), transform .8s var(--ease);}
+  .reveal.in{opacity:1; transform:none;}
+  [data-delay="1"]{transition-delay:.08s;} [data-delay="2"]{transition-delay:.16s;}
+  [data-delay="3"]{transition-delay:.24s;} [data-delay="4"]{transition-delay:.32s;} [data-delay="5"]{transition-delay:.4s;}
+
+  /* hero load animation */
+  .hl{opacity:0; transform:translateY(20px); animation:hlIn .9s var(--ease) forwards;}
+  .hl-1{animation-delay:.05s;} .hl-2{animation-delay:.18s;} .hl-3{animation-delay:.31s;} .hl-4{animation-delay:.44s;} .hl-5{animation-delay:.57s;}
+  @keyframes hlIn{to{opacity:1; transform:none;}}
+  .hv{opacity:0; animation:hvIn 1s var(--ease) forwards;}
+  .hv-1{animation-delay:.35s;} .hv-2{animation-delay:.55s;} .hv-3{animation-delay:.72s;} .hv-4{animation-delay:.9s;}
+  @keyframes hvIn{from{opacity:0; transform:translateY(24px) scale(.96);} to{opacity:1; transform:none;}}
+  .float{animation:float 6s ease-in-out infinite;}
+  .float2{animation:float 7.5s ease-in-out infinite; animation-delay:-2s;}
+  @keyframes float{0%,100%{transform:translateY(0);}50%{transform:translateY(-12px);}}
+
+  /* ============ RESPONSIVE ============ */
+  @media (max-width:980px){
+    .hero-inner{grid-template-columns:1fr; gap:2.5rem;}
+    .hero-visual{height:auto; min-height:420px;}
+    .why-grid,.reviews-grid,.book-grid,.offer-card{grid-template-columns:1fr;}
+    .offer-card{gap:1.8rem;}
+    .team-grid{grid-template-columns:1fr 1fr;}
+    .foot-grid{grid-template-columns:1fr 1fr;}
+    .nav-links{display:none;}
+    .services-grid .svc,.services-grid .svc:nth-child(1),.services-grid .svc:nth-child(2){grid-column:span 3;}
+  }
+  @media (max-width:680px){
+    .trust-inner{grid-template-columns:1fr 1fr;}
+    .services-grid{grid-template-columns:1fr;}
+    .services-grid .svc,.services-grid .svc:nth-child(1),.services-grid .svc:nth-child(2){grid-column:span 1;}
+    .team-grid{grid-template-columns:1fr;}
+    .foot-grid{grid-template-columns:1fr;}
+    .nav-phone span{display:none;}
+    .hero-actions{gap:.7rem;}
+    .btn{width:auto;}
+  }
+
+  @media (prefers-reduced-motion:reduce){
+    *{animation:none !important; transition:none !important; scroll-behavior:auto !important;}
+    .reveal{opacity:1; transform:none;}
+    .hl,.hv{opacity:1; transform:none;}
+  }
+</style>
+</head>
+<body>
+
+<!-- ============ NAV ============ -->
+<header class="nav" id="nav">
+  <div class="wrap nav-inner">
+    <a class="brand" href="#top" aria-label="{{NAME}} home">
+      <svg class="mark" viewBox="0 0 40 40" fill="none" aria-hidden="true">
+        <rect width="40" height="40" rx="11" fill="#0E2A26"/>
+        <path d="M20 10.5c-3.4-2.6-8-1.6-8 3.2 0 4.4 3.4 6.2 4.4 11.2.5 2.4 2.7 2.5 3.1.2.2-1.2.5-2.2.5-2.2s.3 1 .5 2.2c.4 2.3 2.6 2.2 3.1-.2 1-5 4.4-6.8 4.4-11.2 0-4.8-4.6-5.8-8-3.2Z" fill="#fff"/>
+        <circle cx="27.5" cy="13" r="2.2" fill="#FF6A4D"/>
+      </svg>
+      <span>{{NAME}}<small>{{LOCALE}}</small></span>
+    </a>
+    <nav class="nav-links" aria-label="Primary">
+      <a href="#services">Services</a>
+      <a href="#offer">New Patients</a>
+      <a href="#why">Why Us</a>
+      <a href="#reviews">Reviews</a>
+      <a href="#book">Hours</a>
+    </nav>
+    <div class="nav-cta">
+      <a class="nav-phone" href="tel:{{PHONE}}">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.9.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92Z"/></svg>
+        <span class="tnum">{{PHONE}}</span>
+      </a>
+      <a class="btn btn-primary" href="{{BOOK_URL}}"><span class="dot"></span>Book appointment</a>
+    </div>
+  </div>
+</header>
+
+<main id="top">
+<!-- ============ HERO ============ -->
+<section class="hero">
+  <div class="hero-bg" aria-hidden="true">
+    <div class="blob b1 float"></div>
+    <div class="blob b2 float2"></div>
+    <div class="blob b3 float"></div>
+    <div class="hero-grid-lines"></div>
+  </div>
+  <div class="wrap hero-inner">
+    <div class="hero-copy">
+      <span class="eyebrow hl hl-1"><span class="pip"></span> {{TAGLINE}}</span>
+      <h1 class="hero-title hl hl-2">{{HERO_LEAD}} <span class="em">{{HERO_ACCENT}}</span></h1>
+      <p class="hero-sub hl hl-3">{{LEDE}}</p>
+      <div class="hero-actions hl hl-4">
+        <a class="btn btn-accent" href="{{BOOK_URL}}">Book an appointment
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </a>
+        <a class="btn btn-ghost" href="#offer">See the {{OFFER_PRICE}} {{OFFER_TITLE}}</a>
+      </div>
+      <p class="hero-note hl hl-5">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+        Same-week appointments · Most insurance accepted
+      </p>
+    </div>
+
+    <div class="hero-visual" aria-hidden="true">
+      <div class="glass card-main hv hv-1">
+        <div class="row">
+          <span class="stars">★★★★★</span>
+          <span style="font-size:.8rem; color:var(--ink-3); font-weight:600;">Verified patients</span>
+        </div>
+        <div style="text-align:center;">
+          <div class="rating-big">{{RATING}}<span style="font-size:1.3rem; color:var(--ink-3);">/5</span></div>
+          <div style="font-size:.86rem; color:var(--ink-2); margin-top:.3rem;">from <b class="tnum">{{REVIEW_COUNT}}</b> five-star reviews</div>
+        </div>
+        <div class="row" style="border-top:1px solid var(--line); padding-top:1rem;">
+          <span style="font-size:.85rem; color:var(--ink-2);">Community since</span>
+          <span class="tnum" style="font-family:var(--font-display); font-weight:800; font-size:1.2rem;">{{EST}}</span>
+        </div>
+      </div>
+      <div class="glass card-mini hv hv-3">
+        <div class="ic">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 2v4M16 2v4M3 10h18M5 4h14a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2Z"/></svg>
+        </div>
+        <div><b>Same week</b><span>appointments available</span></div>
+      </div>
+      <div class="card-tag hv hv-2">{{OFFER_PRICE}}<small>{{OFFER_TITLE}}</small></div>
+      <div class="tooth-mark hv hv-4">
+        <svg width="30" height="30" viewBox="0 0 40 40" fill="none" aria-hidden="true"><path d="M20 8c-4-3-9.4-1.9-9.4 3.8 0 5.2 4 7.3 5.2 13.2.6 2.8 3.1 2.9 3.6.2.2-1.4.6-2.6.6-2.6s.4 1.2.6 2.6c.5 2.7 3 2.6 3.6-.2 1.2-5.9 5.2-8 5.2-13.2 0-5.7-5.4-6.8-9.4-3.8Z" fill="currentColor"/></svg>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ TRUST BAR ============ -->
+<section class="trust" aria-label="At a glance">
+  <div class="wrap"><div class="trust-inner reveal"><!--TRUST-START--><!--TRUST-END--></div></div>
+</section>
+
+<!-- ============ SERVICES ============ -->
+<section class="band" id="services">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="kicker">What we do</span>
+      <h2 class="sec-title">Complete care, <span class="em">under one calm roof.</span></h2>
+      <p class="sec-lead">Comprehensive care for every need — delivered with a gentle hand and a clear, honest plan.</p>
+    </div>
+    <div class="services-grid"><!--SVC-START--><!--SVC-END--></div>
+  </div>
+</section>
+
+<!-- ============ OFFER ============ -->
+<section class="band offer" id="offer" style="padding-top:0;">
+  <div class="wrap">
+    <div class="offer-card reveal">
+      <span class="glow" aria-hidden="true"></span>
+      <span class="glow2" aria-hidden="true"></span>
+      <div class="offer-l">
+        <span class="kicker">{{OFFER_TITLE}}</span>
+        <h2>Your first visit, <span style="color:var(--accent);">start to finish</span>.</h2>
+        <p>{{OFFER_DESC}}</p>
+        <p class="fine">For new clients only. Cannot be combined with other offers. Ask us for details.</p>
+      </div>
+      <div class="price-tile">
+        <div class="prewrap"><span class="cur">$</span><span class="amt tnum">{{OFFER_PRICE_NUM}}</span></div>
+        <p class="inc"><b>{{OFFER_TITLE}}</b></p>
+        <a class="btn btn-accent" href="{{BOOK_URL}}" style="width:100%; justify-content:center;">Claim this offer</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ WHY US ============ -->
+<section class="band why" id="why">
+  <div class="wrap why-grid">
+    <div class="reveal">
+      <span class="kicker">The difference</span>
+      <h2 class="sec-title">Care that feels <span class="em">calm and clear.</span></h2>
+      <div class="why-list">
+        <div class="why-item">
+          <span class="chk"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg></span>
+          <div><h4>We take the anxiety out of every visit</h4><p>Gentle pacing and a team trained to make first-timers — and nervous visitors — genuinely comfortable.</p></div>
+        </div>
+        <div class="why-item">
+          <span class="chk"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg></span>
+          <div><h4>Clear plans, honest pricing</h4><p>You'll always see the reasoning behind every recommendation, and the cost, before we begin. Never any pressure.</p></div>
+        </div>
+        <div class="why-item">
+          <span class="chk"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg></span>
+          <div><h4>Modern care under one calm roof</h4><p>The latest technology and a single, convenient location — fewer referrals, fewer trips.</p></div>
+        </div>
+      </div>
+    </div>
+    <figure class="why-visual reveal" data-delay="2" style="margin:0;">
+      <span class="quotemark" aria-hidden="true">"</span>
+      <span class="why-chip"><span class="pip"></span> Accepting new clients</span>
+      <blockquote class="pull">The first place I've been where I don't count the minutes until it's over.
+        <cite>— A recent Google review</cite>
+      </blockquote>
+    </figure>
+  </div>
+</section>
+
+<!-- ============ REVIEWS ============ -->
+<section class="band" id="reviews">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="kicker">In their words</span>
+      <h2 class="sec-title">Loved by <span class="em">{{REVIEW_COUNT}} neighbors.</span></h2>
+    </div>
+    <div class="reviews-grid"><!--REV-START--><!--REV-END--></div>
+  </div>
+</section>
+
+<!--TEAM-SECTION-START--><!-- ============ TEAM ============ -->
+<section class="band why" id="team">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="kicker">Meet the team</span>
+      <h2 class="sec-title">Familiar faces, <span class="em">every visit.</span></h2>
+      <p class="sec-lead">The same trusted people who've grown up alongside this community — and treat it like family.</p>
+    </div>
+    <div class="team-grid"><!--TEAM-START--><!--TEAM-END--></div>
+  </div>
+</section><!--TEAM-SECTION-END-->
+
+<!-- ============ BOOKING / HOURS ============ -->
+<section class="band book" id="book">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="kicker">Visit us</span>
+      <h2 class="sec-title">Ready when <span class="em">you are.</span></h2>
+    </div>
+    <div class="book-grid">
+      <div class="book-cta reveal">
+        <h3>Book your first visit and <span class="em">actually enjoy it.</span></h3>
+        <p>Call us or request an appointment online. Same-week openings are common, and most insurance is accepted.</p>
+        <div class="actions">
+          <a class="btn btn-accent" href="tel:{{PHONE}}">
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.9.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92Z"/></svg>
+            <span class="tnum">{{PHONE}}</span>
+          </a>
+          <a class="btn btn-ghost" href="{{BOOK_URL}}">Request online</a>
+        </div>
+        <div class="mini-trust">
+          <span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg> {{OFFER_PRICE}} {{OFFER_TITLE}}</span>
+          <span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg> Most insurance accepted</span>
+          <span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg> Free parking</span>
+        </div>
+      </div>
+      <div class="hours-card reveal" data-delay="2">
+        <span class="badge-open"><span class="pip"></span> Open today</span>
+        <h3>Office hours</h3><!--HOURS-START--><!--HOURS-END-->
+        <div class="contact-line">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+          <span>{{LOCALE}}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<!-- ============ FOOTER ============ -->
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <a class="brand" href="#top">
+          <svg class="mark" viewBox="0 0 40 40" fill="none" aria-hidden="true">
+            <rect width="40" height="40" rx="11" fill="#FF6A4D"/>
+            <path d="M20 10.5c-3.4-2.6-8-1.6-8 3.2 0 4.4 3.4 6.2 4.4 11.2.5 2.4 2.7 2.5 3.1.2.2-1.2.5-2.2.5-2.2s.3 1 .5 2.2c.4 2.3 2.6 2.2 3.1-.2 1-5 4.4-6.8 4.4-11.2 0-4.8-4.6-5.8-8-3.2Z" fill="#fff"/>
+          </svg>
+          <span>{{NAME}}<small>{{LOCALE}}</small></span>
+        </a>
+        <p class="foot-about">{{LEDE}}</p>
+      </div>
+      <div class="foot-col">
+        <h5>Care</h5><!--FOOTSVC-START--><!--FOOTSVC-END-->
+      </div>
+      <div class="foot-col">
+        <h5>Practice</h5>
+        <a href="#why">Why choose us</a>
+        <a href="#team">Meet the team</a>
+        <a href="#reviews">Patient reviews</a>
+        <a href="#offer">{{OFFER_TITLE}}</a>
+      </div>
+      <div class="foot-col">
+        <h5>Visit</h5>
+        <p>{{LOCALE}}</p>
+        <a class="tnum" href="tel:{{PHONE}}">{{PHONE}}</a>
+        <a href="{{BOOK_URL}}">Book an appointment</a>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>&copy; <span class="tnum">2026</span> {{NAME}}. All rights reserved.</span>
+      <span><a href="#top">Privacy</a> · <a href="#top">Accessibility</a> · <a href="#top">New patient forms</a></span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Nav shadow on scroll
+  var nav = document.getElementById('nav');
+  var onScroll = function(){ nav.classList.toggle('scrolled', window.scrollY > 12); };
+  onScroll(); window.addEventListener('scroll', onScroll, {passive:true});
+
+  // Scroll reveals
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var els = document.querySelectorAll('.reveal');
+  if (reduce || !('IntersectionObserver' in window)) {
+    els.forEach(function(el){ el.classList.add('in'); });
+  } else {
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if (e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); }
+      });
+    }, {threshold:0.15, rootMargin:'0px 0px -8% 0px'});
+    els.forEach(function(el){ io.observe(el); });
+  }
+</script>
+</body>
+</html>

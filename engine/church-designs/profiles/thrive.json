@@ -1,0 +1,32 @@
+{
+  "slug": "thrive",
+  "name": "Thrive",
+  "nameFull": "Thrive Church",
+  "tradition": "youth",
+  "tags": ["plant", "urban"],
+  "locale": "RiNo · Downtown Denver",
+  "verse": "Behold, I am making all things new.",
+  "verseRef": "Revelation 21:5",
+  "phone": "(720) 555-0142",
+  "hero": "/assets/captured/missionhills-org/hero-crop.jpg",
+  "headline": { "lead": "Faith for the", "accent": "unfinished." },
+  "announce": "New here? Sunday gatherings at 9:30 & 11:30 AM — coffee's on us.",
+  "lede": "A church for the city — for the doubting, the searching, and everyone who never thought church was for them. Come exactly as you are.",
+  "campaign": { "kicker": "The Ground Floor campaign", "head": "Building a permanent home in RiNo.", "raised": "$210,000", "goal": "$500,000", "pct": 42, "donors": "430 people in" },
+  "times": [
+    { "label": "Sunday", "time": "9:30 · 11:30 AM" },
+    { "label": "Midweek", "time": "Thursdays 7:00 PM" },
+    { "label": "Online", "time": "Live & on-demand" }
+  ],
+  "campuses": [
+    { "name": "RiNo Warehouse", "note": "Our home gathering", "times": "Sun 9:30 & 11:30 AM" },
+    { "name": "Downtown", "note": "Second location, growing fast", "times": "Sun 10 AM" },
+    { "name": "Online", "note": "Church wherever you are", "times": "Live & anytime" }
+  ],
+  "events": [
+    { "date": "Thu · Jul 10", "title": "Midweek Worship Night", "detail": "RiNo Warehouse · 7:00 PM", "cta": "Come through →" },
+    { "date": "Sat · Jul 19", "title": "Serve Day — Five Points", "detail": "Meet at the warehouse · 9:00 AM", "cta": "Sign me up →" },
+    { "date": "Sun · Jul 27", "title": "Baptism Sunday", "detail": "Both gatherings · get baptized", "cta": "I'm in →" }
+  ],
+  "story": { "cite": "Devon, got baptized here in 2024" }
+}
