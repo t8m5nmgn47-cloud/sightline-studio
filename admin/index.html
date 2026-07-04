@@ -75,10 +75,11 @@ h1,h2,h3,h4{font-variant-ligatures:none}
       <div><label>Business name</label><input id="fName" required placeholder="The Vaughn Law Offices"></div>
       <div><label>Domain (optional)</label><input id="fDom" placeholder="vaughn-law.com"></div>
       <div><label>Plan</label><select id="fPlan" onchange="planChange()">
-        <option value="149.99">$0 down · $149.99/mo</option>
-        <option value="49.99">$299.99 start · $49.99/mo</option>
+        <option value="59">$59/mo · Site</option>
+        <option value="129" selected>$129/mo · Front Door</option>
+        <option value="199">$199/mo · Front Desk</option>
         <option value="custom">Custom…</option></select></div>
-      <div><label>$/mo</label><input id="fMo" type="number" step="0.01" value="149.99"></div>
+      <div><label>$/mo</label><input id="fMo" type="number" step="0.01" value="129"></div>
       <div style="display:flex;gap:8px"><button class="mini" type="submit">Save</button><button class="mini ghost" type="button" onclick="toggleAdd()">Cancel</button></div>
     </form>
   </div>
@@ -148,7 +149,7 @@ function slug(d){return (d||'').replace(/^https?:\/\//,'').replace(/\/.*$/,'').r
 function toast(m){const e=document.getElementById('toast');e.textContent=m;e.classList.add('show');setTimeout(()=>e.classList.remove('show'),1800)}
 function planChange(){const v=document.getElementById('fPlan').value;if(v!=='custom')document.getElementById('fMo').value=v}
 function toggleAdd(){if(!authed){toast('Sign in first to manage subscribers');showLogin();return}
-  const b=document.getElementById('addbar');const showing=b.style.display!=='none';b.style.display=showing?'none':'block';if(showing){editId=null;document.getElementById('addform').reset();document.getElementById('fMo').value='149.99'}}
+  const b=document.getElementById('addbar');const showing=b.style.display!=='none';b.style.display=showing?'none':'block';if(showing){editId=null;document.getElementById('addform').reset();document.getElementById('fMo').value='129'}}
 (async function initDB(){
   try{ const {createClient}=await import("https://esm.sh/@supabase/supabase-js@2"); sb=createClient(SUPA_URL,SUPA_KEY); }
   catch(e){ document.getElementById('subList').innerHTML='<div class="empty">Couldn’t reach the database. Retry in a moment.</div>'; return; }
