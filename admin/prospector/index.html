@@ -2,61 +2,93 @@
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Prospector — Sightline</title><meta name="robots" content="noindex">
 <style>
-  :root{--bg:#0f1216;--panel:#171b21;--line:#262c35;--ink:#eef1f5;--mut:#98a1ad;--gold:#c6a24a;
-    --dead:#d1594f;--hot:#e0763a;--warm:#e0b93a;--mild:#4f9bd1;--served:#5b6472}
+  :root{--bg:#0e1116;--panel:#161b22;--panel2:#1c222b;--line:#262d38;--ink:#eef1f5;--mut:#95a0af;--gold:#c6a24a;
+    --dead:#d1594f;--hot:#e0763a;--warm:#e0b93a;--mild:#4f9bd1;--served:#5b6472;--good:#43c47d}
   *{box-sizing:border-box}
   body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;line-height:1.5}
-  .wrap{max-width:1080px;margin:0 auto;padding:26px 22px 80px}
+  .wrap{max-width:1120px;margin:0 auto;padding:24px 22px 80px}
   a.back{color:var(--mut);text-decoration:none;font-size:.82rem}
-  h1{font-size:1.5rem;margin:.4em 0 .2em}.sub{color:var(--mut);max-width:70ch;font-size:.92rem}
-  .stats{display:flex;gap:10px;flex-wrap:wrap;margin:20px 0}
-  .stat{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:12px 16px;min-width:96px}
-  .stat b{font-size:1.6rem;font-variant-numeric:tabular-nums;display:block}.stat span{font-size:.74rem;color:var(--mut);text-transform:uppercase;letter-spacing:.05em}
-  .filters{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px}
-  .filters button{font:inherit;font-size:.82rem;padding:7px 13px;border-radius:100px;border:1px solid var(--line);background:var(--panel);color:var(--ink);cursor:pointer}
-  .filters button.on{border-color:var(--gold);color:#fff}
-  .lead{display:grid;grid-template-columns:70px 1fr auto;gap:14px;align-items:center;background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:14px 18px;margin-bottom:8px;border-left:4px solid var(--line)}
+  h1{font-size:1.5rem;margin:.4em 0 .2em}.sub{color:var(--mut);max-width:74ch;font-size:.92rem}
+  /* KPI band */
+  .kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin:22px 0}
+  .kpi{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:16px 18px}
+  .kpi b{font-size:1.9rem;font-variant-numeric:tabular-nums;letter-spacing:-.02em;display:block;line-height:1}
+  .kpi span{font-size:.72rem;color:var(--mut);text-transform:uppercase;letter-spacing:.05em;margin-top:6px;display:block}
+  .kpi.hero b{color:var(--good)}
+  /* controls */
+  .bar{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-bottom:14px}
+  .bar .grp{display:flex;gap:6px;flex-wrap:wrap}
+  .bar button{font:inherit;font-size:.8rem;padding:7px 12px;border-radius:100px;border:1px solid var(--line);background:var(--panel);color:var(--ink);cursor:pointer}
+  .bar button.on{border-color:var(--gold);color:#fff}
+  .bar .lbl{font-size:.72rem;color:var(--mut);text-transform:uppercase;letter-spacing:.05em;margin-right:2px}
+  .bar .sp{margin-left:auto}
+  /* lead rows */
+  .lead{display:grid;grid-template-columns:64px 1fr 150px auto;gap:14px;align-items:center;background:var(--panel);
+    border:1px solid var(--line);border-radius:12px;padding:13px 16px;margin-bottom:7px;border-left:4px solid var(--line)}
   .lead.DEAD{border-left-color:var(--dead)}.lead.HOT{border-left-color:var(--hot)}.lead.WARM{border-left-color:var(--warm)}.lead.MILD{border-left-color:var(--mild)}.lead.SERVED{border-left-color:var(--served)}
-  .sc{text-align:center}.sc b{font-size:1.7rem;font-variant-numeric:tabular-nums;display:block;line-height:1}.sc span{font-size:.66rem;color:var(--mut)}
-  .lead h3{font-size:1.05rem;margin:0}.lead h3 a{color:var(--ink);text-decoration:none;border-bottom:1px dotted var(--mut)}
-  .meta{font-size:.76rem;color:var(--mut);margin-top:2px}
-  .pitch{font-size:.88rem;color:var(--ink);margin-top:6px;opacity:.92}
-  .tier{font-size:.68rem;font-weight:800;letter-spacing:.06em;padding:5px 10px;border-radius:6px;white-space:nowrap}
-  .tier.DEAD{background:rgba(209,89,79,.18);color:var(--dead)}.tier.HOT{background:rgba(224,118,58,.18);color:var(--hot)}
-  .tier.WARM{background:rgba(224,185,58,.16);color:var(--warm)}.tier.MILD{background:rgba(79,155,209,.16);color:var(--mild)}.tier.SERVED{background:rgba(91,100,114,.2);color:var(--served)}
-  .trad{font-size:.66rem;color:var(--gold);text-transform:uppercase;letter-spacing:.04em}
+  .sc{text-align:center}.sc b{font-size:1.6rem;font-variant-numeric:tabular-nums;display:block;line-height:1}.sc span{font-size:.62rem;color:var(--mut)}
+  .lead h3{font-size:1.02rem;margin:0}.lead h3 a{color:var(--ink);text-decoration:none;border-bottom:1px dotted var(--mut)}
+  .meta{font-size:.74rem;color:var(--mut);margin-top:2px}
+  .pitch{font-size:.85rem;margin-top:5px;opacity:.92}
+  .val{text-align:right;font-variant-numeric:tabular-nums}
+  .val .mo{font-size:1.15rem;font-weight:700}.val .mo small{font-size:.7rem;color:var(--mut);font-weight:500}
+  .val .yr{font-size:.76rem;color:var(--mut)}.val .exp{font-size:.72rem;color:var(--good);margin-top:2px}
+  .tierbadge{font-size:.66rem;font-weight:800;letter-spacing:.05em;padding:5px 9px;border-radius:6px;white-space:nowrap;text-align:center}
+  .tierbadge.DEAD{background:rgba(209,89,79,.18);color:var(--dead)}.tierbadge.HOT{background:rgba(224,118,58,.18);color:var(--hot)}
+  .tierbadge.WARM{background:rgba(224,185,58,.16);color:var(--warm)}.tierbadge.MILD{background:rgba(79,155,209,.16);color:var(--mild)}.tierbadge.SERVED{background:rgba(91,100,114,.2);color:var(--served)}
+  .chip{font-size:.62rem;color:var(--gold);text-transform:uppercase;letter-spacing:.04em}
+  @media(max-width:720px){.lead{grid-template-columns:52px 1fr;gap:8px}.val,.tierbadge{grid-column:2}}
 </style></head>
 <body><div class="wrap">
   <a class="back" href="../">← Admin</a>
   <h1>Prospector</h1>
-  <p class="sub">Churches that <b>paid for a website but never finished it</b> — scored on our Congregation-Readiness model (tradition-aware) and ranked weakest-first. A dead or weak site + a real church = a done-for-you lead. Point it at any platform's customer list.</p>
-  <div class="stats" id="stats"></div>
-  <div class="filters" id="filters"></div>
+  <p class="sub">Churches &amp; businesses that <b>paid for a site but never finished it</b> — scored on readiness (tradition/vertical-aware), ranked by opportunity, each with a projected <b>sales goal</b>. Point it at any platform's customer list to refill the pipeline.</p>
+  <div class="kpis" id="kpis"></div>
+  <div class="bar" id="bar"></div>
   <div id="list"></div>
 </div>
 <script type="module">
 const data = await (await fetch('/engine/preview/prospects.json')).json();
-const tiers = ['DEAD','HOT','WARM','MILD','SERVED'];
-const labels = {DEAD:'Dead site',HOT:'Hot',WARM:'Warm',MILD:'Mild',SERVED:'Served'};
-document.getElementById('stats').innerHTML = tiers.map(t=>`<div class="stat"><b style="color:var(--${t.toLowerCase()})">${data.filter(d=>d.tier===t).length}</b><span>${labels[t]}</span></div>`).join('')
-  + `<div class="stat"><b>${data.length}</b><span>Total scored</span></div>`;
-let filter='LEADS';
-const fbtns=[['LEADS','Leads (Dead+Hot+Warm)'],...tiers.map(t=>[t,labels[t]]),['ALL','All']];
-document.getElementById('filters').innerHTML = fbtns.map(([k,l])=>`<button data-f="${k}" class="${k===filter?'on':''}">${l}</button>`).join('');
-document.getElementById('filters').onclick=e=>{const b=e.target.closest('button');if(!b)return;filter=b.dataset.f;
-  document.querySelectorAll('#filters button').forEach(x=>x.classList.toggle('on',x.dataset.f===filter));render();};
+const $=id=>document.getElementById(id);
+const money=n=> n>=1000? '$'+(n/1000).toFixed(n>=10000?0:1)+'k' : '$'+Math.round(n);
+const tiers=['DEAD','HOT','WARM','MILD','SERVED'], labels={DEAD:'Dead site',HOT:'Hot',WARM:'Warm',MILD:'Mild',SERVED:'Served'};
+// KPIs
+const leads=data.filter(d=>['DEAD','HOT','WARM'].includes(d.tier));
+const pipeline=leads.reduce((s,d)=>s+d.expected,0), tam=data.reduce((s,d)=>s+d.annual,0);
+$('kpis').innerHTML=`
+  <div class="kpi hero"><b>${money(pipeline)}</b><span>Weighted pipeline (leads)</span></div>
+  <div class="kpi"><b>${money(tam)}</b><span>Annual TAM (all)</span></div>
+  <div class="kpi"><b>${leads.length}</b><span>Qualified leads</span></div>
+  <div class="kpi"><b style="color:var(--dead)">${data.filter(d=>d.tier==='DEAD').length}</b><span>Dead sites</span></div>
+  <div class="kpi"><b>${data.length}</b><span>Total scored</span></div>`;
+// controls
+let seg='leads', typ='all', sort='opp';
+$('bar').innerHTML=`
+  <span class="lbl">Show</span><div class="grp" data-k="seg">
+    ${[['leads','Leads'],['DEAD','Dead'],['HOT','Hot'],['WARM','Warm'],['MILD','Mild'],['SERVED','Served'],['all','All']].map(([k,l])=>`<button data-v="${k}" class="${k===seg?'on':''}">${l}</button>`).join('')}</div>
+  <span class="lbl sp">Type</span><div class="grp" data-k="typ">
+    ${[['all','All'],['church','⛪ Church'],['business','🏢 Business']].map(([k,l])=>`<button data-v="${k}" class="${k===typ?'on':''}">${l}</button>`).join('')}</div>
+  <span class="lbl">Sort</span><div class="grp" data-k="sort">
+    ${[['opp','Opportunity'],['value','Value'],['score','Score']].map(([k,l])=>`<button data-v="${k}" class="${k===sort?'on':''}">${l}</button>`).join('')}</div>`;
+$('bar').onclick=e=>{const b=e.target.closest('button');if(!b)return;const k=b.parentNode.dataset.k;
+  if(k==='seg')seg=b.dataset.v; if(k==='typ')typ=b.dataset.v; if(k==='sort')sort=b.dataset.v;
+  b.parentNode.querySelectorAll('button').forEach(x=>x.classList.toggle('on',x.dataset.v===({seg,typ,sort})[k]));render();};
+const order={DEAD:0,HOT:1,WARM:2,MILD:3,SERVED:4};
 function render(){
-  const show = data.filter(d => filter==='ALL' ? true : filter==='LEADS' ? ['DEAD','HOT','WARM'].includes(d.tier) : d.tier===filter);
-  document.getElementById('list').innerHTML = show.map(d=>`
+  let rows=data.filter(d=>seg==='all'?true:seg==='leads'?['DEAD','HOT','WARM'].includes(d.tier):d.tier===seg)
+                 .filter(d=>typ==='all'?true:d.type===typ);
+  rows.sort((a,b)=> sort==='value'? b.expected-a.expected : sort==='score'? a.score-b.score : (order[a.tier]-order[b.tier])||(a.score-b.score));
+  $('list').innerHTML = rows.map(d=>`
     <div class="lead ${d.tier}">
       <div class="sc"><b style="color:${d.dead?'var(--dead)':'inherit'}">${d.dead?'✕':d.score}</b><span>${d.dead?'dead':'/100'}</span></div>
       <div>
-        <h3><a href="https://${d.domain}" target="_blank" rel="noopener">${d.name}</a> <span class="trad">${d.tradition}</span></h3>
-        <div class="meta">${d.domain} · ${d.platform}</div>
+        <h3><a href="https://${d.domain}" target="_blank" rel="noopener">${d.name}</a> <span class="chip">${d.type==='business'?d.tradition:d.tradition}${d.platform!=='—'?' · '+d.platform:''}</span></h3>
+        <div class="meta">${d.domain}</div>
         <div class="pitch">${d.pitch}</div>
       </div>
-      <div class="tier ${d.tier}">${labels[d.tier]}</div>
-    </div>`).join('') || '<p style="color:var(--mut)">None in this filter.</p>';
+      <div class="val"><div class="mo">$${d.mrr}<small>/mo</small></div><div class="yr">$${d.annual.toLocaleString()}/yr</div><div class="exp">${d.winPct}% → $${d.expected.toLocaleString()} exp.</div></div>
+      <div class="tierbadge ${d.tier}">${labels[d.tier]}</div>
+    </div>`).join('') || '<p style="color:var(--mut)">None in this view.</p>';
 }
 render();
 </script>

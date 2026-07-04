@@ -11,12 +11,16 @@
       "Care & Prayer"
     ],
     "pitch": "Breakthrough Church has no working website — a dead placeholder where their front door should be.",
-    "dead": true
+    "dead": true,
+    "mrr": 99,
+    "annual": 1188,
+    "winPct": 55,
+    "expected": 653
   },
   {
     "type": "church",
     "domain": "gfamilychurchmi.org",
-    "name": "gfamilychurchmi.org",
+    "name": "Gfamilychurchmi",
     "platform": "FaithConnector",
     "tradition": "contemporary",
     "score": 0,
@@ -32,8 +36,12 @@
       "Kids & Families",
       "Current & alive"
     ],
-    "pitch": "gfamilychurchmi.org has no working website — a dead placeholder where their front door should be.",
-    "dead": true
+    "pitch": "Gfamilychurchmi has no working website — a dead placeholder where their front door should be.",
+    "dead": true,
+    "mrr": 99,
+    "annual": 1188,
+    "winPct": 55,
+    "expected": 653
   },
   {
     "type": "church",
@@ -48,36 +56,18 @@
       "Serve & volunteer"
     ],
     "pitch": "Total Life Church has no working website — a dead placeholder where their front door should be.",
-    "dead": true
-  },
-  {
-    "type": "business",
-    "domain": "attorneysofhighlandsranch.com",
-    "name": "Checking your browser...",
-    "platform": "—",
-    "tradition": "business",
-    "score": 4,
-    "tier": "HOT",
-    "gaps": [
-      "Book / request appointment",
-      "Call / contact prominent",
-      "Services / what we do",
-      "Reviews & social proof",
-      "Team & credentials",
-      "Hours, location & map",
-      "New-customer offer",
-      "Photos / results",
-      "Financing / insurance / pricing"
-    ],
-    "pitch": "Leaking leads — missing book / request appointment, call / contact prominent, services / what we do. Scores 4/100; each fix is booked revenue.",
-    "dead": false
+    "dead": true,
+    "mrr": 99,
+    "annual": 1188,
+    "winPct": 55,
+    "expected": 653
   },
   {
     "type": "business",
     "domain": "firmmedspa.com",
-    "name": "403",
+    "name": "Firmmedspa",
     "platform": "—",
-    "tradition": "business",
+    "tradition": "medspa",
     "score": 4,
     "tier": "HOT",
     "gaps": [
@@ -92,7 +82,11 @@
       "Financing / insurance / pricing"
     ],
     "pitch": "Leaking leads — missing book / request appointment, call / contact prominent, services / what we do. Scores 4/100; each fix is booked revenue.",
-    "dead": false
+    "dead": false,
+    "mrr": 249,
+    "annual": 2988,
+    "winPct": 60,
+    "expected": 1793
   },
   {
     "type": "church",
@@ -111,7 +105,11 @@
       "Current & alive"
     ],
     "pitch": "Pays for a site but it's missing plan your visit, next steps pathway, groups & belonging — scores 35/100 on congregation-readiness.",
-    "dead": false
+    "dead": false,
+    "mrr": 99,
+    "annual": 1188,
+    "winPct": 49,
+    "expected": 585
   },
   {
     "type": "church",
@@ -130,12 +128,16 @@
       "Kids & Families"
     ],
     "pitch": "Pays for a site but it's missing service times & campus, next steps pathway, groups & belonging — scores 42/100 on congregation-readiness.",
-    "dead": false
+    "dead": false,
+    "mrr": 99,
+    "annual": 1188,
+    "winPct": 46,
+    "expected": 548
   },
   {
     "type": "church",
     "domain": "greaterglorychurch.com",
-    "name": "Homepage",
+    "name": "Greaterglorychurch",
     "platform": "Nucleus",
     "tradition": "contemporary",
     "score": 44,
@@ -148,7 +150,11 @@
       "Current & alive"
     ],
     "pitch": "Pays for a site but it's missing service times & campus, groups & belonging, sermons / watch — scores 44/100 on congregation-readiness.",
-    "dead": false
+    "dead": false,
+    "mrr": 99,
+    "annual": 1188,
+    "winPct": 45,
+    "expected": 537
   },
   {
     "type": "church",
@@ -166,7 +172,11 @@
       "Kids & Families"
     ],
     "pitch": "Pays for a site but it's missing next steps pathway, groups & belonging, serve & volunteer — scores 46/100 on congregation-readiness.",
-    "dead": false
+    "dead": false,
+    "mrr": 99,
+    "annual": 1188,
+    "winPct": 44,
+    "expected": 526
   },
   {
     "type": "church",
@@ -184,7 +194,11 @@
       "Care & Prayer"
     ],
     "pitch": "Pays for a site but it's missing plan your visit, next steps pathway, groups & belonging — scores 48/100 on congregation-readiness.",
-    "dead": false
+    "dead": false,
+    "mrr": 99,
+    "annual": 1188,
+    "winPct": 43,
+    "expected": 516
   },
   {
     "type": "church",
@@ -201,7 +215,11 @@
       "Kids & Families"
     ],
     "pitch": "Pays for a site but it's missing plan your visit, next steps pathway, groups & belonging — scores 52/100 on congregation-readiness.",
-    "dead": false
+    "dead": false,
+    "mrr": 99,
+    "annual": 1188,
+    "winPct": 42,
+    "expected": 494
   },
   {
     "type": "church",
@@ -218,7 +236,11 @@
       "Kids & Families"
     ],
     "pitch": "Pays for a site but it's missing service times & campus, groups & belonging, care & prayer — scores 53/100 on congregation-readiness.",
-    "dead": false
+    "dead": false,
+    "mrr": 99,
+    "annual": 1188,
+    "winPct": 41,
+    "expected": 489
   },
   {
     "type": "church",
@@ -236,7 +258,11 @@
       "Current & alive"
     ],
     "pitch": "Pays for a site but it's missing service times & campus, groups & belonging, serve & volunteer — scores 55/100 on congregation-readiness.",
-    "dead": false
+    "dead": false,
+    "mrr": 99,
+    "annual": 1188,
+    "winPct": 40,
+    "expected": 478
   },
   {
     "type": "church",
@@ -252,7 +278,11 @@
       "Groups & belonging"
     ],
     "pitch": "Pays for a site but it's missing plan your visit, next steps pathway, groups & belonging — scores 58/100 on congregation-readiness.",
-    "dead": false
+    "dead": false,
+    "mrr": 99,
+    "annual": 1188,
+    "winPct": 39,
+    "expected": 462
   },
   {
     "type": "business",
@@ -268,7 +298,11 @@
       "Financing / insurance / pricing"
     ],
     "pitch": "Leaking leads — missing book / request appointment, new-customer offer, financing / insurance / pricing. Scores 58/100; each fix is booked revenue.",
-    "dead": false
+    "dead": false,
+    "mrr": 299,
+    "annual": 3588,
+    "winPct": 39,
+    "expected": 1396
   },
   {
     "type": "church",
@@ -285,7 +319,11 @@
       "Kids & Families"
     ],
     "pitch": "Pays for a site but it's missing service times & campus, groups & belonging, care & prayer — scores 60/100 on congregation-readiness.",
-    "dead": false
+    "dead": false,
+    "mrr": 99,
+    "annual": 1188,
+    "winPct": 38,
+    "expected": 451
   },
   {
     "type": "church",
@@ -301,7 +339,11 @@
       "Care & Prayer"
     ],
     "pitch": "Pays for a site but it's missing service times & campus, groups & belonging, care & prayer — scores 61/100 on congregation-readiness.",
-    "dead": false
+    "dead": false,
+    "mrr": 99,
+    "annual": 1188,
+    "winPct": 38,
+    "expected": 446
   },
   {
     "type": "church",
@@ -318,7 +360,11 @@
       "Care & Prayer"
     ],
     "pitch": "Pays for a site but it's missing next steps pathway, groups & belonging, serve & volunteer — scores 62/100 on congregation-readiness.",
-    "dead": false
+    "dead": false,
+    "mrr": 99,
+    "annual": 1188,
+    "winPct": 37,
+    "expected": 441
   },
   {
     "type": "church",
@@ -334,7 +380,11 @@
       "Sermons / Watch"
     ],
     "pitch": "Pays for a site but it's missing groups & belonging, care & prayer, sermons / watch — scores 62/100 on congregation-readiness.",
-    "dead": false
+    "dead": false,
+    "mrr": 99,
+    "annual": 1188,
+    "winPct": 37,
+    "expected": 441
   },
   {
     "type": "church",
@@ -351,7 +401,11 @@
       "Care & prayer"
     ],
     "pitch": "Pays for a site but it's missing sermons / watch, mission & outreach, music & worship arts — scores 64/100 on congregation-readiness.",
-    "dead": false
+    "dead": false,
+    "mrr": 99,
+    "annual": 1188,
+    "winPct": 36,
+    "expected": 430
   },
   {
     "type": "church",
@@ -367,7 +421,11 @@
       "Care & Prayer"
     ],
     "pitch": "Pays for a site but it's missing plan your visit, groups & belonging, care & prayer — scores 66/100 on congregation-readiness.",
-    "dead": false
+    "dead": false,
+    "mrr": 99,
+    "annual": 1188,
+    "winPct": 35,
+    "expected": 419
   },
   {
     "type": "business",
@@ -382,7 +440,11 @@
       "New-customer offer"
     ],
     "pitch": "Leaking leads — missing reviews & social proof, new-customer offer. Scores 66/100; each fix is booked revenue.",
-    "dead": false
+    "dead": false,
+    "mrr": 299,
+    "annual": 3588,
+    "winPct": 35,
+    "expected": 1267
   },
   {
     "type": "church",
@@ -398,12 +460,16 @@
       "Kids & Families"
     ],
     "pitch": "Pays for a site but it's missing next steps pathway, care & prayer, kids & families — scores 68/100 on congregation-readiness.",
-    "dead": false
+    "dead": false,
+    "mrr": 99,
+    "annual": 1188,
+    "winPct": 34,
+    "expected": 409
   },
   {
     "type": "church",
     "domain": "cclongview.com",
-    "name": "Home",
+    "name": "Cclongview",
     "platform": "Nucleus",
     "tradition": "contemporary",
     "score": 69,
@@ -414,21 +480,11 @@
       "Current & alive"
     ],
     "pitch": "Pays for a site but it's missing groups & belonging, kids & families, current & alive — scores 69/100 on congregation-readiness.",
-    "dead": false
-  },
-  {
-    "type": "business",
-    "domain": "araoent.com",
-    "name": "South Denver ENT & Allergy",
-    "platform": "—",
-    "tradition": "business",
-    "score": 70,
-    "tier": "MILD",
-    "gaps": [
-      "New-customer offer"
-    ],
-    "pitch": "Leaking leads — missing new-customer offer. Scores 70/100; each fix is booked revenue.",
-    "dead": false
+    "dead": false,
+    "mrr": 99,
+    "annual": 1188,
+    "winPct": 34,
+    "expected": 403
   },
   {
     "type": "business",
@@ -443,7 +499,11 @@
       "Financing / insurance / pricing"
     ],
     "pitch": "Leaking leads — missing new-customer offer, financing / insurance / pricing. Scores 71/100; each fix is booked revenue.",
-    "dead": false
+    "dead": false,
+    "mrr": 249,
+    "annual": 2988,
+    "winPct": 33,
+    "expected": 988
   },
   {
     "type": "church",
@@ -458,7 +518,11 @@
       "Serve & volunteer"
     ],
     "pitch": "Pays for a site but it's missing groups & belonging, serve & volunteer — scores 72/100 on congregation-readiness.",
-    "dead": false
+    "dead": false,
+    "mrr": 99,
+    "annual": 1188,
+    "winPct": 33,
+    "expected": 387
   },
   {
     "type": "business",
@@ -473,7 +537,11 @@
       "Financing / insurance / pricing"
     ],
     "pitch": "Leaking leads — missing photos / results, financing / insurance / pricing. Scores 72/100; each fix is booked revenue.",
-    "dead": false
+    "dead": false,
+    "mrr": 249,
+    "annual": 2988,
+    "winPct": 33,
+    "expected": 974
   },
   {
     "type": "business",
@@ -487,7 +555,11 @@
       "Reviews & social proof"
     ],
     "pitch": "Leaking leads — missing reviews & social proof. Scores 72/100; each fix is booked revenue.",
-    "dead": false
+    "dead": false,
+    "mrr": 249,
+    "annual": 2988,
+    "winPct": 33,
+    "expected": 974
   },
   {
     "type": "church",
@@ -502,7 +574,11 @@
       "Current & alive"
     ],
     "pitch": "Pays for a site but it's missing groups & belonging, current & alive — scores 73/100 on congregation-readiness.",
-    "dead": false
+    "dead": false,
+    "mrr": 99,
+    "annual": 1188,
+    "winPct": 32,
+    "expected": 382
   },
   {
     "type": "church",
@@ -517,7 +593,11 @@
       "Care & Prayer"
     ],
     "pitch": "Pays for a site but it's missing next steps pathway, care & prayer — scores 74/100 on congregation-readiness.",
-    "dead": false
+    "dead": false,
+    "mrr": 99,
+    "annual": 1188,
+    "winPct": 32,
+    "expected": 377
   },
   {
     "type": "church",
@@ -531,22 +611,11 @@
       "Groups & belonging"
     ],
     "pitch": "Pays for a site but it's missing groups & belonging — scores 77/100 on congregation-readiness.",
-    "dead": false
-  },
-  {
-    "type": "business",
-    "domain": "copelandfamilydental.com",
-    "name": "Dentist Highland Ranch, CO | Copeland Family Dental",
-    "platform": "—",
-    "tradition": "dental",
-    "score": 78,
-    "tier": "MILD",
-    "gaps": [
-      "New-customer offer",
-      "Financing / insurance / pricing"
-    ],
-    "pitch": "Leaking leads — missing new-customer offer, financing / insurance / pricing. Scores 78/100; each fix is booked revenue.",
-    "dead": false
+    "dead": false,
+    "mrr": 99,
+    "annual": 1188,
+    "winPct": 30,
+    "expected": 361
   },
   {
     "type": "church",
@@ -561,7 +630,11 @@
       "Care & Prayer"
     ],
     "pitch": "Pays for a site but it's missing groups & belonging, care & prayer — scores 78/100 on congregation-readiness.",
-    "dead": false
+    "dead": false,
+    "mrr": 99,
+    "annual": 1188,
+    "winPct": 30,
+    "expected": 355
   },
   {
     "type": "church",
@@ -576,7 +649,11 @@
       "Serve & volunteer"
     ],
     "pitch": "Pays for a site but it's missing next steps pathway, serve & volunteer — scores 80/100 on congregation-readiness.",
-    "dead": false
+    "dead": false,
+    "mrr": 99,
+    "annual": 1188,
+    "winPct": 29,
+    "expected": 345
   },
   {
     "type": "church",
@@ -591,12 +668,16 @@
       "Kids & Families"
     ],
     "pitch": "Pays for a site but it's missing next steps pathway, kids & families — scores 80/100 on congregation-readiness.",
-    "dead": false
+    "dead": false,
+    "mrr": 99,
+    "annual": 1188,
+    "winPct": 29,
+    "expected": 345
   },
   {
     "type": "church",
     "domain": "oxfordbaptist.ca",
-    "name": "Homepage",
+    "name": "Oxfordbaptist",
     "platform": "Nucleus",
     "tradition": "contemporary",
     "score": 80,
@@ -606,7 +687,11 @@
       "Care & Prayer"
     ],
     "pitch": "Pays for a site but it's missing groups & belonging, care & prayer — scores 80/100 on congregation-readiness.",
-    "dead": false
+    "dead": false,
+    "mrr": 99,
+    "annual": 1188,
+    "winPct": 29,
+    "expected": 345
   },
   {
     "type": "church",
@@ -620,7 +705,11 @@
       "Current & alive"
     ],
     "pitch": "Pays for a site but it's missing current & alive — scores 83/100 on congregation-readiness.",
-    "dead": false
+    "dead": false,
+    "mrr": 99,
+    "annual": 1188,
+    "winPct": 28,
+    "expected": 328
   },
   {
     "type": "church",
@@ -634,21 +723,11 @@
       "Care & Prayer"
     ],
     "pitch": "Pays for a site but it's missing care & prayer — scores 90/100 on congregation-readiness.",
-    "dead": false
-  },
-  {
-    "type": "business",
-    "domain": "acaciadentalgroup.com",
-    "name": "Dentist in Englewood CO",
-    "platform": "—",
-    "tradition": "dental",
-    "score": 94,
-    "tier": "SERVED",
-    "gaps": [
-      "Financing / insurance / pricing"
-    ],
-    "pitch": "Leaking leads — missing financing / insurance / pricing. Scores 94/100; each fix is booked revenue.",
-    "dead": false
+    "dead": false,
+    "mrr": 99,
+    "annual": 1188,
+    "winPct": 25,
+    "expected": 291
   },
   {
     "type": "church",
@@ -660,6 +739,10 @@
     "tier": "SERVED",
     "gaps": [],
     "pitch": "Strong site (98/100) — low priority.",
-    "dead": false
+    "dead": false,
+    "mrr": 99,
+    "annual": 1188,
+    "winPct": 21,
+    "expected": 248
   }
 ]

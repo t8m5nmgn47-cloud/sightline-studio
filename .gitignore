@@ -1,9 +1,17 @@
+# dependencies
 node_modules/
-supabase/.temp/
+
+# build / platform
 .vercel/
+supabase/.temp/
+
+# OS & editor cruft
 .DS_Store
 *.log
+.fuse_hidden*
+*.swp
+Thumbs.db
 
-# Research/scraped artifacts — not for production
+# Research/scraped artifacts — analysis only, not for production
 assets/harvest/
 assets/captured/*/pages/

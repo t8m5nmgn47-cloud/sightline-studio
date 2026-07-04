@@ -26,6 +26,17 @@ const SOURCES = [
 ];
 
 const clean = s => (s||'').replace(/\s+/g,' ').trim();
+// humanize a domain into a readable name when title/og are missing or junk
+function humanize(domain){
+  return domain.replace(/\.[a-z]+$/,'').replace(/[-_.]+/g,' ')
+    .replace(/\b\w/g, c=>c.toUpperCase()).replace(/\bLlc\b|\bInc\b|\bPc\b/gi,m=>m.toUpperCase());
+}
+const JUNK_NAME = /^(home ?page|home|welcome|untitled|index|error|checking your browser|just a moment|attention required)$|^\d{3}\b|forbidden|not found|access denied/i;
+const BAD_CAPTURE = /checking your browser|just a moment\.\.\.|attention required|access denied|error 40[34]|cloudflare|are you a (human|robot)|enable javascript to/i;
+function niceName($, domain){
+  const raw = clean($('meta[property="og:site_name"]').attr('content') || $('title').first().text().split(/[|–—·]/)[0]);
+  return (!raw || JUNK_NAME.test(raw) || raw.length<3 || /^https?:|\.(com|org|net)/i.test(raw)) ? humanize(domain) : raw;
+}
 function detectTradition(text){
   const t = text.toLowerCase();
   if (/\b(mass times?|sacrament|parish|eucharist|reconciliation|diocese|ocia|rcia)\b/.test(t)) return 'catholic';
@@ -41,9 +52,10 @@ for (const { dir, platform } of SOURCES){
   for (const f of fs.readdirSync(full)){
     if (!f.endsWith('.html')) continue;
     const html = fs.readFileSync(path.join(full, f), 'utf8');
+    if (BAD_CAPTURE.test(html)) continue;   // bot-wall / error page — not a valid capture
     const $ = cheerio.load(html);
     const domain = f.replace(/\.html$/,'').replace(/^fc-/,'');
-    const name = clean($('meta[property="og:site_name"]').attr('content') || $('title').first().text().split(/[|–—-]/)[0]) || domain;
+    const name = niceName($, domain);
     const bodyText = $('body').text();
     const dead = DEAD.test(html) || html.length < 60000 && !/service|worship|sunday|give|sermon/i.test(bodyText);
     const tradition = detectTradition(bodyText);
@@ -64,9 +76,10 @@ const bizFull = path.join(ROOT, BIZ_SOURCE.dir);
 if (fs.existsSync(bizFull)) for (const f of fs.readdirSync(bizFull)){
   if (!f.endsWith('.html')) continue;
   const html = fs.readFileSync(path.join(bizFull, f), 'utf8'); if (html.length < 2000) continue;
+  if (BAD_CAPTURE.test(html)) continue;   // bot-wall / error page — not a valid capture
   const $ = cheerio.load(html);
   const domain = f.replace(/\.html$/,'');
-  const name = clean($('meta[property="og:site_name"]').attr('content') || $('title').first().text().split(/[|–—-]/)[0]) || domain;
+  const name = niceName($, domain);
   const bodyText = $('body').text();
   const vertical = detectVertical(name+' '+bodyText.slice(0,4000));
   const r = scoreBusiness(corpusFromPages({home:html}, cheerio, {https:true, mobile:/viewport/.test(html)}));
@@ -77,6 +90,19 @@ if (fs.existsSync(bizFull)) for (const f of fs.readdirSync(bizFull)){
     : `Converts well (${r.score}/100) — low priority.`;
   rows.push({ type:'business', domain, name: name===domain?domain:name, platform:'—', tradition:vertical, score:r.score, tier, gaps, pitch, dead:false });
 }
+// ── projected value per prospect (the sales goal) ────────────────────────────
+// Est. monthly by what they'd realistically land on; businesses attach more add-ons.
+const MRR = { dental:249, law:299, medspa:249, business:199, church:99 };
+for (const r of rows){
+  const base = r.type === 'business' ? (MRR[r.tradition] || MRR.business) : MRR.church;
+  r.mrr = base;
+  r.annual = base * 12;
+  // weaker/dead site → more need → higher close likelihood (capped, honest)
+  const need = r.dead ? 0.55 : Math.min(0.6, 0.2 + (100 - r.score) / 100 * 0.45);
+  r.winPct = Math.round(need * 100);
+  r.expected = Math.round(r.annual * need);   // risk-adjusted annual value
+}
+
 // rank: dead first, then weakest score
 const order = { DEAD:0, HOT:1, WARM:2, MILD:3, SERVED:4 };
 rows.sort((a,b)=> (order[a.tier]-order[b.tier]) || (a.score-b.score));

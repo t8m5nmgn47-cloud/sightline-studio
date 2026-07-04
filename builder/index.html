@@ -184,9 +184,9 @@
     <div class="ph">Add-ons — switch on what you need</div>
     <div id="addons"></div>
     <div class="hbadge" id="hbadge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M12 3l7 3v5c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6z"/><path d="M9 12l2 2 4-4"/></svg> HIPAA-ready stack — BAA included, PHI kept off the public site</div>
-    <div class="totalbar"><div><div class="l">Your plan</div><div class="n" id="total">$149<small>/mo</small></div></div><button id="tocheckout">Continue to checkout →</button></div>
+    <div class="totalbar"><div><div class="l">Your plan</div><div class="n" id="total">$59<small>/mo</small></div></div><button id="tocheckout">Continue to checkout →</button></div>
     <button class="reset" id="reset">Reset to just the website</button>
-    <div class="samp">Illustrative pricing — Sightline base website $149/mo + add-ons.</div>
+    <div class="samp">Illustrative pricing — Sightline base website $59/mo + add-ons.</div>
   </aside>
   <main>
     <div class="browser">
@@ -249,7 +249,7 @@ const BUNDLES=window.SL_BUNDLES||[{id:"growth",label:"Growth",ids:["reviews","as
 const GROWTH=window.SL_GROWTH||BUNDLES[0];
 const PRESETS=BUNDLES.map(bn=>({key:bn.id,label:"★ "+(bn.label||bn.id)+(bn.id==="growth"?" (popular)":""),ids:bn.ids,bundle:true}))
  .concat(Object.keys(window.SL_KITS||{}).map(k=>Object.assign({key:k},window.SL_KITS[k])));
-const BASE=149, state=new Set(); let activePreset=null;
+const BASE=59, state=new Set(); let activePreset=null;
 const host=document.getElementById("addons"),presetHost=document.getElementById("presets"),mods=document.getElementById("modules"),hint=document.getElementById("hint"),pchat=document.getElementById("pchat"),total=document.getElementById("total"),hbadge=document.getElementById("hbadge"),modal=document.getElementById("modal"),mbody=document.getElementById("mbody");
 PRESETS.forEach(p=>{const b=document.createElement("button");b.className="preset";b.dataset.p=p.key;b.textContent=p.label;b.onclick=()=>applyPreset(p);presetHost.appendChild(b);});
 ADDONS.forEach(a=>{const d=document.createElement("div");d.className="addon";d.dataset.id=a.id;
