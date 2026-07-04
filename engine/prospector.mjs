@@ -31,7 +31,7 @@ function humanize(domain){
   return domain.replace(/\.[a-z]+$/,'').replace(/[-_.]+/g,' ')
     .replace(/\b\w/g, c=>c.toUpperCase()).replace(/\bLlc\b|\bInc\b|\bPc\b/gi,m=>m.toUpperCase());
 }
-const JUNK_NAME = /^(home ?page|home|welcome|untitled|index|error|checking your browser|just a moment|attention required)$|^\d{3}\b|forbidden|not found|access denied/i;
+const JUNK_NAME = /^(home ?page|home|welcome|untitled|index|error|checking your browser|just a moment|attention required)$|^\d{3}\b|forbidden|not found|access denied|default web ?site|apache|nginx|test page/i;
 const BAD_CAPTURE = /checking your browser|just a moment\.\.\.|attention required|access denied|error 40[34]|cloudflare|are you a (human|robot)|enable javascript to/i;
 function niceName($, domain){
   const raw = clean($('meta[property="og:site_name"]').attr('content') || $('title').first().text().split(/[|–—·]/)[0]);
@@ -68,7 +68,7 @@ for (const { dir, platform } of SOURCES){
       : gaps.length
         ? `Pays for a site but it's missing ${gaps.slice(0,3).join(', ').toLowerCase()} — scores ${r.score}/100 on congregation-readiness.`
         : `Strong site (${r.score}/100) — low priority.`;
-    rows.push({ type:'church', domain, name: name===domain?domain:name, platform, tradition, score: dead?0:r.score, tier, gaps, pitch, dead });
+    rows.push({ type:'church', domain, name: name===domain?domain:name, platform, tradition, score: dead?0:r.score, tier, gaps, pitch, dead, dims: r.dims.map(d=>({l:d.label,f:d.found,w:d.why})) });
   }
 }
 // ── business pass (Business-Readiness) ───────────────────────────────────────
@@ -88,7 +88,7 @@ if (fs.existsSync(bizFull)) for (const f of fs.readdirSync(bizFull)){
   const pitch = gaps.length
     ? `Leaking leads — missing ${gaps.slice(0,3).join(', ').toLowerCase()}. Scores ${r.score}/100; each fix is booked revenue.`
     : `Converts well (${r.score}/100) — low priority.`;
-  rows.push({ type:'business', domain, name: name===domain?domain:name, platform:'—', tradition:vertical, score:r.score, tier, gaps, pitch, dead:false });
+  rows.push({ type:'business', domain, name: name===domain?domain:name, platform:'—', tradition:vertical, score:r.score, tier, gaps, pitch, dead:false, dims: r.dims.map(d=>({l:d.label,f:d.found,w:d.why})) });
 }
 // ── projected value per prospect (the sales goal) ────────────────────────────
 // Est. monthly by what they'd realistically land on; businesses attach more add-ons.
@@ -101,6 +101,34 @@ for (const r of rows){
   const need = r.dead ? 0.55 : Math.min(0.6, 0.2 + (100 - r.score) / 100 * 0.45);
   r.winPct = Math.round(need * 100);
   r.expected = Math.round(r.annual * need);   // risk-adjusted annual value
+}
+
+// ── cold-call intelligence: category benchmarks + competitor gaps + talking points ──
+const cats = {};   // key = type/tradition → peer stats
+for (const r of rows){
+  const k = r.type+'/'+r.tradition; (cats[k] ??= { scores:[], found:{} , n:0 }).n++;
+  cats[k].scores.push(r.score);
+  (r.dims||[]).forEach(d=>{ cats[k].found[d.l] = (cats[k].found[d.l]||0) + (d.f?1:0); });
+}
+const catLabel = { business:'businesses', church:'churches' };
+for (const r of rows){
+  const c = cats[r.type+'/'+r.tradition];
+  const avg = Math.round(c.scores.reduce((s,x)=>s+x,0)/c.scores.length);
+  const max = Math.max(...c.scores);
+  // features MOST peers have (>=50%) that THIS prospect lacks = "competitors do this, you don't"
+  const compGaps = (r.dims||[]).filter(d=>!d.f && (c.found[d.l]/c.n) >= 0.5)
+    .map(d=>({ label:d.l, why:d.w, peerPct: Math.round(c.found[d.l]/c.n*100) }))
+    .sort((a,b)=>b.peerPct-a.peerPct);
+  r.benchmark = { catN:c.n, catLabel:`${r.tradition} ${catLabel[r.type]}`, avg, max, delta:r.score-avg };
+  r.competitorGaps = compGaps.slice(0,4);
+  r.talkingPoints = (compGaps.length?compGaps:(r.dims||[]).filter(d=>!d.f).map(d=>({label:d.l,why:d.w,peerPct:0}))).slice(0,3);
+  // a ready cold-call opener grounded in their real gaps + peer context
+  const top = compGaps[0];
+  r.opener = r.dead
+    ? `Hi — I was looking up ${r.name} online and your website's actually down / a placeholder. Your ${r.tradition} ${r.type==='business'?'competitors':'neighbors'} all have a real one, so you're invisible to anyone searching right now. I already rebuilt a version for you — can I send it over?`
+    : top
+      ? `Hi — I pulled up ${r.name} and noticed you don't have ${top.label.toLowerCase()}, but ${top.peerPct}% of ${r.tradition} ${catLabel[r.type]} do — it's probably costing you ${r.type==='business'?'bookings':'visitors'} every week. I built a version of your site that fixes it. Two minutes to show you?`
+      : `Hi — I looked at ${r.name}'s site (scored it ${r.score}/100 vs a ${avg} average for ${r.tradition} ${catLabel[r.type]}). I rebuilt a sharper version — can I send it over?`;
 }
 
 // rank: dead first, then weakest score

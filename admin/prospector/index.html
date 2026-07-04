@@ -38,6 +38,25 @@
   .tierbadge.WARM{background:rgba(224,185,58,.16);color:var(--warm)}.tierbadge.MILD{background:rgba(79,155,209,.16);color:var(--mild)}.tierbadge.SERVED{background:rgba(91,100,114,.2);color:var(--served)}
   .chip{font-size:.62rem;color:var(--gold);text-transform:uppercase;letter-spacing:.04em}
   @media(max-width:720px){.lead{grid-template-columns:52px 1fr;gap:8px}.val,.tierbadge{grid-column:2}}
+  /* cold-call brief */
+  .leadwrap{margin-bottom:7px}.leadwrap .lead{margin-bottom:0;border-radius:12px 12px 0 0;border-bottom:none}
+  details.brief{background:var(--panel2);border:1px solid var(--line);border-top:none;border-radius:0 0 12px 12px;font-size:.85rem}
+  details.brief[open]{padding-bottom:14px}
+  details.brief summary{cursor:pointer;padding:9px 16px;color:var(--gold);font-weight:600;font-size:.78rem;list-style:none;user-select:none}
+  details.brief summary::-webkit-details-marker{display:none}
+  details.brief summary::before{content:"📞 ";}
+  .brief-in{padding:2px 16px 0;display:grid;gap:12px}
+  .bench{display:flex;align-items:center;gap:12px}
+  .benchbar{flex:1;height:10px;border-radius:100px;background:#20262e;position:relative;overflow:visible}
+  .benchbar .you{height:100%;border-radius:100px}.benchbar .avg{position:absolute;top:-3px;bottom:-3px;width:2px;background:var(--mut)}.benchbar .best{position:absolute;top:-3px;bottom:-3px;width:2px;background:var(--good)}
+  .benchtxt{font-size:.76rem;color:var(--mut);white-space:nowrap;font-variant-numeric:tabular-nums}
+  .cg{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:5px}
+  .cg li{display:flex;gap:8px;align-items:baseline}.cg .pct{color:var(--warm);font-weight:700;font-variant-numeric:tabular-nums;font-size:.78rem;white-space:nowrap}
+  .cg .why{color:var(--mut);font-size:.78rem}
+  .opener{background:var(--panel);border:1px solid var(--line);border-left:3px solid var(--good);border-radius:8px;padding:11px 13px;font-style:italic;line-height:1.5}
+  .opener b{font-style:normal;display:block;font-size:.68rem;letter-spacing:.05em;text-transform:uppercase;color:var(--good);margin-bottom:5px}
+  .copybtn{margin-top:8px;font:inherit;font-size:.76rem;padding:6px 12px;border:1px solid var(--line);background:var(--panel);color:var(--ink);border-radius:6px;cursor:pointer}
+  .lbl2{font-size:.66rem;text-transform:uppercase;letter-spacing:.05em;color:var(--mut);margin-bottom:3px}
 </style></head>
 <body><div class="wrap">
   <a class="back" href="../">← Admin</a>
@@ -78,17 +97,29 @@ function render(){
   let rows=data.filter(d=>seg==='all'?true:seg==='leads'?['DEAD','HOT','WARM'].includes(d.tier):d.tier===seg)
                  .filter(d=>typ==='all'?true:d.type===typ);
   rows.sort((a,b)=> sort==='value'? b.expected-a.expected : sort==='score'? a.score-b.score : (order[a.tier]-order[b.tier])||(a.score-b.score));
-  $('list').innerHTML = rows.map(d=>`
-    <div class="lead ${d.tier}">
-      <div class="sc"><b style="color:${d.dead?'var(--dead)':'inherit'}">${d.dead?'✕':d.score}</b><span>${d.dead?'dead':'/100'}</span></div>
-      <div>
-        <h3><a href="https://${d.domain}" target="_blank" rel="noopener">${d.name}</a> <span class="chip">${d.type==='business'?d.tradition:d.tradition}${d.platform!=='—'?' · '+d.platform:''}</span></h3>
-        <div class="meta">${d.domain}</div>
-        <div class="pitch">${d.pitch}</div>
-      </div>
-      <div class="val"><div class="mo">$${d.mrr}<small>/mo</small></div><div class="yr">$${d.annual.toLocaleString()}/yr</div><div class="exp">${d.winPct}% → $${d.expected.toLocaleString()} exp.</div></div>
-      <div class="tierbadge ${d.tier}">${labels[d.tier]}</div>
-    </div>`).join('') || '<p style="color:var(--mut)">None in this view.</p>';
+  $('list').innerHTML = rows.map((d,i)=>{
+    const bm=d.benchmark||{}, pct=v=>Math.max(2,Math.min(100,v));
+    const brief = `
+      <details class="brief"><summary>Cold-call brief</summary><div class="brief-in">
+        <div><div class="lbl2">vs ${bm.catLabel||'category'} (${bm.catN||0} scored)</div>
+          <div class="bench"><div class="benchbar"><div class="you" style="width:${pct(d.score)}%;background:${d.score>=(bm.avg||60)?'var(--good)':'var(--warm)'}"></div><div class="avg" style="left:${pct(bm.avg||60)}%"></div><div class="best" style="left:${pct(bm.max||100)}%"></div></div>
+          <span class="benchtxt">you ${d.score} · avg ${bm.avg||'–'} · best ${bm.max||'–'}</span></div></div>
+        ${(d.competitorGaps&&d.competitorGaps.length)?`<div><div class="lbl2">Competitors do this — they don't</div><ul class="cg">${d.competitorGaps.map(g=>`<li><span class="pct">${g.peerPct}%</span> <span><b>${g.label}</b> — <span class="why">${g.why}</span></span></li>`).join('')}</ul></div>`:''}
+        <div class="opener"><b>Cold-call opener</b>${d.opener||''}<br><button class="copybtn" data-i="${i}">Copy opener</button></div>
+      </div></details>`;
+    return `<div class="leadwrap">
+      <div class="lead ${d.tier}">
+        <div class="sc"><b style="color:${d.dead?'var(--dead)':'inherit'}">${d.dead?'✕':d.score}</b><span>${d.dead?'dead':'/100'}</span></div>
+        <div>
+          <h3><a href="https://${d.domain}" target="_blank" rel="noopener">${d.name}</a> <span class="chip">${d.tradition}${d.platform!=='—'?' · '+d.platform:''}</span></h3>
+          <div class="meta">${d.domain}</div>
+          <div class="pitch">${d.pitch}</div>
+        </div>
+        <div class="val"><div class="mo">$${d.mrr}<small>/mo</small></div><div class="yr">$${d.annual.toLocaleString()}/yr</div><div class="exp">${d.winPct}% → $${d.expected.toLocaleString()} exp.</div></div>
+        <div class="tierbadge ${d.tier}">${labels[d.tier]}</div>
+      </div>${brief}</div>`;
+  }).join('') || '<p style="color:var(--mut)">None in this view.</p>';
+  document.querySelectorAll('.copybtn').forEach(b=>b.onclick=e=>{e.preventDefault();const d=rows[+b.dataset.i];navigator.clipboard&&navigator.clipboard.writeText(d.opener);b.textContent='Copied ✓';setTimeout(()=>b.textContent='Copy opener',1500);});
 }
 render();
 </script>

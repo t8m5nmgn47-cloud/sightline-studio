@@ -12,10 +12,83 @@
     ],
     "pitch": "Breakthrough Church has no working website — a dead placeholder where their front door should be.",
     "dead": true,
+    "dims": [
+      {
+        "l": "Plan Your Visit",
+        "f": true,
+        "w": "A first-timer needs a clear \"I'm new → here's what to expect\" path — the #1 job of a church front door."
+      },
+      {
+        "l": "Service times & campus",
+        "f": true,
+        "w": "43% of church-seekers come to find service times and where to go."
+      },
+      {
+        "l": "Next Steps pathway",
+        "f": true,
+        "w": "A defined \"what now?\" path turns a first visit into belonging."
+      },
+      {
+        "l": "Groups & belonging",
+        "f": true,
+        "w": "People stay when they find their people — a group finder beats a static list."
+      },
+      {
+        "l": "Serve & volunteer",
+        "f": true,
+        "w": "Serving is how attenders become members."
+      },
+      {
+        "l": "Care & Prayer",
+        "f": false,
+        "w": "Pastoral care/prayer signals a church that meets you in the hard moments — not transactional."
+      },
+      {
+        "l": "Online giving",
+        "f": true,
+        "w": "Digital givers give 33% more; giving must be one tap."
+      },
+      {
+        "l": "Sermons / Watch",
+        "f": true,
+        "w": "Watch online is the on-ramp — it lets someone sample before they step in."
+      },
+      {
+        "l": "Kids & Families",
+        "f": true,
+        "w": "Parents decide on kids' safety and programming first."
+      },
+      {
+        "l": "Current & alive",
+        "f": true,
+        "w": "Live announcements and dated upcoming events prove a real, active community."
+      },
+      {
+        "l": "Accessible & solid",
+        "f": true,
+        "w": "Accessibility, mobile, and HTTPS say \"everyone is welcome and we're legit.\""
+      }
+    ],
     "mrr": 99,
     "annual": 1188,
     "winPct": 55,
-    "expected": 653
+    "expected": 653,
+    "benchmark": {
+      "catN": 30,
+      "catLabel": "contemporary churches",
+      "avg": 59,
+      "max": 98,
+      "delta": -59
+    },
+    "competitorGaps": [],
+    "talkingPoints": [
+      {
+        "label": "Care & Prayer",
+        "why": "Pastoral care/prayer signals a church that meets you in the hard moments — not transactional.",
+        "peerPct": 0
+      }
+    ],
+    "opener": "Hi — I was looking up Breakthrough Church online and your website's actually down / a placeholder. Your contemporary neighbors all have a real one, so you're invisible to anyone searching right now. I already rebuilt a version for you — can I send it over?"
   },
   {
     "type": "church",
@@ -38,10 +111,114 @@
     ],
     "pitch": "Gfamilychurchmi has no working website — a dead placeholder where their front door should be.",
     "dead": true,
+    "dims": [
+      {
+        "l": "Plan Your Visit",
+        "f": false,
+        "w": "A first-timer needs a clear \"I'm new → here's what to expect\" path — the #1 job of a church front door."
+      },
+      {
+        "l": "Service times & campus",
+        "f": false,
+        "w": "43% of church-seekers come to find service times and where to go."
+      },
+      {
+        "l": "Next Steps pathway",
+        "f": false,
+        "w": "A defined \"what now?\" path turns a first visit into belonging."
+      },
+      {
+        "l": "Groups & belonging",
+        "f": false,
+        "w": "People stay when they find their people — a group finder beats a static list."
+      },
+      {
+        "l": "Serve & volunteer",
+        "f": false,
+        "w": "Serving is how attenders become members."
+      },
+      {
+        "l": "Care & Prayer",
+        "f": false,
+        "w": "Pastoral care/prayer signals a church that meets you in the hard moments — not transactional."
+      },
+      {
+        "l": "Online giving",
+        "f": false,
+        "w": "Digital givers give 33% more; giving must be one tap."
+      },
+      {
+        "l": "Sermons / Watch",
+        "f": true,
+        "w": "Watch online is the on-ramp — it lets someone sample before they step in."
+      },
+      {
+        "l": "Kids & Families",
+        "f": false,
+        "w": "Parents decide on kids' safety and programming first."
+      },
+      {
+        "l": "Current & alive",
+        "f": false,
+        "w": "Live announcements and dated upcoming events prove a real, active community."
+      },
+      {
+        "l": "Accessible & solid",
+        "f": true,
+        "w": "Accessibility, mobile, and HTTPS say \"everyone is welcome and we're legit.\""
+      }
+    ],
     "mrr": 99,
     "annual": 1188,
     "winPct": 55,
-    "expected": 653
+    "expected": 653,
+    "benchmark": {
+      "catN": 30,
+      "catLabel": "contemporary churches",
+      "avg": 59,
+      "max": 98,
+      "delta": -59
+    },
+    "competitorGaps": [
+      {
+        "label": "Online giving",
+        "why": "Digital givers give 33% more; giving must be one tap.",
+        "peerPct": 93
+      },
+      {
+        "label": "Plan Your Visit",
+        "why": "A first-timer needs a clear \"I'm new → here's what to expect\" path — the #1 job of a church front door.",
+        "peerPct": 80
+      },
+      {
+        "label": "Service times & campus",
+        "why": "43% of church-seekers come to find service times and where to go.",
+        "peerPct": 77
+      },
+      {
+        "label": "Current & alive",
+        "why": "Live announcements and dated upcoming events prove a real, active community.",
+        "peerPct": 77
+      }
+    ],
+    "talkingPoints": [
+      {
+        "label": "Online giving",
+        "why": "Digital givers give 33% more; giving must be one tap.",
+        "peerPct": 93
+      },
+      {
+        "label": "Plan Your Visit",
+        "why": "A first-timer needs a clear \"I'm new → here's what to expect\" path — the #1 job of a church front door.",
+        "peerPct": 80
+      },
+      {
+        "label": "Service times & campus",
+        "why": "43% of church-seekers come to find service times and where to go.",
+        "peerPct": 77
+      }
+    ],
+    "opener": "Hi — I was looking up Gfamilychurchmi online and your website's actually down / a placeholder. Your contemporary neighbors all have a real one, so you're invisible to anyone searching right now. I already rebuilt a version for you — can I send it over?"
   },
   {
     "type": "church",
@@ -57,10 +234,99 @@
     ],
     "pitch": "Total Life Church has no working website — a dead placeholder where their front door should be.",
     "dead": true,
+    "dims": [
+      {
+        "l": "Plan Your Visit",
+        "f": true,
+        "w": "A first-timer needs a clear \"I'm new → here's what to expect\" path — the #1 job of a church front door."
+      },
+      {
+        "l": "Service times & campus",
+        "f": true,
+        "w": "43% of church-seekers come to find service times and where to go."
+      },
+      {
+        "l": "Next Steps pathway",
+        "f": false,
+        "w": "A defined \"what now?\" path turns a first visit into belonging."
+      },
+      {
+        "l": "Groups & belonging",
+        "f": true,
+        "w": "People stay when they find their people — a group finder beats a static list."
+      },
+      {
+        "l": "Serve & volunteer",
+        "f": false,
+        "w": "Serving is how attenders become members."
+      },
+      {
+        "l": "Care & Prayer",
+        "f": true,
+        "w": "Pastoral care/prayer signals a church that meets you in the hard moments — not transactional."
+      },
+      {
+        "l": "Online giving",
+        "f": true,
+        "w": "Digital givers give 33% more; giving must be one tap."
+      },
+      {
+        "l": "Sermons / Watch",
+        "f": true,
+        "w": "Watch online is the on-ramp — it lets someone sample before they step in."
+      },
+      {
+        "l": "Kids & Families",
+        "f": true,
+        "w": "Parents decide on kids' safety and programming first."
+      },
+      {
+        "l": "Current & alive",
+        "f": true,
+        "w": "Live announcements and dated upcoming events prove a real, active community."
+      },
+      {
+        "l": "Accessible & solid",
+        "f": true,
+        "w": "Accessibility, mobile, and HTTPS say \"everyone is welcome and we're legit.\""
+      }
+    ],
     "mrr": 99,
     "annual": 1188,
     "winPct": 55,
-    "expected": 653
+    "expected": 653,
+    "benchmark": {
+      "catN": 30,
+      "catLabel": "contemporary churches",
+      "avg": 59,
+      "max": 98,
+      "delta": -59
+    },
+    "competitorGaps": [
+      {
+        "label": "Serve & volunteer",
+        "why": "Serving is how attenders become members.",
+        "peerPct": 70
+      },
+      {
+        "label": "Next Steps pathway",
+        "why": "A defined \"what now?\" path turns a first visit into belonging.",
+        "peerPct": 57
+      }
+    ],
+    "talkingPoints": [
+      {
+        "label": "Serve & volunteer",
+        "why": "Serving is how attenders become members.",
+        "peerPct": 70
+      },
+      {
+        "label": "Next Steps pathway",
+        "why": "A defined \"what now?\" path turns a first visit into belonging.",
+        "peerPct": 57
+      }
+    ],
+    "opener": "Hi — I was looking up Total Life Church online and your website's actually down / a placeholder. Your contemporary neighbors all have a real one, so you're invisible to anyone searching right now. I already rebuilt a version for you — can I send it over?"
   },
   {
     "type": "business",
@@ -83,10 +349,233 @@
     ],
     "pitch": "Leaking leads — missing book / request appointment, call / contact prominent, services / what we do. Scores 4/100; each fix is booked revenue.",
     "dead": false,
+    "dims": [
+      {
+        "l": "Book / request appointment",
+        "f": false,
+        "w": "The #1 conversion action — online booking or a request-appointment form turns a visitor into revenue."
+      },
+      {
+        "l": "Call / contact prominent",
+        "f": false,
+        "w": "A visible phone number + clear contact path captures the callers who won't fill a form."
+      },
+      {
+        "l": "Services / what we do",
+        "f": false,
+        "w": "Clear services (and for whom) is how a searcher confirms you solve their problem."
+      },
+      {
+        "l": "Reviews & social proof",
+        "f": false,
+        "w": "~9 in 10 people read reviews before choosing a local business — star ratings/testimonials on-site convert."
+      },
+      {
+        "l": "Team & credentials",
+        "f": false,
+        "w": "Meet-the-team, credentials, awards and an about story build the trust a service purchase requires."
+      },
+      {
+        "l": "Hours, location & map",
+        "f": false,
+        "w": "Hours, address, and a map are table-stakes for a local visit."
+      },
+      {
+        "l": "New-customer offer",
+        "f": false,
+        "w": "A new-patient special / free consult is the hook that turns comparison-shoppers into bookings."
+      },
+      {
+        "l": "Photos / results",
+        "f": false,
+        "w": "Real photos (office, team, before/after results) prove quality far better than stock."
+      },
+      {
+        "l": "Financing / insurance / pricing",
+        "f": false,
+        "w": "Insurance accepted, financing, or pricing transparency removes the biggest hesitation."
+      },
+      {
+        "l": "Fast, mobile & secure",
+        "f": true,
+        "w": "Mobile, HTTPS, and accessibility decide whether a phone searcher stays or bounces."
+      }
+    ],
     "mrr": 249,
     "annual": 2988,
     "winPct": 60,
-    "expected": 1793
+    "expected": 1793,
+    "benchmark": {
+      "catN": 3,
+      "catLabel": "medspa businesses",
+      "avg": 49,
+      "max": 72,
+      "delta": -45
+    },
+    "competitorGaps": [
+      {
+        "label": "Book / request appointment",
+        "why": "The #1 conversion action — online booking or a request-appointment form turns a visitor into revenue.",
+        "peerPct": 67
+      },
+      {
+        "label": "Call / contact prominent",
+        "why": "A visible phone number + clear contact path captures the callers who won't fill a form.",
+        "peerPct": 67
+      },
+      {
+        "label": "Services / what we do",
+        "why": "Clear services (and for whom) is how a searcher confirms you solve their problem.",
+        "peerPct": 67
+      },
+      {
+        "label": "Team & credentials",
+        "why": "Meet-the-team, credentials, awards and an about story build the trust a service purchase requires.",
+        "peerPct": 67
+      }
+    ],
+    "talkingPoints": [
+      {
+        "label": "Book / request appointment",
+        "why": "The #1 conversion action — online booking or a request-appointment form turns a visitor into revenue.",
+        "peerPct": 67
+      },
+      {
+        "label": "Call / contact prominent",
+        "why": "A visible phone number + clear contact path captures the callers who won't fill a form.",
+        "peerPct": 67
+      },
+      {
+        "label": "Services / what we do",
+        "why": "Clear services (and for whom) is how a searcher confirms you solve their problem.",
+        "peerPct": 67
+      }
+    ],
+    "opener": "Hi — I pulled up Firmmedspa and noticed you don't have book / request appointment, but 67% of medspa businesses do — it's probably costing you bookings every week. I built a version of your site that fixes it. Two minutes to show you?"
+  },
+  {
+    "type": "business",
+    "domain": "castlerockcpa.com",
+    "name": "Castlerockcpa",
+    "platform": "—",
+    "tradition": "business",
+    "score": 8,
+    "tier": "HOT",
+    "gaps": [
+      "Book / request appointment",
+      "Call / contact prominent",
+      "Services / what we do",
+      "Reviews & social proof",
+      "Team & credentials",
+      "New-customer offer",
+      "Photos / results",
+      "Financing / insurance / pricing"
+    ],
+    "pitch": "Leaking leads — missing book / request appointment, call / contact prominent, services / what we do. Scores 8/100; each fix is booked revenue.",
+    "dead": false,
+    "dims": [
+      {
+        "l": "Book / request appointment",
+        "f": false,
+        "w": "The #1 conversion action — online booking or a request-appointment form turns a visitor into revenue."
+      },
+      {
+        "l": "Call / contact prominent",
+        "f": false,
+        "w": "A visible phone number + clear contact path captures the callers who won't fill a form."
+      },
+      {
+        "l": "Services / what we do",
+        "f": false,
+        "w": "Clear services (and for whom) is how a searcher confirms you solve their problem."
+      },
+      {
+        "l": "Reviews & social proof",
+        "f": false,
+        "w": "~9 in 10 people read reviews before choosing a local business — star ratings/testimonials on-site convert."
+      },
+      {
+        "l": "Team & credentials",
+        "f": false,
+        "w": "Meet-the-team, credentials, awards and an about story build the trust a service purchase requires."
+      },
+      {
+        "l": "Hours, location & map",
+        "f": true,
+        "w": "Hours, address, and a map are table-stakes for a local visit."
+      },
+      {
+        "l": "New-customer offer",
+        "f": false,
+        "w": "A new-patient special / free consult is the hook that turns comparison-shoppers into bookings."
+      },
+      {
+        "l": "Photos / results",
+        "f": false,
+        "w": "Real photos (office, team, before/after results) prove quality far better than stock."
+      },
+      {
+        "l": "Financing / insurance / pricing",
+        "f": false,
+        "w": "Insurance accepted, financing, or pricing transparency removes the biggest hesitation."
+      },
+      {
+        "l": "Fast, mobile & secure",
+        "f": true,
+        "w": "Mobile, HTTPS, and accessibility decide whether a phone searcher stays or bounces."
+      }
+    ],
+    "mrr": 199,
+    "annual": 2388,
+    "winPct": 60,
+    "expected": 1433,
+    "benchmark": {
+      "catN": 6,
+      "catLabel": "business businesses",
+      "avg": 52,
+      "max": 76,
+      "delta": -44
+    },
+    "competitorGaps": [
+      {
+        "label": "Call / contact prominent",
+        "why": "A visible phone number + clear contact path captures the callers who won't fill a form.",
+        "peerPct": 83
+      },
+      {
+        "label": "Team & credentials",
+        "why": "Meet-the-team, credentials, awards and an about story build the trust a service purchase requires.",
+        "peerPct": 83
+      },
+      {
+        "label": "Financing / insurance / pricing",
+        "why": "Insurance accepted, financing, or pricing transparency removes the biggest hesitation.",
+        "peerPct": 83
+      },
+      {
+        "label": "Reviews & social proof",
+        "why": "~9 in 10 people read reviews before choosing a local business — star ratings/testimonials on-site convert.",
+        "peerPct": 67
+      }
+    ],
+    "talkingPoints": [
+      {
+        "label": "Call / contact prominent",
+        "why": "A visible phone number + clear contact path captures the callers who won't fill a form.",
+        "peerPct": 83
+      },
+      {
+        "label": "Team & credentials",
+        "why": "Meet-the-team, credentials, awards and an about story build the trust a service purchase requires.",
+        "peerPct": 83
+      },
+      {
+        "label": "Financing / insurance / pricing",
+        "why": "Insurance accepted, financing, or pricing transparency removes the biggest hesitation.",
+        "peerPct": 83
+      }
+    ],
+    "opener": "Hi — I pulled up Castlerockcpa and noticed you don't have call / contact prominent, but 83% of business businesses do — it's probably costing you bookings every week. I built a version of your site that fixes it. Two minutes to show you?"
   },
   {
     "type": "church",
@@ -106,10 +595,114 @@
     ],
     "pitch": "Pays for a site but it's missing plan your visit, next steps pathway, groups & belonging — scores 35/100 on congregation-readiness.",
     "dead": false,
+    "dims": [
+      {
+        "l": "Plan Your Visit",
+        "f": false,
+        "w": "A first-timer needs a clear \"I'm new → here's what to expect\" path — the #1 job of a church front door."
+      },
+      {
+        "l": "Service times & campus",
+        "f": true,
+        "w": "43% of church-seekers come to find service times and where to go."
+      },
+      {
+        "l": "Next Steps pathway",
+        "f": false,
+        "w": "A defined \"what now?\" path turns a first visit into belonging."
+      },
+      {
+        "l": "Groups & belonging",
+        "f": false,
+        "w": "People stay when they find their people — a group finder beats a static list."
+      },
+      {
+        "l": "Serve & volunteer",
+        "f": true,
+        "w": "Serving is how attenders become members."
+      },
+      {
+        "l": "Care & Prayer",
+        "f": true,
+        "w": "Pastoral care/prayer signals a church that meets you in the hard moments — not transactional."
+      },
+      {
+        "l": "Online giving",
+        "f": false,
+        "w": "Digital givers give 33% more; giving must be one tap."
+      },
+      {
+        "l": "Sermons / Watch",
+        "f": true,
+        "w": "Watch online is the on-ramp — it lets someone sample before they step in."
+      },
+      {
+        "l": "Kids & Families",
+        "f": false,
+        "w": "Parents decide on kids' safety and programming first."
+      },
+      {
+        "l": "Current & alive",
+        "f": false,
+        "w": "Live announcements and dated upcoming events prove a real, active community."
+      },
+      {
+        "l": "Accessible & solid",
+        "f": true,
+        "w": "Accessibility, mobile, and HTTPS say \"everyone is welcome and we're legit.\""
+      }
+    ],
     "mrr": 99,
     "annual": 1188,
     "winPct": 49,
-    "expected": 585
+    "expected": 585,
+    "benchmark": {
+      "catN": 30,
+      "catLabel": "contemporary churches",
+      "avg": 59,
+      "max": 98,
+      "delta": -24
+    },
+    "competitorGaps": [
+      {
+        "label": "Online giving",
+        "why": "Digital givers give 33% more; giving must be one tap.",
+        "peerPct": 93
+      },
+      {
+        "label": "Plan Your Visit",
+        "why": "A first-timer needs a clear \"I'm new → here's what to expect\" path — the #1 job of a church front door.",
+        "peerPct": 80
+      },
+      {
+        "label": "Current & alive",
+        "why": "Live announcements and dated upcoming events prove a real, active community.",
+        "peerPct": 77
+      },
+      {
+        "label": "Kids & Families",
+        "why": "Parents decide on kids' safety and programming first.",
+        "peerPct": 63
+      }
+    ],
+    "talkingPoints": [
+      {
+        "label": "Online giving",
+        "why": "Digital givers give 33% more; giving must be one tap.",
+        "peerPct": 93
+      },
+      {
+        "label": "Plan Your Visit",
+        "why": "A first-timer needs a clear \"I'm new → here's what to expect\" path — the #1 job of a church front door.",
+        "peerPct": 80
+      },
+      {
+        "label": "Current & alive",
+        "why": "Live announcements and dated upcoming events prove a real, active community.",
+        "peerPct": 77
+      }
+    ],
+    "opener": "Hi — I pulled up Refuge Bible Church and noticed you don't have online giving, but 93% of contemporary churches do — it's probably costing you visitors every week. I built a version of your site that fixes it. Two minutes to show you?"
   },
   {
     "type": "church",
@@ -129,10 +722,114 @@
     ],
     "pitch": "Pays for a site but it's missing service times & campus, next steps pathway, groups & belonging — scores 42/100 on congregation-readiness.",
     "dead": false,
+    "dims": [
+      {
+        "l": "Plan Your Visit",
+        "f": true,
+        "w": "A first-timer needs a clear \"I'm new → here's what to expect\" path — the #1 job of a church front door."
+      },
+      {
+        "l": "Service times & campus",
+        "f": false,
+        "w": "43% of church-seekers come to find service times and where to go."
+      },
+      {
+        "l": "Next Steps pathway",
+        "f": false,
+        "w": "A defined \"what now?\" path turns a first visit into belonging."
+      },
+      {
+        "l": "Groups & belonging",
+        "f": false,
+        "w": "People stay when they find their people — a group finder beats a static list."
+      },
+      {
+        "l": "Serve & volunteer",
+        "f": false,
+        "w": "Serving is how attenders become members."
+      },
+      {
+        "l": "Care & Prayer",
+        "f": false,
+        "w": "Pastoral care/prayer signals a church that meets you in the hard moments — not transactional."
+      },
+      {
+        "l": "Online giving",
+        "f": true,
+        "w": "Digital givers give 33% more; giving must be one tap."
+      },
+      {
+        "l": "Sermons / Watch",
+        "f": true,
+        "w": "Watch online is the on-ramp — it lets someone sample before they step in."
+      },
+      {
+        "l": "Kids & Families",
+        "f": false,
+        "w": "Parents decide on kids' safety and programming first."
+      },
+      {
+        "l": "Current & alive",
+        "f": true,
+        "w": "Live announcements and dated upcoming events prove a real, active community."
+      },
+      {
+        "l": "Accessible & solid",
+        "f": true,
+        "w": "Accessibility, mobile, and HTTPS say \"everyone is welcome and we're legit.\""
+      }
+    ],
     "mrr": 99,
     "annual": 1188,
     "winPct": 46,
-    "expected": 548
+    "expected": 548,
+    "benchmark": {
+      "catN": 30,
+      "catLabel": "contemporary churches",
+      "avg": 59,
+      "max": 98,
+      "delta": -17
+    },
+    "competitorGaps": [
+      {
+        "label": "Service times & campus",
+        "why": "43% of church-seekers come to find service times and where to go.",
+        "peerPct": 77
+      },
+      {
+        "label": "Serve & volunteer",
+        "why": "Serving is how attenders become members.",
+        "peerPct": 70
+      },
+      {
+        "label": "Kids & Families",
+        "why": "Parents decide on kids' safety and programming first.",
+        "peerPct": 63
+      },
+      {
+        "label": "Next Steps pathway",
+        "why": "A defined \"what now?\" path turns a first visit into belonging.",
+        "peerPct": 57
+      }
+    ],
+    "talkingPoints": [
+      {
+        "label": "Service times & campus",
+        "why": "43% of church-seekers come to find service times and where to go.",
+        "peerPct": 77
+      },
+      {
+        "label": "Serve & volunteer",
+        "why": "Serving is how attenders become members.",
+        "peerPct": 70
+      },
+      {
+        "label": "Kids & Families",
+        "why": "Parents decide on kids' safety and programming first.",
+        "peerPct": 63
+      }
+    ],
+    "opener": "Hi — I pulled up Asheville Church Network and noticed you don't have service times & campus, but 77% of contemporary churches do — it's probably costing you visitors every week. I built a version of your site that fixes it. Two minutes to show you?"
   },
   {
     "type": "church",
@@ -151,10 +848,208 @@
     ],
     "pitch": "Pays for a site but it's missing service times & campus, groups & belonging, sermons / watch — scores 44/100 on congregation-readiness.",
     "dead": false,
+    "dims": [
+      {
+        "l": "Plan Your Visit",
+        "f": true,
+        "w": "A first-timer needs a clear \"I'm new → here's what to expect\" path — the #1 job of a church front door."
+      },
+      {
+        "l": "Service times & campus",
+        "f": false,
+        "w": "43% of church-seekers come to find service times and where to go."
+      },
+      {
+        "l": "Next Steps pathway",
+        "f": true,
+        "w": "A defined \"what now?\" path turns a first visit into belonging."
+      },
+      {
+        "l": "Groups & belonging",
+        "f": false,
+        "w": "People stay when they find their people — a group finder beats a static list."
+      },
+      {
+        "l": "Serve & volunteer",
+        "f": true,
+        "w": "Serving is how attenders become members."
+      },
+      {
+        "l": "Care & Prayer",
+        "f": true,
+        "w": "Pastoral care/prayer signals a church that meets you in the hard moments — not transactional."
+      },
+      {
+        "l": "Online giving",
+        "f": true,
+        "w": "Digital givers give 33% more; giving must be one tap."
+      },
+      {
+        "l": "Sermons / Watch",
+        "f": false,
+        "w": "Watch online is the on-ramp — it lets someone sample before they step in."
+      },
+      {
+        "l": "Kids & Families",
+        "f": false,
+        "w": "Parents decide on kids' safety and programming first."
+      },
+      {
+        "l": "Current & alive",
+        "f": false,
+        "w": "Live announcements and dated upcoming events prove a real, active community."
+      },
+      {
+        "l": "Accessible & solid",
+        "f": true,
+        "w": "Accessibility, mobile, and HTTPS say \"everyone is welcome and we're legit.\""
+      }
+    ],
     "mrr": 99,
     "annual": 1188,
     "winPct": 45,
-    "expected": 537
+    "expected": 537,
+    "benchmark": {
+      "catN": 30,
+      "catLabel": "contemporary churches",
+      "avg": 59,
+      "max": 98,
+      "delta": -15
+    },
+    "competitorGaps": [
+      {
+        "label": "Sermons / Watch",
+        "why": "Watch online is the on-ramp — it lets someone sample before they step in.",
+        "peerPct": 93
+      },
+      {
+        "label": "Service times & campus",
+        "why": "43% of church-seekers come to find service times and where to go.",
+        "peerPct": 77
+      },
+      {
+        "label": "Current & alive",
+        "why": "Live announcements and dated upcoming events prove a real, active community.",
+        "peerPct": 77
+      },
+      {
+        "label": "Kids & Families",
+        "why": "Parents decide on kids' safety and programming first.",
+        "peerPct": 63
+      }
+    ],
+    "talkingPoints": [
+      {
+        "label": "Sermons / Watch",
+        "why": "Watch online is the on-ramp — it lets someone sample before they step in.",
+        "peerPct": 93
+      },
+      {
+        "label": "Service times & campus",
+        "why": "43% of church-seekers come to find service times and where to go.",
+        "peerPct": 77
+      },
+      {
+        "label": "Current & alive",
+        "why": "Live announcements and dated upcoming events prove a real, active community.",
+        "peerPct": 77
+      }
+    ],
+    "opener": "Hi — I pulled up Greaterglorychurch and noticed you don't have sermons / watch, but 93% of contemporary churches do — it's probably costing you visitors every week. I built a version of your site that fixes it. Two minutes to show you?"
+  },
+  {
+    "type": "business",
+    "domain": "aspenfallslandscaping.com",
+    "name": "Aspen Falls Landscape and Construction",
+    "platform": "—",
+    "tradition": "business",
+    "score": 41,
+    "tier": "WARM",
+    "gaps": [
+      "Book / request appointment",
+      "Reviews & social proof",
+      "New-customer offer"
+    ],
+    "pitch": "Leaking leads — missing book / request appointment, reviews & social proof, new-customer offer. Scores 41/100; each fix is booked revenue.",
+    "dead": false,
+    "dims": [
+      {
+        "l": "Book / request appointment",
+        "f": false,
+        "w": "The #1 conversion action — online booking or a request-appointment form turns a visitor into revenue."
+      },
+      {
+        "l": "Call / contact prominent",
+        "f": true,
+        "w": "A visible phone number + clear contact path captures the callers who won't fill a form."
+      },
+      {
+        "l": "Services / what we do",
+        "f": true,
+        "w": "Clear services (and for whom) is how a searcher confirms you solve their problem."
+      },
+      {
+        "l": "Reviews & social proof",
+        "f": false,
+        "w": "~9 in 10 people read reviews before choosing a local business — star ratings/testimonials on-site convert."
+      },
+      {
+        "l": "Team & credentials",
+        "f": true,
+        "w": "Meet-the-team, credentials, awards and an about story build the trust a service purchase requires."
+      },
+      {
+        "l": "Hours, location & map",
+        "f": true,
+        "w": "Hours, address, and a map are table-stakes for a local visit."
+      },
+      {
+        "l": "New-customer offer",
+        "f": false,
+        "w": "A new-patient special / free consult is the hook that turns comparison-shoppers into bookings."
+      },
+      {
+        "l": "Photos / results",
+        "f": true,
+        "w": "Real photos (office, team, before/after results) prove quality far better than stock."
+      },
+      {
+        "l": "Financing / insurance / pricing",
+        "f": true,
+        "w": "Insurance accepted, financing, or pricing transparency removes the biggest hesitation."
+      },
+      {
+        "l": "Fast, mobile & secure",
+        "f": true,
+        "w": "Mobile, HTTPS, and accessibility decide whether a phone searcher stays or bounces."
+      }
+    ],
+    "mrr": 199,
+    "annual": 2388,
+    "winPct": 47,
+    "expected": 1112,
+    "benchmark": {
+      "catN": 6,
+      "catLabel": "business businesses",
+      "avg": 52,
+      "max": 76,
+      "delta": -11
+    },
+    "competitorGaps": [
+      {
+        "label": "Reviews & social proof",
+        "why": "~9 in 10 people read reviews before choosing a local business — star ratings/testimonials on-site convert.",
+        "peerPct": 67
+      }
+    ],
+    "talkingPoints": [
+      {
+        "label": "Reviews & social proof",
+        "why": "~9 in 10 people read reviews before choosing a local business — star ratings/testimonials on-site convert.",
+        "peerPct": 67
+      }
+    ],
+    "opener": "Hi — I pulled up Aspen Falls Landscape and Construction and noticed you don't have reviews & social proof, but 67% of business businesses do — it's probably costing you bookings every week. I built a version of your site that fixes it. Two minutes to show you?"
   },
   {
     "type": "church",
@@ -173,10 +1068,109 @@
     ],
     "pitch": "Pays for a site but it's missing next steps pathway, groups & belonging, serve & volunteer — scores 46/100 on congregation-readiness.",
     "dead": false,
+    "dims": [
+      {
+        "l": "Plan Your Visit",
+        "f": true,
+        "w": "A first-timer needs a clear \"I'm new → here's what to expect\" path — the #1 job of a church front door."
+      },
+      {
+        "l": "Service times & campus",
+        "f": true,
+        "w": "43% of church-seekers come to find service times and where to go."
+      },
+      {
+        "l": "Next Steps pathway",
+        "f": false,
+        "w": "A defined \"what now?\" path turns a first visit into belonging."
+      },
+      {
+        "l": "Groups & belonging",
+        "f": false,
+        "w": "People stay when they find their people — a group finder beats a static list."
+      },
+      {
+        "l": "Serve & volunteer",
+        "f": false,
+        "w": "Serving is how attenders become members."
+      },
+      {
+        "l": "Care & Prayer",
+        "f": false,
+        "w": "Pastoral care/prayer signals a church that meets you in the hard moments — not transactional."
+      },
+      {
+        "l": "Online giving",
+        "f": true,
+        "w": "Digital givers give 33% more; giving must be one tap."
+      },
+      {
+        "l": "Sermons / Watch",
+        "f": true,
+        "w": "Watch online is the on-ramp — it lets someone sample before they step in."
+      },
+      {
+        "l": "Kids & Families",
+        "f": false,
+        "w": "Parents decide on kids' safety and programming first."
+      },
+      {
+        "l": "Current & alive",
+        "f": true,
+        "w": "Live announcements and dated upcoming events prove a real, active community."
+      },
+      {
+        "l": "Accessible & solid",
+        "f": true,
+        "w": "Accessibility, mobile, and HTTPS say \"everyone is welcome and we're legit.\""
+      }
+    ],
     "mrr": 99,
     "annual": 1188,
     "winPct": 44,
-    "expected": 526
+    "expected": 526,
+    "benchmark": {
+      "catN": 30,
+      "catLabel": "contemporary churches",
+      "avg": 59,
+      "max": 98,
+      "delta": -13
+    },
+    "competitorGaps": [
+      {
+        "label": "Serve & volunteer",
+        "why": "Serving is how attenders become members.",
+        "peerPct": 70
+      },
+      {
+        "label": "Kids & Families",
+        "why": "Parents decide on kids' safety and programming first.",
+        "peerPct": 63
+      },
+      {
+        "label": "Next Steps pathway",
+        "why": "A defined \"what now?\" path turns a first visit into belonging.",
+        "peerPct": 57
+      }
+    ],
+    "talkingPoints": [
+      {
+        "label": "Serve & volunteer",
+        "why": "Serving is how attenders become members.",
+        "peerPct": 70
+      },
+      {
+        "label": "Kids & Families",
+        "why": "Parents decide on kids' safety and programming first.",
+        "peerPct": 63
+      },
+      {
+        "label": "Next Steps pathway",
+        "why": "A defined \"what now?\" path turns a first visit into belonging.",
+        "peerPct": 57
+      }
+    ],
+    "opener": "Hi — I pulled up Faith Tabernacle - South FL and noticed you don't have serve & volunteer, but 70% of contemporary churches do — it's probably costing you visitors every week. I built a version of your site that fixes it. Two minutes to show you?"
   },
   {
     "type": "church",
@@ -195,10 +1189,109 @@
     ],
     "pitch": "Pays for a site but it's missing plan your visit, next steps pathway, groups & belonging — scores 48/100 on congregation-readiness.",
     "dead": false,
+    "dims": [
+      {
+        "l": "Plan Your Visit",
+        "f": false,
+        "w": "A first-timer needs a clear \"I'm new → here's what to expect\" path — the #1 job of a church front door."
+      },
+      {
+        "l": "Service times & campus",
+        "f": true,
+        "w": "43% of church-seekers come to find service times and where to go."
+      },
+      {
+        "l": "Next Steps pathway",
+        "f": false,
+        "w": "A defined \"what now?\" path turns a first visit into belonging."
+      },
+      {
+        "l": "Groups & belonging",
+        "f": false,
+        "w": "People stay when they find their people — a group finder beats a static list."
+      },
+      {
+        "l": "Serve & volunteer",
+        "f": false,
+        "w": "Serving is how attenders become members."
+      },
+      {
+        "l": "Care & Prayer",
+        "f": false,
+        "w": "Pastoral care/prayer signals a church that meets you in the hard moments — not transactional."
+      },
+      {
+        "l": "Online giving",
+        "f": true,
+        "w": "Digital givers give 33% more; giving must be one tap."
+      },
+      {
+        "l": "Sermons / Watch",
+        "f": true,
+        "w": "Watch online is the on-ramp — it lets someone sample before they step in."
+      },
+      {
+        "l": "Kids & Families",
+        "f": true,
+        "w": "Parents decide on kids' safety and programming first."
+      },
+      {
+        "l": "Current & alive",
+        "f": true,
+        "w": "Live announcements and dated upcoming events prove a real, active community."
+      },
+      {
+        "l": "Accessible & solid",
+        "f": true,
+        "w": "Accessibility, mobile, and HTTPS say \"everyone is welcome and we're legit.\""
+      }
+    ],
     "mrr": 99,
     "annual": 1188,
     "winPct": 43,
-    "expected": 516
+    "expected": 516,
+    "benchmark": {
+      "catN": 30,
+      "catLabel": "contemporary churches",
+      "avg": 59,
+      "max": 98,
+      "delta": -11
+    },
+    "competitorGaps": [
+      {
+        "label": "Plan Your Visit",
+        "why": "A first-timer needs a clear \"I'm new → here's what to expect\" path — the #1 job of a church front door.",
+        "peerPct": 80
+      },
+      {
+        "label": "Serve & volunteer",
+        "why": "Serving is how attenders become members.",
+        "peerPct": 70
+      },
+      {
+        "label": "Next Steps pathway",
+        "why": "A defined \"what now?\" path turns a first visit into belonging.",
+        "peerPct": 57
+      }
+    ],
+    "talkingPoints": [
+      {
+        "label": "Plan Your Visit",
+        "why": "A first-timer needs a clear \"I'm new → here's what to expect\" path — the #1 job of a church front door.",
+        "peerPct": 80
+      },
+      {
+        "label": "Serve & volunteer",
+        "why": "Serving is how attenders become members.",
+        "peerPct": 70
+      },
+      {
+        "label": "Next Steps pathway",
+        "why": "A defined \"what now?\" path turns a first visit into belonging.",
+        "peerPct": 57
+      }
+    ],
+    "opener": "Hi — I pulled up Ebenezer Baptist Church and noticed you don't have plan your visit, but 80% of contemporary churches do — it's probably costing you visitors every week. I built a version of your site that fixes it. Two minutes to show you?"
   },
   {
     "type": "church",
@@ -216,10 +1309,201 @@
     ],
     "pitch": "Pays for a site but it's missing plan your visit, next steps pathway, groups & belonging — scores 52/100 on congregation-readiness.",
     "dead": false,
+    "dims": [
+      {
+        "l": "Plan Your Visit",
+        "f": false,
+        "w": "A first-timer needs a clear \"I'm new → here's what to expect\" path — the #1 job of a church front door."
+      },
+      {
+        "l": "Service times & campus",
+        "f": true,
+        "w": "43% of church-seekers come to find service times and where to go."
+      },
+      {
+        "l": "Next Steps pathway",
+        "f": false,
+        "w": "A defined \"what now?\" path turns a first visit into belonging."
+      },
+      {
+        "l": "Groups & belonging",
+        "f": false,
+        "w": "People stay when they find their people — a group finder beats a static list."
+      },
+      {
+        "l": "Serve & volunteer",
+        "f": true,
+        "w": "Serving is how attenders become members."
+      },
+      {
+        "l": "Care & Prayer",
+        "f": true,
+        "w": "Pastoral care/prayer signals a church that meets you in the hard moments — not transactional."
+      },
+      {
+        "l": "Online giving",
+        "f": true,
+        "w": "Digital givers give 33% more; giving must be one tap."
+      },
+      {
+        "l": "Sermons / Watch",
+        "f": true,
+        "w": "Watch online is the on-ramp — it lets someone sample before they step in."
+      },
+      {
+        "l": "Kids & Families",
+        "f": false,
+        "w": "Parents decide on kids' safety and programming first."
+      },
+      {
+        "l": "Current & alive",
+        "f": true,
+        "w": "Live announcements and dated upcoming events prove a real, active community."
+      },
+      {
+        "l": "Accessible & solid",
+        "f": true,
+        "w": "Accessibility, mobile, and HTTPS say \"everyone is welcome and we're legit.\""
+      }
+    ],
     "mrr": 99,
     "annual": 1188,
     "winPct": 42,
-    "expected": 494
+    "expected": 494,
+    "benchmark": {
+      "catN": 30,
+      "catLabel": "contemporary churches",
+      "avg": 59,
+      "max": 98,
+      "delta": -7
+    },
+    "competitorGaps": [
+      {
+        "label": "Plan Your Visit",
+        "why": "A first-timer needs a clear \"I'm new → here's what to expect\" path — the #1 job of a church front door.",
+        "peerPct": 80
+      },
+      {
+        "label": "Kids & Families",
+        "why": "Parents decide on kids' safety and programming first.",
+        "peerPct": 63
+      },
+      {
+        "label": "Next Steps pathway",
+        "why": "A defined \"what now?\" path turns a first visit into belonging.",
+        "peerPct": 57
+      }
+    ],
+    "talkingPoints": [
+      {
+        "label": "Plan Your Visit",
+        "why": "A first-timer needs a clear \"I'm new → here's what to expect\" path — the #1 job of a church front door.",
+        "peerPct": 80
+      },
+      {
+        "label": "Kids & Families",
+        "why": "Parents decide on kids' safety and programming first.",
+        "peerPct": 63
+      },
+      {
+        "label": "Next Steps pathway",
+        "why": "A defined \"what now?\" path turns a first visit into belonging.",
+        "peerPct": 57
+      }
+    ],
+    "opener": "Hi — I pulled up Upper Room Church and noticed you don't have plan your visit, but 80% of contemporary churches do — it's probably costing you visitors every week. I built a version of your site that fixes it. Two minutes to show you?"
+  },
+  {
+    "type": "business",
+    "domain": "heidiosterobgyn.com",
+    "name": "Dr. Heidi Oster MD, PC",
+    "platform": "—",
+    "tradition": "business",
+    "score": 52,
+    "tier": "WARM",
+    "gaps": [
+      "Book / request appointment",
+      "New-customer offer"
+    ],
+    "pitch": "Leaking leads — missing book / request appointment, new-customer offer. Scores 52/100; each fix is booked revenue.",
+    "dead": false,
+    "dims": [
+      {
+        "l": "Book / request appointment",
+        "f": false,
+        "w": "The #1 conversion action — online booking or a request-appointment form turns a visitor into revenue."
+      },
+      {
+        "l": "Call / contact prominent",
+        "f": true,
+        "w": "A visible phone number + clear contact path captures the callers who won't fill a form."
+      },
+      {
+        "l": "Services / what we do",
+        "f": true,
+        "w": "Clear services (and for whom) is how a searcher confirms you solve their problem."
+      },
+      {
+        "l": "Reviews & social proof",
+        "f": true,
+        "w": "~9 in 10 people read reviews before choosing a local business — star ratings/testimonials on-site convert."
+      },
+      {
+        "l": "Team & credentials",
+        "f": true,
+        "w": "Meet-the-team, credentials, awards and an about story build the trust a service purchase requires."
+      },
+      {
+        "l": "Hours, location & map",
+        "f": true,
+        "w": "Hours, address, and a map are table-stakes for a local visit."
+      },
+      {
+        "l": "New-customer offer",
+        "f": false,
+        "w": "A new-patient special / free consult is the hook that turns comparison-shoppers into bookings."
+      },
+      {
+        "l": "Photos / results",
+        "f": true,
+        "w": "Real photos (office, team, before/after results) prove quality far better than stock."
+      },
+      {
+        "l": "Financing / insurance / pricing",
+        "f": true,
+        "w": "Insurance accepted, financing, or pricing transparency removes the biggest hesitation."
+      },
+      {
+        "l": "Fast, mobile & secure",
+        "f": true,
+        "w": "Mobile, HTTPS, and accessibility decide whether a phone searcher stays or bounces."
+      }
+    ],
+    "mrr": 199,
+    "annual": 2388,
+    "winPct": 42,
+    "expected": 993,
+    "benchmark": {
+      "catN": 6,
+      "catLabel": "business businesses",
+      "avg": 52,
+      "max": 76,
+      "delta": 0
+    },
+    "competitorGaps": [],
+    "talkingPoints": [
+      {
+        "label": "Book / request appointment",
+        "why": "The #1 conversion action — online booking or a request-appointment form turns a visitor into revenue.",
+        "peerPct": 0
+      },
+      {
+        "label": "New-customer offer",
+        "why": "A new-patient special / free consult is the hook that turns comparison-shoppers into bookings.",
+        "peerPct": 0
+      }
+    ],
+    "opener": "Hi — I looked at Dr. Heidi Oster MD, PC's site (scored it 52/100 vs a 52 average for business businesses). I rebuilt a sharper version — can I send it over?"
   },
   {
     "type": "church",
@@ -237,10 +1521,99 @@
     ],
     "pitch": "Pays for a site but it's missing service times & campus, groups & belonging, care & prayer — scores 53/100 on congregation-readiness.",
     "dead": false,
+    "dims": [
+      {
+        "l": "Plan Your Visit",
+        "f": true,
+        "w": "A first-timer needs a clear \"I'm new → here's what to expect\" path — the #1 job of a church front door."
+      },
+      {
+        "l": "Service times & campus",
+        "f": false,
+        "w": "43% of church-seekers come to find service times and where to go."
+      },
+      {
+        "l": "Next Steps pathway",
+        "f": true,
+        "w": "A defined \"what now?\" path turns a first visit into belonging."
+      },
+      {
+        "l": "Groups & belonging",
+        "f": false,
+        "w": "People stay when they find their people — a group finder beats a static list."
+      },
+      {
+        "l": "Serve & volunteer",
+        "f": true,
+        "w": "Serving is how attenders become members."
+      },
+      {
+        "l": "Care & Prayer",
+        "f": false,
+        "w": "Pastoral care/prayer signals a church that meets you in the hard moments — not transactional."
+      },
+      {
+        "l": "Online giving",
+        "f": true,
+        "w": "Digital givers give 33% more; giving must be one tap."
+      },
+      {
+        "l": "Sermons / Watch",
+        "f": true,
+        "w": "Watch online is the on-ramp — it lets someone sample before they step in."
+      },
+      {
+        "l": "Kids & Families",
+        "f": false,
+        "w": "Parents decide on kids' safety and programming first."
+      },
+      {
+        "l": "Current & alive",
+        "f": true,
+        "w": "Live announcements and dated upcoming events prove a real, active community."
+      },
+      {
+        "l": "Accessible & solid",
+        "f": true,
+        "w": "Accessibility, mobile, and HTTPS say \"everyone is welcome and we're legit.\""
+      }
+    ],
     "mrr": 99,
     "annual": 1188,
     "winPct": 41,
-    "expected": 489
+    "expected": 489,
+    "benchmark": {
+      "catN": 30,
+      "catLabel": "contemporary churches",
+      "avg": 59,
+      "max": 98,
+      "delta": -6
+    },
+    "competitorGaps": [
+      {
+        "label": "Service times & campus",
+        "why": "43% of church-seekers come to find service times and where to go.",
+        "peerPct": 77
+      },
+      {
+        "label": "Kids & Families",
+        "why": "Parents decide on kids' safety and programming first.",
+        "peerPct": 63
+      }
+    ],
+    "talkingPoints": [
+      {
+        "label": "Service times & campus",
+        "why": "43% of church-seekers come to find service times and where to go.",
+        "peerPct": 77
+      },
+      {
+        "label": "Kids & Families",
+        "why": "Parents decide on kids' safety and programming first.",
+        "peerPct": 63
+      }
+    ],
+    "opener": "Hi — I pulled up Vriesland Church and noticed you don't have service times & campus, but 77% of contemporary churches do — it's probably costing you visitors every week. I built a version of your site that fixes it. Two minutes to show you?"
   },
   {
     "type": "church",
@@ -259,10 +1632,109 @@
     ],
     "pitch": "Pays for a site but it's missing service times & campus, groups & belonging, serve & volunteer — scores 55/100 on congregation-readiness.",
     "dead": false,
+    "dims": [
+      {
+        "l": "Plan Your Visit",
+        "f": true,
+        "w": "A first-timer needs a clear \"I'm new → here's what to expect\" path — the #1 job of a church front door."
+      },
+      {
+        "l": "Service times & campus",
+        "f": false,
+        "w": "43% of church-seekers come to find service times and where to go."
+      },
+      {
+        "l": "Next Steps pathway",
+        "f": true,
+        "w": "A defined \"what now?\" path turns a first visit into belonging."
+      },
+      {
+        "l": "Groups & belonging",
+        "f": false,
+        "w": "People stay when they find their people — a group finder beats a static list."
+      },
+      {
+        "l": "Serve & volunteer",
+        "f": false,
+        "w": "Serving is how attenders become members."
+      },
+      {
+        "l": "Care & Prayer",
+        "f": false,
+        "w": "Pastoral care/prayer signals a church that meets you in the hard moments — not transactional."
+      },
+      {
+        "l": "Online giving",
+        "f": true,
+        "w": "Digital givers give 33% more; giving must be one tap."
+      },
+      {
+        "l": "Sermons / Watch",
+        "f": true,
+        "w": "Watch online is the on-ramp — it lets someone sample before they step in."
+      },
+      {
+        "l": "Kids & Families",
+        "f": true,
+        "w": "Parents decide on kids' safety and programming first."
+      },
+      {
+        "l": "Current & alive",
+        "f": false,
+        "w": "Live announcements and dated upcoming events prove a real, active community."
+      },
+      {
+        "l": "Accessible & solid",
+        "f": true,
+        "w": "Accessibility, mobile, and HTTPS say \"everyone is welcome and we're legit.\""
+      }
+    ],
     "mrr": 99,
     "annual": 1188,
     "winPct": 40,
-    "expected": 478
+    "expected": 478,
+    "benchmark": {
+      "catN": 30,
+      "catLabel": "contemporary churches",
+      "avg": 59,
+      "max": 98,
+      "delta": -4
+    },
+    "competitorGaps": [
+      {
+        "label": "Service times & campus",
+        "why": "43% of church-seekers come to find service times and where to go.",
+        "peerPct": 77
+      },
+      {
+        "label": "Current & alive",
+        "why": "Live announcements and dated upcoming events prove a real, active community.",
+        "peerPct": 77
+      },
+      {
+        "label": "Serve & volunteer",
+        "why": "Serving is how attenders become members.",
+        "peerPct": 70
+      }
+    ],
+    "talkingPoints": [
+      {
+        "label": "Service times & campus",
+        "why": "43% of church-seekers come to find service times and where to go.",
+        "peerPct": 77
+      },
+      {
+        "label": "Current & alive",
+        "why": "Live announcements and dated upcoming events prove a real, active community.",
+        "peerPct": 77
+      },
+      {
+        "label": "Serve & volunteer",
+        "why": "Serving is how attenders become members.",
+        "peerPct": 70
+      }
+    ],
+    "opener": "Hi — I pulled up Move Church and noticed you don't have service times & campus, but 77% of contemporary churches do — it's probably costing you visitors every week. I built a version of your site that fixes it. Two minutes to show you?"
   },
   {
     "type": "church",
@@ -279,10 +1751,99 @@
     ],
     "pitch": "Pays for a site but it's missing plan your visit, next steps pathway, groups & belonging — scores 58/100 on congregation-readiness.",
     "dead": false,
+    "dims": [
+      {
+        "l": "Plan Your Visit",
+        "f": false,
+        "w": "A first-timer needs a clear \"I'm new → here's what to expect\" path — the #1 job of a church front door."
+      },
+      {
+        "l": "Service times & campus",
+        "f": true,
+        "w": "43% of church-seekers come to find service times and where to go."
+      },
+      {
+        "l": "Next Steps pathway",
+        "f": false,
+        "w": "A defined \"what now?\" path turns a first visit into belonging."
+      },
+      {
+        "l": "Groups & belonging",
+        "f": false,
+        "w": "People stay when they find their people — a group finder beats a static list."
+      },
+      {
+        "l": "Serve & volunteer",
+        "f": true,
+        "w": "Serving is how attenders become members."
+      },
+      {
+        "l": "Care & Prayer",
+        "f": true,
+        "w": "Pastoral care/prayer signals a church that meets you in the hard moments — not transactional."
+      },
+      {
+        "l": "Online giving",
+        "f": true,
+        "w": "Digital givers give 33% more; giving must be one tap."
+      },
+      {
+        "l": "Sermons / Watch",
+        "f": true,
+        "w": "Watch online is the on-ramp — it lets someone sample before they step in."
+      },
+      {
+        "l": "Kids & Families",
+        "f": true,
+        "w": "Parents decide on kids' safety and programming first."
+      },
+      {
+        "l": "Current & alive",
+        "f": true,
+        "w": "Live announcements and dated upcoming events prove a real, active community."
+      },
+      {
+        "l": "Accessible & solid",
+        "f": true,
+        "w": "Accessibility, mobile, and HTTPS say \"everyone is welcome and we're legit.\""
+      }
+    ],
     "mrr": 99,
     "annual": 1188,
     "winPct": 39,
-    "expected": 462
+    "expected": 462,
+    "benchmark": {
+      "catN": 30,
+      "catLabel": "contemporary churches",
+      "avg": 59,
+      "max": 98,
+      "delta": -1
+    },
+    "competitorGaps": [
+      {
+        "label": "Plan Your Visit",
+        "why": "A first-timer needs a clear \"I'm new → here's what to expect\" path — the #1 job of a church front door.",
+        "peerPct": 80
+      },
+      {
+        "label": "Next Steps pathway",
+        "why": "A defined \"what now?\" path turns a first visit into belonging.",
+        "peerPct": 57
+      }
+    ],
+    "talkingPoints": [
+      {
+        "label": "Plan Your Visit",
+        "why": "A first-timer needs a clear \"I'm new → here's what to expect\" path — the #1 job of a church front door.",
+        "peerPct": 80
+      },
+      {
+        "label": "Next Steps pathway",
+        "why": "A defined \"what now?\" path turns a first visit into belonging.",
+        "peerPct": 57
+      }
+    ],
+    "opener": "Hi — I pulled up St. Michael Lutheran Church and noticed you don't have plan your visit, but 80% of contemporary churches do — it's probably costing you visitors every week. I built a version of your site that fixes it. Two minutes to show you?"
   },
   {
     "type": "business",
@@ -299,10 +1860,94 @@
     ],
     "pitch": "Leaking leads — missing book / request appointment, new-customer offer, financing / insurance / pricing. Scores 58/100; each fix is booked revenue.",
     "dead": false,
+    "dims": [
+      {
+        "l": "Book / request appointment",
+        "f": false,
+        "w": "The #1 conversion action — online booking or a request-appointment form turns a visitor into revenue."
+      },
+      {
+        "l": "Call / contact prominent",
+        "f": true,
+        "w": "A visible phone number + clear contact path captures the callers who won't fill a form."
+      },
+      {
+        "l": "Services / what we do",
+        "f": true,
+        "w": "Clear services (and for whom) is how a searcher confirms you solve their problem."
+      },
+      {
+        "l": "Reviews & social proof",
+        "f": true,
+        "w": "~9 in 10 people read reviews before choosing a local business — star ratings/testimonials on-site convert."
+      },
+      {
+        "l": "Team & credentials",
+        "f": true,
+        "w": "Meet-the-team, credentials, awards and an about story build the trust a service purchase requires."
+      },
+      {
+        "l": "Hours, location & map",
+        "f": true,
+        "w": "Hours, address, and a map are table-stakes for a local visit."
+      },
+      {
+        "l": "New-customer offer",
+        "f": false,
+        "w": "A new-patient special / free consult is the hook that turns comparison-shoppers into bookings."
+      },
+      {
+        "l": "Photos / results",
+        "f": true,
+        "w": "Real photos (office, team, before/after results) prove quality far better than stock."
+      },
+      {
+        "l": "Financing / insurance / pricing",
+        "f": false,
+        "w": "Insurance accepted, financing, or pricing transparency removes the biggest hesitation."
+      },
+      {
+        "l": "Fast, mobile & secure",
+        "f": true,
+        "w": "Mobile, HTTPS, and accessibility decide whether a phone searcher stays or bounces."
+      }
+    ],
     "mrr": 299,
     "annual": 3588,
     "winPct": 39,
-    "expected": 1396
+    "expected": 1396,
+    "benchmark": {
+      "catN": 2,
+      "catLabel": "law businesses",
+      "avg": 62,
+      "max": 66,
+      "delta": -4
+    },
+    "competitorGaps": [
+      {
+        "label": "Book / request appointment",
+        "why": "The #1 conversion action — online booking or a request-appointment form turns a visitor into revenue.",
+        "peerPct": 50
+      },
+      {
+        "label": "Financing / insurance / pricing",
+        "why": "Insurance accepted, financing, or pricing transparency removes the biggest hesitation.",
+        "peerPct": 50
+      }
+    ],
+    "talkingPoints": [
+      {
+        "label": "Book / request appointment",
+        "why": "The #1 conversion action — online booking or a request-appointment form turns a visitor into revenue.",
+        "peerPct": 50
+      },
+      {
+        "label": "Financing / insurance / pricing",
+        "why": "Insurance accepted, financing, or pricing transparency removes the biggest hesitation.",
+        "peerPct": 50
+      }
+    ],
+    "opener": "Hi — I pulled up Family Lawyers Highlands Ranch, CO and noticed you don't have book / request appointment, but 50% of law businesses do — it's probably costing you bookings every week. I built a version of your site that fixes it. Two minutes to show you?"
   },
   {
     "type": "church",
@@ -320,10 +1965,99 @@
     ],
     "pitch": "Pays for a site but it's missing service times & campus, groups & belonging, care & prayer — scores 60/100 on congregation-readiness.",
     "dead": false,
+    "dims": [
+      {
+        "l": "Plan Your Visit",
+        "f": true,
+        "w": "A first-timer needs a clear \"I'm new → here's what to expect\" path — the #1 job of a church front door."
+      },
+      {
+        "l": "Service times & campus",
+        "f": false,
+        "w": "43% of church-seekers come to find service times and where to go."
+      },
+      {
+        "l": "Next Steps pathway",
+        "f": true,
+        "w": "A defined \"what now?\" path turns a first visit into belonging."
+      },
+      {
+        "l": "Groups & belonging",
+        "f": false,
+        "w": "People stay when they find their people — a group finder beats a static list."
+      },
+      {
+        "l": "Serve & volunteer",
+        "f": true,
+        "w": "Serving is how attenders become members."
+      },
+      {
+        "l": "Care & Prayer",
+        "f": false,
+        "w": "Pastoral care/prayer signals a church that meets you in the hard moments — not transactional."
+      },
+      {
+        "l": "Online giving",
+        "f": true,
+        "w": "Digital givers give 33% more; giving must be one tap."
+      },
+      {
+        "l": "Sermons / Watch",
+        "f": true,
+        "w": "Watch online is the on-ramp — it lets someone sample before they step in."
+      },
+      {
+        "l": "Kids & Families",
+        "f": false,
+        "w": "Parents decide on kids' safety and programming first."
+      },
+      {
+        "l": "Current & alive",
+        "f": true,
+        "w": "Live announcements and dated upcoming events prove a real, active community."
+      },
+      {
+        "l": "Accessible & solid",
+        "f": true,
+        "w": "Accessibility, mobile, and HTTPS say \"everyone is welcome and we're legit.\""
+      }
+    ],
     "mrr": 99,
     "annual": 1188,
     "winPct": 38,
-    "expected": 451
+    "expected": 451,
+    "benchmark": {
+      "catN": 30,
+      "catLabel": "contemporary churches",
+      "avg": 59,
+      "max": 98,
+      "delta": 1
+    },
+    "competitorGaps": [
+      {
+        "label": "Service times & campus",
+        "why": "43% of church-seekers come to find service times and where to go.",
+        "peerPct": 77
+      },
+      {
+        "label": "Kids & Families",
+        "why": "Parents decide on kids' safety and programming first.",
+        "peerPct": 63
+      }
+    ],
+    "talkingPoints": [
+      {
+        "label": "Service times & campus",
+        "why": "43% of church-seekers come to find service times and where to go.",
+        "peerPct": 77
+      },
+      {
+        "label": "Kids & Families",
+        "why": "Parents decide on kids' safety and programming first.",
+        "peerPct": 63
+      }
+    ],
+    "opener": "Hi — I pulled up Hopewell Church and noticed you don't have service times & campus, but 77% of contemporary churches do — it's probably costing you visitors every week. I built a version of your site that fixes it. Two minutes to show you?"
   },
   {
     "type": "church",
@@ -340,10 +2074,89 @@
     ],
     "pitch": "Pays for a site but it's missing service times & campus, groups & belonging, care & prayer — scores 61/100 on congregation-readiness.",
     "dead": false,
+    "dims": [
+      {
+        "l": "Plan Your Visit",
+        "f": true,
+        "w": "A first-timer needs a clear \"I'm new → here's what to expect\" path — the #1 job of a church front door."
+      },
+      {
+        "l": "Service times & campus",
+        "f": false,
+        "w": "43% of church-seekers come to find service times and where to go."
+      },
+      {
+        "l": "Next Steps pathway",
+        "f": true,
+        "w": "A defined \"what now?\" path turns a first visit into belonging."
+      },
+      {
+        "l": "Groups & belonging",
+        "f": false,
+        "w": "People stay when they find their people — a group finder beats a static list."
+      },
+      {
+        "l": "Serve & volunteer",
+        "f": true,
+        "w": "Serving is how attenders become members."
+      },
+      {
+        "l": "Care & Prayer",
+        "f": false,
+        "w": "Pastoral care/prayer signals a church that meets you in the hard moments — not transactional."
+      },
+      {
+        "l": "Online giving",
+        "f": true,
+        "w": "Digital givers give 33% more; giving must be one tap."
+      },
+      {
+        "l": "Sermons / Watch",
+        "f": true,
+        "w": "Watch online is the on-ramp — it lets someone sample before they step in."
+      },
+      {
+        "l": "Kids & Families",
+        "f": true,
+        "w": "Parents decide on kids' safety and programming first."
+      },
+      {
+        "l": "Current & alive",
+        "f": true,
+        "w": "Live announcements and dated upcoming events prove a real, active community."
+      },
+      {
+        "l": "Accessible & solid",
+        "f": true,
+        "w": "Accessibility, mobile, and HTTPS say \"everyone is welcome and we're legit.\""
+      }
+    ],
     "mrr": 99,
     "annual": 1188,
     "winPct": 38,
-    "expected": 446
+    "expected": 446,
+    "benchmark": {
+      "catN": 30,
+      "catLabel": "contemporary churches",
+      "avg": 59,
+      "max": 98,
+      "delta": 2
+    },
+    "competitorGaps": [
+      {
+        "label": "Service times & campus",
+        "why": "43% of church-seekers come to find service times and where to go.",
+        "peerPct": 77
+      }
+    ],
+    "talkingPoints": [
+      {
+        "label": "Service times & campus",
+        "why": "43% of church-seekers come to find service times and where to go.",
+        "peerPct": 77
+      }
+    ],
+    "opener": "Hi — I pulled up Kingdom Culture and noticed you don't have service times & campus, but 77% of contemporary churches do — it's probably costing you visitors every week. I built a version of your site that fixes it. Two minutes to show you?"
   },
   {
     "type": "church",
@@ -361,10 +2174,99 @@
     ],
     "pitch": "Pays for a site but it's missing next steps pathway, groups & belonging, serve & volunteer — scores 62/100 on congregation-readiness.",
     "dead": false,
+    "dims": [
+      {
+        "l": "Plan Your Visit",
+        "f": true,
+        "w": "A first-timer needs a clear \"I'm new → here's what to expect\" path — the #1 job of a church front door."
+      },
+      {
+        "l": "Service times & campus",
+        "f": true,
+        "w": "43% of church-seekers come to find service times and where to go."
+      },
+      {
+        "l": "Next Steps pathway",
+        "f": false,
+        "w": "A defined \"what now?\" path turns a first visit into belonging."
+      },
+      {
+        "l": "Groups & belonging",
+        "f": false,
+        "w": "People stay when they find their people — a group finder beats a static list."
+      },
+      {
+        "l": "Serve & volunteer",
+        "f": false,
+        "w": "Serving is how attenders become members."
+      },
+      {
+        "l": "Care & Prayer",
+        "f": false,
+        "w": "Pastoral care/prayer signals a church that meets you in the hard moments — not transactional."
+      },
+      {
+        "l": "Online giving",
+        "f": true,
+        "w": "Digital givers give 33% more; giving must be one tap."
+      },
+      {
+        "l": "Sermons / Watch",
+        "f": true,
+        "w": "Watch online is the on-ramp — it lets someone sample before they step in."
+      },
+      {
+        "l": "Kids & Families",
+        "f": true,
+        "w": "Parents decide on kids' safety and programming first."
+      },
+      {
+        "l": "Current & alive",
+        "f": true,
+        "w": "Live announcements and dated upcoming events prove a real, active community."
+      },
+      {
+        "l": "Accessible & solid",
+        "f": true,
+        "w": "Accessibility, mobile, and HTTPS say \"everyone is welcome and we're legit.\""
+      }
+    ],
     "mrr": 99,
     "annual": 1188,
     "winPct": 37,
-    "expected": 441
+    "expected": 441,
+    "benchmark": {
+      "catN": 30,
+      "catLabel": "contemporary churches",
+      "avg": 59,
+      "max": 98,
+      "delta": 3
+    },
+    "competitorGaps": [
+      {
+        "label": "Serve & volunteer",
+        "why": "Serving is how attenders become members.",
+        "peerPct": 70
+      },
+      {
+        "label": "Next Steps pathway",
+        "why": "A defined \"what now?\" path turns a first visit into belonging.",
+        "peerPct": 57
+      }
+    ],
+    "talkingPoints": [
+      {
+        "label": "Serve & volunteer",
+        "why": "Serving is how attenders become members.",
+        "peerPct": 70
+      },
+      {
+        "label": "Next Steps pathway",
+        "why": "A defined \"what now?\" path turns a first visit into belonging.",
+        "peerPct": 57
+      }
+    ],
+    "opener": "Hi — I pulled up Northland Bible Baptist Church and noticed you don't have serve & volunteer, but 70% of contemporary churches do — it's probably costing you visitors every week. I built a version of your site that fixes it. Two minutes to show you?"
   },
   {
     "type": "church",
@@ -381,10 +2283,89 @@
     ],
     "pitch": "Pays for a site but it's missing groups & belonging, care & prayer, sermons / watch — scores 62/100 on congregation-readiness.",
     "dead": false,
+    "dims": [
+      {
+        "l": "Plan Your Visit",
+        "f": true,
+        "w": "A first-timer needs a clear \"I'm new → here's what to expect\" path — the #1 job of a church front door."
+      },
+      {
+        "l": "Service times & campus",
+        "f": true,
+        "w": "43% of church-seekers come to find service times and where to go."
+      },
+      {
+        "l": "Next Steps pathway",
+        "f": true,
+        "w": "A defined \"what now?\" path turns a first visit into belonging."
+      },
+      {
+        "l": "Groups & belonging",
+        "f": false,
+        "w": "People stay when they find their people — a group finder beats a static list."
+      },
+      {
+        "l": "Serve & volunteer",
+        "f": true,
+        "w": "Serving is how attenders become members."
+      },
+      {
+        "l": "Care & Prayer",
+        "f": false,
+        "w": "Pastoral care/prayer signals a church that meets you in the hard moments — not transactional."
+      },
+      {
+        "l": "Online giving",
+        "f": true,
+        "w": "Digital givers give 33% more; giving must be one tap."
+      },
+      {
+        "l": "Sermons / Watch",
+        "f": false,
+        "w": "Watch online is the on-ramp — it lets someone sample before they step in."
+      },
+      {
+        "l": "Kids & Families",
+        "f": true,
+        "w": "Parents decide on kids' safety and programming first."
+      },
+      {
+        "l": "Current & alive",
+        "f": true,
+        "w": "Live announcements and dated upcoming events prove a real, active community."
+      },
+      {
+        "l": "Accessible & solid",
+        "f": true,
+        "w": "Accessibility, mobile, and HTTPS say \"everyone is welcome and we're legit.\""
+      }
+    ],
     "mrr": 99,
     "annual": 1188,
     "winPct": 37,
-    "expected": 441
+    "expected": 441,
+    "benchmark": {
+      "catN": 30,
+      "catLabel": "contemporary churches",
+      "avg": 59,
+      "max": 98,
+      "delta": 3
+    },
+    "competitorGaps": [
+      {
+        "label": "Sermons / Watch",
+        "why": "Watch online is the on-ramp — it lets someone sample before they step in.",
+        "peerPct": 93
+      }
+    ],
+    "talkingPoints": [
+      {
+        "label": "Sermons / Watch",
+        "why": "Watch online is the on-ramp — it lets someone sample before they step in.",
+        "peerPct": 93
+      }
+    ],
+    "opener": "Hi — I pulled up Rose Church and noticed you don't have sermons / watch, but 93% of contemporary churches do — it's probably costing you visitors every week. I built a version of your site that fixes it. Two minutes to show you?"
   },
   {
     "type": "church",
@@ -402,10 +2383,93 @@
     ],
     "pitch": "Pays for a site but it's missing sermons / watch, mission & outreach, music & worship arts — scores 64/100 on congregation-readiness.",
     "dead": false,
+    "dims": [
+      {
+        "l": "Worship times & welcome",
+        "f": true,
+        "w": "When is worship, and is a first-time visitor welcomed and oriented?"
+      },
+      {
+        "l": "Sermons / Watch",
+        "f": false,
+        "w": "Livestream and a sermon archive reach members and seekers alike."
+      },
+      {
+        "l": "Faith formation & youth",
+        "f": true,
+        "w": "Sunday school, confirmation, children & youth — the discipleship backbone of a mainline church."
+      },
+      {
+        "l": "Ministries & belonging",
+        "f": true,
+        "w": "Ministries and small groups are where members grow together."
+      },
+      {
+        "l": "Mission & outreach",
+        "f": false,
+        "w": "Local and global mission is central to mainline identity."
+      },
+      {
+        "l": "Music & worship arts",
+        "f": false,
+        "w": "Choir, organ, and worship arts are a hallmark of the mainline tradition."
+      },
+      {
+        "l": "Online giving",
+        "f": true,
+        "w": "Simple online giving sustains the congregation."
+      },
+      {
+        "l": "Care & prayer",
+        "f": false,
+        "w": "Pastoral care, prayer, and support meet people in hard seasons."
+      },
+      {
+        "l": "Beliefs & denomination",
+        "f": true,
+        "w": "Mainline visitors look for denominational identity and what the church believes."
+      },
+      {
+        "l": "Congregational life",
+        "f": true,
+        "w": "An active calendar and events show a living congregation."
+      },
+      {
+        "l": "Accessible & solid",
+        "f": true,
+        "w": "Accessibility, mobile, and HTTPS say everyone is welcome and the site is legit."
+      }
+    ],
     "mrr": 99,
     "annual": 1188,
     "winPct": 36,
-    "expected": 430
+    "expected": 430,
+    "benchmark": {
+      "catN": 1,
+      "catLabel": "mainline churches",
+      "avg": 64,
+      "max": 64,
+      "delta": 0
+    },
+    "competitorGaps": [],
+    "talkingPoints": [
+      {
+        "label": "Sermons / Watch",
+        "why": "Livestream and a sermon archive reach members and seekers alike.",
+        "peerPct": 0
+      },
+      {
+        "label": "Mission & outreach",
+        "why": "Local and global mission is central to mainline identity.",
+        "peerPct": 0
+      },
+      {
+        "label": "Music & worship arts",
+        "why": "Choir, organ, and worship arts are a hallmark of the mainline tradition.",
+        "peerPct": 0
+      }
+    ],
+    "opener": "Hi — I looked at Zion Lutheran Church's site (scored it 64/100 vs a 64 average for mainline churches). I rebuilt a sharper version — can I send it over?"
   },
   {
     "type": "church",
@@ -422,10 +2486,183 @@
     ],
     "pitch": "Pays for a site but it's missing plan your visit, groups & belonging, care & prayer — scores 66/100 on congregation-readiness.",
     "dead": false,
+    "dims": [
+      {
+        "l": "Plan Your Visit",
+        "f": false,
+        "w": "A first-timer needs a clear \"I'm new → here's what to expect\" path — the #1 job of a church front door."
+      },
+      {
+        "l": "Service times & campus",
+        "f": true,
+        "w": "43% of church-seekers come to find service times and where to go."
+      },
+      {
+        "l": "Next Steps pathway",
+        "f": true,
+        "w": "A defined \"what now?\" path turns a first visit into belonging."
+      },
+      {
+        "l": "Groups & belonging",
+        "f": false,
+        "w": "People stay when they find their people — a group finder beats a static list."
+      },
+      {
+        "l": "Serve & volunteer",
+        "f": true,
+        "w": "Serving is how attenders become members."
+      },
+      {
+        "l": "Care & Prayer",
+        "f": false,
+        "w": "Pastoral care/prayer signals a church that meets you in the hard moments — not transactional."
+      },
+      {
+        "l": "Online giving",
+        "f": true,
+        "w": "Digital givers give 33% more; giving must be one tap."
+      },
+      {
+        "l": "Sermons / Watch",
+        "f": true,
+        "w": "Watch online is the on-ramp — it lets someone sample before they step in."
+      },
+      {
+        "l": "Kids & Families",
+        "f": true,
+        "w": "Parents decide on kids' safety and programming first."
+      },
+      {
+        "l": "Current & alive",
+        "f": true,
+        "w": "Live announcements and dated upcoming events prove a real, active community."
+      },
+      {
+        "l": "Accessible & solid",
+        "f": true,
+        "w": "Accessibility, mobile, and HTTPS say \"everyone is welcome and we're legit.\""
+      }
+    ],
     "mrr": 99,
     "annual": 1188,
     "winPct": 35,
-    "expected": 419
+    "expected": 419,
+    "benchmark": {
+      "catN": 30,
+      "catLabel": "contemporary churches",
+      "avg": 59,
+      "max": 98,
+      "delta": 7
+    },
+    "competitorGaps": [
+      {
+        "label": "Plan Your Visit",
+        "why": "A first-timer needs a clear \"I'm new → here's what to expect\" path — the #1 job of a church front door.",
+        "peerPct": 80
+      }
+    ],
+    "talkingPoints": [
+      {
+        "label": "Plan Your Visit",
+        "why": "A first-timer needs a clear \"I'm new → here's what to expect\" path — the #1 job of a church front door.",
+        "peerPct": 80
+      }
+    ],
+    "opener": "Hi — I pulled up Friendship Baptist Church and noticed you don't have plan your visit, but 80% of contemporary churches do — it's probably costing you visitors every week. I built a version of your site that fixes it. Two minutes to show you?"
+  },
+  {
+    "type": "business",
+    "domain": "biondijewelry.com",
+    "name": "Jewelry Store in Aurora, CO",
+    "platform": "—",
+    "tradition": "business",
+    "score": 66,
+    "tier": "MILD",
+    "gaps": [
+      "Book / request appointment",
+      "New-customer offer",
+      "Photos / results"
+    ],
+    "pitch": "Leaking leads — missing book / request appointment, new-customer offer, photos / results. Scores 66/100; each fix is booked revenue.",
+    "dead": false,
+    "dims": [
+      {
+        "l": "Book / request appointment",
+        "f": false,
+        "w": "The #1 conversion action — online booking or a request-appointment form turns a visitor into revenue."
+      },
+      {
+        "l": "Call / contact prominent",
+        "f": true,
+        "w": "A visible phone number + clear contact path captures the callers who won't fill a form."
+      },
+      {
+        "l": "Services / what we do",
+        "f": true,
+        "w": "Clear services (and for whom) is how a searcher confirms you solve their problem."
+      },
+      {
+        "l": "Reviews & social proof",
+        "f": true,
+        "w": "~9 in 10 people read reviews before choosing a local business — star ratings/testimonials on-site convert."
+      },
+      {
+        "l": "Team & credentials",
+        "f": true,
+        "w": "Meet-the-team, credentials, awards and an about story build the trust a service purchase requires."
+      },
+      {
+        "l": "Hours, location & map",
+        "f": true,
+        "w": "Hours, address, and a map are table-stakes for a local visit."
+      },
+      {
+        "l": "New-customer offer",
+        "f": false,
+        "w": "A new-patient special / free consult is the hook that turns comparison-shoppers into bookings."
+      },
+      {
+        "l": "Photos / results",
+        "f": false,
+        "w": "Real photos (office, team, before/after results) prove quality far better than stock."
+      },
+      {
+        "l": "Financing / insurance / pricing",
+        "f": true,
+        "w": "Insurance accepted, financing, or pricing transparency removes the biggest hesitation."
+      },
+      {
+        "l": "Fast, mobile & secure",
+        "f": true,
+        "w": "Mobile, HTTPS, and accessibility decide whether a phone searcher stays or bounces."
+      }
+    ],
+    "mrr": 199,
+    "annual": 2388,
+    "winPct": 35,
+    "expected": 843,
+    "benchmark": {
+      "catN": 6,
+      "catLabel": "business businesses",
+      "avg": 52,
+      "max": 76,
+      "delta": 14
+    },
+    "competitorGaps": [
+      {
+        "label": "Photos / results",
+        "why": "Real photos (office, team, before/after results) prove quality far better than stock.",
+        "peerPct": 50
+      }
+    ],
+    "talkingPoints": [
+      {
+        "label": "Photos / results",
+        "why": "Real photos (office, team, before/after results) prove quality far better than stock.",
+        "peerPct": 50
+      }
+    ],
+    "opener": "Hi — I pulled up Jewelry Store in Aurora, CO and noticed you don't have photos / results, but 50% of business businesses do — it's probably costing you bookings every week. I built a version of your site that fixes it. Two minutes to show you?"
   },
   {
     "type": "business",
@@ -441,10 +2678,84 @@
     ],
     "pitch": "Leaking leads — missing reviews & social proof, new-customer offer. Scores 66/100; each fix is booked revenue.",
     "dead": false,
+    "dims": [
+      {
+        "l": "Book / request appointment",
+        "f": true,
+        "w": "The #1 conversion action — online booking or a request-appointment form turns a visitor into revenue."
+      },
+      {
+        "l": "Call / contact prominent",
+        "f": true,
+        "w": "A visible phone number + clear contact path captures the callers who won't fill a form."
+      },
+      {
+        "l": "Services / what we do",
+        "f": true,
+        "w": "Clear services (and for whom) is how a searcher confirms you solve their problem."
+      },
+      {
+        "l": "Reviews & social proof",
+        "f": false,
+        "w": "~9 in 10 people read reviews before choosing a local business — star ratings/testimonials on-site convert."
+      },
+      {
+        "l": "Team & credentials",
+        "f": true,
+        "w": "Meet-the-team, credentials, awards and an about story build the trust a service purchase requires."
+      },
+      {
+        "l": "Hours, location & map",
+        "f": true,
+        "w": "Hours, address, and a map are table-stakes for a local visit."
+      },
+      {
+        "l": "New-customer offer",
+        "f": false,
+        "w": "A new-patient special / free consult is the hook that turns comparison-shoppers into bookings."
+      },
+      {
+        "l": "Photos / results",
+        "f": true,
+        "w": "Real photos (office, team, before/after results) prove quality far better than stock."
+      },
+      {
+        "l": "Financing / insurance / pricing",
+        "f": true,
+        "w": "Insurance accepted, financing, or pricing transparency removes the biggest hesitation."
+      },
+      {
+        "l": "Fast, mobile & secure",
+        "f": true,
+        "w": "Mobile, HTTPS, and accessibility decide whether a phone searcher stays or bounces."
+      }
+    ],
     "mrr": 299,
     "annual": 3588,
     "winPct": 35,
-    "expected": 1267
+    "expected": 1267,
+    "benchmark": {
+      "catN": 2,
+      "catLabel": "law businesses",
+      "avg": 62,
+      "max": 66,
+      "delta": 4
+    },
+    "competitorGaps": [
+      {
+        "label": "Reviews & social proof",
+        "why": "~9 in 10 people read reviews before choosing a local business — star ratings/testimonials on-site convert.",
+        "peerPct": 50
+      }
+    ],
+    "talkingPoints": [
+      {
+        "label": "Reviews & social proof",
+        "why": "~9 in 10 people read reviews before choosing a local business — star ratings/testimonials on-site convert.",
+        "peerPct": 50
+      }
+    ],
+    "opener": "Hi — I pulled up Griffiths Law and noticed you don't have reviews & social proof, but 50% of law businesses do — it's probably costing you bookings every week. I built a version of your site that fixes it. Two minutes to show you?"
   },
   {
     "type": "church",
@@ -461,10 +2772,202 @@
     ],
     "pitch": "Pays for a site but it's missing next steps pathway, care & prayer, kids & families — scores 68/100 on congregation-readiness.",
     "dead": false,
+    "dims": [
+      {
+        "l": "Plan Your Visit",
+        "f": true,
+        "w": "A first-timer needs a clear \"I'm new → here's what to expect\" path — the #1 job of a church front door."
+      },
+      {
+        "l": "Service times & campus",
+        "f": true,
+        "w": "43% of church-seekers come to find service times and where to go."
+      },
+      {
+        "l": "Next Steps pathway",
+        "f": false,
+        "w": "A defined \"what now?\" path turns a first visit into belonging."
+      },
+      {
+        "l": "Groups & belonging",
+        "f": true,
+        "w": "People stay when they find their people — a group finder beats a static list."
+      },
+      {
+        "l": "Serve & volunteer",
+        "f": true,
+        "w": "Serving is how attenders become members."
+      },
+      {
+        "l": "Care & Prayer",
+        "f": false,
+        "w": "Pastoral care/prayer signals a church that meets you in the hard moments — not transactional."
+      },
+      {
+        "l": "Online giving",
+        "f": true,
+        "w": "Digital givers give 33% more; giving must be one tap."
+      },
+      {
+        "l": "Sermons / Watch",
+        "f": true,
+        "w": "Watch online is the on-ramp — it lets someone sample before they step in."
+      },
+      {
+        "l": "Kids & Families",
+        "f": false,
+        "w": "Parents decide on kids' safety and programming first."
+      },
+      {
+        "l": "Current & alive",
+        "f": true,
+        "w": "Live announcements and dated upcoming events prove a real, active community."
+      },
+      {
+        "l": "Accessible & solid",
+        "f": true,
+        "w": "Accessibility, mobile, and HTTPS say \"everyone is welcome and we're legit.\""
+      }
+    ],
     "mrr": 99,
     "annual": 1188,
     "winPct": 34,
-    "expected": 409
+    "expected": 409,
+    "benchmark": {
+      "catN": 30,
+      "catLabel": "contemporary churches",
+      "avg": 59,
+      "max": 98,
+      "delta": 9
+    },
+    "competitorGaps": [
+      {
+        "label": "Kids & Families",
+        "why": "Parents decide on kids' safety and programming first.",
+        "peerPct": 63
+      },
+      {
+        "label": "Next Steps pathway",
+        "why": "A defined \"what now?\" path turns a first visit into belonging.",
+        "peerPct": 57
+      }
+    ],
+    "talkingPoints": [
+      {
+        "label": "Kids & Families",
+        "why": "Parents decide on kids' safety and programming first.",
+        "peerPct": 63
+      },
+      {
+        "label": "Next Steps pathway",
+        "why": "A defined \"what now?\" path turns a first visit into belonging.",
+        "peerPct": 57
+      }
+    ],
+    "opener": "Hi — I pulled up Petra Church and noticed you don't have kids & families, but 63% of contemporary churches do — it's probably costing you visitors every week. I built a version of your site that fixes it. Two minutes to show you?"
+  },
+  {
+    "type": "business",
+    "domain": "coloradolendingteam.com",
+    "name": "Colorado Lending Team | Carrie Bakunas & Scott Baade Mortgage",
+    "platform": "—",
+    "tradition": "business",
+    "score": 68,
+    "tier": "MILD",
+    "gaps": [
+      "Services / what we do",
+      "Photos / results"
+    ],
+    "pitch": "Leaking leads — missing services / what we do, photos / results. Scores 68/100; each fix is booked revenue.",
+    "dead": false,
+    "dims": [
+      {
+        "l": "Book / request appointment",
+        "f": true,
+        "w": "The #1 conversion action — online booking or a request-appointment form turns a visitor into revenue."
+      },
+      {
+        "l": "Call / contact prominent",
+        "f": true,
+        "w": "A visible phone number + clear contact path captures the callers who won't fill a form."
+      },
+      {
+        "l": "Services / what we do",
+        "f": false,
+        "w": "Clear services (and for whom) is how a searcher confirms you solve their problem."
+      },
+      {
+        "l": "Reviews & social proof",
+        "f": true,
+        "w": "~9 in 10 people read reviews before choosing a local business — star ratings/testimonials on-site convert."
+      },
+      {
+        "l": "Team & credentials",
+        "f": true,
+        "w": "Meet-the-team, credentials, awards and an about story build the trust a service purchase requires."
+      },
+      {
+        "l": "Hours, location & map",
+        "f": true,
+        "w": "Hours, address, and a map are table-stakes for a local visit."
+      },
+      {
+        "l": "New-customer offer",
+        "f": true,
+        "w": "A new-patient special / free consult is the hook that turns comparison-shoppers into bookings."
+      },
+      {
+        "l": "Photos / results",
+        "f": false,
+        "w": "Real photos (office, team, before/after results) prove quality far better than stock."
+      },
+      {
+        "l": "Financing / insurance / pricing",
+        "f": true,
+        "w": "Insurance accepted, financing, or pricing transparency removes the biggest hesitation."
+      },
+      {
+        "l": "Fast, mobile & secure",
+        "f": true,
+        "w": "Mobile, HTTPS, and accessibility decide whether a phone searcher stays or bounces."
+      }
+    ],
+    "mrr": 199,
+    "annual": 2388,
+    "winPct": 34,
+    "expected": 821,
+    "benchmark": {
+      "catN": 6,
+      "catLabel": "business businesses",
+      "avg": 52,
+      "max": 76,
+      "delta": 16
+    },
+    "competitorGaps": [
+      {
+        "label": "Services / what we do",
+        "why": "Clear services (and for whom) is how a searcher confirms you solve their problem.",
+        "peerPct": 50
+      },
+      {
+        "label": "Photos / results",
+        "why": "Real photos (office, team, before/after results) prove quality far better than stock.",
+        "peerPct": 50
+      }
+    ],
+    "talkingPoints": [
+      {
+        "label": "Services / what we do",
+        "why": "Clear services (and for whom) is how a searcher confirms you solve their problem.",
+        "peerPct": 50
+      },
+      {
+        "label": "Photos / results",
+        "why": "Real photos (office, team, before/after results) prove quality far better than stock.",
+        "peerPct": 50
+      }
+    ],
+    "opener": "Hi — I pulled up Colorado Lending Team | Carrie Bakunas & Scott Baade Mortgage and noticed you don't have services / what we do, but 50% of business businesses do — it's probably costing you bookings every week. I built a version of your site that fixes it. Two minutes to show you?"
   },
   {
     "type": "church",
@@ -481,10 +2984,99 @@
     ],
     "pitch": "Pays for a site but it's missing groups & belonging, kids & families, current & alive — scores 69/100 on congregation-readiness.",
     "dead": false,
+    "dims": [
+      {
+        "l": "Plan Your Visit",
+        "f": true,
+        "w": "A first-timer needs a clear \"I'm new → here's what to expect\" path — the #1 job of a church front door."
+      },
+      {
+        "l": "Service times & campus",
+        "f": true,
+        "w": "43% of church-seekers come to find service times and where to go."
+      },
+      {
+        "l": "Next Steps pathway",
+        "f": true,
+        "w": "A defined \"what now?\" path turns a first visit into belonging."
+      },
+      {
+        "l": "Groups & belonging",
+        "f": false,
+        "w": "People stay when they find their people — a group finder beats a static list."
+      },
+      {
+        "l": "Serve & volunteer",
+        "f": true,
+        "w": "Serving is how attenders become members."
+      },
+      {
+        "l": "Care & Prayer",
+        "f": true,
+        "w": "Pastoral care/prayer signals a church that meets you in the hard moments — not transactional."
+      },
+      {
+        "l": "Online giving",
+        "f": true,
+        "w": "Digital givers give 33% more; giving must be one tap."
+      },
+      {
+        "l": "Sermons / Watch",
+        "f": true,
+        "w": "Watch online is the on-ramp — it lets someone sample before they step in."
+      },
+      {
+        "l": "Kids & Families",
+        "f": false,
+        "w": "Parents decide on kids' safety and programming first."
+      },
+      {
+        "l": "Current & alive",
+        "f": false,
+        "w": "Live announcements and dated upcoming events prove a real, active community."
+      },
+      {
+        "l": "Accessible & solid",
+        "f": true,
+        "w": "Accessibility, mobile, and HTTPS say \"everyone is welcome and we're legit.\""
+      }
+    ],
     "mrr": 99,
     "annual": 1188,
     "winPct": 34,
-    "expected": 403
+    "expected": 403,
+    "benchmark": {
+      "catN": 30,
+      "catLabel": "contemporary churches",
+      "avg": 59,
+      "max": 98,
+      "delta": 10
+    },
+    "competitorGaps": [
+      {
+        "label": "Current & alive",
+        "why": "Live announcements and dated upcoming events prove a real, active community.",
+        "peerPct": 77
+      },
+      {
+        "label": "Kids & Families",
+        "why": "Parents decide on kids' safety and programming first.",
+        "peerPct": 63
+      }
+    ],
+    "talkingPoints": [
+      {
+        "label": "Current & alive",
+        "why": "Live announcements and dated upcoming events prove a real, active community.",
+        "peerPct": 77
+      },
+      {
+        "label": "Kids & Families",
+        "why": "Parents decide on kids' safety and programming first.",
+        "peerPct": 63
+      }
+    ],
+    "opener": "Hi — I pulled up Cclongview and noticed you don't have current & alive, but 77% of contemporary churches do — it's probably costing you visitors every week. I built a version of your site that fixes it. Two minutes to show you?"
   },
   {
     "type": "business",
@@ -500,10 +3092,83 @@
     ],
     "pitch": "Leaking leads — missing new-customer offer, financing / insurance / pricing. Scores 71/100; each fix is booked revenue.",
     "dead": false,
+    "dims": [
+      {
+        "l": "Book / request appointment",
+        "f": true,
+        "w": "The #1 conversion action — online booking or a request-appointment form turns a visitor into revenue."
+      },
+      {
+        "l": "Call / contact prominent",
+        "f": true,
+        "w": "A visible phone number + clear contact path captures the callers who won't fill a form."
+      },
+      {
+        "l": "Services / what we do",
+        "f": true,
+        "w": "Clear services (and for whom) is how a searcher confirms you solve their problem."
+      },
+      {
+        "l": "Reviews & social proof",
+        "f": true,
+        "w": "~9 in 10 people read reviews before choosing a local business — star ratings/testimonials on-site convert."
+      },
+      {
+        "l": "Team & credentials",
+        "f": true,
+        "w": "Meet-the-team, credentials, awards and an about story build the trust a service purchase requires."
+      },
+      {
+        "l": "Hours, location & map",
+        "f": true,
+        "w": "Hours, address, and a map are table-stakes for a local visit."
+      },
+      {
+        "l": "New-customer offer",
+        "f": false,
+        "w": "A new-patient special / free consult is the hook that turns comparison-shoppers into bookings."
+      },
+      {
+        "l": "Photos / results",
+        "f": true,
+        "w": "Real photos (office, team, before/after results) prove quality far better than stock."
+      },
+      {
+        "l": "Financing / insurance / pricing",
+        "f": false,
+        "w": "Insurance accepted, financing, or pricing transparency removes the biggest hesitation."
+      },
+      {
+        "l": "Fast, mobile & secure",
+        "f": true,
+        "w": "Mobile, HTTPS, and accessibility decide whether a phone searcher stays or bounces."
+      }
+    ],
     "mrr": 249,
     "annual": 2988,
     "winPct": 33,
-    "expected": 988
+    "expected": 988,
+    "benchmark": {
+      "catN": 3,
+      "catLabel": "medspa businesses",
+      "avg": 49,
+      "max": 72,
+      "delta": 22
+    },
+    "competitorGaps": [],
+    "talkingPoints": [
+      {
+        "label": "New-customer offer",
+        "why": "A new-patient special / free consult is the hook that turns comparison-shoppers into bookings.",
+        "peerPct": 0
+      },
+      {
+        "label": "Financing / insurance / pricing",
+        "why": "Insurance accepted, financing, or pricing transparency removes the biggest hesitation.",
+        "peerPct": 0
+      }
+    ],
+    "opener": "Hi — I looked at True Beauty MedSpa's site (scored it 71/100 vs a 49 average for medspa businesses). I rebuilt a sharper version — can I send it over?"
   },
   {
     "type": "church",
@@ -519,10 +3184,89 @@
     ],
     "pitch": "Pays for a site but it's missing groups & belonging, serve & volunteer — scores 72/100 on congregation-readiness.",
     "dead": false,
+    "dims": [
+      {
+        "l": "Plan Your Visit",
+        "f": true,
+        "w": "A first-timer needs a clear \"I'm new → here's what to expect\" path — the #1 job of a church front door."
+      },
+      {
+        "l": "Service times & campus",
+        "f": true,
+        "w": "43% of church-seekers come to find service times and where to go."
+      },
+      {
+        "l": "Next Steps pathway",
+        "f": true,
+        "w": "A defined \"what now?\" path turns a first visit into belonging."
+      },
+      {
+        "l": "Groups & belonging",
+        "f": false,
+        "w": "People stay when they find their people — a group finder beats a static list."
+      },
+      {
+        "l": "Serve & volunteer",
+        "f": false,
+        "w": "Serving is how attenders become members."
+      },
+      {
+        "l": "Care & Prayer",
+        "f": true,
+        "w": "Pastoral care/prayer signals a church that meets you in the hard moments — not transactional."
+      },
+      {
+        "l": "Online giving",
+        "f": true,
+        "w": "Digital givers give 33% more; giving must be one tap."
+      },
+      {
+        "l": "Sermons / Watch",
+        "f": true,
+        "w": "Watch online is the on-ramp — it lets someone sample before they step in."
+      },
+      {
+        "l": "Kids & Families",
+        "f": true,
+        "w": "Parents decide on kids' safety and programming first."
+      },
+      {
+        "l": "Current & alive",
+        "f": true,
+        "w": "Live announcements and dated upcoming events prove a real, active community."
+      },
+      {
+        "l": "Accessible & solid",
+        "f": true,
+        "w": "Accessibility, mobile, and HTTPS say \"everyone is welcome and we're legit.\""
+      }
+    ],
     "mrr": 99,
     "annual": 1188,
     "winPct": 33,
-    "expected": 387
+    "expected": 387,
+    "benchmark": {
+      "catN": 30,
+      "catLabel": "contemporary churches",
+      "avg": 59,
+      "max": 98,
+      "delta": 13
+    },
+    "competitorGaps": [
+      {
+        "label": "Serve & volunteer",
+        "why": "Serving is how attenders become members.",
+        "peerPct": 70
+      }
+    ],
+    "talkingPoints": [
+      {
+        "label": "Serve & volunteer",
+        "why": "Serving is how attenders become members.",
+        "peerPct": 70
+      }
+    ],
+    "opener": "Hi — I pulled up Lifepointe Church and noticed you don't have serve & volunteer, but 70% of contemporary churches do — it's probably costing you visitors every week. I built a version of your site that fixes it. Two minutes to show you?"
   },
   {
     "type": "business",
@@ -538,10 +3282,83 @@
     ],
     "pitch": "Leaking leads — missing photos / results, financing / insurance / pricing. Scores 72/100; each fix is booked revenue.",
     "dead": false,
+    "dims": [
+      {
+        "l": "Book / request appointment",
+        "f": true,
+        "w": "The #1 conversion action — online booking or a request-appointment form turns a visitor into revenue."
+      },
+      {
+        "l": "Call / contact prominent",
+        "f": true,
+        "w": "A visible phone number + clear contact path captures the callers who won't fill a form."
+      },
+      {
+        "l": "Services / what we do",
+        "f": true,
+        "w": "Clear services (and for whom) is how a searcher confirms you solve their problem."
+      },
+      {
+        "l": "Reviews & social proof",
+        "f": true,
+        "w": "~9 in 10 people read reviews before choosing a local business — star ratings/testimonials on-site convert."
+      },
+      {
+        "l": "Team & credentials",
+        "f": true,
+        "w": "Meet-the-team, credentials, awards and an about story build the trust a service purchase requires."
+      },
+      {
+        "l": "Hours, location & map",
+        "f": true,
+        "w": "Hours, address, and a map are table-stakes for a local visit."
+      },
+      {
+        "l": "New-customer offer",
+        "f": true,
+        "w": "A new-patient special / free consult is the hook that turns comparison-shoppers into bookings."
+      },
+      {
+        "l": "Photos / results",
+        "f": false,
+        "w": "Real photos (office, team, before/after results) prove quality far better than stock."
+      },
+      {
+        "l": "Financing / insurance / pricing",
+        "f": false,
+        "w": "Insurance accepted, financing, or pricing transparency removes the biggest hesitation."
+      },
+      {
+        "l": "Fast, mobile & secure",
+        "f": true,
+        "w": "Mobile, HTTPS, and accessibility decide whether a phone searcher stays or bounces."
+      }
+    ],
     "mrr": 249,
     "annual": 2988,
     "winPct": 33,
-    "expected": 974
+    "expected": 974,
+    "benchmark": {
+      "catN": 1,
+      "catLabel": "dental businesses",
+      "avg": 72,
+      "max": 72,
+      "delta": 0
+    },
+    "competitorGaps": [],
+    "talkingPoints": [
+      {
+        "label": "Photos / results",
+        "why": "Real photos (office, team, before/after results) prove quality far better than stock.",
+        "peerPct": 0
+      },
+      {
+        "label": "Financing / insurance / pricing",
+        "why": "Insurance accepted, financing, or pricing transparency removes the biggest hesitation.",
+        "peerPct": 0
+      }
+    ],
+    "opener": "Hi — I looked at Cherry Hills Dental Associates's site (scored it 72/100 vs a 72 average for dental businesses). I rebuilt a sharper version — can I send it over?"
   },
   {
     "type": "business",
@@ -556,10 +3373,78 @@
     ],
     "pitch": "Leaking leads — missing reviews & social proof. Scores 72/100; each fix is booked revenue.",
     "dead": false,
+    "dims": [
+      {
+        "l": "Book / request appointment",
+        "f": true,
+        "w": "The #1 conversion action — online booking or a request-appointment form turns a visitor into revenue."
+      },
+      {
+        "l": "Call / contact prominent",
+        "f": true,
+        "w": "A visible phone number + clear contact path captures the callers who won't fill a form."
+      },
+      {
+        "l": "Services / what we do",
+        "f": true,
+        "w": "Clear services (and for whom) is how a searcher confirms you solve their problem."
+      },
+      {
+        "l": "Reviews & social proof",
+        "f": false,
+        "w": "~9 in 10 people read reviews before choosing a local business — star ratings/testimonials on-site convert."
+      },
+      {
+        "l": "Team & credentials",
+        "f": true,
+        "w": "Meet-the-team, credentials, awards and an about story build the trust a service purchase requires."
+      },
+      {
+        "l": "Hours, location & map",
+        "f": true,
+        "w": "Hours, address, and a map are table-stakes for a local visit."
+      },
+      {
+        "l": "New-customer offer",
+        "f": true,
+        "w": "A new-patient special / free consult is the hook that turns comparison-shoppers into bookings."
+      },
+      {
+        "l": "Photos / results",
+        "f": true,
+        "w": "Real photos (office, team, before/after results) prove quality far better than stock."
+      },
+      {
+        "l": "Financing / insurance / pricing",
+        "f": true,
+        "w": "Insurance accepted, financing, or pricing transparency removes the biggest hesitation."
+      },
+      {
+        "l": "Fast, mobile & secure",
+        "f": true,
+        "w": "Mobile, HTTPS, and accessibility decide whether a phone searcher stays or bounces."
+      }
+    ],
     "mrr": 249,
     "annual": 2988,
     "winPct": 33,
-    "expected": 974
+    "expected": 974,
+    "benchmark": {
+      "catN": 3,
+      "catLabel": "medspa businesses",
+      "avg": 49,
+      "max": 72,
+      "delta": 23
+    },
+    "competitorGaps": [],
+    "talkingPoints": [
+      {
+        "label": "Reviews & social proof",
+        "why": "~9 in 10 people read reviews before choosing a local business — star ratings/testimonials on-site convert.",
+        "peerPct": 0
+      }
+    ],
+    "opener": "Hi — I looked at Colorado Dermatology Mohs Surgery's site (scored it 72/100 vs a 49 average for medspa businesses). I rebuilt a sharper version — can I send it over?"
   },
   {
     "type": "church",
@@ -575,10 +3460,89 @@
     ],
     "pitch": "Pays for a site but it's missing groups & belonging, current & alive — scores 73/100 on congregation-readiness.",
     "dead": false,
+    "dims": [
+      {
+        "l": "Plan Your Visit",
+        "f": true,
+        "w": "A first-timer needs a clear \"I'm new → here's what to expect\" path — the #1 job of a church front door."
+      },
+      {
+        "l": "Service times & campus",
+        "f": true,
+        "w": "43% of church-seekers come to find service times and where to go."
+      },
+      {
+        "l": "Next Steps pathway",
+        "f": true,
+        "w": "A defined \"what now?\" path turns a first visit into belonging."
+      },
+      {
+        "l": "Groups & belonging",
+        "f": false,
+        "w": "People stay when they find their people — a group finder beats a static list."
+      },
+      {
+        "l": "Serve & volunteer",
+        "f": true,
+        "w": "Serving is how attenders become members."
+      },
+      {
+        "l": "Care & Prayer",
+        "f": true,
+        "w": "Pastoral care/prayer signals a church that meets you in the hard moments — not transactional."
+      },
+      {
+        "l": "Online giving",
+        "f": true,
+        "w": "Digital givers give 33% more; giving must be one tap."
+      },
+      {
+        "l": "Sermons / Watch",
+        "f": true,
+        "w": "Watch online is the on-ramp — it lets someone sample before they step in."
+      },
+      {
+        "l": "Kids & Families",
+        "f": true,
+        "w": "Parents decide on kids' safety and programming first."
+      },
+      {
+        "l": "Current & alive",
+        "f": false,
+        "w": "Live announcements and dated upcoming events prove a real, active community."
+      },
+      {
+        "l": "Accessible & solid",
+        "f": true,
+        "w": "Accessibility, mobile, and HTTPS say \"everyone is welcome and we're legit.\""
+      }
+    ],
     "mrr": 99,
     "annual": 1188,
     "winPct": 32,
-    "expected": 382
+    "expected": 382,
+    "benchmark": {
+      "catN": 30,
+      "catLabel": "contemporary churches",
+      "avg": 59,
+      "max": 98,
+      "delta": 14
+    },
+    "competitorGaps": [
+      {
+        "label": "Current & alive",
+        "why": "Live announcements and dated upcoming events prove a real, active community.",
+        "peerPct": 77
+      }
+    ],
+    "talkingPoints": [
+      {
+        "label": "Current & alive",
+        "why": "Live announcements and dated upcoming events prove a real, active community.",
+        "peerPct": 77
+      }
+    ],
+    "opener": "Hi — I pulled up Calvary Chapel Northside and noticed you don't have current & alive, but 77% of contemporary churches do — it's probably costing you visitors every week. I built a version of your site that fixes it. Two minutes to show you?"
   },
   {
     "type": "church",
@@ -594,10 +3558,181 @@
     ],
     "pitch": "Pays for a site but it's missing next steps pathway, care & prayer — scores 74/100 on congregation-readiness.",
     "dead": false,
+    "dims": [
+      {
+        "l": "Plan Your Visit",
+        "f": true,
+        "w": "A first-timer needs a clear \"I'm new → here's what to expect\" path — the #1 job of a church front door."
+      },
+      {
+        "l": "Service times & campus",
+        "f": true,
+        "w": "43% of church-seekers come to find service times and where to go."
+      },
+      {
+        "l": "Next Steps pathway",
+        "f": false,
+        "w": "A defined \"what now?\" path turns a first visit into belonging."
+      },
+      {
+        "l": "Groups & belonging",
+        "f": true,
+        "w": "People stay when they find their people — a group finder beats a static list."
+      },
+      {
+        "l": "Serve & volunteer",
+        "f": true,
+        "w": "Serving is how attenders become members."
+      },
+      {
+        "l": "Care & Prayer",
+        "f": false,
+        "w": "Pastoral care/prayer signals a church that meets you in the hard moments — not transactional."
+      },
+      {
+        "l": "Online giving",
+        "f": true,
+        "w": "Digital givers give 33% more; giving must be one tap."
+      },
+      {
+        "l": "Sermons / Watch",
+        "f": true,
+        "w": "Watch online is the on-ramp — it lets someone sample before they step in."
+      },
+      {
+        "l": "Kids & Families",
+        "f": true,
+        "w": "Parents decide on kids' safety and programming first."
+      },
+      {
+        "l": "Current & alive",
+        "f": true,
+        "w": "Live announcements and dated upcoming events prove a real, active community."
+      },
+      {
+        "l": "Accessible & solid",
+        "f": true,
+        "w": "Accessibility, mobile, and HTTPS say \"everyone is welcome and we're legit.\""
+      }
+    ],
     "mrr": 99,
     "annual": 1188,
     "winPct": 32,
-    "expected": 377
+    "expected": 377,
+    "benchmark": {
+      "catN": 30,
+      "catLabel": "contemporary churches",
+      "avg": 59,
+      "max": 98,
+      "delta": 15
+    },
+    "competitorGaps": [
+      {
+        "label": "Next Steps pathway",
+        "why": "A defined \"what now?\" path turns a first visit into belonging.",
+        "peerPct": 57
+      }
+    ],
+    "talkingPoints": [
+      {
+        "label": "Next Steps pathway",
+        "why": "A defined \"what now?\" path turns a first visit into belonging.",
+        "peerPct": 57
+      }
+    ],
+    "opener": "Hi — I pulled up Patuxent Presbyterian Church and noticed you don't have next steps pathway, but 57% of contemporary churches do — it's probably costing you visitors every week. I built a version of your site that fixes it. Two minutes to show you?"
+  },
+  {
+    "type": "business",
+    "domain": "kcmortgagecolorado.com",
+    "name": "KC Mortgage Kay Cleland - First Time Homebuyer Loans, Manufactured Homes in Castle Rock, Colorado Springs, Parker",
+    "platform": "—",
+    "tradition": "business",
+    "score": 76,
+    "tier": "MILD",
+    "gaps": [
+      "Services / what we do"
+    ],
+    "pitch": "Leaking leads — missing services / what we do. Scores 76/100; each fix is booked revenue.",
+    "dead": false,
+    "dims": [
+      {
+        "l": "Book / request appointment",
+        "f": true,
+        "w": "The #1 conversion action — online booking or a request-appointment form turns a visitor into revenue."
+      },
+      {
+        "l": "Call / contact prominent",
+        "f": true,
+        "w": "A visible phone number + clear contact path captures the callers who won't fill a form."
+      },
+      {
+        "l": "Services / what we do",
+        "f": false,
+        "w": "Clear services (and for whom) is how a searcher confirms you solve their problem."
+      },
+      {
+        "l": "Reviews & social proof",
+        "f": true,
+        "w": "~9 in 10 people read reviews before choosing a local business — star ratings/testimonials on-site convert."
+      },
+      {
+        "l": "Team & credentials",
+        "f": true,
+        "w": "Meet-the-team, credentials, awards and an about story build the trust a service purchase requires."
+      },
+      {
+        "l": "Hours, location & map",
+        "f": true,
+        "w": "Hours, address, and a map are table-stakes for a local visit."
+      },
+      {
+        "l": "New-customer offer",
+        "f": true,
+        "w": "A new-patient special / free consult is the hook that turns comparison-shoppers into bookings."
+      },
+      {
+        "l": "Photos / results",
+        "f": true,
+        "w": "Real photos (office, team, before/after results) prove quality far better than stock."
+      },
+      {
+        "l": "Financing / insurance / pricing",
+        "f": true,
+        "w": "Insurance accepted, financing, or pricing transparency removes the biggest hesitation."
+      },
+      {
+        "l": "Fast, mobile & secure",
+        "f": true,
+        "w": "Mobile, HTTPS, and accessibility decide whether a phone searcher stays or bounces."
+      }
+    ],
+    "mrr": 199,
+    "annual": 2388,
+    "winPct": 31,
+    "expected": 736,
+    "benchmark": {
+      "catN": 6,
+      "catLabel": "business businesses",
+      "avg": 52,
+      "max": 76,
+      "delta": 24
+    },
+    "competitorGaps": [
+      {
+        "label": "Services / what we do",
+        "why": "Clear services (and for whom) is how a searcher confirms you solve their problem.",
+        "peerPct": 50
+      }
+    ],
+    "talkingPoints": [
+      {
+        "label": "Services / what we do",
+        "why": "Clear services (and for whom) is how a searcher confirms you solve their problem.",
+        "peerPct": 50
+      }
+    ],
+    "opener": "Hi — I pulled up KC Mortgage Kay Cleland - First Time Homebuyer Loans, Manufactured Homes in Castle Rock, Colorado Springs, Parker and noticed you don't have services / what we do, but 50% of business businesses do — it's probably costing you bookings every week. I built a version of your site that fixes it. Two minutes to show you?"
   },
   {
     "type": "church",
@@ -612,10 +3747,83 @@
     ],
     "pitch": "Pays for a site but it's missing groups & belonging — scores 77/100 on congregation-readiness.",
     "dead": false,
+    "dims": [
+      {
+        "l": "Plan Your Visit",
+        "f": true,
+        "w": "A first-timer needs a clear \"I'm new → here's what to expect\" path — the #1 job of a church front door."
+      },
+      {
+        "l": "Service times & campus",
+        "f": true,
+        "w": "43% of church-seekers come to find service times and where to go."
+      },
+      {
+        "l": "Next Steps pathway",
+        "f": true,
+        "w": "A defined \"what now?\" path turns a first visit into belonging."
+      },
+      {
+        "l": "Groups & belonging",
+        "f": false,
+        "w": "People stay when they find their people — a group finder beats a static list."
+      },
+      {
+        "l": "Serve & volunteer",
+        "f": true,
+        "w": "Serving is how attenders become members."
+      },
+      {
+        "l": "Care & Prayer",
+        "f": true,
+        "w": "Pastoral care/prayer signals a church that meets you in the hard moments — not transactional."
+      },
+      {
+        "l": "Online giving",
+        "f": true,
+        "w": "Digital givers give 33% more; giving must be one tap."
+      },
+      {
+        "l": "Sermons / Watch",
+        "f": true,
+        "w": "Watch online is the on-ramp — it lets someone sample before they step in."
+      },
+      {
+        "l": "Kids & Families",
+        "f": true,
+        "w": "Parents decide on kids' safety and programming first."
+      },
+      {
+        "l": "Current & alive",
+        "f": true,
+        "w": "Live announcements and dated upcoming events prove a real, active community."
+      },
+      {
+        "l": "Accessible & solid",
+        "f": true,
+        "w": "Accessibility, mobile, and HTTPS say \"everyone is welcome and we're legit.\""
+      }
+    ],
     "mrr": 99,
     "annual": 1188,
     "winPct": 30,
-    "expected": 361
+    "expected": 361,
+    "benchmark": {
+      "catN": 30,
+      "catLabel": "contemporary churches",
+      "avg": 59,
+      "max": 98,
+      "delta": 18
+    },
+    "competitorGaps": [],
+    "talkingPoints": [
+      {
+        "label": "Groups & belonging",
+        "why": "People stay when they find their people — a group finder beats a static list.",
+        "peerPct": 0
+      }
+    ],
+    "opener": "Hi — I looked at Kempsville Christian Church's site (scored it 77/100 vs a 59 average for contemporary churches). I rebuilt a sharper version — can I send it over?"
   },
   {
     "type": "church",
@@ -631,10 +3839,88 @@
     ],
     "pitch": "Pays for a site but it's missing groups & belonging, care & prayer — scores 78/100 on congregation-readiness.",
     "dead": false,
+    "dims": [
+      {
+        "l": "Plan Your Visit",
+        "f": true,
+        "w": "A first-timer needs a clear \"I'm new → here's what to expect\" path — the #1 job of a church front door."
+      },
+      {
+        "l": "Service times & campus",
+        "f": true,
+        "w": "43% of church-seekers come to find service times and where to go."
+      },
+      {
+        "l": "Next Steps pathway",
+        "f": true,
+        "w": "A defined \"what now?\" path turns a first visit into belonging."
+      },
+      {
+        "l": "Groups & belonging",
+        "f": false,
+        "w": "People stay when they find their people — a group finder beats a static list."
+      },
+      {
+        "l": "Serve & volunteer",
+        "f": true,
+        "w": "Serving is how attenders become members."
+      },
+      {
+        "l": "Care & Prayer",
+        "f": false,
+        "w": "Pastoral care/prayer signals a church that meets you in the hard moments — not transactional."
+      },
+      {
+        "l": "Online giving",
+        "f": true,
+        "w": "Digital givers give 33% more; giving must be one tap."
+      },
+      {
+        "l": "Sermons / Watch",
+        "f": true,
+        "w": "Watch online is the on-ramp — it lets someone sample before they step in."
+      },
+      {
+        "l": "Kids & Families",
+        "f": true,
+        "w": "Parents decide on kids' safety and programming first."
+      },
+      {
+        "l": "Current & alive",
+        "f": true,
+        "w": "Live announcements and dated upcoming events prove a real, active community."
+      },
+      {
+        "l": "Accessible & solid",
+        "f": true,
+        "w": "Accessibility, mobile, and HTTPS say \"everyone is welcome and we're legit.\""
+      }
+    ],
     "mrr": 99,
     "annual": 1188,
     "winPct": 30,
-    "expected": 355
+    "expected": 355,
+    "benchmark": {
+      "catN": 30,
+      "catLabel": "contemporary churches",
+      "avg": 59,
+      "max": 98,
+      "delta": 19
+    },
+    "competitorGaps": [],
+    "talkingPoints": [
+      {
+        "label": "Groups & belonging",
+        "why": "People stay when they find their people — a group finder beats a static list.",
+        "peerPct": 0
+      },
+      {
+        "label": "Care & Prayer",
+        "why": "Pastoral care/prayer signals a church that meets you in the hard moments — not transactional.",
+        "peerPct": 0
+      }
+    ],
+    "opener": "Hi — I looked at Mosaic Church's site (scored it 78/100 vs a 59 average for contemporary churches). I rebuilt a sharper version — can I send it over?"
   },
   {
     "type": "church",
@@ -650,10 +3936,99 @@
     ],
     "pitch": "Pays for a site but it's missing next steps pathway, serve & volunteer — scores 80/100 on congregation-readiness.",
     "dead": false,
+    "dims": [
+      {
+        "l": "Plan Your Visit",
+        "f": true,
+        "w": "A first-timer needs a clear \"I'm new → here's what to expect\" path — the #1 job of a church front door."
+      },
+      {
+        "l": "Service times & campus",
+        "f": true,
+        "w": "43% of church-seekers come to find service times and where to go."
+      },
+      {
+        "l": "Next Steps pathway",
+        "f": false,
+        "w": "A defined \"what now?\" path turns a first visit into belonging."
+      },
+      {
+        "l": "Groups & belonging",
+        "f": true,
+        "w": "People stay when they find their people — a group finder beats a static list."
+      },
+      {
+        "l": "Serve & volunteer",
+        "f": false,
+        "w": "Serving is how attenders become members."
+      },
+      {
+        "l": "Care & Prayer",
+        "f": true,
+        "w": "Pastoral care/prayer signals a church that meets you in the hard moments — not transactional."
+      },
+      {
+        "l": "Online giving",
+        "f": true,
+        "w": "Digital givers give 33% more; giving must be one tap."
+      },
+      {
+        "l": "Sermons / Watch",
+        "f": true,
+        "w": "Watch online is the on-ramp — it lets someone sample before they step in."
+      },
+      {
+        "l": "Kids & Families",
+        "f": true,
+        "w": "Parents decide on kids' safety and programming first."
+      },
+      {
+        "l": "Current & alive",
+        "f": true,
+        "w": "Live announcements and dated upcoming events prove a real, active community."
+      },
+      {
+        "l": "Accessible & solid",
+        "f": true,
+        "w": "Accessibility, mobile, and HTTPS say \"everyone is welcome and we're legit.\""
+      }
+    ],
     "mrr": 99,
     "annual": 1188,
     "winPct": 29,
-    "expected": 345
+    "expected": 345,
+    "benchmark": {
+      "catN": 30,
+      "catLabel": "contemporary churches",
+      "avg": 59,
+      "max": 98,
+      "delta": 21
+    },
+    "competitorGaps": [
+      {
+        "label": "Serve & volunteer",
+        "why": "Serving is how attenders become members.",
+        "peerPct": 70
+      },
+      {
+        "label": "Next Steps pathway",
+        "why": "A defined \"what now?\" path turns a first visit into belonging.",
+        "peerPct": 57
+      }
+    ],
+    "talkingPoints": [
+      {
+        "label": "Serve & volunteer",
+        "why": "Serving is how attenders become members.",
+        "peerPct": 70
+      },
+      {
+        "label": "Next Steps pathway",
+        "why": "A defined \"what now?\" path turns a first visit into belonging.",
+        "peerPct": 57
+      }
+    ],
+    "opener": "Hi — I pulled up Emmanuel Fellowship Church and noticed you don't have serve & volunteer, but 70% of contemporary churches do — it's probably costing you visitors every week. I built a version of your site that fixes it. Two minutes to show you?"
   },
   {
     "type": "church",
@@ -669,10 +4044,99 @@
     ],
     "pitch": "Pays for a site but it's missing next steps pathway, kids & families — scores 80/100 on congregation-readiness.",
     "dead": false,
+    "dims": [
+      {
+        "l": "Plan Your Visit",
+        "f": true,
+        "w": "A first-timer needs a clear \"I'm new → here's what to expect\" path — the #1 job of a church front door."
+      },
+      {
+        "l": "Service times & campus",
+        "f": true,
+        "w": "43% of church-seekers come to find service times and where to go."
+      },
+      {
+        "l": "Next Steps pathway",
+        "f": false,
+        "w": "A defined \"what now?\" path turns a first visit into belonging."
+      },
+      {
+        "l": "Groups & belonging",
+        "f": true,
+        "w": "People stay when they find their people — a group finder beats a static list."
+      },
+      {
+        "l": "Serve & volunteer",
+        "f": true,
+        "w": "Serving is how attenders become members."
+      },
+      {
+        "l": "Care & Prayer",
+        "f": true,
+        "w": "Pastoral care/prayer signals a church that meets you in the hard moments — not transactional."
+      },
+      {
+        "l": "Online giving",
+        "f": true,
+        "w": "Digital givers give 33% more; giving must be one tap."
+      },
+      {
+        "l": "Sermons / Watch",
+        "f": true,
+        "w": "Watch online is the on-ramp — it lets someone sample before they step in."
+      },
+      {
+        "l": "Kids & Families",
+        "f": false,
+        "w": "Parents decide on kids' safety and programming first."
+      },
+      {
+        "l": "Current & alive",
+        "f": true,
+        "w": "Live announcements and dated upcoming events prove a real, active community."
+      },
+      {
+        "l": "Accessible & solid",
+        "f": true,
+        "w": "Accessibility, mobile, and HTTPS say \"everyone is welcome and we're legit.\""
+      }
+    ],
     "mrr": 99,
     "annual": 1188,
     "winPct": 29,
-    "expected": 345
+    "expected": 345,
+    "benchmark": {
+      "catN": 30,
+      "catLabel": "contemporary churches",
+      "avg": 59,
+      "max": 98,
+      "delta": 21
+    },
+    "competitorGaps": [
+      {
+        "label": "Kids & Families",
+        "why": "Parents decide on kids' safety and programming first.",
+        "peerPct": 63
+      },
+      {
+        "label": "Next Steps pathway",
+        "why": "A defined \"what now?\" path turns a first visit into belonging.",
+        "peerPct": 57
+      }
+    ],
+    "talkingPoints": [
+      {
+        "label": "Kids & Families",
+        "why": "Parents decide on kids' safety and programming first.",
+        "peerPct": 63
+      },
+      {
+        "label": "Next Steps pathway",
+        "why": "A defined \"what now?\" path turns a first visit into belonging.",
+        "peerPct": 57
+      }
+    ],
+    "opener": "Hi — I pulled up Demolab 5 and noticed you don't have kids & families, but 63% of contemporary churches do — it's probably costing you visitors every week. I built a version of your site that fixes it. Two minutes to show you?"
   },
   {
     "type": "church",
@@ -688,10 +4152,88 @@
     ],
     "pitch": "Pays for a site but it's missing groups & belonging, care & prayer — scores 80/100 on congregation-readiness.",
     "dead": false,
+    "dims": [
+      {
+        "l": "Plan Your Visit",
+        "f": true,
+        "w": "A first-timer needs a clear \"I'm new → here's what to expect\" path — the #1 job of a church front door."
+      },
+      {
+        "l": "Service times & campus",
+        "f": true,
+        "w": "43% of church-seekers come to find service times and where to go."
+      },
+      {
+        "l": "Next Steps pathway",
+        "f": true,
+        "w": "A defined \"what now?\" path turns a first visit into belonging."
+      },
+      {
+        "l": "Groups & belonging",
+        "f": false,
+        "w": "People stay when they find their people — a group finder beats a static list."
+      },
+      {
+        "l": "Serve & volunteer",
+        "f": true,
+        "w": "Serving is how attenders become members."
+      },
+      {
+        "l": "Care & Prayer",
+        "f": false,
+        "w": "Pastoral care/prayer signals a church that meets you in the hard moments — not transactional."
+      },
+      {
+        "l": "Online giving",
+        "f": true,
+        "w": "Digital givers give 33% more; giving must be one tap."
+      },
+      {
+        "l": "Sermons / Watch",
+        "f": true,
+        "w": "Watch online is the on-ramp — it lets someone sample before they step in."
+      },
+      {
+        "l": "Kids & Families",
+        "f": true,
+        "w": "Parents decide on kids' safety and programming first."
+      },
+      {
+        "l": "Current & alive",
+        "f": true,
+        "w": "Live announcements and dated upcoming events prove a real, active community."
+      },
+      {
+        "l": "Accessible & solid",
+        "f": true,
+        "w": "Accessibility, mobile, and HTTPS say \"everyone is welcome and we're legit.\""
+      }
+    ],
     "mrr": 99,
     "annual": 1188,
     "winPct": 29,
-    "expected": 345
+    "expected": 345,
+    "benchmark": {
+      "catN": 30,
+      "catLabel": "contemporary churches",
+      "avg": 59,
+      "max": 98,
+      "delta": 21
+    },
+    "competitorGaps": [],
+    "talkingPoints": [
+      {
+        "label": "Groups & belonging",
+        "why": "People stay when they find their people — a group finder beats a static list.",
+        "peerPct": 0
+      },
+      {
+        "label": "Care & Prayer",
+        "why": "Pastoral care/prayer signals a church that meets you in the hard moments — not transactional.",
+        "peerPct": 0
+      }
+    ],
+    "opener": "Hi — I looked at Oxfordbaptist's site (scored it 80/100 vs a 59 average for contemporary churches). I rebuilt a sharper version — can I send it over?"
   },
   {
     "type": "church",
@@ -706,10 +4248,89 @@
     ],
     "pitch": "Pays for a site but it's missing current & alive — scores 83/100 on congregation-readiness.",
     "dead": false,
+    "dims": [
+      {
+        "l": "Plan Your Visit",
+        "f": true,
+        "w": "A first-timer needs a clear \"I'm new → here's what to expect\" path — the #1 job of a church front door."
+      },
+      {
+        "l": "Service times & campus",
+        "f": true,
+        "w": "43% of church-seekers come to find service times and where to go."
+      },
+      {
+        "l": "Next Steps pathway",
+        "f": true,
+        "w": "A defined \"what now?\" path turns a first visit into belonging."
+      },
+      {
+        "l": "Groups & belonging",
+        "f": true,
+        "w": "People stay when they find their people — a group finder beats a static list."
+      },
+      {
+        "l": "Serve & volunteer",
+        "f": true,
+        "w": "Serving is how attenders become members."
+      },
+      {
+        "l": "Care & Prayer",
+        "f": true,
+        "w": "Pastoral care/prayer signals a church that meets you in the hard moments — not transactional."
+      },
+      {
+        "l": "Online giving",
+        "f": true,
+        "w": "Digital givers give 33% more; giving must be one tap."
+      },
+      {
+        "l": "Sermons / Watch",
+        "f": true,
+        "w": "Watch online is the on-ramp — it lets someone sample before they step in."
+      },
+      {
+        "l": "Kids & Families",
+        "f": true,
+        "w": "Parents decide on kids' safety and programming first."
+      },
+      {
+        "l": "Current & alive",
+        "f": false,
+        "w": "Live announcements and dated upcoming events prove a real, active community."
+      },
+      {
+        "l": "Accessible & solid",
+        "f": true,
+        "w": "Accessibility, mobile, and HTTPS say \"everyone is welcome and we're legit.\""
+      }
+    ],
     "mrr": 99,
     "annual": 1188,
     "winPct": 28,
-    "expected": 328
+    "expected": 328,
+    "benchmark": {
+      "catN": 30,
+      "catLabel": "contemporary churches",
+      "avg": 59,
+      "max": 98,
+      "delta": 24
+    },
+    "competitorGaps": [
+      {
+        "label": "Current & alive",
+        "why": "Live announcements and dated upcoming events prove a real, active community.",
+        "peerPct": 77
+      }
+    ],
+    "talkingPoints": [
+      {
+        "label": "Current & alive",
+        "why": "Live announcements and dated upcoming events prove a real, active community.",
+        "peerPct": 77
+      }
+    ],
+    "opener": "Hi — I pulled up Branch Life Church and noticed you don't have current & alive, but 77% of contemporary churches do — it's probably costing you visitors every week. I built a version of your site that fixes it. Two minutes to show you?"
   },
   {
     "type": "church",
@@ -724,10 +4345,83 @@
     ],
     "pitch": "Pays for a site but it's missing care & prayer — scores 90/100 on congregation-readiness.",
     "dead": false,
+    "dims": [
+      {
+        "l": "Plan Your Visit",
+        "f": true,
+        "w": "A first-timer needs a clear \"I'm new → here's what to expect\" path — the #1 job of a church front door."
+      },
+      {
+        "l": "Service times & campus",
+        "f": true,
+        "w": "43% of church-seekers come to find service times and where to go."
+      },
+      {
+        "l": "Next Steps pathway",
+        "f": true,
+        "w": "A defined \"what now?\" path turns a first visit into belonging."
+      },
+      {
+        "l": "Groups & belonging",
+        "f": true,
+        "w": "People stay when they find their people — a group finder beats a static list."
+      },
+      {
+        "l": "Serve & volunteer",
+        "f": true,
+        "w": "Serving is how attenders become members."
+      },
+      {
+        "l": "Care & Prayer",
+        "f": false,
+        "w": "Pastoral care/prayer signals a church that meets you in the hard moments — not transactional."
+      },
+      {
+        "l": "Online giving",
+        "f": true,
+        "w": "Digital givers give 33% more; giving must be one tap."
+      },
+      {
+        "l": "Sermons / Watch",
+        "f": true,
+        "w": "Watch online is the on-ramp — it lets someone sample before they step in."
+      },
+      {
+        "l": "Kids & Families",
+        "f": true,
+        "w": "Parents decide on kids' safety and programming first."
+      },
+      {
+        "l": "Current & alive",
+        "f": true,
+        "w": "Live announcements and dated upcoming events prove a real, active community."
+      },
+      {
+        "l": "Accessible & solid",
+        "f": true,
+        "w": "Accessibility, mobile, and HTTPS say \"everyone is welcome and we're legit.\""
+      }
+    ],
     "mrr": 99,
     "annual": 1188,
     "winPct": 25,
-    "expected": 291
+    "expected": 291,
+    "benchmark": {
+      "catN": 30,
+      "catLabel": "contemporary churches",
+      "avg": 59,
+      "max": 98,
+      "delta": 31
+    },
+    "competitorGaps": [],
+    "talkingPoints": [
+      {
+        "label": "Care & Prayer",
+        "why": "Pastoral care/prayer signals a church that meets you in the hard moments — not transactional.",
+        "peerPct": 0
+      }
+    ],
+    "opener": "Hi — I looked at Church in Gainesville's site (scored it 90/100 vs a 59 average for contemporary churches). I rebuilt a sharper version — can I send it over?"
   },
   {
     "type": "church",
@@ -740,9 +4434,76 @@
     "gaps": [],
     "pitch": "Strong site (98/100) — low priority.",
     "dead": false,
+    "dims": [
+      {
+        "l": "Plan Your Visit",
+        "f": true,
+        "w": "A first-timer needs a clear \"I'm new → here's what to expect\" path — the #1 job of a church front door."
+      },
+      {
+        "l": "Service times & campus",
+        "f": true,
+        "w": "43% of church-seekers come to find service times and where to go."
+      },
+      {
+        "l": "Next Steps pathway",
+        "f": true,
+        "w": "A defined \"what now?\" path turns a first visit into belonging."
+      },
+      {
+        "l": "Groups & belonging",
+        "f": true,
+        "w": "People stay when they find their people — a group finder beats a static list."
+      },
+      {
+        "l": "Serve & volunteer",
+        "f": true,
+        "w": "Serving is how attenders become members."
+      },
+      {
+        "l": "Care & Prayer",
+        "f": true,
+        "w": "Pastoral care/prayer signals a church that meets you in the hard moments — not transactional."
+      },
+      {
+        "l": "Online giving",
+        "f": true,
+        "w": "Digital givers give 33% more; giving must be one tap."
+      },
+      {
+        "l": "Sermons / Watch",
+        "f": true,
+        "w": "Watch online is the on-ramp — it lets someone sample before they step in."
+      },
+      {
+        "l": "Kids & Families",
+        "f": true,
+        "w": "Parents decide on kids' safety and programming first."
+      },
+      {
+        "l": "Current & alive",
+        "f": true,
+        "w": "Live announcements and dated upcoming events prove a real, active community."
+      },
+      {
+        "l": "Accessible & solid",
+        "f": true,
+        "w": "Accessibility, mobile, and HTTPS say \"everyone is welcome and we're legit.\""
+      }
+    ],
     "mrr": 99,
     "annual": 1188,
     "winPct": 21,
-    "expected": 248
+    "expected": 248,
+    "benchmark": {
+      "catN": 30,
+      "catLabel": "contemporary churches",
+      "avg": 59,
+      "max": 98,
+      "delta": 39
+    },
+    "competitorGaps": [],
+    "talkingPoints": [],
+    "opener": "Hi — I looked at New Hope Christian Church's site (scored it 98/100 vs a 59 average for contemporary churches). I rebuilt a sharper version — can I send it over?"
   }
 ]
