@@ -169,14 +169,27 @@ body.cine .site-header .mobile-nav a{color:#fff}
 .cine .new .b2{background:#fff;color:#0B2447;border:1.5px solid #d6e0ee;font-weight:600;font-size:clamp(.52rem,1.4vw,.82rem);padding:clamp(5px,1.2vw,11px) clamp(10px,2vw,18px);border-radius:99px}
 .cine .new .stars{margin-top:12px;color:#F2B24B;font-size:clamp(.6rem,1.6vw,.95rem);letter-spacing:2px}
 .cine .new .stars span{color:#51617a;font-size:clamp(.48rem,1.2vw,.72rem);letter-spacing:0;margin-left:6px}
-.cine .new .hvis{width:38%;flex:none;aspect-ratio:3/4;border-radius:12px;background:
-  radial-gradient(120% 90% at 30% 10%,rgba(18,211,192,.35),transparent 60%),linear-gradient(160deg,#0B2447,#123a63);
-  box-shadow:0 20px 40px -16px rgba(11,36,71,.5);position:relative;overflow:hidden}
-.cine .new .hvis::after{content:"";position:absolute;left:12%;right:12%;top:16%;height:9px;border-radius:4px;background:rgba(255,255,255,.85);box-shadow:0 20px 0 rgba(255,255,255,.5),0 40px 0 rgba(255,255,255,.3)}
+.cine .new .hvis{width:38%;flex:none;aspect-ratio:3/4;border-radius:14px;background:
+  radial-gradient(120% 80% at 70% 8%,rgba(18,211,192,.4),transparent 55%),
+  radial-gradient(90% 70% at 20% 100%,rgba(242,178,75,.28),transparent 60%),
+  linear-gradient(160deg,#0B2447,#123a63);
+  box-shadow:0 26px 50px -18px rgba(11,36,71,.6);position:relative;overflow:hidden}
+/* a soft "smiling patient" impression so it reads as a real photo, not a blank panel */
+.cine .new .hvis::before{content:"";position:absolute;left:50%;top:30%;width:46%;aspect-ratio:1;transform:translateX(-50%);border-radius:50%;background:radial-gradient(circle at 50% 40%,rgba(255,255,255,.9),rgba(214,232,255,.55) 60%,transparent 72%)}
+.cine .new .hvis::after{content:"";position:absolute;left:22%;right:22%;top:58%;height:12%;border-radius:0 0 60px 60px;background:rgba(255,255,255,.92)}
+.cine .new .hv-chip{position:absolute;top:9px;right:9px;background:rgba(255,255,255,.94);color:#0B2447;font-weight:700;font-size:clamp(.42rem,1vw,.6rem);padding:3px 8px;border-radius:99px;display:flex;align-items:center;gap:4px;box-shadow:0 6px 16px -6px rgba(0,0,0,.4)}
+.cine .new .hv-chip .dot{width:5px;height:5px;border-radius:50%;background:#12D3C0}
+.cine .new .hv-book{position:absolute;left:8px;bottom:8px;right:8px;background:rgba(255,255,255,.96);border-radius:9px;padding:clamp(5px,1.3vw,9px) clamp(7px,1.6vw,11px);box-shadow:0 14px 30px -14px rgba(11,36,71,.6);display:flex;align-items:center;gap:7px}
+.cine .new .hv-book .av{width:clamp(16px,3vw,24px);height:clamp(16px,3vw,24px);border-radius:50%;flex:none;background:linear-gradient(135deg,#12D3C0,#0B2447)}
+.cine .new .hv-book .hb-t{font-weight:800;color:#0B2447;font-size:clamp(.46rem,1.15vw,.66rem);line-height:1.1}
+.cine .new .hv-book .hb-s{color:#0a9e90;font-size:clamp(.4rem,1vw,.56rem);font-weight:600}
+.cine .new .hv-book .hb-go{margin-left:auto;background:#12D3C0;color:#04221f;font-weight:800;font-size:clamp(.42rem,1vw,.6rem);padding:3px 8px;border-radius:99px}
 .cine .new .cards{display:flex;gap:clamp(6px,1.6vw,14px);padding:0 clamp(12px,3vw,30px) clamp(12px,3vw,26px)}
-.cine .new .c{flex:1;background:#fff;border:1px solid #e6edf6;border-radius:10px;padding:clamp(6px,1.5vw,13px);box-shadow:0 10px 26px -16px rgba(11,36,71,.3)}
-.cine .new .c .ci{width:clamp(16px,3vw,26px);height:clamp(16px,3vw,26px);border-radius:8px;background:rgba(18,211,192,.16);margin-bottom:7px}
-.cine .new .c .l{height:6px;border-radius:3px;background:#dbe4f0;margin-bottom:5px}.cine .new .c .l.s{width:64%}
+.cine .new .c{flex:1;background:#fff;border:1px solid #e6edf6;border-radius:11px;padding:clamp(7px,1.6vw,14px);box-shadow:0 12px 28px -16px rgba(11,36,71,.34)}
+.cine .new .c .cic{width:clamp(20px,3.4vw,30px);height:clamp(20px,3.4vw,30px);border-radius:9px;background:rgba(18,211,192,.16);color:#0a9e90;display:flex;align-items:center;justify-content:center;margin-bottom:8px}
+.cine .new .c .cic svg{width:60%;height:60%}
+.cine .new .c b{display:block;color:#0B2447;font-weight:700;font-size:clamp(.5rem,1.3vw,.8rem);line-height:1.15;margin-bottom:3px}
+.cine .new .c small{color:#6b7a91;font-size:clamp(.42rem,1.05vw,.66rem);line-height:1.3}
 
 @media(prefers-reduced-motion:reduce){.cine .hero-glow{animation:none}}
 
@@ -404,12 +417,15 @@ body.cine .site-header .mobile-nav a{color:#fff}
                   <div class="btns"><span class="b1">Book an appointment</span><span class="b2">Meet the team</span></div>
                   <div class="stars">★★★★★ <span>4.9 from 600+ patients</span></div>
                 </div>
-                <div class="hvis"></div>
+                <div class="hvis">
+                  <span class="hv-chip"><span class="dot"></span>Open today · 8–5</span>
+                  <div class="hv-book"><span class="av"></span><span><span class="hb-t">Next opening</span><span class="hb-s">Thu 9:20 AM</span></span><span class="hb-go">Book</span></div>
+                </div>
               </div>
               <div class="cards">
-                <div class="c"><div class="ci"></div><div class="l"></div><div class="l s"></div></div>
-                <div class="c"><div class="ci"></div><div class="l"></div><div class="l s"></div></div>
-                <div class="c"><div class="ci"></div><div class="l"></div><div class="l s"></div></div>
+                <div class="c"><span class="cic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5.5c-2-2-5-2-6 .5-1 2.5 0 5 .5 8 .3 1.8.6 3.5 1.5 3.5 1.2 0 1-2.5 2-2.5s.8 2.5 2 2.5c.9 0 1.2-1.7 1.5-3.5.5-3 1.5-5.5.5-8-1-2.5-4-2.5-6-.5Z"/></svg></span><b>Cleanings &amp; Exams</b><small>Gentle, thorough, on time.</small></div>
+                <div class="c"><span class="cic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.8 4.2L18 9l-4.2 1.8L12 15l-1.8-4.2L6 9l4.2-1.8L12 3Z"/><path d="M18 14l.9 2.1L21 17l-2.1.9L18 20l-.9-2.1L15 17l2.1-.9L18 14Z"/></svg></span><b>Cosmetic &amp; Whitening</b><small>Whiter in one visit.</small></div>
+                <div class="c"><span class="cic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3c2.5 0 4 1.8 4 4 0 2-1 3-1.3 5.5C14.4 15 14 21 12 21s-2.4-6-2.7-8.5C9 10 8 9 8 7c0-2.2 1.5-4 4-4Z"/><path d="M9.5 9.5h5"/></svg></span><b>Implants &amp; Crowns</b><small>Natural-looking, built to last.</small></div>
               </div>
             </div>
           </div>
