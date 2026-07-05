@@ -1,0 +1,365 @@
+<!doctype html><html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Colorado Lending Team</title>
+<meta name="description" content="">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>:root{--ink:#191919;--bg:#f8f9fa;--surf:#ffffff;--mut:#6a6a72;--line:rgba(0,0,0,.10);
+    --brand:#ff6900;--brand-d:#d15600;--accent:#cf2e2e;--brand-rgb:255,105,0;--rad:22px}
+
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);
+  font-family:Inter,system-ui,-apple-system,sans-serif;line-height:1.55;-webkit-font-smoothing:antialiased}
+h1,h2,h3{font-family:'Plus Jakarta Sans',Georgia,serif;font-weight:600;line-height:1.08;letter-spacing:-.01em;margin:0}
+.wrap{max-width:1120px;margin:0 auto;padding:0 24px}
+.btn{display:inline-block;font-weight:600;text-decoration:none;background:var(--brand);color:#fff;
+  padding:12px 22px;border-radius:calc(var(--rad)*1px);border:1px solid transparent;transition:.2s}
+.btn.lg{padding:15px 28px;font-size:1.02rem}.btn.sm{padding:9px 16px;font-size:.9rem}
+.btn.ghost{background:transparent;border-color:rgba(255,255,255,.5);color:#fff}
+.btn.light{background:#fff;color:var(--brand)}
+.btn:hover{background:var(--brand-d)}
+.sec-k{display:block;font-size:.76rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--brand)}
+.sec-k.light{color:rgba(255,255,255,.85)}
+.lead{color:var(--mut);font-size:1.08rem;max-width:60ch;margin:.5em 0 0}.lead.light{color:rgba(255,255,255,.9)}
+.sec{padding:clamp(48px,7vw,96px) 0}
+/* nav */
+.nav{position:absolute;top:0;left:0;right:0;z-index:10;display:flex;align-items:center;gap:20px;
+  padding:18px clamp(20px,4vw,44px);color:#fff}
+.nav .brandmark{display:inline-flex;align-items:center;background:#fff;border-radius:9px;padding:7px 12px;box-shadow:0 2px 12px rgba(0,0,0,.12);text-decoration:none}
+.nav .logo{height:30px;width:auto;display:block}
+.arch-split .nav .brandmark,.arch-minimal .nav .brandmark{box-shadow:none;background:transparent;padding:0}
+.nav .wordmark{font-family:'Plus Jakarta Sans',serif;font-size:1.4rem;font-weight:600}
+.navlinks{display:flex;gap:20px;margin-left:auto;font-size:.82rem;font-weight:600;letter-spacing:.02em}
+.navlinks a{color:#fff;text-decoration:none;opacity:.9;text-transform:uppercase}
+.navlinks a:hover{opacity:1}.nav .btn{margin-left:12px}
+/* hero */
+.hero{position:relative;min-height:100svh;display:flex;align-items:flex-end;color:#fff;isolation:isolate;overflow:hidden}
+.hero-bg{position:absolute;inset:0;z-index:-3;background-size:cover;background-position:center;transform:scale(1.06);transform-origin:60% 40%}
+.hero-video{width:100%;height:100%;object-fit:cover}
+.glow{position:absolute;z-index:-2;pointer-events:none;display:none;mix-blend-mode:screen}
+.scrim{position:absolute;inset:0;z-index:-1;background:linear-gradient(180deg,rgba(0,0,0,.28),rgba(0,0,0,0) 34%,rgba(0,0,0,.32) 66%,rgba(0,0,0,.8))}
+.hero-in{padding:0 clamp(20px,4vw,44px) clamp(44px,7vw,84px);max-width:820px}
+.hero .kick{font-size:.78rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase}
+.hero h1{font-size:clamp(2.4rem,6.5vw,4.6rem);margin:.24em 0 .2em;text-shadow:0 2px 30px rgba(0,0,0,.35);text-wrap:balance}
+.hero-sub{max-width:46ch;font-size:clamp(1rem,1.7vw,1.2rem);color:rgba(255,255,255,.94);margin:0 0 22px;text-shadow:0 1px 14px rgba(0,0,0,.4)}
+.cta-row{display:flex;flex-wrap:wrap;gap:12px}
+/* cards */
+.cardgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:20px;margin-top:34px}
+.card{background:var(--surf);border:1px solid var(--line);border-radius:calc(var(--rad)*1px);padding:26px}
+.card .cn{display:inline-grid;place-items:center;width:34px;height:34px;border-radius:50%;background:var(--brand);color:#fff;font-weight:700;margin-bottom:12px}
+.card h3{font-size:1.16rem}.card p{color:var(--mut);margin:.4em 0 0}
+/* events */
+.evlist{margin-top:30px;display:flex;flex-direction:column;gap:2px}
+.ev{display:flex;gap:22px;padding:20px 0;border-top:1px solid var(--line);align-items:baseline}
+.ev-when{min-width:140px;font-weight:700;color:var(--brand)}
+.ev-body h3{font-size:1.12rem}.ev-body p{color:var(--mut);margin:.3em 0 0}
+/* business: book bar, reviews, offer */
+.bookbar{background:color-mix(in srgb,var(--ink) 4%,var(--bg));padding:22px 0}
+.bookbar-in{display:flex;justify-content:space-between;align-items:center;gap:24px;flex-wrap:wrap}
+.bookbar b{font-family:'Plus Jakarta Sans',serif;font-size:1.3rem;display:block}.bookbar span{color:var(--mut);font-size:.92rem}
+.bookbtns{display:flex;gap:10px;flex-wrap:wrap}
+.rating{display:flex;align-items:center;gap:8px;margin:14px 0 0;font-size:1.05rem}
+.rating .stars{color:var(--accent);letter-spacing:2px}
+.rvgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:18px;margin-top:26px}
+.rv{margin:0;background:var(--surf);border:1px solid var(--line);border-radius:calc(var(--rad)*1px);padding:22px;font-size:1.02rem;line-height:1.5;font-style:italic}
+.rv cite{display:block;margin-top:12px;font-style:normal;font-weight:600;font-size:.9rem;color:var(--mut)}
+/* Catholic: sacraments + devotions */
+.sacrgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px;margin:30px 0 26px}
+.sacrcard{display:flex;align-items:center;gap:14px;background:var(--surf);border:1px solid var(--line);border-radius:calc(var(--rad)*1px);padding:18px 20px}
+.sacrcard .sx{color:var(--accent);font-size:1.2rem}.sacrcard h3{font-size:1.05rem;margin:0}
+.devos{display:flex;gap:30px;flex-wrap:wrap;margin-top:18px;padding-top:18px;border-top:1px solid var(--line)}
+.devo{display:flex;flex-direction:column}.devo b{color:var(--brand)}.devo span{color:var(--mut);font-size:.92rem}
+/* announcement bar */
+.announce{background:var(--brand-d);color:#fff;text-align:center;font-size:.9rem;font-weight:500;padding:9px 16px;display:flex;gap:9px;align-items:center;justify-content:center}
+.arch-journey .nav{position:relative;background:color-mix(in srgb,var(--ink) 92%,#000)}
+.adot{width:8px;height:8px;border-radius:50%;background:var(--accent);flex:none;animation:pulse 2s ease-in-out infinite}
+@keyframes pulse{0%,100%{opacity:.4}50%{opacity:1}}
+/* next steps rail */
+.steprail{display:flex;align-items:stretch;gap:14px;margin:30px 0;flex-wrap:wrap}
+.step{flex:1;min-width:180px;background:var(--surf);border:1px solid var(--line);border-radius:calc(var(--rad)*1px);padding:22px}
+.stepn{font-family:'Plus Jakarta Sans',serif;font-size:1.6rem;color:var(--accent);font-weight:700}
+.step h3{font-size:1.08rem;margin:.3em 0 .2em}.step p{color:var(--mut);font-size:.92rem;margin:0}
+.steparrow{align-self:center;color:var(--mut);font-size:1.4rem}
+/* groups chips */
+.chips{display:flex;flex-wrap:wrap;gap:10px;margin:20px 0 26px}
+.chip{border:1px solid var(--line);border-radius:100px;padding:9px 18px;font-weight:600;font-size:.92rem;background:var(--surf);transition:.15s}
+.chip:hover{border-color:var(--brand);color:var(--brand);transform:translateY(-2px)}
+.band.alt{background:var(--ink)}
+/* care + prayer form */
+.care-in{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center}
+.care-copy .lead{margin-top:.5em}
+.care-form{display:flex;flex-direction:column;gap:12px}
+.care-form input,.care-form textarea{font:inherit;padding:13px 15px;border:1px solid var(--line);border-radius:calc(var(--rad)*1px);background:var(--surf);color:var(--ink);resize:vertical}
+.care-form input:focus,.care-form textarea:focus{outline:2px solid var(--brand);border-color:transparent}
+.care-form .btn{align-self:flex-start}
+@media(max-width:760px){.care-in{grid-template-columns:1fr;gap:24px}.steparrow{display:none}}
+/* watch / livestream */
+.watch-in{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center}
+.watch-frame{position:relative;aspect-ratio:16/9;border-radius:calc(var(--rad)*1px);overflow:hidden;
+  background:linear-gradient(135deg,var(--brand),var(--brand-d));display:grid;place-items:center;box-shadow:0 20px 50px rgba(0,0,0,.18)}
+.playbtn{width:74px;height:74px;border-radius:50%;background:rgba(255,255,255,.92);color:var(--brand);
+  display:grid;place-items:center;font-size:1.5rem;padding-left:5px;transition:transform .2s}
+.watch-frame:hover .playbtn{transform:scale(1.08)}
+.watch-meta{position:absolute;left:16px;bottom:14px;color:#fff}.watch-meta b{display:block}.watch-meta span{font-size:.86rem;opacity:.85}
+@media(max-width:760px){.watch-in{grid-template-columns:1fr;gap:22px}}
+/* service times */
+.times-in{display:flex;gap:40px;flex-wrap:wrap;align-items:center}
+.times-h{min-width:200px}.times-h h2{font-size:1.8rem;margin-top:.1em}
+.times-list{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px 30px;flex:1}
+.times-list li{display:flex;align-items:center;gap:12px;font-size:1.05rem;padding:10px 0;border-bottom:1px solid var(--line)}
+.tdot{width:9px;height:9px;border-radius:50%;background:var(--accent);flex:none}
+/* team */
+.teamgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,210px));gap:24px;margin-top:32px;justify-content:center}
+.tcard{text-align:center;max-width:210px}.tcard img,.tinitial{width:100%;aspect-ratio:1;object-fit:cover;border-radius:calc(var(--rad)*1px)}
+.tinitial{display:grid;place-items:center;background:var(--brand);color:#fff;font-family:'Plus Jakarta Sans',serif;font-size:2.4rem;font-weight:600}
+.tcard h3{font-size:1.1rem;margin-top:14px}.trole{color:var(--mut);font-size:.92rem}
+/* band */
+.band{background:var(--brand);color:#fff}
+.band-in{display:flex;gap:30px;align-items:center;justify-content:space-between;flex-wrap:wrap}
+.band h2{margin-top:.2em}
+/* cta */
+.cta{text-align:center}.cta h2{font-size:clamp(2rem,4vw,3rem)}.cta .lead{margin:.6em auto 24px}
+/* footer */
+.foot{background:var(--ink);color:#fff;padding:44px 0}
+.foot-brand{font-family:'Plus Jakarta Sans',serif;font-size:1.3rem;font-weight:600}
+.foot-loc{color:rgba(255,255,255,.7);margin-top:6px}.foot-fine{color:rgba(255,255,255,.45);margin-top:18px;font-size:.85rem}
+/* motion moods */
+@keyframes drift{from{transform:scale(1.06)}to{transform:scale(1.16) translate(-2.4%,-2%)}}
+@keyframes rays{0%{transform:translate(-4%,-3%) rotate(-1.1deg);opacity:.3}100%{transform:translate(4%,3%) rotate(1.1deg);opacity:.66}}
+@keyframes flick{0%,100%{opacity:.48}20%{opacity:.72}36%{opacity:.44}54%{opacity:.66}70%{opacity:.52}86%{opacity:.78}}
+.mood-drift .hero-bg,.mood-godrays .hero-bg,.mood-candle .hero-bg{animation:drift 26s ease-in-out infinite alternate}
+.mood-godrays .glow{display:block;inset:-28%;filter:blur(9px);animation:rays 15s ease-in-out infinite alternate;
+  background:radial-gradient(52% 46% at 70% 6%,color-mix(in srgb,var(--accent) 62%,transparent),transparent 72%),
+  linear-gradient(101deg,transparent 20%,rgba(255,252,242,.11) 32%,transparent 46%),
+  linear-gradient(101deg,transparent 50%,rgba(255,250,238,.07) 62%,transparent 78%)}
+.mood-candle .glow{display:block;inset:0;animation:flick 5s ease-in-out infinite;
+  background:radial-gradient(58% 60% at 50% 84%,color-mix(in srgb,var(--accent) 42%,#ffb066),transparent 66%)}
+/* ARCHETYPE: editorial — a framed magazine cover. Headline ABOVE a boxed image on a light ground. */
+.arch-editorial .nav{position:relative;background:var(--bg);color:var(--ink);border-bottom:1px solid var(--line)}
+.arch-editorial .nav .logo{filter:none}.arch-editorial .navlinks a{color:var(--ink)}
+.arch-editorial .hero{display:flex;flex-direction:column;min-height:auto;background:var(--bg);color:var(--ink);padding:clamp(28px,5vw,68px) clamp(20px,5vw,64px)}
+.arch-editorial .hero-in{order:0;position:relative;z-index:1;max-width:1080px;margin:0 auto 26px;padding:0;width:100%}
+.arch-editorial .hero .kick{color:var(--brand)}
+.arch-editorial .hero h1{color:var(--ink);text-shadow:none;font-size:clamp(2.6rem,7vw,5rem);max-width:16ch}
+.arch-editorial .hero-sub{color:var(--mut);text-shadow:none;max-width:52ch}
+.arch-editorial .hero-bg{position:relative;inset:auto;z-index:0;order:1;width:100%;max-width:1080px;margin:0 auto;
+  height:min(58vh,540px);border-radius:calc(var(--rad)*2.2px);transform:none;box-shadow:0 30px 70px rgba(0,0,0,.16)}
+.arch-editorial .scrim,.arch-editorial .glow{display:none}
+/* ARCHETYPE: modern — a bold brand-color poster. Oversized type; photo becomes a luminous texture. */
+.arch-modern .hero{align-items:center;background:linear-gradient(135deg,var(--brand),var(--brand-d));color:#fff}
+.arch-modern .hero-bg{opacity:.30;mix-blend-mode:luminosity}
+.arch-modern .scrim{background:linear-gradient(180deg,rgba(0,0,0,.15),transparent 40%,rgba(0,0,0,.25))}
+.arch-modern .hero-in{max-width:960px}
+.arch-modern .hero h1{font-size:clamp(3rem,9vw,6.5rem);letter-spacing:-.03em;line-height:.98}
+.arch-modern .hero .kick{opacity:.9}
+.arch-modern .btn{border-radius:100px}.arch-modern .btn.lg{padding:16px 32px}
+.arch-modern .nav .btn{border-radius:100px}.arch-modern .card{border:none;box-shadow:0 10px 40px rgba(0,0,0,.06)}
+/* ARCHETYPE: split — real image beside text on a light ground (no overlay) */
+.arch-split .nav{position:relative;color:var(--ink);background:var(--bg);border-bottom:1px solid var(--line)}
+.arch-split .nav .logo{filter:none}.arch-split .navlinks a{color:var(--ink)}
+.arch-split .hero{min-height:86vh;display:grid;grid-template-columns:1.02fr .98fr;align-items:stretch;background:var(--bg);color:var(--ink)}
+.arch-split .hero-bg{position:relative;inset:auto;z-index:0;order:2;transform:none;min-height:100%}
+.arch-split .scrim,.arch-split .glow{display:none}
+.arch-split .hero-in{align-self:center;padding:clamp(32px,5vw,86px);max-width:660px}
+.arch-split .hero .kick{color:var(--brand)}
+.arch-split .hero h1{color:var(--ink);text-shadow:none}
+.arch-split .hero-sub{color:var(--mut);text-shadow:none}
+/* ARCHETYPE: minimal — text-forward, generous whitespace, image as a calm band */
+.arch-minimal .nav{position:relative;color:var(--ink);background:transparent}
+.arch-minimal .nav .logo{filter:none}.arch-minimal .navlinks a{color:var(--ink);opacity:.7}
+.arch-minimal .hero{min-height:78vh;align-items:center;text-align:center;background:var(--bg);color:var(--ink)}
+.arch-minimal .hero-bg{opacity:.14;filter:grayscale(.3);transform:none}
+.arch-minimal .scrim,.arch-minimal .glow{display:none}
+.arch-minimal .hero-in{margin:0 auto;max-width:760px}
+.arch-minimal .hero .kick{color:var(--brand)}
+.arch-minimal .hero h1{color:var(--ink);text-shadow:none;font-weight:500;letter-spacing:-.02em}
+.arch-minimal .hero-sub{color:var(--mut);margin-left:auto;margin-right:auto;text-shadow:none}
+.arch-minimal .cta-row{justify-content:center}
+.arch-minimal .sec{padding:clamp(64px,9vw,120px) 0}.arch-minimal .card{border:none;background:transparent;padding:0}
+@media (prefers-reduced-motion:reduce){.hero-bg,.glow{animation:none!important}.hero-bg{transform:scale(1.08)}}
+@media(max-width:820px){.arch-split .hero{grid-template-columns:1fr}.arch-split .hero-bg{min-height:42vh}}
+@media(max-width:720px){.navlinks{display:none}.ev{flex-direction:column;gap:4px}.ev-when{min-width:0}}
+
+/* ── PHASE 4 · craft polish ─────────────────────────────────────────────── */
+/* rhythm: alternate section grounds so the page breathes */
+.sec:nth-of-type(even):not(.band):not(.cta){background:color-mix(in srgb,var(--ink) 3%,var(--bg))}
+.sec-k{margin-bottom:6px}.sec h2{font-size:clamp(1.7rem,3.2vw,2.5rem)}
+/* micro-interactions */
+.btn{transition:transform .18s var(--ease,ease),background .18s,box-shadow .18s;will-change:transform}
+.btn:hover{transform:translateY(-2px);box-shadow:0 10px 26px rgba(var(--brand-rgb),.28)}
+.btn.light:hover{box-shadow:0 10px 26px rgba(0,0,0,.18)}
+.card{transition:transform .2s,box-shadow .2s,border-color .2s}
+.card:hover{transform:translateY(-4px);box-shadow:0 16px 40px rgba(0,0,0,.09);border-color:transparent}
+.navlinks a{position:relative;transition:opacity .15s}
+.navlinks a::after{content:"";position:absolute;left:0;right:100%;bottom:-5px;height:2px;background:currentColor;opacity:.7;transition:right .22s var(--ease,ease)}
+.navlinks a:hover::after{right:0}
+.ev{transition:padding-left .2s}.ev:hover{padding-left:8px}
+.tcard img,.tinitial{transition:transform .25s}.tcard:hover img,.tcard:hover .tinitial{transform:scale(1.03)}
+a:focus-visible,.btn:focus-visible,button:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:4px}
+/* nav turns solid on scroll (overlay-nav archetypes only) */
+body:not(.arch-split):not(.arch-minimal) .nav{transition:background .3s,padding .3s,box-shadow .3s}
+body:not(.arch-split):not(.arch-minimal) .nav.scrolled{background:color-mix(in srgb,var(--ink) 92%,#000);padding-top:12px;padding-bottom:12px;box-shadow:0 6px 24px rgba(0,0,0,.22)}
+/* scroll reveal */
+.reveal{opacity:0;transform:translateY(22px);transition:opacity .7s var(--ease,ease),transform .7s var(--ease,ease)}
+.reveal.in{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){.reveal{opacity:1!important;transform:none!important}}
+/* guest concierge */
+.cx-bubble{position:fixed;right:22px;bottom:22px;z-index:50;width:58px;height:58px;border-radius:50%;border:none;
+  background:var(--brand);color:#fff;font-size:1.5rem;cursor:pointer;box-shadow:0 10px 30px rgba(var(--brand-rgb),.4);transition:transform .2s}
+.cx-bubble:hover{transform:scale(1.06)}
+.cx-panel{position:fixed;right:22px;bottom:22px;z-index:51;width:min(360px,calc(100vw - 32px));height:min(520px,calc(100vh - 44px));
+  background:var(--surf);border:1px solid var(--line);border-radius:16px;box-shadow:0 24px 70px rgba(0,0,0,.28);display:flex;flex-direction:column;overflow:hidden}
+.cx-panel[hidden]{display:none}
+.cx-head{background:var(--brand);color:#fff;padding:16px 18px;position:relative}
+.cx-head b{display:block;font-family:'Plus Jakarta Sans',serif;font-size:1.1rem}.cx-head span{font-size:.8rem;opacity:.85}
+.cx-x{position:absolute;top:12px;right:14px;background:none;border:none;color:#fff;font-size:1.4rem;cursor:pointer;line-height:1}
+.cx-log{flex:1;overflow-y:auto;padding:16px;display:flex;flex-direction:column;gap:10px}
+.cx-msg{max-width:85%;padding:10px 14px;border-radius:14px;font-size:.92rem;line-height:1.45}
+.cx-msg.bot{background:color-mix(in srgb,var(--ink) 6%,var(--bg));align-self:flex-start;border-bottom-left-radius:4px}
+.cx-msg.me{background:var(--brand);color:#fff;align-self:flex-end;border-bottom-right-radius:4px}
+.cx-msg ul{margin:6px 0 0;padding-left:18px}.cx-cta{display:inline-block;margin-top:8px;font-weight:600;color:var(--brand);text-decoration:none}
+.cx-chips{display:flex;flex-wrap:wrap;gap:6px;padding:0 16px 10px}
+.cx-chip{font:inherit;font-size:.8rem;padding:7px 11px;border:1px solid var(--line);border-radius:100px;background:var(--surf);color:var(--ink);cursor:pointer}
+.cx-chip:hover{border-color:var(--brand);color:var(--brand)}
+.cx-in{display:flex;gap:8px;padding:12px 14px;border-top:1px solid var(--line)}
+.cx-in input{flex:1;font:inherit;padding:10px 12px;border:1px solid var(--line);border-radius:10px;background:var(--bg);color:var(--ink)}
+.cx-in button{border:none;background:var(--brand);color:#fff;width:42px;border-radius:10px;font-size:1.1rem;cursor:pointer}
+/* richer footer */
+.foot{padding:56px 0 40px}.foot .wrap{display:flex;flex-wrap:wrap;gap:20px;align-items:baseline;justify-content:space-between}
+.foot-fine{width:100%;border-top:1px solid rgba(255,255,255,.12);padding-top:16px;margin-top:8px}
+</style></head>
+<body class="arch-modern vert-mortgage">
+
+
+<nav class="nav">
+  <a class="brandmark" href="#top"><img src="/assets/captured/coloradolendingteam-com/logo.png" alt="Colorado Lending Team" class="logo"></a>
+  <div class="navlinks"><a href="https://coloradolendingteam.com/our-team/victoria-and-lia/">Victoria and Lia</a></div>
+  <a class="btn sm" href="#visit">Get Started</a>
+</nav>
+
+<header class="hero mood-candle" id="top">
+  <div class="hero-bg" style="background-image:url('/assets/captured/coloradolendingteam-com/photos/1.jpg')"></div><div class="glow"></div><div class="scrim"></div>
+  <div class="hero-in">
+    <span class="kick">Colorado Lending Team</span>
+    <h1>Colorado Lending Team — home financing without the runaround.</h1>
+    <p class="hero-sub">Modern, friendly service — get in touch in a minute.</p>
+    <div class="cta-row">
+      <a class="btn lg" href="#book">Get pre-approved →</a>
+    </div>
+  </div>
+</header>
+
+<section class="sec bookbar">
+  <div class="wrap bookbar-in">
+    <div><b>Ready when you are.</b><span>Book online in under a minute — new clients welcome.</span></div>
+    <div class="bookbtns"><a class="btn lg" href="#book">Get pre-approved →</a><a class="btn ghost lg" href="tel:3034773889">📞 (303) 477-3889</a></div>
+  </div>
+</section>
+
+<section class="sec services" id="visit">
+  <div class="wrap">
+    <span class="sec-k">Our services</span>
+    <h2>How we can help.</h2>
+    
+    <div class="cardgrid">
+      <article class="card"><span class="cn">1</span><h3>Purchase loans</h3><p></p></article>
+      <article class="card"><span class="cn">2</span><h3>Refinancing</h3><p></p></article>
+      <article class="card"><span class="cn">3</span><h3>First-time buyer programs</h3><p></p></article>
+      <article class="card"><span class="cn">4</span><h3>FHA / VA loans</h3><p></p></article>
+      <article class="card"><span class="cn">5</span><h3>Jumbo loans</h3><p></p></article>
+      <article class="card"><span class="cn">6</span><h3>Rate & payment consult</h3><p></p></article>
+    </div>
+  </div>
+</section>
+
+<section class="sec band" id="offer">
+  <div class="wrap band-in">
+    <div><span class="sec-k light">No cost</span><h2>Free pre-approval.</h2>
+      <p class="lead light">Know your budget before you shop — a quick call gets you a real number.</p></div>
+    <a class="btn lg light" href="#book">Start pre-approval →</a>
+  </div></section>
+
+
+
+<section class="sec times" id="contact">
+  <div class="wrap times-in">
+    <div class="times-h"><span class="sec-k">Visit us</span><h2>Hours & location</h2></div>
+    <ul class="times-list"><li><span class="tdot"></span>Mon–Fri · 8:00 AM – 5:00 PM</li><li><span class="tdot"></span>Sat · By appointment</li></ul>
+  </div></section>
+
+<section class="sec cta" id="join">
+  <div class="wrap">
+    <h2>Let's get started.</h2>
+    <p class="lead">Know your budget before you shop — a quick call gets you a real number.</p>
+    <a class="btn lg" href="#visit">Plan Your Visit →</a>
+  </div>
+</section>
+
+<footer class="foot"><div class="wrap">
+  <div class="foot-brand">Colorado Lending Team</div>
+  
+  <div class="foot-fine">Site by Sightline</div>
+</div></footer>
+
+<button class="cx-bubble" aria-label="Ask a question" id="cxOpen">💬</button>
+<div class="cx-panel" id="cxPanel" role="dialog" aria-label="Front desk" hidden>
+  <div class="cx-head"><b>Front desk</b><span>Quick answers — hours, booking, insurance</span><button class="cx-x" id="cxClose" aria-label="Close">×</button></div>
+  <div class="cx-log" id="cxLog"></div>
+  <div class="cx-chips" id="cxChips"></div>
+  <form class="cx-in" id="cxForm"><input id="cxText" placeholder="Ask about hours, booking, insurance…" autocomplete="off"><button type="submit" aria-label="Send">→</button></form>
+</div>
+<script>(function(){
+  var D={"biz":true,"adv":"medical","name":"Colorado Lending Team","times":[],"location":"","phone":"(303) 477-3889","services":["Purchase loans","Refinancing","First-time buyer programs","FHA / VA loans","Jumbo loans","Rate & payment consult"],"kids":"Yes — kids are welcome and cared for at every service.","giving":false,"watch":false,"money":false,"book":true};
+  var log=document.getElementById('cxLog'), chips=document.getElementById('cxChips');
+  function push(who,html){var d=document.createElement('div');d.className='cx-msg '+who;d.innerHTML=html;log.appendChild(d);log.scrollTop=log.scrollHeight;}
+  function callCta(){return D.phone?['Call '+D.phone,'tel:'+D.phone.replace(/[^0-9]/g,'')]:['Send a message','#connect'];}
+  function bizAnswer(q){
+    // GUARDRAIL: never give medical or legal advice — route to a booked professional
+    if(D.adv==='legal' && /should i (sue|settle|sign|plead)|is (it|this) legal|can i sue|lawsuit|will i win|charged with|my (case|charges)|legal advice|do i have a case/.test(q))
+      return {t:"I can’t give legal advice — but our attorneys can, in a consultation. Want me to point you to booking one?",cta:['Request a consult','#book']};
+    if(D.adv!=='legal' && /is (this|it) (normal|serious|ok|infected)|should i (be worried|see|worry)|diagnos|what does it mean|symptom|my (pain|tooth|skin) (is|hurts)|swelling|is it an emergency|urgent/.test(q))
+      return {t:"I can’t give medical advice. If it’s urgent, please call the office now (or 911 for an emergency). Otherwise the best next step is a quick visit — want to book?",cta:['Book a visit','#book']};
+    if(/hour|open|when|close|today|available/.test(q))
+      return {t: D.times.length? "Our hours:<ul>"+D.times.map(function(x){return '<li>'+x+'</li>'}).join('')+"</ul>" : "See our hours on this page — or call and we’ll help.",cta:callCta()};
+    if(/book|appoint|schedul|reserve|see (someone|the)/.test(q)) return {t:"Booking takes under a minute — new patients &amp; clients welcome.",cta:['Book now','#book']};
+    if(/insuranc|cost|price|pay|financ|afford|how much|quote/.test(q)) return {t: D.money? "We accept most major insurance and offer financing. Exact cost depends on your visit — the best way to get a real number is a quick consult." : "Costs depend on your visit — we’ll give you a clear number up front. Want to book a consult?",cta:['Book a consult','#book']};
+    if(/service|treat|do you|offer|help with|practice area/.test(q)) return {t: D.services.length? "We offer:<ul>"+D.services.map(function(x){return '<li>'+x+'</li>'}).join('')+"</ul>" : "See our services on this page — happy to help you find the right one.",cta:['Book','#book']};
+    if(/where|address|direction|park|location|find you/.test(q)) return {t:"We’re at "+(D.location||'our office')+". There’s parking on-site — call if you need directions.",cta:callCta()};
+    if(/new|first (time|visit)/.test(q)) return {t:"Welcome! New patients &amp; clients are what we love. Book your first visit and we’ll take great care of you.",cta:['Book your first visit','#book']};
+    return {t:"Happy to help — the fastest way is to book online or give us a call.",cta:['Book now','#book']};
+  }
+  function churchAnswer(q){
+    if(/pray|prayer|grie|griev|hurt|struggl|depress|anxious|suicid|crisis|died|death|sick|hospital|counsel|marriage|divorce/.test(q))
+      return {t:"I'm just the welcome desk, so I'm not the right one for that — but a real person on our care team is. If you share a note below, someone will reach out personally.",cta:['Reach our care team','#connect']};
+    if(/time|when|service|mass|worship|sunday|saturday|hour/.test(q))
+      return {t: D.times.length? "Here’s when we gather:<ul>"+D.times.map(function(x){return '<li>'+x+'</li>'}).join('')+"</ul>" : "We’d love to see you — check the service times on this page."};
+    if(/park|where|address|direction|location|find|campus/.test(q))
+      return {t:"We’re in "+(D.location||'your area')+". There’s free parking with reserved first-time spots near the main doors — look for the Welcome signs."};
+    if(/kid|child|nursery|baby|family|youth/.test(q)) return {t:D.kids};
+    if(/give|giving|donate|tithe|money|offering/.test(q)) return D.giving?{t:"Giving is simple and secure — one-time or recurring.",cta:['Give online','#give']}:{t:"You can give at any service, or ask our team about online giving."};
+    if(/watch|online|stream|live|video/.test(q)) return D.watch?{t:"Every service streams live, and past messages are always available.",cta:['Watch','#watch']}:{t:"Ask our team about watching online."};
+    if(/visit|new|first|expect|come|attend/.test(q)) return {t:"So glad you’re thinking of coming! Come as you are — walk in, grab coffee, and stay as long as you like. Want to let us know you’re coming?",cta:['Plan your visit','#visit']};
+    return {t:"Great question — the best person to answer that is our team. Leave a note and we’ll get right back to you.",cta:['Message us','#connect']};
+  }
+  function answer(q){ q=q.toLowerCase(); return D.biz? bizAnswer(q) : churchAnswer(q); }
+  function ask(q){push('me',q);var a=answer(q);setTimeout(function(){push('bot',a.t+(a.cta?'<br><a class="cx-cta" href="'+a.cta[1]+'">'+a.cta[0]+' →</a>':''));},260);}
+  var seeds= D.biz? ['Hours','Book an appointment','Services','Insurance &amp; pricing'] : ['Service times','Where do I park?','Are kids welcome?','Watch online'];
+  chips.innerHTML=seeds.map(function(s){return '<button class="cx-chip" type="button">'+s+'</button>'}).join('');
+  chips.onclick=function(e){var b=e.target.closest('.cx-chip');if(b)ask(b.textContent.replace('&amp;','&'));};
+  document.getElementById('cxForm').onsubmit=function(e){e.preventDefault();var t=document.getElementById('cxText');if(t.value.trim()){ask(t.value.trim());t.value='';}};
+  var panel=document.getElementById('cxPanel'), first=true;
+  var greet= D.biz? '👋 Hi! I’m the front desk for '+D.name+'. I can help with hours, booking, services, and insurance. What do you need?'
+                  : '👋 Welcome to '+D.name+'! I can help with service times, parking, kids, and planning your first visit. What can I help you find?';
+  document.getElementById('cxOpen').onclick=function(){panel.hidden=false;this.style.display='none';if(first){first=false;push('bot',greet);}};
+  document.getElementById('cxClose').onclick=function(){panel.hidden=true;document.getElementById('cxOpen').style.display='';};
+})();</script>
+<script>
+(function(){var n=document.querySelector('.nav');
+ if(n)addEventListener('scroll',function(){n.classList.toggle('scrolled',scrollY>40)},{passive:true});
+ var els=document.querySelectorAll('.sec');
+ if(!matchMedia('(prefers-reduced-motion:reduce)').matches&&'IntersectionObserver'in window){
+   els.forEach(function(e){e.classList.add('reveal')});
+   var io=new IntersectionObserver(function(es){es.forEach(function(x){if(x.isIntersecting){x.target.classList.add('in');io.unobserve(x.target)}})},{threshold:.12});
+   els.forEach(function(e){io.observe(e)});
+ }})();
+</script>
+</body></html>

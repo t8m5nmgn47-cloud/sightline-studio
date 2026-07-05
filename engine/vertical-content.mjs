@@ -13,22 +13,28 @@
 
 // Map many real-world category words → a canonical vertical key.
 const MATCHERS = [
-  ["dental",   /dentist|dental|orthodont|invisalign|endodont|periodont|oral surgeon/],
+  // Strong medical signals FIRST — OB/GYN, dermatology, etc. offer some aesthetic
+  // services but are medical practices, not med spas.
+  ["medical",  /obgyn|ob\/gyn|gynecolog|midwif|women'?s health|dermatolog|family medicine|physician|internal medicine|pediatric|primary care|urgent care|\bent\b|otolaryngolog|allergy/],
+  // Dentistry requires dental CONTEXT so "dental insurance" on an insurance site
+  // doesn't misfire to dental.
+  ["dental",   /dentist|dentistry|dental (?:care|office|practice|group|associates|implants|clinic|arts|studio)|orthodont|invisalign|endodont|periodont|oral surgeon/],
   ["optometry",/optometr|optician|eye ?care|eye ?exam|vision center|eyewear|lasik|ophthalmolog/],
-  ["medspa",   /med ?spa|medical spa|aesthetic|botox|dysport|filler|injectable|laser|microneedl|coolsculpt/],
+  ["medspa",   /med ?spa|medical spa|aesthetic|botox|dysport|\bfiller|injectable|coolsculpt|microneedl|hydrafacial/],
   ["title",    /escrow|title (?:company|insurance|agency|&|and escrow)|title ?& ?escrow|settlement services/],
   ["mortgage", /mortgage|loan officer|home loan|refinanc|pre-?approv|nmls/],
   ["accounting",/\b(cpa|accountant|accounting|bookkeep|payroll)\b|tax (?:prep|planning|return|service)/],
-  ["insurance",/\binsurance\b|insurance agency|coverage options|allstate|farmers insurance|state farm/],
-  ["law",      /attorney|law ?firm|lawyer|litigation|\blegal\b|counsel|practice areas|\besq\b/],
+  ["insurance",/insurance agenc|independent (?:insurance )?agen|\binsurance\b|coverage options|allstate|farmers insurance|state farm/],
+  ["law",      /attorney|law ?firm|lawyer|litigation|\blegal\b|\bcounsel\b|practice areas|\besq\b/],
   ["childcare",/montessori|childcare|daycare|preschool|early learning|nursery|tutoring/],
   ["trades",   /hvac|plumb|roof|electric|landscap|\blawn\b|contractor|remodel|construction|heating|cooling|garage door|handyman|concrete|fencing|excavat|hardscape/],
-  ["medical",  /family medicine|physician|internal medicine|pediatric|obgyn|ob\/gyn|dermatolog|\bent\b|allergy|urgent care|primary care|\bclinic\b/],
+  // Broad clinic catch-all last.
+  ["medical2", /\bclinic\b|\bmedical\b/],
 ];
 
 export function detectVertical(text = "") {
   const t = text.toLowerCase();
-  for (const [key, re] of MATCHERS) if (re.test(t)) return key;
+  for (const [key, re] of MATCHERS) if (re.test(t)) return key === "medical2" ? "medical" : key;
   return "business";
 }
 
