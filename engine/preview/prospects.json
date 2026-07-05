@@ -95,7 +95,18 @@
       "funnel": null,
       "teardown": null
     },
-    "email": null
+    "email": null,
+    "contact": {
+      "email": "info@breakthroughchurchsd.com",
+      "phone": "16196586558",
+      "socials": {
+        "youtube": "https://www.youtube.com/embed/j-Pw9j6cHEQ?feature=oembed?playlist=j-Pw9j6cHEQ&mute=0&autoplay=0&loop=no&controls=0&start=0&end=",
+        "facebook": "https://www.facebook.com/profile.php?id=61558144687905",
+        "instagram": "https://www.instagram.com/breakthroughchurchsd/?hl=en"
+      },
+      "source": "their website",
+      "at": "2026-07-05"
+    }
   },
   {
     "type": "church",
@@ -347,7 +358,18 @@
       "funnel": null,
       "teardown": null
     },
-    "email": null
+    "email": null,
+    "contact": {
+      "email": "admin@totallife.org",
+      "phone": "757-410-2737",
+      "socials": {
+        "facebook": "https://www.facebook.com/TotalLife4U",
+        "instagram": "http://www.instagram.com/totallife4u",
+        "youtube": "https://www.youtube.com/channel/UCqlt7azVfmjyj9TbY3cc_5A?view_as=subscriber"
+      },
+      "source": "their website",
+      "at": "2026-07-05"
+    }
   },
   {
     "type": "business",
@@ -482,6 +504,16 @@
     "email": {
       "subject": "I rebuilt Firmmedspa's website — it's ready to look at",
       "body": "Hi — Kris here from Sightline Studio, here in Colorado.\n\nI pulled up firmmedspa.com and noticed it's missing book / request appointment — 67% of medspa businesses have it, and it's likely costing you customers every week.\n\nSo instead of sending a pitch deck, I just built it. Here's Firmmedspa's new site, live right now:\n\nhttps://sightline-studio.vercel.app/p/firmmedspa-com/\n\nThat's a real, working site — your name, your services, your photos, built for phones and built to be found on Google. The same link shows how you stack up against your local competitors, measured on public signals.\n\nIf you like it, it's yours: we host it, watch it, and market it from $59.99/mo with $0 down — and you own the site. If not, no hard feelings; the preview was free.\n\nWorth two minutes? Just reply to this email.\n\n— Kris\nSightline Studio · look sharp, stay safe, get found"
+    },
+    "contact": {
+      "email": null,
+      "phone": "+17206602021",
+      "socials": {
+        "facebook": "https://www.facebook.com/TheFirmMedspaCO",
+        "instagram": "https://www.instagram.com/thefirmmedspa/"
+      },
+      "source": "their website",
+      "at": "2026-07-05"
     }
   },
   {
@@ -1010,7 +1042,16 @@
       "funnel": null,
       "teardown": null
     },
-    "email": null
+    "email": null,
+    "contact": {
+      "email": "refugebible@gmail.com",
+      "phone": "3173774045",
+      "socials": {
+        "facebook": "https://www.facebook.com/refugeindy"
+      },
+      "source": "their website",
+      "at": "2026-07-05"
+    }
   },
   {
     "type": "church",
@@ -1277,7 +1318,17 @@
       "funnel": null,
       "teardown": null
     },
-    "email": null
+    "email": null,
+    "contact": {
+      "email": "info@greaterglorychurch.com",
+      "phone": "1(586) 210-0856",
+      "socials": {
+        "instagram": "https://www.instagram.com/greaterglorymacomb",
+        "facebook": "https://www.facebook.com/greaterglorymacomb"
+      },
+      "source": "their website",
+      "at": "2026-07-05"
+    }
   },
   {
     "type": "business",
@@ -1381,6 +1432,16 @@
     "email": {
       "subject": "I rebuilt Aspen Falls Landscape and Construction's website — it's ready to look at",
       "body": "Hi — Kris here from Sightline Studio, here in Colorado.\n\nI pulled up aspenfallslandscaping.com and noticed it's missing reviews & social proof — 55% of business businesses have it, and it's likely costing you customers every week.\n\nSo instead of sending a pitch deck, I just built it. Here's Aspen Falls Landscape and Construction's new site, live right now:\n\nhttps://sightline-studio.vercel.app/p/aspenfallslandscaping-com/\n\nThat's a real, working site — your name, your services, your photos, built for phones and built to be found on Google. The same link shows how you stack up against your local competitors, measured on public signals.\n\nIf you like it, it's yours: we host it, watch it, and market it from $59.99/mo with $0 down — and you own the site. If not, no hard feelings; the preview was free.\n\nWorth two minutes? Just reply to this email.\n\n— Kris\nSightline Studio · look sharp, stay safe, get found"
+    },
+    "contact": {
+      "email": "office@aspenfallslandscaping.org",
+      "phone": null,
+      "socials": {
+        "facebook": "https://www.facebook.com/profile.php?id=100087243489134&sk=about",
+        "instagram": "https://www.instagram.com/aspenfallsconstruction/"
+      },
+      "source": "their website",
+      "at": "2026-07-05"
     }
   },
   {
@@ -1509,7 +1570,18 @@
       "funnel": null,
       "teardown": null
     },
-    "email": null
+    "email": null,
+    "contact": {
+      "email": "info@myfaithtab.com",
+      "phone": "9544224091",
+      "socials": {
+        "facebook": "http://www.facebook.com/myfaithtab",
+        "instagram": "http://www.instagram.com/myfaithtab",
+        "tiktok": "https://www.tiktok.com/@myfaithtab"
+      },
+      "source": "their website",
+      "at": "2026-07-05"
+    }
   },
   {
     "type": "business",
@@ -1741,7 +1813,17 @@
       "funnel": null,
       "teardown": null
     },
-    "email": null
+    "email": null,
+    "contact": {
+      "email": "hello@ebenezerdacula.org",
+      "phone": "(770) 962-3108",
+      "socials": {
+        "facebook": "https://www.facebook.com/ebenezerdacula",
+        "instagram": "https://www.instagram.com/ebenezerdacula/"
+      },
+      "source": "their website",
+      "at": "2026-07-05"
+    }
   },
   {
     "type": "business",
@@ -1856,6 +1938,15 @@
     "email": {
       "subject": "I rebuilt Stone Aspen Signature Builders | Castle Rock Custom Home Builder and Design-Build | Colorado's website — it's ready to look at",
       "body": "Hi — Kris here from Sightline Studio, here in Colorado.\n\nI pulled up stoneaspen.com and noticed it's missing call / contact prominent — 73% of business businesses have it, and it's likely costing you customers every week.\n\nSo instead of sending a pitch deck, I just built it. Here's Stone Aspen Signature Builders | Castle Rock Custom Home Builder and Design-Build | Colorado's new site, live right now:\n\nhttps://sightline-studio.vercel.app/p/stoneaspen-com/\n\nThat's a real, working site — your name, your services, your photos, built for phones and built to be found on Google. The same link shows how you stack up against your local competitors, measured on public signals.\n\nIf you like it, it's yours: we host it, watch it, and market it from $59.99/mo with $0 down — and you own the site. If not, no hard feelings; the preview was free.\n\nWorth two minutes? Just reply to this email.\n\n— Kris\nSightline Studio · look sharp, stay safe, get found"
+    },
+    "contact": {
+      "email": null,
+      "phone": "+13036560972",
+      "socials": {
+        "facebook": "https://www.facebook.com/pg/stoneaspen/reviews/"
+      },
+      "source": "their website",
+      "at": "2026-07-05"
     }
   },
   {
@@ -1983,7 +2074,18 @@
       "funnel": null,
       "teardown": null
     },
-    "email": null
+    "email": null,
+    "contact": {
+      "email": "connect@urimperialbeach.com",
+      "phone": "(619)424-9784",
+      "socials": {
+        "facebook": "https://www.facebook.com/URimperialbeach",
+        "instagram": "https://www.instagram.com/urupperroom",
+        "youtube": "https://www.youtube.com/channel/UCvKTiKcOjeivOVf3T9yg1UQ?view_as=subscriber"
+      },
+      "source": "their website",
+      "at": "2026-07-05"
+    }
   },
   {
     "type": "business",
@@ -2085,6 +2187,17 @@
     "email": {
       "subject": "I rebuilt Dr. Heidi Oster MD, PC's website — it's ready to look at",
       "body": "Hi — Kris here from Sightline Studio, here in Colorado.\n\nI scored heidiosterobgyn.com against 11 other business businesses: 52/100 vs a 47 average.\n\nSo instead of sending a pitch deck, I just built it. Here's Dr. Heidi Oster MD, PC's new site, live right now:\n\nhttps://sightline-studio.vercel.app/p/heidiosterobgyn-com/\n\nThat's a real, working site — your name, your services, your photos, built for phones and built to be found on Google. The same link shows how you stack up against your local competitors, measured on public signals.\n\nIf you like it, it's yours: we host it, watch it, and market it from $59.99/mo with $0 down — and you own the site. If not, no hard feelings; the preview was free.\n\nWorth two minutes? Just reply to this email.\n\n— Kris\nSightline Studio · look sharp, stay safe, get found"
+    },
+    "contact": {
+      "email": null,
+      "phone": "3037912112",
+      "socials": {
+        "instagram": "https://www.instagram.com/heidioster.md.pc/",
+        "facebook": "https://www.facebook.com/heidiostermdpc",
+        "linkedin": "https://www.linkedin.com/in/heidi-oster-ab946a17/"
+      },
+      "source": "their website",
+      "at": "2026-07-05"
     }
   },
   {
@@ -2202,7 +2315,18 @@
       "funnel": null,
       "teardown": null
     },
-    "email": null
+    "email": null,
+    "contact": {
+      "email": "office@vrieslandchurch.org",
+      "phone": "1616-772-2791",
+      "socials": {
+        "youtube": "https://www.youtube.com/@vrieslandchurch/live",
+        "facebook": "https://www.facebook.com/vrieslandchurch",
+        "instagram": "https://www.instagram.com/vrieslandchurch"
+      },
+      "source": "their website",
+      "at": "2026-07-05"
+    }
   },
   {
     "type": "business",
@@ -2454,7 +2578,17 @@
       "funnel": null,
       "teardown": null
     },
-    "email": null
+    "email": null,
+    "contact": {
+      "email": "office@movechurch.ca",
+      "phone": null,
+      "socials": {
+        "youtube": "https://www.youtube.com/@movechurchca",
+        "facebook": "http://facebook.com/movechurch.ca"
+      },
+      "source": "their website",
+      "at": "2026-07-05"
+    }
   },
   {
     "type": "business",
@@ -2567,6 +2701,17 @@
     "email": {
       "subject": "I rebuilt Colorado Group & Individual Health, Life, Disability, Long Term Care Insurance broker in Highlands Ranch Colorado - Niederman Insurance Agency's website — it's ready to look at",
       "body": "Hi — Kris here from Sightline Studio, here in Colorado.\n\nI pulled up niedermaninsurance.com and noticed it's missing services / what we do — 90% of dental businesses have it, and it's likely costing you customers every week.\n\nSo instead of sending a pitch deck, I just built it. Here's Colorado Group & Individual Health, Life, Disability, Long Term Care Insurance broker in Highlands Ranch Colorado - Niederman Insurance Agency's new site, live right now:\n\nhttps://sightline-studio.vercel.app/p/niedermaninsurance-com/\n\nThat's a real, working site — your name, your services, your photos, built for phones and built to be found on Google. The same link shows how you stack up against your local competitors, measured on public signals.\n\nIf you like it, it's yours: we host it, watch it, and market it from $59.99/mo with $0 down — and you own the site. If not, no hard feelings; the preview was free.\n\nWorth two minutes? Just reply to this email.\n\n— Kris\nSightline Studio · look sharp, stay safe, get found"
+    },
+    "contact": {
+      "email": "niedermaninsuranceagency@niedermaninsurance.com",
+      "phone": "7209209443",
+      "socials": {
+        "facebook": "https://www.facebook.com/NiedermanInsuranceAgency",
+        "linkedin": "https://www.linkedin.com/in/brad-niederman-31ba0610",
+        "yelp": "https://www.yelp.com/biz/niederman-insurance-agency-highlands-ranch?osq=niederman+insurance+agency"
+      },
+      "source": "their website",
+      "at": "2026-07-05"
     }
   },
   {
@@ -2683,7 +2828,18 @@
       "funnel": null,
       "teardown": null
     },
-    "email": null
+    "email": null,
+    "contact": {
+      "email": "office@stmichaelelca.org",
+      "phone": "(864) 232-8510",
+      "socials": {
+        "facebook": "https://www.facebook.com/smlcgreenville/",
+        "instagram": "https://www.instagram.com/smlcgreenville/",
+        "youtube": "https://www.youtube.com/@StMichaelsELCALiveStream"
+      },
+      "source": "their website",
+      "at": "2026-07-05"
+    }
   },
   {
     "type": "business",
@@ -2797,6 +2953,16 @@
     "email": {
       "subject": "I rebuilt Family Lawyers Highlands Ranch, CO's website — it's ready to look at",
       "body": "Hi — Kris here from Sightline Studio, here in Colorado.\n\nI pulled up rosslawcolorado.com and noticed it's missing book / request appointment — 50% of law businesses have it, and it's likely costing you customers every week.\n\nSo instead of sending a pitch deck, I just built it. Here's Family Lawyers Highlands Ranch, CO's new site, live right now:\n\nhttps://sightline-studio.vercel.app/p/rosslawcolorado-com/\n\nThat's a real, working site — your name, your services, your photos, built for phones and built to be found on Google. The same link shows how you stack up against your local competitors, measured on public signals.\n\nIf you like it, it's yours: we host it, watch it, and market it from $59.99/mo with $0 down — and you own the site. If not, no hard feelings; the preview was free.\n\nWorth two minutes? Just reply to this email.\n\n— Kris\nSightline Studio · look sharp, stay safe, get found"
+    },
+    "contact": {
+      "email": "office@rosslawcolorado.com",
+      "phone": "(303) 532-3026",
+      "socials": {
+        "facebook": "https://facebook.com/rosslawcolorado",
+        "yelp": "https://yelp.com/biz/ross-law-centennial"
+      },
+      "source": "their website",
+      "at": "2026-07-05"
     }
   },
   {
@@ -2914,7 +3080,18 @@
       "funnel": null,
       "teardown": null
     },
-    "email": null
+    "email": null,
+    "contact": {
+      "email": "answers@hopewellchurch.online",
+      "phone": "8103912917",
+      "socials": {
+        "facebook": "https://www.facebook.com/HopewellFlint/",
+        "instagram": "https://instagram.com/hopewellflint",
+        "youtube": "https://www.youtube.com/@hopewell_church"
+      },
+      "source": "their website",
+      "at": "2026-07-05"
+    }
   },
   {
     "type": "church",
@@ -3020,7 +3197,17 @@
       "funnel": null,
       "teardown": null
     },
-    "email": null
+    "email": null,
+    "contact": {
+      "email": "eric@kingdomculturephx.com",
+      "phone": null,
+      "socials": {
+        "instagram": "https://www.instagram.com/kingdomculturephx/?fbclid=IwY2xjawLSJltleHRuA2FlbQIxMABicmlkETFPR1NQUXV0TU1MaGtkMHNVAR48IW_szdvYM5eBWXHLNS3UrOnlfzaGtQbB8clDYsAHPTJifWi7DjRuANUVXw_aem_hy_Jun_dvH70TkwFWGYIDg",
+        "youtube": "https://www.youtube.com/@KingdomCulturePhoenix"
+      },
+      "source": "their website",
+      "at": "2026-07-05"
+    }
   },
   {
     "type": "church",
@@ -3243,7 +3430,18 @@
       "funnel": null,
       "teardown": null
     },
-    "email": null
+    "email": null,
+    "contact": {
+      "email": "hello@rosechurch.ca",
+      "phone": null,
+      "socials": {
+        "youtube": "https://www.youtube.com/@RoseChurchCanada/featured",
+        "instagram": "https://www.instagram.com/rosechurchca?igsh=MXQzYTkwbzhjYTRkMA==",
+        "facebook": "https://www.facebook.com/rosechurchca"
+      },
+      "source": "their website",
+      "at": "2026-07-05"
+    }
   },
   {
     "type": "business",
@@ -3355,7 +3553,16 @@
       "funnel": null,
       "teardown": null
     },
-    "email": null
+    "email": null,
+    "contact": {
+      "email": "info@lincolnavedentistry.com",
+      "phone": "(720)638-2075",
+      "socials": {
+        "facebook": "https://www.facebook.com/LincolnAveDentistry/"
+      },
+      "source": "their website",
+      "at": "2026-07-05"
+    }
   },
   {
     "type": "church",
@@ -3466,7 +3673,14 @@
       "funnel": null,
       "teardown": null
     },
-    "email": null
+    "email": null,
+    "contact": {
+      "email": "zionlincoln.office@gmail.com",
+      "phone": "402-796-2433",
+      "socials": {},
+      "source": "their website",
+      "at": "2026-07-05"
+    }
   },
   {
     "type": "church",
@@ -3572,7 +3786,16 @@
       "funnel": null,
       "teardown": null
     },
-    "email": null
+    "email": null,
+    "contact": {
+      "email": "info@friendshipbc.com",
+      "phone": "860 567 3389",
+      "socials": {
+        "instagram": "https://www.instagram.com/friendshipbc/"
+      },
+      "source": "their website",
+      "at": "2026-07-05"
+    }
   },
   {
     "type": "business",
@@ -3680,6 +3903,17 @@
     "email": {
       "subject": "I rebuilt Jewelry Store in Aurora, CO's website — it's ready to look at",
       "body": "Hi — Kris here from Sightline Studio, here in Colorado.\n\nI scored biondijewelry.com against 11 other business businesses: 66/100 vs a 47 average.\n\nSo instead of sending a pitch deck, I just built it. Here's Jewelry Store in Aurora, CO's new site, live right now:\n\nhttps://sightline-studio.vercel.app/p/biondijewelry-com/\n\nThat's a real, working site — your name, your services, your photos, built for phones and built to be found on Google. The same link shows how you stack up against your local competitors, measured on public signals.\n\nIf you like it, it's yours: we host it, watch it, and market it from $59.99/mo with $0 down — and you own the site. If not, no hard feelings; the preview was free.\n\nWorth two minutes? Just reply to this email.\n\n— Kris\nSightline Studio · look sharp, stay safe, get found"
+    },
+    "contact": {
+      "email": null,
+      "phone": "(303) 680-8725",
+      "socials": {
+        "facebook": "https://www.facebook.com/biondijewelers/?ref=mf",
+        "linkedin": "https://www.linkedin.com/in/biondi-diamond-jewelers-13004348/",
+        "instagram": "https://www.instagram.com/biondijewelers/"
+      },
+      "source": "their website",
+      "at": "2026-07-05"
     }
   },
   {
@@ -3783,6 +4017,16 @@
     "email": {
       "subject": "I rebuilt Griffiths Law's website — it's ready to look at",
       "body": "Hi — Kris here from Sightline Studio, here in Colorado.\n\nI pulled up griffithslawpc.com and noticed it's missing reviews & social proof — 50% of law businesses have it, and it's likely costing you customers every week.\n\nSo instead of sending a pitch deck, I just built it. Here's Griffiths Law's new site, live right now:\n\nhttps://sightline-studio.vercel.app/p/griffithslawpc-com/\n\nThat's a real, working site — your name, your services, your photos, built for phones and built to be found on Google. The same link shows how you stack up against your local competitors, measured on public signals.\n\nIf you like it, it's yours: we host it, watch it, and market it from $59.99/mo with $0 down — and you own the site. If not, no hard feelings; the preview was free.\n\nWorth two minutes? Just reply to this email.\n\n— Kris\nSightline Studio · look sharp, stay safe, get found"
+    },
+    "contact": {
+      "email": null,
+      "phone": "+13038588090",
+      "socials": {
+        "linkedin": "https://www.linkedin.com/company/griffiths-law-pc",
+        "facebook": "https://www.facebook.com/GriffithsLawPC"
+      },
+      "source": "their website",
+      "at": "2026-07-05"
     }
   },
   {
@@ -3899,7 +4143,17 @@
       "funnel": null,
       "teardown": null
     },
-    "email": null
+    "email": null,
+    "contact": {
+      "email": "info@petrachurch.net",
+      "phone": "(406) 273-2036",
+      "socials": {
+        "facebook": "https://www.facebook.com/petrachurchmissoula/",
+        "instagram": "https://www.instagram.com/petra.church.missoula?igsh=MTN5cmFpY211bHcxcw%3D%3D&utm_source=qr"
+      },
+      "source": "their website",
+      "at": "2026-07-05"
+    }
   },
   {
     "type": "business",
@@ -4002,6 +4256,15 @@
     "email": {
       "subject": "I rebuilt Colorado Lending Team | Carrie Bakunas & Scott Baade Mortgage's website — it's ready to look at",
       "body": "Hi — Kris here from Sightline Studio, here in Colorado.\n\nI pulled up coloradolendingteam.com and noticed it's missing services / what we do — 64% of business businesses have it, and it's likely costing you customers every week.\n\nSo instead of sending a pitch deck, I just built it. Here's Colorado Lending Team | Carrie Bakunas & Scott Baade Mortgage's new site, live right now:\n\nhttps://sightline-studio.vercel.app/p/coloradolendingteam-com/\n\nThat's a real, working site — your name, your services, your photos, built for phones and built to be found on Google. The same link shows how you stack up against your local competitors, measured on public signals.\n\nIf you like it, it's yours: we host it, watch it, and market it from $59.99/mo with $0 down — and you own the site. If not, no hard feelings; the preview was free.\n\nWorth two minutes? Just reply to this email.\n\n— Kris\nSightline Studio · look sharp, stay safe, get found"
+    },
+    "contact": {
+      "email": "team@coloradolendingteam.com",
+      "phone": "(303) 477-3889",
+      "socials": {
+        "facebook": "https://www.facebook.com/coloradolendingteam"
+      },
+      "source": "their website",
+      "at": "2026-07-05"
     }
   },
   {
@@ -4098,6 +4361,15 @@
     "email": {
       "subject": "I rebuilt Denver, Littleton, Centennial, CO | Paramount Title Agency's website — it's ready to look at",
       "body": "Hi — Kris here from Sightline Studio, here in Colorado.\n\nI scored paramounttitle.com against 11 other business businesses: 68/100 vs a 47 average.\n\nSo instead of sending a pitch deck, I just built it. Here's Denver, Littleton, Centennial, CO | Paramount Title Agency's new site, live right now:\n\nhttps://sightline-studio.vercel.app/p/paramounttitle-com/\n\nThat's a real, working site — your name, your services, your photos, built for phones and built to be found on Google. The same link shows how you stack up against your local competitors, measured on public signals.\n\nIf you like it, it's yours: we host it, watch it, and market it from $59.99/mo with $0 down — and you own the site. If not, no hard feelings; the preview was free.\n\nWorth two minutes? Just reply to this email.\n\n— Kris\nSightline Studio · look sharp, stay safe, get found"
+    },
+    "contact": {
+      "email": "info@paramounttitle.com",
+      "phone": "3034143500",
+      "socials": {
+        "facebook": "https://www.facebook.com/ParamountTitle/"
+      },
+      "source": "their website",
+      "at": "2026-07-05"
     }
   },
   {
@@ -4214,7 +4486,18 @@
       "funnel": null,
       "teardown": null
     },
-    "email": null
+    "email": null,
+    "contact": {
+      "email": "hello@cclongview.com",
+      "phone": "360-578-6258",
+      "socials": {
+        "facebook": "https://facebook.com/cclongview",
+        "instagram": "https://instagram.com/cclongview",
+        "youtube": "https://youtube.com/c/calvarylongview"
+      },
+      "source": "their website",
+      "at": "2026-07-05"
+    }
   },
   {
     "type": "business",
@@ -4316,6 +4599,16 @@
     "email": {
       "subject": "I rebuilt True Beauty MedSpa's website — it's ready to look at",
       "body": "Hi — Kris here from Sightline Studio, here in Colorado.\n\nI scored truebeautymedspa.com against 3 other medspa businesses: 71/100 vs a 49 average.\n\nSo instead of sending a pitch deck, I just built it. Here's True Beauty MedSpa's new site, live right now:\n\nhttps://sightline-studio.vercel.app/p/truebeautymedspa-com/\n\nThat's a real, working site — your name, your services, your photos, built for phones and built to be found on Google. The same link shows how you stack up against your local competitors, measured on public signals.\n\nIf you like it, it's yours: we host it, watch it, and market it from $59.99/mo with $0 down — and you own the site. If not, no hard feelings; the preview was free.\n\nWorth two minutes? Just reply to this email.\n\n— Kris\nSightline Studio · look sharp, stay safe, get found"
+    },
+    "contact": {
+      "email": "team@latofonts.com",
+      "phone": "3039726862",
+      "socials": {
+        "facebook": "https://www.facebook.com/1029967140488780",
+        "instagram": "https://www.instagram.com/truebeautymedspa2018"
+      },
+      "source": "their website",
+      "at": "2026-07-05"
     }
   },
   {
@@ -4428,7 +4721,17 @@
       "funnel": null,
       "teardown": null
     },
-    "email": null
+    "email": null,
+    "contact": {
+      "email": "info@magnoliadentalco.com",
+      "phone": "720-647-9880",
+      "socials": {
+        "facebook": "https://www.facebook.com/magnoliadentalco",
+        "instagram": "https://instagram.com/magnoliadentalco"
+      },
+      "source": "their website",
+      "at": "2026-07-05"
+    }
   },
   {
     "type": "church",
@@ -4533,7 +4836,18 @@
       "funnel": null,
       "teardown": null
     },
-    "email": null
+    "email": null,
+    "contact": {
+      "email": "info@lifepointecc.com",
+      "phone": "1803-802-8500",
+      "socials": {
+        "instagram": "https://instagram.com/lifepointecc",
+        "facebook": "https://www.facebook.com/lifepointecc",
+        "youtube": "https://www.youtube.com/channel/UCC_AOlzuJn6vCXvGqg1aoXQ"
+      },
+      "source": "their website",
+      "at": "2026-07-05"
+    }
   },
   {
     "type": "business",
@@ -4847,7 +5161,17 @@
       "funnel": null,
       "teardown": null
     },
-    "email": null
+    "email": null,
+    "contact": {
+      "email": "info@ccnorthside.com",
+      "phone": "423-842-0110",
+      "socials": {
+        "facebook": "https://www.facebook.com/calvarychapelnorthside",
+        "instagram": "https://instagram.com/calvarychapelnorthside"
+      },
+      "source": "their website",
+      "at": "2026-07-05"
+    }
   },
   {
     "type": "church",
@@ -4952,7 +5276,18 @@
       "funnel": null,
       "teardown": null
     },
-    "email": null
+    "email": null,
+    "contact": {
+      "email": "churchoffice@paxpres.org",
+      "phone": "301-863-2033",
+      "socials": {
+        "youtube": "https://www.youtube.com/@PatuxentPresbyterianChurch",
+        "facebook": "https://www.facebook.com/The-Patuxent-Presbyterian-Church-109381965769482/",
+        "instagram": "https://www.instagram.com/patuxentpresbyterianchurch/"
+      },
+      "source": "their website",
+      "at": "2026-07-05"
+    }
   },
   {
     "type": "business",
@@ -5064,7 +5399,16 @@
       "funnel": null,
       "teardown": null
     },
-    "email": null
+    "email": null,
+    "contact": {
+      "email": null,
+      "phone": "(303) 841-9009",
+      "socials": {
+        "facebook": "https://www.facebook.com/SweetpeaChildrensDentistry"
+      },
+      "source": "their website",
+      "at": "2026-07-05"
+    }
   },
   {
     "type": "business",
@@ -5166,6 +5510,16 @@
     "email": {
       "subject": "I rebuilt KC Mortgage Kay Cleland - First Time Homebuyer Loans, Manufactured Homes in Castle Rock, Colorado Springs, Parker's website — it's ready to look at",
       "body": "Hi — Kris here from Sightline Studio, here in Colorado.\n\nI pulled up kcmortgagecolorado.com and noticed it's missing services / what we do — 64% of business businesses have it, and it's likely costing you customers every week.\n\nSo instead of sending a pitch deck, I just built it. Here's KC Mortgage Kay Cleland - First Time Homebuyer Loans, Manufactured Homes in Castle Rock, Colorado Springs, Parker's new site, live right now:\n\nhttps://sightline-studio.vercel.app/p/kcmortgagecolorado-com/\n\nThat's a real, working site — your name, your services, your photos, built for phones and built to be found on Google. The same link shows how you stack up against your local competitors, measured on public signals.\n\nIf you like it, it's yours: we host it, watch it, and market it from $59.99/mo with $0 down — and you own the site. If not, no hard feelings; the preview was free.\n\nWorth two minutes? Just reply to this email.\n\n— Kris\nSightline Studio · look sharp, stay safe, get found"
+    },
+    "contact": {
+      "email": "kay@kcmortgagecolorado.com",
+      "phone": "+17206700124",
+      "socials": {
+        "facebook": "https://www.facebook.com/KCMortgageKayCleland",
+        "instagram": "https://www.instagram.com/homeloanswithkay1"
+      },
+      "source": "their website",
+      "at": "2026-07-05"
     }
   },
   {
@@ -5264,7 +5618,18 @@
       "funnel": null,
       "teardown": null
     },
-    "email": null
+    "email": null,
+    "contact": {
+      "email": "gettingconnected@kccfamily.org",
+      "phone": "757-490-3925",
+      "socials": {
+        "facebook": "https://www.facebook.com/kccfamily.org/",
+        "instagram": "https://instagram.com/kempsville_christian_church/",
+        "youtube": "https://www.youtube.com/@kccfamilylive/streams"
+      },
+      "source": "their website",
+      "at": "2026-07-05"
+    }
   },
   {
     "type": "business",
@@ -5376,7 +5741,16 @@
       "funnel": null,
       "teardown": null
     },
-    "email": null
+    "email": null,
+    "contact": {
+      "email": null,
+      "phone": "303-676-8516",
+      "socials": {
+        "facebook": "https://www.facebook.com/594067290766812"
+      },
+      "source": "their website",
+      "at": "2026-07-05"
+    }
   },
   {
     "type": "church",
@@ -5480,7 +5854,18 @@
       "funnel": null,
       "teardown": null
     },
-    "email": null
+    "email": null,
+    "contact": {
+      "email": "info@mosaicchurch.live",
+      "phone": "15033640002",
+      "socials": {
+        "youtube": "https://www.youtube.com/@MosaicChurchSalem",
+        "facebook": "https://www.facebook.com/mosaicchurchsalem",
+        "instagram": "https://www.instagram.com/mosaicchurchsalem"
+      },
+      "source": "their website",
+      "at": "2026-07-05"
+    }
   },
   {
     "type": "church",
@@ -5595,7 +5980,17 @@
       "funnel": null,
       "teardown": null
     },
-    "email": null
+    "email": null,
+    "contact": {
+      "email": "loran@efcsweetwater.com",
+      "phone": "3252369200",
+      "socials": {
+        "facebook": "https://www.facebook.com/faith2life/",
+        "instagram": "https://www.instagram.com/faith2life_efc/"
+      },
+      "source": "their website",
+      "at": "2026-07-05"
+    }
   },
   {
     "type": "church",
@@ -5814,7 +6209,19 @@
       "funnel": null,
       "teardown": null
     },
-    "email": null
+    "email": null,
+    "contact": {
+      "email": "admin@oxfordbaptist.ca",
+      "phone": "1519-537-7612",
+      "socials": {
+        "youtube": "https://www.youtube.com/channel/UC7ChrfKm35-rHaJvl2H775w/featured",
+        "facebook": "https://www.facebook.com/316001365110926",
+        "instagram": "https://www.instagram.com/oxfordbaptistwoodstock",
+        "tiktok": "https://www.tiktok.com/@oxfordbaptistchurch?is_from_webapp=1&sender_device=pc"
+      },
+      "source": "their website",
+      "at": "2026-07-05"
+    }
   },
   {
     "type": "church",
@@ -5918,7 +6325,18 @@
       "funnel": null,
       "teardown": null
     },
-    "email": null
+    "email": null,
+    "contact": {
+      "email": null,
+      "phone": "484-544-4579",
+      "socials": {
+        "facebook": "https://www.facebook.com/branchlife.church",
+        "instagram": "https://www.instagram.com/branchlifechurch",
+        "youtube": "https://www.youtube.com/@branchlifechurch"
+      },
+      "source": "their website",
+      "at": "2026-07-05"
+    }
   },
   {
     "type": "business",
@@ -6030,7 +6448,16 @@
       "funnel": null,
       "teardown": null
     },
-    "email": null
+    "email": null,
+    "contact": {
+      "email": "downtownparkerdental@gmail.com",
+      "phone": "+13032220050",
+      "socials": {
+        "facebook": "https://www.facebook.com/profile.php?id=100045234441493&business_id=1590582577931445"
+      },
+      "source": "their website",
+      "at": "2026-07-05"
+    }
   },
   {
     "type": "business",
@@ -6117,7 +6544,17 @@
       "funnel": null,
       "teardown": null
     },
-    "email": null
+    "email": null,
+    "contact": {
+      "email": null,
+      "phone": "+1-720-253-1979",
+      "socials": {
+        "facebook": "https://www.facebook.com/StonegateDental",
+        "yelp": "https://www.yelp.com/biz/stonegate-dental-care-parker-4"
+      },
+      "source": "their website",
+      "at": "2026-07-05"
+    }
   },
   {
     "type": "church",
@@ -6215,7 +6652,18 @@
       "funnel": null,
       "teardown": null
     },
-    "email": null
+    "email": null,
+    "contact": {
+      "email": null,
+      "phone": "1352-333-7700",
+      "socials": {
+        "instagram": "https://www.instagram.com/westsidegainesville",
+        "facebook": "https://www.facebook.com/westsidegainesville",
+        "youtube": "https://www.youtube.com/@westsidegainesville/?sub_confirmation=1"
+      },
+      "source": "their website",
+      "at": "2026-07-05"
+    }
   },
   {
     "type": "business",
@@ -6302,7 +6750,17 @@
       "funnel": null,
       "teardown": null
     },
-    "email": null
+    "email": null,
+    "contact": {
+      "email": null,
+      "phone": "720-722-3792",
+      "socials": {
+        "facebook": "https://www.facebook.com/Signaturesmilesparker/",
+        "instagram": "https://www.instagram.com/signaturesmilesparker/?hl=en"
+      },
+      "source": "their website",
+      "at": "2026-07-05"
+    }
   },
   {
     "type": "church",
