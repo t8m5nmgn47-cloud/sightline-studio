@@ -1,0 +1,762 @@
+{
+  "generated": "sweep wf_238114a2-59f (partial)",
+  "total": 48,
+  "byVertical": {
+    "dentist": 48
+  },
+  "prospects": [
+    {
+      "name": "North Spokane Dental Practice",
+      "url": "https://northspokanedental.com/",
+      "city": "Spokane",
+      "phone": "(509) 465-5000",
+      "vertical": "dentist",
+      "metro": "Spokane WA",
+      "badnessScore": 88,
+      "signals": [
+        "early-2000s table-based layout",
+        "spacer GIFs / image-based nav",
+        "no HTTPS",
+        "not mobile-friendly",
+        "no online booking",
+        "Olympic Web Design site builder template"
+      ],
+      "confidence": "high"
+    },
+    {
+      "name": "East Town Family Dentistry",
+      "url": "",
+      "webPresence": "directory-only",
+      "city": "Bakersfield",
+      "phone": "(661) 631-0355",
+      "vertical": "dentist",
+      "metro": "Bakersfield CA",
+      "badnessScore": 85,
+      "signals": [
+        "No dedicated website found",
+        "Only appears on Healthgrades/WebMD/Yelp/CareCredit directories",
+        "No online booking or owned web presence"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "name": "Simms Family Dentistry",
+      "url": "https://www.dentist-boise.net/",
+      "city": "Boise",
+      "phone": "(208) 376-8573",
+      "vertical": "dentist",
+      "metro": "Boise ID",
+      "badnessScore": 82,
+      "signals": [
+        "dated mid-2010s WordPress w/ RevSlider",
+        "spam/pharma content injection visible (security compromise)",
+        "only basic appointment-request form, no real booking",
+        "generic template feel"
+      ],
+      "confidence": "high"
+    },
+    {
+      "name": "Carter Dental",
+      "url": "http://carterdmd.com/",
+      "city": "Boise",
+      "phone": "",
+      "vertical": "dentist",
+      "metro": "Boise ID",
+      "badnessScore": 80,
+      "signals": [
+        "http-only legacy domain",
+        "HTTPS fails with SSL internal error (broken/misconfigured)",
+        "old 'Welcome to Carter Dental' landing page"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "name": "Dream Dental Care (Peters Sanglim Lee DMD)",
+      "url": "http://dream-dental-care.edan.io/",
+      "webPresence": "",
+      "city": "Bakersfield",
+      "phone": "(661) 326-0766",
+      "vertical": "dentist",
+      "metro": "Bakersfield CA",
+      "badnessScore": 76,
+      "signals": [
+        "Site is a free edan.io subdomain, not a real domain",
+        "HTTP (not HTTPS)",
+        "Thin/basic auto-generated builder page",
+        "Heavy reliance on directory listings"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "name": "Dental Care Center of Boise",
+      "url": "https://dentalcarecenterofboise.com/",
+      "city": "Boise",
+      "phone": "(208) 375-2363",
+      "vertical": "dentist",
+      "metro": "Boise ID",
+      "badnessScore": 74,
+      "signals": [
+        "dated Officite (MH Sub I) template",
+        "appointment form returns Error! (broken booking)",
+        "older layout, no modern CTAs"
+      ],
+      "confidence": "high"
+    },
+    {
+      "name": "Latah Creek Family Dentistry",
+      "url": "https://latahcreekfamilydentistry.com/",
+      "city": "Spokane",
+      "phone": "(509) 455-5001",
+      "vertical": "dentist",
+      "metro": "Spokane WA",
+      "badnessScore": 74,
+      "signals": [
+        "dated early-2010s design",
+        "copyright still says 2014",
+        "limited/desktop-focused layout",
+        "minimal maintenance"
+      ],
+      "confidence": "high"
+    },
+    {
+      "name": "Osborn Denture Clinic",
+      "url": "https://osborndentureclinic.com/",
+      "city": "Spokane",
+      "phone": "(509) 922-1885",
+      "vertical": "dentist",
+      "metro": "Spokane WA",
+      "badnessScore": 72,
+      "signals": [
+        "dated basic HTML",
+        "thin online-business-card content",
+        "no clear mobile optimization",
+        "no online booking",
+        "phone-only contact"
+      ],
+      "confidence": "high"
+    },
+    {
+      "name": "Dental Partners East Ridge",
+      "url": "https://chattanoogafamilydental.com/",
+      "city": "Chattanooga TN",
+      "phone": "(423) 680-6784",
+      "vertical": "dentist",
+      "metro": "Chattanooga TN",
+      "badnessScore": 72,
+      "signals": [
+        "domain serves a default Plesk Obsidian control-panel page",
+        "site broken / misconfigured / effectively parked",
+        "no real content served at root"
+      ],
+      "confidence": "high"
+    },
+    {
+      "name": "Velis Family Dental Care",
+      "url": "http://www.velisdental.com/",
+      "city": "Spokane Valley",
+      "phone": "",
+      "vertical": "dentist",
+      "metro": "Spokane WA",
+      "badnessScore": 70,
+      "signals": [
+        "http-only URL",
+        "SSL certificate mismatch (cert for internetbrands.com, not the domain)",
+        "browser security warning likely"
+      ],
+      "confidence": "high"
+    },
+    {
+      "name": "Grand Island Dental & Mt. Vernon Dentistry (Dr. Nguyen Pham)",
+      "url": "https://www.yoursmileisourmission.com/",
+      "webPresence": "",
+      "city": "Bakersfield",
+      "phone": "(661) 847-9888",
+      "vertical": "dentist",
+      "metro": "Bakersfield CA",
+      "badnessScore": 70,
+      "signals": [
+        "ProSites template",
+        "No responsive/mobile optimization apparent",
+        "Dated basic HTML layout",
+        "Only appointment-request form, no real online booking"
+      ],
+      "confidence": "high"
+    },
+    {
+      "name": "Dr. Rodrigo Ayala Dentistry",
+      "url": "https://www.drayaladentistry.com/",
+      "webPresence": "",
+      "city": "Bakersfield",
+      "phone": "(661) 398-1744",
+      "vertical": "dentist",
+      "metro": "Bakersfield CA",
+      "badnessScore": 70,
+      "signals": [
+        "ProSites template",
+        "Early/mid-2000s text-heavy design",
+        "Deeply nested dropdown menus",
+        "Static, no modern UX or booking"
+      ],
+      "confidence": "high"
+    },
+    {
+      "name": "Family Dental Group",
+      "url": "https://familydentaltucson.com/",
+      "city": "Tucson AZ",
+      "phone": "520-320-9004",
+      "vertical": "dentist",
+      "metro": "Tucson AZ",
+      "badnessScore": 68,
+      "signals": [
+        "copyright 2019 - stale",
+        "no online booking",
+        "mobile-friendliness unclear",
+        "mid-2010s WordPress design"
+      ],
+      "confidence": "high"
+    },
+    {
+      "name": "Hacienda Dental (Nirup Reddy, DDS)",
+      "url": "https://www.haciendadental.com/",
+      "webPresence": "",
+      "city": "Bakersfield",
+      "phone": "(661) 398-5555",
+      "vertical": "dentist",
+      "metro": "Bakersfield CA",
+      "badnessScore": 68,
+      "signals": [
+        "ProSites 'litesite' template",
+        "Mid-2010s design",
+        "Stale content ('CEREC coming soon!')",
+        "No social integration, generic hero slider"
+      ],
+      "confidence": "high"
+    },
+    {
+      "name": "Idaho Family Dental",
+      "url": "https://idahofamilydental.com/",
+      "city": "Boise",
+      "phone": "(208) 375-1012",
+      "vertical": "dentist",
+      "metro": "Boise ID",
+      "badnessScore": 66,
+      "signals": [
+        "dated ~2014-era imagery and layout",
+        "no online booking (contact form only)",
+        "generic WordPress dental template"
+      ],
+      "confidence": "high"
+    },
+    {
+      "name": "Psomas, Warnica and Jones, DDS",
+      "url": "https://www.spokanevalleydds.com/",
+      "city": "Spokane Valley",
+      "phone": "",
+      "vertical": "dentist",
+      "metro": "Spokane WA",
+      "badnessScore": 66,
+      "signals": [
+        "SSL error: unable to get local issuer certificate",
+        "chain/cert misconfiguration"
+      ],
+      "confidence": "high"
+    },
+    {
+      "name": "Allen Tsai, DDS (The Smile Site)",
+      "url": "https://www.thesmilesite.com/",
+      "webPresence": "",
+      "city": "Bakersfield",
+      "phone": "(661) 588-9499",
+      "vertical": "dentist",
+      "metro": "Bakersfield CA",
+      "badnessScore": 66,
+      "signals": [
+        "Officite template",
+        "Early-to-mid 2010s layout",
+        "Static image gallery, minimal interactivity",
+        "Neglected look vs modern standards"
+      ],
+      "confidence": "high"
+    },
+    {
+      "name": "Columbus Family Dentistry (bakersfielddentaloffice.com)",
+      "url": "https://www.bakersfielddentaloffice.com/",
+      "webPresence": "",
+      "city": "Bakersfield",
+      "phone": "(661) 322-1300",
+      "vertical": "dentist",
+      "metro": "Bakersfield CA",
+      "badnessScore": 66,
+      "signals": [
+        "TheDocSites template",
+        "Dated early-2000s aesthetic",
+        "Traditional dropdown nav / image slider",
+        "Template footer, minimal contemporary styling"
+      ],
+      "confidence": "high"
+    },
+    {
+      "name": "Davenport & Davenport Dental Practice",
+      "url": "https://www.davenportdds.com/",
+      "city": "Tucson AZ",
+      "phone": "520-886-2546",
+      "vertical": "dentist",
+      "metro": "Tucson AZ",
+      "badnessScore": 65,
+      "signals": [
+        "dated mid-2010s WordPress look",
+        "very review-heavy cluttered layout",
+        "traditional static structure"
+      ],
+      "confidence": "high"
+    },
+    {
+      "name": "Dr. Dalesandro & Associates",
+      "url": "https://www.drdalesandro.com/",
+      "city": "Tucson AZ",
+      "phone": "520-327-5993",
+      "vertical": "dentist",
+      "metro": "Tucson AZ",
+      "badnessScore": 65,
+      "signals": [
+        "Officite cookie-cutter template",
+        "2012-2015 template era look",
+        "generic layout, no modern UX"
+      ],
+      "confidence": "high"
+    },
+    {
+      "name": "Riverview Dental",
+      "url": "https://boiseriverviewdental.com/",
+      "city": "Boise",
+      "phone": "(208) 888-5544",
+      "vertical": "dentist",
+      "metro": "Boise ID",
+      "badnessScore": 64,
+      "signals": [
+        "dated 2014-2016 WordPress theme",
+        "no online booking, email links only",
+        "outdated graphics"
+      ],
+      "confidence": "high"
+    },
+    {
+      "name": "Carlos Rodriguez DMD",
+      "url": "https://www.dentists-tucson.com/",
+      "city": "Tucson AZ",
+      "phone": "520-795-9202",
+      "vertical": "dentist",
+      "metro": "Tucson AZ",
+      "badnessScore": 63,
+      "signals": [
+        "aging Enfold WordPress theme",
+        "circa 2015-2018 aesthetic",
+        "no copyright date in footer",
+        "gmail contact address"
+      ],
+      "confidence": "high"
+    },
+    {
+      "name": "Hammel Dentistry",
+      "url": "https://hammeldentistry.com/",
+      "city": "Tucson AZ",
+      "phone": "520-647-2888",
+      "vertical": "dentist",
+      "metro": "Tucson AZ",
+      "badnessScore": 62,
+      "signals": [
+        "WEO Media canned template",
+        "2015-2018 era design",
+        "basic icon graphics, no modern UI"
+      ],
+      "confidence": "high"
+    },
+    {
+      "name": "Ivan Medina-Martinez, DDS",
+      "url": "https://www.ivanmedinadds.com/",
+      "webPresence": "",
+      "city": "Bakersfield",
+      "phone": "(661) 741-0310",
+      "vertical": "dentist",
+      "metro": "Bakersfield CA",
+      "badnessScore": 62,
+      "signals": [
+        "Officite template",
+        "Conventional/dated styling",
+        "Highlights outdated amenities (TV in every room)",
+        "Limited recent updates"
+      ],
+      "confidence": "high"
+    },
+    {
+      "name": "Idaho Street Dental",
+      "url": "https://www.idahostreetdental.com/",
+      "city": "Boise",
+      "phone": "(208) 343-7271",
+      "vertical": "dentist",
+      "metro": "Boise ID",
+      "badnessScore": 60,
+      "signals": [
+        "dated ~2018 WordPress styling, generic stock photos",
+        "no online booking (Contact Us only)",
+        "template look"
+      ],
+      "confidence": "high"
+    },
+    {
+      "name": "George J. Bourekis, DDS",
+      "url": "https://www.smilespokanevalley.com/",
+      "city": "Spokane Valley",
+      "phone": "(509) 922-2288",
+      "vertical": "dentist",
+      "metro": "Spokane WA",
+      "badnessScore": 60,
+      "signals": [
+        "dated design aesthetic",
+        "Sesame 24-7 healthcare template (not custom)",
+        "visual presentation doesn't match established practice (est. 1956)"
+      ],
+      "confidence": "high"
+    },
+    {
+      "name": "Midtown Family Dentistry",
+      "url": "https://www.midtownfamilydentistry.com/",
+      "webPresence": "",
+      "city": "Bakersfield",
+      "phone": "(661) 407-8409",
+      "vertical": "dentist",
+      "metro": "Bakersfield CA",
+      "badnessScore": 60,
+      "signals": [
+        "Template-based site",
+        "No online booking (call/text only)",
+        "Basic line icons, limited visual hierarchy",
+        "Dated presentation for a 30-yr practice"
+      ],
+      "confidence": "high"
+    },
+    {
+      "name": "Gentle Family Dentistry (Dr. Rita Ann Harding)",
+      "url": "https://www.drritaharding.com/",
+      "city": "Boise",
+      "phone": "(208) 375-0665",
+      "vertical": "dentist",
+      "metro": "Boise ID",
+      "badnessScore": 58,
+      "signals": [
+        "Prosites cookie-cutter template",
+        "dated mid-2010s design",
+        "generic layout, minimal branding"
+      ],
+      "confidence": "high"
+    },
+    {
+      "name": "Michael DuVall DDS PLLC",
+      "url": "https://www.michaelduvalldds.com/",
+      "city": "Chattanooga TN",
+      "phone": "(423) 624-6241",
+      "vertical": "dentist",
+      "metro": "Chattanooga TN",
+      "badnessScore": 58,
+      "signals": [
+        "dated 2010-2015 look",
+        "built on ProSites dental template",
+        "thin generic boilerplate content",
+        "no modern UX / weak visual hierarchy"
+      ],
+      "confidence": "high"
+    },
+    {
+      "name": "Carter Family Dentistry",
+      "url": "https://www.carterfamilydds.com/",
+      "city": "Boise",
+      "phone": "(208) 376-6346",
+      "vertical": "dentist",
+      "metro": "Boise ID",
+      "badnessScore": 56,
+      "signals": [
+        "dated bare Squarespace template",
+        "no online booking",
+        "text-heavy, weak visual hierarchy, minimal branding"
+      ],
+      "confidence": "high"
+    },
+    {
+      "name": "Downtown Dental (Dr. William Webb)",
+      "url": "https://www.downtowndentalchatt.com/",
+      "city": "Chattanooga TN",
+      "phone": "(423) 267-9189",
+      "vertical": "dentist",
+      "metro": "Chattanooga TN",
+      "badnessScore": 56,
+      "signals": [
+        "dated template look",
+        "Officite (MH Sub I/Henry Schein) builder",
+        "thin homepage, no service depth",
+        "appointment request only, no real online booking"
+      ],
+      "confidence": "high"
+    },
+    {
+      "name": "Greg Miller DDS (Advanced Dentistry)",
+      "url": "https://www.drmillerdentistry.com/",
+      "city": "Deer Park / Spokane",
+      "phone": "(509) 276-1992",
+      "vertical": "dentist",
+      "metro": "Spokane WA",
+      "badnessScore": 55,
+      "signals": [
+        "dated design with basic styling/layout",
+        "future-dated 2026 copyright (placeholder error)",
+        "needs modernization"
+      ],
+      "confidence": "high"
+    },
+    {
+      "name": "Carlson Dentistry of Bakersfield",
+      "url": "https://www.bakersfield-dentist.com/",
+      "webPresence": "",
+      "city": "Bakersfield",
+      "phone": "(661) 327-7301",
+      "vertical": "dentist",
+      "metro": "Bakersfield CA",
+      "badnessScore": 55,
+      "signals": [
+        "TNT Dental template",
+        "Stale 2022 copyright / maintenance gaps",
+        "Basic HTML structure",
+        "Lacks contemporary design polish"
+      ],
+      "confidence": "high"
+    },
+    {
+      "name": "Fox's Spokane Denture Clinic",
+      "url": "https://foxsspokanedenture.com/",
+      "city": "Spokane",
+      "phone": "(509) 535-7434",
+      "vertical": "dentist",
+      "metro": "Spokane WA",
+      "badnessScore": 54,
+      "signals": [
+        "dated aesthetic with placeholder image elements",
+        "thin gallery/blog sections",
+        "visually outdated"
+      ],
+      "confidence": "high"
+    },
+    {
+      "name": "Doster Dental",
+      "url": "https://www.dosterdental.com/",
+      "city": "Chattanooga TN",
+      "phone": "(423) 265-8839",
+      "vertical": "dentist",
+      "metro": "Chattanooga TN",
+      "badnessScore": 52,
+      "signals": [
+        "Officite dental template",
+        "styling feels ~2015-2018",
+        "thin content, no provider bios/service detail",
+        "stagnant / not refreshed"
+      ],
+      "confidence": "high"
+    },
+    {
+      "name": "Frank Son DDS",
+      "url": "https://franksondds.com/",
+      "city": "Tucson AZ",
+      "phone": "520-881-4604",
+      "vertical": "dentist",
+      "metro": "Tucson AZ",
+      "badnessScore": 50,
+      "signals": [
+        "early-to-mid 2010s design language",
+        "dated hero image styling",
+        "basic thumbnail gallery, uninspired"
+      ],
+      "confidence": "high"
+    },
+    {
+      "name": "Shallowford Family Dental Group",
+      "url": "https://www.shallowfordfamilydental.com/",
+      "city": "Chattanooga TN",
+      "phone": "(423) 892-4477",
+      "vertical": "dentist",
+      "metro": "Chattanooga TN",
+      "badnessScore": 50,
+      "signals": [
+        "thin content with 'Bio coming soon' placeholder",
+        "no online booking (phone only)",
+        "generic service descriptions",
+        "duplicated nav / dated feel"
+      ],
+      "confidence": "high"
+    },
+    {
+      "name": "Dr. Jay H. Sciuchetti, DDS",
+      "url": "https://www.drjayspokane.com/index.html",
+      "city": "Spokane",
+      "phone": "(509) 624-0542",
+      "vertical": "dentist",
+      "metro": "Spokane WA",
+      "badnessScore": 48,
+      "signals": [
+        "no integrated online booking (contact form only)",
+        "aging Legwork template",
+        "generic small-business builder footer"
+      ],
+      "confidence": "high"
+    },
+    {
+      "name": "Jorge L. Alvarez DDS",
+      "url": "https://jorgealvarezdds.com/",
+      "city": "Tucson AZ",
+      "phone": "520-722-1655",
+      "vertical": "dentist",
+      "metro": "Tucson AZ",
+      "badnessScore": 45,
+      "signals": [
+        "2014-2016 layout",
+        "many placeholder/stub images",
+        "muted, stale visual presentation"
+      ],
+      "confidence": "high"
+    },
+    {
+      "name": "Scott E. Hayhurst Family & Cosmetic Dentistry",
+      "url": "https://www.boisedentistsmiles.com/",
+      "city": "Boise",
+      "phone": "(208) 376-7721",
+      "vertical": "dentist",
+      "metro": "Boise ID",
+      "badnessScore": 44,
+      "signals": [
+        "no online booking (request form only)",
+        "otherwise reasonably modern"
+      ],
+      "confidence": "high"
+    },
+    {
+      "name": "Thomas Frank, DDS",
+      "url": "https://www.frankdds.com/",
+      "webPresence": "",
+      "city": "Bakersfield",
+      "phone": "(661) 324-6511",
+      "vertical": "dentist",
+      "metro": "Bakersfield CA",
+      "badnessScore": 42,
+      "signals": [
+        "WordPress, moderately dated (2-3 yrs)",
+        "No direct online scheduling (contact form only)",
+        "Not reflecting current design trends"
+      ],
+      "confidence": "high"
+    },
+    {
+      "name": "Dedicated Dental Services",
+      "url": "https://dedicateddental.net/",
+      "city": "Tucson AZ",
+      "phone": "520-750-1500",
+      "vertical": "dentist",
+      "metro": "Tucson AZ",
+      "badnessScore": 40,
+      "signals": [
+        "no visible online booking",
+        "placeholder image elements",
+        "generic Betheme WordPress build"
+      ],
+      "confidence": "high"
+    },
+    {
+      "name": "Revive Dental",
+      "url": "https://revivedental.org/",
+      "city": "Chattanooga TN",
+      "phone": "",
+      "vertical": "dentist",
+      "metro": "Chattanooga TN",
+      "badnessScore": 40,
+      "signals": [
+        "DIY WordPress template",
+        "plugin-based reviews with dated styling",
+        "self-managed / low-budget build"
+      ],
+      "confidence": "high"
+    },
+    {
+      "name": "Bridge Dental Care",
+      "url": "https://www.bridgedentalcare.com/",
+      "city": "Chattanooga TN",
+      "phone": "",
+      "vertical": "dentist",
+      "metro": "Chattanooga TN",
+      "badnessScore": 40,
+      "signals": [
+        "stock 'Great Dental Websites' template",
+        "conventional/undistinctive design",
+        "thin service pages",
+        "no custom branding"
+      ],
+      "confidence": "high"
+    },
+    {
+      "name": "Dental Care on Golf Links",
+      "url": "https://www.dentalcaretucson.com/",
+      "city": "Tucson AZ",
+      "phone": "520-886-6054",
+      "vertical": "dentist",
+      "metro": "Tucson AZ",
+      "badnessScore": 38,
+      "signals": [
+        "generic corporate WordPress look",
+        "base64 image placeholders / possible load issues",
+        "no modern design flourishes"
+      ],
+      "confidence": "high"
+    },
+    {
+      "name": "McKinney Dental",
+      "url": "https://www.mckinneydentaltn.com/",
+      "city": "Chattanooga TN",
+      "phone": "(423) 266-1714",
+      "vertical": "dentist",
+      "metro": "Chattanooga TN",
+      "badnessScore": 38,
+      "signals": [
+        "keyword-stuffed location links dilute content",
+        "repetitive/thin service descriptions",
+        "little unique content depth"
+      ],
+      "confidence": "high"
+    },
+    {
+      "name": "East Ridge Family Dental",
+      "url": "https://www.erfamilydental.com/",
+      "city": "East Ridge / Chattanooga TN",
+      "phone": "(423) 629-6015",
+      "vertical": "dentist",
+      "metro": "Chattanooga TN",
+      "badnessScore": 35,
+      "signals": [
+        "no online booking (phone/email only)",
+        "some older gallery imagery",
+        "moderate content depth, no patient education"
+      ],
+      "confidence": "high"
+    },
+    {
+      "name": "Chattanooga Family Dental",
+      "url": "https://chattanoogafamilydentaltn.com/",
+      "city": "Chattanooga TN",
+      "phone": "",
+      "vertical": "dentist",
+      "metro": "Chattanooga TN",
+      "badnessScore": 35,
+      "signals": [
+        "placeholder 'Testimonial Here' text left in",
+        "placeholder/unoptimized imagery",
+        "thin 1-2 sentence service descriptions",
+        "template-based Squarespace build"
+      ],
+      "confidence": "high"
+    }
+  ]
+}
