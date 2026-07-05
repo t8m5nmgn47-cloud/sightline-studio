@@ -7,11 +7,12 @@
 // ─────────────────────────────────────────────────────────────────────────────
 import fs from 'node:fs';
 import path from 'node:path';
-import * as cheerio from '/Users/kristianemery/sightline-studio/node_modules/cheerio/dist/browser/index.js';
+import * as cheerio from 'cheerio';
 import { extractSignals } from '../api/_intake.js';
 import { normalize, assemble, recommendRecipe, VERTICALS, TRADITIONS } from './site-engine.mjs';
 
-const ROOT = '/Users/kristianemery/sightline-studio';
+import { fileURLToPath } from 'node:url';
+const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const UA = { headers:{'user-agent':'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120 Safari/537.36'}, redirect:'follow' };
 const slugify = d => d.replace(/^https?:\/\//,'').replace(/^www\./,'').replace(/\/.*$/,'').replace(/[^a-z0-9]+/gi,'-').toLowerCase();
 
