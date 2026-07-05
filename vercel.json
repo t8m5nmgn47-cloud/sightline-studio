@@ -1,27 +1,53 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "functions": {
-    "api/intake.js": { "memory": 1024, "maxDuration": 60 },
-    "api/audit.js": { "memory": 512, "maxDuration": 30 },
-    "api/scan-live.js": { "memory": 512, "maxDuration": 30 },
-    "api/audit-refresh.js": { "memory": 512, "maxDuration": 60 }
+    "api/intake.js": {
+      "memory": 1024,
+      "maxDuration": 60
+    },
+    "api/audit.js": {
+      "memory": 512,
+      "maxDuration": 30
+    },
+    "api/scan-live.js": {
+      "memory": 512,
+      "maxDuration": 30
+    },
+    "api/audit-refresh.js": {
+      "memory": 512,
+      "maxDuration": 60
+    }
   },
   "crons": [
-    { "path": "/api/audit-refresh", "schedule": "0 8 * * *" }
-  ],
-  "redirects": [
-    { "source": "/free-scan", "destination": "/#scanlive", "permanent": false },
-    { "source": "/free-scan/", "destination": "/#scanlive", "permanent": false }
+    {
+      "path": "/api/audit-refresh",
+      "schedule": "0 8 * * *"
+    }
   ],
   "headers": [
     {
       "source": "/(.*)",
       "headers": [
-        { "key": "X-Content-Type-Options", "value": "nosniff" },
-        { "key": "Referrer-Policy", "value": "strict-origin-when-cross-origin" },
-        { "key": "X-Frame-Options", "value": "SAMEORIGIN" },
-        { "key": "Strict-Transport-Security", "value": "max-age=31536000; includeSubDomains" },
-        { "key": "Permissions-Policy", "value": "geolocation=(), microphone=(), camera=()" }
+        {
+          "key": "X-Content-Type-Options",
+          "value": "nosniff"
+        },
+        {
+          "key": "Referrer-Policy",
+          "value": "strict-origin-when-cross-origin"
+        },
+        {
+          "key": "X-Frame-Options",
+          "value": "SAMEORIGIN"
+        },
+        {
+          "key": "Strict-Transport-Security",
+          "value": "max-age=31536000; includeSubDomains"
+        },
+        {
+          "key": "Permissions-Policy",
+          "value": "geolocation=(), microphone=(), camera=()"
+        }
       ]
     }
   ]

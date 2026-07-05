@@ -50,12 +50,12 @@ h1,h2,h3{font-variant-ligatures:none}
     <form id="f">
       <div class="plans">
         <label class="plan"><input type="radio" name="plan" value="site">
-          <span><span class="t"><span class="big">$59</span>/mo</span><br><span class="s"><b>Site</b> — we build it, you own it. Bespoke site, hosting, security &amp; the guest concierge. $0 down.</span></span></label>
+          <span><span class="t"><span class="big">$59.99</span>/mo</span><br><span class="s"><b>Site</b> — we build it, you own it. Bespoke site, hosting, security &amp; booking built in. $0 down.</span></span></label>
         <label class="plan on"><input type="radio" name="plan" value="frontdoor" checked>
-          <span><span class="t"><span class="big">$129</span>/mo</span><br><span class="s"><b>Front Door</b> — everything in Site, kept fresh: monthly edits, SEO, sermons/events. You never touch it.</span></span>
+          <span><span class="t"><span class="big">$129.99</span>/mo</span><br><span class="s"><b>Front Door</b> — everything in Site, kept fresh: monthly edits, SEO &amp; new content. You never touch it.</span></span>
           <span class="tag">Most popular</span></label>
         <label class="plan"><input type="radio" name="plan" value="frontdesk">
-          <span><span class="t"><span class="big">$199</span>/mo</span><br><span class="s"><b>Front Desk</b> — your whole front door + front desk: reputation, reviews, Google profile &amp; social, handled.</span></span></label>
+          <span><span class="t"><span class="big">$199.99</span>/mo</span><br><span class="s"><b>Front Desk</b> — your whole front door + front desk: reputation, reviews, Google profile &amp; social, handled.</span></span></label>
       </div>
       <div class="row2">
         <div class="fld"><label>First name</label><input id="fname" autocomplete="given-name" placeholder="Jordan"></div>
@@ -72,7 +72,7 @@ h1,h2,h3{font-variant-ligatures:none}
       <div class="reassure"><span>✓ Cancel-friendly</span><span>✓ First month free</span><span>✓ 30-day money-back</span><span>✓ No four-figure build fee</span></div>
     </form>
   </div>
-  <div class="alt">Prefer to talk first? <a id="callus" href="#">Book a 15-min call</a> · or <a id="textus" href="#">text/email us</a></div>
+  <div class="alt">Prefer to talk first? <a id="callus" href="/book/">Book a 15-min call</a> · or <a id="textus" href="mailto:hello@sightlinehq.com">text/email us</a></div>
   </div>
 </div>
 <div class="foot"><span class="lock">🔒 Secure</span> · Your details are sent over an encrypted connection and used only to build and launch your site.</div>
@@ -99,7 +99,7 @@ $("#textus").href=CONTACT.phone?("sms:"+CONTACT.phone.replace(/[^0-9+]/g,"")):ma
 // plan radio styling
 document.querySelectorAll(".plan").forEach(p=>p.addEventListener("click",()=>{document.querySelectorAll(".plan").forEach(x=>x.classList.remove("on"));p.classList.add("on");p.querySelector("input").checked=true;}));
 
-function planLabel(v){return v==="site"?"Site — $59/mo":v==="frontdesk"?"Front Desk — $199/mo":"Front Door — $129/mo";}
+function planLabel(v){return v==="site"?"Site — $59.99/mo":v==="frontdesk"?"Front Desk — $199.99/mo":"Front Door — $129.99/mo";}
 
 $("#f").addEventListener("submit",async e=>{
   e.preventDefault();

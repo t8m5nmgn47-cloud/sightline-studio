@@ -3,12 +3,12 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Pricing — Sightline</title>
-<meta name="description" content="One simple plan. Start with a free scan, then keep watch from $49 a month. Cancel anytime, 30-day money-back.">
+<title>Pricing — Sightline Studio</title>
+<meta name="description" content="Simple, honest pricing. A bespoke website from $59.99/mo with $0 down, or let us run your whole online presence. Free scan first — cancel anytime, 30-day money-back.">
 <link rel="canonical" href="https://sightline-studio.vercel.app/pricing">
 <meta property="og:type" content="website">
-<meta property="og:title" content="Pricing — Sightline">
-<meta property="og:description" content="One simple plan. Start with a free scan, then keep watch from $49 a month. Cancel anytime, 30-day money-back.">
+<meta property="og:title" content="Pricing — Sightline Studio">
+<meta property="og:description" content="Simple, honest pricing. A bespoke website from $59.99/mo with $0 down, or let us run your whole online presence. Free scan first — cancel anytime, 30-day money-back.">
 <meta property="og:url" content="https://sightline-studio.vercel.app/pricing">
 <meta property="og:site_name" content="Sightline">
 <meta name="twitter:card" content="summary_large_image">
@@ -23,7 +23,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,600;12..96,700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/assets/css/styles.css">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"Sightline","url":"https://sightline-studio.vercel.app","slogan":"See your business the way the public already does.","description":"One simple plan. Start with a free scan, then keep watch from $49 a month. Cancel anytime, 30-day money-back."}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"Sightline","url":"https://sightline-studio.vercel.app","slogan":"See your business the way the public already does.","description":"Simple, honest pricing. A bespoke website from $59.99/mo with $0 down, or let us run your whole online presence. Free scan first — cancel anytime, 30-day money-back."}</script>
 <script>window.va=window.va||function(){(window.vaq=window.vaq||[]).push(arguments);};</script>
 <script defer src="/_vercel/insights/script.js"></script>
 </head>
@@ -35,7 +35,7 @@
     <span class="logo-mark" aria-hidden="true"><svg viewBox="0 0 32 32" fill="none"><rect width="32" height="32" rx="8" fill="#0B2447"/><path d="M16 6l8 3.4v5.2c0 5-3.3 8.9-8 10.8-4.7-1.9-8-5.8-8-10.8V9.4z" fill="none" stroke="#10B6A8" stroke-width="2" stroke-linejoin="round"/><path d="M12 16.2l2.6 2.6L21 12.4" stroke="#10B6A8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg></span>
     <span class="logo-word">Sightline Studio</span>
   </a>
-    <nav class="nav" aria-label="Primary"><a href="/how-it-works">How it works</a><a href="/what-we-check">What we check</a><a href="/sample-report">Sample report</a><a href="/pricing" aria-current="page">Pricing</a></nav>
+    <nav class="nav" aria-label="Primary"><a href="/gallery">Websites</a><a href="/how-it-works">Monitoring</a><a href="/marketing">Marketing</a><a href="/pricing" aria-current="page">Pricing</a></nav>
     <div class="header-cta">
       <a class="btn btn-primary" href="/free-scan">Get my free scan</a>
     </div>
@@ -44,7 +44,7 @@
     </button>
   </div>
   <div class="mobile-nav" id="mobile-nav" hidden>
-    <a href="/how-it-works">How it works</a><a href="/what-we-check">What we check</a><a href="/sample-report">Sample report</a><a href="/pricing">Pricing</a>
+    <a href="/gallery">Websites</a><a href="/how-it-works">Monitoring</a><a href="/marketing">Marketing</a><a href="/pricing">Pricing</a>
     <a class="btn btn-primary" href="/free-scan">Get my free scan</a>
   </div>
 </header>
@@ -53,59 +53,100 @@
 <section class="page-hero center reveal">
   <div class="wrap narrow">
     <span class="eyebrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 14a8 8 0 0116 0"/><path d="M12 14l4-3"/><circle cx="12" cy="14" r="1.3" fill="currentColor"/></svg> Pricing</span>
-    <h1>Start free. Keep watch from $49 a month.</h1>
-    <p class="lede">No setup fees. No long contracts. Just a clear monthly report and an alert when something needs you.</p>
+    <h1>Start free. Add what you need.</h1>
+    <p class="lede">No setup fees, no contracts, no four-figure build bill. Every plan starts with a free scan and a free demo of your new site — you pay nothing until you love it.</p>
   </div>
 </section>
+<style>
+.pricing-grid.tiers{grid-template-columns:repeat(3,1fr);max-width:1120px}
+@media(max-width:960px){.pricing-grid.tiers{grid-template-columns:1fr}}
+.addon-pills{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;max-width:880px;margin:22px auto 0}
+.addon-pills .pill{font-size:.85rem;border:1px solid var(--mist,#e3e8ef);background:#fff;border-radius:999px;padding:8px 14px}
+.addon-pills .pill b{margin-left:4px}
+.freescan-note{max-width:720px;margin:26px auto 0;text-align:center}
+</style>
 <section class="band reveal">
-  <div class="wrap pricing-grid">
+  <div class="wrap pricing-grid tiers">
     <div class="price-card big">
-      <span class="badge">Free to start</span>
-      <div class="price-top"><span class="price-name">Free scan</span><span class="price-amt">$0</span></div>
-      <p class="price-sub">A one-time snapshot to see where you stand.</p>
+      
+      <div class="price-top"><span class="price-name">Site</span><span class="price-amt">$59.99<small>/mo</small></span></div>
+      <p class="price-sub">We build it, you own it — $0 down. Free scan &amp; demo first, no obligation.</p>
       <ul class="ticks">
-        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l4.5 4.5L19 7"/></svg> Your top issues across all three areas</li>
-        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l4.5 4.5L19 7"/></svg> A simple overall score</li>
-        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l4.5 4.5L19 7"/></svg> Plain-English explanations</li>
-        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l4.5 4.5L19 7"/></svg> No card, no signup</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l4.5 4.5L19 7"/></svg> A bespoke, modern site — built for you &amp; hosted</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l4.5 4.5L19 7"/></svg> Booking &amp; contact built in</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l4.5 4.5L19 7"/></svg> Security, SSL &amp; mobile — all included</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l4.5 4.5L19 7"/></svg> Cancel anytime · keep your site</li>
       </ul>
-      <a class="btn btn-ghost btn-lg" href="/free-scan">Get my free scan</a>
+      <a class="btn btn-ghost btn-lg" href="/start">Start your site </a>
     </div>
     <div class="price-card big featured">
       <span class="badge teal">Most popular</span>
-      <div class="price-top"><span class="price-name">Sightline Monitoring</span><span class="price-amt">$49<small>/mo</small></span></div>
-      <p class="price-sub">We keep watch and tell you when something changes.</p>
+      <div class="price-top"><span class="price-name">Front Door</span><span class="price-amt">$129.99<small>/mo</small></span></div>
+      <p class="price-sub">Everything in Site, kept fresh — you never touch it.</p>
       <ul class="ticks">
-        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l4.5 4.5L19 7"/></svg> A full report every month</li>
-        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l4.5 4.5L19 7"/></svg> Alerts the moment something changes</li>
-        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l4.5 4.5L19 7"/></svg> Ranked, plain-English fixes</li>
-        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l4.5 4.5L19 7"/></svg> All three areas — website, exposure, reputation</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l4.5 4.5L19 7"/></svg> Everything in Site, done for you</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l4.5 4.5L19 7"/></svg> Monthly edits, SEO &amp; new content</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l4.5 4.5L19 7"/></svg> Events, media &amp; seasonal pages, managed</li>
         <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l4.5 4.5L19 7"/></svg> Cancel anytime · 30-day money-back</li>
       </ul>
-      <a class="btn btn-primary btn-lg" href="/free-scan">Start with a free scan <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
-      <p class="micro">Pay yearly ($490) and get two months free.</p>
+      <a class="btn btn-primary btn-lg" href="/start">Start your site <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+    </div>
+    <div class="price-card big">
+      
+      <div class="price-top"><span class="price-name">Front Desk</span><span class="price-amt">$199.99<small>/mo</small></span></div>
+      <p class="price-sub">Your whole front door <em>and</em> front desk.</p>
+      <ul class="ticks">
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l4.5 4.5L19 7"/></svg> Everything in Front Door</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l4.5 4.5L19 7"/></svg> Reputation &amp; reviews, managed</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l4.5 4.5L19 7"/></svg> Google profile + social, handled</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l4.5 4.5L19 7"/></svg> Monthly plain-English report</li>
+      </ul>
+      <a class="btn btn-ghost btn-lg" href="/start">Start your site </a>
     </div>
   </div>
-  <p class="center muted small">Prices shown are a starting guide. Final pricing is confirmed before you ever pay — and the scan is always free.</p>
+  <p class="center muted small freescan-note">Every plan begins with a <a href="/free-scan">free scan</a> — a plain-English report on your website, security &amp; reviews. No card, no signup. Pay yearly and get two months free.</p>
 </section>
 <section class="band cloud reveal">
+  <div class="wrap">
+    <h2 class="center">Add-ons — switch on exactly what you need</h2>
+    <p class="center muted">Every site starts lean. Add capabilities à la carte, month-to-month, and pay only for what you turn on.</p>
+    <div class="addon-pills">
+      <span class="pill">Online Booking <b>+$19.99</b></span>
+      <span class="pill">Online Store <b>+$25.99</b></span>
+      <span class="pill">Shipping — UPS &amp; USPS <b>+$15.99</b></span>
+      <span class="pill">Online Payments <b>+$10.99</b></span>
+      <span class="pill">Reviews &amp; Reputation <b>+$39.99</b></span>
+      <span class="pill">AI Assistant <b>+$49.99</b></span>
+      <span class="pill">Security &amp; Monitoring <b>+$29.99</b></span>
+      <span class="pill">Customer Database (CRM) <b>+$19.99</b></span>
+      <span class="pill">Photo Gallery <b>+$9.99</b></span>
+      <span class="pill">Patient Intake Forms <b>+$20.99</b></span>
+      <span class="pill">Legal Pages <b>+$15.99</b></span>
+      <span class="pill">Logo &amp; Brand Kit <b>Free</b></span>
+    </div>
+    <p class="center" style="margin-top:22px"><a class="btn btn-ghost" href="/builder">Build your plan →</a></p>
+  </div>
+</section>
+<section class="band reveal">
   <div class="wrap narrow">
     <h2 class="center">Common questions about price</h2>
     <div class="accordion" data-accordion>
-      <div class="acc-item"><button class="acc-q" aria-expanded="false">Is the free scan really free?<span class="acc-i"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></button><div class="acc-a"><p>Yes — completely. No card, no signup, no catch. It’s how you decide whether the monthly service is worth it.</p></div></div>
-      <div class="acc-item"><button class="acc-q" aria-expanded="false">Can I cancel whenever I want?<span class="acc-i"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></button><div class="acc-a"><p>Anytime, in a couple of clicks. And if the first month isn’t useful, we’ll refund it.</p></div></div>
-      <div class="acc-item"><button class="acc-q" aria-expanded="false">Are there setup or hidden fees?<span class="acc-i"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></button><div class="acc-a"><p>None. One simple monthly price covers everything in the plan.</p></div></div>
+      <div class="acc-item"><button class="acc-q" aria-expanded="false">Is the free scan really free?<span class="acc-i"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></button><div class="acc-a"><p>Yes — completely. No card, no signup, no catch. It's how you decide whether working with us is worth it.</p></div></div>
+      <div class="acc-item"><button class="acc-q" aria-expanded="false">Do I own my website?<span class="acc-i"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></button><div class="acc-a"><p>Yes. We build it, you own it. If you ever leave, your site and your domain go with you.</p></div></div>
+      <div class="acc-item"><button class="acc-q" aria-expanded="false">Can I cancel whenever I want?<span class="acc-i"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></button><div class="acc-a"><p>Anytime, in a couple of clicks. And if the first month isn't useful, we'll refund it — 30-day money-back.</p></div></div>
+      <div class="acc-item"><button class="acc-q" aria-expanded="false">Are there setup or hidden fees?<span class="acc-i"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></button><div class="acc-a"><p>None. $0 down to build, one clear monthly price, and add-ons only if you switch them on.</p></div></div>
     </div>
   </div>
 </section>
 <section class="band cta-band reveal">
   <div class="wrap cta-inner">
-    <h2>See what the internet says about your business.</h2>
-    <p>Free scan. Plain-English report. No card, no commitment, nothing to install.</p>
+    <h2>Let's make your business unmissable online.</h2>
+    <p>Start with a free, plain-English scan of your website, security, and reviews — no card, no commitment.</p>
     <a class="btn btn-primary btn-lg" href="/free-scan">Get my free scan <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
     <p class="micro">Takes 30 seconds to request. We do the rest.</p>
   </div>
 </section>
+
 </main>
 <footer class="site-footer">
   <div class="wrap footer-grid">
@@ -119,7 +160,9 @@
     </div>
     <div class="footer-col">
       <h4>Product</h4>
-      <a href="/how-it-works">How it works</a>
+      <a href="/gallery">Websites</a>
+      <a href="/how-it-works">Monitoring</a>
+      <a href="/marketing">Marketing</a>
       <a href="/what-we-check">What we check</a>
       <a href="/sample-report">Sample report</a>
       <a href="/pricing">Pricing</a>

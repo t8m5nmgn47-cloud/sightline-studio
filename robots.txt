@@ -3,5 +3,16 @@ Allow: /
 Disallow: /admin
 Disallow: /pipeline
 Disallow: /p/
+Disallow: /teardowns
+Disallow: /styles
+Disallow: /generator
+Disallow: /logo
+Disallow: /engine
+Disallow: /leads
+Disallow: /crm
+Disallow: /data
+Disallow: /demo
+Disallow: /onboard
+Disallow: /portal
 
 Sitemap: https://sightline-studio.vercel.app/sitemap.xml
