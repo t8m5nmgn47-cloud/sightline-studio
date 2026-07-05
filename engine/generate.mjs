@@ -1,8 +1,9 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { normalize, assemble } from './site-engine.mjs';
+import { fileURLToPath } from 'node:url';
 
-const ROOT = '/Users/kristianemery/sightline-studio';
+const ROOT = fileURLToPath(new URL('..', import.meta.url));
 const CAP = path.join(ROOT,'assets/captured/missionhills-org');
 const sig = JSON.parse(fs.readFileSync(path.join(CAP,'signals.json'),'utf8'));
 const content = JSON.parse(fs.readFileSync(path.join(CAP,'content.json'),'utf8')); // real extracted detail

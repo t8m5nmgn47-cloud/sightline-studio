@@ -1,6 +1,7 @@
 import fs from 'node:fs'; import path from 'node:path';
 import { normalize, assemble } from './site-engine.mjs';
-const ROOT='/Users/kristianemery/sightline-studio';
+import { fileURLToPath } from 'node:url';
+const ROOT = fileURLToPath(new URL('..', import.meta.url));
 
 // New Covenant's real site is nearly empty, so we build from its brand + the good
 // authored voice already in the demo, and let the engine add the whole journey.

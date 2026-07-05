@@ -1,10 +1,11 @@
 import fs from 'node:fs'; import path from 'node:path';
-import * as cheerio from '/Users/kristianemery/sightline-studio/node_modules/cheerio/dist/browser/index.js';
+import * as cheerio from 'cheerio';
 import { normalize, assemble } from './site-engine.mjs';
 import { extractSignals } from '../api/_intake.js';
 import { scoreCongregation, corpusFromPages } from './congregation.mjs';
+import { fileURLToPath } from 'node:url';
 
-const ROOT='/Users/kristianemery/sightline-studio';
+const ROOT = fileURLToPath(new URL('..', import.meta.url));
 const html=fs.readFileSync(path.join(ROOT,'assets/harvest/pages/clchr-lutheran.html'),'utf8');
 const sig=extractSignals(html,'https://www.clchr.org');
 // save logo

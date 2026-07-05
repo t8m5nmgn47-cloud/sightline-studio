@@ -9,8 +9,9 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { scoreCongregation, corpusFromPages } from './congregation.mjs';
 import { scoreBusiness } from './business.mjs';
+import { fileURLToPath } from 'node:url';
 
-const ROOT = '/Users/kristianemery/sightline-studio';
+const ROOT = fileURLToPath(new URL('..', import.meta.url));
 // business sites (the profit engine) — scored on Business-Readiness (booking/reviews/offer)
 const BIZ_SOURCE = { dir:'assets/harvest/business' };
 function detectVertical(t){ t=t.toLowerCase();

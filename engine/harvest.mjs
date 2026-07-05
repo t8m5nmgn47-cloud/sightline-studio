@@ -4,8 +4,9 @@
 import * as cheerio from 'cheerio';
 import fs from 'node:fs';
 import { scoreCongregation, corpusFromPages } from './congregation.mjs';
+import { fileURLToPath } from 'node:url';
 
-const DIR = '/Users/kristianemery/sightline-studio/assets/harvest/pages';
+const DIR = fileURLToPath(new URL('../assets/harvest/pages', import.meta.url));
 const NAMES = { 'newlife-cs':'New Life Church (CO Springs)','woodmenvalley':'Woodmen Valley Chapel (CO Springs)',
   'lakewood':'Lakewood Church (Houston)','secondbaptist':'Second Baptist (Houston)','woodlands':'Woodlands Church (Houston)',
   'houstonsfirst':"Houston's First Baptist",'championforest':'Champion Forest Baptist (Houston)' };
@@ -47,7 +48,7 @@ for (const f of fs.readdirSync(DIR)){
   rows.push({ slug, name:NAMES[slug]||slug, readiness, navCount:nav.length, nav, features, bigImgs, video });
 }
 rows.sort((a,b)=>b.readiness-a.readiness);
-fs.writeFileSync('/Users/kristianemery/sightline-studio/engine/preview/harvest.json', JSON.stringify(rows,null,2));
+fs.writeFileSync(fileURLToPath(new URL('preview/harvest.json', import.meta.url)), JSON.stringify(rows,null,2));
 
 // ── cross-site pattern summary ───────────────────────────────────────────────
 console.log('\n=== HARVEST: '+rows.length+' top churches ===');

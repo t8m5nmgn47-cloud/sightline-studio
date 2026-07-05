@@ -1,11 +1,12 @@
 import fs from 'node:fs';
 import path from 'node:path';
-import * as cheerio from '/Users/kristianemery/sightline-studio/node_modules/cheerio/dist/browser/index.js';
+import * as cheerio from 'cheerio';
 import { normalize, assemble } from './site-engine.mjs';
 import { extractSignals } from '../api/_intake.js';
 import { scoreCongregation, corpusFromPages } from './congregation.mjs';
+import { fileURLToPath } from 'node:url';
 
-const ROOT='/Users/kristianemery/sightline-studio';
+const ROOT = fileURLToPath(new URL('..', import.meta.url));
 const CAP=path.join(ROOT,'assets/captured/paxchristi-org');
 const sig=JSON.parse(fs.readFileSync(path.join(CAP,'signals.json'),'utf8'));
 
