@@ -10,6 +10,7 @@ import path from 'node:path';
 import * as cheerio from 'cheerio';
 import { extractSignals } from '../api/_intake.js';
 import { normalize, assemble, recommendRecipe, VERTICALS, TRADITIONS } from './site-engine.mjs';
+import { capture, saveAssets } from './capture.mjs';
 
 import { fileURLToPath } from 'node:url';
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
@@ -72,15 +73,19 @@ const flag = k => { const i=args.indexOf('--'+k); return i>-1 ? args[i+1] : null
 if (!domain){ console.error('usage: node engine/pipeline.mjs <domain> [--vertical X|--tradition Y] [--html path]'); process.exit(1); }
 
 const slug = slugify(domain);
-const { html, src } = await getHtml(domain, slug, flag('html'));
-const sig = extractSignals(html, 'https://'+domain);
-const $ = cheerio.load(html);
-const pack = detectPack($('title').text()+' '+$('body').text().slice(0,4000), {vertical:flag('vertical'), tradition:flag('tradition')});
-const name = pickName($, sig, domain);
-function pickName($, sig, domain){
+// capture: multi-page crawl + stylesheets + fonts + colours + photos + facts.
+// A cached/--html capture short-circuits to single-page mode (no network).
+const cached = flag('html') || findCapture(slug, domain);
+const cap = await capture(domain, cached ? { htmlOverride: fs.readFileSync(cached, 'utf8') } : {});
+const src = cached ? 'cache:'+path.basename(cached) : `live-crawl (${cap.pages.length} pages${cap.pages[0].rendered ? ', rendered' : ''})`;
+const html = null; // page HTML now lives in cap
+const sig = cap.sig;
+const pack = detectPack((sig.title||'')+' '+(sig.visible_text||'').slice(0,4000), {vertical:flag('vertical'), tradition:flag('tradition')});
+const name = pickName(sig, domain);
+function pickName(sig, domain){
   const clean = s => (s||'').replace(/\s+/g,' ').trim();
   const humanize = d => d.replace(/^www\./,'').replace(/\.[a-z]+$/,'').replace(/[-_.]+/g,' ').replace(/\b\w/g,c=>c.toUpperCase());
-  const raw = clean(sig.og_site_name) || clean($('title').text());
+  const raw = clean(sig.og_site_name) || clean(sig.title||'');
   const parts = raw.split(/[|–—·:]/).map(s=>s.trim()).filter(Boolean);
   if (parts.length===1 && parts[0].length>=3 && !/^(home|welcome|index)$/i.test(parts[0])) return parts[0];
   // prefer a segment that reads like a proper business name: no comma/state, 2+ Title-case words
@@ -89,18 +94,17 @@ function pickName($, sig, domain){
   return pick || humanize(domain);
 }
 
-// save the logo if we found one
-let logo = null;
-const lu = (sig.logo_candidates||[])[0]?.url;
-if (lu){ try{ const buf=Buffer.from(await (await fetch(lu,UA)).arrayBuffer());
-  const dir=path.join(ROOT,'assets/captured',slug); fs.mkdirSync(dir,{recursive:true});
-  const ext=(lu.split('.').pop()||'png').split('?')[0].slice(0,4); fs.writeFileSync(path.join(dir,'logo.'+ext),buf);
-  logo='/assets/captured/'+slug+'/logo.'+ext; }catch{} }
+// download brand assets: ranked-logo fallback chain + real photos + hero pick
+const assets = await saveAssets(slug, cap, ROOT);
+const logo = assets.logo;
 
 const isBiz = pack.kind==='vertical';
 const profile = normalize(sig, {
   slug, name, logo,
-  heroImage: isBiz ? null : '/assets/stock/church-2.webp',
+  fonts: cap.fonts.head ? cap.fonts : null,
+  phone: cap.facts.phone || '',
+  gallery: assets.gallery,
+  heroImage: assets.heroImage || (isBiz ? null : '/assets/stock/church-2.webp'),
   hero: { kick: name, headline: isBiz? name+' — care you can count on.' : 'You’re welcome here.',
     sub: (sig.description||'').slice(0,160) || (isBiz?'Modern, friendly service — book online in a minute.':'Come as you are.'),
     ctas: isBiz? [{label:'Book appointment →',href:'#book'}] : [{label:'Plan your visit →',href:'#visit'}] },
@@ -116,6 +120,6 @@ const outDir = path.join(ROOT,'demos',slug); fs.mkdirSync(outDir,{recursive:true
 fs.writeFileSync(path.join(outDir,'index.html'), site);
 console.log(`✓ ${name}
   source:   ${src}
-  pack:     ${pack.kind}=${pack.key}${logo?'  · logo captured':''}
+  pack:     ${pack.kind}=${pack.key}${logo?'  · logo':''}${assets.gallery.length?`  · ${assets.gallery.length} photos`:''}${cap.fonts.head?`  · font: ${cap.fonts.head}`:''}${cap.facts.phone?'  · phone':''}${cap.jsShell?'  · ⚠ JS shell (install Chrome for rendered capture)':''}
   recipe:   ${recipe.archetype} · ${recipe.theme} · ${recipe.mood||'none'}${recipe.vertical?' · '+recipe.vertical:recipe.tradition?' · '+recipe.tradition:''}
   published: demos/${slug}/index.html`);

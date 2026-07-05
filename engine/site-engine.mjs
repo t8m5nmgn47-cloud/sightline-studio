@@ -53,6 +53,7 @@ export function normalize(sig, over={}){
     description: clean(sig.description||''),
     logo: over.logo,                       // path to saved logo asset
     palette: derivePalette(sig.color_signals),
+    fonts: over.fonts || null,        // {head, body} — prospect's own Google Fonts
     nav: tabs.length ? tabs : null,
     phrases,
     hero: over.hero || null,               // {kick, headline, sub, ctas:[{label,href,ghost}]}
@@ -735,7 +736,12 @@ export function assemble(profile, recipe={}){
   const trad = TRADITIONS[recipe.tradition] || VERTICALS[recipe.vertical] || null;   // content pack: church tradition OR business vertical
   const mood = recipe.mood || 'godrays';
   const useCaptured = recipe.useCapturedPalette !== false;
-  const css = stylesheet().replace(/__DISPLAY__/g, theme.font);
+  // Brand-font echo: if capture found a Google Font the prospect already
+  // loads, use it as the display face (guaranteed available on Google Fonts).
+  const brandFont = profile.fonts && profile.fonts.head;
+  const displayFont = brandFont || theme.font;
+  const displayUrl = brandFont ? brandFont.replace(/ /g,'+') + ':wght@400;500;600;700' : theme.fontUrl;
+  const css = stylesheet().replace(/__DISPLAY__/g, displayFont);
   const p = trad ? { ...profile, _t:trad } : profile;   // expose tradition labels to renderers
   const order = trad ? trad.order : archetype.order;    // tradition drives content IA when set
   const bodyClass = archetype.body + (recipe.tradition ? ` trad-${recipe.tradition}` : '') + (recipe.vertical ? ` vert-${recipe.vertical}` : '');
@@ -745,7 +751,7 @@ export function assemble(profile, recipe={}){
 <title>${profile.name}${profile.tagline?` — ${profile.tagline}`:''}</title>
 <meta name="description" content="${(profile.description||'').replace(/"/g,'&quot;').slice(0,300)}">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=${theme.fontUrl}&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=${displayUrl}&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>:root{${themeVars(profile,recipe.theme,useCaptured)}}
 ${css}</style></head>
 <body class="${bodyClass}">
