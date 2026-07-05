@@ -19,3 +19,8 @@ engine/preview/national/
 
 # Generated per-prospect demos (build output; publish a specific one with: git add -f demos/<slug>)
 demos/
+
+# stray local WIP (not for deploy)
+index-redesign.html
+engine/merge-national.mjs
+engine/preview/
