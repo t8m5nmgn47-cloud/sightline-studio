@@ -114,11 +114,10 @@ $("#f").addEventListener("submit",async e=>{
     contact_name:[$("#fname").value.trim(),$("#lname").value.trim()].filter(Boolean).join(" ")||null, email, phone:$("#phone").value.trim()||null,
     domain:$("#domain").value.trim()||null, notes:$("#notes").value.trim()||null };
   let saved=false;
-  try{ const {createClient}=await import("https://esm.sh/@supabase/supabase-js@2");
-    const sb=createClient(SUPA_URL,SUPA_KEY);
-    const {error}=await sb.from("signups").insert(lead); saved=!error;
-    if(error) console.warn("signup insert:",error.message);
-  }catch(e){ console.warn("supabase load failed",e); }
+  try{ const r=await fetch("/api/signup",{method:"POST",headers:{"content-type":"application/json"},body:JSON.stringify(lead)});
+    saved=r.ok;
+    if(!r.ok) console.warn("signup save failed:",r.status);
+  }catch(e){ console.warn("signup request failed",e); }
   if(!saved){ // never lose the lead — fall back to an email handoff
     const body=`New signup%0D%0A${Object.entries(lead).map(([k,v])=>k+': '+(v||'')).join('%0D%0A')}`;
     try{ navigator.sendBeacon && false; }catch(e){}
