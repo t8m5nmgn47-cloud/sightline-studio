@@ -5,28 +5,43 @@
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.5.0/dist/chart.umd.js"></script>
 <style>
-:root{--ink:#16140f;--mut:#6b6660;--line:#e7e2d8;--bg:#f4f1ea;--ac:#1f6f5c;--gold:#c2a04a;--head:'Fraunces',Georgia,serif;--body:'Inter',system-ui,sans-serif;--num:"Helvetica Neue",Helvetica,Arial,sans-serif}
+:root{--ink:#16140f;--mut:#6b6660;--line:#e7e2d8;--bg:#f4f1ea;--ac:#1f6f5c;--gold:#c2a04a;--red:#b4453a;--head:'Fraunces',Georgia,serif;--body:'Inter',system-ui,sans-serif;--num:"Helvetica Neue",Helvetica,Arial,sans-serif}
 *{box-sizing:border-box;margin:0}body{background:var(--bg);color:var(--ink);font-family:var(--body);-webkit-font-smoothing:antialiased}
 .wrap{max-width:1100px;margin:0 auto;padding:0 clamp(18px,4vw,40px)}
 .top{display:flex;align-items:center;justify-content:space-between;padding:16px 0;border-bottom:1px solid var(--line)}
 .lg{display:flex;gap:10px;align-items:center;font-family:var(--head);font-weight:600;font-size:1.2rem}.dot{width:11px;height:11px;border-radius:50%;background:var(--ac)}
 .top a,.top button{color:var(--mut);text-decoration:none;font-size:.85rem;background:none;border:0;cursor:pointer;font:inherit}
-.hd{padding:30px 0 6px}.hd h1{font-family:var(--head);font-weight:400;font-size:clamp(2rem,1.4rem+2vw,2.9rem);letter-spacing:-.02em}.hd p{color:var(--mut);margin-top:8px;font-size:1.05rem}
-.kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:24px}@media(max-width:760px){.kpis{grid-template-columns:1fr 1fr}}
-.kpi{background:#fff;border:1px solid var(--line);border-radius:14px;padding:18px}
-.kpi .n{font-family:var(--num);font-weight:800;font-size:2.1rem;letter-spacing:-.02em;line-height:1}
-.kpi .l{color:var(--mut);font-size:.82rem;margin-top:7px;font-weight:500}
-.kpi .d{font-size:.76rem;margin-top:6px;font-weight:600}
-.kpi.accent{background:#11271f;border-color:#11271f}.kpi.accent .n{color:#fff}.kpi.accent .l{color:#9fe3c4}
-.up{color:#1f8d57}.down{color:#b4453a}
-.gh{font-size:.74rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--mut);margin:34px 0 14px}
-.charts{display:grid;grid-template-columns:1fr 1fr;gap:14px}@media(max-width:760px){.charts{grid-template-columns:1fr}}
-.chart{background:#fff;border:1px solid var(--line);border-radius:14px;padding:18px 18px 12px}
-.chart h3{font-size:.95rem;font-weight:700;margin-bottom:10px}
-.chart .cw{position:relative;height:240px}
-.insight{background:#fff;border:1px solid var(--line);border-left:4px solid var(--ac);border-radius:12px;padding:16px 18px;margin-top:12px;font-size:.94rem;line-height:1.6}
-.insight b{color:var(--ink)}
-.note{background:#fff7e6;border:1px solid #e8d6a8;color:#5a4a1f;border-radius:12px;padding:12px 15px;margin-top:12px;font-size:.86rem;line-height:1.5}
+
+/* The headline: one sentence that answers "is everything okay?" */
+.brief{padding:34px 0 8px}
+.brief .big{font-family:var(--head);font-weight:400;font-size:clamp(1.5rem,1rem+1.9vw,2.4rem);letter-spacing:-.015em;line-height:1.25;max-width:30ch}
+.brief .big b{font-weight:600;color:var(--ac)}
+.brief .big .bad{color:var(--red)}
+.brief .sub{color:var(--mut);margin-top:10px;font-size:.98rem;max-width:70ch;line-height:1.55}
+
+/* Story sections: number → chart → meaning, one per screen */
+.story{margin-top:38px;background:#fff;border:1px solid var(--line);border-radius:18px;padding:24px clamp(16px,3vw,30px) 20px}
+.story .k{font-size:.7rem;font-weight:800;letter-spacing:.13em;text-transform:uppercase;color:var(--ac)}
+.story h2{font-family:var(--head);font-weight:600;font-size:1.45rem;margin:6px 0 2px;letter-spacing:-.01em}
+.story .why{color:var(--mut);font-size:.9rem;margin-bottom:14px;max-width:75ch;line-height:1.5}
+.story .cw{position:relative;height:320px}
+.story .cw.tall{height:340px}
+.story .reading{border-top:1px solid var(--line);margin-top:16px;padding-top:14px;font-size:.94rem;line-height:1.6}
+.story .reading b{color:var(--ac)}.story .reading .bad{color:var(--red);font-weight:700}
+
+/* Next actions: the dashboard tells you what to do, not just what happened */
+.acts{margin-top:38px}
+.acts h2{font-family:var(--head);font-weight:600;font-size:1.45rem;margin-bottom:12px}
+.act{display:flex;gap:14px;align-items:flex-start;background:#fff;border:1px solid var(--line);border-left:4px solid var(--ac);border-radius:12px;padding:15px 18px;margin-bottom:10px;font-size:.94rem;line-height:1.55}
+.act .money{font-family:var(--num);font-weight:800;white-space:nowrap;font-size:1.05rem;color:var(--ac);min-width:92px}
+.act.warn{border-left-color:var(--red)}.act.warn .money{color:var(--red)}
+.act a{color:var(--ac);font-weight:700;text-decoration:none}
+details.raw{margin-top:26px;color:var(--mut);font-size:.85rem}
+details.raw summary{cursor:pointer;font-weight:600}
+details.raw table{width:100%;border-collapse:collapse;margin-top:10px;background:#fff;border:1px solid var(--line);border-radius:10px;overflow:hidden}
+details.raw th,details.raw td{padding:8px 12px;border-top:1px solid var(--line);text-align:left;font-size:.84rem}
+details.raw th{background:#fbfaf6;border-top:0}
+.note{background:#fff7e6;border:1px solid #e8d6a8;color:#5a4a1f;border-radius:12px;padding:12px 15px;margin-top:14px;font-size:.86rem;line-height:1.5}
 .empty{padding:40px 22px;color:var(--mut);text-align:center}.empty b{color:var(--ink)}
 .login{max-width:420px;margin:60px auto;background:#fff;border:1px solid var(--line);border-radius:16px;padding:30px;text-align:center}
 .login h2{font-family:var(--head);font-weight:600;margin:10px 0 6px}.login p{color:var(--mut);font-size:.9rem;margin-bottom:16px}
@@ -37,7 +52,7 @@
 <body>
 <header class="wrap top"><div class="lg"><span class="dot"></span>Sightline · Business Intelligence</div><div><a href="../admin/">← Dashboard</a> <button id="rf" style="display:none">↻ Refresh</button> <button id="out" style="display:none">Sign out</button></div></header>
 <div class="wrap"><div id="app"><div class="empty">Loading…</div></div></div>
-<footer class="foot wrap">Live from your Supabase database · leads + subscribers. Figures update on refresh. Private — visible only to your signed-in account.</footer>
+<footer class="foot wrap">Live from your database · signups + subscribers. Private — visible only to your signed-in account.</footer>
 
 <script>
 const SUPA_URL="https://vtqmtecoxljduqomtkbw.supabase.co";
@@ -68,94 +83,165 @@ function login(){
 
 async function loadAll(){
   charts.forEach(c=>{try{c.destroy()}catch(e){}}); charts=[];
-  // leads (signups) — exists; subscribers — may not exist yet
-  const leadsRes=await sb.from("signups").select("*").order("created_at",{ascending:false});
-  const subsRes=await sb.from("subscribers").select("*").order("created_at",{ascending:false});
-  const leads=leadsRes.data||[];
-  const subsMissing=!!subsRes.error;
-  const subs=subsRes.data||[];
-  render(leads,subs,subsMissing);
+  const [signupsRes, subsRes, leadsRes] = await Promise.all([
+    sb.from("signups").select("*").order("created_at",{ascending:false}),
+    sb.from("subscribers").select("*").order("created_at",{ascending:false}),
+    sb.from("leads").select("*").order("created_at",{ascending:false}),   // scan/contact requests (may be RLS-blocked)
+  ]);
+  render(signupsRes.data||[], subsRes.data||[], leadsRes.data||[], !!subsRes.error);
 }
 
-function monthKey(ts){const d=new Date(ts);return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0");}
+const monthKey=ts=>{const d=new Date(ts);return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0");};
+const planPrice=s=>{const m=(s||"").match(/\$\s?(\d+(?:\.\d+)?)/);return m?+m[1]:0;};
 function lastMonths(n){const out=[];const d=new Date();d.setDate(1);for(let i=n-1;i>=0;i--){const m=new Date(d.getFullYear(),d.getMonth()-i,1);out.push({key:m.getFullYear()+"-"+String(m.getMonth()+1).padStart(2,"0"),label:m.toLocaleString(undefined,{month:"short"})});}return out;}
 
-function render(leads,subs,subsMissing){
+// ── waterfall helper: Chart.js floating bars ─────────────────────────────────
+function waterfall(canvasId, steps){
+  // steps: [{label, delta, kind:'up'|'down'|'total'|'hold'}]
+  let run=0;
+  const data=[], colors=[], borders=[];
+  for(const s of steps){
+    if(s.kind==='total'){ data.push([0, s.value!=null?s.value:run]); colors.push('#11271f'); }
+    else if(s.kind==='hold'){ data.push([run, run+s.delta]); colors.push('#cfc8b8'); run+=0; } // shown but not banked
+    else { const from=run; run+=s.delta; data.push([from, run]); colors.push(s.delta>=0?'#1f6f5c':'#b4453a'); }
+  }
+  charts.push(new Chart(document.getElementById(canvasId),{type:'bar',
+    data:{labels:steps.map(s=>s.label),datasets:[{data,backgroundColor:colors,borderRadius:6,borderSkipped:false}]},
+    options:{plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>{
+      const [a,b]=c.raw; const d=b-a;
+      return (d>=0?'+':'−')+money(Math.abs(d))+ (steps[c.dataIndex].kind==='hold'?' (not yet banked)':'') ;
+    }}}},
+    scales:{y:{beginAtZero:true,ticks:{callback:v=>'$'+v}},x:{ticks:{font:{size:11}}}},
+    maintainAspectRatio:false}}));
+}
+
+function render(signups, subs, scans, subsMissing){
   const now=Date.now();
-  // ---- leads metrics ----
-  const st=s=>leads.filter(l=>l.status===s).length;
-  const won=st("won"), lost=st("lost"), contacted=st("contacted"), fresh=st("new");
-  const conv=leads.length?Math.round(won/leads.length*100):0;
-  const new30=leads.filter(l=>now-Date.parse(l.created_at)<30*864e5).length;
-  const prev30=leads.filter(l=>{const a=now-Date.parse(l.created_at);return a>=30*864e5&&a<60*864e5;}).length;
-  const d30=prev30?Math.round((new30-prev30)/prev30*100):(new30?100:0);
-  // ---- subscriber / revenue metrics ----
+  // ── the numbers ────────────────────────────────────────────────────────────
   const active=subs.filter(s=>s.status==="active");
+  const paused=subs.filter(s=>s.status==="paused");
+  const canceled=subs.filter(s=>s.status==="canceled");
   const mrr=active.reduce((a,s)=>a+(+s.mo||0),0);
-  const arr=mrr*12;
-  const paused=subs.filter(s=>s.status==="paused").length, canceled=subs.filter(s=>s.status==="canceled").length;
-  const arpa=active.length?mrr/active.length:0;
+  const pausedMo=paused.reduce((a,s)=>a+(+s.mo||0),0);
+  const churnedMo=canceled.reduce((a,s)=>a+(+s.mo||0),0);
+
+  const st=s=>signups.filter(l=>l.status===s);
+  const open=[...st("new"),...st("contacted")];
+  const won=st("won"), lost=st("lost");
+  const val=list=>list.reduce((a,l)=>a+planPrice(l.plan),0);
+  const openVal=val(open), lostVal=val(lost), wonVal=val(won), potential=val(signups);
+  const new30=signups.filter(l=>now-Date.parse(l.created_at)<30*864e5).length + scans.filter(l=>now-Date.parse(l.created_at)<30*864e5).length;
+
+  // ── headline: answer "is everything okay?" in one sentence ────────────────
+  const noData=!signups.length&&!subs.length&&!scans.length;
+  let big, sub;
+  if(noData){ big=`No revenue on the board yet — the machine is ready.`; sub=`The moment a lead or subscriber lands in the database, this page becomes your live P&L story: how money enters the funnel, where it leaks, and what compounds.`; }
+  else{
+    big=`You're at <b>${money(mrr)}/mo</b> recurring${openVal?` — and <b>${money(openVal)}/mo</b> more is sitting in ${open.length} open lead${open.length===1?'':'s'}.`:'.'}`;
+    sub=`${active.length} active client${active.length===1?'':'s'} · ${new30} new lead${new30===1?'':'s'} in the last 30 days`
+      + (pausedMo?` · <span style="color:#9a6b00">${money(pausedMo)}/mo paused</span>`:'')
+      + (churnedMo?` · <span class="bad" style="color:var(--red)">${money(churnedMo)}/mo churned to date</span>`:'') + '.';
+  }
 
   app.innerHTML=`
-  <section class="hd"><h1>Business intelligence.</h1><p>Live revenue and pipeline health, straight from your database.</p></section>
-  <div class="kpis">
-    <div class="kpi accent"><div class="n">${money(mrr)}</div><div class="l">Monthly recurring revenue</div><div class="d" style="color:#9fe3c4">${money(arr)} annualized</div></div>
-    <div class="kpi"><div class="n">${active.length}</div><div class="l">Active subscribers</div><div class="d">${money(arpa)}/mo avg</div></div>
-    <div class="kpi"><div class="n">${leads.length}</div><div class="l">Total leads</div><div class="d ${d30>=0?'up':'down'}">${d30>=0?'▲':'▼'} ${Math.abs(d30)}% vs prior 30d</div></div>
-    <div class="kpi"><div class="n">${conv}%</div><div class="l">Lead → won conversion</div><div class="d">${won} won · ${lost} lost</div></div>
-  </div>
+  <section class="brief"><div class="big">${big}</div><p class="sub">${sub}</p></section>
+  ${subsMissing?'<div class="note">💡 Revenue figures are $0 because the <b>subscribers</b> table doesn’t exist yet. Run <code>sightline_subscribers_table.sql</code> in Supabase to turn on MRR.</div>':''}
 
-  ${subsMissing?'<div class="note">💡 Revenue figures are $0 because the <b>subscribers</b> table doesn’t exist yet. Run <code>sightline_subscribers_table.sql</code> in Supabase to turn on MRR/ARR.</div>':''}
+  <section class="story">
+    <div class="k">Chapter 1 · The build</div>
+    <h2>How your monthly revenue was built.</h2>
+    <p class="why">Every green bar is recurring money added in that month. Red is money that left. The dark bar is where you stand today — this is the number the whole business rolls up to.</p>
+    <div class="cw"><canvas id="wMrr"></canvas></div>
+    <div class="reading" id="rMrr"></div>
+  </section>
 
-  <div class="gh">Pipeline &amp; revenue</div>
-  <div class="charts">
-    <div class="chart"><h3>Lead pipeline by stage</h3><div class="cw"><canvas id="cStage"></canvas></div></div>
-    <div class="chart"><h3>New leads — last 6 months</h3><div class="cw"><canvas id="cTrend"></canvas></div></div>
-    <div class="chart"><h3>Subscribers by status</h3><div class="cw"><canvas id="cSubs"></canvas></div></div>
-    <div class="chart"><h3>MRR by plan</h3><div class="cw"><canvas id="cPlan"></canvas></div></div>
-  </div>
+  <section class="story">
+    <div class="k">Chapter 2 · The funnel, in dollars</div>
+    <h2>Where pipeline money goes.</h2>
+    <p class="why">Every signup carries a plan price — so your funnel is measured in dollars, not counts. Grey is still in play: it hasn't been won or lost yet. That's the money your next follow-up call is worth.</p>
+    <div class="cw"><canvas id="wFunnel"></canvas></div>
+    <div class="reading" id="rFunnel"></div>
+  </section>
 
-  <div class="gh">What the numbers say</div>
-  <div id="insights"></div>`;
+  <section class="story">
+    <div class="k">Chapter 3 · The pulse</div>
+    <h2>Is the machine speeding up?</h2>
+    <p class="why">Bars are new leads entering the funnel each month (signups + scan requests). The line is recurring revenue compounding on top. Healthy months: bars feeding the line.</p>
+    <div class="cw tall"><canvas id="cPulse"></canvas></div>
+    <div class="reading" id="rPulse"></div>
+  </section>
 
-  const ACC="#1f6f5c", GOLD="#c2a04a", INK="#16140f", MUT="#b8b1a4", RED="#b4453a", BLUE="#3a5bbf";
-  const noData=!leads.length&&!subs.length;
+  <div class="acts"><h2>What to do about it</h2><div id="actions"></div></div>
 
-  // stage bar
-  charts.push(new Chart(document.getElementById("cStage"),{type:"bar",
-    data:{labels:["New","Contacted","Won","Lost"],datasets:[{data:[fresh,contacted,won,lost],backgroundColor:[GOLD,BLUE,ACC,RED],borderRadius:6}]},
-    options:{plugins:{legend:{display:false}},scales:{y:{beginAtZero:true,ticks:{precision:0}}},maintainAspectRatio:false}}));
+  <details class="raw"><summary>The raw numbers behind this page</summary><div id="raw"></div></details>`;
 
-  // trend line
+  // ── Chapter 1: MRR waterfall ───────────────────────────────────────────────
   const months=lastMonths(6);
-  const counts=months.map(m=>leads.filter(l=>monthKey(l.created_at)===m.key).length);
-  charts.push(new Chart(document.getElementById("cTrend"),{type:"line",
-    data:{labels:months.map(m=>m.label),datasets:[{data:counts,borderColor:ACC,backgroundColor:"rgba(31,111,92,.12)",fill:true,tension:.3,pointRadius:3}]},
-    options:{plugins:{legend:{display:false}},scales:{y:{beginAtZero:true,ticks:{precision:0}}},maintainAspectRatio:false}}));
+  const inWindow=k=>months.some(m=>m.key===k);
+  const allByMonth=k=>subs.filter(s=>monthKey(s.created_at)===k).reduce((a,s)=>a+(+s.mo||0),0);
+  const earlier=subs.filter(s=>!inWindow(monthKey(s.created_at))).reduce((a,s)=>a+(+s.mo||0),0);
+  const steps=[];
+  if(earlier) steps.push({label:'Earlier', delta:earlier});
+  for(const m of months){ const d=allByMonth(m.key); if(d) steps.push({label:m.label, delta:d}); }
+  if(pausedMo) steps.push({label:'Paused', delta:-pausedMo});
+  if(churnedMo) steps.push({label:'Churned', delta:-churnedMo});
+  steps.push({label:'Today', kind:'total', value:mrr});
+  if(steps.length===1) steps.unshift({label:'No revenue yet', delta:0});
+  waterfall('wMrr', steps);
+  document.getElementById('rMrr').innerHTML = noData? 'Nothing on the board yet — your first subscriber starts this chart.' :
+    `Reading: you've signed <b>${money(mrr+churnedMo+pausedMo)}/mo</b> of recurring business all-time. ${churnedMo||pausedMo?`Of that, <span class="bad">${money(churnedMo+pausedMo)}/mo</span> is churned or paused — keeping it would have made today's number <b>${money(mrr+churnedMo+pausedMo)}/mo</b>.`:'Nothing has churned. Protect that.'}`;
 
-  // subscribers doughnut
-  charts.push(new Chart(document.getElementById("cSubs"),{type:"doughnut",
-    data:{labels:["Active","Paused","Canceled"],datasets:[{data:[active.length,paused,canceled],backgroundColor:[ACC,GOLD,RED]}]},
-    options:{plugins:{legend:{position:"bottom"}},maintainAspectRatio:false}}));
+  // ── Chapter 2: funnel waterfall (dollars) ──────────────────────────────────
+  const fsteps=[
+    {label:'All signups', delta:potential},
+    ...(lostVal?[{label:'Lost', delta:-lostVal}]:[]),
+    ...(openVal?[{label:'Still in play', delta:-0, kind:'hold', deltaShown:openVal}]:[]),
+    {label:'Won', kind:'total', value:wonVal},
+  ];
+  // 'hold' renders open value as a grey floating band above won
+  if(openVal){ fsteps[fsteps.length-2]={label:'Still in play', kind:'hold', delta:-openVal}; }
+  waterfall('wFunnel', fsteps);
+  const closeRate=(wonVal+lostVal)>0?Math.round(wonVal/(wonVal+lostVal)*100):null;
+  document.getElementById('rFunnel').innerHTML = signups.length?
+    `Reading: <b>${money(potential)}/mo</b> of plan value has entered the funnel. You've won <b>${money(wonVal)}/mo</b>${lostVal?`, lost <span class="bad">${money(lostVal)}/mo</span>`:''}${closeRate!=null?` — a <b>${closeRate}%</b> dollar close rate on decided deals`:''}. <b>${money(openVal)}/mo is still on the table.</b>`
+    : 'No signups yet — when someone picks a plan on /start, their dollars appear here.';
 
-  // MRR by plan
-  const planMap={}; active.forEach(s=>{const p=s.plan||"Other";planMap[p]=(planMap[p]||0)+(+s.mo||0);});
-  const planLabels=Object.keys(planMap), planVals=planLabels.map(p=>planMap[p]);
-  charts.push(new Chart(document.getElementById("cPlan"),{type:"bar",
-    data:{labels:planLabels.length?planLabels:["No active plans"],datasets:[{data:planVals.length?planVals:[0],backgroundColor:ACC,borderRadius:6}]},
-    options:{indexAxis:"y",plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>money(c.parsed.x)}}},scales:{x:{beginAtZero:true,ticks:{callback:v=>'$'+v}}},maintainAspectRatio:false}}));
+  // ── Chapter 3: pulse (bars + compounding MRR line) ─────────────────────────
+  const leadCounts=months.map(m=>signups.filter(l=>monthKey(l.created_at)===m.key).length + scans.filter(l=>monthKey(l.created_at)===m.key).length);
+  let cum=earlier; const mrrLine=months.map(m=>{ cum+=allByMonth(m.key); return Math.max(0, cum - 0); });
+  charts.push(new Chart(document.getElementById('cPulse'),{
+    data:{labels:months.map(m=>m.label),datasets:[
+      {type:'bar',label:'New leads',data:leadCounts,backgroundColor:'#c2a04a',borderRadius:6,yAxisID:'y'},
+      {type:'line',label:'Recurring $/mo (signed)',data:mrrLine,borderColor:'#1f6f5c',backgroundColor:'rgba(31,111,92,.1)',fill:true,tension:.35,pointRadius:3,yAxisID:'y1'},
+    ]},
+    options:{plugins:{legend:{position:'bottom'}},
+      scales:{y:{beginAtZero:true,ticks:{precision:0},title:{display:true,text:'leads'}},
+              y1:{beginAtZero:true,position:'right',grid:{drawOnChartArea:false},ticks:{callback:v=>'$'+v}}},
+      maintainAspectRatio:false}}));
+  const thisM=leadCounts[leadCounts.length-1]||0, prevM=leadCounts[leadCounts.length-2]||0;
+  document.getElementById('rPulse').innerHTML = (thisM||prevM)?
+    `Reading: <b>${thisM}</b> new lead${thisM===1?'':'s'} this month vs <b>${prevM}</b> last month ${thisM>=prevM?'— the top of the funnel is '+(prevM?'growing':'starting to move'):'<span class="bad">— the funnel is slowing; feed it (stage 1 → Prospector)</span>'}.`
+    : 'Reading: the funnel is quiet. Revenue problems start here two months earlier — send funnels this week.';
 
-  // insights (computed, honest)
-  const ins=[];
-  if(noData){ins.push("No leads or subscribers in the database yet — as signups and clients come in, this page fills with live numbers.");}
-  else{
-    ins.push(`You have <b>${leads.length}</b> total leads and <b>${active.length}</b> active subscribers generating <b>${money(mrr)}/mo</b> (<b>${money(arr)}</b> annualized).`);
-    ins.push(`<b>${new30}</b> new leads in the last 30 days — ${d30>=0?'up':'down'} <b>${Math.abs(d30)}%</b> vs the prior 30 days.`);
-    ins.push(`Conversion from lead to won is <b>${conv}%</b>. ${contacted} leads are contacted and still open — the closest to becoming revenue.`);
-    if(active.length) ins.push(`<b>Add-on upside (modeled):</b> the attach model projects ~<b>$96/mo</b> in add-ons per client, which would roughly double per-client revenue. Across ${active.length} active subscriber(s) that's ~<b>${money(active.length*96)}/mo</b> (${money(active.length*96*12)}/yr) of potential add-on revenue — Reviews, AI Assistant &amp; Security are the biggest drivers. <i>Projection, not live billing.</i>`);
-    if(canceled) ins.push(`<b>${canceled}</b> subscriber(s) have canceled — worth a win-back touch.`);
-  }
-  document.getElementById("insights").innerHTML=ins.map(t=>`<div class="insight">${t}</div>`).join("");
+  // ── actions: what the numbers say to DO ────────────────────────────────────
+  const acts=[];
+  if(open.length) acts.push({m:money(openVal)+'/mo', t:`<b>${open.length} open lead${open.length===1?'':'s'}</b> are waiting on you. Newest first — reply today: speed-to-lead is the highest-leverage hour in this business.`, href:'../leads/', link:'Open leads'});
+  if(canceled.length) acts.push({m:money(churnedMo)+'/mo', warn:true, t:`<b>${canceled.length} canceled subscriber${canceled.length===1?'':'s'}</b>. One win-back email costs nothing.`, href:'../crm/', link:'Open CRM'});
+  if(paused.length) acts.push({m:money(pausedMo)+'/mo', warn:true, t:`<b>${paused.length} paused</b> — paused is a decision postponed. Ask what would restart it.`, href:'../admin/#run', link:'Subscribers'});
+  if(!signups.length||new30===0) acts.push({m:'—', t:`<b>The funnel is empty${new30===0&&signups.length?' this month':''}.</b> Everything downstream starves without leads: generate 3 demos and send 3 funnels this week.`, href:'../admin/#find', link:'Stage 1 · Find'});
+  if(active.length) acts.push({m:'~'+money(active.length*96)+'/mo', t:`<b>Add-on upside (modeled):</b> the attach model projects ~$96/mo of add-ons per client across ${active.length} client${active.length===1?'':'s'} — Reviews, AI Assistant & Security drive most of it. <i>Projection, not billing.</i>`, href:'../builder/', link:'Add-ons'});
+  document.getElementById('actions').innerHTML=acts.map(a=>`<div class="act${a.warn?' warn':''}"><span class="money">${a.m}</span><span>${a.t} <a href="${a.href}">${a.link} →</a></span></div>`).join('')||'<div class="act"><span>Nothing urgent. Go find the next prospect.</span></div>';
+
+  // ── raw numbers (progressive disclosure) ───────────────────────────────────
+  document.getElementById('raw').innerHTML=`<table>
+    <tr><th>Metric</th><th>Value</th></tr>
+    <tr><td>MRR (active)</td><td>${money(mrr)} · ${money(mrr*12)} annualized</td></tr>
+    <tr><td>Active / paused / canceled</td><td>${active.length} / ${paused.length} / ${canceled.length}</td></tr>
+    <tr><td>Signups: open / won / lost</td><td>${open.length} (${money(openVal)}/mo) / ${won.length} (${money(wonVal)}/mo) / ${lost.length} (${money(lostVal)}/mo)</td></tr>
+    <tr><td>Scan &amp; contact requests</td><td>${scans.length}</td></tr>
+    <tr><td>New leads, last 30 days</td><td>${new30}</td></tr>
+    <tr><td>Avg revenue per active client</td><td>${active.length?money(mrr/active.length):'—'}/mo</td></tr>
+  </table>`;
 }
 </script>
 </body></html>
