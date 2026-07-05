@@ -1,0 +1,977 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sightline Studio — websites, monitoring & marketing for local business</title>
+<meta name="description" content="One studio for your whole online presence: a website that wins customers, plain-English monitoring that keeps you safe, and marketing that gets you found. Start with a free scan — no signup, nothing to install.">
+<link rel="canonical" href="https://sightline-studio.vercel.app/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Sightline Studio — websites, monitoring & marketing for local business">
+<meta property="og:description" content="One studio for your whole online presence: a site that wins customers, monitoring that keeps you safe, and marketing that gets you found. Start with a free scan.">
+<meta property="og:url" content="https://sightline-studio.vercel.app/">
+<meta property="og:site_name" content="Sightline Studio">
+<meta name="twitter:card" content="summary_large_image">
+<meta property="og:image" content="https://sightline-studio.vercel.app/assets/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:image" content="https://sightline-studio.vercel.app/assets/og.png">
+<meta name="theme-color" content="#0B2447">
+<noscript><style>.reveal{opacity:1;transform:none}</style></noscript>
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,600;12..96,700;12..96,800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/css/styles.css">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"Sightline Studio","url":"https://sightline-studio.vercel.app","slogan":"Look sharp. Stay safe. Get found.","description":"One studio for your whole online presence: websites, monitoring and marketing for local business. Start with a free scan."}</script>
+<script>window.va=window.va||function(){(window.vaq=window.vaq||[]).push(arguments);};</script>
+<script defer src="/_vercel/insights/script.js"></script>
+<style>
+/* ============================================================
+   Homepage 2.0 — "Mission control for your online presence"
+   Scoped under .hp so nothing here can touch other pages.
+   ============================================================ */
+.hp{--mono:'JetBrains Mono',ui-monospace,SFMono-Regular,Menlo,monospace;
+  --w-teal:#10B6A8; --w-sky:#3D7DD6; --w-amber:#E8A93B;
+  --ink-hi:#EAF2FF; --ink-mid:#9DB2CE; --ink-low:#5E76A0;
+  --line:rgba(255,255,255,.10); --glass:rgba(255,255,255,.045);}
+.hp .kicker{font-family:var(--mono);font-weight:600;font-size:.74rem;letter-spacing:.22em;text-transform:uppercase}
+
+/* ---- shared dark shell / atmosphere ---- */
+.hp .dark{position:relative;background:#08203f;color:var(--ink-hi);overflow:clip}
+.hp .dark::before{content:"";position:absolute;inset:0;
+  background:
+    radial-gradient(60% 55% at 15% 0%, rgba(16,182,168,.20), transparent 60%),
+    radial-gradient(55% 50% at 90% 15%, rgba(61,125,214,.22), transparent 60%),
+    radial-gradient(70% 60% at 60% 110%, rgba(11,36,71,.9), transparent 60%),
+    #0B2447;}
+.hp .dark::after{content:"";position:absolute;inset:0;opacity:.5;pointer-events:none;
+  background-image:radial-gradient(rgba(255,255,255,.10) 1px,transparent 1.4px);
+  background-size:26px 26px;
+  -webkit-mask-image:radial-gradient(80% 70% at 50% 30%,#000,transparent 85%);
+          mask-image:radial-gradient(80% 70% at 50% 30%,#000,transparent 85%);}
+.hp .dark > .wrap{position:relative;z-index:2}
+
+/* ---- HERO ---- */
+.hp .sl-hero{padding:64px 0 86px}
+.hp .sl-hero-grid{display:grid;grid-template-columns:1.08fr .92fr;gap:56px;align-items:center}
+.hp .sl-hero .kicker{color:var(--w-teal);display:inline-flex;align-items:center;gap:10px;margin-bottom:22px}
+.hp .sl-hero .kicker::before{content:"";width:26px;height:1px;background:linear-gradient(90deg,var(--w-teal),transparent)}
+.hp .sl-h1{font-family:var(--head);font-weight:800;color:#fff;line-height:.98;letter-spacing:-.02em;
+  font-size:clamp(2.9rem,6.4vw,5rem);margin:0 0 22px}
+.hp .sl-h1 span{display:block}
+.hp .sl-h1 .w1{color:var(--w-teal)} .hp .sl-h1 .w2{color:var(--w-sky)} .hp .sl-h1 .w3{color:var(--w-amber)}
+.hp .sl-lede{color:var(--ink-mid);font-size:1.18rem;line-height:1.6;max-width:33ch;margin:0 0 30px}
+.hp .sl-lede b{color:var(--ink-hi);font-weight:600}
+.hp .sl-hero-actions{display:flex;gap:14px;flex-wrap:wrap;align-items:center}
+.hp .sl-hero-actions .btn-teal{box-shadow:0 12px 30px rgba(16,182,168,.28)}
+.hp .btn-ghost-d{background:rgba(255,255,255,.04);color:#fff;border:1.5px solid var(--line)}
+.hp .btn-ghost-d:hover{border-color:rgba(255,255,255,.4);background:rgba(255,255,255,.08);transform:translateY(-1px)}
+.hp .sl-hero-micro{margin:22px 0 0;color:var(--ink-low);font-size:.9rem;font-family:var(--mono);letter-spacing:.02em}
+
+/* ---- HERO instrument panel ---- */
+.hp .panel{position:relative;border:1px solid var(--line);border-radius:20px;
+  background:linear-gradient(180deg,rgba(255,255,255,.06),rgba(255,255,255,.02));
+  box-shadow:0 40px 90px -30px rgba(0,0,0,.6),inset 0 1px 0 rgba(255,255,255,.08);
+  padding:20px;overflow:hidden}
+.hp .panel-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px}
+.hp .panel-title{font-family:var(--mono);font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-low)}
+.hp .live{display:inline-flex;align-items:center;gap:7px;font-family:var(--mono);font-size:.66rem;letter-spacing:.16em;color:var(--w-teal);text-transform:uppercase}
+.hp .live i{width:7px;height:7px;border-radius:50%;background:var(--w-teal);box-shadow:0 0 0 0 rgba(16,182,168,.55);animation:sl-pulse 2.4s infinite}
+@keyframes sl-pulse{0%{box-shadow:0 0 0 0 rgba(16,182,168,.5)}70%{box-shadow:0 0 0 9px rgba(16,182,168,0)}100%{box-shadow:0 0 0 0 rgba(16,182,168,0)}}
+.hp .scanwrap{position:relative;border-radius:14px;background:rgba(3,14,30,.55);border:1px solid var(--line);padding:18px 18px 20px;overflow:hidden}
+.hp .scanwrap::after{content:"";position:absolute;left:0;right:0;top:0;height:38%;
+  background:linear-gradient(180deg,rgba(16,182,168,.18),transparent);animation:sl-scan 4.2s cubic-bezier(.4,0,.2,1) infinite}
+@keyframes sl-scan{0%{transform:translateY(-100%)}100%{transform:translateY(320%)}}
+.hp .gauge{display:flex;align-items:center;gap:18px}
+.hp .ring{position:relative;width:104px;height:104px;flex:none}
+.hp .ring b{position:absolute;inset:0;display:grid;place-items:center;font-family:var(--head);font-weight:700;font-size:1.9rem;color:#fff}
+.hp .ring small{position:absolute;left:0;right:0;bottom:19px;text-align:center;font-family:var(--mono);font-size:.48rem;letter-spacing:.05em;color:var(--ink-low);text-transform:uppercase}
+.hp .metrics{display:flex;flex-direction:column;gap:10px;flex:1}
+.hp .metric{display:grid;grid-template-columns:1fr auto;gap:4px 12px;align-items:center}
+.hp .metric span{font-size:.82rem;color:var(--ink-mid)}
+.hp .metric b{font-family:var(--mono);font-size:.82rem;color:#fff}
+.hp .bar{grid-column:1/-1;height:5px;border-radius:99px;background:rgba(255,255,255,.10);overflow:hidden}
+.hp .bar i{display:block;height:100%;border-radius:99px}
+.hp .rows{margin-top:16px;display:flex;flex-direction:column;gap:9px}
+.hp .row{display:flex;align-items:center;gap:11px;font-size:.86rem;color:var(--ink-mid);
+  background:rgba(255,255,255,.03);border:1px solid var(--line);border-radius:11px;padding:9px 12px}
+.hp .row .dot{width:8px;height:8px;border-radius:50%;flex:none}
+.hp .dot.red{background:var(--w-amber)} .hp .dot.blue{background:var(--w-sky)} .hp .dot.green{background:var(--w-teal)}
+.hp .row .tag{margin-left:auto;font-family:var(--mono);font-size:.6rem;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-low)}
+
+/* ---- marquee of the three verbs -> trust strip ---- */
+.hp .hero-strip{margin-top:52px;padding-top:26px;border-top:1px solid var(--line);
+  display:flex;gap:26px;flex-wrap:wrap;align-items:center;color:var(--ink-low);font-family:var(--mono);font-size:.74rem;letter-spacing:.08em}
+.hp .hero-strip svg{width:16px;height:16px;stroke:var(--ink-mid);vertical-align:-3px;margin-right:7px}
+.hp .hero-strip .sep{color:rgba(255,255,255,.2)}
+
+/* ---- OFFERINGS ---- */
+.hp .offers{background:var(--cloud);padding:96px 0 40px}
+.hp .sec-head{max-width:660px;margin:0 auto 60px;text-align:center}
+.hp .sec-head .kicker{color:var(--teal-ink);display:block;margin-bottom:14px}
+.hp .sec-head h2{font-size:clamp(1.9rem,3.6vw,2.7rem);font-weight:700}
+.hp .sec-head p{color:var(--slate);font-size:1.1rem;margin:0}
+
+.hp .offer{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;
+  padding:60px 0;border-top:1px solid var(--mist)}
+.hp .offer:first-of-type{border-top:0}
+.hp .offer.flip .offer-media{order:-1}
+.hp .offer-copy .onum{font-family:var(--mono);font-size:.8rem;letter-spacing:.2em;color:var(--slate-2)}
+.hp .offer-copy .otag{display:inline-flex;align-items:center;gap:9px;margin:14px 0 16px;
+  font-family:var(--mono);font-size:.72rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;
+  padding:6px 12px;border-radius:99px}
+.hp .offer-copy h3{font-family:var(--head);font-weight:700;font-size:clamp(1.6rem,2.8vw,2.15rem);line-height:1.08;margin:0 0 14px;color:var(--navy)}
+.hp .offer-copy .odesc{color:var(--slate);font-size:1.05rem;margin:0 0 22px;max-width:46ch}
+.hp .feats{list-style:none;margin:0 0 26px;padding:0;display:flex;flex-direction:column;gap:12px}
+.hp .feats li{display:flex;gap:12px;align-items:flex-start;color:var(--ink);font-size:.98rem}
+.hp .feats svg{width:20px;height:20px;flex:none;margin-top:1px}
+.hp .link-cta{display:inline-flex;align-items:center;gap:9px;font-family:var(--body);font-weight:600;font-size:1rem;
+  padding:12px 22px;border-radius:999px;color:#fff;transition:transform .15s,box-shadow .15s}
+.hp .link-cta svg{width:18px;height:18px}
+.hp .link-cta:hover{transform:translateY(-1px);text-decoration:none}
+
+/* per-offer accent theming */
+.hp .offer.teal  .otag{color:var(--teal-ink);background:rgba(16,182,168,.12)} .hp .offer.teal .otag i,.hp .offer.teal .feats svg{color:var(--teal-ink);stroke:var(--teal-ink)}
+.hp .offer.teal  .link-cta{background:var(--teal);color:#04221f}.hp .offer.teal .link-cta:hover{box-shadow:0 12px 26px rgba(16,182,168,.32)}
+.hp .offer.sky   .otag{color:#295da8;background:rgba(61,125,214,.13)} .hp .offer.sky .feats svg{stroke:var(--w-sky)}
+.hp .offer.sky   .link-cta{background:var(--w-sky)}.hp .offer.sky .link-cta:hover{box-shadow:0 12px 26px rgba(61,125,214,.32)}
+.hp .offer.amber .otag{color:#9a6a12;background:rgba(232,169,59,.16)} .hp .offer.amber .feats svg{stroke:#c98a1e}
+.hp .offer.amber .link-cta{background:#E8A93B;color:#3a2803}.hp .offer.amber .link-cta:hover{box-shadow:0 12px 26px rgba(232,169,59,.36)}
+
+/* offer media cards */
+.hp .media{position:relative;border-radius:var(--radius);padding:26px;overflow:hidden;
+  border:1px solid var(--mist);box-shadow:var(--shadow-lg);min-height:300px}
+.hp .media.d{background:#0B2447;border-color:transparent;color:#fff}
+.hp .media .m-kicker{font-family:var(--mono);font-size:.66rem;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-low);margin-bottom:16px}
+/* websites media: browser windows stack */
+.hp .win{position:absolute;border-radius:12px;overflow:hidden;box-shadow:0 20px 45px -12px rgba(11,36,71,.4);border:1px solid rgba(255,255,255,.6)}
+.hp .win .tb{height:22px;background:#fff;display:flex;align-items:center;gap:5px;padding:0 9px;border-bottom:1px solid var(--mist)}
+.hp .win .tb i{width:6px;height:6px;border-radius:50%;background:var(--mist)}
+.hp .win .bd{padding:12px}
+.hp .win .hh{height:9px;border-radius:4px;background:var(--navy);width:52%;margin-bottom:8px}
+.hp .win .ll{height:6px;border-radius:4px;background:var(--mist);margin-bottom:6px}
+.hp .win .ll.s{width:70%}
+.hp .win .btnm{margin-top:10px;height:16px;width:64px;border-radius:8px;background:var(--teal)}
+.hp .win.a{top:34px;left:32px;width:60%;background:#fff}
+.hp .win.b{bottom:30px;right:26px;width:52%;background:#fff;transform:rotate(3deg)}
+.hp .win.b .hh{background:var(--teal-ink)}.hp .win.b .btnm{background:var(--navy)}
+.hp .chipset{position:absolute;bottom:20px;left:26px;display:flex;gap:7px;flex-wrap:wrap;max-width:44%}
+.hp .chip{font-family:var(--mono);font-size:.6rem;letter-spacing:.08em;background:#fff;border:1px solid var(--mist);color:var(--slate);padding:5px 9px;border-radius:99px}
+/* monitoring media: readout on dark */
+.hp .mon-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-top:6px}
+.hp .stat{background:rgba(255,255,255,.05);border:1px solid var(--line);border-radius:13px;padding:14px}
+.hp .stat span{font-size:.72rem;color:var(--ink-mid);display:block;margin-bottom:6px}
+.hp .stat b{font-family:var(--head);font-size:1.9rem;font-weight:700}
+.hp .stat.t-teal b{color:var(--w-teal)}.hp .stat.t-sky b{color:var(--w-sky)}.hp .stat.t-amber b{color:var(--w-amber)}
+.hp .spark{grid-column:1/-1;display:flex;align-items:flex-end;gap:6px;height:56px;background:rgba(255,255,255,.04);border:1px solid var(--line);border-radius:13px;padding:12px}
+.hp .spark i{flex:1;border-radius:4px 4px 0 0;background:linear-gradient(180deg,var(--w-sky),rgba(61,125,214,.25))}
+/* marketing media */
+.hp .media.warm{background:linear-gradient(160deg,#fff7ec,#fdeccf);border-color:#f3d9a6}
+.hp .mk-card{background:#fff;border:1px solid #f0dcae;border-radius:14px;padding:14px 16px;box-shadow:0 10px 26px -12px rgba(154,106,18,.4);margin-bottom:12px}
+.hp .mk-card .mk-top{display:flex;align-items:center;gap:9px;margin-bottom:8px}
+.hp .mk-card .av{width:26px;height:26px;border-radius:50%;background:linear-gradient(135deg,#E8A93B,#d98f1e)}
+.hp .mk-card .stars{color:#E8A93B;letter-spacing:2px;font-size:.9rem}
+.hp .mk-card p{margin:0;font-size:.84rem;color:var(--slate)}
+.hp .mk-pill{display:inline-flex;align-items:center;gap:7px;background:#fff;border:1px solid #f0dcae;border-radius:99px;padding:7px 13px;font-size:.78rem;color:#9a6a12;font-weight:600;margin-right:8px}
+
+/* ---- how it fits ---- */
+.hp .fits{background:#fff;padding:70px 0 20px}
+.hp .fit-row{display:flex;align-items:center;justify-content:center;gap:14px;flex-wrap:wrap;margin-top:34px}
+.hp .fit-node{display:flex;flex-direction:column;align-items:center;gap:10px;width:150px;text-align:center}
+.hp .fit-node .ic{width:56px;height:56px;border-radius:16px;display:grid;place-items:center;background:var(--cloud);border:1px solid var(--mist)}
+.hp .fit-node .ic svg{width:26px;height:26px;stroke:var(--navy)}
+.hp .fit-node.s1 .ic{background:rgba(16,182,168,.1);border-color:rgba(16,182,168,.32)} .hp .fit-node.s1 .ic svg{stroke:var(--teal-ink)}
+.hp .fit-node.s2 .ic{background:rgba(61,125,214,.1);border-color:rgba(61,125,214,.32)} .hp .fit-node.s2 .ic svg{stroke:#295da8}
+.hp .fit-node.s3 .ic{background:rgba(232,169,59,.14);border-color:rgba(232,169,59,.36)} .hp .fit-node.s3 .ic svg{stroke:#9a6a12}
+.hp .fit-node .ic{transition:transform .2s} .hp .fit-node:hover .ic{transform:translateY(-3px)}
+.hp .fit-node b{font-family:var(--head);font-size:1rem;color:var(--navy)}
+.hp .fit-node span{font-size:.82rem;color:var(--slate)}
+.hp .fit-arrow{color:var(--slate-2);flex:none}
+.hp .fit-arrow svg{width:26px;height:26px}
+
+/* ---- trust ---- */
+.hp .trust2{background:var(--cloud);padding:80px 0}
+.hp .t-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:44px}
+.hp .t-card{background:#fff;border:1px solid var(--mist);border-radius:var(--radius);padding:26px;box-shadow:var(--shadow)}
+.hp .t-card .ic{width:46px;height:46px;border-radius:12px;background:rgba(16,182,168,.12);display:grid;place-items:center;margin-bottom:16px}
+.hp .t-card .ic svg{width:24px;height:24px;stroke:var(--teal-ink)}
+.hp .t-card h3{font-size:1.12rem;margin:0 0 8px}
+.hp .t-card p{color:var(--slate);font-size:.95rem;margin:0}
+
+/* ---- pricing + final CTA ---- */
+.hp .close{padding:96px 0}
+.hp .close .wrap{text-align:center}
+.hp .close .kicker{color:var(--w-teal);display:block;margin-bottom:16px}
+.hp .close h2{color:#fff;font-size:clamp(2rem,4vw,3rem);font-weight:800;letter-spacing:-.02em;margin:0 0 14px}
+.hp .close p{color:var(--ink-mid);font-size:1.12rem;max-width:52ch;margin:0 auto 30px}
+.hp .close-actions{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+.hp .close-note{margin-top:22px;color:var(--ink-low);font-family:var(--mono);font-size:.82rem;letter-spacing:.04em}
+.hp .close-note a{color:var(--ink-mid);text-decoration:underline}
+
+/* ---- WEBSITE MODELS gallery ---- */
+.hp .models{background:#fff;padding:90px 0}
+.hp .model-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:46px}
+.hp .model{position:relative;display:block;border-radius:var(--radius);overflow:hidden;aspect-ratio:4/3;
+  border:1px solid var(--mist);box-shadow:var(--shadow);text-decoration:none;--ac:var(--teal)}
+.hp .model .mimg{position:absolute;inset:0;background-size:cover;background-position:top center;transition:transform .6s cubic-bezier(.2,.6,.2,1)}
+.hp .model:hover .mimg{transform:scale(1.06)}
+.hp .model .mvid{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .7s ease}
+.hp .model.has-vid .mvid{opacity:1}
+.hp .model .mscrim{position:absolute;inset:0;background:linear-gradient(180deg,transparent 38%,rgba(8,20,40,.86))}
+.hp .model .mbar{position:absolute;top:0;left:0;right:0;height:4px;background:var(--ac)}
+.hp .model .mbody{position:absolute;left:0;right:0;bottom:0;padding:20px;color:#fff}
+.hp .model .mvert{font-family:var(--mono);font-size:.64rem;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.78)}
+.hp .model h3{color:#fff;font-size:1.14rem;margin:6px 0 0;line-height:1.15}
+.hp .model .mcta{margin-top:8px;display:inline-flex;align-items:center;gap:7px;font-size:.86rem;font-weight:600;color:#fff;
+  opacity:0;transform:translateY(6px);transition:opacity .3s,transform .3s}
+.hp .model .mcta svg{width:15px;height:15px}
+.hp .model:hover .mcta{opacity:1;transform:none}
+.hp .models-foot{text-align:center;margin-top:38px}
+
+/* ---- BUSINESS INTELLIGENCE (dark) ---- */
+.hp .bi{padding:96px 0}
+.hp .bi-grid{display:grid;grid-template-columns:.92fr 1.08fr;gap:58px;align-items:center}
+.hp .bi .kicker{color:var(--w-sky);display:block;margin-bottom:16px}
+.hp .bi h2{color:#fff;font-size:clamp(1.9rem,3.6vw,2.7rem);font-weight:700;letter-spacing:-.01em;margin:0 0 16px}
+.hp .bi p{color:var(--ink-mid);font-size:1.08rem;margin:0 0 22px;max-width:44ch}
+.hp .bi .feats li{color:var(--ink-hi)} .hp .bi .feats svg{stroke:var(--w-sky)}
+.hp .bi .link-cta{background:var(--w-sky);color:#fff} .hp .bi .link-cta:hover{box-shadow:0 12px 26px rgba(61,125,214,.35)}
+.hp .bi-panel .panel{padding:22px}
+.hp .chart{position:relative;background:rgba(3,14,30,.5);border:1px solid var(--line);border-radius:14px;padding:16px 16px 8px}
+.hp .chart-head{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:6px}
+.hp .chart-head .c-label{font-family:var(--mono);font-size:.66rem;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-low)}
+.hp .chart-head .c-up{font-family:var(--mono);font-size:.74rem;color:var(--w-teal)}
+.hp .chart svg{display:block;width:100%;height:96px}
+.hp .bi-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:14px}
+.hp .bi-stat{background:rgba(255,255,255,.05);border:1px solid var(--line);border-radius:13px;padding:14px}
+.hp .bi-stat .bl{font-size:.68rem;color:var(--ink-mid);display:block;margin-bottom:7px;letter-spacing:.02em}
+.hp .bi-stat .bv{font-family:var(--head);font-weight:700;font-size:1.5rem;color:#fff;display:flex;align-items:baseline;gap:6px}
+.hp .bi-stat .bv em{font-style:normal;font-family:var(--mono);font-size:.72rem;color:var(--w-teal)}
+.hp .bi-stat .bv .from{color:var(--ink-low);font-size:1rem}
+
+/* ---- SOCIAL (light) ---- */
+.hp .social{background:var(--cloud);padding:96px 0}
+.hp .social-grid{display:grid;grid-template-columns:1.02fr .98fr;gap:58px;align-items:center}
+.hp .social.flip .social-media{order:-1}
+.hp .social .onum{font-family:var(--mono);font-size:.8rem;letter-spacing:.2em;color:var(--slate-2)}
+.hp .social .otag{display:inline-flex;margin:14px 0 16px;font-family:var(--mono);font-size:.72rem;font-weight:600;letter-spacing:.16em;
+  text-transform:uppercase;padding:6px 12px;border-radius:99px;color:#8a5cd6;background:rgba(138,92,214,.12)}
+.hp .social h3{font-family:var(--head);font-weight:700;font-size:clamp(1.6rem,2.8vw,2.15rem);line-height:1.08;margin:0 0 14px;color:var(--navy)}
+.hp .social .odesc{color:var(--slate);font-size:1.05rem;margin:0 0 22px;max-width:46ch}
+.hp .social .feats svg{stroke:#8a5cd6}
+.hp .social .link-cta{background:#8a5cd6;color:#fff} .hp .social .link-cta:hover{box-shadow:0 12px 26px rgba(138,92,214,.34)}
+.hp .post{background:#fff;border:1px solid var(--mist);border-radius:var(--radius);box-shadow:var(--shadow-lg);padding:18px;max-width:400px;margin-left:auto}
+.hp .post-top{display:flex;align-items:center;gap:11px;margin-bottom:12px}
+.hp .post-top .av{width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,var(--teal),var(--sky));flex:none}
+.hp .post-top b{display:block;color:var(--navy);font-family:var(--head);font-size:.98rem}
+.hp .post-top span{font-size:.8rem;color:var(--slate-2)}
+.hp .post-top .plat{margin-left:auto;width:26px;height:26px;border-radius:8px;background:var(--cloud);display:grid;place-items:center}
+.hp .post-top .plat svg{width:15px;height:15px;stroke:var(--slate)}
+.hp .post-img{height:120px;border-radius:12px;background:linear-gradient(135deg,#c9e7e3,#dbe7fb);margin-bottom:11px}
+.hp .post p{color:var(--ink);font-size:.92rem;margin:0 0 12px}
+.hp .post-eng{display:flex;gap:18px;color:var(--slate-2);font-size:.82rem;border-top:1px solid var(--mist);padding-top:11px}
+.hp .post-eng span{display:inline-flex;align-items:center;gap:6px}
+.hp .post-eng svg{width:15px;height:15px;stroke:var(--slate-2)}
+.hp .mon-strip{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px;max-width:400px;margin-left:auto}
+.hp .mon-chip{display:inline-flex;align-items:center;gap:8px;background:#fff;border:1px solid var(--mist);border-radius:99px;padding:8px 13px;font-size:.8rem;color:var(--slate);box-shadow:var(--shadow)}
+.hp .mon-chip b{color:var(--navy);font-family:var(--mono)}
+.hp .mon-chip i{width:8px;height:8px;border-radius:50%;background:var(--ok)}
+
+@media(max-width:900px){
+  .hp .model-grid{grid-template-columns:1fr;max-width:420px;margin-left:auto;margin-right:auto}
+  .hp .bi-grid,.hp .social-grid{grid-template-columns:1fr;gap:36px}
+  .hp .social.flip .social-media{order:0}
+  .hp .bi-panel .panel,.hp .post,.hp .mon-strip{max-width:none;margin:0}
+  .hp .model .mcta{opacity:1;transform:none}
+}
+
+/* ---- ambient hero video (revealed only if it loads; graceful fallback) ---- */
+.hp .sl-hero-video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:1;
+  opacity:0;transition:opacity 1.3s ease;pointer-events:none}
+.hp .sl-hero.has-video .sl-hero-video{opacity:.5}
+.hp .sl-hero-veil{position:absolute;inset:0;z-index:1;opacity:0;transition:opacity 1.3s ease;pointer-events:none;
+  background:linear-gradient(90deg,rgba(8,20,40,.94),rgba(8,20,40,.72) 42%,rgba(8,20,40,.34) 100%),
+             linear-gradient(0deg,rgba(8,20,40,.9),transparent 55%)}
+.hp .sl-hero.has-video .sl-hero-veil{opacity:1}
+@media(prefers-reduced-motion:reduce){.hp .sl-hero-video{display:none}}
+
+/* ---- HERO v2: clearer headline + offering pillars + layered visual ---- */
+.hp .sl-h1v2{font-family:var(--head);font-weight:800;color:#fff;line-height:1.02;letter-spacing:-.025em;
+  font-size:clamp(2.5rem,5.1vw,4.15rem);margin:0 0 22px;max-width:15ch}
+.hp .sl-h1v2 .hl{color:var(--w-teal)}
+.hp .sl-hero .kicker{color:var(--w-teal);display:inline-flex;align-items:center;gap:10px;margin-bottom:22px;flex-wrap:wrap}
+.hp .sl-hero .kicker::before{content:"";width:26px;height:1px;background:linear-gradient(90deg,var(--w-teal),transparent);flex:none}
+
+/* offering pillars (the "what we do", unmistakable) */
+.hp .hero-pillars{margin-top:56px;padding-top:34px;border-top:1px solid var(--line);
+  display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.hp .pillar-h{position:relative;display:block;text-decoration:none;padding:22px 22px 22px 26px;border-radius:16px;
+  background:var(--glass);border:1px solid var(--line);transition:transform .22s ease,border-color .22s,background .22s}
+.hp .pillar-h:hover{transform:translateY(-4px);border-color:rgba(255,255,255,.3);background:rgba(255,255,255,.07)}
+.hp .pillar-h::before{content:"";position:absolute;left:0;top:20px;bottom:20px;width:3px;border-radius:0 3px 3px 0;background:var(--pac)}
+.hp .pillar-h .p-ic{width:40px;height:40px;border-radius:11px;display:grid;place-items:center;background:rgba(255,255,255,.06);margin-bottom:15px}
+.hp .pillar-h .p-ic svg{width:21px;height:21px;stroke:var(--pac)}
+.hp .pillar-h .p-eyebrow{font-family:var(--mono);font-size:.64rem;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-mid)}
+.hp .pillar-h .p-title{font-family:var(--head);font-weight:700;font-size:1.22rem;color:var(--pac);margin:4px 0 6px}
+.hp .pillar-h .p-desc{font-size:.88rem;color:var(--ink-mid);margin:0;line-height:1.5}
+.hp .pillar-h .p-go{position:absolute;top:22px;right:20px;color:var(--ink-low);opacity:0;transform:translateX(-4px);transition:opacity .2s,transform .2s}
+.hp .pillar-h .p-go svg{width:18px;height:18px}
+.hp .pillar-h:hover .p-go{opacity:1;transform:none;color:var(--pac)}
+
+/* layered floating visual */
+.hp .sl-hero-art{position:relative}
+.hp .float{position:absolute;z-index:4;border-radius:14px;border:1px solid rgba(255,255,255,.5);
+  box-shadow:0 26px 55px -18px rgba(0,0,0,.7)}
+.hp .float-site{top:-24px;left:-26px;width:196px;background:#fff;overflow:hidden;animation:sl-float 6.5s ease-in-out infinite}
+.hp .float-site .fs-tb{height:20px;background:#eef2f7;display:flex;align-items:center;gap:4px;padding:0 8px;border-bottom:1px solid var(--mist)}
+.hp .float-site .fs-tb i{width:5px;height:5px;border-radius:50%;background:#cbd5e1}
+.hp .float-site .fs-bd{padding:12px 13px 14px}
+.hp .float-site .fs-h{height:8px;width:58%;border-radius:4px;background:var(--navy);margin-bottom:8px}
+.hp .float-site .fs-l{height:5px;border-radius:4px;background:var(--mist);margin-bottom:6px}
+.hp .float-site .fs-l.s{width:70%}
+.hp .float-site .fs-btn{margin-top:10px;height:14px;width:58px;border-radius:7px;background:var(--teal)}
+.hp .float-review{bottom:-22px;left:-30px;background:#fff;padding:12px 15px;display:flex;align-items:center;gap:12px;
+  max-width:258px;animation:sl-float 6.5s ease-in-out infinite .9s}
+.hp .float-review .fr-av{width:34px;height:34px;border-radius:50%;background:linear-gradient(135deg,#E8A93B,#d98f1e);flex:none}
+.hp .float-review .fr-stars{color:#E8A93B;font-size:.82rem;letter-spacing:1px;line-height:1}
+.hp .float-review b{color:var(--navy);font-size:.82rem;font-family:var(--head);display:block;margin-bottom:2px}
+.hp .float-review span{display:block;font-size:.72rem;color:var(--slate)}
+@keyframes sl-float{0%,100%{transform:translateY(0)}50%{transform:translateY(-9px)}}
+
+@media(max-width:900px){
+  .hp .hero-pillars{grid-template-columns:1fr;gap:12px;margin-top:40px;padding-top:26px}
+  .hp .float{display:none}
+  .hp .sl-h1v2{max-width:none}
+}
+@media(prefers-reduced-motion:reduce){.hp .float-site,.hp .float-review{animation:none}}
+
+/* ---- offering spec chips (concrete depth) ---- */
+.hp .spec{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 24px}
+.hp .spec span{display:inline-flex;align-items:center;gap:7px;font-family:var(--mono);font-size:.64rem;letter-spacing:.07em;
+  text-transform:uppercase;color:var(--slate);background:var(--cloud);border:1px solid var(--mist);border-radius:99px;padding:7px 12px}
+.hp .spec span::before{content:"";width:5px;height:5px;border-radius:50%;background:var(--teal)}
+.hp .offer.sky .spec span::before{background:var(--w-sky)}
+.hp .offer.amber .spec span::before{background:#E8A93B}
+
+/* ---- BI chart draw-in ---- */
+.hp .bi-fill{opacity:0;transition:opacity 1s ease .5s}
+.hp .bi-line{stroke-dasharray:640;stroke-dashoffset:640;transition:stroke-dashoffset 1.7s cubic-bezier(.3,.6,.2,1) .15s}
+.hp .bi-dot{opacity:0;transition:opacity .5s ease 1.35s}
+.hp .bi-panel.in .bi-fill{opacity:1}
+.hp .bi-panel.in .bi-line{stroke-dashoffset:0}
+.hp .bi-panel.in .bi-dot{opacity:1}
+
+/* ---- PRICING teaser ---- */
+.hp .pricing{background:#fff;padding:94px 0}
+.hp .price-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:50px;align-items:stretch}
+.hp .price-card{position:relative;display:flex;flex-direction:column;background:#fff;border:1px solid var(--mist);border-radius:var(--radius);
+  padding:32px 28px;box-shadow:var(--shadow);transition:transform .2s ease,box-shadow .2s ease}
+.hp .price-card:hover{transform:translateY(-4px);box-shadow:var(--shadow-lg)}
+.hp .price-card.feat{border-color:var(--teal);box-shadow:0 26px 64px -22px rgba(16,182,168,.45)}
+.hp .price-badge{position:absolute;top:-13px;left:50%;transform:translateX(-50%);white-space:nowrap;background:var(--teal);color:#04221f;
+  font-family:var(--mono);font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;font-weight:600;padding:6px 13px;border-radius:99px}
+.hp .price-name{font-family:var(--mono);font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;color:var(--slate-2)}
+.hp .price-amt{font-family:var(--head);font-weight:800;color:var(--navy);font-size:2.5rem;line-height:1;margin:14px 0 6px;display:flex;align-items:baseline;gap:5px}
+.hp .price-amt small{font-size:.95rem;font-weight:600;color:var(--slate-2)}
+.hp .price-sub{color:var(--slate);font-size:.9rem;margin:0 0 20px;min-height:42px}
+.hp .price-feats{list-style:none;margin:0 0 24px;padding:0;display:flex;flex-direction:column;gap:10px;flex:1}
+.hp .price-feats li{display:flex;gap:10px;font-size:.92rem;color:var(--ink);line-height:1.45}
+.hp .price-feats svg{width:18px;height:18px;stroke:var(--teal-ink);flex:none;margin-top:2px}
+.hp .price-card .btn{width:100%;justify-content:center}
+.hp .price-foot{text-align:center;margin-top:32px;color:var(--slate);font-size:.94rem}
+
+@media(max-width:900px){
+  .hp .price-grid{grid-template-columns:1fr;max-width:440px;margin-left:auto;margin-right:auto}
+}
+@media(prefers-reduced-motion:reduce){
+  .hp .bi-fill,.hp .bi-dot{opacity:1;transition:none}
+  .hp .bi-line{stroke-dashoffset:0;transition:none}
+}
+
+/* ---- add-ons strip (in pricing) ---- */
+.hp .addons-block{margin-top:58px;padding-top:46px;border-top:1px solid var(--mist);text-align:center}
+.hp .addons-lead{max-width:620px;margin:0 auto 34px}
+.hp .addons-lead .kicker{color:var(--teal-ink);display:block;margin-bottom:12px}
+.hp .addons-lead h3{font-family:var(--head);font-weight:700;font-size:clamp(1.5rem,2.6vw,2rem);color:var(--navy);margin:0 0 10px}
+.hp .addons-lead p{color:var(--slate);margin:0}
+.hp .addons-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:30px}
+.hp .addon-tile{display:flex;align-items:center;justify-content:space-between;gap:10px;background:var(--cloud);
+  border:1px solid var(--mist);border-radius:12px;padding:13px 16px;transition:border-color .2s ease,transform .2s ease,box-shadow .2s ease}
+.hp .addon-tile:hover{border-color:var(--teal);transform:translateY(-2px);box-shadow:var(--shadow)}
+.hp .addon-tile .at-n{font-weight:600;font-size:.92rem;color:var(--navy);text-align:left}
+.hp .addon-tile .at-p{font-family:var(--mono);font-size:.74rem;color:var(--teal-ink);font-weight:600;white-space:nowrap}
+@media(max-width:900px){.hp .addons-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:520px){.hp .addons-grid{grid-template-columns:1fr}}
+
+/* ---- reveal (scoped, overrides base for a richer feel) ---- */
+.hp .reveal{opacity:0;transform:translateY(22px);transition:opacity .7s cubic-bezier(.2,.6,.2,1),transform .7s cubic-bezier(.2,.6,.2,1)}
+.hp .reveal.in{opacity:1;transform:none}
+@media(prefers-reduced-motion:reduce){
+  .hp .reveal{opacity:1;transform:none;transition:none}
+  .hp .scanwrap::after,.hp .live i{animation:none}
+}
+
+/* ---- responsive ---- */
+@media(max-width:900px){
+  .hp .sl-hero-grid{grid-template-columns:1fr;gap:44px}
+  .hp .offer{grid-template-columns:1fr;gap:34px;padding:48px 0}
+  .hp .offer.flip .offer-media{order:0}
+  .hp .t-cards{grid-template-columns:1fr}
+  .hp .sl-lede{max-width:none}
+  .hp .fit-arrow{transform:rotate(90deg)}
+}
+@media(max-width:560px){
+  .hp .sl-hero{padding:40px 0 60px}
+  .hp .offers{padding:64px 0 30px}
+  .hp .media{min-height:260px}
+}
+</style>
+</head>
+<body class="home hp" data-lang>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-header" id="top">
+  <div class="wrap header-inner">
+    <a class="logo" href="/" aria-label="Sightline Studio home">
+    <span class="logo-mark" aria-hidden="true"><svg viewBox="0 0 32 32" fill="none"><rect width="32" height="32" rx="8" fill="#0B2447"/><path d="M16 6l8 3.4v5.2c0 5-3.3 8.9-8 10.8-4.7-1.9-8-5.8-8-10.8V9.4z" fill="none" stroke="#10B6A8" stroke-width="2" stroke-linejoin="round"/><path d="M12 16.2l2.6 2.6L21 12.4" stroke="#10B6A8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg></span>
+    <span class="logo-word">Sightline Studio</span>
+  </a>
+    <nav class="nav" aria-label="Primary"><a href="/gallery">Websites</a><a href="/how-it-works">Monitoring</a><a href="/marketing">Marketing</a><a href="/pricing">Pricing</a></nav>
+    <div class="header-cta">
+      <a class="btn btn-primary" href="/free-scan">Get my free scan</a>
+    </div>
+    <button class="nav-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-nav">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+  <div class="mobile-nav" id="mobile-nav" hidden>
+    <a href="/gallery">Websites</a><a href="/how-it-works">Monitoring</a><a href="/marketing">Marketing</a><a href="/pricing">Pricing</a>
+    <a class="btn btn-primary" href="/free-scan">Get my free scan</a>
+  </div>
+</header>
+<main id="main">
+
+<!-- ===================== HERO ===================== -->
+<section class="dark sl-hero">
+  <video class="sl-hero-video" muted loop playsinline preload="metadata" poster="/assets/video/hero-poster.jpg" aria-hidden="true">
+    <source src="/assets/video/hero.mp4" type="video/mp4">
+  </video>
+  <div class="sl-hero-veil" aria-hidden="true"></div>
+  <div class="wrap sl-hero-grid">
+    <div class="sl-hero-copy reveal">
+      <span class="kicker">Websites · Monitoring · Marketing — for local business</span>
+      <h1 class="sl-h1v2">Everything customers see about your business, <span class="hl">working for you.</span></h1>
+      <p class="sl-lede">Sightline Studio builds your website, watches your security and reviews, and gets you found — <b>the whole online side of your business, handled by one team</b>. In plain English, for one clear price.</p>
+      <div class="sl-hero-actions">
+        <a class="btn btn-teal btn-lg" href="/free-scan">Get my free scan <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        <a class="btn btn-ghost-d btn-lg" href="/gallery">See our work</a>
+      </div>
+      <p class="sl-hero-micro">Free scan · no credit card · nothing to install</p>
+    </div>
+
+    <div class="sl-hero-art reveal" style="transition-delay:.12s" aria-hidden="true">
+      <div class="float float-site">
+        <div class="fs-tb"><i></i><i></i><i></i></div>
+        <div class="fs-bd"><div class="fs-h"></div><div class="fs-l"></div><div class="fs-l s"></div><div class="fs-btn"></div></div>
+      </div>
+      <div class="panel">
+        <div class="panel-head">
+          <span class="panel-title">Presence report</span>
+          <span class="live"><i></i> Live scan</span>
+        </div>
+        <div class="scanwrap">
+          <div class="gauge">
+            <div class="ring">
+              <svg viewBox="0 0 120 120"><circle cx="60" cy="60" r="50" fill="none" stroke="rgba(255,255,255,.12)" stroke-width="11"/><circle class="ring-arc" cx="60" cy="60" r="50" fill="none" stroke="#10B6A8" stroke-width="11" stroke-linecap="round" stroke-dasharray="314" stroke-dashoffset="82" transform="rotate(-90 60 60)"/></svg>
+              <b>74</b><small>overall</small>
+            </div>
+            <div class="metrics">
+              <div class="metric"><span>Website</span><b>81</b><div class="bar"><i style="width:81%;background:var(--w-teal)"></i></div></div>
+              <div class="metric"><span>Exposure</span><b>63</b><div class="bar"><i style="width:63%;background:var(--w-sky)"></i></div></div>
+              <div class="metric"><span>Reputation</span><b>68</b><div class="bar"><i style="width:68%;background:var(--w-amber)"></i></div></div>
+            </div>
+          </div>
+          <div class="rows">
+            <div class="row"><i class="dot red"></i>Email isn’t spoof-protected<span class="tag">Fix now</span></div>
+            <div class="row"><i class="dot blue"></i>Slow on mobile — 4.8s to load<span class="tag">Soon</span></div>
+            <div class="row"><i class="dot green"></i>Customers love the service<span class="tag">Good</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="float float-review">
+        <span class="fr-av"></span>
+        <span><b>New 5-star review</b><span class="fr-stars">★★★★★</span></span>
+      </div>
+    </div>
+  </div>
+
+  <nav class="wrap hero-pillars reveal" style="transition-delay:.2s" aria-label="What we do">
+    <a class="pillar-h" href="/gallery" style="--pac:var(--w-teal)">
+      <span class="p-ic"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="14" rx="2"/><path d="M3 8h18M7 21h10"/></svg></span>
+      <span class="p-eyebrow">Websites</span>
+      <span class="p-title">Look sharp.</span>
+      <p class="p-desc">A fast, modern site built to win the customer deciding in ten seconds.</p>
+      <span class="p-go"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+    </a>
+    <a class="pillar-h" href="/how-it-works" style="--pac:var(--w-sky)">
+      <span class="p-ic"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v5c0 4.5-3 8-7 10-4-2-7-5.5-7-10V6z"/><path d="M9 12l2 2 4-4"/></svg></span>
+      <span class="p-eyebrow">Monitoring</span>
+      <span class="p-title">Stay safe.</span>
+      <p class="p-desc">Eyes on your security, site health, and reviews — a plain-English report every month.</p>
+      <span class="p-go"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+    </a>
+    <a class="pillar-h" href="/marketing" style="--pac:var(--w-amber)">
+      <span class="p-ic"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9h4l7-5v16l-7-5H4z"/><path d="M18 8a4 4 0 010 8"/></svg></span>
+      <span class="p-eyebrow">Marketing</span>
+      <span class="p-title">Get found.</span>
+      <p class="p-desc">Reviews, social, and search working together to bring new customers to your door.</p>
+      <span class="p-go"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+    </a>
+  </nav>
+</section>
+
+<!-- ===================== WEBSITE MODELS ===================== -->
+<section class="models">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="kicker">Real sites we've built</span>
+      <h2>Not templates. Sites made for the business.</h2>
+      <p>Every model starts from the business — its trade, its town, its customers. Here are a few concepts. Click any one to walk through the live site.</p>
+    </div>
+    <div class="model-grid">
+      <a class="model reveal" href="/vaughn-law-com/" style="--ac:#2E5496">
+        <div class="mimg" style="background-image:url(/thumbs/vaughn-law-com.jpg)"></div>
+        <video class="mvid" muted loop playsinline preload="metadata" poster="/thumbs/vaughn-law-com.jpg" aria-hidden="true"><source src="/assets/video/model-vaughn-law-com.mp4" type="video/mp4"></video>
+        <div class="mscrim"></div><div class="mbar"></div>
+        <div class="mbody">
+          <span class="mvert">Legal · Lone Tree</span>
+          <h3>The Vaughn Law Offices</h3>
+          <span class="mcta">Walk the live site <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+        </div>
+      </a>
+      <a class="model reveal" href="/cotitleescrow-com/" style="--ac:#54c464;transition-delay:.08s">
+        <div class="mimg" style="background-image:url(/thumbs/cotitleescrow-com.jpg)"></div>
+        <div class="mscrim"></div><div class="mbar"></div>
+        <div class="mbody">
+          <span class="mvert">Title &amp; Escrow · Parker</span>
+          <h3>Colorado Title &amp; Escrow</h3>
+          <span class="mcta">Walk the live site <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+        </div>
+      </a>
+      <a class="model reveal" href="/aspenfallslandscaping-com/" style="--ac:#3f9b57;transition-delay:.16s">
+        <div class="mimg" style="background-image:url(/thumbs/aspenfallslandscaping-com.jpg)"></div>
+        <div class="mscrim"></div><div class="mbar"></div>
+        <div class="mbody">
+          <span class="mvert">Landscaping · Denver</span>
+          <h3>Aspen Falls Landscaping</h3>
+          <span class="mcta">Walk the live site <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+        </div>
+      </a>
+    </div>
+    <div class="models-foot reveal">
+      <a class="btn btn-ghost btn-lg" href="/gallery">Browse the full gallery <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== OFFERINGS ===================== -->
+<section class="offers">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="kicker">How we help</span>
+      <h2>Your whole online presence, handled by one team.</h2>
+      <p>Most owners juggle a web guy, a security worry, and a marketing to-do list. Sightline Studio is all three — talking to each other, reported in language that makes sense.</p>
+    </div>
+
+    <!-- 1. Websites -->
+    <div class="offer teal reveal">
+      <div class="offer-copy">
+        <span class="onum">01 / Websites</span>
+        <div><span class="otag">Built for you</span></div>
+        <h3>A site that makes you look as good as you are.</h3>
+        <p class="odesc">Pick a style, we make it yours, and you launch a fast, modern website — no drag-and-drop headaches, no agency price tag. Built to win the customer who’s deciding in ten seconds.</p>
+        <div class="spec"><span>7 designer styles</span><span>Hosting included</span><span>Mobile-first</span></div>
+        <ul class="feats">
+          <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l4.5 4.5L19 7"/></svg>Seven designer styles — clinical, warm, modern &amp; more</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l4.5 4.5L19 7"/></svg>Fast on phones, built to be found on Google</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l4.5 4.5L19 7"/></svg>You approve every page before it goes live</li>
+        </ul>
+        <a class="link-cta" href="/start">Start your site <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+      </div>
+      <div class="offer-media">
+        <div class="media">
+          <div class="win a"><div class="tb"><i></i><i></i><i></i></div><div class="bd"><div class="hh"></div><div class="ll"></div><div class="ll s"></div><div class="btnm"></div></div></div>
+          <div class="win b"><div class="tb"><i></i><i></i><i></i></div><div class="bd"><div class="hh"></div><div class="ll"></div><div class="ll s"></div><div class="btnm"></div></div></div>
+          <div class="chipset"><span class="chip">Clinical</span><span class="chip">Warm</span><span class="chip">Modern</span><span class="chip">Heritage</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 2. Monitoring -->
+    <div class="offer sky flip reveal">
+      <div class="offer-copy">
+        <span class="onum">02 / Monitoring</span>
+        <div><span class="otag">Watched monthly</span></div>
+        <h3>A second set of eyes on your business, every month.</h3>
+        <p class="odesc">We check your site, your security, and your reviews the way the public already can — then tell you the few things worth fixing, ranked and explained. You’ll know before your customers do.</p>
+        <div class="spec"><span>Website</span><span>Exposure</span><span>Reputation</span></div>
+        <ul class="feats">
+          <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l4.5 4.5L19 7"/></svg>Website, exposure &amp; reputation in one report</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l4.5 4.5L19 7"/></svg>Alerts the moment something changes</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l4.5 4.5L19 7"/></svg>Built on public info only — we never log in</li>
+        </ul>
+        <a class="link-cta" href="/how-it-works">See how it works <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+      </div>
+      <div class="offer-media">
+        <div class="media d">
+          <div class="m-kicker">Monthly report · plain English</div>
+          <div class="mon-grid">
+            <div class="stat t-teal"><span>Website</span><b>81</b></div>
+            <div class="stat t-sky"><span>Exposure</span><b>63</b></div>
+            <div class="stat t-amber"><span>Open issues</span><b>4</b></div>
+            <div class="stat t-teal"><span>Reviews</span><b>4.6★</b></div>
+            <div class="spark"><i style="height:52%"></i><i style="height:64%"></i><i style="height:48%"></i><i style="height:72%"></i><i style="height:60%"></i><i style="height:83%"></i><i style="height:76%"></i></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 3. Marketing -->
+    <div class="offer amber reveal">
+      <div class="offer-copy">
+        <span class="onum">03 / Marketing</span>
+        <div><span class="otag">Growth engine</span></div>
+        <h3>The steady drip that turns happy customers into new ones.</h3>
+        <p class="odesc">Our marketing engine nudges you to ask for reviews at the right moment, hands you video ideas and ready-to-post hooks, and keeps your listings working — no marketing degree required.</p>
+        <div class="spec"><span>Reviews</span><span>Social</span><span>Local search</span></div>
+        <ul class="feats">
+          <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l4.5 4.5L19 7"/></svg>Review requests that actually get sent</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l4.5 4.5L19 7"/></svg>Short-video plans &amp; hooks worth stealing</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l4.5 4.5L19 7"/></svg>Honest advice on what’s worth your time</li>
+        </ul>
+        <a class="link-cta" href="/marketing">Explore the engine <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+      </div>
+      <div class="offer-media">
+        <div class="media warm">
+          <div class="mk-card">
+            <div class="mk-top"><span class="av"></span><span class="stars">★★★★★</span></div>
+            <p>“Fixed my slow site and now I show up first for ‘plumber near me.’ Worth every penny.”</p>
+          </div>
+          <div style="margin-top:2px"><span class="mk-pill">✦ Ask for a review</span><span class="mk-pill">▶ Plan a video</span></div>
+          <div class="mk-card" style="margin-top:12px"><div class="mk-top"><span class="av" style="background:linear-gradient(135deg,#3D7DD6,#295da8)"></span><span class="stars">★★★★★</span></div><p>“The monthly report is the only tech thing I actually read.”</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== BUSINESS INTELLIGENCE ===================== -->
+<section class="dark bi">
+  <div class="wrap bi-grid">
+    <div class="bi-copy reveal">
+      <span class="kicker">Business intelligence</span>
+      <h2>Stop guessing. Watch the numbers go up.</h2>
+      <p>We turn your online presence into a scoreboard you can actually read — then help you move it. See exactly what’s lifting your score, where your leads come from, and what to do next to drive more of them to your site.</p>
+      <ul class="feats">
+        <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l4.5 4.5L19 7"/></svg>Track your presence score month over month</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l4.5 4.5L19 7"/></svg>See where leads come from — and which pages convert</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l4.5 4.5L19 7"/></svg>Clear next moves, ranked by what drives business</li>
+      </ul>
+      <a class="link-cta" href="/bi">Open the dashboard <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+    </div>
+    <div class="bi-panel reveal" style="transition-delay:.1s" aria-hidden="true">
+      <div class="panel">
+        <div class="panel-head"><span class="panel-title">Growth dashboard</span><span class="live"><i></i> 6-mo trend</span></div>
+        <div class="chart">
+          <div class="chart-head"><span class="c-label">Presence score</span><span class="c-up">▲ +21 pts</span></div>
+          <svg viewBox="0 0 300 96" preserveAspectRatio="none">
+            <defs><linearGradient id="biFill" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#3D7DD6" stop-opacity=".45"/><stop offset="1" stop-color="#3D7DD6" stop-opacity="0"/></linearGradient></defs>
+            <path class="bi-fill" d="M0,74 L50,68 L100,70 L150,52 L200,40 L250,26 L300,14 L300,96 L0,96 Z" fill="url(#biFill)"/>
+            <path class="bi-line" d="M0,74 L50,68 L100,70 L150,52 L200,40 L250,26 L300,14" fill="none" stroke="#3D7DD6" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+            <circle class="bi-dot" cx="300" cy="14" r="4" fill="#10B6A8"/>
+          </svg>
+        </div>
+        <div class="bi-stats">
+          <div class="bi-stat"><span class="bl">Presence score</span><span class="bv"><span class="from">61</span>→ <span data-count data-from="61" data-to="82">82</span></span></div>
+          <div class="bi-stat"><span class="bl">Leads / month</span><span class="bv"><span data-count data-from="0" data-to="38" data-prefix="+" data-suffix="%">+38%</span> <em>▲</em></span></div>
+          <div class="bi-stat"><span class="bl">Found on Google</span><span class="bv"><span class="from">#7</span>→ <span data-count data-from="7" data-to="1" data-prefix="#">#1</span></span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== SOCIAL ===================== -->
+<section class="social">
+  <div class="wrap social-grid">
+    <div class="social-copy reveal">
+      <span class="onum">Social studio</span>
+      <div><span class="otag">Show up daily</span></div>
+      <h3>Meet your customers where they already scroll.</h3>
+      <p class="odesc">The rules changed — customers check your feed before they call. We keep an eye on your social and reviews, tell you what people are saying, and hand you posts ready to publish, so staying visible doesn’t eat your week.</p>
+      <ul class="feats">
+        <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l4.5 4.5L19 7"/></svg>We monitor mentions, reviews &amp; comments across platforms</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l4.5 4.5L19 7"/></svg>Ready-to-post updates with live previews before you publish</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l4.5 4.5L19 7"/></svg>A calm plan for the times, not another thing to dread</li>
+      </ul>
+      <a class="link-cta" href="/social">See the Social Studio <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+    </div>
+    <div class="social-media reveal" style="transition-delay:.1s" aria-hidden="true">
+      <div class="post">
+        <div class="post-top">
+          <span class="av"></span>
+          <span><b>Northvale Home Co.</b><span>@northvalehome · now</span></span>
+          <span class="plat"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" stroke="none"/></svg></span>
+        </div>
+        <div class="post-img"></div>
+        <p>Spring booking is open ☀️ Swipe to see the patio we just wrapped in Parker — and tap the link to grab an estimate this week.</p>
+        <div class="post-eng">
+          <span><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-4.5-9.5-9A5 5 0 0112 5a5 5 0 019.5 7c-2.5 4.5-9.5 9-9.5 9z"/></svg>128</span>
+          <span><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a8 8 0 01-11.5 7.2L4 20l1-4.8A8 8 0 1121 12z"/></svg>24</span>
+          <span><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12v7a1 1 0 001 1h14a1 1 0 001-1v-7"/><path d="M16 6l-4-4-4 4"/><path d="M12 2v14"/></svg>Share</span>
+        </div>
+      </div>
+      <div class="mon-strip">
+        <span class="mon-chip"><i></i>New mentions this week <b>12</b></span>
+        <span class="mon-chip"><i></i>Avg. reply time <b>2h</b></span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== HOW IT FITS ===================== -->
+<section class="fits">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="kicker">How it fits together</span>
+      <h2>Start with a free scan. Grow from there.</h2>
+      <p>No big commitment. See where you stand, fix what matters, and add what you need — one step at a time.</p>
+    </div>
+    <div class="fit-row reveal">
+      <div class="fit-node s1"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="2.6"/></svg></span><b>Free scan</b><span>See how you look from the outside</span></div>
+      <span class="fit-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+      <div class="fit-node s2"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 14a8 8 0 0116 0"/><path d="M12 14l4-3"/></svg></span><b>Fix &amp; build</b><span>New site or fixes to the one you have</span></div>
+      <span class="fit-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+      <div class="fit-node s3"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v5c0 4.5-3 8-7 10-4-2-7-5.5-7-10V6z"/><path d="M9 12l2 2 4-4"/></svg></span><b>Monitor &amp; grow</b><span>We watch monthly and keep you found</span></div>
+    </div>
+    <p class="center" style="margin-top:34px"><a class="btn btn-primary btn-lg" href="/free-scan">Get my free scan <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></p>
+  </div>
+</section>
+
+<!-- ===================== TRUST ===================== -->
+<section class="trust2">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="kicker">Built to be trusted</span>
+      <h2>For a service this close to your business, restraint is the point.</h2>
+    </div>
+    <div class="t-cards">
+      <div class="t-card reveal"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="4.5" y="10.5" width="15" height="10" rx="2"/><path d="M8 10.5V8a4 4 0 018 0v2.5"/></svg></div><h3>Public information only</h3><p>We never log in, never break in, never touch your systems. We look at what’s already out there — like crossing the street to see your own shop window.</p></div>
+      <div class="t-card reveal" style="transition-delay:.08s"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="2.6"/></svg></div><h3>Plain English, always</h3><p>Written for busy owners, not IT departments. If you can read a menu, you can read your report — and know exactly what to do next.</p></div>
+      <div class="t-card reveal" style="transition-delay:.16s"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="13" rx="2"/><path d="M8 21h8M12 17v4"/></svg></div><h3>No lock-in, ever</h3><p>Start free, cancel anytime, keep your website if you leave. We earn the next month every month — 30-day money-back on monitoring.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== PRICING ===================== -->
+<section class="pricing">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="kicker">Simple, honest pricing</span>
+      <h2>Start free. Add what you need.</h2>
+      <p>No setup surprises, no contracts. One clear price for each piece — mix and match as your business grows.</p>
+    </div>
+    <div class="price-grid">
+      <div class="price-card reveal">
+        <span class="price-name">Site</span>
+        <div class="price-amt">$59<small>/mo</small></div>
+        <p class="price-sub">We build it, you own it — $0 down. Free scan &amp; demo first, no obligation.</p>
+        <ul class="price-feats">
+          <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l4.5 4.5L19 7"/></svg>A bespoke, modern site — built for you &amp; hosted</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l4.5 4.5L19 7"/></svg>Guest concierge + booking built in</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l4.5 4.5L19 7"/></svg>Security, SSL &amp; mobile — all included</li>
+        </ul>
+        <a class="btn btn-ghost btn-lg" href="/start">Start with Site</a>
+      </div>
+      <div class="price-card feat reveal" style="transition-delay:.08s">
+        <span class="price-badge">Most popular</span>
+        <span class="price-name">Front Door</span>
+        <div class="price-amt">$129<small>/mo</small></div>
+        <p class="price-sub">Everything in Site, kept fresh — you never touch it.</p>
+        <ul class="price-feats">
+          <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l4.5 4.5L19 7"/></svg>Everything in Site, done for you</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l4.5 4.5L19 7"/></svg>Monthly edits, SEO &amp; fresh content</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l4.5 4.5L19 7"/></svg>Sermons / events / media, managed</li>
+        </ul>
+        <a class="btn btn-teal btn-lg" href="/start">Start your site</a>
+      </div>
+      <div class="price-card reveal" style="transition-delay:.16s">
+        <span class="price-name">Front Desk</span>
+        <div class="price-amt">$199<small>/mo</small></div>
+        <p class="price-sub">Your whole front door <em>and</em> front desk.</p>
+        <ul class="price-feats">
+          <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l4.5 4.5L19 7"/></svg>Everything in Front Door</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l4.5 4.5L19 7"/></svg>Reputation &amp; reviews, managed</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l4.5 4.5L19 7"/></svg>Google profile + social, handled</li>
+        </ul>
+        <a class="btn btn-ghost btn-lg" href="/start">Start your site</a>
+      </div>
+    </div>
+    <div class="addons-block reveal">
+      <div class="addons-lead">
+        <span class="kicker">Add-ons</span>
+        <h3>Switch on exactly what you need.</h3>
+        <p>Every site starts lean — add capabilities à la carte and pay only for what you turn on.</p>
+      </div>
+      <div class="addons-grid">
+        <span class="addon-tile"><span class="at-n">Online Booking</span><span class="at-p">+$19</span></span>
+        <span class="addon-tile"><span class="at-n">Online Store</span><span class="at-p">+$25</span></span>
+        <span class="addon-tile"><span class="at-n">Shipping — UPS &amp; USPS</span><span class="at-p">+$15</span></span>
+        <span class="addon-tile"><span class="at-n">Online Payments</span><span class="at-p">+$10</span></span>
+        <span class="addon-tile"><span class="at-n">Reviews &amp; Reputation</span><span class="at-p">+$39</span></span>
+        <span class="addon-tile"><span class="at-n">AI Assistant</span><span class="at-p">+$49</span></span>
+        <span class="addon-tile"><span class="at-n">Security &amp; Monitoring</span><span class="at-p">+$29</span></span>
+        <span class="addon-tile"><span class="at-n">Customer Database (CRM)</span><span class="at-p">+$19</span></span>
+        <span class="addon-tile"><span class="at-n">Photo Gallery</span><span class="at-p">+$9</span></span>
+        <span class="addon-tile"><span class="at-n">Patient Intake Forms</span><span class="at-p">+$20</span></span>
+        <span class="addon-tile"><span class="at-n">Legal Pages</span><span class="at-p">+$15</span></span>
+        <span class="addon-tile"><span class="at-n">Logo &amp; Brand Kit</span><span class="at-p">Free</span></span>
+      </div>
+      <a class="btn btn-primary btn-lg" href="/builder">Build your plan <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+    </div>
+    <p class="price-foot reveal">All add-ons are managed month-to-month · <a href="/pricing">See full pricing →</a></p>
+  </div>
+</section>
+
+<!-- ===================== CLOSE ===================== -->
+<section class="dark close">
+  <div class="wrap">
+    <span class="kicker reveal">Start free</span>
+    <h2 class="reveal">Let's make your business unmissable online.</h2>
+    <p class="reveal">Start with a free, plain-English scan of your website, security, and reviews — no card, no commitment, nothing to install. From there we build, watch, and grow whatever you need, at one clear price.</p>
+    <div class="close-actions reveal" style="transition-delay:.08s">
+      <a class="btn btn-teal btn-lg" href="/free-scan">Get my free scan <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+      <a class="btn btn-ghost-d btn-lg" href="/pricing">See pricing</a>
+    </div>
+    <p class="close-note reveal">Takes 30 seconds to request · <a href="/sample-report">or open a live sample report →</a></p>
+  </div>
+</section>
+
+</main>
+<footer class="site-footer">
+  <div class="wrap footer-grid">
+    <div class="footer-brand">
+      <a class="logo" href="/" aria-label="Sightline Studio home">
+    <span class="logo-mark" aria-hidden="true"><svg viewBox="0 0 32 32" fill="none"><rect width="32" height="32" rx="8" fill="#0B2447"/><path d="M16 6l8 3.4v5.2c0 5-3.3 8.9-8 10.8-4.7-1.9-8-5.8-8-10.8V9.4z" fill="none" stroke="#10B6A8" stroke-width="2" stroke-linejoin="round"/><path d="M12 16.2l2.6 2.6L21 12.4" stroke="#10B6A8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg></span>
+    <span class="logo-word">Sightline Studio</span>
+  </a>
+      <p class="footer-tag">Look sharp. Stay safe. Get found.</p>
+      <p class="footer-note">Built only from public information. We never sell your data.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Product</h4>
+      <a href="/gallery">Websites</a>
+      <a href="/how-it-works">Monitoring</a>
+      <a href="/marketing">Marketing</a>
+      <a href="/what-we-check">What we check</a>
+      <a href="/sample-report">Sample report</a>
+      <a href="/pricing">Pricing</a>
+    </div>
+    <div class="footer-col">
+      <h4>Company</h4>
+      <a href="/about">About</a>
+      <a href="/ethics">Our ethics</a>
+      <a href="/faq">FAQ</a>
+      <a href="/contact">Contact</a>
+    </div>
+    <div class="footer-col">
+      <h4>Legal</h4>
+      <a href="/privacy">Privacy</a>
+      <a href="/terms">Terms</a>
+    </div>
+  </div>
+  <div class="wrap footer-bottom">
+    <span>© 2026 Sightline Studio. All rights reserved.</span>
+    <span class="footer-trust"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="4.5" y="10.5" width="15" height="10" rx="2"/><path d="M8 10.5V8a4 4 0 018 0v2.5"/></svg> Public-information only · Cancel anytime</span>
+  </div>
+</footer>
+<script src="/assets/js/main.js" defer></script>
+<script>
+/* homepage motion & micro-interactions (all skipped when reduced motion is preferred) */
+(function(){
+  var reduce=false;
+  try{ reduce=window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches; }catch(e){}
+  if(reduce) return;
+
+  var ease=function(p){ return 1-Math.pow(1-p,3); };
+
+  /* 1. hero presence-score count-up + ring fill */
+  (function(){
+    var num=document.querySelector('.hp .ring b'), arc=document.querySelector('.hp .ring-arc');
+    if(!num||!arc) return;
+    var target=parseInt(num.textContent,10)||0, FULL=314, END=82, start=null, DUR=1400;
+    num.textContent='0'; arc.setAttribute('stroke-dashoffset', FULL);
+    function step(ts){ if(!start)start=ts; var p=Math.min((ts-start)/DUR,1), e=ease(p);
+      num.textContent=Math.round(target*e); arc.setAttribute('stroke-dashoffset', FULL-(FULL-END)*e);
+      if(p<1) requestAnimationFrame(step); }
+    requestAnimationFrame(function(){ requestAnimationFrame(step); });
+  })();
+
+  /* 2. BI stat count-ups when the section scrolls into view */
+  (function(){
+    var sec=document.querySelector('.hp .bi'); if(!sec) return;
+    function run(el){
+      var from=parseFloat(el.getAttribute('data-from'))||0, to=parseFloat(el.getAttribute('data-to'))||0,
+          pre=el.getAttribute('data-prefix')||'', suf=el.getAttribute('data-suffix')||'', start=null, DUR=1500;
+      function step(ts){ if(!start)start=ts; var p=Math.min((ts-start)/DUR,1), e=ease(p);
+        el.textContent=pre+Math.round(from+(to-from)*e)+suf; if(p<1) requestAnimationFrame(step); }
+      requestAnimationFrame(step);
+    }
+    if(!('IntersectionObserver' in window)){ return; }
+    var io=new IntersectionObserver(function(es){ es.forEach(function(en){ if(en.isIntersecting){
+      en.target.querySelectorAll('[data-count]').forEach(run); io.unobserve(en.target); } }); },{rootMargin:'0px 0px -18% 0px'});
+    io.observe(sec);
+  })();
+
+  /* 3. subtle hero parallax (fine-pointer devices only) */
+  (function(){
+    var hero=document.querySelector('.hp .sl-hero'), art=document.querySelector('.hp .sl-hero-art');
+    if(!hero||!art) return;
+    try{ if(!matchMedia('(pointer:fine)').matches) return; }catch(e){ return; }
+    art.style.transition='transform .3s cubic-bezier(.2,.6,.2,1)';
+    hero.addEventListener('pointermove', function(ev){
+      var r=hero.getBoundingClientRect(), dx=(ev.clientX-r.left)/r.width-0.5, dy=(ev.clientY-r.top)/r.height-0.5;
+      art.style.transform='translate('+(dx*16).toFixed(1)+'px,'+(dy*13).toFixed(1)+'px)';
+    });
+    hero.addEventListener('pointerleave', function(){ art.style.transform=''; });
+  })();
+
+  /* 4. ambient hero video — reveal only if it actually loads (else hero stays as-is) */
+  (function(){
+    var hero=document.querySelector('.hp .sl-hero'), v=hero&&hero.querySelector('.sl-hero-video');
+    if(!hero||!v) return;
+    v.addEventListener('loadeddata', function(){ hero.classList.add('has-video'); var p=v.play(); if(p&&p.catch)p.catch(function(){}); });
+    try{ v.load(); }catch(e){}
+  })();
+
+  /* 5. model-card videos — reveal on load, play only while in view (else keep the thumbnail) */
+  (function(){
+    var vids=[].slice.call(document.querySelectorAll('.hp .model .mvid'));
+    if(!vids.length) return;
+    vids.forEach(function(v){
+      v.addEventListener('loadeddata', function(){ var m=v.closest('.model'); if(m)m.classList.add('has-vid'); });
+      try{ v.load(); }catch(e){}
+    });
+    if('IntersectionObserver' in window){
+      var io=new IntersectionObserver(function(es){ es.forEach(function(e){
+        if(e.isIntersecting){ var p=e.target.play(); if(p&&p.catch)p.catch(function(){}); } else { e.target.pause(); }
+      }); },{threshold:0.3});
+      vids.forEach(function(v){ io.observe(v); });
+    } else {
+      vids.forEach(function(v){ var p=v.play(); if(p&&p.catch)p.catch(function(){}); });
+    }
+  })();
+})();
+</script>
+</body>
+</html>

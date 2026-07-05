@@ -3,10 +3,15 @@
   "functions": {
     "api/intake.js": { "memory": 1024, "maxDuration": 60 },
     "api/audit.js": { "memory": 512, "maxDuration": 30 },
+    "api/scan-live.js": { "memory": 512, "maxDuration": 30 },
     "api/audit-refresh.js": { "memory": 512, "maxDuration": 60 }
   },
   "crons": [
     { "path": "/api/audit-refresh", "schedule": "0 8 * * *" }
+  ],
+  "redirects": [
+    { "source": "/free-scan", "destination": "/#scanlive", "permanent": false },
+    { "source": "/free-scan/", "destination": "/#scanlive", "permanent": false }
   ],
   "headers": [
     {
