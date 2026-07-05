@@ -11,23 +11,46 @@ h1,h2,h3,h4{font-variant-ligatures:none}
 .top{display:flex;align-items:center;justify-content:space-between;padding:16px 0;border-bottom:1px solid var(--line)}
 .lg{display:flex;gap:10px;align-items:center;font-family:var(--head);font-weight:600;font-size:1.2rem}.dot{width:11px;height:11px;border-radius:50%;background:var(--ac)}
 .top a{color:var(--mut);text-decoration:none;font-size:.85rem}
-.hd{padding:30px 0 6px}.hd h1{font-family:var(--head);font-weight:400;font-size:clamp(2rem,1.4rem+2vw,2.9rem);letter-spacing:-.02em}.hd p{color:var(--mut);margin-top:8px;font-size:1.05rem}
-/* KPI strip */
-.kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:24px}@media(max-width:760px){.kpis{grid-template-columns:1fr 1fr}}
-.kpi{background:#fff;border:1px solid var(--line);border-radius:14px;padding:18px}
-.kpi .n{font-family:var(--num);font-weight:800;font-size:2.1rem;letter-spacing:-.02em;line-height:1}
-.kpi .l{color:var(--mut);font-size:.82rem;margin-top:7px;font-weight:500}
-.kpi.accent{background:#11271f;border-color:#11271f}.kpi.accent .n{color:#fff}.kpi.accent .l{color:#9fe3c4}
-.gh{font-size:.74rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--mut);margin:34px 0 14px;display:flex;align-items:center;justify-content:space-between}
-.gh .act{color:var(--ac);cursor:pointer;text-transform:none;letter-spacing:0;font-size:.82rem}
+.hd{padding:30px 0 6px}.hd h1{font-family:var(--head);font-weight:400;font-size:clamp(2rem,1.4rem+2vw,2.9rem);letter-spacing:-.02em}.hd p{color:var(--mut);margin-top:8px;font-size:1.05rem;max-width:62ch}
+
+/* ── The flow bar: the business at a glance, in order ─────────────────── */
+.flow{display:grid;grid-template-columns:repeat(5,1fr);gap:0;margin-top:26px;background:#fff;border:1px solid var(--line);border-radius:16px;overflow:hidden}
+@media(max-width:860px){.flow{grid-template-columns:1fr;border-radius:14px}}
+.fstep{position:relative;display:block;text-decoration:none;color:inherit;padding:18px 18px 16px;border-left:1px solid var(--line);transition:background .15s}
+.fstep:first-child{border-left:0}
+@media(max-width:860px){.fstep{border-left:0;border-top:1px solid var(--line)}.fstep:first-child{border-top:0}}
+.fstep:hover{background:#fbfaf6}
+.fstep .k{font-size:.68rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--ac)}
+.fstep h3{font-family:var(--head);font-weight:600;font-size:1.14rem;margin:4px 0 2px}
+.fstep .s{color:var(--mut);font-size:.8rem;line-height:1.45;min-height:2.5em}
+.fstep .stat{margin-top:10px;font-family:var(--num);font-weight:800;font-size:1.5rem;letter-spacing:-.02em;line-height:1}
+.fstep .sl{color:var(--mut);font-size:.72rem;font-weight:600;margin-top:3px}
+.fstep .arr{position:absolute;top:50%;right:-9px;transform:translateY(-50%);width:18px;height:18px;border-radius:50%;background:#fff;border:1px solid var(--line);color:var(--mut);font-size:.7rem;display:flex;align-items:center;justify-content:center;z-index:2}
+.fstep:last-child .arr{display:none}
+@media(max-width:860px){.fstep .arr{display:none}}
+.fstep.run{background:#11271f;color:#fff}.fstep.run:hover{background:#0e2019}
+.fstep.run .s,.fstep.run .sl{color:rgba(255,255,255,.65)}.fstep.run .k{color:#9fe3c4}.fstep.run .stat{color:#fff}
+
+/* ── Stage sections ────────────────────────────────────────────────────── */
+.stage{margin-top:44px;scroll-margin-top:20px}
+.sthead{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap;border-bottom:2px solid var(--ink);padding-bottom:10px;margin-bottom:16px}
+.sthead .n{font-family:var(--num);font-weight:800;font-size:.95rem;color:#fff;background:var(--ac);border-radius:999px;padding:3px 12px;letter-spacing:.06em}
+.sthead h2{font-family:var(--head);font-weight:600;font-size:1.55rem;letter-spacing:-.01em}
+.sthead p{color:var(--mut);font-size:.92rem;flex:1;min-width:220px}
+.sthead .next{margin-left:auto;font-size:.82rem;font-weight:700;color:var(--ac);text-decoration:none;white-space:nowrap}
 .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:14px}
-.card{display:block;background:#fff;border:1px solid var(--line);border-radius:14px;padding:20px;text-decoration:none;color:inherit;transition:transform .2s,box-shadow .2s,border-color .2s}
+.card{position:relative;display:block;background:#fff;border:1px solid var(--line);border-radius:14px;padding:20px;text-decoration:none;color:inherit;transition:transform .2s,box-shadow .2s,border-color .2s}
 .card:hover{transform:translateY(-3px);box-shadow:0 14px 34px rgba(20,18,15,.09);border-color:#cfc8b8}
 .card .ic{font-size:1.5rem}.card h3{font-family:var(--head);font-weight:600;font-size:1.18rem;margin:10px 0 4px}
 .card p{color:var(--mut);font-size:.88rem;line-height:1.5}
 .card .go{margin-top:10px;font-size:.84rem;font-weight:700;color:var(--ac)}
 .card.lead{background:#11271f;border-color:#11271f}.card.lead h3,.card.lead .ic{color:#fff}.card.lead p{color:rgba(255,255,255,.72)}.card.lead .go{color:#9fe3c4}
-/* subscribers */
+.tag{position:absolute;top:14px;right:14px;font-size:.64rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;padding:3px 8px;border-radius:999px;background:#f1ecdf;color:#7a6a35;border:1px solid #e3d9bd}
+.card.lead .tag{background:rgba(255,255,255,.12);color:#d8cf9f;border-color:rgba(255,255,255,.18)}
+
+/* ── Subscribers panel (stage 5 centerpiece) ──────────────────────────── */
+.gh{font-size:.74rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--mut);margin:22px 0 12px;display:flex;align-items:center;justify-content:space-between}
+.gh .act{color:var(--ac);cursor:pointer;text-transform:none;letter-spacing:0;font-size:.82rem}
 .panel{background:#fff;border:1px solid var(--line);border-radius:16px;padding:6px 0 4px;overflow:hidden}
 .subrow{display:grid;grid-template-columns:1.6fr 1.3fr .8fr auto;gap:10px;align-items:center;padding:14px 22px;border-top:1px solid var(--line)}
 .subrow:first-child{border-top:0}
@@ -47,8 +70,15 @@ h1,h2,h3,h4{font-variant-ligatures:none}
 .addform input,.addform select{width:100%;padding:9px 10px;border:1px solid var(--line);border-radius:8px;font:inherit;background:#fff}
 .mini{background:var(--ac);color:#fff;border:0;border-radius:8px;padding:9px 14px;font-weight:700;cursor:pointer;font:inherit}
 .mini.ghost{background:#fff;color:var(--ac);border:1px solid var(--line)}
-.steps{background:#fff;border:1px solid var(--line);border-radius:16px;padding:8px 26px 24px}
-.step{display:flex;gap:16px;padding:18px 0;border-top:1px solid var(--line)}.step:first-child{border-top:0}
+
+/* ── Reference: how-to & notes ─────────────────────────────────────────── */
+details.howto{background:#fff;border:1px solid var(--line);border-radius:16px;margin-top:44px;overflow:hidden}
+details.howto summary{cursor:pointer;padding:18px 24px;font-family:var(--head);font-weight:600;font-size:1.15rem;list-style:none;display:flex;justify-content:space-between;align-items:center}
+details.howto summary::-webkit-details-marker{display:none}
+details.howto summary:after{content:'+';font-size:1.4rem;color:var(--mut)}
+details.howto[open] summary:after{content:'–'}
+.steps{padding:0 26px 24px}
+.step{display:flex;gap:16px;padding:18px 0;border-top:1px solid var(--line)}
 .step .n{flex:none;width:30px;height:30px;border-radius:50%;background:var(--ac);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:.9rem;margin-top:2px;font-family:var(--num)}
 .step .b{flex:1}.step h4{font-size:1rem;font-weight:600;margin-bottom:3px}.step p{color:var(--mut);font-size:.9rem;line-height:1.5}
 .step code{background:#f4f1ea;border:1px solid var(--line);border-radius:5px;padding:1px 7px;font-size:.84rem;font-family:ui-monospace,monospace}
@@ -59,88 +89,122 @@ h1,h2,h3,h4{font-variant-ligatures:none}
 <body>
 <header class="wrap top"><div class="lg"><span class="dot"></span>Sightline · Admin</div><a href="../gallery/">View public studio →</a></header>
 <div class="wrap">
-<section class="hd"><h1>Your control center.</h1><p>Run Sightline end to end — subscribers &amp; revenue, the sales pipeline, the marketing engine, and every studio tool, in one place.</p></section>
+<section class="hd">
+  <h1>Your business, in order.</h1>
+  <p>Every prospect walks the same road: you <b>find</b> them, <b>build</b> their demo, <b>send</b> it, <b>close</b> the deal, then <b>run</b> the subscription. Each stage below has its tools — and its number tells you where the work is piling up.</p>
+</section>
 
-<div class="kpis">
-  <div class="kpi accent"><div class="n" id="kMrr">$0</div><div class="l">Monthly recurring revenue</div></div>
-  <div class="kpi"><div class="n" id="kSubs">0</div><div class="l">Active subscribers</div></div>
-  <div class="kpi"><div class="n">33</div><div class="l">Prospect funnels live</div></div>
-  <div class="kpi"><div class="n" id="kPipe">33</div><div class="l">In pipeline</div></div>
-</div>
+<!-- The flow bar: click a stage to jump to its tools -->
+<nav class="flow" aria-label="Business flow">
+  <a class="fstep" href="#find"><span class="arr">›</span><div class="k">Stage 1</div><h3>Find</h3><div class="s">Spot local businesses with weak sites worth replacing.</div><div class="stat" id="fFind">50</div><div class="sl">prospects in the pond</div></a>
+  <a class="fstep" href="#build"><span class="arr">›</span><div class="k">Stage 2</div><h3>Build</h3><div class="s">Generate their bespoke demo — minutes, not days.</div><div class="stat" id="fBuild">33</div><div class="sl">demos built</div></a>
+  <a class="fstep" href="#send"><span class="arr">›</span><div class="k">Stage 3</div><h3>Send</h3><div class="s">Personal funnel link + audit lands in their inbox.</div><div class="stat" id="fSend">33</div><div class="sl">funnels live</div></a>
+  <a class="fstep" href="#close"><span class="arr">›</span><div class="k">Stage 4</div><h3>Close</h3><div class="s">They reply, sign up, pay — you onboard them.</div><div class="stat" id="fClose">—</div><div class="sl">open leads</div></a>
+  <a class="fstep run" href="#run"><div class="k">Stage 5</div><h3>Run</h3><div class="s">The monthly work that earns the subscription.</div><div class="stat" id="kMrr">—</div><div class="sl"><span id="kSubs">—</span> subscribers · MRR</div></a>
+</nav>
 
-<div class="gh">Subscribers — your paying clients <span class="act" onclick="toggleAdd()">＋ Add subscriber</span></div>
-<div class="panel">
-  <div class="addbar" style="display:none" id="addbar">
-    <form class="addform show" id="addform" onsubmit="return addSub(event)">
-      <div><label>Business name</label><input id="fName" required placeholder="The Vaughn Law Offices"></div>
-      <div><label>Domain (optional)</label><input id="fDom" placeholder="vaughn-law.com"></div>
-      <div><label>Plan</label><select id="fPlan" onchange="planChange()">
-        <option value="59">$59/mo · Site</option>
-        <option value="129" selected>$129/mo · Front Door</option>
-        <option value="199">$199/mo · Front Desk</option>
-        <option value="custom">Custom…</option></select></div>
-      <div><label>$/mo</label><input id="fMo" type="number" step="0.01" value="129"></div>
-      <div style="display:flex;gap:8px"><button class="mini" type="submit">Save</button><button class="mini ghost" type="button" onclick="toggleAdd()">Cancel</button></div>
-    </form>
+<!-- ── STAGE 1 · FIND ──────────────────────────────────────────────────── -->
+<section class="stage" id="find">
+  <div class="sthead"><span class="n">1 · FIND</span><h2>Who needs you?</h2><p>Surface businesses and churches whose current site is losing them customers.</p><a class="next" href="#build">Found one? Build the demo →</a></div>
+  <div class="grid">
+    <a class="card lead" href="./prospector/"><div class="ic">🎯</div><h3>Prospector</h3><p>The lead engine — auto-scored and ranked weakest-first, with a ready pitch line for each. Point it at any platform's customer list.</p><div class="go">Open prospector →</div></a>
+    <a class="card" href="./audit/"><div class="ic">🛡️</div><h3>Exposure Audit</h3><p>Live-probe a prospect &amp; their competitors on real public signals — HTTPS, security, mobile, presence. Measured, dated, scored.</p><div class="go">Run an audit →</div></a>
+    <a class="card" href="../teardowns/"><div class="ic">🔍</div><h3>Competitor teardowns</h3><p>How each prospect ranks against their local field — the "here's what your competitors do better" evidence.</p><div class="go">View teardowns →</div></a>
+    <a class="card" href="./churches/"><span class="tag">Church</span><div class="ic">📿</div><h3>Church Board</h3><p>Churches on their own board — congregation size, denomination, readiness score, and invitational outreach copy.</p><div class="go">Open church board →</div></a>
+    <a class="card" href="./readiness/"><span class="tag">Church</span><div class="ic">📊</div><h3>Congregation-Readiness</h3><p>Score a church on what serves the congregation — Plan-a-Visit, Groups, Giving, Sermons — against the best in class.</p><div class="go">Open scorecard →</div></a>
   </div>
-  <div id="subList"></div>
-</div>
+</section>
 
-<div class="gh">Sell &amp; track</div>
-<div class="grid">
-  <a class="card" href="./intake/"><div class="ic">🛰️</div><h3>Prospect Intake</h3><p>Point the engine at a prospect's website — it reads their real business, logo &amp; brand colors and drafts a clean profile for the demo builder.</p><div class="go">Open intake →</div></a>
-  <a class="card" href="./prospector/"><div class="ic">🎯</div><h3>Prospector</h3><p>The lead engine — churches that paid for a DIY site but never finished it, auto-scored and ranked weakest-first with a ready pitch line. Point it at any platform's customer list.</p><div class="go">Open prospector →</div></a>
-  <a class="card" href="./readiness/"><div class="ic">📊</div><h3>Congregation-Readiness</h3><p>Score a church on what serves the congregation — Plan-a-Visit, Next Steps, Groups, Serve, Care, Giving, Sermons — benchmarked against a church that has it completely together. The honest church scorecard.</p><div class="go">Open scorecard →</div></a>
-  <a class="card" href="./studio/"><div class="ic">🎛️</div><h3>Site Engine</h3><p>Turn a captured profile into a full, bespoke site — pick an archetype, theme &amp; motion and watch it rebuild live, or hit Auto-recommend to match their brand. No two sites alike.</p><div class="go">Open the studio →</div></a>
-  <a class="card" href="./audit/"><div class="ic">🛡️</div><h3>Exposure Audit</h3><p>Live-probe a prospect &amp; competitors on real public signals — HTTPS, security headers, DMARC, mobile, presence. Measured, dated, scored — the honest teardown data.</p><div class="go">Open audit →</div></a>
-  <a class="card" href="./church-playbook/"><div class="ic">⛪</div><h3>Church Growth Playbook</h3><p>The church-vertical strategy — what churches need, the message that moves a pastor, and how a Sightline site turns online visitors into Sunday attendance. Sourced, shareable.</p><div class="go">Open playbook →</div></a>
-  <a class="card" href="./churches/"><div class="ic">📿</div><h3>Church Board</h3><p>Churches on their own board — congregation size, denomination, a Front-door-readiness score, and invitational outreach copy. Separate from the business pipeline.</p><div class="go">Open church board →</div></a>
-  <a class="card lead" href="../pipeline/"><div class="ic">📊</div><h3>Pipeline / CRM</h3><p>Every prospect with their funnel link, ready email, and status — contacted → opened → booked → won.</p><div class="go">Open pipeline →</div></a>
-  <a class="card" href="../bi/"><div class="ic">📈</div><h3>Business Intelligence</h3><p>Live MRR, ARR, conversion, pipeline stages, monthly trend &amp; plan mix — pulled straight from your database.</p><div class="go">Open BI →</div></a>
-  <a class="card" href="../leads/"><div class="ic">📥</div><h3>Leads — self-serve signups</h3><p>Everyone who clicked "Start my site" on a funnel: name, plan, contact, status. Private, login-protected.</p><div class="go">Open leads →</div></a>
-  <a class="card" href="../crm/"><div class="ic">👥</div><h3>Customer Database (CRM)</h3><p>Contacts, leads &amp; clients in one place — search, tag, cycle status, add manually. New contacts captured by client sites arrive automatically. Private, login-protected.</p><div class="go">Open CRM →</div></a>
-  <a class="card" href="../p/"><div class="ic">🎯</div><h3>Prospect funnels</h3><p>33 personalized landing pages (demo + audit + offer). Copy a link and send it.</p><div class="go">All funnels →</div></a>
-  <a class="card" href="../gallery/"><div class="ic">🖼️</div><h3>Concept gallery</h3><p>All demos — 8 design options each — to show on a call.</p><div class="go">Open gallery →</div></a>
-  <a class="card" href="../demo/"><div class="ic">📄</div><h3>Sample report</h3><p>The interactive "Outside-In Exposure" audit dashboard (fictional sample) — send prospects a real report they can click through.</p><div class="go">Open sample report →</div></a>
-  <a class="card" href="../teardowns/"><div class="ic">🔍</div><h3>Competitor teardowns</h3><p>How each prospect ranks vs. their local field on public signals.</p><div class="go">View teardowns →</div></a>
-  <a class="card" href="../faith/"><div class="ic">⛪</div><h3>Faith / Church demo</h3><p>The church offering — online worship, sermons, giving &amp; plan-your-visit. Show faith-org prospects.</p><div class="go">Open church demo →</div></a>
-  <a class="card" href="../faith/styles/"><div class="ic">🎨</div><h3>Church styles (6)</h3><p>Six distinct church design styles — Sanctuary, Modern Worship, Quiet, Warm, Heritage &amp; Evergreen — for the same church. Let faith prospects pick their look.</p><div class="go">Browse styles →</div></a>
-</div>
+<!-- ── STAGE 2 · BUILD ─────────────────────────────────────────────────── -->
+<section class="stage" id="build">
+  <div class="sthead"><span class="n">2 · BUILD</span><h2>Make their demo.</h2><p>Point the engine at their website — it reads the real business and builds a site they couldn't say no to.</p><a class="next" href="#send">Demo ready? Send it →</a></div>
+  <div class="grid">
+    <a class="card lead" href="./intake/"><div class="ic">🛰️</div><h3>Prospect Intake</h3><p>Step one of a build: the engine reads their real business, logo &amp; brand colors and drafts a clean profile for the site builder.</p><div class="go">Start an intake →</div></a>
+    <a class="card" href="./studio/"><div class="ic">🎛️</div><h3>Site Engine</h3><p>Turn a captured profile into a full bespoke site — pick archetype, theme &amp; motion and watch it rebuild live, or hit Auto-recommend.</p><div class="go">Open the studio →</div></a>
+    <a class="card" href="../gallery/"><div class="ic">🖼️</div><h3>Concept gallery</h3><p>Every demo with 8 design options each — the "pick your favorite" moment on a call.</p><div class="go">Open gallery →</div></a>
+    <a class="card" href="../logo/"><div class="ic">✦</div><h3>Logo Studio</h3><p>Generate a client's wordmark, monogram &amp; favicon when their branding needs rescue too.</p><div class="go">Open Logo Studio →</div></a>
+    <a class="card" href="../generator/"><div class="ic">🖌️</div><h3>Brand Art Studio</h3><p>Client image &amp; art tool (UI preview — AI engine wires in later).</p><div class="go">Open art studio →</div></a>
+    <a class="card" href="../faith/"><span class="tag">Church</span><div class="ic">⛪</div><h3>Faith demo</h3><p>The church offering — online worship, sermons, giving &amp; plan-your-visit — to show faith-org prospects.</p><div class="go">Open church demo →</div></a>
+    <a class="card" href="../faith/styles/"><span class="tag">Church</span><div class="ic">🎨</div><h3>Church styles (6)</h3><p>Six distinct church design directions for the same church — let them pick their look.</p><div class="go">Browse styles →</div></a>
+  </div>
+</section>
 
-<div class="gh">Marketing engine — what the monthly plan delivers</div>
-<div class="grid">
-  <a class="card lead" href="../marketing/"><div class="ic">📈</div><h3>Marketing engine</h3><p>Local SEO + Google Business Profile, review generation, reputation defense, monthly analytics &amp; social — the recurring work that earns the subscription.</p><div class="go">Open marketing engine →</div></a>
-  <a class="card" href="../social/"><div class="ic">📣</div><h3>Social Studio</h3><p>Compose posts for X, LinkedIn, Facebook, Instagram, Threads, GBP &amp; TikTok. Preview per channel, queue your content calendar, hand off to Postiz to publish.</p><div class="go">Open Social Studio →</div></a>
-  <a class="card" href="../marketing/"><div class="ic">⭐</div><h3>Review request composer</h3><p>Generate a ready SMS + email review ask with the client's Google link. Send in seconds.</p><div class="go">Open composer →</div></a>
-  <a class="card" href="../teardowns/"><div class="ic">🛡️</div><h3>Reputation defense</h3><p>Fake-review monitoring + one-click disputes — shown live on every prospect funnel.</p><div class="go">See it live →</div></a>
-</div>
+<!-- ── STAGE 3 · SEND ──────────────────────────────────────────────────── -->
+<section class="stage" id="send">
+  <div class="sthead"><span class="n">3 · SEND</span><h2>Put it in front of them.</h2><p>Every prospect gets a personal funnel — their demo, their audit, their offer — and you track every touch.</p><a class="next" href="#close">They replied? Close it →</a></div>
+  <div class="grid">
+    <a class="card lead" href="../pipeline/"><div class="ic">📊</div><h3>Pipeline / CRM</h3><p>Every prospect with their funnel link, ready-to-send email, and status — contacted → opened → booked → won.</p><div class="go">Open pipeline →</div></a>
+    <a class="card" href="../p/"><div class="ic">🎯</div><h3>Prospect funnels</h3><p>Personalized landing pages (demo + audit + offer). Copy a link and send it.</p><div class="go">All funnels →</div></a>
+    <a class="card" href="../demo/"><div class="ic">📄</div><h3>Sample report</h3><p>The interactive "Outside-In Exposure" audit (fictional sample) — a real report prospects can click through.</p><div class="go">Open sample report →</div></a>
+    <a class="card" href="./church-playbook/"><span class="tag">Church</span><div class="ic">⛪</div><h3>Church Growth Playbook</h3><p>What churches need, the message that moves a pastor, and how a Sightline site turns visitors into Sunday attendance.</p><div class="go">Open playbook →</div></a>
+  </div>
+</section>
 
-<div class="gh">Studio tools (use on a call or to fulfill)</div>
-<div class="grid">
-  <a class="card" href="../onboard/"><div class="ic">✅</div><h3>Onboard a subscriber</h3><p>Post-sale checklist — close · assets · build · launch · go-live — with a progress bar, tracked per client.</p><div class="go">Open onboarding →</div></a>
-  <a class="card" href="../builder/"><div class="ic">🧩</div><h3>Customize your site</h3><p>The add-on configurator — show a client how easily booking, store, payments &amp; more switch on.</p><div class="go">Open customizer →</div></a>
-  <a class="card" href="../checkout/"><div class="ic">🧾</div><h3>Checkout &amp; add-ons</h3><p>Plan + add-on selector with live totals; saves the order to your database and hands off a secure payment link.</p><div class="go">Open checkout →</div></a>
-  <a class="card" href="../logo/"><div class="ic">✦</div><h3>Logo Studio</h3><p>Generate a client's wordmark, monogram &amp; favicon. Free tier.</p><div class="go">Open Logo Studio →</div></a>
-  <a class="card" href="../legal/"><div class="ic">⚖️</div><h3>Legal Pages</h3><p>Privacy, terms, cookie &amp; accessibility from a few answers.</p><div class="go">Open generator →</div></a>
-  <a class="card" href="../brand/"><div class="ic">🎨</div><h3>Sightline brand</h3><p>Your own logo, palette &amp; type sheet.</p><div class="go">Open brand sheet →</div></a>
-  <a class="card" href="../generator/"><div class="ic">🖌️</div><h3>Brand Art Studio</h3><p>Client image/art tool (UI preview — AI engine wires in later).</p><div class="go">Open art studio →</div></a>
-</div>
+<!-- ── STAGE 4 · CLOSE ─────────────────────────────────────────────────── -->
+<section class="stage" id="close">
+  <div class="sthead"><span class="n">4 · CLOSE</span><h2>Turn a yes into a client.</h2><p>They clicked "Start my site" or replied to your email — capture it, take payment, onboard.</p><a class="next" href="#run">Paid? Run the plan →</a></div>
+  <div class="grid">
+    <a class="card lead" href="../leads/"><div class="ic">📥</div><h3>Leads — signups &amp; scans</h3><p>Everyone who clicked "Start my site" or asked for a scan: name, plan, contact, status. Answer these first, every day.</p><div class="go">Open leads →</div></a>
+    <a class="card" href="../checkout/"><div class="ic">🧾</div><h3>Checkout &amp; add-ons</h3><p>Plan + add-on selector with live totals; saves the order and hands off a secure payment link.</p><div class="go">Open checkout →</div></a>
+    <a class="card" href="../builder/"><div class="ic">🧩</div><h3>Add-on configurator</h3><p>Show a client how easily booking, store, payments &amp; more switch on — great screen-share moment.</p><div class="go">Open configurator →</div></a>
+    <a class="card" href="../onboard/"><div class="ic">✅</div><h3>Onboard a subscriber</h3><p>Post-sale checklist — close · assets · build · launch · go-live — with a progress bar, tracked per client.</p><div class="go">Open onboarding →</div></a>
+    <a class="card" href="../legal/"><div class="ic">⚖️</div><h3>Legal Pages</h3><p>Privacy, terms, cookie &amp; accessibility pages from a few answers — part of every go-live.</p><div class="go">Open generator →</div></a>
+  </div>
+</section>
 
-<div class="gh">Launch a new customer page</div>
-<div class="steps">
-  <div class="step"><div class="n">1</div><div class="b"><h4>Add the prospect</h4><p>Add the business (name, domain, city, vertical, rating) to <code>top30.json</code>. The generator pulls brand colors automatically; drop a hero photo at <code>images/custom/&lt;domain&gt;.jpg</code> for a hand-picked look.</p></div></div>
-  <div class="step"><div class="n">2</div><div class="b"><h4>Build &amp; QA</h4><p>Run <code>./release.sh</code> — it regenerates the demo (8 styles), teardown, and funnel, then runs the QA gate. It stops if anything fails.</p></div></div>
-  <div class="step"><div class="n">3</div><div class="b"><h4>Deploy</h4><p>Run <code>./deploy.sh "added &lt;business&gt;"</code> — it re-checks QA and pushes live. The new funnel appears at <code>/p/&lt;slug&gt;/</code> and in the pipeline. Send the link.</p></div></div>
-  <div class="step"><div class="n">4</div><div class="b"><h4>When they buy → add them as a subscriber &amp; go live</h4><p>Add them in <b>Subscribers</b> above, finalize content, switch on the add-ons they bought, point <em>their</em> domain at the site, turn on the secure portal (legal/medical), and install the legal pages. (Full steps in the Operations Playbook &amp; Go-Live Runbook.)</p></div></div>
-</div>
-<div class="note"><b>🔒 Lock this admin.</b> Subscriber data now lives in your <b>Supabase database</b> behind a magic-link sign-in — the same account that protects Leads — so it syncs across devices and stays private. The rest of this page is <code>noindex</code> and unlinked but not password-protected; to fully restrict it, enable <b>Vercel → Project → Settings → Deployment Protection (Password)</b>. Don't share the <code>/admin/</code>, <code>/pipeline/</code> or <code>/marketing/</code> URLs publicly until then.</div>
+<!-- ── STAGE 5 · RUN ───────────────────────────────────────────────────── -->
+<section class="stage" id="run">
+  <div class="sthead"><span class="n">5 · RUN</span><h2>Earn the subscription, every month.</h2><p>Your paying clients and the recurring work that keeps them: marketing, reviews, reporting.</p></div>
+
+  <div class="gh">Subscribers — your paying clients <span class="act" onclick="toggleAdd()">＋ Add subscriber</span></div>
+  <div class="panel">
+    <div class="addbar" style="display:none" id="addbar">
+      <form class="addform show" id="addform" onsubmit="return addSub(event)">
+        <div><label>Business name</label><input id="fName" required placeholder="The Vaughn Law Offices"></div>
+        <div><label>Domain (optional)</label><input id="fDom" placeholder="vaughn-law.com"></div>
+        <div><label>Plan</label><select id="fPlan" onchange="planChange()">
+          <option value="59.99">$59.99/mo · Site</option>
+          <option value="129.99" selected>$129.99/mo · Front Door</option>
+          <option value="199.99">$199.99/mo · Front Desk</option>
+          <option value="custom">Custom…</option></select></div>
+        <div><label>$/mo</label><input id="fMo" type="number" step="0.01" value="129.99"></div>
+        <div style="display:flex;gap:8px"><button class="mini" type="submit">Save</button><button class="mini ghost" type="button" onclick="toggleAdd()">Cancel</button></div>
+      </form>
+    </div>
+    <div id="subList"></div>
+  </div>
+
+  <div class="gh" style="margin-top:26px">The monthly work</div>
+  <div class="grid">
+    <a class="card lead" href="../marketing/"><div class="ic">📈</div><h3>Marketing engine</h3><p>Local SEO + Google Business Profile, review generation, reputation defense, monthly analytics &amp; social — the work that earns the plan.</p><div class="go">Open marketing engine →</div></a>
+    <a class="card" href="../social/"><div class="ic">📣</div><h3>Social Studio</h3><p>Compose posts for X, LinkedIn, Facebook, Instagram, Threads, GBP &amp; TikTok. Preview per channel, queue the calendar.</p><div class="go">Open Social Studio →</div></a>
+    <a class="card" href="../marketing/"><div class="ic">⭐</div><h3>Review request composer</h3><p>A ready SMS + email review ask with the client's Google link. Send in seconds.</p><div class="go">Open composer →</div></a>
+    <a class="card" href="../teardowns/"><div class="ic">🛡️</div><h3>Reputation defense</h3><p>Fake-review monitoring + one-click disputes — shown live on every prospect funnel.</p><div class="go">See it live →</div></a>
+    <a class="card" href="../bi/"><div class="ic">📊</div><h3>Business Intelligence</h3><p>Live MRR, ARR, conversion, pipeline stages, monthly trend &amp; plan mix — straight from your database.</p><div class="go">Open BI →</div></a>
+    <a class="card" href="../crm/"><div class="ic">👥</div><h3>Customer Database (CRM)</h3><p>Contacts, leads &amp; clients in one place — search, tag, cycle status. New contacts from client sites arrive automatically.</p><div class="go">Open CRM →</div></a>
+    <a class="card" href="../brand/"><div class="ic">🎨</div><h3>Sightline brand</h3><p>Your own logo, palette &amp; type sheet — for anything you put your name on.</p><div class="go">Open brand sheet →</div></a>
+  </div>
+</section>
+
+<!-- ── Reference ───────────────────────────────────────────────────────── -->
+<details class="howto">
+  <summary>How to launch a new prospect site (start to finish)</summary>
+  <div class="steps">
+    <div class="step"><div class="n">1</div><div class="b"><h4>Generate the demo — no code needed</h4><p>Double-click <code>Sightline Site Maker.command</code> in your sightline-studio folder. Type the prospect's website, click <b>Generate site</b>, preview it, then <b>Publish to live site</b>. Done — it's at <code>/demos/&lt;their-name&gt;/</code> two minutes later.</p></div></div>
+    <div class="step"><div class="n">2</div><div class="b"><h4>Want the full funnel instead? (advanced)</h4><p>Add the business to <code>top30.json</code> and run <code>./release.sh</code> — it regenerates the demo (8 styles), teardown, and funnel, runs the QA gate, and stops if anything fails. Then <code>./deploy.sh "added &lt;business&gt;"</code> pushes it live at <code>/p/&lt;slug&gt;/</code>.</p></div></div>
+    <div class="step"><div class="n">3</div><div class="b"><h4>Send it</h4><p>Grab their funnel link from the <b>Pipeline</b> (stage 3) — it has a ready-to-send email per prospect.</p></div></div>
+    <div class="step"><div class="n">4</div><div class="b"><h4>When they buy</h4><p>Add them under <b>Subscribers</b> (stage 5), run the <b>Onboarding</b> checklist (stage 4), switch on their add-ons, point their domain at the site, and install the legal pages.</p></div></div>
+  </div>
+</details>
+
+<div class="note"><b>🔒 Lock this admin.</b> Subscriber data lives in your <b>Supabase database</b> behind a magic-link sign-in. The rest of this page is <code>noindex</code> and unlinked but not password-protected; to fully restrict it, enable <b>Vercel → Project → Settings → Deployment Protection (Password)</b>. Don't share the <code>/admin/</code>, <code>/pipeline/</code> or <code>/marketing/</code> URLs publicly until then.</div>
 
 <footer class="foot">Sightline Admin · internal · not for public distribution.</footer>
 </div>
 <div class="toast" id="toast"></div>
 <script>
-/* Subscribers now persist in the shared Supabase database (same project as Leads),
-   behind magic-link sign-in. Requires a `subscribers` table (see SQL handed to Kris). */
+/* Subscribers persist in the shared Supabase database (same project as Leads),
+   behind magic-link sign-in. Requires the `subscribers` table. */
 const SUPA_URL="https://vtqmtecoxljduqomtkbw.supabase.co";
 const SUPA_KEY="sb_publishable_tOVldxTzrH4_9U0x-GZGHw_UFM57C2c";
 let subs=[]; let editId=null; let sb=null; let authed=false;
@@ -149,13 +213,21 @@ function slug(d){return (d||'').replace(/^https?:\/\//,'').replace(/\/.*$/,'').r
 function toast(m){const e=document.getElementById('toast');e.textContent=m;e.classList.add('show');setTimeout(()=>e.classList.remove('show'),1800)}
 function planChange(){const v=document.getElementById('fPlan').value;if(v!=='custom')document.getElementById('fMo').value=v}
 function toggleAdd(){if(!authed){toast('Sign in first to manage subscribers');showLogin();return}
-  const b=document.getElementById('addbar');const showing=b.style.display!=='none';b.style.display=showing?'none':'block';if(showing){editId=null;document.getElementById('addform').reset();document.getElementById('fMo').value='129'}}
+  const b=document.getElementById('addbar');const showing=b.style.display!=='none';b.style.display=showing?'none':'block';if(showing){editId=null;document.getElementById('addform').reset();document.getElementById('fMo').value='129.99'}}
 (async function initDB(){
   try{ const {createClient}=await import("https://esm.sh/@supabase/supabase-js@2"); sb=createClient(SUPA_URL,SUPA_KEY); }
   catch(e){ document.getElementById('subList').innerHTML='<div class="empty">Couldn’t reach the database. Retry in a moment.</div>'; return; }
   const {data:{session}}=await sb.auth.getSession(); authed=!!session;
-  if(authed){ loadSubs(); } else { showLogin(); }
+  if(authed){ loadSubs(); loadLeadCount(); } else { showLogin(); }
 })();
+/* Stage-4 stat: open leads (best effort — shows a dash if the table's RLS
+   doesn't allow the signed-in user to read leads). */
+async function loadLeadCount(){
+  try{
+    const {count,error}=await sb.from('leads').select('*',{count:'exact',head:true});
+    if(!error && count!=null) document.getElementById('fClose').textContent=count;
+  }catch(e){/* leave the dash */}
+}
 function showLogin(){
   document.getElementById('kMrr').textContent='—';
   document.getElementById('kSubs').textContent='—';
