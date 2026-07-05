@@ -1,336 +1,372 @@
-<!DOCTYPE html><html lang="en"><head>
-<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Cherry Hills Dental Associates — Englewood</title>
-<meta name="description" content="Cherry Hills Dental Associates · Englewood, CO — Full-service, one-stop dental care for the whole family. General, cosmetic, restorative and implant dentistry led by Dr. Bryan Gibbs, a 5280 Top Dentist.">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"Dentist","name":"Cherry Hills Dental Associates","description":"Full-service, one-stop dental care for the whole family in Englewood, CO — general, preventive, cosmetic, restorative and implant dentistry, plus Invisalign and one-visit crowns. Led by Dr. Bryan Gibbs, D.D.S., a 5280 Top Dentist.","areaServed":"Englewood, CO","telephone":"719-787-7972","address":{"@type":"PostalAddress","streetAddress":"6501 E. Belleview Ave., Suite 120","addressLocality":"Englewood","addressRegion":"CO","postalCode":"80111"},"url":"https://cherryhillsdentist.com"}</script>
+<!doctype html><html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Cherry Hills Dental Associates</title>
+<meta name="description" content="Cherry Hills Dental Associates offers comprehensive general dentistry, cosmetic dentistry, and facial esthetics services including Invisalign, Botox, PRF, and SkinCeuticals treatments. We treat tooth pain and provide advanced dental solutions in Englewood and Denver Tech Center.">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
-<style>
-:root{--p:#1f6f7a;--p6:#195962;--p7:#123f45;--p9:#051314;--ac:#c1a05a;
---ink:#312d27;--n50:#f9f5ec;--n1:#ece7df;--n2:#d8d4cc;--n7:#5e5a53;--bg:#f6f1e8;--surf:#ffffff;--surf2:#efe6d6;--navc:#ffffff;--rad:20px;
---head:'Outfit',system-ui,sans-serif;--body:'Outfit',system-ui,sans-serif;--mono:ui-monospace,monospace;
---fs-hero:clamp(3.3rem,9vw,8.9rem);--fs-disp:clamp(2.1rem,1rem + 3.4vw,4.4rem);--maxw:1280px;--sp:clamp(84px,10vw,150px);--ease:cubic-bezier(.16,1,.3,1);
---sh:0 2px 8px rgba(20,18,16,.06),0 18px 40px rgba(20,18,16,.09);}
-*{box-sizing:border-box;margin:0}html{scroll-behavior:smooth;font-size:115%}
-body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:clamp(1rem,.95rem + .25vw,1.15rem);line-height:1.62;-webkit-font-smoothing:antialiased;overflow-x:hidden}
-h1,h2,h3{font-family:var(--head);font-weight:500;line-height:1;letter-spacing:-.012em;color:var(--ink);font-variant-ligatures:none;font-feature-settings:"liga" 0,"dlig" 0,"clig" 0;}
-a{color:inherit;text-decoration:none}.wrap{width:100%;max-width:var(--maxw);margin:0 auto;padding:0 clamp(22px,5vw,64px);position:relative;box-sizing:border-box}
-.kicker{font-family:var(--body);font-size:clamp(.72rem,.68rem + .2vw,.82rem);letter-spacing:.28em;text-transform:uppercase;font-weight:600}
-.btn{display:inline-flex;align-items:center;gap:10px;font-family:var(--body);font-weight:600;font-size:1.02rem;padding:16px 32px;border-radius:var(--rad);border:1.5px solid var(--ink);background:var(--ink);color:#fff;cursor:pointer;transition:transform .25s var(--ease),background .25s,color .25s}
-.btn:hover{transform:translateY(-2px)}
-.btn-out{background:transparent;border-color:currentColor}
-.btn-light{background:#fff;color:var(--p9);border-color:#fff}.btn-light:hover{background:transparent;color:#fff}
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>:root{--ink:#3f3f3f;--bg:#faf8f4;--surf:#ffffff;--mut:#6a6a72;--line:rgba(0,0,0,.10);
+    --brand:#fbbf24;--brand-d:#ce9d1e;--accent:#dc2626;--brand-rgb:251,191,36;--rad:22px}
 
-.stars{color:#e3b341;letter-spacing:2px}
-/* a too-long single word in a narrow column would otherwise spill past its box */
-h1,h2,h3,h4{overflow-wrap:break-word}
-/* NAV */
-.nav{position:fixed;inset:0 0 auto 0;z-index:60;display:flex;align-items:center;justify-content:space-between;padding:20px clamp(22px,5vw,64px);color:var(--navc);transition:background .35s,color .35s,box-shadow .35s,padding .35s}
-.nav.scd{background:rgba(255,255,255,.94);backdrop-filter:blur(12px);color:var(--ink);box-shadow:0 1px 0 rgba(20,18,16,.08);padding:14px clamp(22px,5vw,64px)}
-.brand{font-family:var(--head);font-weight:600;font-size:1.62rem;letter-spacing:-.01em;font-variant-ligatures:none;font-feature-settings:"liga" 0,"dlig" 0,"clig" 0;}
-.logo-img{height:58px;width:auto;max-width:260px;display:block;background:#fff;padding:9px 16px;border-radius:10px;box-shadow:0 1px 4px rgba(0,0,0,.12)}
-.bmono{display:inline-flex;align-items:center;justify-content:center;width:1.5em;height:1.5em;border-radius:7px;background:var(--p);color:#fff;font-weight:700;font-size:.72em;letter-spacing:0;margin-right:.42em;vertical-align:-.18em;font-family:var(--body);text-transform:none}
-.navlinks{display:flex;gap:32px;font-size:.96rem;font-weight:500}.navlinks a{opacity:.92}.navlinks a:hover{opacity:1}
-.navcta{font-weight:600;font-size:.95rem;border:1.5px solid currentColor;padding:10px 22px;border-radius:var(--rad)}
-@media(max-width:860px){.navlinks{display:none}}
-.nav{gap:14px}.brand{min-width:0}
-/* on small screens a long brand name + a long CTA ("Request an appointment") would overrun the bar and force
-   horizontal page scroll. Tighten padding + truncate the brand; on tablets shrink the CTA, and on phones drop it
-   entirely (the hero keeps its own CTA) so the row always fits the viewport. */
-@media(max-width:560px){.nav{padding-left:16px;padding-right:16px;gap:10px}.brand{font-size:1.1rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:58vw}.navcta{padding:7px 12px;font-size:.78rem;white-space:nowrap;flex:0 0 auto}}
-@media(max-width:480px){.navcta{display:none}}
-/* HERO cover */
-.hero{position:relative;min-height:100svh;display:flex;align-items:flex-end;color:#fff;overflow:hidden;isolation:isolate}
-.hero-bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:-2;animation:kb 16s var(--ease) forwards}
-@keyframes kb{from{transform:scale(1.12)}to{transform:scale(1)}}
-.hero-fallback{position:absolute;inset:0;z-index:-2;background:
-  radial-gradient(125% 95% at 82% -12%, color-mix(in srgb, var(--p) 42%, #161a22) 0%, transparent 56%),
-  radial-gradient(95% 85% at -12% 112%, color-mix(in srgb, var(--ac) 34%, #10131a) 0%, transparent 52%),
-  linear-gradient(150deg, #161a21 0%, #0f1218 58%, #0a0c11 100%)}
-.hero-fallback:after{content:"";position:absolute;inset:0;background-image:radial-gradient(rgba(255,255,255,.05) 1px,transparent 1px);background-size:22px 22px;opacity:.5}
-.hero-scrim{position:absolute;inset:0;z-index:-1;background:linear-gradient(to top,rgba(247,239,224,.95) 0%,rgba(247,239,224,.74) 24%,rgba(247,239,224,.38) 52%,rgba(247,239,224,.2) 74%,rgba(247,239,224,.5) 100%)}
-.nav:not(.scd){text-shadow:0 1px 20px rgba(0,0,0,.55)}
-.hero h1,.hero-sub{text-shadow:0 2px 36px rgba(0,0,0,.5)}
-.hero-inner{padding-bottom:clamp(54px,8vw,96px);padding-top:140px;width:100%}
-.hero .kicker{color:#fff;opacity:.92;margin-bottom:22px}
-.hero h1{color:#fff;font-size:var(--fs-hero);line-height:.98;letter-spacing:-.03em;max-width:15ch;font-weight:500}
-.hero h1 .ln{display:block;overflow:hidden;padding:.06em .02em .14em}
-.hero h1 .ln+.ln{margin-top:-.16em}
-.hero h1 .ln>span{display:block;transform:translateY(105%);opacity:0;animation:rise .95s var(--ease) forwards}
-.hero h1 .ln:nth-child(2)>span{animation-delay:.1s}.hero h1 .ln:nth-child(3)>span{animation-delay:.2s}
-.hero h1 em{font-style:italic;color:#fff}
-@keyframes rise{to{transform:none;opacity:1}}
-.hero-sub{font-size:clamp(1.1rem,.95rem + .7vw,1.45rem);max-width:42ch;margin:28px 0 34px;color:rgba(255,255,255,.92);line-height:1.5;opacity:0;animation:rise .9s var(--ease) .42s forwards}
-.hero-cta{display:flex;gap:16px;flex-wrap:wrap;align-items:center;opacity:0;animation:rise .9s var(--ease) .54s forwards}
-.hero-rate{display:flex;align-items:center;gap:9px;font-size:.98rem;color:#fff}
-.hero{color:var(--ink)}.hero .kicker{color:var(--p7);opacity:1}.hero h1,.hero h1 em{color:var(--ink)}.hero h1,.hero-sub{text-shadow:0 1px 2px rgba(255,255,255,.5)}.hero-sub{color:rgba(43,32,20,.84)}.hero-rate{color:var(--ink)}
-.nav:not(.scd){color:var(--ink)}.nav:not(.scd) a{color:var(--ink)}.nav:not(.scd) .navcta{color:var(--ink);border-color:rgba(43,32,20,.45)}.nav:not(.scd) .brand{color:var(--ink)}
-/* HERO split (minimal) — elevated: near-full-bleed image, bold headline, accent rule */
-.hero-min{min-height:100svh;display:flex;align-items:center;background:var(--bg);color:var(--ink);padding:100px 0 0;overflow:hidden}
-.hmg{display:grid;grid-template-columns:1fr 1fr;gap:0;align-items:stretch;width:100%;min-height:calc(100svh - 100px)}
-.hmt{padding:clamp(40px,6vw,80px) clamp(22px,5vw,64px) clamp(40px,6vw,80px) clamp(22px,5vw,64px);display:flex;flex-direction:column;justify-content:center}
-.hmt .kicker{color:var(--p6);margin-bottom:clamp(18px,2.5vw,30px);display:flex;align-items:center;gap:12px}
-.hmt .kicker::before{content:"";display:inline-block;width:28px;height:2px;background:var(--p);flex-shrink:0}
-.hmt h1{font-size:clamp(3rem,1.2rem + 5vw,6.2rem);line-height:.97;max-width:12ch;letter-spacing:-.04em}
-.hmt h1 .hl{color:var(--p)}
-.hsub-min{font-size:clamp(1.05rem,.95rem + .45vw,1.28rem);color:var(--n7);max-width:42ch;margin:clamp(20px,2.5vw,30px) 0 clamp(28px,3.5vw,42px);line-height:1.58}
-.hrate-min{display:inline-flex;gap:8px;align-items:center;color:var(--ink);font-size:.95rem}
-.hmi{overflow:hidden;border-radius:0;box-shadow:none;position:relative}
-.hmi img{width:100%;height:100%;object-fit:cover;display:block;animation:kb 18s var(--ease) forwards;min-height:clamp(400px,80vh,900px)}
-.hmi::after{content:"";position:absolute;inset:0 0 0 auto;width:3px;background:var(--p);opacity:.18}
-.hmi-fb{width:100%;height:100%;min-height:clamp(400px,80vh,900px);background:linear-gradient(150deg,var(--p),var(--p9));display:flex;align-items:center;justify-content:center;color:#fff;font-family:var(--head);font-size:3rem}
-@media(max-width:860px){.hmg{grid-template-columns:1fr;min-height:auto}.hmt{padding:clamp(32px,5vw,56px) clamp(22px,5vw,48px)}.hmi{aspect-ratio:16/10}.hmi img{min-height:unset;height:100%}}
-/* proof bar */
-.proof{background:var(--ink);color:#fff}
-.proof.lite{background:transparent;color:var(--ink);border-top:1px solid var(--n2);border-bottom:1px solid var(--n2)}
-.proof .wrap{display:flex;gap:clamp(20px,5vw,70px);justify-content:center;flex-wrap:wrap;padding:20px 0;font-size:.96rem;letter-spacing:.01em}
-.proof span{display:inline-flex;align-items:center;gap:10px;opacity:.92}.proof .d{color:var(--ac)}
-/* sections */
-.section{padding:var(--sp) 0}
-.sec-head{display:flex;align-items:flex-end;justify-content:space-between;gap:24px;margin-bottom:clamp(40px,5vw,64px);flex-wrap:wrap}
-.sec-head h2{font-size:calc(var(--fs-disp)*1.2);max-width:18ch}
-.sec-head .ek{color:var(--p6)}
-/* services editorial list */
-.svc{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--n2);border:1px solid var(--n2);border-radius:var(--rad);overflow:hidden}
-.svc .it{background:var(--bg);padding:clamp(28px,3vw,44px);transition:background .3s}
-.svc .it:hover{background:var(--surf)}
-.svc .si{font-family:var(--mono);font-size:.8rem;color:var(--p6);letter-spacing:.05em;font-weight:600}
-.svc .it h3{font-size:clamp(1.5rem,1rem + 1.4vw,2.1rem);margin:12px 0 12px}
-.svc .it p{color:var(--ink);opacity:.84;font-size:1.07rem;max-width:42ch;margin:0}
-@media(max-width:760px){.svc{grid-template-columns:1fr}}
-/* services — asymmetric editorial */
-.svc-grid{display:grid;grid-template-columns:.82fr 1.18fr;gap:clamp(38px,6vw,88px);align-items:start}
-.svc-intro{position:sticky;top:108px}
-.svc-intro .kicker{color:var(--p6)}
-.svc-intro h2{font-size:calc(var(--fs-disp)*1.04);margin:18px 0 22px;max-width:13ch}
-.svc-lead{font-family:var(--head);font-weight:400;font-size:clamp(1.12rem,1rem + .55vw,1.5rem);line-height:1.44;color:var(--ink);opacity:.82;max-width:32ch;margin-bottom:30px}
-.svc-cta{display:inline-block;font-family:var(--body);font-weight:600;font-size:1rem;color:var(--ink);border-bottom:2px solid var(--ac);padding-bottom:5px;transition:color .25s}
-.svc-cta:hover{color:var(--p)}
-.svc-list{display:flex;flex-direction:column}
-.svc-row{display:grid;grid-template-columns:auto 1fr;gap:clamp(20px,3vw,46px);padding:clamp(26px,3vw,40px) 0;border-top:1px solid var(--n2);align-items:baseline;transition:padding-left .3s var(--ease)}
-.svc-row:last-child{border-bottom:1px solid var(--n2)}
-.svc-row:hover{padding-left:8px}
-.svc-row .si{font-family:var(--mono);font-size:.92rem;color:var(--ac);font-weight:700;letter-spacing:.04em}
-.svc-body h3{font-size:clamp(1.4rem,1rem + 1.25vw,2.05rem);margin-bottom:11px;line-height:1.05}
-.svc-body p{color:var(--ink);opacity:.78;font-size:1.08rem;line-height:1.56;max-width:50ch;margin:0}
-@media(max-width:860px){.svc-grid{grid-template-columns:1fr}.svc-intro{position:static;margin-bottom:14px}}
-/* about */
-.about{background:var(--ink);color:#fff}
-.about.lite{background:var(--surf2);color:var(--ink)}
-.about.lite h2{color:var(--ink)}.about.lite p{color:var(--n7)}.about.lite .ek{color:var(--p6)}
-.about h2{color:#fff;font-size:var(--fs-disp);max-width:16ch}
-.about-grid{display:grid;grid-template-columns:1fr 1.08fr;gap:clamp(36px,5vw,80px);align-items:stretch}
-.about-text{align-self:center}
-.about p{color:rgba(255,255,255,.82);font-size:1.12rem;margin-top:22px;max-width:48ch}
-.about .ek{color:var(--ac)}
-.about-img{aspect-ratio:auto;min-height:clamp(440px,54vh,660px);border-radius:var(--rad);overflow:hidden;box-shadow:var(--sh)}
-.about-img img{width:100%;height:100%;object-fit:cover;display:block}
-.about-panel{aspect-ratio:4/5;border-radius:var(--rad);background:linear-gradient(150deg,var(--p),var(--p9));display:flex;flex-direction:column;justify-content:flex-end;padding:38px;gap:6px}
-.about-panel .big{font-family:var(--head);font-size:3.2rem;color:#fff}.about-panel .l{color:rgba(255,255,255,.8)}
-@media(max-width:860px){.about-grid{grid-template-columns:1fr}}
-.about-vals{display:grid;grid-template-columns:1fr 1fr 1fr;gap:clamp(18px,2.5vw,34px);margin-top:clamp(34px,4vw,54px);padding-top:clamp(26px,3vw,40px);border-top:1px solid rgba(255,255,255,.16)}
-.about.lite .about-vals{border-top-color:var(--n2)}
-.about-vals .av b{display:block;font-family:var(--head);font-weight:500;font-size:1.14rem;letter-spacing:-.01em;margin-bottom:8px}
-.about-vals .av span{font-size:.95rem;line-height:1.5;opacity:.72}
-@media(max-width:680px){.about-vals{grid-template-columns:1fr;gap:20px}}
-/* quote */
-.quote{text-align:center;max-width:42rem;margin:0 auto}
-.quote .qmark{display:block;font-family:var(--head);font-size:clamp(4.5rem,10vw,8rem);line-height:.55;color:var(--ac);opacity:.45;margin-bottom:10px}
-.quote blockquote{font-family:var(--head);font-weight:500;font-size:clamp(1.55rem,1rem + 1.9vw,2.6rem);line-height:1.32;letter-spacing:-.01em;}
-.quote .stars{font-size:1.4rem;display:block;margin:24px 0 0}
-.quote cite{display:block;font-family:var(--body);font-style:normal;font-size:1rem;color:var(--n7);margin-top:26px}
-/* gallery */
-.gal{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
-.gal .g{aspect-ratio:4/5;overflow:hidden;border-radius:var(--rad)}.gal img{width:100%;height:100%;object-fit:cover;transition:transform .7s var(--ease)}.gal .g:hover img{transform:scale(1.06)}
-@media(max-width:760px){.gal{grid-template-columns:1fr 1fr}}
-.gallery-sec .car{position:relative;border-radius:var(--rad);overflow:hidden;background:var(--surf2);box-shadow:var(--sh)}
-.car-track{display:flex;transition:transform .55s var(--ease);will-change:transform}
-.car-slide{min-width:100%}
-.car-slide img{width:100%;height:clamp(300px,46vw,560px);object-fit:cover;display:block}
-.car-arr{position:absolute;top:50%;transform:translateY(-50%);width:48px;height:48px;border-radius:50%;border:none;background:rgba(255,255,255,.92);color:#16140f;font-size:1.7rem;line-height:1;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 16px rgba(0,0,0,.2);z-index:2;transition:transform .2s}
-.car-arr:hover{transform:translateY(-50%) scale(1.07)}.car-arr.prev{left:16px}.car-arr.next{right:16px}
-.car-dots{position:absolute;bottom:16px;left:50%;transform:translateX(-50%);display:flex;gap:8px;z-index:2}
-.car-dots .cd{width:9px;height:9px;border-radius:50%;border:none;background:rgba(255,255,255,.6);cursor:pointer;padding:0;transition:.25s}
-.car-dots .cd.on{background:#fff;width:24px;border-radius:6px}
-@media(max-width:760px){.car-arr{width:40px;height:40px;font-size:1.4rem}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);
+  font-family:Inter,system-ui,-apple-system,sans-serif;line-height:1.55;-webkit-font-smoothing:antialiased}
+h1,h2,h3{font-family:'Sora',Georgia,serif;font-weight:600;line-height:1.08;letter-spacing:-.01em;margin:0}
+.wrap{max-width:1120px;margin:0 auto;padding:0 24px}
+.btn{display:inline-block;font-weight:600;text-decoration:none;background:var(--brand);color:#fff;
+  padding:12px 22px;border-radius:calc(var(--rad)*1px);border:1px solid transparent;transition:.2s}
+.btn.lg{padding:15px 28px;font-size:1.02rem}.btn.sm{padding:9px 16px;font-size:.9rem}
+.btn.ghost{background:transparent;border-color:rgba(255,255,255,.5);color:#fff}
+.btn.light{background:#fff;color:var(--brand)}
+.btn:hover{background:var(--brand-d)}
+.sec-k{display:block;font-size:.76rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--brand)}
+.sec-k.light{color:rgba(255,255,255,.85)}
+.lead{color:var(--mut);font-size:1.08rem;max-width:60ch;margin:.5em 0 0}.lead.light{color:rgba(255,255,255,.9)}
+.sec{padding:clamp(48px,7vw,96px) 0}
+/* nav */
+.nav{position:absolute;top:0;left:0;right:0;z-index:10;display:flex;align-items:center;gap:20px;
+  padding:18px clamp(20px,4vw,44px);color:#fff}
+.nav .brandmark{display:inline-flex;align-items:center;background:#fff;border-radius:9px;padding:7px 12px;box-shadow:0 2px 12px rgba(0,0,0,.12);text-decoration:none}
+.nav .logo{height:30px;width:auto;display:block}
+.arch-split .nav .brandmark,.arch-minimal .nav .brandmark{box-shadow:none;background:transparent;padding:0}
+.nav .wordmark{font-family:'Sora',serif;font-size:1.4rem;font-weight:600}
+.navlinks{display:flex;gap:20px;margin-left:auto;font-size:.82rem;font-weight:600;letter-spacing:.02em}
+.navlinks a{color:#fff;text-decoration:none;opacity:.9;text-transform:uppercase}
+.navlinks a:hover{opacity:1}.nav .btn{margin-left:12px}
+/* hero */
+.hero{position:relative;min-height:100svh;display:flex;align-items:flex-end;color:#fff;isolation:isolate;overflow:hidden}
+.hero-bg{position:absolute;inset:0;z-index:-3;background-size:cover;background-position:center;transform:scale(1.06);transform-origin:60% 40%}
+.hero-video{width:100%;height:100%;object-fit:cover}
+.glow{position:absolute;z-index:-2;pointer-events:none;display:none;mix-blend-mode:screen}
+.scrim{position:absolute;inset:0;z-index:-1;background:linear-gradient(180deg,rgba(0,0,0,.28),rgba(0,0,0,0) 34%,rgba(0,0,0,.32) 66%,rgba(0,0,0,.8))}
+.hero-in{padding:0 clamp(20px,4vw,44px) clamp(44px,7vw,84px);max-width:820px}
+.hero .kick{font-size:.78rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase}
+.hero h1{font-size:clamp(2.4rem,6.5vw,4.6rem);margin:.24em 0 .2em;text-shadow:0 2px 30px rgba(0,0,0,.35);text-wrap:balance}
+.hero-sub{max-width:46ch;font-size:clamp(1rem,1.7vw,1.2rem);color:rgba(255,255,255,.94);margin:0 0 22px;text-shadow:0 1px 14px rgba(0,0,0,.4)}
+.cta-row{display:flex;flex-wrap:wrap;gap:12px}
+/* cards */
+.cardgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:20px;margin-top:34px}
+.card{background:var(--surf);border:1px solid var(--line);border-radius:calc(var(--rad)*1px);padding:26px}
+.card .cn{display:inline-grid;place-items:center;width:34px;height:34px;border-radius:50%;background:var(--brand);color:#fff;font-weight:700;margin-bottom:12px}
+.card h3{font-size:1.16rem}.card p{color:var(--mut);margin:.4em 0 0}
+/* events */
+.evlist{margin-top:30px;display:flex;flex-direction:column;gap:2px}
+.ev{display:flex;gap:22px;padding:20px 0;border-top:1px solid var(--line);align-items:baseline}
+.ev-when{min-width:140px;font-weight:700;color:var(--brand)}
+.ev-body h3{font-size:1.12rem}.ev-body p{color:var(--mut);margin:.3em 0 0}
+/* business: book bar, reviews, offer */
+.bookbar{background:color-mix(in srgb,var(--ink) 4%,var(--bg));padding:22px 0}
+.bookbar-in{display:flex;justify-content:space-between;align-items:center;gap:24px;flex-wrap:wrap}
+.bookbar b{font-family:'Sora',serif;font-size:1.3rem;display:block}.bookbar span{color:var(--mut);font-size:.92rem}
+.bookbtns{display:flex;gap:10px;flex-wrap:wrap}
+.rating{display:flex;align-items:center;gap:8px;margin:14px 0 0;font-size:1.05rem}
+.rating .stars{color:var(--accent);letter-spacing:2px}
+.rvgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:18px;margin-top:26px}
+.rv{margin:0;background:var(--surf);border:1px solid var(--line);border-radius:calc(var(--rad)*1px);padding:22px;font-size:1.02rem;line-height:1.5;font-style:italic}
+.rv cite{display:block;margin-top:12px;font-style:normal;font-weight:600;font-size:.9rem;color:var(--mut)}
+/* Catholic: sacraments + devotions */
+.sacrgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px;margin:30px 0 26px}
+.sacrcard{display:flex;align-items:center;gap:14px;background:var(--surf);border:1px solid var(--line);border-radius:calc(var(--rad)*1px);padding:18px 20px}
+.sacrcard .sx{color:var(--accent);font-size:1.2rem}.sacrcard h3{font-size:1.05rem;margin:0}
+.devos{display:flex;gap:30px;flex-wrap:wrap;margin-top:18px;padding-top:18px;border-top:1px solid var(--line)}
+.devo{display:flex;flex-direction:column}.devo b{color:var(--brand)}.devo span{color:var(--mut);font-size:.92rem}
+/* announcement bar */
+.announce{background:var(--brand-d);color:#fff;text-align:center;font-size:.9rem;font-weight:500;padding:9px 16px;display:flex;gap:9px;align-items:center;justify-content:center}
+.arch-journey .nav{position:relative;background:color-mix(in srgb,var(--ink) 92%,#000)}
+.adot{width:8px;height:8px;border-radius:50%;background:var(--accent);flex:none;animation:pulse 2s ease-in-out infinite}
+@keyframes pulse{0%,100%{opacity:.4}50%{opacity:1}}
+/* next steps rail */
+.steprail{display:flex;align-items:stretch;gap:14px;margin:30px 0;flex-wrap:wrap}
+.step{flex:1;min-width:180px;background:var(--surf);border:1px solid var(--line);border-radius:calc(var(--rad)*1px);padding:22px}
+.stepn{font-family:'Sora',serif;font-size:1.6rem;color:var(--accent);font-weight:700}
+.step h3{font-size:1.08rem;margin:.3em 0 .2em}.step p{color:var(--mut);font-size:.92rem;margin:0}
+.steparrow{align-self:center;color:var(--mut);font-size:1.4rem}
+/* groups chips */
+.chips{display:flex;flex-wrap:wrap;gap:10px;margin:20px 0 26px}
+.chip{border:1px solid var(--line);border-radius:100px;padding:9px 18px;font-weight:600;font-size:.92rem;background:var(--surf);transition:.15s}
+.chip:hover{border-color:var(--brand);color:var(--brand);transform:translateY(-2px)}
+.band.alt{background:var(--ink)}
+/* care + prayer form */
+.care-in{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center}
+.care-copy .lead{margin-top:.5em}
+.care-form{display:flex;flex-direction:column;gap:12px}
+.care-form input,.care-form textarea{font:inherit;padding:13px 15px;border:1px solid var(--line);border-radius:calc(var(--rad)*1px);background:var(--surf);color:var(--ink);resize:vertical}
+.care-form input:focus,.care-form textarea:focus{outline:2px solid var(--brand);border-color:transparent}
+.care-form .btn{align-self:flex-start}
+@media(max-width:760px){.care-in{grid-template-columns:1fr;gap:24px}.steparrow{display:none}}
+/* watch / livestream */
+.watch-in{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center}
+.watch-frame{position:relative;aspect-ratio:16/9;border-radius:calc(var(--rad)*1px);overflow:hidden;
+  background:linear-gradient(135deg,var(--brand),var(--brand-d));display:grid;place-items:center;box-shadow:0 20px 50px rgba(0,0,0,.18)}
+.playbtn{width:74px;height:74px;border-radius:50%;background:rgba(255,255,255,.92);color:var(--brand);
+  display:grid;place-items:center;font-size:1.5rem;padding-left:5px;transition:transform .2s}
+.watch-frame:hover .playbtn{transform:scale(1.08)}
+.watch-meta{position:absolute;left:16px;bottom:14px;color:#fff}.watch-meta b{display:block}.watch-meta span{font-size:.86rem;opacity:.85}
+@media(max-width:760px){.watch-in{grid-template-columns:1fr;gap:22px}}
+/* service times */
+.times-in{display:flex;gap:40px;flex-wrap:wrap;align-items:center}
+.times-h{min-width:200px}.times-h h2{font-size:1.8rem;margin-top:.1em}
+.times-list{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px 30px;flex:1}
+.times-list li{display:flex;align-items:center;gap:12px;font-size:1.05rem;padding:10px 0;border-bottom:1px solid var(--line)}
+.tdot{width:9px;height:9px;border-radius:50%;background:var(--accent);flex:none}
+/* team */
+.teamgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,210px));gap:24px;margin-top:32px;justify-content:center}
+.tcard{text-align:center;max-width:210px}.tcard img,.tinitial{width:100%;aspect-ratio:1;object-fit:cover;border-radius:calc(var(--rad)*1px)}
+.tinitial{display:grid;place-items:center;background:var(--brand);color:#fff;font-family:'Sora',serif;font-size:2.4rem;font-weight:600}
+.tcard h3{font-size:1.1rem;margin-top:14px}.trole{color:var(--mut);font-size:.92rem}
+/* band */
+.band{background:var(--brand);color:#fff}
+.band-in{display:flex;gap:30px;align-items:center;justify-content:space-between;flex-wrap:wrap}
+.band h2{margin-top:.2em}
 /* cta */
-.cta{position:relative;color:#fff;text-align:center;padding:clamp(80px,11vw,150px) 0;overflow:hidden}
-.cta-bg{position:absolute;inset:0;z-index:-2;background:linear-gradient(150deg,var(--p),var(--p9))}
-.cta-bg.img{background:none}.cta-bg.img img{width:100%;height:100%;object-fit:cover}
-.cta-scrim{position:absolute;inset:0;z-index:-1;background:linear-gradient(to top,rgba(18,16,14,.8),rgba(18,16,14,.5))}
-.cta h2{color:#fff;font-size:clamp(2.2rem,1.2rem + 3.6vw,4.6rem);max-width:16ch;margin:0 auto}
-.cta p{color:rgba(255,255,255,.85);max-width:46ch;margin:20px auto 34px}
-.cta.lite{color:var(--ink);background:var(--surf2)}
-.cta.lite h2{color:var(--ink)}.cta.lite p{color:var(--n7)}.cta.lite .ek{color:var(--p6);display:block;margin-bottom:14px}
-/* feature band */
-.feature{position:relative;color:#fff;padding:clamp(94px,13vw,176px) 0;overflow:hidden;isolation:isolate}
-.feature-bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:-2}
-.feature-scrim{position:absolute;inset:0;z-index:-1;background:linear-gradient(110deg,rgba(15,13,11,.8),rgba(15,13,11,.34))}
-.feature .kicker{color:#fff;opacity:.9;margin-bottom:18px}
-.feature h2{color:#fff;font-size:var(--fs-disp);max-width:13ch;text-shadow:0 2px 34px rgba(0,0,0,.5)}
-.feature .btn{margin-top:30px}
-/* section lead + faq + scroll cue */
-.sec-lead{font-family:var(--head);font-weight:400;font-size:clamp(1.2rem,1rem + .75vw,1.65rem);line-height:1.42;max-width:44ch;color:var(--ink);opacity:.82;margin:-16px 0 52px}
-.faq{background:var(--surf2)}
-.faq .faq-grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--n2);border:1px solid var(--n2);border-radius:var(--rad);overflow:hidden;margin-top:6px}
-.faq-it{background:var(--bg);padding:clamp(26px,3vw,42px);transition:background .3s}
-.faq-it:hover{background:var(--surf)}
-.faq-it h3{font-size:clamp(1.12rem,1rem + .7vw,1.5rem);margin-bottom:13px}
-.faq-it p{color:var(--ink);opacity:.82;font-size:1.05rem;line-height:1.6;max-width:48ch}
-@media(max-width:760px){.faq .faq-grid{grid-template-columns:1fr}}
-.scrolldown{position:absolute;bottom:24px;left:50%;width:1px;height:48px;background:linear-gradient(rgba(255,255,255,0),rgba(255,255,255,.85));transform-origin:bottom center;animation:sd 2.1s ease-in-out infinite;z-index:2}
-@keyframes sd{0%,100%{transform:translateX(-50%) scaleY(.35);opacity:.3}50%{transform:translateX(-50%) scaleY(1);opacity:.85}}
-/* compare / competitive standing */
-.compare{background:var(--surf2)}
-.cmp-grid{display:grid;grid-template-columns:1.3fr .7fr;gap:clamp(32px,5vw,64px);align-items:center}
-.cmp-bars{display:flex;flex-direction:column;gap:13px}
-.cmp-row{display:grid;grid-template-columns:minmax(80px,1.1fr) 2fr auto;gap:10px;align-items:center;font-size:.97rem}@media(max-width:480px){.cmp-row{grid-template-columns:minmax(60px,1fr) 2fr auto;gap:6px;font-size:.88rem}}
-.cmp-row .cn{color:var(--ink);opacity:.78;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.cmp-row.me .cn{opacity:1;font-weight:700}
-.cmp-row .cbar{height:11px;background:var(--n2);border-radius:999px;overflow:hidden}
-.cmp-row .cbar i{display:block;height:100%;background:var(--p);border-radius:999px}
-.cmp-row.me .cbar i{background:var(--ac)}
-.cmp-row .cv{font-variant-numeric:tabular-nums;font-weight:700;color:var(--ink)}
-.cmp-rank{font-family:var(--head);font-weight:500;font-size:clamp(3rem,6vw,4.8rem);line-height:1;color:var(--p)}
-.cmp-rank span{display:block;font-family:var(--body);font-size:.9rem;color:var(--n7);letter-spacing:.02em;margin-top:8px;text-transform:none}
-.cmp-note p{margin-top:16px;color:var(--ink);opacity:.92}
-.cmp-gap{background:var(--bg);border-left:3px solid var(--ac);padding:14px 16px;border-radius:0 8px 8px 0;font-size:1rem}
-.cmp-gap span{display:block;font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;color:var(--p6);font-weight:700;margin-bottom:6px}
-.cmp-src{font-size:.83rem!important;opacity:.58!important}
-@media(max-width:860px){.cmp-grid{grid-template-columns:1fr}}
-/* security — the Sightline signature */
-.secure{background:var(--ink);color:#fff}
-.secure .sec-head h2{color:#fff}
-.secure .sec-head .kicker{color:var(--ac)}
-.secure-lead{font-family:var(--head);font-weight:400;font-size:clamp(1.15rem,1rem + .6vw,1.55rem);line-height:1.42;color:rgba(255,255,255,.82);max-width:50ch;margin:-12px 0 46px}
-.secure-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:rgba(255,255,255,.13);border:1px solid rgba(255,255,255,.13);border-radius:var(--rad);overflow:hidden}
-.sf{background:var(--ink);padding:clamp(24px,2.4vw,36px)}
-.sf-mark{display:block;width:30px;height:30px;color:var(--ac);margin-bottom:20px}
-.sf-mark svg{width:100%;height:100%;display:block}
-.sf h3{color:#fff;font-size:1.16rem;margin-bottom:10px;letter-spacing:-.01em}
-.sf p{color:rgba(255,255,255,.7);font-size:.97rem;line-height:1.55;margin:0}
-.secure-add{display:flex;gap:18px;align-items:center;flex-wrap:wrap;margin-top:22px;padding:22px 26px;border:1px solid rgba(255,255,255,.18);border-radius:var(--rad);background:rgba(255,255,255,.04)}
-.secure-add .sa-tag{color:var(--ac);font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;font-weight:700;white-space:nowrap}
-.secure-add p{color:rgba(255,255,255,.82);font-size:1rem;margin:0;max-width:70ch}.secure-add b{color:#fff}
-@media(max-width:860px){.secure-grid{grid-template-columns:1fr 1fr}}
-@media(max-width:520px){.secure-grid{grid-template-columns:1fr}}
-/* chat widget */
-.chatw{position:fixed;right:20px;bottom:20px;z-index:120;font-family:var(--body)}
-.chat-btn{display:inline-flex;align-items:center;gap:10px;background:var(--p);color:#fff;border:none;border-radius:999px;padding:14px 20px;font-weight:600;font-size:.95rem;cursor:pointer;box-shadow:0 14px 34px rgba(0,0,0,.28);transition:transform .25s var(--ease)}
-.chat-btn:hover{transform:translateY(-2px)}.chat-btn svg{width:20px;height:20px}
-.chat-panel{position:absolute;right:0;bottom:64px;width:336px;max-width:80vw;background:#fff;border-radius:18px;box-shadow:0 28px 64px rgba(0,0,0,.3);overflow:hidden;opacity:0;transform:translateY(14px) scale(.97);pointer-events:none;transition:opacity .25s var(--ease),transform .25s var(--ease)}
-.chatw.open .chat-panel{opacity:1;transform:none;pointer-events:auto}
-.chat-head{background:var(--p);color:#fff;padding:16px 18px;display:flex;align-items:center;justify-content:space-between}
-.chat-id{display:flex;align-items:center;gap:11px}.chat-dot{width:9px;height:9px;border-radius:50%;background:#5fd08a;box-shadow:0 0 0 3px rgba(95,208,138,.3)}
-.chat-id b{display:block;font-size:.98rem;font-family:var(--head)}.chat-id span{font-size:.77rem;opacity:.85}
-.chat-x{background:none;border:none;color:#fff;font-size:1.5rem;cursor:pointer;line-height:1;opacity:.85}
-.chat-body{padding:18px;background:#f6f5f2;max-height:340px;overflow-y:auto}
-.cmsg{background:#fff;border:1px solid #eee;border-radius:14px;border-top-left-radius:4px;padding:12px 15px;font-size:.91rem;color:#1c1a17;max-width:88%;box-shadow:0 2px 6px rgba(0,0,0,.04)}
-.cmsg.cuser{background:var(--p);color:#fff;border-color:var(--p);border-top-left-radius:14px;border-top-right-radius:4px;margin-left:auto;margin-top:10px}
-.cchips{display:flex;flex-direction:column;gap:8px;margin-top:14px}
-.cchips button{text-align:left;background:#fff;border:1px solid var(--p);color:var(--p);border-radius:10px;padding:10px 13px;font-size:.87rem;font-weight:600;cursor:pointer;transition:.2s;font-family:var(--body)}
-.cchips button:hover{background:var(--p);color:#fff}
-.chat-input{display:flex;gap:8px;padding:12px;background:#fff;border-top:1px solid #eee}
-.chat-input input{flex:1;border:1px solid #e3e0d9;border-radius:10px;padding:10px 13px;font-size:.9rem;font-family:var(--body)}
-.chat-send{background:var(--p);color:#fff;border:none;border-radius:10px;width:42px;font-size:1.1rem;cursor:pointer}
-@media(max-width:560px){.chat-btn span{display:none}.chat-btn{padding:15px}
-/* the closed chat panel (336px, only faded out) still occupies layout and pokes past a phone's right edge,
-   forcing horizontal scroll — drop it from layout until opened (desktop keeps its fade-in). */
-.chatw:not(.open) .chat-panel{display:none}.chat-panel{max-width:calc(100vw - 40px)}}
+.cta{text-align:center}.cta h2{font-size:clamp(2rem,4vw,3rem)}.cta .lead{margin:.6em auto 24px}
 /* footer */
-.footer{padding:clamp(64px,8vw,110px) 0 40px;overflow-x:clip}
-.contact-details{display:flex;flex-wrap:wrap;gap:8px 24px;align-items:center;margin:4px 0 26px}
-.cd-phone{font-weight:700;font-size:1.18rem;color:inherit;border-bottom:2px solid currentColor;padding-bottom:2px;white-space:nowrap}
-.cd-addr{opacity:.86;font-size:1rem}
-.wordmark{font-family:var(--head);font-weight:500;font-size:clamp(2.6rem,8vw,8.5rem);line-height:.9;letter-spacing:-.03em;color:var(--ink);}
-.frow{display:flex;justify-content:space-between;flex-wrap:wrap;gap:20px;border-top:1px solid var(--n2);margin-top:34px;padding-top:24px;color:var(--n7);font-size:.92rem}
-.rv{opacity:0;transform:translateY(26px);transition:opacity .8s var(--ease),transform .8s var(--ease)}.rv.in{opacity:1;transform:none}
-.flag{position:fixed;bottom:14px;left:50%;transform:translateX(-50%);z-index:98;background:var(--ink);color:#fff;font:600 12px/1 var(--body);padding:9px 14px;border-radius:999px;opacity:.9;max-width:90vw;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}@media(max-width:560px){.flag{display:none}}
-.stylechip{position:fixed;bottom:14px;right:14px;z-index:99;background:var(--p);color:#fff;font:600 11px/1 var(--body);padding:9px 13px;border-radius:999px;opacity:.92;letter-spacing:.04em;text-transform:uppercase}
-@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.rv,.hero h1 .ln>span,.hero-sub,.hero-cta{opacity:1!important;transform:none!important}}
+.foot{background:var(--ink);color:#fff;padding:44px 0}
+.foot-brand{font-family:'Sora',serif;font-size:1.3rem;font-weight:600}
+.foot-loc{color:rgba(255,255,255,.7);margin-top:6px}.foot-fine{color:rgba(255,255,255,.45);margin-top:18px;font-size:.85rem}
+/* motion moods */
+@keyframes drift{from{transform:scale(1.06)}to{transform:scale(1.16) translate(-2.4%,-2%)}}
+@keyframes rays{0%{transform:translate(-4%,-3%) rotate(-1.1deg);opacity:.3}100%{transform:translate(4%,3%) rotate(1.1deg);opacity:.66}}
+@keyframes flick{0%,100%{opacity:.48}20%{opacity:.72}36%{opacity:.44}54%{opacity:.66}70%{opacity:.52}86%{opacity:.78}}
+.mood-drift .hero-bg,.mood-godrays .hero-bg,.mood-candle .hero-bg{animation:drift 26s ease-in-out infinite alternate}
+.mood-godrays .glow{display:block;inset:-28%;filter:blur(9px);animation:rays 15s ease-in-out infinite alternate;
+  background:radial-gradient(52% 46% at 70% 6%,color-mix(in srgb,var(--accent) 62%,transparent),transparent 72%),
+  linear-gradient(101deg,transparent 20%,rgba(255,252,242,.11) 32%,transparent 46%),
+  linear-gradient(101deg,transparent 50%,rgba(255,250,238,.07) 62%,transparent 78%)}
+.mood-candle .glow{display:block;inset:0;animation:flick 5s ease-in-out infinite;
+  background:radial-gradient(58% 60% at 50% 84%,color-mix(in srgb,var(--accent) 42%,#ffb066),transparent 66%)}
+/* ARCHETYPE: editorial — a framed magazine cover. Headline ABOVE a boxed image on a light ground. */
+.arch-editorial .nav{position:relative;background:var(--bg);color:var(--ink);border-bottom:1px solid var(--line)}
+.arch-editorial .nav .logo{filter:none}.arch-editorial .navlinks a{color:var(--ink)}
+.arch-editorial .hero{display:flex;flex-direction:column;min-height:auto;background:var(--bg);color:var(--ink);padding:clamp(28px,5vw,68px) clamp(20px,5vw,64px)}
+.arch-editorial .hero-in{order:0;position:relative;z-index:1;max-width:1080px;margin:0 auto 26px;padding:0;width:100%}
+.arch-editorial .hero .kick{color:var(--brand)}
+.arch-editorial .hero h1{color:var(--ink);text-shadow:none;font-size:clamp(2.6rem,7vw,5rem);max-width:16ch}
+.arch-editorial .hero-sub{color:var(--mut);text-shadow:none;max-width:52ch}
+.arch-editorial .hero-bg{position:relative;inset:auto;z-index:0;order:1;width:100%;max-width:1080px;margin:0 auto;
+  height:min(58vh,540px);border-radius:calc(var(--rad)*2.2px);transform:none;box-shadow:0 30px 70px rgba(0,0,0,.16)}
+.arch-editorial .scrim,.arch-editorial .glow{display:none}
+/* ARCHETYPE: modern — a bold brand-color poster. Oversized type; photo becomes a luminous texture. */
+.arch-modern .hero{align-items:center;background:linear-gradient(135deg,var(--brand),var(--brand-d));color:#fff}
+.arch-modern .hero-bg{opacity:.30;mix-blend-mode:luminosity}
+.arch-modern .scrim{background:linear-gradient(180deg,rgba(0,0,0,.15),transparent 40%,rgba(0,0,0,.25))}
+.arch-modern .hero-in{max-width:960px}
+.arch-modern .hero h1{font-size:clamp(3rem,9vw,6.5rem);letter-spacing:-.03em;line-height:.98}
+.arch-modern .hero .kick{opacity:.9}
+.arch-modern .btn{border-radius:100px}.arch-modern .btn.lg{padding:16px 32px}
+.arch-modern .nav .btn{border-radius:100px}.arch-modern .card{border:none;box-shadow:0 10px 40px rgba(0,0,0,.06)}
+/* ARCHETYPE: split — real image beside text on a light ground (no overlay) */
+.arch-split .nav{position:relative;color:var(--ink);background:var(--bg);border-bottom:1px solid var(--line)}
+.arch-split .nav .logo{filter:none}.arch-split .navlinks a{color:var(--ink)}
+.arch-split .hero{min-height:86vh;display:grid;grid-template-columns:1.02fr .98fr;align-items:stretch;background:var(--bg);color:var(--ink)}
+.arch-split .hero-bg{position:relative;inset:auto;z-index:0;order:2;transform:none;min-height:100%}
+.arch-split .scrim,.arch-split .glow{display:none}
+.arch-split .hero-in{align-self:center;padding:clamp(32px,5vw,86px);max-width:660px}
+.arch-split .hero .kick{color:var(--brand)}
+.arch-split .hero h1{color:var(--ink);text-shadow:none}
+.arch-split .hero-sub{color:var(--mut);text-shadow:none}
+/* ARCHETYPE: minimal — text-forward, generous whitespace, image as a calm band */
+.arch-minimal .nav{position:relative;color:var(--ink);background:transparent}
+.arch-minimal .nav .logo{filter:none}.arch-minimal .navlinks a{color:var(--ink);opacity:.7}
+.arch-minimal .hero{min-height:78vh;align-items:center;text-align:center;background:var(--bg);color:var(--ink)}
+.arch-minimal .hero-bg{opacity:.14;filter:grayscale(.3);transform:none}
+.arch-minimal .scrim,.arch-minimal .glow{display:none}
+.arch-minimal .hero-in{margin:0 auto;max-width:760px}
+.arch-minimal .hero .kick{color:var(--brand)}
+.arch-minimal .hero h1{color:var(--ink);text-shadow:none;font-weight:500;letter-spacing:-.02em}
+.arch-minimal .hero-sub{color:var(--mut);margin-left:auto;margin-right:auto;text-shadow:none}
+.arch-minimal .cta-row{justify-content:center}
+.arch-minimal .sec{padding:clamp(64px,9vw,120px) 0}.arch-minimal .card{border:none;background:transparent;padding:0}
+@media (prefers-reduced-motion:reduce){.hero-bg,.glow{animation:none!important}.hero-bg{transform:scale(1.08)}}
+@media(max-width:820px){.arch-split .hero{grid-template-columns:1fr}.arch-split .hero-bg{min-height:42vh}}
+@media(max-width:720px){.navlinks{display:none}.ev{flex-direction:column;gap:4px}.ev-when{min-width:0}}
+
+/* ── PHASE 4 · craft polish ─────────────────────────────────────────────── */
+/* rhythm: alternate section grounds so the page breathes */
+.sec:nth-of-type(even):not(.band):not(.cta){background:color-mix(in srgb,var(--ink) 3%,var(--bg))}
+.sec-k{margin-bottom:6px}.sec h2{font-size:clamp(1.7rem,3.2vw,2.5rem)}
+/* micro-interactions */
+.btn{transition:transform .18s var(--ease,ease),background .18s,box-shadow .18s;will-change:transform}
+.btn:hover{transform:translateY(-2px);box-shadow:0 10px 26px rgba(var(--brand-rgb),.28)}
+.btn.light:hover{box-shadow:0 10px 26px rgba(0,0,0,.18)}
+.card{transition:transform .2s,box-shadow .2s,border-color .2s}
+.card:hover{transform:translateY(-4px);box-shadow:0 16px 40px rgba(0,0,0,.09);border-color:transparent}
+.navlinks a{position:relative;transition:opacity .15s}
+.navlinks a::after{content:"";position:absolute;left:0;right:100%;bottom:-5px;height:2px;background:currentColor;opacity:.7;transition:right .22s var(--ease,ease)}
+.navlinks a:hover::after{right:0}
+.ev{transition:padding-left .2s}.ev:hover{padding-left:8px}
+.tcard img,.tinitial{transition:transform .25s}.tcard:hover img,.tcard:hover .tinitial{transform:scale(1.03)}
+a:focus-visible,.btn:focus-visible,button:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:4px}
+/* nav turns solid on scroll (overlay-nav archetypes only) */
+body:not(.arch-split):not(.arch-minimal) .nav{transition:background .3s,padding .3s,box-shadow .3s}
+body:not(.arch-split):not(.arch-minimal) .nav.scrolled{background:color-mix(in srgb,var(--ink) 92%,#000);padding-top:12px;padding-bottom:12px;box-shadow:0 6px 24px rgba(0,0,0,.22)}
+/* scroll reveal */
+.reveal{opacity:0;transform:translateY(22px);transition:opacity .7s var(--ease,ease),transform .7s var(--ease,ease)}
+.reveal.in{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){.reveal{opacity:1!important;transform:none!important}}
+/* guest concierge */
+.cx-bubble{position:fixed;right:22px;bottom:22px;z-index:50;width:58px;height:58px;border-radius:50%;border:none;
+  background:var(--brand);color:#fff;font-size:1.5rem;cursor:pointer;box-shadow:0 10px 30px rgba(var(--brand-rgb),.4);transition:transform .2s}
+.cx-bubble:hover{transform:scale(1.06)}
+.cx-panel{position:fixed;right:22px;bottom:22px;z-index:51;width:min(360px,calc(100vw - 32px));height:min(520px,calc(100vh - 44px));
+  background:var(--surf);border:1px solid var(--line);border-radius:16px;box-shadow:0 24px 70px rgba(0,0,0,.28);display:flex;flex-direction:column;overflow:hidden}
+.cx-panel[hidden]{display:none}
+.cx-head{background:var(--brand);color:#fff;padding:16px 18px;position:relative}
+.cx-head b{display:block;font-family:'Sora',serif;font-size:1.1rem}.cx-head span{font-size:.8rem;opacity:.85}
+.cx-x{position:absolute;top:12px;right:14px;background:none;border:none;color:#fff;font-size:1.4rem;cursor:pointer;line-height:1}
+.cx-log{flex:1;overflow-y:auto;padding:16px;display:flex;flex-direction:column;gap:10px}
+.cx-msg{max-width:85%;padding:10px 14px;border-radius:14px;font-size:.92rem;line-height:1.45}
+.cx-msg.bot{background:color-mix(in srgb,var(--ink) 6%,var(--bg));align-self:flex-start;border-bottom-left-radius:4px}
+.cx-msg.me{background:var(--brand);color:#fff;align-self:flex-end;border-bottom-right-radius:4px}
+.cx-msg ul{margin:6px 0 0;padding-left:18px}.cx-cta{display:inline-block;margin-top:8px;font-weight:600;color:var(--brand);text-decoration:none}
+.cx-chips{display:flex;flex-wrap:wrap;gap:6px;padding:0 16px 10px}
+.cx-chip{font:inherit;font-size:.8rem;padding:7px 11px;border:1px solid var(--line);border-radius:100px;background:var(--surf);color:var(--ink);cursor:pointer}
+.cx-chip:hover{border-color:var(--brand);color:var(--brand)}
+.cx-in{display:flex;gap:8px;padding:12px 14px;border-top:1px solid var(--line)}
+.cx-in input{flex:1;font:inherit;padding:10px 12px;border:1px solid var(--line);border-radius:10px;background:var(--bg);color:var(--ink)}
+.cx-in button{border:none;background:var(--brand);color:#fff;width:42px;border-radius:10px;font-size:1.1rem;cursor:pointer}
+/* richer footer */
+.foot{padding:56px 0 40px}.foot .wrap{display:flex;flex-wrap:wrap;gap:20px;align-items:baseline;justify-content:space-between}
+.foot-fine{width:100%;border-top:1px solid rgba(255,255,255,.12);padding-top:16px;margin-top:8px}
 </style></head>
-<body>
-<nav class="nav" id="nav">
-  <a class="brand" href="#top"><span class="bmono" aria-hidden="true">CH</span>Cherry Hills Dental Associates</a>
-  <div class="navlinks"><a href="#services">Services</a><a href="#about">About</a><a href="#reviews">Reviews</a><a href="#faq">FAQ</a></div>
-  <a class="navcta" href="#contact">Book your visit</a>
+<body class="arch-modern vert-dental">
+
+
+<nav class="nav">
+  <a class="brandmark" href="#top"><span class="wordmark">Cherry Hills Dental Associates</span></a>
+  <div class="navlinks"><a href="https://cherryhillsdentist.com/dental-services">Dental Services</a><a href="https://cherryhillsdentist.com/about-us">About Us</a><a href="https://cherryhillsdentist.com/contact">Contact Us</a><a href="https://cherryhillsdentist.com/emergency">Emergency Care</a><a href="https://cherryhillsdentist.com/dental-implants">Dental Implants</a><a href="https://cherryhillsdentist.com/invisalign">Invisalign</a></div>
+  <a class="btn sm" href="#visit">New Patients</a>
 </nav>
-<header class="hero" id="top" data-qc-section="hero">
-  <img class="hero-bg" src="/assets/stock/dental-1.webp" alt="Cherry Hills Dental Associates">
-  <div class="hero-scrim"></div>
-  <div class="wrap hero-inner">
-    <span class="kicker">Full-service family dentistry · Englewood, CO</span>
-    <h1><span class="ln"><span>Your whole family,</span></span><span class="ln"><span><em>under one roof.</em></span></span></h1>
-    <p class="hero-sub">One-stop dental care in Englewood — from routine checkups to cosmetic, restorative and implant dentistry, led by 5280 Top Dentist Dr. Bryan Gibbs.</p>
-    <div class="hero-cta"><a class="btn btn-light" href="#contact">Book your visit →</a><span class="hero-rate"><span class="stars">★★★★★</span> <b>4.9</b> on Google</span></div>
-  </div>
-  <span class="scrolldown" aria-hidden="true"></span>
-</header>
-<div class="proof lite"><div class="wrap"><span><span class="d">◆</span> 5280 Top Dentist since 2010</span><span><span class="d">◆</span> Most insurance accepted</span><span><span class="d">◆</span> General, cosmetic &amp; implant care</span></div></div>
 
-<section data-qc-section="services" class="section svc-sec" id="services"><div class="wrap"><div class="svc-grid">
-  <div class="svc-intro rv">
-    <span class="kicker ek">(01) — Services</span>
-    <h2>What Cherry Hills Dental does best.</h2>
-    <p class="svc-lead">From a routine cleaning to dental implants, we deliver general, cosmetic, restorative and implant care for the whole family — all under one roof.</p>
-    <a class="svc-cta" href="#contact">Book your visit →</a>
-  </div>
-  <div class="svc-list"><div class="svc-row rv"><span class="si">01</span><div class="svc-body"><h3>General &amp; Preventive</h3><p>Routine exams, cleanings and preventive care that keep teeth and gums healthy and catch problems early.</p></div></div><div class="svc-row rv"><span class="si">02</span><div class="svc-body"><h3>Cosmetic Dentistry</h3><p>Whitening, veneers and aesthetic restorations that enhance the look of your smile.</p></div></div><div class="svc-row rv"><span class="si">03</span><div class="svc-body"><h3>Restorative Dentistry</h3><p>Fillings, crowns and other restorations that repair damaged or missing teeth and restore full function.</p></div></div><div class="svc-row rv"><span class="si">04</span><div class="svc-body"><h3>Dental Implants</h3><p>Permanent tooth replacements placed and restored in-house by Dr. Gibbs, a Fellow of the International Congress of Oral Implantologists.</p></div></div><div class="svc-row rv"><span class="si">05</span><div class="svc-body"><h3>Invisalign</h3><p>Clear, removable aligners that gradually and discreetly move teeth into their ideal position.</p></div></div><div class="svc-row rv"><span class="si">06</span><div class="svc-body"><h3>One-Visit Crowns</h3><p>Same-day crowns designed and placed in a single appointment for faster, more convenient restorative care.</p></div></div></div>
-</div></div></section>
-
-<section class="feature"><img class="feature-bg" src="/assets/stock/dental-2.webp" alt="Cherry Hills Dental Associates — Englewood"><div class="feature-scrim"></div><div class="wrap"><span class="kicker">Englewood · 4.9★ rated</span><h2>See why they keep coming back.</h2><a class="btn btn-light" href="#contact">Book your visit →</a></div></section>
-<section class="about lite" id="about" data-qc-section="about"><div class="wrap section"><div class="about-grid">
-  <div class="about-text rv"><span class="kicker ek">(02) — About</span><h2 style="margin-top:18px">One practice for every stage of your smile.</h2><p>Led by Dr. Bryan Gibbs, D.D.S. — named one of 5280 Magazine's Top Dentists every year since 2010 — Cherry Hills Dental Associates offers general, cosmetic, restorative and implant care under one roof, so your whole family can be treated in one place.</p>
-    <p style="opacity:.7;font-size:1rem">Proudly serving families in Englewood, Cherry Hills and the south Denver metro area.</p></div>
-  <div class="about-img rv"><img src="/assets/stock/dental-3.webp" alt="Cherry Hills Dental Associates"></div>
-</div><div class="about-vals rv"><div class="av"><b>5280 Top Dentist</b><span>Dr. Gibbs has earned the recognition every year since 2010.</span></div><div class="av"><b>Advanced implant expertise</b><span>A Fellow of the ICOI and member of the Academy of Osseointegration.</span></div><div class="av"><b>Everything under one roof</b><span>General, cosmetic, restorative and implant care in one place.</span></div></div></div></section>
-
-<section class="section" id="reviews" data-qc-section="reviews"><div class="wrap"><div class="quote rv">
-  <span class="qmark" aria-hidden="true">“</span>
-  <blockquote>Dr. Gibbs handled everything from our kids' checkups to my implant — it's a relief to have one practice we trust for all of it.</blockquote>
-  <span class="stars">★★★★★</span>
-  <cite>— a longtime Englewood family · 4.9★ across Google &amp; the major review sites</cite>
-</div></div></section>
-
-<section class="section gallery-sec" id="gallery" style="padding-top:0"><div class="wrap"><div class="sec-head rv" style="margin-bottom:22px"><h2>A closer look.</h2><span class="kicker ek">Gallery</span></div><div class="car rv" id="car"><div class="car-track" id="carTrack"><div class="car-slide"><img src="/assets/stock/dental-1.webp" alt="Cherry Hills Dental Associates" loading="lazy"></div><div class="car-slide"><img src="/assets/stock/dental-2.webp" alt="Cherry Hills Dental Associates" loading="lazy"></div><div class="car-slide"><img src="/assets/stock/dental-3.webp" alt="Cherry Hills Dental Associates" loading="lazy"></div></div><button class="car-arr prev" id="carPrev" aria-label="Previous slide">‹</button><button class="car-arr next" id="carNext" aria-label="Next slide">›</button><div class="car-dots" id="carDots"><button class="cd on" data-i="0" aria-label="Go to slide 1"></button><button class="cd" data-i="1" aria-label="Go to slide 2"></button><button class="cd" data-i="2" aria-label="Go to slide 3"></button></div></div></div></section>
-
-<section class="section faq" id="faq"><div class="wrap"><div class="sec-head rv"><h2>Questions, answered.</h2><span class="kicker ek">(04) — FAQ</span></div><div class="faq-grid"><div class="faq-it rv"><h3>Are you accepting new patients?</h3><p>Yes — we welcome new patients and families of all ages. Booking takes about a minute online or by phone, and we can usually see you soon.</p></div><div class="faq-it rv"><h3>Do you take my insurance?</h3><p>We work with most major plans and file the paperwork for you. We also offer CareCredit financing to help make treatment affordable.</p></div><div class="faq-it rv"><h3>Do you place dental implants in-house?</h3><p>Yes. Dr. Gibbs is a Fellow of the International Congress of Oral Implantologists, so implants are planned, placed and restored right here — no referral needed.</p></div><div class="faq-it rv"><h3>Can I get a crown in a single visit?</h3><p>Often, yes. Our one-visit crown technology lets us design and place many crowns in a single appointment, so you spend less time in the chair.</p></div></div></div></section>
-<section class="section secure" id="security" data-qc-section="security"><div class="wrap">
-  <div class="sec-head rv"><h2>Secure from the first byte.</h2><span class="kicker">Secured by Sightline</span></div>
-  <p class="secure-lead rv">Most local websites quietly fail the security basics that browsers — and customers — now check for. Yours won’t: we build it hardened, then keep it that way.</p>
-  <div class="secure-grid">
-    <div class="sf rv"><span class="sf-mark"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg></span><h3>HTTPS everywhere</h3><p>Every page encrypted end to end — no “Not Secure” warning, ever.</p></div>
-    <div class="sf rv"><span class="sf-mark"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v5c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6z"/><path d="M9 12l2 2 4-4"/></svg></span><h3>Privacy protected</h3><p>Patient information kept private and protected at every step.</p></div>
-    <div class="sf rv"><span class="sf-mark"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg></span><h3>Email locked down</h3><p>Hardened against spoofing, so no one can impersonate you to your clients.</p></div>
-    <div class="sf rv"><span class="sf-mark"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h4l3 7 4-14 3 7h4"/></svg></span><h3>Monitored &amp; maintained</h3><p>We watch it so you don’t have to — and fix issues before they become problems.</p></div>
-  </div>
-  <div class="secure-add rv"><span class="sa-tag">◆ Optional add-on</span><p><b>HIPAA-secure patient messaging.</b> Let patients reach you with sensitive questions through an encrypted, compliant portal — managed and monitored by Sightline.</p></div>
-  
-</div></section>
-<section class="section compare" id="compare"><div class="wrap"><div class="sec-head rv"><h2>How you compare in Englewood.</h2><span class="kicker ek">(03) — The local field</span></div><div class="cmp-grid"><div class="cmp-bars rv"><div class="cmp-row"><span class="cn">Copeland Family Dental</span><span class="cbar"><i style="width:88%"></i></span><span class="cv">88</span></div><div class="cmp-row"><span class="cn">Spring Creek Dental</span><span class="cbar"><i style="width:88%"></i></span><span class="cv">88</span></div><div class="cmp-row"><span class="cn">Acacia Dental Group</span><span class="cbar"><i style="width:87%"></i></span><span class="cv">87</span></div><div class="cmp-row"><span class="cn">Northstar Dental</span><span class="cbar"><i style="width:87%"></i></span><span class="cv">87</span></div><div class="cmp-row"><span class="cn">Fermelia Dental</span><span class="cbar"><i style="width:87%"></i></span><span class="cv">87</span></div><div class="cmp-row"><span class="cn">Dental Arts of Cherry Hills</span><span class="cbar"><i style="width:77%"></i></span><span class="cv">77</span></div><div class="cmp-row me"><span class="cn">Cherry Hills Dental Associates · you</span><span class="cbar"><i style="width:42%"></i></span><span class="cv">42</span></div></div><div class="cmp-note rv"><div class="cmp-rank">#7<span>of 7 nearby</span></div><p>You’re mid-pack today — this is how you climb.</p><p class="cmp-gap"><span>Biggest opportunity</span>Missing most web-security headers. <b>— handled in this rebuild.</b></p><p class="cmp-src">From public signals — security, mobile, site quality &amp; presence — across 6 local competitors.</p></div></div></div></section>
-<section class="cta lite" id="contact" data-qc-section="contact"><div class="wrap"><span class="kicker ek">Get started</span><h2>Book your visit today.</h2><p>Accepting new patients this month — same-week appointments available.</p><a class="btn" href="#">Book your visit →</a></div></section>
-
-<footer class="footer" data-qc-section="footer"><div class="wrap">
-  <div class="wordmark rv">Cherry Hills Dental Associates</div>
-  <div class="frow"><span>© 2026 Cherry Hills Dental Associates · Englewood, CO</span><span>Full-service family dentistry</span></div>
-</div></footer>
-<div class="chatw" id="chatw">
-  <div class="chat-panel" id="chatPanel">
-    <div class="chat-head"><div class="chat-id"><span class="chat-dot"></span><div><b>Cherry Hills Dental</b><span>Typically replies in minutes</span></div></div><button class="chat-x" id="chatX" aria-label="Close">×</button></div>
-    <div class="chat-body" id="chatBody">
-      <div class="cmsg">Hi 👋 Thanks for visiting Cherry Hills Dental. How can we help today?</div>
-      <div class="cchips"><button>Book your visit</button><button>Hours &amp; location</button><button>Ask a question</button></div>
+<header class="hero mood-candle" id="top">
+  <div class="hero-bg" style="background-image:url('/assets/captured/cherryhillsdentist-com/photos/2.jpg')"></div><div class="glow"></div><div class="scrim"></div>
+  <div class="hero-in">
+    <span class="kick">Cherry Hills Dental Associates</span>
+    <h1>Cherry Hills Dental Associates — gentle dentistry for the whole family.</h1>
+    <p class="hero-sub">Cherry Hills Dental Associates offers comprehensive general dentistry, cosmetic dentistry, and facial esthetics services including Invisalign, Botox, PRF, and S</p>
+    <div class="cta-row">
+      <a class="btn lg" href="#book">Book appointment →</a>
     </div>
-    <div class="chat-input"><input placeholder="Type a message…" aria-label="Message"><button class="chat-send" aria-label="Send">→</button></div>
   </div>
-  <button class="chat-btn" id="chatBtn" aria-label="Chat with us"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-8.5 8.5 8.5 8.5 0 0 1-3.8-.9L3 21l1.9-5.7a8.5 8.5 0 0 1-.9-3.8A8.38 8.38 0 0 1 12.5 3 8.38 8.38 0 0 1 21 11.5z"/></svg><span>Chat with us</span></button>
+</header>
+
+<section class="sec bookbar">
+  <div class="wrap bookbar-in">
+    <div><b>Ready when you are.</b><span>Book online in under a minute — new clients welcome.</span></div>
+    <div class="bookbtns"><a class="btn lg" href="#book">Book appointment →</a><a class="btn ghost lg" href="tel:13037578446">📞 +13037578446</a></div>
+  </div>
+</section>
+
+<section class="sec services" id="visit">
+  <div class="wrap">
+    <span class="sec-k">Our services</span>
+    <h2>How we can help.</h2>
+    
+    <div class="cardgrid">
+      <article class="card"><span class="cn">1</span><h3>Preventive cleanings & exams</h3><p></p></article>
+      <article class="card"><span class="cn">2</span><h3>Cosmetic & whitening</h3><p></p></article>
+      <article class="card"><span class="cn">3</span><h3>Crowns, bridges & implants</h3><p></p></article>
+      <article class="card"><span class="cn">4</span><h3>Clear aligners</h3><p></p></article>
+      <article class="card"><span class="cn">5</span><h3>Emergency dental care</h3><p></p></article>
+      <article class="card"><span class="cn">6</span><h3>Kids' dentistry</h3><p></p></article>
+    </div>
+  </div>
+</section>
+
+
+<section class="sec band" id="offer">
+  <div class="wrap band-in">
+    <div><span class="sec-k light">New here?</span><h2>New-patient welcome.</h2>
+      <p class="lead light">Exam, X-rays & a gentle cleaning — book this week and we'll take great care of you.</p></div>
+    <a class="btn lg light" href="#book">Claim it →</a>
+  </div></section>
+
+
+
+<section class="sec money" id="money">
+  <div class="wrap"><span class="sec-k">Affordable care</span><h2>Insurance & financing, made easy.</h2>
+    <p class="lead">We accept most major dental plans and offer flexible financing.</p>
+    
+  </div></section>
+
+<section class="sec times" id="contact">
+  <div class="wrap times-in">
+    <div class="times-h"><span class="sec-k">Visit us</span><h2>Hours & location</h2></div>
+    <ul class="times-list"><li><span class="tdot"></span>Mon–Fri · 8:00 AM – 5:00 PM</li><li><span class="tdot"></span>Sat · By appointment</li></ul>
+  </div></section>
+
+<section class="sec cta" id="join">
+  <div class="wrap">
+    <h2>Let's get started.</h2>
+    <p class="lead">Exam, X-rays & a gentle cleaning — book this week and we'll take great care of you.</p>
+    <a class="btn lg" href="#visit">Plan Your Visit →</a>
+  </div>
+</section>
+
+<footer class="foot"><div class="wrap">
+  <div class="foot-brand">Cherry Hills Dental Associates</div>
+  
+  <div class="foot-fine">Site by Sightline</div>
+</div></footer>
+
+<button class="cx-bubble" aria-label="Ask a question" id="cxOpen">💬</button>
+<div class="cx-panel" id="cxPanel" role="dialog" aria-label="Front desk" hidden>
+  <div class="cx-head"><b>Front desk</b><span>Quick answers — hours, booking, insurance</span><button class="cx-x" id="cxClose" aria-label="Close">×</button></div>
+  <div class="cx-log" id="cxLog"></div>
+  <div class="cx-chips" id="cxChips"></div>
+  <form class="cx-in" id="cxForm"><input id="cxText" placeholder="Ask about hours, booking, insurance…" autocomplete="off"><button type="submit" aria-label="Send">→</button></form>
 </div>
-<div class="flag">✦ Test-drive concept · Warm Local · Sightline</div>
+<script>(function(){
+  var D={"biz":true,"adv":"medical","name":"Cherry Hills Dental Associates","times":[],"location":"","phone":"+13037578446","services":["Preventive cleanings & exams","Cosmetic & whitening","Crowns, bridges & implants","Clear aligners","Emergency dental care","Kids' dentistry"],"kids":"Yes — safe, secure check-in for kids at every service.","giving":false,"watch":false,"money":true,"book":true};
+  var log=document.getElementById('cxLog'), chips=document.getElementById('cxChips');
+  function push(who,html){var d=document.createElement('div');d.className='cx-msg '+who;d.innerHTML=html;log.appendChild(d);log.scrollTop=log.scrollHeight;}
+  function callCta(){return D.phone?['Call '+D.phone,'tel:'+D.phone.replace(/[^0-9]/g,'')]:['Send a message','#connect'];}
+  function bizAnswer(q){
+    // GUARDRAIL: never give medical or legal advice — route to a booked professional
+    if(D.adv==='legal' && /should i (sue|settle|sign|plead)|is (it|this) legal|can i sue|lawsuit|will i win|charged with|my (case|charges)|legal advice|do i have a case/.test(q))
+      return {t:"I can’t give legal advice — but our attorneys can, in a consultation. Want me to point you to booking one?",cta:['Request a consult','#book']};
+    if(D.adv!=='legal' && /is (this|it) (normal|serious|ok|infected)|should i (be worried|see|worry)|diagnos|what does it mean|symptom|my (pain|tooth|skin) (is|hurts)|swelling|is it an emergency|urgent/.test(q))
+      return {t:"I can’t give medical advice. If it’s urgent, please call the office now (or 911 for an emergency). Otherwise the best next step is a quick visit — want to book?",cta:['Book a visit','#book']};
+    if(/hour|open|when|close|today|available/.test(q))
+      return {t: D.times.length? "Our hours:<ul>"+D.times.map(function(x){return '<li>'+x+'</li>'}).join('')+"</ul>" : "See our hours on this page — or call and we’ll help.",cta:callCta()};
+    if(/book|appoint|schedul|reserve|see (someone|the)/.test(q)) return {t:"Booking takes under a minute — new patients &amp; clients welcome.",cta:['Book now','#book']};
+    if(/insuranc|cost|price|pay|financ|afford|how much|quote/.test(q)) return {t: D.money? "We accept most major insurance and offer financing. Exact cost depends on your visit — the best way to get a real number is a quick consult." : "Costs depend on your visit — we’ll give you a clear number up front. Want to book a consult?",cta:['Book a consult','#book']};
+    if(/service|treat|do you|offer|help with|practice area/.test(q)) return {t: D.services.length? "We offer:<ul>"+D.services.map(function(x){return '<li>'+x+'</li>'}).join('')+"</ul>" : "See our services on this page — happy to help you find the right one.",cta:['Book','#book']};
+    if(/where|address|direction|park|location|find you/.test(q)) return {t:"We’re at "+(D.location||'our office')+". There’s parking on-site — call if you need directions.",cta:callCta()};
+    if(/new|first (time|visit)/.test(q)) return {t:"Welcome! New patients &amp; clients are what we love. Book your first visit and we’ll take great care of you.",cta:['Book your first visit','#book']};
+    return {t:"Happy to help — the fastest way is to book online or give us a call.",cta:['Book now','#book']};
+  }
+  function churchAnswer(q){
+    if(/pray|prayer|grie|griev|hurt|struggl|depress|anxious|suicid|crisis|died|death|sick|hospital|counsel|marriage|divorce/.test(q))
+      return {t:"I'm just the welcome desk, so I'm not the right one for that — but a real person on our care team is. If you share a note below, someone will reach out personally.",cta:['Reach our care team','#connect']};
+    if(/time|when|service|mass|worship|sunday|saturday|hour/.test(q))
+      return {t: D.times.length? "Here’s when we gather:<ul>"+D.times.map(function(x){return '<li>'+x+'</li>'}).join('')+"</ul>" : "We’d love to see you — check the service times on this page."};
+    if(/park|where|address|direction|location|find|campus/.test(q))
+      return {t:"We’re in "+(D.location||'your area')+". There’s free parking with reserved first-time spots near the main doors — look for the Welcome signs."};
+    if(/kid|child|nursery|baby|family|youth/.test(q)) return {t:D.kids};
+    if(/give|giving|donate|tithe|money|offering/.test(q)) return D.giving?{t:"Giving is simple and secure — one-time or recurring.",cta:['Give online','#give']}:{t:"You can give at any service, or ask our team about online giving."};
+    if(/watch|online|stream|live|video/.test(q)) return D.watch?{t:"Every service streams live, and past messages are always available.",cta:['Watch','#watch']}:{t:"Ask our team about watching online."};
+    if(/visit|new|first|expect|come|attend/.test(q)) return {t:"So glad you’re thinking of coming! Come as you are — walk in, grab coffee, and stay as long as you like. Want to let us know you’re coming?",cta:['Plan your visit','#visit']};
+    return {t:"Great question — the best person to answer that is our team. Leave a note and we’ll get right back to you.",cta:['Message us','#connect']};
+  }
+  function answer(q){ q=q.toLowerCase(); return D.biz? bizAnswer(q) : churchAnswer(q); }
+  function ask(q){push('me',q);var a=answer(q);setTimeout(function(){push('bot',a.t+(a.cta?'<br><a class="cx-cta" href="'+a.cta[1]+'">'+a.cta[0]+' →</a>':''));},260);}
+  var seeds= D.biz? ['Hours','Book an appointment','Services','Insurance &amp; pricing'] : ['Service times','Where do I park?','Are kids welcome?','Watch online'];
+  chips.innerHTML=seeds.map(function(s){return '<button class="cx-chip" type="button">'+s+'</button>'}).join('');
+  chips.onclick=function(e){var b=e.target.closest('.cx-chip');if(b)ask(b.textContent.replace('&amp;','&'));};
+  document.getElementById('cxForm').onsubmit=function(e){e.preventDefault();var t=document.getElementById('cxText');if(t.value.trim()){ask(t.value.trim());t.value='';}};
+  var panel=document.getElementById('cxPanel'), first=true;
+  var greet= D.biz? '👋 Hi! I’m the front desk for '+D.name+'. I can help with hours, booking, services, and insurance. What do you need?'
+                  : '👋 Welcome to '+D.name+'! I can help with service times, parking, kids, and planning your first visit. What can I help you find?';
+  document.getElementById('cxOpen').onclick=function(){panel.hidden=false;this.style.display='none';if(first){first=false;push('bot',greet);}};
+  document.getElementById('cxClose').onclick=function(){panel.hidden=true;document.getElementById('cxOpen').style.display='';};
+})();</script>
 <script>
-(function(){var n=document.getElementById('nav');var split=false;function s(){n.classList.toggle('scd',scrollY>window.innerHeight*(split?.12:.78))}addEventListener('scroll',s);s();
-var io=new IntersectionObserver(function(e){e.forEach(function(x){if(x.isIntersecting){x.target.classList.add('in');io.unobserve(x.target)}})},{rootMargin:'0px 0px -10% 0px'});
-document.querySelectorAll('.rv').forEach(function(el){io.observe(el)});
-var cw=document.getElementById('chatw');if(cw){document.getElementById('chatBtn').onclick=function(){cw.classList.toggle('open')};document.getElementById('chatX').onclick=function(){cw.classList.remove('open')};document.querySelectorAll('.cchips button').forEach(function(btn){btn.onclick=function(){var body=document.getElementById('chatBody');var chips=body.querySelector('.cchips');var u=document.createElement('div');u.className='cmsg cuser';u.textContent=btn.textContent;body.insertBefore(u,chips);var r=document.createElement('div');r.className='cmsg';r.style.marginTop='10px';r.textContent='Thanks! A team member will be right with you — or call and we’ll help straight away.';setTimeout(function(){body.insertBefore(r,chips);body.scrollTop=body.scrollHeight},480);body.scrollTop=body.scrollHeight}})}})();
+(function(){var n=document.querySelector('.nav');
+ if(n)addEventListener('scroll',function(){n.classList.toggle('scrolled',scrollY>40)},{passive:true});
+ var els=document.querySelectorAll('.sec');
+ if(!matchMedia('(prefers-reduced-motion:reduce)').matches&&'IntersectionObserver'in window){
+   els.forEach(function(e){e.classList.add('reveal')});
+   var io=new IntersectionObserver(function(es){es.forEach(function(x){if(x.isIntersecting){x.target.classList.add('in');io.unobserve(x.target)}})},{threshold:.12});
+   els.forEach(function(e){io.observe(e)});
+ }})();
 </script>
-<script>(function(){var car=document.getElementById('car');if(!car)return;var tr=document.getElementById('carTrack'),dots=[].slice.call(car.querySelectorAll('.cd')),n=tr.children.length,idx=0,timer;function go(i){idx=(i+n)%n;tr.style.transform='translateX('+(-idx*100)+'%)';dots.forEach(function(d,j){d.classList.toggle('on',j===idx)})}function rs(){clearInterval(timer);timer=setInterval(function(){go(idx+1)},5000)}var pv=document.getElementById('carPrev'),nx=document.getElementById('carNext');if(pv)pv.onclick=function(){go(idx-1);rs()};if(nx)nx.onclick=function(){go(idx+1);rs()};dots.forEach(function(d){d.onclick=function(){go(+d.getAttribute('data-i'));rs()}});var x0=null;car.addEventListener('touchstart',function(e){x0=e.touches[0].clientX},{passive:true});car.addEventListener('touchend',function(e){if(x0==null)return;var dx=e.changedTouches[0].clientX-x0;if(Math.abs(dx)>40){go(idx+(dx<0?1:-1));rs()}x0=null});rs();})();</script>
 </body></html>
