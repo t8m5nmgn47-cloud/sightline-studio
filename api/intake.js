@@ -4,7 +4,7 @@
 // Returns: { ok, tier, signals, profile }  — profile is null when no LLM key.
 
 import { readBody, clean, methodGuard } from "./_lib.js";
-import { fetchHtml, renderHtml, extractSignals, normalizeWithClaude, llmAvailable } from "./_intake.js";
+import { fetchHtml, fetchViaFirecrawl, renderHtml, extractSignals, normalizeWithClaude, llmAvailable } from "./_intake.js";
 
 const DOMAIN_RE = /^([a-z0-9-]+\.)+[a-z]{2,}$/i;
 
@@ -21,8 +21,19 @@ export default async function handler(req, res) {
 
   // Fast tier.
   let fetched = await fetchHtml(domain);
+
+  // Anti-bot fallback: 403/429/etc. from Akamai/Cloudflare-protected sites.
+  // Firecrawl fetches through a real browser on unblocked infra.
   if (!fetched.ok) {
-    return res.status(502).json({ ok: false, error: `Could not reach ${domain}: ${fetched.error}` });
+    const viaFirecrawl = await fetchViaFirecrawl(domain);
+    if (viaFirecrawl.ok) {
+      fetched = viaFirecrawl;
+    } else {
+      const hint = viaFirecrawl.skipped
+        ? " (site likely behind bot protection — set FIRECRAWL_API_KEY to enable the fallback tier)"
+        : ` (Firecrawl fallback also failed: ${viaFirecrawl.error})`;
+      return res.status(502).json({ ok: false, error: `Could not reach ${domain}: ${fetched.error}${hint}` });
+    }
   }
 
   let signals = extractSignals(fetched.html, fetched.finalUrl);

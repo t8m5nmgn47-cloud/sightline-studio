@@ -50,6 +50,45 @@ export async function fetchHtml(domain, { timeoutMs = 15000 } = {}) {
   return { ok: false, error: lastErr };
 }
 
+// Anti-bot fallback tier: Firecrawl (https://firecrawl.dev). Sites behind
+// Akamai / Cloudflare bot managers (e.g. olivegarden.com, mark7reloading.com)
+// return 403 to both our fetch UA and Vercel's datacenter IPs. Firecrawl runs
+// a real browser on unblocked infra and solves most challenges. Failure-
+// tolerant: if FIRECRAWL_API_KEY is unset or the call fails, the caller
+// surfaces the original error instead of 500ing.
+export async function fetchViaFirecrawl(domain, { timeoutMs = 60000 } = {}) {
+  const apiKey = process.env.FIRECRAWL_API_KEY;
+  if (!apiKey) return { ok: false, skipped: true, error: "FIRECRAWL_API_KEY not set" };
+  const url = "https://" + domain.replace(/^https?:\/\//, "");
+  const ctrl = new AbortController();
+  const t = setTimeout(() => ctrl.abort(), timeoutMs);
+  try {
+    const res = await fetch("https://api.firecrawl.dev/v1/scrape", {
+      method: "POST",
+      signal: ctrl.signal,
+      headers: {
+        Authorization: `Bearer ${apiKey}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ url, formats: ["html"] }),
+    });
+    clearTimeout(t);
+    if (!res.ok) return { ok: false, error: `Firecrawl HTTP ${res.status}` };
+    const data = await res.json().catch(() => null);
+    const html = data && data.success && data.data && data.data.html;
+    if (!html) return { ok: false, error: "Firecrawl returned no HTML" };
+    return {
+      ok: true,
+      finalUrl: (data.data.metadata && data.data.metadata.url) || url,
+      html: String(html).slice(0, 3_000_000),
+      tier: "firecrawl",
+    };
+  } catch (e) {
+    clearTimeout(t);
+    return { ok: false, error: String(e && e.message ? e.message : e) };
+  }
+}
+
 // Escalation tier: render with headless Chromium (playwright-core +
 // @sparticuz/chromium on Vercel). Dynamically imported and failure-tolerant —
 // if the deps aren't installed or the launch fails, the caller falls back to
