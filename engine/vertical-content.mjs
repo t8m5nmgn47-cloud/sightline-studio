@@ -13,17 +13,17 @@
 
 // Map many real-world category words → a canonical vertical key.
 const MATCHERS = [
-  ["dental",   /dentist|dental|orthodont|invisalign|endodont|periodont|oral surgeon|smile/],
-  ["medical",  /\b(family medicine|physician|clinic|md\b|internal medicine|pediatric|obgyn|ob\/gyn|dermatolog|ent\b|allergy|urgent care|primary care|health)\b/],
-  ["optometry",/optometr|optician|eye care|vision center|eyewear|lasik/],
-  ["law",      /attorney|law ?firm|lawyer|litigation|legal|counsel|esq\b|practice areas/],
-  ["accounting",/\b(cpa|accountant|accounting|bookkeep|tax\b|payroll|audit)\b/],
-  ["insurance",/insurance|insur(er|ance)|coverage|policy|agent|allstate|farmers|state farm/],
-  ["mortgage", /mortgage|lender|lending|loan officer|home loan|refinanc/],
-  ["title",    /title|escrow|closing|settlement/],
-  ["medspa",   /med ?spa|aesthetic|botox|filler|laser|injectable|skin|wellness|salon|spa\b/],
-  ["trades",   /hvac|plumb|roof|electric|landscap|lawn|contractor|remodel|construction|heating|cooling|garage|handyman|paint|concrete|fencing|excavat/],
-  ["childcare",/montessori|childcare|daycare|preschool|early learning|academy|nursery|tutoring/],
+  ["dental",   /dentist|dental|orthodont|invisalign|endodont|periodont|oral surgeon/],
+  ["optometry",/optometr|optician|eye ?care|eye ?exam|vision center|eyewear|lasik|ophthalmolog/],
+  ["medspa",   /med ?spa|medical spa|aesthetic|botox|dysport|filler|injectable|laser|microneedl|coolsculpt/],
+  ["title",    /escrow|title (?:company|insurance|agency|&|and escrow)|title ?& ?escrow|settlement services/],
+  ["mortgage", /mortgage|loan officer|home loan|refinanc|pre-?approv|nmls/],
+  ["accounting",/\b(cpa|accountant|accounting|bookkeep|payroll)\b|tax (?:prep|planning|return|service)/],
+  ["insurance",/\binsurance\b|insurance agency|coverage options|allstate|farmers insurance|state farm/],
+  ["law",      /attorney|law ?firm|lawyer|litigation|\blegal\b|counsel|practice areas|\besq\b/],
+  ["childcare",/montessori|childcare|daycare|preschool|early learning|nursery|tutoring/],
+  ["trades",   /hvac|plumb|roof|electric|landscap|\blawn\b|contractor|remodel|construction|heating|cooling|garage door|handyman|concrete|fencing|excavat|hardscape/],
+  ["medical",  /family medicine|physician|internal medicine|pediatric|obgyn|ob\/gyn|dermatolog|\bent\b|allergy|urgent care|primary care|\bclinic\b/],
 ];
 
 export function detectVertical(text = "") {
