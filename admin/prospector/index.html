@@ -126,6 +126,7 @@ function render(){
         ${(d.competitorGaps&&d.competitorGaps.length)?`<div><div class="lbl2">Competitors do this — they don't</div><ul class="cg">${d.competitorGaps.map(g=>`<li><span class="pct">${g.peerPct}%</span> <span><b>${g.label}</b> — <span class="why">${g.why}</span></span></li>`).join('')}</ul></div>`:''}
         <div class="opener"><b>Cold-call opener</b>${d.opener||''}<br><button class="copybtn" data-i="${i}">Copy opener</button></div>
         ${d.email?`<div class="send"><b class="h">✉️ What we send — ready to go</b>
+          ${d.contact?`<div class="subj" style="color:var(--good)">To: ${d.contact.person||''}${d.contact.email?' <'+d.contact.email+'>':''}${d.contact.phone?' · '+d.contact.phone:''}</div>`:''}
           <div class="subj">Subject: ${d.email.subject}</div>
           <pre>${d.email.body.replace(/</g,'&lt;')}</pre>
           <button class="copybtn mail" data-i="${i}">Copy email</button>

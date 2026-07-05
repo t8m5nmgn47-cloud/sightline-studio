@@ -23,3 +23,6 @@ demos/
 # stray local WIP (not for deploy)
 index-redesign.html
 engine/merge-national.mjs
+
+# local secrets (API keys) — never commit
+.sightline.env
