@@ -81,7 +81,10 @@ const cap = await capture(domain, cached ? { htmlOverride: fs.readFileSync(cache
 const src = cached ? 'cache:'+path.basename(cached) : `live-crawl (${cap.pages.length} pages${cap.pages[0].rendered ? ', rendered' : ''})`;
 const html = null; // page HTML now lives in cap
 const sig = cap.sig;
-const pack = detectPack((sig.title||'')+' '+(sig.visible_text||'').slice(0,4000), {vertical:flag('vertical'), tradition:flag('tradition')});
+// nav labels are strong classification evidence (a "Shop" tab means a shop) —
+// weight them by repeating alongside the page text
+const navText = ((sig.nav_tabs||[]).map(t=>t.label).join(' ')+' ').repeat(3);
+const pack = detectPack((sig.title||'')+' '+navText+(sig.visible_text||'').slice(0,4000), {vertical:flag('vertical'), tradition:flag('tradition')});
 const name = pickName(sig, domain);
 function pickName(sig, domain){
   const clean = s => (s||'').replace(/\s+/g,' ').trim();
@@ -110,6 +113,18 @@ if (isBiz) {
 const heroHeadline = isBiz ? (bizPack.hero(name)) : 'You’re welcome here.';
 const bookCta = isBiz ? bizPack.bookCta : 'Plan your visit →';
 
+// Hero sub: first full sentence of their real description (≤180 chars), never
+// a mid-word chop. Falls back to the pack default when the description is
+// missing or unusable.
+function heroSub(desc, fallback){
+  const d = (desc||'').replace(/\s+/g,' ').trim();
+  if (d.length < 30) return fallback;
+  const sentence = d.match(/^.{30,178}?[.!?](?=\s|$)/);
+  if (sentence) return sentence[0];
+  if (d.length <= 180) return d;
+  return d.slice(0, 178).replace(/\s+\S*$/, '') + '…';    // word boundary + ellipsis
+}
+
 const profile = normalize(sig, {
   slug, name, logo,
   fonts: cap.fonts.head ? cap.fonts : null,
@@ -117,7 +132,7 @@ const profile = normalize(sig, {
   gallery: assets.gallery,
   heroImage: assets.heroImage || (isBiz ? null : '/assets/stock/church-2.webp'),
   hero: { kick: name, headline: heroHeadline,
-    sub: (sig.description||'').slice(0,160) || (isBiz?'Modern, friendly service — get in touch in a minute.':'Come as you are.'),
+    sub: heroSub(sig.description, isBiz?'Modern, friendly service — get in touch in a minute.':'Come as you are.'),
     ctas: [{label: bookCta, href: isBiz?'#book':'#visit'}] },
   sections: isBiz ? bizSections : defaultSections(pack, name),
 });
@@ -131,8 +146,27 @@ else recipe.tradition = pack.key, recipe.archetype = recipe.archetype||'journey'
 const site = assemble(profile, recipe);
 const outDir = path.join(ROOT,'demos',slug); fs.mkdirSync(outDir,{recursive:true});
 fs.writeFileSync(path.join(outDir,'index.html'), site);
+
+// ── QA gate: score the build so a weak site announces itself ────────────────
+// "World-class as the floor" means the pipeline TELLS you when it fell short,
+// instead of quietly publishing a generic page.
+const qa = [];
+qa.push([!!logo, logo ? 'brand logo captured & shape-validated' : 'no usable logo found — header shows a styled wordmark (send them a logo request)']);
+qa.push([!!cap.fonts.head, cap.fonts.head ? `brand font carried over (${cap.fonts.head})` : 'no brand font detected — using template type']);
+qa.push([(cap.colors||[]).length >= 2, (cap.colors||[]).length >= 2 ? 'brand palette extracted' : 'weak color signal — template palette in use']);
+qa.push([assets.gallery.length >= 3, `${assets.gallery.length} real photos captured`]);
+qa.push([!!(cap.services||[]).length, (cap.services||[]).length ? `${cap.services.length} real services/offerings pulled from their site` : 'no services found — using vertical defaults']);
+qa.push([!!(sig.description||'').trim(), (sig.description||'').trim() ? 'hero copy grounded in their real description' : 'no site description — hero copy is template text']);
+qa.push([pack.key !== 'business' || pack.kind !== 'vertical', pack.kind==='vertical' && pack.key==='business' ? 'industry unclear — generic business pack (consider --vertical)' : `industry: ${pack.key}`]);
+const passed = qa.filter(([ok]) => ok).length;
+const grade = passed >= 6 ? 'A' : passed >= 5 ? 'B' : passed >= 3 ? 'C' : 'D';
+
 console.log(`✓ ${name}
   source:   ${src}
-  pack:     ${pack.kind}=${pack.key}${logo?'  · logo':''}${assets.gallery.length?`  · ${assets.gallery.length} photos`:''}${cap.services&&cap.services.length?`  · ${cap.services.length} real services`:''}${cap.fonts.head?`  · font: ${cap.fonts.head}`:''}${cap.facts.phone?'  · phone':''}${cap.jsShell?'  · ⚠ JS shell (install Chrome for rendered capture)':''}
+  pack:     ${pack.kind}=${pack.key}${cap.jsShell?'  · ⚠ JS shell (install Chrome for rendered capture)':''}
   recipe:   ${recipe.archetype} · ${recipe.theme} · ${recipe.mood||'none'}${recipe.vertical?' · '+recipe.vertical:recipe.tradition?' · '+recipe.tradition:''}
+
+  QUALITY ${grade} (${passed}/${qa.length})
+${qa.map(([ok, msg]) => `    ${ok ? '✓' : '✗'} ${msg}`).join('\n')}
+${grade <= 'B' ? '' : '\n  ⚠ Below the bar — fix the ✗ items (or add flags) before sending this to a prospect.\n'}
   published: demos/${slug}/index.html`);

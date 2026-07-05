@@ -92,8 +92,8 @@ async function getPage(url, { render = 'auto' } = {}) {
 }
 
 // ── crawl: pick the pages that hold real content ─────────────────────────────
-const PAGE_WORDS = /about|service|practice|team|staff|meet|doctor|attorney|our[-_]|gallery|photo|portfolio|project|work|menu|contact|location|hour|visit/i;
-const SKIP_WORDS = /login|cart|account|privacy|terms|blog|news|event|career|\.pdf|\.jpg|\.png|mailto:|tel:|javascript:|^#/i;
+const PAGE_WORDS = /about|service|practice|team|staff|meet|doctor|attorney|our[-_]|gallery|photo|portfolio|project|work|menu|contact|location|hour|visit|shop|store|product|collection|review|testimonial|video|media|faq/i;
+const SKIP_WORDS = /login|sign[-_ ]?in|cart|checkout|account|privacy|terms|blog|news|event|career|\.pdf|\.jpg|\.png|mailto:|tel:|javascript:|^#/i;
 
 export function pickSubpages($, baseUrl, max = 5) {
   const origin = new URL(baseUrl).origin;
@@ -155,14 +155,45 @@ export function extractFonts($pages, css) {
   const ranked = [...new Map([...decl, ...[...gf].map(([k, v]) => [k, (decl.get(k) || 0) + v])])]
     .sort((a, b) => b[1] - a[1]).map(([name]) => name);
   const fromGoogle = ranked.filter((n) => gf.has(n));
+  // Commercial fonts → their closest free Google Fonts equivalent, so a brand
+  // set in Proxima Nova or Futura still LOOKS like itself in the demo instead
+  // of silently dropping to the template default.
+  const mapped = ranked.map(googleEquivalent).filter(Boolean);
   return {
     families: ranked.slice(0, 6),
     google: [...gf.keys()],
-    // safe-to-echo pairing: only families the prospect ALREADY loads from
-    // Google Fonts (so the generated site is guaranteed to render them).
-    head: fromGoogle[0] || null,
-    body: fromGoogle[1] || fromGoogle[0] || null,
+    // prefer families the prospect already loads from Google Fonts (exact),
+    // then mapped equivalents of their commercial fonts (faithful).
+    head: fromGoogle[0] || mapped[0] || null,
+    body: fromGoogle[1] || fromGoogle[0] || mapped[1] || mapped[0] || null,
   };
+}
+
+// Closest-Google-Font table for the commercial faces small businesses actually
+// use (via Squarespace/Wix/Shopify themes). Names already on Google Fonts pass
+// through unchanged.
+const GOOGLE_FONTS = new Set(['inter','montserrat','lato','poppins','raleway','oswald','merriweather','playfair display','nunito','nunito sans','rubik','work sans','karla','jost','dm sans','dm serif display','source sans 3','source serif 4','libre baskerville','libre franklin','cormorant garamond','eb garamond','crimson text','lora','pt serif','pt sans','bitter','archivo','manrope','mulish','barlow','cabin','quicksand','josefin sans','bricolage grotesque','fraunces','sora','outfit','plus jakarta sans','space grotesque','space grotesk','figtree','albert sans','be vietnam pro','league spartan','abril fatface','bebas neue','anton','fjalla one','yeseva one','marcellus','cinzel','forum','italiana','prata','spectral','zilla slab','roboto slab','arvo','domine','vollkorn']);
+const FONT_EQUIV = {
+  'proxima nova':'Montserrat','proxima-nova':'Montserrat','gotham':'Montserrat','montserrat alternates':'Montserrat',
+  'futura':'Jost','futura pt':'Jost','century gothic':'Jost','avant garde':'Jost','itc avant garde gothic':'Jost',
+  'avenir':'Nunito Sans','avenir next':'Nunito Sans','circular':'Rubik','circular std':'Rubik','sofia pro':'Rubik','sofia':'Rubik',
+  'graphik':'Inter','helvetica now':'Inter','neue haas grotesk':'Inter','aktiv grotesk':'Inter','acumin pro':'Inter','sf pro display':'Inter','sf pro text':'Inter',
+  'brandon grotesque':'Josefin Sans','brandon text':'Josefin Sans',
+  'gill sans':'Cabin','myriad pro':'Mulish','frutiger':'Mulish','optima':'Marcellus',
+  'din':'Barlow','din pro':'Barlow','din next':'Barlow','trade gothic':'Barlow','univers':'Barlow',
+  'garamond':'EB Garamond','adobe garamond':'EB Garamond','adobe garamond pro':'EB Garamond','sabon':'EB Garamond',
+  'caslon':'Libre Baskerville','adobe caslon pro':'Libre Baskerville','baskerville':'Libre Baskerville',
+  'minion pro':'Source Serif 4','freight text':'Source Serif 4','freight display':'Playfair Display','tiempos':'Source Serif 4',
+  'bodoni':'Playfair Display','didot':'Playfair Display','canela':'Fraunces','recoleta':'Fraunces','ivypresto':'Fraunces',
+  'bookman':'Lora','palatino':'Lora','georgia pro':'Lora','clarendon':'Zilla Slab','rockwell':'Roboto Slab',
+  'interstate':'Libre Franklin','franklin gothic':'Libre Franklin','benton sans':'Libre Franklin',
+  'knockout':'Oswald','tungsten':'Oswald','league gothic':'Oswald','compacta':'Anton','impact':'Anton',
+};
+export function googleEquivalent(family) {
+  const k = (family || '').toLowerCase().replace(/\s+/g, ' ').trim();
+  if (!k) return null;
+  if (GOOGLE_FONTS.has(k)) return family.trim();
+  return FONT_EQUIV[k] || null;
 }
 
 // ── colours ──────────────────────────────────────────────────────────────────
@@ -345,13 +376,57 @@ export async function capture(domain, { render = 'auto', maxPages = 5, htmlOverr
   };
 }
 
+// ── image dimensions from raw bytes (no deps: PNG / JPEG / GIF / WebP) ──────
+export function imageSize(buf) {
+  try {
+    if (buf.length > 24 && buf.readUInt32BE(0) === 0x89504e47)                       // PNG
+      return { w: buf.readUInt32BE(16), h: buf.readUInt32BE(20) };
+    if (buf.length > 10 && buf[0] === 0x47 && buf[1] === 0x49 && buf[2] === 0x46)    // GIF
+      return { w: buf.readUInt16LE(6), h: buf.readUInt16LE(8) };
+    if (buf.length > 30 && buf.toString('ascii', 0, 4) === 'RIFF' && buf.toString('ascii', 8, 12) === 'WEBP') {
+      const fmt = buf.toString('ascii', 12, 16);
+      if (fmt === 'VP8 ') return { w: buf.readUInt16LE(26) & 0x3fff, h: buf.readUInt16LE(28) & 0x3fff };
+      if (fmt === 'VP8L') { const b = buf.readUInt32LE(21); return { w: (b & 0x3fff) + 1, h: ((b >> 14) & 0x3fff) + 1 }; }
+      if (fmt === 'VP8X') return { w: (buf.readUIntLE(24, 3)) + 1, h: (buf.readUIntLE(27, 3)) + 1 };
+    }
+    if (buf.length > 4 && buf[0] === 0xff && buf[1] === 0xd8) {                       // JPEG: walk SOF markers
+      let i = 2;
+      while (i + 9 < buf.length) {
+        if (buf[i] !== 0xff) { i++; continue; }
+        const marker = buf[i + 1];
+        if (marker >= 0xc0 && marker <= 0xcf && ![0xc4, 0xc8, 0xcc].includes(marker))
+          return { h: buf.readUInt16BE(i + 5), w: buf.readUInt16BE(i + 7) };
+        i += 2 + buf.readUInt16BE(i + 2);
+      }
+    }
+  } catch {}
+  return null;
+}
+
+// A real logo is small-to-medium and usually wide or square — a large
+// square-ish JPEG is almost always a photo that lied its way up the ranking.
+export function looksLikeLogo(buf, ext) {
+  if (ext === 'svg') return true;
+  const d = imageSize(buf);
+  if (!d || !d.w || !d.h) return false;                    // unreadable → don't trust it
+  const ar = d.w / d.h;
+  if (d.w < 40 || d.h < 24) return false;                  // favicon-tiny → blurry in a header
+  if (d.w > 1400 && d.h > 1400) return false;              // giant square = photo
+  if (ext === 'jpg' || ext === 'jpeg') {
+    // JPEG logos exist, but a big square JPEG is a photo (logos ship as PNG/SVG)
+    if (d.w > 600 && d.h > 600 && ar > 0.7 && ar < 1.4) return false;
+  }
+  return true;
+}
+
 // ── asset download (logo + photos) ───────────────────────────────────────────
-async function download(url, dest, { min = 500, max = 4 * 1024 * 1024 } = {}) {
+async function download(url, dest, { min = 500, max = 4 * 1024 * 1024, validate = null } = {}) {
   try {
     const res = await fetch(url, UA);
     if (!res.ok || !/image\//.test(res.headers.get('content-type') || '')) return null;
     const buf = Buffer.from(await res.arrayBuffer());
     if (buf.length < min || buf.length > max) return null;
+    if (validate && !validate(buf)) return null;           // e.g. logo shape check
     fs.writeFileSync(dest, buf);
     return { bytes: buf.length };
   } catch { return null; }
@@ -365,7 +440,10 @@ export async function saveAssets(slug, cap, ROOT, { maxPhotos = 8 } = {}) {
   let logo = null;
   for (const c of cap.logos) {                            // fall down the ranked list
     const ext = (c.url.split('.').pop() || 'png').split('?')[0].slice(0, 4).toLowerCase();
-    if (await download(c.url, path.join(dir, 'logo.' + ext), { min: 400, max: 2 * 1024 * 1024 })) { logo = rel('logo.' + ext); break; }
+    // shape-validate every candidate: a photo pretending to be a logo is worse
+    // than no logo (the header falls back to a clean styled wordmark instead)
+    if (await download(c.url, path.join(dir, 'logo.' + ext),
+        { min: 400, max: 2 * 1024 * 1024, validate: (buf) => looksLikeLogo(buf, ext) })) { logo = rel('logo.' + ext); break; }
   }
 
   const gallery = [];

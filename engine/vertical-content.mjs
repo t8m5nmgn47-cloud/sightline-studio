@@ -12,30 +12,50 @@
 // ─────────────────────────────────────────────────────────────────────────────
 
 // Map many real-world category words → a canonical vertical key.
+// Detection is SCORED, not first-match-wins: every matcher counts its hits
+// across the text, and the vertical needs a minimum weight to claim the site.
+// This stops one stray word (a reloading shop's "powder filler" reading as a
+// med-spa "filler") from dressing a business in the wrong industry.
 const MATCHERS = [
   // Strong medical signals FIRST — OB/GYN, dermatology, etc. offer some aesthetic
   // services but are medical practices, not med spas.
-  ["medical",  /obgyn|ob\/gyn|gynecolog|midwif|women'?s health|dermatolog|family medicine|physician|internal medicine|pediatric|primary care|urgent care|\bent\b|otolaryngolog|allergy/],
+  ["medical",  /obgyn|ob\/gyn|gynecolog|midwif|women'?s health|dermatolog|family medicine|physician|internal medicine|pediatric|primary care|urgent care|\bent\b|otolaryngolog|allergy/g],
   // Dentistry requires dental CONTEXT so "dental insurance" on an insurance site
   // doesn't misfire to dental.
-  ["dental",   /dentist|dentistry|dental (?:care|office|practice|group|associates|implants|clinic|arts|studio)|orthodont|invisalign|endodont|periodont|oral surgeon/],
-  ["optometry",/optometr|optician|eye ?care|eye ?exam|vision center|eyewear|lasik|ophthalmolog/],
-  ["medspa",   /med ?spa|medical spa|aesthetic|botox|dysport|\bfiller|injectable|coolsculpt|microneedl|hydrafacial/],
-  ["title",    /escrow|title (?:company|insurance|agency|&|and escrow)|title ?& ?escrow|settlement services/],
-  ["mortgage", /mortgage|loan officer|home loan|refinanc|pre-?approv|nmls/],
-  ["accounting",/\b(cpa|accountant|accounting|bookkeep|payroll)\b|tax (?:prep|planning|return|service)/],
-  ["insurance",/insurance agenc|independent (?:insurance )?agen|\binsurance\b|coverage options|allstate|farmers insurance|state farm/],
-  ["law",      /attorney|law ?firm|lawyer|litigation|\blegal\b|\bcounsel\b|practice areas|\besq\b/],
-  ["childcare",/montessori|childcare|daycare|preschool|early learning|nursery|tutoring/],
-  ["trades",   /hvac|plumb|roof|electric|landscap|\blawn\b|contractor|remodel|construction|heating|cooling|garage door|handyman|concrete|fencing|excavat|hardscape/],
-  // Broad clinic catch-all last.
-  ["medical2", /\bclinic\b|\bmedical\b/],
+  ["dental",   /dentist|dentistry|dental (?:care|office|practice|group|associates|implants|clinic|arts|studio)|orthodont|invisalign|endodont|periodont|oral surgeon/g],
+  ["optometry",/optometr|optician|eye ?care|eye ?exam|vision center|eyewear|lasik|ophthalmolog/g],
+  // Med-spa terms must be unambiguous: "dermal filler", not any "filler"
+  // ("powder filler", "crack filler", "filler words" are not injectables).
+  ["medspa",   /med ?spa|medical spa|aesthetic|botox|dysport|dermal filler|lip filler|filler treatment|injectable|coolsculpt|microneedl|hydrafacial/g],
+  ["title",    /escrow|title (?:company|insurance|agency|&|and escrow)|title ?& ?escrow|settlement services/g],
+  ["mortgage", /mortgage|loan officer|home loan|refinanc|pre-?approv|nmls/g],
+  ["accounting",/\b(cpa|accountant|accounting|bookkeep|payroll)\b|tax (?:prep|planning|return|service)/g],
+  ["insurance",/insurance agenc|independent (?:insurance )?agen|\binsurance\b|coverage options|allstate|farmers insurance|state farm/g],
+  ["law",      /attorney|law ?firm|lawyer|litigation|\blegal\b|\bcounsel\b|practice areas|\besq\b/g],
+  ["childcare",/montessori|childcare|daycare|preschool|early learning|nursery|tutoring/g],
+  ["trades",   /hvac|plumb|roof|electric|landscap|\blawn\b|contractor|remodel|construction|heating|cooling|garage door|handyman|concrete|fencing|excavat|hardscape/g],
+  // Retail / e-commerce: the site SELLS PRODUCTS. These signals (cart,
+  // shipping, SKUs) are structural, so they outrank incidental keyword hits.
+  ["retail",   /add to cart|shop now|free shipping|in stock|out of stock|\bsku\b|checkout|your cart|product details|shop all|best sellers|new arrivals|\bshop\b/g],
+  // Broad clinic catch-all last (low weight — see detectVertical).
+  ["medical2", /\bclinic\b|\bmedical\b/g],
 ];
 
 export function detectVertical(text = "") {
   const t = text.toLowerCase();
-  for (const [key, re] of MATCHERS) if (re.test(t)) return key === "medical2" ? "medical" : key;
-  return "business";
+  const scores = new Map();
+  for (const [key, re] of MATCHERS) {
+    const hits = (t.match(re) || []).length;
+    if (!hits) continue;
+    const k = key === "medical2" ? "medical" : key;
+    // medical2 is a weak catch-all; retail signals are structural and strong
+    const weight = key === "medical2" ? 0.5 : key === "retail" ? 1.5 : 1;
+    scores.set(k, (scores.get(k) || 0) + hits * weight);
+  }
+  if (!scores.size) return "business";
+  const [best, bestScore] = [...scores.entries()].sort((a, b) => b[1] - a[1])[0];
+  // one weak, incidental hit is not enough to claim an industry
+  return bestScore >= 2 ? best : "business";
 }
 
 const svc = (h, p) => ({ h, p });
@@ -131,6 +151,15 @@ export const PACKS = {
     money: null,
     trust: ["Licensed & accredited", "Low child-to-teacher ratios", "Safe, secure campus", "Nurturing, qualified staff"],
   },
+  retail: {
+    label: "Shop", bookCta: "Shop now →", imNew: "Shop",
+    hero: (n) => `${n} — gear you can count on, shipped fast.`,
+    book: { title: "Questions before you order?", sub: "Real people answer — get sizing, fit and compatibility help before you buy." },
+    services: ["Quality products, tested by us", "Fast, tracked shipping", "Easy returns & exchanges", "Expert product support", "Secure checkout", "Order updates that keep you posted"],
+    offer: { kicker: "New here?", title: "Join the list, get first dibs.", lead: "New products, restocks and subscriber-only deals — no spam, unsubscribe anytime.", cta: "Sign me up →" },
+    money: null,
+    trust: ["Fast, tracked shipping", "Easy returns", "Secure checkout", "Real product support"],
+  },
   business: {
     label: "Local Business", bookCta: "Get in touch →", imNew: "Get Started",
     hero: (n) => `${n} — trusted service, close to home.`,
@@ -147,7 +176,9 @@ export const PACKS = {
 export function buildSections(vertical, name, { realReviews = [], rating = null, reviewCount = null, realServices = [] } = {}) {
   const pk = PACKS[vertical] || PACKS.business;
   const sections = {
-    book: { title: "Ready when you are.", sub: `Book online in under a minute — new clients welcome.` },
+    // packs may override the "book" band (retail says "questions before you
+    // order?", not "book online")
+    book: pk.book || { title: "Ready when you are.", sub: `Book online in under a minute — new clients welcome.` },
     services: {
       kicker: "Our services", title: "How we can help.",
       // Prefer the prospect's OWN captured service names; fall back to the
