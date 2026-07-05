@@ -11,6 +11,7 @@ import * as cheerio from 'cheerio';
 import { extractSignals } from '../api/_intake.js';
 import { normalize, assemble, recommendRecipe, VERTICALS, TRADITIONS } from './site-engine.mjs';
 import { capture, saveAssets } from './capture.mjs';
+import { detectVertical, buildSections } from './vertical-content.mjs';
 
 import { fileURLToPath } from 'node:url';
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
@@ -40,11 +41,11 @@ function detectPack(text, over){
   const t = text.toLowerCase();
   if (/dentist|dental|orthodont|invisalign|smile/.test(t)) return {kind:'vertical',key:'dental'};
   if (/attorney|law ?firm|lawyer|litigation|practice areas|legal/.test(t)) return {kind:'vertical',key:'law'};
-  if (/med ?spa|aesthetic|botox|filler|laser|dermatolog/.test(t)) return {kind:'vertical',key:'medspa'};
   if (/\b(mass|sacrament|parish|eucharist|diocese)\b/.test(t)) return {kind:'tradition',key:'catholic'};
   if (/\b(elca|lcms|umc|presbyterian|lutheran|methodist|episcopal)\b/.test(t)) return {kind:'tradition',key:'mainline'};
   if (/\b(church|worship|sermon|ministr|gospel|congregation)\b/.test(t)) return {kind:'tradition',key:'contemporary'};
-  return {kind:'vertical',key:'business'};   // default: generic local business
+  // business: classify into one of the 11 real verticals from the page text
+  return { kind:'vertical', key: detectVertical(t) };
 }
 
 // pack-appropriate default sections so an auto-generated demo is complete, not thin
@@ -99,20 +100,32 @@ const assets = await saveAssets(slug, cap, ROOT);
 const logo = assets.logo;
 
 const isBiz = pack.kind==='vertical';
+// Business verticals get an industry-specific content pack (real reviews only —
+// nothing fabricated). Churches keep their tradition-based default sections.
+let bizPack = null, bizSections = null;
+if (isBiz) {
+  const built = buildSections(pack.key, name, { realReviews: sig.reviews || [] });
+  bizSections = built.sections; bizPack = built.pack;
+}
+const heroHeadline = isBiz ? (bizPack.hero(name)) : 'You’re welcome here.';
+const bookCta = isBiz ? bizPack.bookCta : 'Plan your visit →';
+
 const profile = normalize(sig, {
   slug, name, logo,
   fonts: cap.fonts.head ? cap.fonts : null,
   phone: cap.facts.phone || '',
   gallery: assets.gallery,
   heroImage: assets.heroImage || (isBiz ? null : '/assets/stock/church-2.webp'),
-  hero: { kick: name, headline: isBiz? name+' — care you can count on.' : 'You’re welcome here.',
-    sub: (sig.description||'').slice(0,160) || (isBiz?'Modern, friendly service — book online in a minute.':'Come as you are.'),
-    ctas: isBiz? [{label:'Book appointment →',href:'#book'}] : [{label:'Plan your visit →',href:'#visit'}] },
-  sections: defaultSections(pack, name),
+  hero: { kick: name, headline: heroHeadline,
+    sub: (sig.description||'').slice(0,160) || (isBiz?'Modern, friendly service — get in touch in a minute.':'Come as you are.'),
+    ctas: [{label: bookCta, href: isBiz?'#book':'#visit'}] },
+  sections: isBiz ? bizSections : defaultSections(pack, name),
 });
 
 const recipe = recommendRecipe(profile);
-if (pack.kind==='vertical') recipe.vertical = pack.key, recipe.archetype='minimal';
+// Business: keep the palette-driven archetype (varies by brand colour) instead
+// of forcing every business site into the same 'minimal' layout.
+if (pack.kind==='vertical') recipe.vertical = pack.key;
 else recipe.tradition = pack.key, recipe.archetype = recipe.archetype||'journey';
 
 const site = assemble(profile, recipe);

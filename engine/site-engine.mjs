@@ -394,10 +394,28 @@ export const TRADITIONS = {
 export const VERTICALS = {
   dental:{ label:'Dental', imNew:'New Patients', bookCta:'Book appointment →',
     order:['announce','nav','hero','bookbar','services','reviews','offer','team','results','bizmoney','hours','cta','footer'] },
+  medical:{ label:'Medical', imNew:'New Patients', bookCta:'Request an appointment →',
+    order:['announce','nav','hero','bookbar','services','reviews','bizmoney','team','offer','hours','cta','footer'] },
+  optometry:{ label:'Eye Care', imNew:'New Patients', bookCta:'Book an eye exam →',
+    order:['announce','nav','hero','bookbar','services','reviews','offer','bizmoney','team','hours','cta','footer'] },
   law:{ label:'Law', imNew:'Free Consult', bookCta:'Request a free consult →',
     order:['announce','nav','hero','bookbar','services','reviews','team','offer','hours','cta','footer'] },
+  accounting:{ label:'Accounting', imNew:'New Clients', bookCta:'Book a consultation →',
+    order:['announce','nav','hero','bookbar','services','reviews','team','offer','hours','cta','footer'] },
+  insurance:{ label:'Insurance', imNew:'Free Quote', bookCta:'Get a free quote →',
+    order:['announce','nav','hero','bookbar','services','offer','reviews','team','hours','cta','footer'] },
+  mortgage:{ label:'Mortgage', imNew:'Get Started', bookCta:'Get pre-approved →',
+    order:['announce','nav','hero','bookbar','services','offer','reviews','team','hours','cta','footer'] },
+  title:{ label:'Title & Escrow', imNew:'Start a File', bookCta:'Open an order →',
+    order:['announce','nav','hero','bookbar','services','offer','reviews','team','hours','cta','footer'] },
   medspa:{ label:'Med Spa', imNew:'Book Now', bookCta:'Book your visit →',
     order:['announce','nav','hero','bookbar','services','reviews','offer','results','team','bizmoney','hours','cta','footer'] },
+  trades:{ label:'Home Services', imNew:'Free Estimate', bookCta:'Get a free estimate →',
+    order:['announce','nav','hero','bookbar','services','offer','reviews','bizmoney','results','hours','cta','footer'] },
+  childcare:{ label:'Childcare & Education', imNew:'Schedule a Tour', bookCta:'Schedule a tour →',
+    order:['announce','nav','hero','bookbar','services','offer','reviews','team','hours','cta','footer'] },
+  business:{ label:'Local Business', imNew:'Get Started', bookCta:'Get in touch →',
+    order:['announce','nav','hero','bookbar','services','offer','reviews','team','hours','cta','footer'] },
 };
 
 // ── the stylesheet (structure + archetype/mood variations) ───────────────────
