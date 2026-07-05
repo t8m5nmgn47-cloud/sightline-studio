@@ -69,10 +69,10 @@ h1,h2,h3{font-variant-ligatures:none}
       <div class="fld"><label>Anything we should know? (optional)</label><textarea id="notes" placeholder="Logo, photos, services to feature, a deadline…"></textarea></div>
       <button class="btn" id="go" type="submit">Start my site →</button>
       <div class="err" id="err"></div>
-      <div class="reassure"><span>✓ Cancel-friendly</span><span>✓ First month free</span><span>✓ 30-day money-back</span><span>✓ No four-figure build fee</span></div>
+      <div class="reassure"><span>✓ Cancel-friendly</span><span>✓ 30-day money-back</span><span>✓ No four-figure build fee</span></div>
     </form>
   </div>
-  <div class="alt">Prefer to talk first? <a id="callus" href="/book/">Book a 15-min call</a> · or <a id="textus" href="mailto:hello@sightlinehq.com">text/email us</a></div>
+  <div class="alt">Prefer to talk first? <a id="callus" href="/contact">Contact us — we reply fast</a> · or <a id="textus" href="mailto:hello@sightlinehq.com">text/email us</a></div>
   </div>
 </div>
 <div class="foot"><span class="lock">🔒 Secure</span> · Your details are sent over an encrypted connection and used only to build and launch your site.</div>
@@ -93,7 +93,7 @@ document.documentElement.style.setProperty("--ac",BRAND);
 const $=s=>document.querySelector(s);
 if(BIZ){ $("#brand").textContent=BIZ; $("#hl").textContent=BIZ+" — let's make it yours."; }
 // wire fallbacks
-$("#callus").href=CONTACT.book||"/book/";
+$("#callus").href="/contact";
 const mailto="mailto:"+(CONTACT.email||"")+"?subject="+encodeURIComponent("Question about my site"+(BIZ?(" — "+BIZ):""));
 $("#textus").href=CONTACT.phone?("sms:"+CONTACT.phone.replace(/[^0-9+]/g,"")):mailto;
 // plan radio styling
@@ -131,7 +131,7 @@ $("#f").addEventListener("submit",async e=>{
     <h2>You're in${$("#fname").value.trim()?(", "+$("#fname").value.trim()):""}.</h2>
     <p>${BIZ?esc(BIZ)+" — your":"Your"} ${esc(planLabel(plan))} plan is reserved. ${link?"One last step — complete your first payment and we start building today.":"We'll send a secure payment link to <b>"+esc(email)+"</b> shortly — once it's done, we start building right away."}</p>
     ${link?`<a class="btn" href="${link}" style="text-decoration:none;display:block">Complete checkout →</a>`:""}
-    <div class="reassure" style="justify-content:center"><span>✓ First month free</span><span>✓ 30-day money-back</span><span>✓ Cancel anytime</span></div>
+    <div class="reassure" style="justify-content:center"><span>✓ 30-day money-back</span><span>✓ Cancel anytime</span></div>
     <div class="alt" style="margin-top:18px">Questions? <a href="${CONTACT.phone?('sms:'+CONTACT.phone.replace(/[^0-9+]/g,'')):mailto}">${CONTACT.phone?'Text us':'Email us'}</a> anytime.</div>
   </div>`;
   window.scrollTo({top:0,behavior:"smooth"});
