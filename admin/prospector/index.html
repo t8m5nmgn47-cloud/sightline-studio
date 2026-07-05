@@ -137,7 +137,7 @@ function render(){
         <div class="sc"><b style="color:${d.dead?'var(--dead)':'inherit'}">${d.dead?'✕':d.score}</b><span>${d.dead?'dead':'/100'}</span></div>
         <div>
           <h3><a href="https://${d.domain}" target="_blank" rel="noopener">${d.name}</a> <span class="chip">${d.tradition}${d.platform!=='—'?' · '+d.platform:''}</span></h3>
-          <div class="meta">${d.domain}</div>
+          <div class="meta">${d.domain}${d.reviews?` · <span style="color:${d.reviews.weak?'var(--warm)':'var(--mut)'}">★ ${d.reviews.rating??'—'} · ${d.reviews.count} reviews${d.reviews.peerMedianCount?` (peers: ${d.reviews.peerMedianCount})`:''}</span>`:''}${d.phone?` · ${d.phone}`:''}</div>
           <div class="pitch">${d.pitch}</div>
           ${goods}
         </div>

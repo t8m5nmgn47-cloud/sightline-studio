@@ -2276,27 +2276,47 @@
     "winPct": 41,
     "expected": 1216,
     "benchmark": {
-      "catN": 3,
+      "catN": 10,
       "catLabel": "dental businesses",
-      "avg": 61,
-      "max": 72,
-      "delta": -7
+      "avg": 73,
+      "max": 93,
+      "delta": -19
     },
     "competitorGaps": [
       {
         "label": "New-customer offer",
         "why": "A new-patient special / free consult is the hook that turns comparison-shoppers into bookings.",
-        "peerPct": 67
+        "peerPct": 90
+      },
+      {
+        "label": "Book / request appointment",
+        "why": "The #1 conversion action — online booking or a request-appointment form turns a visitor into revenue.",
+        "peerPct": 70
+      },
+      {
+        "label": "Photos / results",
+        "why": "Real photos (office, team, before/after results) prove quality far better than stock.",
+        "peerPct": 50
       }
     ],
     "talkingPoints": [
       {
         "label": "New-customer offer",
         "why": "A new-patient special / free consult is the hook that turns comparison-shoppers into bookings.",
-        "peerPct": 67
+        "peerPct": 90
+      },
+      {
+        "label": "Book / request appointment",
+        "why": "The #1 conversion action — online booking or a request-appointment form turns a visitor into revenue.",
+        "peerPct": 70
+      },
+      {
+        "label": "Photos / results",
+        "why": "Real photos (office, team, before/after results) prove quality far better than stock.",
+        "peerPct": 50
       }
     ],
-    "opener": "Hi — I pulled up Homestead Title and Escrow and noticed you don't have new-customer offer, but 67% of dental businesses do — it's probably costing you bookings every week. I built a version of your site that fixes it. Two minutes to show you?",
+    "opener": "Hi — I pulled up Homestead Title and Escrow and noticed you don't have new-customer offer, but 90% of dental businesses do — it's probably costing you bookings every week. I built a version of your site that fixes it. Two minutes to show you?",
     "assets": {
       "slug": "homesteadtc-com",
       "demo": "/homesteadtc-com/",
@@ -2305,7 +2325,7 @@
     },
     "email": {
       "subject": "I rebuilt Homestead Title and Escrow's website — it's ready to look at",
-      "body": "Hi — Kris here from Sightline Studio, here in Colorado.\n\nI pulled up homesteadtc.com and noticed it's missing new-customer offer — 67% of dental businesses have it, and it's likely costing you customers every week.\n\nSo instead of sending a pitch deck, I just built it. Here's Homestead Title and Escrow's new site, live right now:\n\nhttps://sightline-studio.vercel.app/p/homesteadtc-com/\n\nThat's a real, working site — your name, your services, your photos, built for phones and built to be found on Google. The same link shows how you stack up against your local competitors, measured on public signals.\n\nIf you like it, it's yours: we host it, watch it, and market it from $59.99/mo with $0 down — and you own the site. If not, no hard feelings; the preview was free.\n\nWorth two minutes? Just reply to this email.\n\n— Kris\nSightline Studio · look sharp, stay safe, get found"
+      "body": "Hi — Kris here from Sightline Studio, here in Colorado.\n\nI pulled up homesteadtc.com and noticed it's missing new-customer offer — 90% of dental businesses have it, and it's likely costing you customers every week.\n\nSo instead of sending a pitch deck, I just built it. Here's Homestead Title and Escrow's new site, live right now:\n\nhttps://sightline-studio.vercel.app/p/homesteadtc-com/\n\nThat's a real, working site — your name, your services, your photos, built for phones and built to be found on Google. The same link shows how you stack up against your local competitors, measured on public signals.\n\nIf you like it, it's yours: we host it, watch it, and market it from $59.99/mo with $0 down — and you own the site. If not, no hard feelings; the preview was free.\n\nWorth two minutes? Just reply to this email.\n\n— Kris\nSightline Studio · look sharp, stay safe, get found"
     }
   },
   {
@@ -2507,27 +2527,37 @@
     "winPct": 40,
     "expected": 1189,
     "benchmark": {
-      "catN": 3,
+      "catN": 10,
       "catLabel": "dental businesses",
-      "avg": 61,
-      "max": 72,
-      "delta": -5
+      "avg": 73,
+      "max": 93,
+      "delta": -17
     },
     "competitorGaps": [
       {
         "label": "Services / what we do",
         "why": "Clear services (and for whom) is how a searcher confirms you solve their problem.",
-        "peerPct": 67
+        "peerPct": 90
+      },
+      {
+        "label": "Book / request appointment",
+        "why": "The #1 conversion action — online booking or a request-appointment form turns a visitor into revenue.",
+        "peerPct": 70
       }
     ],
     "talkingPoints": [
       {
         "label": "Services / what we do",
         "why": "Clear services (and for whom) is how a searcher confirms you solve their problem.",
-        "peerPct": 67
+        "peerPct": 90
+      },
+      {
+        "label": "Book / request appointment",
+        "why": "The #1 conversion action — online booking or a request-appointment form turns a visitor into revenue.",
+        "peerPct": 70
       }
     ],
-    "opener": "Hi — I pulled up Colorado Group & Individual Health, Life, Disability, Long Term Care Insurance broker in Highlands Ranch Colorado - Niederman Insurance Agency and noticed you don't have services / what we do, but 67% of dental businesses do — it's probably costing you bookings every week. I built a version of your site that fixes it. Two minutes to show you?",
+    "opener": "Hi — I pulled up Colorado Group & Individual Health, Life, Disability, Long Term Care Insurance broker in Highlands Ranch Colorado - Niederman Insurance Agency and noticed you don't have services / what we do, but 90% of dental businesses do — it's probably costing you bookings every week. I built a version of your site that fixes it. Two minutes to show you?",
     "assets": {
       "slug": "niedermaninsurance-com",
       "demo": "/niedermaninsurance-com/",
@@ -2536,7 +2566,7 @@
     },
     "email": {
       "subject": "I rebuilt Colorado Group & Individual Health, Life, Disability, Long Term Care Insurance broker in Highlands Ranch Colorado - Niederman Insurance Agency's website — it's ready to look at",
-      "body": "Hi — Kris here from Sightline Studio, here in Colorado.\n\nI pulled up niedermaninsurance.com and noticed it's missing services / what we do — 67% of dental businesses have it, and it's likely costing you customers every week.\n\nSo instead of sending a pitch deck, I just built it. Here's Colorado Group & Individual Health, Life, Disability, Long Term Care Insurance broker in Highlands Ranch Colorado - Niederman Insurance Agency's new site, live right now:\n\nhttps://sightline-studio.vercel.app/p/niedermaninsurance-com/\n\nThat's a real, working site — your name, your services, your photos, built for phones and built to be found on Google. The same link shows how you stack up against your local competitors, measured on public signals.\n\nIf you like it, it's yours: we host it, watch it, and market it from $59.99/mo with $0 down — and you own the site. If not, no hard feelings; the preview was free.\n\nWorth two minutes? Just reply to this email.\n\n— Kris\nSightline Studio · look sharp, stay safe, get found"
+      "body": "Hi — Kris here from Sightline Studio, here in Colorado.\n\nI pulled up niedermaninsurance.com and noticed it's missing services / what we do — 90% of dental businesses have it, and it's likely costing you customers every week.\n\nSo instead of sending a pitch deck, I just built it. Here's Colorado Group & Individual Health, Life, Disability, Long Term Care Insurance broker in Highlands Ranch Colorado - Niederman Insurance Agency's new site, live right now:\n\nhttps://sightline-studio.vercel.app/p/niedermaninsurance-com/\n\nThat's a real, working site — your name, your services, your photos, built for phones and built to be found on Google. The same link shows how you stack up against your local competitors, measured on public signals.\n\nIf you like it, it's yours: we host it, watch it, and market it from $59.99/mo with $0 down — and you own the site. If not, no hard feelings; the preview was free.\n\nWorth two minutes? Just reply to this email.\n\n— Kris\nSightline Studio · look sharp, stay safe, get found"
     }
   },
   {
@@ -3209,6 +3239,118 @@
     "opener": "Hi — I pulled up Rose Church and noticed you don't have sermons / watch, but 93% of contemporary churches do — it's probably costing you visitors every week. I built a version of your site that fixes it. Two minutes to show you?",
     "assets": {
       "slug": "rosechurch-ca",
+      "demo": null,
+      "funnel": null,
+      "teardown": null
+    },
+    "email": null
+  },
+  {
+    "type": "business",
+    "domain": "lincolnavedentistry.com",
+    "name": "Lincoln Ave Dentistry",
+    "platform": "pond",
+    "tradition": "dental",
+    "score": 63,
+    "tier": "MILD",
+    "gaps": [
+      "Reviews & social proof",
+      "Photos / results"
+    ],
+    "pitch": "Leaking leads — missing reviews & social proof, photos / results. Scores 63/100; each fix is booked revenue.",
+    "dead": false,
+    "dims": [
+      {
+        "l": "Book / request appointment",
+        "f": true,
+        "w": "The #1 conversion action — online booking or a request-appointment form turns a visitor into revenue."
+      },
+      {
+        "l": "Call / contact prominent",
+        "f": true,
+        "w": "A visible phone number + clear contact path captures the callers who won't fill a form."
+      },
+      {
+        "l": "Services / what we do",
+        "f": true,
+        "w": "Clear services (and for whom) is how a searcher confirms you solve their problem."
+      },
+      {
+        "l": "Reviews & social proof",
+        "f": false,
+        "w": "~9 in 10 people read reviews before choosing a local business — star ratings/testimonials on-site convert."
+      },
+      {
+        "l": "Team & credentials",
+        "f": true,
+        "w": "Meet-the-team, credentials, awards and an about story build the trust a service purchase requires."
+      },
+      {
+        "l": "Hours, location & map",
+        "f": true,
+        "w": "Hours, address, and a map are table-stakes for a local visit."
+      },
+      {
+        "l": "New-customer offer",
+        "f": true,
+        "w": "A new-patient special / free consult is the hook that turns comparison-shoppers into bookings."
+      },
+      {
+        "l": "Photos / results",
+        "f": false,
+        "w": "Real photos (office, team, before/after results) prove quality far better than stock."
+      },
+      {
+        "l": "Financing / insurance / pricing",
+        "f": true,
+        "w": "Insurance accepted, financing, or pricing transparency removes the biggest hesitation."
+      },
+      {
+        "l": "Fast, mobile & secure",
+        "f": true,
+        "w": "Mobile, HTTPS, and accessibility decide whether a phone searcher stays or bounces."
+      }
+    ],
+    "phone": "+1 720-638-2075",
+    "mrr": 199,
+    "annual": 2388,
+    "winPct": 37,
+    "expected": 875,
+    "capturedAt": "2026-07-05",
+    "benchmark": {
+      "catN": 10,
+      "catLabel": "dental businesses",
+      "avg": 73,
+      "max": 93,
+      "delta": -10
+    },
+    "competitorGaps": [
+      {
+        "label": "Reviews & social proof",
+        "why": "~9 in 10 people read reviews before choosing a local business — star ratings/testimonials on-site convert.",
+        "peerPct": 80
+      },
+      {
+        "label": "Photos / results",
+        "why": "Real photos (office, team, before/after results) prove quality far better than stock.",
+        "peerPct": 50
+      }
+    ],
+    "talkingPoints": [
+      {
+        "label": "Reviews & social proof",
+        "why": "~9 in 10 people read reviews before choosing a local business — star ratings/testimonials on-site convert.",
+        "peerPct": 80
+      },
+      {
+        "label": "Photos / results",
+        "why": "Real photos (office, team, before/after results) prove quality far better than stock.",
+        "peerPct": 50
+      }
+    ],
+    "opener": "Hi — I pulled up Lincoln Ave Dentistry and noticed you don't have reviews & social proof, but 80% of dental businesses do — it's probably costing you bookings every week. I built a version of your site that fixes it. Two minutes to show you?",
+    "assets": {
+      "slug": "lincolnavedentistry-com",
       "demo": null,
       "funnel": null,
       "teardown": null
@@ -4177,6 +4319,118 @@
     }
   },
   {
+    "type": "business",
+    "domain": "magnoliadentalco.com",
+    "name": "Magnolia Dental",
+    "platform": "pond",
+    "tradition": "dental",
+    "score": 71,
+    "tier": "MILD",
+    "gaps": [
+      "Photos / results",
+      "Financing / insurance / pricing"
+    ],
+    "pitch": "Leaking leads — missing photos / results, financing / insurance / pricing. Scores 71/100; each fix is booked revenue.",
+    "dead": false,
+    "dims": [
+      {
+        "l": "Book / request appointment",
+        "f": true,
+        "w": "The #1 conversion action — online booking or a request-appointment form turns a visitor into revenue."
+      },
+      {
+        "l": "Call / contact prominent",
+        "f": true,
+        "w": "A visible phone number + clear contact path captures the callers who won't fill a form."
+      },
+      {
+        "l": "Services / what we do",
+        "f": true,
+        "w": "Clear services (and for whom) is how a searcher confirms you solve their problem."
+      },
+      {
+        "l": "Reviews & social proof",
+        "f": true,
+        "w": "~9 in 10 people read reviews before choosing a local business — star ratings/testimonials on-site convert."
+      },
+      {
+        "l": "Team & credentials",
+        "f": true,
+        "w": "Meet-the-team, credentials, awards and an about story build the trust a service purchase requires."
+      },
+      {
+        "l": "Hours, location & map",
+        "f": true,
+        "w": "Hours, address, and a map are table-stakes for a local visit."
+      },
+      {
+        "l": "New-customer offer",
+        "f": true,
+        "w": "A new-patient special / free consult is the hook that turns comparison-shoppers into bookings."
+      },
+      {
+        "l": "Photos / results",
+        "f": false,
+        "w": "Real photos (office, team, before/after results) prove quality far better than stock."
+      },
+      {
+        "l": "Financing / insurance / pricing",
+        "f": false,
+        "w": "Insurance accepted, financing, or pricing transparency removes the biggest hesitation."
+      },
+      {
+        "l": "Fast, mobile & secure",
+        "f": true,
+        "w": "Mobile, HTTPS, and accessibility decide whether a phone searcher stays or bounces."
+      }
+    ],
+    "phone": "+1 720-647-9880",
+    "mrr": 199,
+    "annual": 2388,
+    "winPct": 33,
+    "expected": 789,
+    "capturedAt": "2026-07-05",
+    "benchmark": {
+      "catN": 10,
+      "catLabel": "dental businesses",
+      "avg": 73,
+      "max": 93,
+      "delta": -2
+    },
+    "competitorGaps": [
+      {
+        "label": "Financing / insurance / pricing",
+        "why": "Insurance accepted, financing, or pricing transparency removes the biggest hesitation.",
+        "peerPct": 60
+      },
+      {
+        "label": "Photos / results",
+        "why": "Real photos (office, team, before/after results) prove quality far better than stock.",
+        "peerPct": 50
+      }
+    ],
+    "talkingPoints": [
+      {
+        "label": "Financing / insurance / pricing",
+        "why": "Insurance accepted, financing, or pricing transparency removes the biggest hesitation.",
+        "peerPct": 60
+      },
+      {
+        "label": "Photos / results",
+        "why": "Real photos (office, team, before/after results) prove quality far better than stock.",
+        "peerPct": 50
+      }
+    ],
+    "opener": "Hi — I pulled up Magnolia Dental and noticed you don't have financing / insurance / pricing, but 60% of dental businesses do — it's probably costing you bookings every week. I built a version of your site that fixes it. Two minutes to show you?",
+    "assets": {
+      "slug": "magnoliadentalco-com",
+      "demo": null,
+      "funnel": null,
+      "teardown": null
+    },
+    "email": null
+  },
+  {
     "type": "church",
     "domain": "lifepointecc.com",
     "name": "Lifepointe Church",
@@ -4352,27 +4606,37 @@
     "winPct": 33,
     "expected": 974,
     "benchmark": {
-      "catN": 3,
+      "catN": 10,
       "catLabel": "dental businesses",
-      "avg": 61,
-      "max": 72,
-      "delta": 11
+      "avg": 73,
+      "max": 93,
+      "delta": -1
     },
     "competitorGaps": [
       {
         "label": "Financing / insurance / pricing",
         "why": "Insurance accepted, financing, or pricing transparency removes the biggest hesitation.",
-        "peerPct": 67
+        "peerPct": 60
+      },
+      {
+        "label": "Photos / results",
+        "why": "Real photos (office, team, before/after results) prove quality far better than stock.",
+        "peerPct": 50
       }
     ],
     "talkingPoints": [
       {
         "label": "Financing / insurance / pricing",
         "why": "Insurance accepted, financing, or pricing transparency removes the biggest hesitation.",
-        "peerPct": 67
+        "peerPct": 60
+      },
+      {
+        "label": "Photos / results",
+        "why": "Real photos (office, team, before/after results) prove quality far better than stock.",
+        "peerPct": 50
       }
     ],
-    "opener": "Hi — I pulled up Cherry Hills Dental Associates and noticed you don't have financing / insurance / pricing, but 67% of dental businesses do — it's probably costing you bookings every week. I built a version of your site that fixes it. Two minutes to show you?",
+    "opener": "Hi — I pulled up Cherry Hills Dental Associates and noticed you don't have financing / insurance / pricing, but 60% of dental businesses do — it's probably costing you bookings every week. I built a version of your site that fixes it. Two minutes to show you?",
     "assets": {
       "slug": "cherryhillsdentist-com",
       "demo": "/cherryhillsdentist-com/",
@@ -4381,7 +4645,7 @@
     },
     "email": {
       "subject": "I rebuilt Cherry Hills Dental Associates's website — it's ready to look at",
-      "body": "Hi — Kris here from Sightline Studio, here in Colorado.\n\nI pulled up cherryhillsdentist.com and noticed it's missing financing / insurance / pricing — 67% of dental businesses have it, and it's likely costing you customers every week.\n\nSo instead of sending a pitch deck, I just built it. Here's Cherry Hills Dental Associates's new site, live right now:\n\nhttps://sightline-studio.vercel.app/p/cherryhillsdentist-com/\n\nThat's a real, working site — your name, your services, your photos, built for phones and built to be found on Google. The same link shows how you stack up against your local competitors, measured on public signals.\n\nIf you like it, it's yours: we host it, watch it, and market it from $59.99/mo with $0 down — and you own the site. If not, no hard feelings; the preview was free.\n\nWorth two minutes? Just reply to this email.\n\n— Kris\nSightline Studio · look sharp, stay safe, get found"
+      "body": "Hi — Kris here from Sightline Studio, here in Colorado.\n\nI pulled up cherryhillsdentist.com and noticed it's missing financing / insurance / pricing — 60% of dental businesses have it, and it's likely costing you customers every week.\n\nSo instead of sending a pitch deck, I just built it. Here's Cherry Hills Dental Associates's new site, live right now:\n\nhttps://sightline-studio.vercel.app/p/cherryhillsdentist-com/\n\nThat's a real, working site — your name, your services, your photos, built for phones and built to be found on Google. The same link shows how you stack up against your local competitors, measured on public signals.\n\nIf you like it, it's yours: we host it, watch it, and market it from $59.99/mo with $0 down — and you own the site. If not, no hard feelings; the preview was free.\n\nWorth two minutes? Just reply to this email.\n\n— Kris\nSightline Studio · look sharp, stay safe, get found"
     }
   },
   {
@@ -4692,6 +4956,118 @@
   },
   {
     "type": "business",
+    "domain": "sweetpeadentistry.com",
+    "name": "dentist",
+    "platform": "pond",
+    "tradition": "dental",
+    "score": 74,
+    "tier": "MILD",
+    "gaps": [
+      "Book / request appointment",
+      "Financing / insurance / pricing"
+    ],
+    "pitch": "Leaking leads — missing book / request appointment, financing / insurance / pricing. Scores 74/100; each fix is booked revenue.",
+    "dead": false,
+    "dims": [
+      {
+        "l": "Book / request appointment",
+        "f": false,
+        "w": "The #1 conversion action — online booking or a request-appointment form turns a visitor into revenue."
+      },
+      {
+        "l": "Call / contact prominent",
+        "f": true,
+        "w": "A visible phone number + clear contact path captures the callers who won't fill a form."
+      },
+      {
+        "l": "Services / what we do",
+        "f": true,
+        "w": "Clear services (and for whom) is how a searcher confirms you solve their problem."
+      },
+      {
+        "l": "Reviews & social proof",
+        "f": true,
+        "w": "~9 in 10 people read reviews before choosing a local business — star ratings/testimonials on-site convert."
+      },
+      {
+        "l": "Team & credentials",
+        "f": true,
+        "w": "Meet-the-team, credentials, awards and an about story build the trust a service purchase requires."
+      },
+      {
+        "l": "Hours, location & map",
+        "f": true,
+        "w": "Hours, address, and a map are table-stakes for a local visit."
+      },
+      {
+        "l": "New-customer offer",
+        "f": true,
+        "w": "A new-patient special / free consult is the hook that turns comparison-shoppers into bookings."
+      },
+      {
+        "l": "Photos / results",
+        "f": true,
+        "w": "Real photos (office, team, before/after results) prove quality far better than stock."
+      },
+      {
+        "l": "Financing / insurance / pricing",
+        "f": false,
+        "w": "Insurance accepted, financing, or pricing transparency removes the biggest hesitation."
+      },
+      {
+        "l": "Fast, mobile & secure",
+        "f": true,
+        "w": "Mobile, HTTPS, and accessibility decide whether a phone searcher stays or bounces."
+      }
+    ],
+    "phone": "+1 303-841-9009",
+    "mrr": 249,
+    "annual": 2988,
+    "winPct": 32,
+    "expected": 947,
+    "capturedAt": "2026-07-05",
+    "benchmark": {
+      "catN": 10,
+      "catLabel": "dental businesses",
+      "avg": 73,
+      "max": 93,
+      "delta": 1
+    },
+    "competitorGaps": [
+      {
+        "label": "Book / request appointment",
+        "why": "The #1 conversion action — online booking or a request-appointment form turns a visitor into revenue.",
+        "peerPct": 70
+      },
+      {
+        "label": "Financing / insurance / pricing",
+        "why": "Insurance accepted, financing, or pricing transparency removes the biggest hesitation.",
+        "peerPct": 60
+      }
+    ],
+    "talkingPoints": [
+      {
+        "label": "Book / request appointment",
+        "why": "The #1 conversion action — online booking or a request-appointment form turns a visitor into revenue.",
+        "peerPct": 70
+      },
+      {
+        "label": "Financing / insurance / pricing",
+        "why": "Insurance accepted, financing, or pricing transparency removes the biggest hesitation.",
+        "peerPct": 60
+      }
+    ],
+    "opener": "Hi — I pulled up dentist and noticed you don't have book / request appointment, but 70% of dental businesses do — it's probably costing you bookings every week. I built a version of your site that fixes it. Two minutes to show you?",
+    "assets": {
+      "slug": "sweetpeadentistry-com",
+      "demo": null,
+      "funnel": null,
+      "teardown": null
+    },
+    "email": null
+  },
+  {
+    "type": "business",
     "domain": "kcmortgagecolorado.com",
     "name": "KC Mortgage Kay Cleland - First Time Homebuyer Loans, Manufactured Homes in Castle Rock, Colorado Springs, Parker",
     "platform": "—",
@@ -4884,6 +5260,118 @@
     "opener": "Hi — I looked at Kempsville Christian Church's site (scored it 77/100 vs a 59 average for contemporary churches). I rebuilt a sharper version — can I send it over?",
     "assets": {
       "slug": "kccfamily-org",
+      "demo": null,
+      "funnel": null,
+      "teardown": null
+    },
+    "email": null
+  },
+  {
+    "type": "business",
+    "domain": "parkerdentistry.com",
+    "name": "Local Dentist Office in Parker CO",
+    "platform": "pond",
+    "tradition": "dental",
+    "score": 78,
+    "tier": "MILD",
+    "gaps": [
+      "Reviews & social proof",
+      "Photos / results"
+    ],
+    "pitch": "Leaking leads — missing reviews & social proof, photos / results. Scores 78/100; each fix is booked revenue.",
+    "dead": false,
+    "dims": [
+      {
+        "l": "Book / request appointment",
+        "f": true,
+        "w": "The #1 conversion action — online booking or a request-appointment form turns a visitor into revenue."
+      },
+      {
+        "l": "Call / contact prominent",
+        "f": true,
+        "w": "A visible phone number + clear contact path captures the callers who won't fill a form."
+      },
+      {
+        "l": "Services / what we do",
+        "f": true,
+        "w": "Clear services (and for whom) is how a searcher confirms you solve their problem."
+      },
+      {
+        "l": "Reviews & social proof",
+        "f": false,
+        "w": "~9 in 10 people read reviews before choosing a local business — star ratings/testimonials on-site convert."
+      },
+      {
+        "l": "Team & credentials",
+        "f": true,
+        "w": "Meet-the-team, credentials, awards and an about story build the trust a service purchase requires."
+      },
+      {
+        "l": "Hours, location & map",
+        "f": true,
+        "w": "Hours, address, and a map are table-stakes for a local visit."
+      },
+      {
+        "l": "New-customer offer",
+        "f": true,
+        "w": "A new-patient special / free consult is the hook that turns comparison-shoppers into bookings."
+      },
+      {
+        "l": "Photos / results",
+        "f": false,
+        "w": "Real photos (office, team, before/after results) prove quality far better than stock."
+      },
+      {
+        "l": "Financing / insurance / pricing",
+        "f": true,
+        "w": "Insurance accepted, financing, or pricing transparency removes the biggest hesitation."
+      },
+      {
+        "l": "Fast, mobile & secure",
+        "f": true,
+        "w": "Mobile, HTTPS, and accessibility decide whether a phone searcher stays or bounces."
+      }
+    ],
+    "phone": "+1-303-676-8516",
+    "mrr": 249,
+    "annual": 2988,
+    "winPct": 30,
+    "expected": 893,
+    "capturedAt": "2026-07-05",
+    "benchmark": {
+      "catN": 10,
+      "catLabel": "dental businesses",
+      "avg": 73,
+      "max": 93,
+      "delta": 5
+    },
+    "competitorGaps": [
+      {
+        "label": "Reviews & social proof",
+        "why": "~9 in 10 people read reviews before choosing a local business — star ratings/testimonials on-site convert.",
+        "peerPct": 80
+      },
+      {
+        "label": "Photos / results",
+        "why": "Real photos (office, team, before/after results) prove quality far better than stock.",
+        "peerPct": 50
+      }
+    ],
+    "talkingPoints": [
+      {
+        "label": "Reviews & social proof",
+        "why": "~9 in 10 people read reviews before choosing a local business — star ratings/testimonials on-site convert.",
+        "peerPct": 80
+      },
+      {
+        "label": "Photos / results",
+        "why": "Real photos (office, team, before/after results) prove quality far better than stock.",
+        "peerPct": 50
+      }
+    ],
+    "opener": "Hi — I pulled up Local Dentist Office in Parker CO and noticed you don't have reviews & social proof, but 80% of dental businesses do — it's probably costing you bookings every week. I built a version of your site that fixes it. Two minutes to show you?",
+    "assets": {
+      "slug": "parkerdentistry-com",
       "demo": null,
       "funnel": null,
       "teardown": null
@@ -5433,6 +5921,205 @@
     "email": null
   },
   {
+    "type": "business",
+    "domain": "downtownparkerdental.com",
+    "name": "Dentist in Parker CO",
+    "platform": "pond",
+    "tradition": "dental",
+    "score": 84,
+    "tier": "SERVED",
+    "gaps": [
+      "Team & credentials",
+      "Financing / insurance / pricing"
+    ],
+    "pitch": "Leaking leads — missing team & credentials, financing / insurance / pricing. Scores 84/100; each fix is booked revenue.",
+    "dead": false,
+    "dims": [
+      {
+        "l": "Book / request appointment",
+        "f": true,
+        "w": "The #1 conversion action — online booking or a request-appointment form turns a visitor into revenue."
+      },
+      {
+        "l": "Call / contact prominent",
+        "f": true,
+        "w": "A visible phone number + clear contact path captures the callers who won't fill a form."
+      },
+      {
+        "l": "Services / what we do",
+        "f": true,
+        "w": "Clear services (and for whom) is how a searcher confirms you solve their problem."
+      },
+      {
+        "l": "Reviews & social proof",
+        "f": true,
+        "w": "~9 in 10 people read reviews before choosing a local business — star ratings/testimonials on-site convert."
+      },
+      {
+        "l": "Team & credentials",
+        "f": false,
+        "w": "Meet-the-team, credentials, awards and an about story build the trust a service purchase requires."
+      },
+      {
+        "l": "Hours, location & map",
+        "f": true,
+        "w": "Hours, address, and a map are table-stakes for a local visit."
+      },
+      {
+        "l": "New-customer offer",
+        "f": true,
+        "w": "A new-patient special / free consult is the hook that turns comparison-shoppers into bookings."
+      },
+      {
+        "l": "Photos / results",
+        "f": true,
+        "w": "Real photos (office, team, before/after results) prove quality far better than stock."
+      },
+      {
+        "l": "Financing / insurance / pricing",
+        "f": false,
+        "w": "Insurance accepted, financing, or pricing transparency removes the biggest hesitation."
+      },
+      {
+        "l": "Fast, mobile & secure",
+        "f": true,
+        "w": "Mobile, HTTPS, and accessibility decide whether a phone searcher stays or bounces."
+      }
+    ],
+    "phone": "+1 303-699-6100",
+    "mrr": 199,
+    "annual": 2388,
+    "winPct": 27,
+    "expected": 650,
+    "capturedAt": "2026-07-05",
+    "benchmark": {
+      "catN": 10,
+      "catLabel": "dental businesses",
+      "avg": 73,
+      "max": 93,
+      "delta": 11
+    },
+    "competitorGaps": [
+      {
+        "label": "Team & credentials",
+        "why": "Meet-the-team, credentials, awards and an about story build the trust a service purchase requires.",
+        "peerPct": 90
+      },
+      {
+        "label": "Financing / insurance / pricing",
+        "why": "Insurance accepted, financing, or pricing transparency removes the biggest hesitation.",
+        "peerPct": 60
+      }
+    ],
+    "talkingPoints": [
+      {
+        "label": "Team & credentials",
+        "why": "Meet-the-team, credentials, awards and an about story build the trust a service purchase requires.",
+        "peerPct": 90
+      },
+      {
+        "label": "Financing / insurance / pricing",
+        "why": "Insurance accepted, financing, or pricing transparency removes the biggest hesitation.",
+        "peerPct": 60
+      }
+    ],
+    "opener": "Hi — I pulled up Dentist in Parker CO and noticed you don't have team & credentials, but 90% of dental businesses do — it's probably costing you bookings every week. I built a version of your site that fixes it. Two minutes to show you?",
+    "assets": {
+      "slug": "downtownparkerdental-com",
+      "demo": null,
+      "funnel": null,
+      "teardown": null
+    },
+    "email": null
+  },
+  {
+    "type": "business",
+    "domain": "stonegatedentalcare.com",
+    "name": "Stonegate Dental Care Parker Colorado",
+    "platform": "pond",
+    "tradition": "dental",
+    "score": 87,
+    "tier": "SERVED",
+    "gaps": [],
+    "pitch": "Strong site (87/100) — low priority.",
+    "dead": false,
+    "dims": [
+      {
+        "l": "Book / request appointment",
+        "f": true,
+        "w": "The #1 conversion action — online booking or a request-appointment form turns a visitor into revenue."
+      },
+      {
+        "l": "Call / contact prominent",
+        "f": true,
+        "w": "A visible phone number + clear contact path captures the callers who won't fill a form."
+      },
+      {
+        "l": "Services / what we do",
+        "f": true,
+        "w": "Clear services (and for whom) is how a searcher confirms you solve their problem."
+      },
+      {
+        "l": "Reviews & social proof",
+        "f": true,
+        "w": "~9 in 10 people read reviews before choosing a local business — star ratings/testimonials on-site convert."
+      },
+      {
+        "l": "Team & credentials",
+        "f": true,
+        "w": "Meet-the-team, credentials, awards and an about story build the trust a service purchase requires."
+      },
+      {
+        "l": "Hours, location & map",
+        "f": true,
+        "w": "Hours, address, and a map are table-stakes for a local visit."
+      },
+      {
+        "l": "New-customer offer",
+        "f": true,
+        "w": "A new-patient special / free consult is the hook that turns comparison-shoppers into bookings."
+      },
+      {
+        "l": "Photos / results",
+        "f": true,
+        "w": "Real photos (office, team, before/after results) prove quality far better than stock."
+      },
+      {
+        "l": "Financing / insurance / pricing",
+        "f": true,
+        "w": "Insurance accepted, financing, or pricing transparency removes the biggest hesitation."
+      },
+      {
+        "l": "Fast, mobile & secure",
+        "f": true,
+        "w": "Mobile, HTTPS, and accessibility decide whether a phone searcher stays or bounces."
+      }
+    ],
+    "phone": "+1 720-851-7069",
+    "mrr": 249,
+    "annual": 2988,
+    "winPct": 26,
+    "expected": 772,
+    "capturedAt": "2026-07-05",
+    "benchmark": {
+      "catN": 10,
+      "catLabel": "dental businesses",
+      "avg": 73,
+      "max": 93,
+      "delta": 14
+    },
+    "competitorGaps": [],
+    "talkingPoints": [],
+    "opener": "Hi — I looked at Stonegate Dental Care Parker Colorado's site (scored it 87/100 vs a 73 average for dental businesses). I rebuilt a sharper version — can I send it over?",
+    "assets": {
+      "slug": "stonegatedentalcare-com",
+      "demo": null,
+      "funnel": null,
+      "teardown": null
+    },
+    "email": null
+  },
+  {
     "type": "church",
     "domain": "westsidebaptist.org",
     "name": "Church in Gainesville",
@@ -5524,6 +6211,93 @@
     "opener": "Hi — I looked at Church in Gainesville's site (scored it 90/100 vs a 59 average for contemporary churches). I rebuilt a sharper version — can I send it over?",
     "assets": {
       "slug": "westsidebaptist-org",
+      "demo": null,
+      "funnel": null,
+      "teardown": null
+    },
+    "email": null
+  },
+  {
+    "type": "business",
+    "domain": "signaturesmilesparker.com",
+    "name": "Signature Smiles Dentistry",
+    "platform": "pond",
+    "tradition": "dental",
+    "score": 93,
+    "tier": "SERVED",
+    "gaps": [],
+    "pitch": "Strong site (93/100) — low priority.",
+    "dead": false,
+    "dims": [
+      {
+        "l": "Book / request appointment",
+        "f": true,
+        "w": "The #1 conversion action — online booking or a request-appointment form turns a visitor into revenue."
+      },
+      {
+        "l": "Call / contact prominent",
+        "f": true,
+        "w": "A visible phone number + clear contact path captures the callers who won't fill a form."
+      },
+      {
+        "l": "Services / what we do",
+        "f": true,
+        "w": "Clear services (and for whom) is how a searcher confirms you solve their problem."
+      },
+      {
+        "l": "Reviews & social proof",
+        "f": true,
+        "w": "~9 in 10 people read reviews before choosing a local business — star ratings/testimonials on-site convert."
+      },
+      {
+        "l": "Team & credentials",
+        "f": true,
+        "w": "Meet-the-team, credentials, awards and an about story build the trust a service purchase requires."
+      },
+      {
+        "l": "Hours, location & map",
+        "f": true,
+        "w": "Hours, address, and a map are table-stakes for a local visit."
+      },
+      {
+        "l": "New-customer offer",
+        "f": true,
+        "w": "A new-patient special / free consult is the hook that turns comparison-shoppers into bookings."
+      },
+      {
+        "l": "Photos / results",
+        "f": true,
+        "w": "Real photos (office, team, before/after results) prove quality far better than stock."
+      },
+      {
+        "l": "Financing / insurance / pricing",
+        "f": true,
+        "w": "Insurance accepted, financing, or pricing transparency removes the biggest hesitation."
+      },
+      {
+        "l": "Fast, mobile & secure",
+        "f": true,
+        "w": "Mobile, HTTPS, and accessibility decide whether a phone searcher stays or bounces."
+      }
+    ],
+    "phone": "+1-720-513-5993",
+    "mrr": 199,
+    "annual": 2388,
+    "winPct": 23,
+    "expected": 553,
+    "capturedAt": "2026-07-05",
+    "benchmark": {
+      "catN": 10,
+      "catLabel": "dental businesses",
+      "avg": 73,
+      "max": 93,
+      "delta": 20
+    },
+    "competitorGaps": [],
+    "talkingPoints": [],
+    "opener": "Hi — I looked at Signature Smiles Dentistry's site (scored it 93/100 vs a 73 average for dental businesses). I rebuilt a sharper version — can I send it over?",
+    "assets": {
+      "slug": "signaturesmilesparker-com",
       "demo": null,
       "funnel": null,
       "teardown": null
