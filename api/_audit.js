@@ -7,6 +7,7 @@
 // transparent per-check breakdown (Security 40 / Quality 34 / Presence 26).
 
 import { promises as dns } from "dns";
+import { collectExtSecurity, extraSecurityChecks } from "./_audit_ext.js";
 import net from "net";
 import * as cheerio from "cheerio";
 
@@ -77,6 +78,9 @@ async function checkHttps(domain) {
     h.x_content_type = g("x-content-type-options");
     h.referrer = g("referrer-policy");
     h.permissions = g("permissions-policy");
+    h.server = g("server");
+    h.x_powered_by = g("x-powered-by");
+    try { out.set_cookie = (typeof r.headers.getSetCookie === "function" ? r.headers.getSetCookie() : (g("set-cookie") ? [g("set-cookie")] : [])); } catch { out.set_cookie = []; }
     out.html = (await r.text()).slice(0, 2_500_000);
   } catch (e) {
     out.tls_error = String(e && e.message ? e.message : e);
@@ -131,6 +135,11 @@ export async function probeDomain(input) {
   const https = await checkHttps(domain);
   const email = await checkEmail(domain);
   const page = pageSignals(https.html, https.final_url);
+  // Passive security extension (TLS cert, DNS, cookies, mixed content, version
+  // leaks, security.txt). Reuses the page we already fetched — no extra load.
+  const ext = https.reachable
+    ? await collectExtSecurity(domain, { headers: https.headers, set_cookie: https.set_cookie || [], html: https.html, final_url: https.final_url })
+    : null;
   return {
     domain, ok: https.reachable,
     final_url: https.final_url || "https://" + domain,
@@ -138,6 +147,7 @@ export async function probeDomain(input) {
     headers: https.headers,
     email,
     page,
+    ext,
   };
 }
 
@@ -184,10 +194,17 @@ export function scoreSignals(s) {
     { area: "presence", label: "Name/phone on site (NAP)", ok: !!pg.has_nap, points: 4 },
   ];
 
+  // Append the passive-security extension checks (all Security area).
+  if (s.ext) checks.push(...extraSecurityChecks(s.ext));
+
   const areas = { security: 0, quality: 0, presence: 0 };
   const maxes = { security: 0, quality: 0, presence: 0 };
   checks.forEach((c) => { maxes[c.area] += c.points; if (c.ok) areas[c.area] += c.points; });
-  const overall = Math.round(areas.security + areas.quality + areas.presence);
+  const maxTotal = maxes.security + maxes.quality + maxes.presence || 1;
+  const earned = areas.security + areas.quality + areas.presence;
+  // Normalise to /100 so the report stays a 0-100 score even as the number of
+  // checks grows (the raw area maxes are passed through for the per-area bars).
+  const overall = Math.round((earned / maxTotal) * 100);
   return { overall, areas, maxes, checks, unreachable: false };
 }
 
