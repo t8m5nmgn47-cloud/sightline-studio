@@ -4,55 +4,59 @@
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
-:root{--ink:#16140f;--mut:#6b6660;--line:#e7e2d8;--bg:#f4f1ea;--ac:#1f6f5c;--gold:#c2a04a;--head:'Fraunces',Georgia,serif;--body:'Inter',system-ui,sans-serif;--num:"Helvetica Neue",Helvetica,Arial,sans-serif}
+:root{--ink:#16140f;--mut:#6b6660;--line:#e7e2d8;--bg:#f4f1ea;--ac:#1f6f5c;--deep:#11271f;--gold:#c2a04a;--red:#b4453a;--head:'Fraunces',Georgia,serif;--body:'Inter',system-ui,sans-serif;--num:"Helvetica Neue",Helvetica,Arial,sans-serif}
 *{box-sizing:border-box;margin:0}body{background:var(--bg);color:var(--ink);font-family:var(--body);-webkit-font-smoothing:antialiased}
 h1,h2,h3,h4{font-variant-ligatures:none}
-.wrap{max-width:1100px;margin:0 auto;padding:0 clamp(18px,4vw,40px)}
+.wrap{max-width:880px;margin:0 auto;padding:0 clamp(18px,4vw,40px)}
 .top{display:flex;align-items:center;justify-content:space-between;padding:16px 0;border-bottom:1px solid var(--line)}
 .lg{display:flex;gap:10px;align-items:center;font-family:var(--head);font-weight:600;font-size:1.2rem}.dot{width:11px;height:11px;border-radius:50%;background:var(--ac)}
 .top a{color:var(--mut);text-decoration:none;font-size:.85rem}
-.hd{padding:30px 0 6px}.hd h1{font-family:var(--head);font-weight:400;font-size:clamp(2rem,1.4rem+2vw,2.9rem);letter-spacing:-.02em}.hd p{color:var(--mut);margin-top:8px;font-size:1.05rem;max-width:62ch}
+.hd{padding:30px 0 4px}.hd h1{font-family:var(--head);font-weight:400;font-size:clamp(1.9rem,1.3rem+2vw,2.7rem);letter-spacing:-.02em}
+.hd p{color:var(--mut);margin-top:8px;font-size:1rem;max-width:60ch;line-height:1.55}
 
-/* ── The flow bar: the business at a glance, in order ─────────────────── */
-.flow{display:grid;grid-template-columns:repeat(5,1fr);gap:0;margin-top:26px;background:#fff;border:1px solid var(--line);border-radius:16px;overflow:hidden}
-@media(max-width:860px){.flow{grid-template-columns:1fr;border-radius:14px}}
-.fstep{position:relative;display:block;text-decoration:none;color:inherit;padding:18px 18px 16px;border-left:1px solid var(--line);transition:background .15s}
-.fstep:first-child{border-left:0}
-@media(max-width:860px){.fstep{border-left:0;border-top:1px solid var(--line)}.fstep:first-child{border-top:0}}
-.fstep:hover{background:#fbfaf6}
-.fstep .k{font-size:.68rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--ac)}
-.fstep h3{font-family:var(--head);font-weight:600;font-size:1.14rem;margin:4px 0 2px}
-.fstep .s{color:var(--mut);font-size:.8rem;line-height:1.45;min-height:2.5em}
-.fstep .stat{margin-top:10px;font-family:var(--num);font-weight:800;font-size:1.5rem;letter-spacing:-.02em;line-height:1}
-.fstep .sl{color:var(--mut);font-size:.72rem;font-weight:600;margin-top:3px}
-.fstep .arr{position:absolute;top:50%;right:-9px;transform:translateY(-50%);width:18px;height:18px;border-radius:50%;background:#fff;border:1px solid var(--line);color:var(--mut);font-size:.7rem;display:flex;align-items:center;justify-content:center;z-index:2}
-.fstep:last-child .arr{display:none}
-@media(max-width:860px){.fstep .arr{display:none}}
-.fstep.run{background:#11271f;color:#fff}.fstep.run:hover{background:#0e2019}
-.fstep.run .s,.fstep.run .sl{color:rgba(255,255,255,.65)}.fstep.run .k{color:#9fe3c4}.fstep.run .stat{color:#fff}
+/* ── TODAY: the cockpit. Three moves, ranked. ───────────────────────────── */
+.today{background:var(--deep);color:#fff;border-radius:18px;padding:20px 22px 14px;margin-top:24px}
+.today .th{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:10px}
+.today .th b{font-family:var(--head);font-weight:600;font-size:1.2rem}
+.today .th span{color:#9fe3c4;font-size:.78rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase}
+.trow{display:flex;gap:14px;align-items:center;padding:11px 0;border-top:1px solid rgba(255,255,255,.12);font-size:.92rem;line-height:1.45}
+.trow:first-of-type{border-top:0}
+.trow .tm{font-family:var(--num);font-weight:800;font-size:1rem;color:#9fe3c4;min-width:86px;white-space:nowrap}
+.trow .tm.warn{color:#f0b9b2}
+.trow a{color:#fff;font-weight:700;text-decoration:none;white-space:nowrap;margin-left:auto;border:1px solid rgba(255,255,255,.25);border-radius:999px;padding:6px 14px;font-size:.8rem;transition:background .15s}
+.trow a:hover{background:rgba(255,255,255,.1)}
+.trow .muted{color:rgba(255,255,255,.65)}
 
-/* ── Stage sections ────────────────────────────────────────────────────── */
-.stage{margin-top:44px;scroll-margin-top:20px}
-.sthead{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap;border-bottom:2px solid var(--ink);padding-bottom:10px;margin-bottom:16px}
-.sthead .n{font-family:var(--num);font-weight:800;font-size:.95rem;color:#fff;background:var(--ac);border-radius:999px;padding:3px 12px;letter-spacing:.06em}
-.sthead h2{font-family:var(--head);font-weight:600;font-size:1.55rem;letter-spacing:-.01em}
-.sthead p{color:var(--mut);font-size:.92rem;flex:1;min-width:220px}
-.sthead .next{margin-left:auto;font-size:.82rem;font-weight:700;color:var(--ac);text-decoration:none;white-space:nowrap}
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:14px}
-.card{position:relative;display:block;background:#fff;border:1px solid var(--line);border-radius:14px;padding:20px;text-decoration:none;color:inherit;transition:transform .2s,box-shadow .2s,border-color .2s}
-.card:hover{transform:translateY(-3px);box-shadow:0 14px 34px rgba(20,18,15,.09);border-color:#cfc8b8}
-.card .ic{font-size:1.5rem}.card h3{font-family:var(--head);font-weight:600;font-size:1.18rem;margin:10px 0 4px}
-.card p{color:var(--mut);font-size:.88rem;line-height:1.5}
-.card .go{margin-top:10px;font-size:.84rem;font-weight:700;color:var(--ac)}
-.card.lead{background:#11271f;border-color:#11271f}.card.lead h3,.card.lead .ic{color:#fff}.card.lead p{color:rgba(255,255,255,.72)}.card.lead .go{color:#9fe3c4}
-.tag{position:absolute;top:14px;right:14px;font-size:.64rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;padding:3px 8px;border-radius:999px;background:#f1ecdf;color:#7a6a35;border:1px solid #e3d9bd}
-.card.lead .tag{background:rgba(255,255,255,.12);color:#d8cf9f;border-color:rgba(255,255,255,.18)}
+/* ── THE LINE: one spine, five stations, one primary action each ────────── */
+.journey{position:relative;margin:40px 0 8px}
+.journey::before{content:"";position:absolute;left:23px;top:10px;bottom:26px;width:2px;background:linear-gradient(180deg,var(--ac) 0%,var(--deep) 100%)}
+.station{position:relative;padding:0 0 48px 76px}
+.station:last-child{padding-bottom:8px}
+.node{position:absolute;left:0;top:0;width:48px;height:48px;border-radius:50%;background:#fff;border:2px solid var(--ac);color:var(--ac);display:flex;align-items:center;justify-content:center;z-index:1}
+.node svg{width:21px;height:21px}
+.station.final .node{background:var(--deep);border-color:var(--deep);color:#9fe3c4}
+.sk{font-size:.68rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--ac);padding-top:4px}
+.station h2{font-family:var(--head);font-weight:600;font-size:1.5rem;letter-spacing:-.01em;margin:2px 0 3px}
+.station .lede{color:var(--mut);font-size:.92rem;line-height:1.5;max-width:60ch}
+.donow{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin:16px 0 14px}
+.btnP{display:inline-flex;align-items:center;gap:9px;background:var(--ac);color:#fff;text-decoration:none;font-weight:700;font-size:.95rem;border-radius:11px;padding:13px 22px;transition:transform .15s,box-shadow .15s}
+.btnP:hover{transform:translateY(-2px);box-shadow:0 10px 26px rgba(31,111,92,.35)}
+.btnP svg{width:16px;height:16px}
+.count{font-size:.85rem;color:var(--mut)}
+.count b{font-family:var(--num);font-weight:800;color:var(--ink);font-size:1.05rem}
+.count a{color:var(--ac);font-weight:600;text-decoration:none}
+.toolbox{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.toolbox .tl{font-size:.72rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--mut);margin-right:4px}
+.tool{display:inline-flex;align-items:center;gap:6px;background:#fff;border:1px solid var(--line);border-radius:999px;padding:7px 14px;font-size:.84rem;font-weight:600;color:var(--ink);text-decoration:none;transition:border-color .15s,transform .15s}
+.tool:hover{border-color:var(--ac);transform:translateY(-1px)}
+.tool svg{width:12px;height:12px;color:var(--ac)}
+.tool .ch{font-size:.6rem;font-weight:800;letter-spacing:.06em;color:#7a6a35;background:#f1ecdf;border:1px solid #e3d9bd;border-radius:999px;padding:1px 7px;margin-left:2px}
 
-/* ── Subscribers panel (stage 5 centerpiece) ──────────────────────────── */
-.gh{font-size:.74rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--mut);margin:22px 0 12px;display:flex;align-items:center;justify-content:space-between}
+/* ── Subscribers (inside station 5) ─────────────────────────────────────── */
+.gh{font-size:.72rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--mut);margin:20px 0 10px;display:flex;align-items:center;justify-content:space-between}
 .gh .act{color:var(--ac);cursor:pointer;text-transform:none;letter-spacing:0;font-size:.82rem}
 .panel{background:#fff;border:1px solid var(--line);border-radius:16px;padding:6px 0 4px;overflow:hidden}
-.subrow{display:grid;grid-template-columns:1.6fr 1.3fr .8fr auto;gap:10px;align-items:center;padding:14px 22px;border-top:1px solid var(--line)}
+.subrow{display:grid;grid-template-columns:1.6fr 1.3fr .8fr auto;gap:10px;align-items:center;padding:14px 20px;border-top:1px solid var(--line)}
 .subrow:first-child{border-top:0}
 .subrow .nm{font-weight:600}.subrow .dm{color:var(--mut);font-size:.8rem}
 .subrow .pl{font-size:.86rem}.subrow .mo{color:var(--mut);font-size:.8rem}
@@ -62,176 +66,218 @@ h1,h2,h3,h4{font-variant-ligatures:none}
 .badge.canceled{background:#f6eceb;color:#b4453a;border:1px solid #ecc9c5}
 .subact{display:flex;gap:8px;justify-content:flex-end}
 .subact a,.subact button{font-size:.78rem;font-weight:600;color:var(--ac);background:none;border:0;cursor:pointer;text-decoration:none;padding:4px 6px;border-radius:6px}
-.subact button.x{color:#b4453a}
-.empty{padding:30px 22px;color:var(--mut);text-align:center}.empty b{color:var(--ink)}
-.addbar{padding:14px 22px;border-top:1px solid var(--line);background:#fbfaf6}
+.subact button.x{color:var(--red)}
+.empty{padding:26px 20px;color:var(--mut);text-align:center}.empty b{color:var(--ink)}
+.addbar{padding:14px 20px;border-top:1px solid var(--line);background:#fbfaf6}
 .addform{display:none;grid-template-columns:1.4fr 1.3fr 1fr .9fr auto;gap:10px;align-items:end}.addform.show{display:grid}@media(max-width:760px){.addform.show{grid-template-columns:1fr 1fr}}
 .addform label{display:block;font-size:.72rem;font-weight:600;color:var(--mut);margin-bottom:4px}
 .addform input,.addform select{width:100%;padding:9px 10px;border:1px solid var(--line);border-radius:8px;font:inherit;background:#fff}
 .mini{background:var(--ac);color:#fff;border:0;border-radius:8px;padding:9px 14px;font-weight:700;cursor:pointer;font:inherit}
 .mini.ghost{background:#fff;color:var(--ac);border:1px solid var(--line)}
 
-/* ── Reference: how-to & notes ─────────────────────────────────────────── */
-details.howto{background:#fff;border:1px solid var(--line);border-radius:16px;margin-top:44px;overflow:hidden}
-details.howto summary{cursor:pointer;padding:18px 24px;font-family:var(--head);font-weight:600;font-size:1.15rem;list-style:none;display:flex;justify-content:space-between;align-items:center}
+/* ── reference ──────────────────────────────────────────────────────────── */
+details.howto{background:#fff;border:1px solid var(--line);border-radius:16px;margin-top:40px;overflow:hidden}
+details.howto summary{cursor:pointer;padding:17px 22px;font-family:var(--head);font-weight:600;font-size:1.1rem;list-style:none;display:flex;justify-content:space-between;align-items:center}
 details.howto summary::-webkit-details-marker{display:none}
-details.howto summary:after{content:'+';font-size:1.4rem;color:var(--mut)}
-details.howto[open] summary:after{content:'–'}
-.steps{padding:0 26px 24px}
-.step{display:flex;gap:16px;padding:18px 0;border-top:1px solid var(--line)}
-.step .n{flex:none;width:30px;height:30px;border-radius:50%;background:var(--ac);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:.9rem;margin-top:2px;font-family:var(--num)}
-.step .b{flex:1}.step h4{font-size:1rem;font-weight:600;margin-bottom:3px}.step p{color:var(--mut);font-size:.9rem;line-height:1.5}
-.step code{background:#f4f1ea;border:1px solid var(--line);border-radius:5px;padding:1px 7px;font-size:.84rem;font-family:ui-monospace,monospace}
-.note{background:#fff7e6;border:1px solid #e8d6a8;color:#5a4a1f;border-radius:12px;padding:14px 16px;margin-top:16px;font-size:.88rem;line-height:1.5}.note b{color:#3d3210}
+details.howto summary:after{content:"+";font-size:1.4rem;color:var(--mut)}
+details.howto[open] summary:after{content:"–"}
+.steps{padding:0 24px 22px}
+.step{display:flex;gap:16px;padding:16px 0;border-top:1px solid var(--line)}
+.step .n{flex:none;width:28px;height:28px;border-radius:50%;background:var(--ac);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:.85rem;margin-top:2px;font-family:var(--num)}
+.step .b{flex:1}.step h4{font-size:.98rem;font-weight:600;margin-bottom:3px}.step p{color:var(--mut);font-size:.88rem;line-height:1.5}
+.step code{background:#f4f1ea;border:1px solid var(--line);border-radius:5px;padding:1px 7px;font-size:.82rem;font-family:ui-monospace,monospace}
+.note{background:#fff7e6;border:1px solid #e8d6a8;color:#5a4a1f;border-radius:12px;padding:13px 16px;margin-top:16px;font-size:.86rem;line-height:1.5}.note b{color:#3d3210}
 .foot{color:var(--mut);font-size:.8rem;padding:26px 0 50px}
 .toast{position:fixed;left:50%;bottom:22px;transform:translateX(-50%);background:#161a1d;color:#fff;padding:10px 16px;border-radius:10px;font-size:.86rem;opacity:0;transition:opacity .25s;pointer-events:none;z-index:50}.toast.show{opacity:1}
 </style></head>
 <body>
 <header class="wrap top"><div class="lg"><span class="dot"></span>Sightline · Admin</div><a href="../gallery/">View public studio →</a></header>
 <div class="wrap">
+
 <section class="hd">
-  <h1>Your business, in order.</h1>
-  <p>Every prospect walks the same road: you <b>find</b> them, <b>build</b> their demo, <b>send</b> it, <b>close</b> the deal, then <b>run</b> the subscription. Each stage below has its tools — and its number tells you where the work is piling up.</p>
+  <h1>One line. Five stations.</h1>
+  <p>Every dollar this business earns rides the same line: <b>find → build → send → close → run</b>. Start at Today, then work the line downward.</p>
 </section>
 
-<!-- The flow bar: click a stage to jump to its tools -->
-<nav class="flow" aria-label="Business flow">
-  <a class="fstep" href="#find"><span class="arr">›</span><div class="k">Stage 1</div><h3>Find</h3><div class="s">Spot local businesses with weak sites worth replacing.</div><div class="stat" id="fFind">50</div><div class="sl">prospects in the pond</div></a>
-  <a class="fstep" href="#build"><span class="arr">›</span><div class="k">Stage 2</div><h3>Build</h3><div class="s">Generate their bespoke demo — minutes, not days.</div><div class="stat" id="fBuild">33</div><div class="sl">demos built</div></a>
-  <a class="fstep" href="#send"><span class="arr">›</span><div class="k">Stage 3</div><h3>Send</h3><div class="s">Personal funnel link + audit lands in their inbox.</div><div class="stat" id="fSend">33</div><div class="sl">funnels live</div></a>
-  <a class="fstep" href="#close"><span class="arr">›</span><div class="k">Stage 4</div><h3>Close</h3><div class="s">They reply, sign up, pay — you onboard them.</div><div class="stat" id="fClose">—</div><div class="sl">open leads</div></a>
-  <a class="fstep run" href="#run"><div class="k">Stage 5</div><h3>Run</h3><div class="s">The monthly work that earns the subscription.</div><div class="stat" id="kMrr">—</div><div class="sl"><span id="kSubs">—</span> subscribers · MRR</div></a>
-</nav>
-
-<!-- ── STAGE 1 · FIND ──────────────────────────────────────────────────── -->
-<section class="stage" id="find">
-  <div class="sthead"><span class="n">1 · FIND</span><h2>Who needs you?</h2><p>Surface businesses and churches whose current site is losing them customers.</p><a class="next" href="#build">Found one? Build the demo →</a></div>
-  <div class="grid">
-    <a class="card lead" href="./prospector/"><div class="ic">🎯</div><h3>Prospector</h3><p>The lead engine — auto-scored and ranked weakest-first, with a ready pitch line for each. Point it at any platform's customer list.</p><div class="go">Open prospector →</div></a>
-    <a class="card" href="./audit/"><div class="ic">🛡️</div><h3>Exposure Audit</h3><p>Live-probe a prospect &amp; their competitors on real public signals — HTTPS, security, mobile, presence. Measured, dated, scored.</p><div class="go">Run an audit →</div></a>
-    <a class="card" href="../teardowns/"><div class="ic">🔍</div><h3>Competitor teardowns</h3><p>How each prospect ranks against their local field — the "here's what your competitors do better" evidence.</p><div class="go">View teardowns →</div></a>
-    <a class="card" href="./churches/"><span class="tag">Church</span><div class="ic">📿</div><h3>Church Board</h3><p>Churches on their own board — congregation size, denomination, readiness score, and invitational outreach copy.</p><div class="go">Open church board →</div></a>
-    <a class="card" href="./readiness/"><span class="tag">Church</span><div class="ic">📊</div><h3>Congregation-Readiness</h3><p>Score a church on what serves the congregation — Plan-a-Visit, Groups, Giving, Sermons — against the best in class.</p><div class="go">Open scorecard →</div></a>
+<!-- TODAY: filled from the database when signed in -->
+<section class="today">
+  <div class="th"><b>Today</b><span id="tDate"></span></div>
+  <div id="todayList">
+    <div class="trow"><span class="tm">—</span><span class="muted">Sign in below (Station 5) to load your live numbers: open leads, waiting dollars, churn risks.</span></div>
+    <div class="trow"><span class="tm">10 min</span><span>Generate one new demo with the Site Maker — momentum beats planning.</span><a href="./intake/">Build →</a></div>
+    <div class="trow"><span class="tm">10 min</span><span>Send one funnel link from the pipeline — the funnel starves without sends.</span><a href="../pipeline/">Send →</a></div>
   </div>
 </section>
 
-<!-- ── STAGE 2 · BUILD ─────────────────────────────────────────────────── -->
-<section class="stage" id="build">
-  <div class="sthead"><span class="n">2 · BUILD</span><h2>Make their demo.</h2><p>Point the engine at their website — it reads the real business and builds a site they couldn't say no to.</p><a class="next" href="#send">Demo ready? Send it →</a></div>
-  <div class="grid">
-    <a class="card lead" href="./intake/"><div class="ic">🛰️</div><h3>Prospect Intake</h3><p>Step one of a build: the engine reads their real business, logo &amp; brand colors and drafts a clean profile for the site builder.</p><div class="go">Start an intake →</div></a>
-    <a class="card" href="./studio/"><div class="ic">🎛️</div><h3>Site Engine</h3><p>Turn a captured profile into a full bespoke site — pick archetype, theme &amp; motion and watch it rebuild live, or hit Auto-recommend.</p><div class="go">Open the studio →</div></a>
-    <a class="card" href="../gallery/"><div class="ic">🖼️</div><h3>Concept gallery</h3><p>Every demo with 8 design options each — the "pick your favorite" moment on a call.</p><div class="go">Open gallery →</div></a>
-    <a class="card" href="../logo/"><div class="ic">✦</div><h3>Logo Studio</h3><p>Generate a client's wordmark, monogram &amp; favicon when their branding needs rescue too.</p><div class="go">Open Logo Studio →</div></a>
-    <a class="card" href="../generator/"><div class="ic">🖌️</div><h3>Brand Art Studio</h3><p>Client image &amp; art tool (UI preview — AI engine wires in later).</p><div class="go">Open art studio →</div></a>
-    <a class="card" href="../faith/"><span class="tag">Church</span><div class="ic">⛪</div><h3>Faith demo</h3><p>The church offering — online worship, sermons, giving &amp; plan-your-visit — to show faith-org prospects.</p><div class="go">Open church demo →</div></a>
-    <a class="card" href="../faith/styles/"><span class="tag">Church</span><div class="ic">🎨</div><h3>Church styles (6)</h3><p>Six distinct church design directions for the same church — let them pick their look.</p><div class="go">Browse styles →</div></a>
-  </div>
-</section>
+<!-- THE LINE -->
+<div class="journey">
 
-<!-- ── STAGE 3 · SEND ──────────────────────────────────────────────────── -->
-<section class="stage" id="send">
-  <div class="sthead"><span class="n">3 · SEND</span><h2>Put it in front of them.</h2><p>Every prospect gets a personal funnel — their demo, their audit, their offer — and you track every touch.</p><a class="next" href="#close">They replied? Close it →</a></div>
-  <div class="grid">
-    <a class="card lead" href="../pipeline/"><div class="ic">📊</div><h3>Pipeline / CRM</h3><p>Every prospect with their funnel link, ready-to-send email, and status — contacted → opened → booked → won.</p><div class="go">Open pipeline →</div></a>
-    <a class="card" href="../p/"><div class="ic">🎯</div><h3>Prospect funnels</h3><p>Personalized landing pages (demo + audit + offer). Copy a link and send it.</p><div class="go">All funnels →</div></a>
-    <a class="card" href="../demo/"><div class="ic">📄</div><h3>Sample report</h3><p>The interactive "Outside-In Exposure" audit (fictional sample) — a real report prospects can click through.</p><div class="go">Open sample report →</div></a>
-    <a class="card" href="./church-playbook/"><span class="tag">Church</span><div class="ic">⛪</div><h3>Church Growth Playbook</h3><p>What churches need, the message that moves a pastor, and how a Sightline site turns visitors into Sunday attendance.</p><div class="go">Open playbook →</div></a>
-  </div>
-</section>
-
-<!-- ── STAGE 4 · CLOSE ─────────────────────────────────────────────────── -->
-<section class="stage" id="close">
-  <div class="sthead"><span class="n">4 · CLOSE</span><h2>Turn a yes into a client.</h2><p>They clicked "Start my site" or replied to your email — capture it, take payment, onboard.</p><a class="next" href="#run">Paid? Run the plan →</a></div>
-  <div class="grid">
-    <a class="card lead" href="../leads/"><div class="ic">📥</div><h3>Leads — signups &amp; scans</h3><p>Everyone who clicked "Start my site" or asked for a scan: name, plan, contact, status. Answer these first, every day.</p><div class="go">Open leads →</div></a>
-    <a class="card" href="../checkout/"><div class="ic">🧾</div><h3>Checkout &amp; add-ons</h3><p>Plan + add-on selector with live totals; saves the order and hands off a secure payment link.</p><div class="go">Open checkout →</div></a>
-    <a class="card" href="../builder/"><div class="ic">🧩</div><h3>Add-on configurator</h3><p>Show a client how easily booking, store, payments &amp; more switch on — great screen-share moment.</p><div class="go">Open configurator →</div></a>
-    <a class="card" href="../onboard/"><div class="ic">✅</div><h3>Onboard a subscriber</h3><p>Post-sale checklist — close · assets · build · launch · go-live — with a progress bar, tracked per client.</p><div class="go">Open onboarding →</div></a>
-    <a class="card" href="../legal/"><div class="ic">⚖️</div><h3>Legal Pages</h3><p>Privacy, terms, cookie &amp; accessibility pages from a few answers — part of every go-live.</p><div class="go">Open generator →</div></a>
-  </div>
-</section>
-
-<!-- ── STAGE 5 · RUN ───────────────────────────────────────────────────── -->
-<section class="stage" id="run">
-  <div class="sthead"><span class="n">5 · RUN</span><h2>Earn the subscription, every month.</h2><p>Your paying clients and the recurring work that keeps them: marketing, reviews, reporting.</p></div>
-
-  <div class="gh">Subscribers — your paying clients <span class="act" onclick="toggleAdd()">＋ Add subscriber</span></div>
-  <div class="panel">
-    <div class="addbar" style="display:none" id="addbar">
-      <form class="addform show" id="addform" onsubmit="return addSub(event)">
-        <div><label>Business name</label><input id="fName" required placeholder="The Vaughn Law Offices"></div>
-        <div><label>Domain (optional)</label><input id="fDom" placeholder="vaughn-law.com"></div>
-        <div><label>Plan</label><select id="fPlan" onchange="planChange()">
-          <option value="59.99">$59.99/mo · Site</option>
-          <option value="129.99" selected>$129.99/mo · Front Door</option>
-          <option value="199.99">$199.99/mo · Front Desk</option>
-          <option value="custom">Custom…</option></select></div>
-        <div><label>$/mo</label><input id="fMo" type="number" step="0.01" value="129.99"></div>
-        <div style="display:flex;gap:8px"><button class="mini" type="submit">Save</button><button class="mini ghost" type="button" onclick="toggleAdd()">Cancel</button></div>
-      </form>
+  <section class="station" id="find">
+    <div class="node"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/><circle cx="11" cy="11" r="2.5"/></svg></div>
+    <div class="sk">Station 1 · Find</div>
+    <h2>Spot the business losing customers online.</h2>
+    <p class="lede">The Prospector ranks a whole market weakest-first and hands you the pitch line. Everything else here is evidence for the call.</p>
+    <div class="donow">
+      <a class="btnP" href="./prospector/">Open Prospector <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+      <span class="count"><b>50</b> prospects in the pond</span>
     </div>
-    <div id="subList"></div>
-  </div>
+    <div class="toolbox"><span class="tl">Evidence</span>
+      <a class="tool" href="./audit/">Exposure Audit</a>
+      <a class="tool" href="../teardowns/">Competitor teardowns</a>
+      <a class="tool" href="./churches/">Church Board <span class="ch">CHURCH</span></a>
+      <a class="tool" href="./readiness/">Readiness score <span class="ch">CHURCH</span></a>
+    </div>
+  </section>
 
-  <div class="gh" style="margin-top:26px">The monthly work</div>
-  <div class="grid">
-    <a class="card lead" href="../marketing/"><div class="ic">📈</div><h3>Marketing engine</h3><p>Local SEO + Google Business Profile, review generation, reputation defense, monthly analytics &amp; social — the work that earns the plan.</p><div class="go">Open marketing engine →</div></a>
-    <a class="card" href="../social/"><div class="ic">📣</div><h3>Social Studio</h3><p>Compose posts for X, LinkedIn, Facebook, Instagram, Threads, GBP &amp; TikTok. Preview per channel, queue the calendar.</p><div class="go">Open Social Studio →</div></a>
-    <a class="card" href="../marketing/"><div class="ic">⭐</div><h3>Review request composer</h3><p>A ready SMS + email review ask with the client's Google link. Send in seconds.</p><div class="go">Open composer →</div></a>
-    <a class="card" href="../teardowns/"><div class="ic">🛡️</div><h3>Reputation defense</h3><p>Fake-review monitoring + one-click disputes — shown live on every prospect funnel.</p><div class="go">See it live →</div></a>
-    <a class="card" href="../bi/"><div class="ic">📊</div><h3>Business Intelligence</h3><p>Live MRR, ARR, conversion, pipeline stages, monthly trend &amp; plan mix — straight from your database.</p><div class="go">Open BI →</div></a>
-    <a class="card" href="../crm/"><div class="ic">👥</div><h3>Customer Database (CRM)</h3><p>Contacts, leads &amp; clients in one place — search, tag, cycle status. New contacts from client sites arrive automatically.</p><div class="go">Open CRM →</div></a>
-    <a class="card" href="../brand/"><div class="ic">🎨</div><h3>Sightline brand</h3><p>Your own logo, palette &amp; type sheet — for anything you put your name on.</p><div class="go">Open brand sheet →</div></a>
-  </div>
-</section>
+  <section class="station" id="build">
+    <div class="node"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a4.5 4.5 0 00-6 6L3 18l3 3 5.7-5.7a4.5 4.5 0 006-6L14 13l-3-3z"/></svg></div>
+    <div class="sk">Station 2 · Build</div>
+    <h2>Make the site they can't unsee.</h2>
+    <p class="lede">Point the engine at their domain. It reads the real business — logo, fonts, colors, services — and builds a bespoke demo in minutes, graded before you ship it.</p>
+    <div class="donow">
+      <a class="btnP" href="./intake/">Start a build <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+      <span class="count"><b>33</b> demos built · or double-click <b>Site Maker</b> on your Mac</span>
+    </div>
+    <div class="toolbox"><span class="tl">Workshop</span>
+      <a class="tool" href="./studio/">Site Engine</a>
+      <a class="tool" href="../gallery/">Concept gallery</a>
+      <a class="tool" href="../logo/">Logo Studio</a>
+      <a class="tool" href="../generator/">Brand Art</a>
+      <a class="tool" href="../faith/">Faith demo <span class="ch">CHURCH</span></a>
+      <a class="tool" href="../faith/styles/">6 church styles <span class="ch">CHURCH</span></a>
+    </div>
+  </section>
 
-<!-- ── Reference ───────────────────────────────────────────────────────── -->
+  <section class="station" id="send">
+    <div class="node"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M22 2L11 13"/><path d="M22 2l-7 20-4-9-9-4z"/></svg></div>
+    <div class="sk">Station 3 · Send</div>
+    <h2>Put their new site in their inbox.</h2>
+    <p class="lede">Each prospect has a personal funnel — demo, audit, offer — and a ready-to-send email in the pipeline. Track contacted → opened → booked → won.</p>
+    <div class="donow">
+      <a class="btnP" href="../pipeline/">Open Pipeline <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+      <span class="count"><b>33</b> funnels live</span>
+    </div>
+    <div class="toolbox"><span class="tl">Ammunition</span>
+      <a class="tool" href="../p/">All funnels</a>
+      <a class="tool" href="../demo/">Sample report</a>
+      <a class="tool" href="./church-playbook/">Growth playbook <span class="ch">CHURCH</span></a>
+    </div>
+  </section>
+
+  <section class="station" id="close">
+    <div class="node"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.1V12a10 10 0 11-5.9-9.1"/><path d="M22 4L12 14l-3-3"/></svg></div>
+    <div class="sk">Station 4 · Close</div>
+    <h2>Answer fast, take payment, onboard.</h2>
+    <p class="lede">Every "Start my site" click and scan request lands in Leads. Speed-to-lead is the whole game — reply the same day, every time.</p>
+    <div class="donow">
+      <a class="btnP" href="../leads/">Open Leads <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+      <span class="count" id="closeCount"><a href="#run">sign in</a> to see open leads</span>
+    </div>
+    <div class="toolbox"><span class="tl">Paperwork</span>
+      <a class="tool" href="../checkout/">Checkout &amp; add-ons</a>
+      <a class="tool" href="../builder/">Add-on configurator</a>
+      <a class="tool" href="../onboard/">Onboarding checklist</a>
+      <a class="tool" href="../legal/">Legal pages</a>
+    </div>
+  </section>
+
+  <section class="station final" id="run">
+    <div class="node"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 11-2.6-6.4"/><path d="M21 3v6h-6"/></svg></div>
+    <div class="sk">Station 5 · Run</div>
+    <h2>Earn it again every month.</h2>
+    <p class="lede">Your paying clients, and the recurring work that keeps them paying: <span class="count" style="font-size:inherit"><b id="kSubs">—</b> subscribers · <b id="kMrr">—</b>/mo</span></p>
+    <div class="donow">
+      <a class="btnP" href="../marketing/">Open Marketing engine <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+      <span class="count"><a href="../bi/">Read the BI story →</a></span>
+    </div>
+    <div class="toolbox" style="margin-bottom:6px"><span class="tl">Monthly work</span>
+      <a class="tool" href="../social/">Social Studio</a>
+      <a class="tool" href="../marketing/">Review composer</a>
+      <a class="tool" href="../teardowns/">Reputation defense</a>
+      <a class="tool" href="../crm/">CRM</a>
+      <a class="tool" href="../brand/">Sightline brand</a>
+    </div>
+
+    <div class="gh">Subscribers <span class="act" onclick="toggleAdd()">＋ Add subscriber</span></div>
+    <div class="panel">
+      <div class="addbar" style="display:none" id="addbar">
+        <form class="addform show" id="addform" onsubmit="return addSub(event)">
+          <div><label>Business name</label><input id="fName" required placeholder="The Vaughn Law Offices"></div>
+          <div><label>Domain (optional)</label><input id="fDom" placeholder="vaughn-law.com"></div>
+          <div><label>Plan</label><select id="fPlan" onchange="planChange()">
+            <option value="59.99">$59.99/mo · Site</option>
+            <option value="129.99" selected>$129.99/mo · Front Door</option>
+            <option value="199.99">$199.99/mo · Front Desk</option>
+            <option value="custom">Custom…</option></select></div>
+          <div><label>$/mo</label><input id="fMo" type="number" step="0.01" value="129.99"></div>
+          <div style="display:flex;gap:8px"><button class="mini" type="submit">Save</button><button class="mini ghost" type="button" onclick="toggleAdd()">Cancel</button></div>
+        </form>
+      </div>
+      <div id="subList"></div>
+    </div>
+  </section>
+
+</div><!-- /journey -->
+
 <details class="howto">
   <summary>How to launch a new prospect site (start to finish)</summary>
   <div class="steps">
-    <div class="step"><div class="n">1</div><div class="b"><h4>Generate the demo — no code needed</h4><p>Double-click <code>Sightline Site Maker.command</code> in your sightline-studio folder. Type the prospect's website, click <b>Generate site</b>, preview it, then <b>Publish to live site</b>. Done — it's at <code>/demos/&lt;their-name&gt;/</code> two minutes later.</p></div></div>
-    <div class="step"><div class="n">2</div><div class="b"><h4>Want the full funnel instead? (advanced)</h4><p>Add the business to <code>top30.json</code> and run <code>./release.sh</code> — it regenerates the demo (8 styles), teardown, and funnel, runs the QA gate, and stops if anything fails. Then <code>./deploy.sh "added &lt;business&gt;"</code> pushes it live at <code>/p/&lt;slug&gt;/</code>.</p></div></div>
-    <div class="step"><div class="n">3</div><div class="b"><h4>Send it</h4><p>Grab their funnel link from the <b>Pipeline</b> (stage 3) — it has a ready-to-send email per prospect.</p></div></div>
-    <div class="step"><div class="n">4</div><div class="b"><h4>When they buy</h4><p>Add them under <b>Subscribers</b> (stage 5), run the <b>Onboarding</b> checklist (stage 4), switch on their add-ons, point their domain at the site, and install the legal pages.</p></div></div>
+    <div class="step"><div class="n">1</div><div class="b"><h4>Generate the demo — no code needed</h4><p>Double-click <code>Sightline Site Maker.command</code> in your sightline-studio folder. Type the prospect's website, click <b>Generate site</b>, check the quality grade, preview, then <b>Publish</b>. Live at <code>/demos/&lt;their-name&gt;/</code> two minutes later.</p></div></div>
+    <div class="step"><div class="n">2</div><div class="b"><h4>Want the full funnel instead? (advanced)</h4><p>Add the business to <code>top30.json</code>, run <code>./release.sh</code> (regenerates demo, teardown, funnel + QA gate), then <code>./deploy.sh "added &lt;business&gt;"</code>. Live at <code>/p/&lt;slug&gt;/</code>.</p></div></div>
+    <div class="step"><div class="n">3</div><div class="b"><h4>Send it</h4><p>Grab their funnel link from the <b>Pipeline</b> (Station 3) — every prospect has a ready-to-send email.</p></div></div>
+    <div class="step"><div class="n">4</div><div class="b"><h4>When they buy</h4><p>Add them under <b>Subscribers</b> (Station 5), run <b>Onboarding</b> (Station 4), switch on their add-ons, point their domain, install legal pages.</p></div></div>
   </div>
 </details>
 
-<div class="note"><b>🔒 Lock this admin.</b> Subscriber data lives in your <b>Supabase database</b> behind a magic-link sign-in. The rest of this page is <code>noindex</code> and unlinked but not password-protected; to fully restrict it, enable <b>Vercel → Project → Settings → Deployment Protection (Password)</b>. Don't share the <code>/admin/</code>, <code>/pipeline/</code> or <code>/marketing/</code> URLs publicly until then.</div>
+<div class="note"><b>🔒 Lock this admin.</b> Subscriber data lives in your <b>Supabase database</b> behind a magic-link sign-in. This page is <code>noindex</code> and unlinked but not password-protected; to fully restrict it, enable <b>Vercel → Project → Settings → Deployment Protection (Password)</b>.</div>
 
 <footer class="foot">Sightline Admin · internal · not for public distribution.</footer>
 </div>
 <div class="toast" id="toast"></div>
 <script>
-/* Subscribers persist in the shared Supabase database (same project as Leads),
-   behind magic-link sign-in. Requires the `subscribers` table. */
+/* Subscribers persist in the shared Supabase database, behind magic-link sign-in. */
 const SUPA_URL="https://vtqmtecoxljduqomtkbw.supabase.co";
 const SUPA_KEY="sb_publishable_tOVldxTzrH4_9U0x-GZGHw_UFM57C2c";
 let subs=[]; let editId=null; let sb=null; let authed=false;
-function money(n){return '$'+(Math.round(n*100)/100).toLocaleString(undefined,{minimumFractionDigits:n%1?2:0,maximumFractionDigits:2})}
+const money=n=>'$'+(Math.round(n*100)/100).toLocaleString(undefined,{minimumFractionDigits:n%1?2:0,maximumFractionDigits:2});
+const planPrice=s=>{const m=(s||"").match(/\$\s?(\d+(?:\.\d+)?)/);return m?+m[1]:0;};
 function slug(d){return (d||'').replace(/^https?:\/\//,'').replace(/\/.*$/,'').replace(/\./g,'-')}
 function toast(m){const e=document.getElementById('toast');e.textContent=m;e.classList.add('show');setTimeout(()=>e.classList.remove('show'),1800)}
 function planChange(){const v=document.getElementById('fPlan').value;if(v!=='custom')document.getElementById('fMo').value=v}
 function toggleAdd(){if(!authed){toast('Sign in first to manage subscribers');showLogin();return}
   const b=document.getElementById('addbar');const showing=b.style.display!=='none';b.style.display=showing?'none':'block';if(showing){editId=null;document.getElementById('addform').reset();document.getElementById('fMo').value='129.99'}}
+document.getElementById('tDate').textContent=new Date().toLocaleDateString(undefined,{weekday:'long',month:'long',day:'numeric'});
+
 (async function initDB(){
   try{ const {createClient}=await import("https://esm.sh/@supabase/supabase-js@2"); sb=createClient(SUPA_URL,SUPA_KEY); }
   catch(e){ document.getElementById('subList').innerHTML='<div class="empty">Couldn’t reach the database. Retry in a moment.</div>'; return; }
   const {data:{session}}=await sb.auth.getSession(); authed=!!session;
-  if(authed){ loadSubs(); loadLeadCount(); } else { showLogin(); }
+  if(authed){ await loadSubs(); loadToday(); } else { showLogin(); }
 })();
-/* Stage-4 stat: open leads (best effort — shows a dash if the table's RLS
-   doesn't allow the signed-in user to read leads). */
-async function loadLeadCount(){
-  try{
-    const {count,error}=await sb.from('leads').select('*',{count:'exact',head:true});
-    if(!error && count!=null) document.getElementById('fClose').textContent=count;
-  }catch(e){/* leave the dash */}
+
+/* TODAY + Station-4 count: live, ranked by dollars. Best-effort per table. */
+async function loadToday(){
+  let openLeads=[], scans=0, churned=[];
+  try{ const r=await sb.from('signups').select('*'); if(r.data) openLeads=r.data.filter(l=>l.status==='new'||l.status==='contacted'); }catch(e){}
+  try{ const r=await sb.from('leads').select('*',{count:'exact',head:true}); if(r.count!=null) scans=r.count; }catch(e){}
+  churned=subs.filter(s=>s.status==='canceled');
+  const openVal=openLeads.reduce((a,l)=>a+planPrice(l.plan),0);
+  const churnVal=churned.reduce((a,s)=>a+(+s.mo||0),0);
+  const cc=document.getElementById('closeCount');
+  if(cc) cc.innerHTML=`<b>${openLeads.length+scans}</b> open lead${openLeads.length+scans===1?'':'s'} waiting`;
+  const rows=[];
+  if(openLeads.length||scans) rows.push({m:openVal?money(openVal)+'/mo':(openLeads.length+scans)+' waiting', t:`Reply to your <b>${openLeads.length+scans} open lead${openLeads.length+scans===1?'':'s'}</b> — speed-to-lead wins deals.`, href:'../leads/', link:'Reply'});
+  if(churned.length) rows.push({m:money(churnVal)+'/mo', warn:true, t:`Send a win-back note to <b>${churned.length} canceled subscriber${churned.length===1?'':'s'}</b>.`, href:'../crm/', link:'Win back'});
+  rows.push({m:'10 min', t:'Generate one new demo — momentum beats planning.', href:'./intake/', link:'Build'});
+  if(rows.length<3) rows.push({m:'10 min', t:'Send one funnel link from the pipeline.', href:'../pipeline/', link:'Send'});
+  document.getElementById('todayList').innerHTML=rows.slice(0,3).map(r=>
+    `<div class="trow"><span class="tm${r.warn?' warn':''}">${r.m}</span><span>${r.t}</span><a href="${r.href}">${r.link} →</a></div>`).join('');
 }
+
 function showLogin(){
   document.getElementById('kMrr').textContent='—';
   document.getElementById('kSubs').textContent='—';
-  document.getElementById('subList').innerHTML='<div class="empty" style="text-align:left;padding:24px 22px"><b>Sign in to manage subscribers.</b><br>Your subscriber list &amp; revenue are stored privately in your database — sign in to view or edit them.<form id="lf" style="margin-top:14px;display:flex;gap:8px;flex-wrap:wrap"><input id="le" type="email" placeholder="you@email.com" required style="padding:9px 11px;border:1px solid var(--line);border-radius:8px;font:inherit;min-width:220px"><button class="mini" type="submit">Email me a login link</button></form><div id="ln" style="color:var(--mut);font-size:.84rem;margin-top:10px"></div></div>';
+  document.getElementById('subList').innerHTML='<div class="empty" style="text-align:left;padding:22px 20px"><b>Sign in to load your business.</b><br>Subscribers, revenue and today’s priorities are stored privately in your database.<form id="lf" style="margin-top:14px;display:flex;gap:8px;flex-wrap:wrap"><input id="le" type="email" placeholder="you@email.com" required style="padding:9px 11px;border:1px solid var(--line);border-radius:8px;font:inherit;min-width:220px"><button class="mini" type="submit">Email me a login link</button></form><div id="ln" style="color:var(--mut);font-size:.84rem;margin-top:10px"></div></div>';
   document.getElementById('lf').onsubmit=async e=>{e.preventDefault();const email=document.getElementById('le').value.trim();
     document.getElementById('ln').textContent='Sending…';
     const {error}=await sb.auth.signInWithOtp({email,options:{emailRedirectTo:location.href}});
@@ -265,7 +311,7 @@ async function del(id){if(!confirm('Remove this subscriber?'))return;
   if(error){toast(error.message);return;} subs=subs.filter(x=>x.id!==id);render()}
 function render(){
   const active=subs.filter(s=>s.status==='active');
-  const mrr=active.reduce((a,s)=>a+(s.mo||0),0);
+  const mrr=active.reduce((a,s)=>a+(+s.mo||0),0);
   document.getElementById('kMrr').textContent=money(mrr);
   document.getElementById('kSubs').textContent=active.length;
   const list=document.getElementById('subList');
