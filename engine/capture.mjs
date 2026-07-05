@@ -256,6 +256,49 @@ export function extractFacts($pages) {
   return facts;
 }
 
+// ── services (heuristic, no LLM) ─────────────────────────────────────────────
+// Pulls the prospect's OWN service names from their pages: a "Services/Practice
+// Areas/Treatments/What we do" section's sub-headings and list items, plus nav
+// dropdown children. Returns [] when nothing clean is found, so the vertical
+// default pack stays in charge.
+const SERVICE_SECTION = /services|practice areas|treatments|what we (do|offer)|our (services|work|expertise)|specialt|procedures|programs|areas of practice/i;
+const SVC_NOISE = /^(home|about( us)?|contact( us)?|services|our services|blog|news|reviews|testimonials|gallery|team|meet the team|careers|privacy|terms|book|book now|call|menu|search|more|read more|learn more|get started|sign in|log ?in|faq|resources|©|all rights)/i;
+const cleanSvc = (s) => (s || '').replace(/\s+/g, ' ').replace(/[|•·»]+/g, '').trim();
+function goodService(t) {
+  if (!t) return false;
+  const w = t.split(/\s+/).length;
+  return t.length >= 3 && t.length <= 44 && w <= 6 && !SVC_NOISE.test(t) && /[a-z]/i.test(t) && !/[.?!]$/.test(t) && !/@|http|\d{3}[-.]\d/.test(t);
+}
+export function extractServices($pages) {
+  const found = [];
+  const seen = new Set();
+  const push = (t) => {
+    const c = cleanSvc(t);
+    const k = c.toLowerCase();
+    if (goodService(c) && !SERVICE_SECTION.test(c) && !seen.has(k)) { seen.add(k); found.push(c); }
+  };
+  for (const $ of $pages) {
+    // (a) headings/anchors that live under a "Services"-ish section heading
+    $('h1,h2,h3').each((_, el) => {
+      const htext = cleanSvc($(el).text());
+      if (!SERVICE_SECTION.test(htext)) return;
+      // walk following siblings collecting sub-headings and list items
+      let node = $(el).parent();
+      node.find('h3,h4,li,.service-title,[class*="service"] h3,[class*="service"] h4').slice(0, 12).each((_, s) => push($(s).text()));
+    });
+    // (b) explicit service cards by class name
+    $('[class*="service"] h2, [class*="service"] h3, [class*="service"] h4, [class*="treatment"] h3, [class*="practice-area"] h3').each((_, s) => push($(s).text()));
+    // (c) nav submenu items under a Services parent
+    $('nav li, .menu li, header li').each((_, li) => {
+      const $li = $(li);
+      const parentTxt = cleanSvc($li.children('a').first().text());
+      if (SERVICE_SECTION.test(parentTxt)) $li.find('ul a, .sub-menu a').slice(0, 12).each((_, a) => push($(a).text()));
+    });
+    if (found.length >= 6) break;
+  }
+  return found.slice(0, 6);
+}
+
 // ── main capture ─────────────────────────────────────────────────────────────
 export async function capture(domain, { render = 'auto', maxPages = 5, htmlOverride = null } = {}) {
   const home = htmlOverride
@@ -296,6 +339,7 @@ export async function capture(domain, { render = 'auto', maxPages = 5, htmlOverr
     sig, fonts, colors,
     logos: rankLogos(sig.logo_candidates),
     photos: extractPhotos($pages, home.url),
+    services: extractServices($pages),
     facts: extractFacts($pages),
     jsShell: !!sig.js_shell && !home.rendered,
   };

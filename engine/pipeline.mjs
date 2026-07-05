@@ -76,8 +76,7 @@ if (!domain){ console.error('usage: node engine/pipeline.mjs <domain> [--vertica
 const slug = slugify(domain);
 // capture: multi-page crawl + stylesheets + fonts + colours + photos + facts.
 // A cached/--html capture short-circuits to single-page mode (no network).
-const useFresh = args.includes('--fresh');
-const cached = flag('html') || (useFresh ? null : findCapture(slug, domain));
+const cached = flag('html') || findCapture(slug, domain);
 const cap = await capture(domain, cached ? { htmlOverride: fs.readFileSync(cached, 'utf8') } : {});
 const src = cached ? 'cache:'+path.basename(cached) : `live-crawl (${cap.pages.length} pages${cap.pages[0].rendered ? ', rendered' : ''})`;
 const html = null; // page HTML now lives in cap
@@ -105,7 +104,7 @@ const isBiz = pack.kind==='vertical';
 // nothing fabricated). Churches keep their tradition-based default sections.
 let bizPack = null, bizSections = null;
 if (isBiz) {
-  const built = buildSections(pack.key, name, { realReviews: sig.reviews || [] });
+  const built = buildSections(pack.key, name, { realReviews: sig.reviews || [], realServices: cap.services || [] });
   bizSections = built.sections; bizPack = built.pack;
 }
 const heroHeadline = isBiz ? (bizPack.hero(name)) : 'You’re welcome here.';
@@ -134,6 +133,6 @@ const outDir = path.join(ROOT,'demos',slug); fs.mkdirSync(outDir,{recursive:true
 fs.writeFileSync(path.join(outDir,'index.html'), site);
 console.log(`✓ ${name}
   source:   ${src}
-  pack:     ${pack.kind}=${pack.key}${logo?'  · logo':''}${assets.gallery.length?`  · ${assets.gallery.length} photos`:''}${cap.fonts.head?`  · font: ${cap.fonts.head}`:''}${cap.facts.phone?'  · phone':''}${cap.jsShell?'  · ⚠ JS shell (install Chrome for rendered capture)':''}
+  pack:     ${pack.kind}=${pack.key}${logo?'  · logo':''}${assets.gallery.length?`  · ${assets.gallery.length} photos`:''}${cap.services&&cap.services.length?`  · ${cap.services.length} real services`:''}${cap.fonts.head?`  · font: ${cap.fonts.head}`:''}${cap.facts.phone?'  · phone':''}${cap.jsShell?'  · ⚠ JS shell (install Chrome for rendered capture)':''}
   recipe:   ${recipe.archetype} · ${recipe.theme} · ${recipe.mood||'none'}${recipe.vertical?' · '+recipe.vertical:recipe.tradition?' · '+recipe.tradition:''}
   published: demos/${slug}/index.html`);

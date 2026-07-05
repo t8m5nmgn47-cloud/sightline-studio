@@ -144,13 +144,15 @@ export const PACKS = {
 // Build the site-engine `sections` object for a business vertical.
 // realReviews: array of {q, name} captured from the prospect (optional). When
 // absent, the reviews section is OMITTED entirely — we never invent reviews.
-export function buildSections(vertical, name, { realReviews = [], rating = null, reviewCount = null } = {}) {
+export function buildSections(vertical, name, { realReviews = [], rating = null, reviewCount = null, realServices = [] } = {}) {
   const pk = PACKS[vertical] || PACKS.business;
   const sections = {
     book: { title: "Ready when you are.", sub: `Book online in under a minute — new clients welcome.` },
     services: {
       kicker: "Our services", title: "How we can help.",
-      items: pk.services.map((s) => svc(s, "")),
+      // Prefer the prospect's OWN captured service names; fall back to the
+      // vertical pack only when capture found nothing usable.
+      items: (realServices && realServices.length >= 3 ? realServices : pk.services).map((s) => svc(s, "")),
     },
     offer: pk.offer || undefined,
     hours: {},
