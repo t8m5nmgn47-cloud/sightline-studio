@@ -76,7 +76,8 @@ if (!domain){ console.error('usage: node engine/pipeline.mjs <domain> [--vertica
 const slug = slugify(domain);
 // capture: multi-page crawl + stylesheets + fonts + colours + photos + facts.
 // A cached/--html capture short-circuits to single-page mode (no network).
-const cached = flag('html') || findCapture(slug, domain);
+const useFresh = args.includes('--fresh');
+const cached = flag('html') || (useFresh ? null : findCapture(slug, domain));
 const cap = await capture(domain, cached ? { htmlOverride: fs.readFileSync(cached, 'utf8') } : {});
 const src = cached ? 'cache:'+path.basename(cached) : `live-crawl (${cap.pages.length} pages${cap.pages[0].rendered ? ', rendered' : ''})`;
 const html = null; // page HTML now lives in cap
