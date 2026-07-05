@@ -104,6 +104,21 @@ for (const r of rows){
   r.expected = Math.round(r.annual * need);   // risk-adjusted annual value
 }
 
+// ── the goods: does a built site already exist for this prospect? ────────────
+// Checks every place the studio publishes: curated demo (/<slug>/), fresh
+// engine demo (/demos/<slug>/), personal funnel (/p/<slug>/), teardown.
+const slugify = d => d.replace(/^www\./,'').replace(/[^a-z0-9]+/gi,'-').toLowerCase();
+function resolveAssets(domain){
+  const slug = slugify(domain);
+  const has = p => fs.existsSync(path.join(ROOT, p, 'index.html'));
+  return {
+    slug,
+    demo:     has(slug)            ? '/'+slug+'/'            : has('demos/'+slug) ? '/demos/'+slug+'/' : null,
+    funnel:   has('p/'+slug)       ? '/p/'+slug+'/'          : null,
+    teardown: has('teardowns/'+slug)? '/teardowns/'+slug+'/' : null,
+  };
+}
+
 // ── cold-call intelligence: category benchmarks + competitor gaps + talking points ──
 const cats = {};   // key = type/tradition → peer stats
 for (const r of rows){
@@ -130,11 +145,51 @@ for (const r of rows){
     : top
       ? `Hi — I pulled up ${r.name} and noticed you don't have ${top.label.toLowerCase()}, but ${top.peerPct}% of ${r.tradition} ${catLabel[r.type]} do — it's probably costing you ${r.type==='business'?'bookings':'visitors'} every week. I built a version of your site that fixes it. Two minutes to show you?`
       : `Hi — I looked at ${r.name}'s site (scored it ${r.score}/100 vs a ${avg} average for ${r.tradition} ${catLabel[r.type]}). I rebuilt a sharper version — can I send it over?`;
+
+  // the built goods + the exact email we send
+  r.assets = resolveAssets(r.domain);
+  const SITE = 'https://sightline-studio.vercel.app';
+  const link = r.assets.funnel ? SITE + r.assets.funnel : r.assets.demo ? SITE + r.assets.demo : null;
+  const isBiz = r.type === 'business';
+  const hook = r.dead
+    ? `Your current site at ${r.domain} is down — a placeholder is standing where your front door should be, so anyone searching for you right now finds nothing.`
+    : top
+      ? `I pulled up ${r.domain} and noticed it's missing ${top.label.toLowerCase()} — ${top.peerPct}% of ${r.tradition} ${catLabel[r.type]} have it, and it's likely costing you ${isBiz?'customers':'first-time visitors'} every week.`
+      : `I scored ${r.domain} against ${c.n} other ${r.tradition} ${catLabel[r.type]}: ${r.score}/100 vs a ${avg} average.`;
+  r.email = link ? {
+    subject: r.dead
+      ? `${r.name} — your website is down (I built you a new one)`
+      : `I rebuilt ${r.name}'s website — it's ready to look at`,
+    body:
+`Hi — Kris here from Sightline Studio, here in Colorado.
+
+${hook}
+
+So instead of sending a pitch deck, I just built it. Here's ${r.name}'s new site, live right now:
+
+${link}
+
+That's a real, working site — your name, your ${isBiz?'services':'ministries'}, your photos, built for phones and built to be found on Google.${r.assets.teardown?` The same link shows how you stack up against ${isBiz?'your local competitors':'nearby churches'}, measured on public signals.`:''}
+
+If you like it, it's yours: ${isBiz?'we host it, watch it, and market it from $59.99/mo with $0 down':'we host it, keep it fresh, and handle the tech for one simple monthly price'} — and you own the site. If not, no hard feelings; the preview was free.
+
+Worth two minutes? Just reply to this email.
+
+— Kris
+Sightline Studio · look sharp, stay safe, get found`,
+  } : null;
 }
 
 // rank: dead first, then weakest score
 const order = { DEAD:0, HOT:1, WARM:2, MILD:3, SERVED:4 };
 rows.sort((a,b)=> (order[a.tier]-order[b.tier]) || (a.score-b.score));
+// never clobber a good prospect list with an empty run (e.g. harvest data
+// missing on this machine) — enrich the existing file instead: enrich-prospects.mjs
+if (!rows.length) {
+  console.error('⚠ No harvest captures found (assets/harvest/) — leaving engine/preview/prospects.json untouched.');
+  console.error('  To refresh asset links & emails on the existing list, run: node engine/enrich-prospects.mjs');
+  process.exit(1);
+}
 fs.writeFileSync(path.join(ROOT,'engine/preview/prospects.json'), JSON.stringify(rows,null,2));
 
 const c = t => rows.filter(r=>r.tier===t).length;

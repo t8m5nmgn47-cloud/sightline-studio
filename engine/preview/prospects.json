@@ -88,7 +88,14 @@
         "peerPct": 0
       }
     ],
-    "opener": "Hi — I was looking up Breakthrough Church online and your website's actually down / a placeholder. Your contemporary neighbors all have a real one, so you're invisible to anyone searching right now. I already rebuilt a version for you — can I send it over?"
+    "opener": "Hi — I was looking up Breakthrough Church online and your website's actually down / a placeholder. Your contemporary neighbors all have a real one, so you're invisible to anyone searching right now. I already rebuilt a version for you — can I send it over?",
+    "assets": {
+      "slug": "breakthroughchurchsd-com",
+      "demo": null,
+      "funnel": null,
+      "teardown": null
+    },
+    "email": null
   },
   {
     "type": "church",
@@ -218,7 +225,14 @@
         "peerPct": 77
       }
     ],
-    "opener": "Hi — I was looking up Gfamilychurchmi online and your website's actually down / a placeholder. Your contemporary neighbors all have a real one, so you're invisible to anyone searching right now. I already rebuilt a version for you — can I send it over?"
+    "opener": "Hi — I was looking up Gfamilychurchmi online and your website's actually down / a placeholder. Your contemporary neighbors all have a real one, so you're invisible to anyone searching right now. I already rebuilt a version for you — can I send it over?",
+    "assets": {
+      "slug": "gfamilychurchmi-org",
+      "demo": null,
+      "funnel": null,
+      "teardown": null
+    },
+    "email": null
   },
   {
     "type": "church",
@@ -326,7 +340,14 @@
         "peerPct": 57
       }
     ],
-    "opener": "Hi — I was looking up Total Life Church online and your website's actually down / a placeholder. Your contemporary neighbors all have a real one, so you're invisible to anyone searching right now. I already rebuilt a version for you — can I send it over?"
+    "opener": "Hi — I was looking up Total Life Church online and your website's actually down / a placeholder. Your contemporary neighbors all have a real one, so you're invisible to anyone searching right now. I already rebuilt a version for you — can I send it over?",
+    "assets": {
+      "slug": "totallife-org",
+      "demo": null,
+      "funnel": null,
+      "teardown": null
+    },
+    "email": null
   },
   {
     "type": "business",
@@ -451,7 +472,17 @@
         "peerPct": 67
       }
     ],
-    "opener": "Hi — I pulled up Firmmedspa and noticed you don't have book / request appointment, but 67% of medspa businesses do — it's probably costing you bookings every week. I built a version of your site that fixes it. Two minutes to show you?"
+    "opener": "Hi — I pulled up Firmmedspa and noticed you don't have book / request appointment, but 67% of medspa businesses do — it's probably costing you bookings every week. I built a version of your site that fixes it. Two minutes to show you?",
+    "assets": {
+      "slug": "firmmedspa-com",
+      "demo": "/firmmedspa-com/",
+      "funnel": "/p/firmmedspa-com/",
+      "teardown": "/teardowns/firmmedspa-com/"
+    },
+    "email": {
+      "subject": "I rebuilt Firmmedspa's website — it's ready to look at",
+      "body": "Hi — Kris here from Sightline Studio, here in Colorado.\n\nI pulled up firmmedspa.com and noticed it's missing book / request appointment — 67% of medspa businesses have it, and it's likely costing you customers every week.\n\nSo instead of sending a pitch deck, I just built it. Here's Firmmedspa's new site, live right now:\n\nhttps://sightline-studio.vercel.app/p/firmmedspa-com/\n\nThat's a real, working site — your name, your services, your photos, built for phones and built to be found on Google. The same link shows how you stack up against your local competitors, measured on public signals.\n\nIf you like it, it's yours: we host it, watch it, and market it from $59.99/mo with $0 down — and you own the site. If not, no hard feelings; the preview was free.\n\nWorth two minutes? Just reply to this email.\n\n— Kris\nSightline Studio · look sharp, stay safe, get found"
+    }
   },
   {
     "type": "business",
@@ -575,7 +606,17 @@
         "peerPct": 64
       }
     ],
-    "opener": "Hi — I pulled up Castlerockcpa and noticed you don't have team & credentials, but 82% of business businesses do — it's probably costing you bookings every week. I built a version of your site that fixes it. Two minutes to show you?"
+    "opener": "Hi — I pulled up Castlerockcpa and noticed you don't have team & credentials, but 82% of business businesses do — it's probably costing you bookings every week. I built a version of your site that fixes it. Two minutes to show you?",
+    "assets": {
+      "slug": "castlerockcpa-com",
+      "demo": "/castlerockcpa-com/",
+      "funnel": "/p/castlerockcpa-com/",
+      "teardown": "/teardowns/castlerockcpa-com/"
+    },
+    "email": {
+      "subject": "I rebuilt Castlerockcpa's website — it's ready to look at",
+      "body": "Hi — Kris here from Sightline Studio, here in Colorado.\n\nI pulled up castlerockcpa.com and noticed it's missing team & credentials — 82% of business businesses have it, and it's likely costing you customers every week.\n\nSo instead of sending a pitch deck, I just built it. Here's Castlerockcpa's new site, live right now:\n\nhttps://sightline-studio.vercel.app/p/castlerockcpa-com/\n\nThat's a real, working site — your name, your services, your photos, built for phones and built to be found on Google. The same link shows how you stack up against your local competitors, measured on public signals.\n\nIf you like it, it's yours: we host it, watch it, and market it from $59.99/mo with $0 down — and you own the site. If not, no hard feelings; the preview was free.\n\nWorth two minutes? Just reply to this email.\n\n— Kris\nSightline Studio · look sharp, stay safe, get found"
+    }
   },
   {
     "type": "business",
@@ -698,7 +739,17 @@
         "peerPct": 64
       }
     ],
-    "opener": "Hi — I pulled up CO Title & Escrow and noticed you don't have team & credentials, but 82% of business businesses do — it's probably costing you bookings every week. I built a version of your site that fixes it. Two minutes to show you?"
+    "opener": "Hi — I pulled up CO Title & Escrow and noticed you don't have team & credentials, but 82% of business businesses do — it's probably costing you bookings every week. I built a version of your site that fixes it. Two minutes to show you?",
+    "assets": {
+      "slug": "cotitleescrow-com",
+      "demo": "/cotitleescrow-com/",
+      "funnel": "/p/cotitleescrow-com/",
+      "teardown": "/teardowns/cotitleescrow-com/"
+    },
+    "email": {
+      "subject": "I rebuilt CO Title & Escrow's website — it's ready to look at",
+      "body": "Hi — Kris here from Sightline Studio, here in Colorado.\n\nI pulled up cotitleescrow.com and noticed it's missing team & credentials — 82% of business businesses have it, and it's likely costing you customers every week.\n\nSo instead of sending a pitch deck, I just built it. Here's CO Title & Escrow's new site, live right now:\n\nhttps://sightline-studio.vercel.app/p/cotitleescrow-com/\n\nThat's a real, working site — your name, your services, your photos, built for phones and built to be found on Google. The same link shows how you stack up against your local competitors, measured on public signals.\n\nIf you like it, it's yours: we host it, watch it, and market it from $59.99/mo with $0 down — and you own the site. If not, no hard feelings; the preview was free.\n\nWorth two minutes? Just reply to this email.\n\n— Kris\nSightline Studio · look sharp, stay safe, get found"
+    }
   },
   {
     "type": "business",
@@ -815,7 +866,17 @@
         "peerPct": 55
       }
     ],
-    "opener": "Hi — I pulled up Montessori School at Lone Tree and noticed you don't have services / what we do, but 64% of business businesses do — it's probably costing you bookings every week. I built a version of your site that fixes it. Two minutes to show you?"
+    "opener": "Hi — I pulled up Montessori School at Lone Tree and noticed you don't have services / what we do, but 64% of business businesses do — it's probably costing you bookings every week. I built a version of your site that fixes it. Two minutes to show you?",
+    "assets": {
+      "slug": "montessoriatlonetree-com",
+      "demo": "/montessoriatlonetree-com/",
+      "funnel": "/p/montessoriatlonetree-com/",
+      "teardown": "/teardowns/montessoriatlonetree-com/"
+    },
+    "email": {
+      "subject": "I rebuilt Montessori School at Lone Tree's website — it's ready to look at",
+      "body": "Hi — Kris here from Sightline Studio, here in Colorado.\n\nI pulled up montessoriatlonetree.com and noticed it's missing services / what we do — 64% of business businesses have it, and it's likely costing you customers every week.\n\nSo instead of sending a pitch deck, I just built it. Here's Montessori School at Lone Tree's new site, live right now:\n\nhttps://sightline-studio.vercel.app/p/montessoriatlonetree-com/\n\nThat's a real, working site — your name, your services, your photos, built for phones and built to be found on Google. The same link shows how you stack up against your local competitors, measured on public signals.\n\nIf you like it, it's yours: we host it, watch it, and market it from $59.99/mo with $0 down — and you own the site. If not, no hard feelings; the preview was free.\n\nWorth two minutes? Just reply to this email.\n\n— Kris\nSightline Studio · look sharp, stay safe, get found"
+    }
   },
   {
     "type": "church",
@@ -942,7 +1003,14 @@
         "peerPct": 77
       }
     ],
-    "opener": "Hi — I pulled up Refuge Bible Church and noticed you don't have online giving, but 93% of contemporary churches do — it's probably costing you visitors every week. I built a version of your site that fixes it. Two minutes to show you?"
+    "opener": "Hi — I pulled up Refuge Bible Church and noticed you don't have online giving, but 93% of contemporary churches do — it's probably costing you visitors every week. I built a version of your site that fixes it. Two minutes to show you?",
+    "assets": {
+      "slug": "refugeindy-com",
+      "demo": null,
+      "funnel": null,
+      "teardown": null
+    },
+    "email": null
   },
   {
     "type": "church",
@@ -1069,7 +1137,14 @@
         "peerPct": 63
       }
     ],
-    "opener": "Hi — I pulled up Asheville Church Network and noticed you don't have service times & campus, but 77% of contemporary churches do — it's probably costing you visitors every week. I built a version of your site that fixes it. Two minutes to show you?"
+    "opener": "Hi — I pulled up Asheville Church Network and noticed you don't have service times & campus, but 77% of contemporary churches do — it's probably costing you visitors every week. I built a version of your site that fixes it. Two minutes to show you?",
+    "assets": {
+      "slug": "asheville",
+      "demo": null,
+      "funnel": null,
+      "teardown": null
+    },
+    "email": null
   },
   {
     "type": "church",
@@ -1195,7 +1270,14 @@
         "peerPct": 77
       }
     ],
-    "opener": "Hi — I pulled up Greaterglorychurch and noticed you don't have sermons / watch, but 93% of contemporary churches do — it's probably costing you visitors every week. I built a version of your site that fixes it. Two minutes to show you?"
+    "opener": "Hi — I pulled up Greaterglorychurch and noticed you don't have sermons / watch, but 93% of contemporary churches do — it's probably costing you visitors every week. I built a version of your site that fixes it. Two minutes to show you?",
+    "assets": {
+      "slug": "greaterglorychurch-com",
+      "demo": null,
+      "funnel": null,
+      "teardown": null
+    },
+    "email": null
   },
   {
     "type": "business",
@@ -1289,7 +1371,17 @@
         "peerPct": 55
       }
     ],
-    "opener": "Hi — I pulled up Aspen Falls Landscape and Construction and noticed you don't have reviews & social proof, but 55% of business businesses do — it's probably costing you bookings every week. I built a version of your site that fixes it. Two minutes to show you?"
+    "opener": "Hi — I pulled up Aspen Falls Landscape and Construction and noticed you don't have reviews & social proof, but 55% of business businesses do — it's probably costing you bookings every week. I built a version of your site that fixes it. Two minutes to show you?",
+    "assets": {
+      "slug": "aspenfallslandscaping-com",
+      "demo": "/aspenfallslandscaping-com/",
+      "funnel": "/p/aspenfallslandscaping-com/",
+      "teardown": "/teardowns/aspenfallslandscaping-com/"
+    },
+    "email": {
+      "subject": "I rebuilt Aspen Falls Landscape and Construction's website — it's ready to look at",
+      "body": "Hi — Kris here from Sightline Studio, here in Colorado.\n\nI pulled up aspenfallslandscaping.com and noticed it's missing reviews & social proof — 55% of business businesses have it, and it's likely costing you customers every week.\n\nSo instead of sending a pitch deck, I just built it. Here's Aspen Falls Landscape and Construction's new site, live right now:\n\nhttps://sightline-studio.vercel.app/p/aspenfallslandscaping-com/\n\nThat's a real, working site — your name, your services, your photos, built for phones and built to be found on Google. The same link shows how you stack up against your local competitors, measured on public signals.\n\nIf you like it, it's yours: we host it, watch it, and market it from $59.99/mo with $0 down — and you own the site. If not, no hard feelings; the preview was free.\n\nWorth two minutes? Just reply to this email.\n\n— Kris\nSightline Studio · look sharp, stay safe, get found"
+    }
   },
   {
     "type": "church",
@@ -1410,7 +1502,14 @@
         "peerPct": 57
       }
     ],
-    "opener": "Hi — I pulled up Faith Tabernacle - South FL and noticed you don't have serve & volunteer, but 70% of contemporary churches do — it's probably costing you visitors every week. I built a version of your site that fixes it. Two minutes to show you?"
+    "opener": "Hi — I pulled up Faith Tabernacle - South FL and noticed you don't have serve & volunteer, but 70% of contemporary churches do — it's probably costing you visitors every week. I built a version of your site that fixes it. Two minutes to show you?",
+    "assets": {
+      "slug": "myfaithtab-com",
+      "demo": null,
+      "funnel": null,
+      "teardown": null
+    },
+    "email": null
   },
   {
     "type": "business",
@@ -1504,7 +1603,17 @@
         "peerPct": 55
       }
     ],
-    "opener": "Hi — I pulled up RKM Homes and noticed you don't have reviews & social proof, but 55% of business businesses do — it's probably costing you bookings every week. I built a version of your site that fixes it. Two minutes to show you?"
+    "opener": "Hi — I pulled up RKM Homes and noticed you don't have reviews & social proof, but 55% of business businesses do — it's probably costing you bookings every week. I built a version of your site that fixes it. Two minutes to show you?",
+    "assets": {
+      "slug": "myrkmhome-com",
+      "demo": "/myrkmhome-com/",
+      "funnel": "/p/myrkmhome-com/",
+      "teardown": "/teardowns/myrkmhome-com/"
+    },
+    "email": {
+      "subject": "I rebuilt RKM Homes's website — it's ready to look at",
+      "body": "Hi — Kris here from Sightline Studio, here in Colorado.\n\nI pulled up myrkmhome.com and noticed it's missing reviews & social proof — 55% of business businesses have it, and it's likely costing you customers every week.\n\nSo instead of sending a pitch deck, I just built it. Here's RKM Homes's new site, live right now:\n\nhttps://sightline-studio.vercel.app/p/myrkmhome-com/\n\nThat's a real, working site — your name, your services, your photos, built for phones and built to be found on Google. The same link shows how you stack up against your local competitors, measured on public signals.\n\nIf you like it, it's yours: we host it, watch it, and market it from $59.99/mo with $0 down — and you own the site. If not, no hard feelings; the preview was free.\n\nWorth two minutes? Just reply to this email.\n\n— Kris\nSightline Studio · look sharp, stay safe, get found"
+    }
   },
   {
     "type": "church",
@@ -1625,7 +1734,14 @@
         "peerPct": 57
       }
     ],
-    "opener": "Hi — I pulled up Ebenezer Baptist Church and noticed you don't have plan your visit, but 80% of contemporary churches do — it's probably costing you visitors every week. I built a version of your site that fixes it. Two minutes to show you?"
+    "opener": "Hi — I pulled up Ebenezer Baptist Church and noticed you don't have plan your visit, but 80% of contemporary churches do — it's probably costing you visitors every week. I built a version of your site that fixes it. Two minutes to show you?",
+    "assets": {
+      "slug": "ebenezerdacula-org",
+      "demo": null,
+      "funnel": null,
+      "teardown": null
+    },
+    "email": null
   },
   {
     "type": "business",
@@ -1730,7 +1846,17 @@
         "peerPct": 64
       }
     ],
-    "opener": "Hi — I pulled up Stone Aspen Signature Builders | Castle Rock Custom Home Builder and Design-Build | Colorado and noticed you don't have call / contact prominent, but 73% of business businesses do — it's probably costing you bookings every week. I built a version of your site that fixes it. Two minutes to show you?"
+    "opener": "Hi — I pulled up Stone Aspen Signature Builders | Castle Rock Custom Home Builder and Design-Build | Colorado and noticed you don't have call / contact prominent, but 73% of business businesses do — it's probably costing you bookings every week. I built a version of your site that fixes it. Two minutes to show you?",
+    "assets": {
+      "slug": "stoneaspen-com",
+      "demo": "/stoneaspen-com/",
+      "funnel": "/p/stoneaspen-com/",
+      "teardown": "/teardowns/stoneaspen-com/"
+    },
+    "email": {
+      "subject": "I rebuilt Stone Aspen Signature Builders | Castle Rock Custom Home Builder and Design-Build | Colorado's website — it's ready to look at",
+      "body": "Hi — Kris here from Sightline Studio, here in Colorado.\n\nI pulled up stoneaspen.com and noticed it's missing call / contact prominent — 73% of business businesses have it, and it's likely costing you customers every week.\n\nSo instead of sending a pitch deck, I just built it. Here's Stone Aspen Signature Builders | Castle Rock Custom Home Builder and Design-Build | Colorado's new site, live right now:\n\nhttps://sightline-studio.vercel.app/p/stoneaspen-com/\n\nThat's a real, working site — your name, your services, your photos, built for phones and built to be found on Google. The same link shows how you stack up against your local competitors, measured on public signals.\n\nIf you like it, it's yours: we host it, watch it, and market it from $59.99/mo with $0 down — and you own the site. If not, no hard feelings; the preview was free.\n\nWorth two minutes? Just reply to this email.\n\n— Kris\nSightline Studio · look sharp, stay safe, get found"
+    }
   },
   {
     "type": "church",
@@ -1850,7 +1976,14 @@
         "peerPct": 57
       }
     ],
-    "opener": "Hi — I pulled up Upper Room Church and noticed you don't have plan your visit, but 80% of contemporary churches do — it's probably costing you visitors every week. I built a version of your site that fixes it. Two minutes to show you?"
+    "opener": "Hi — I pulled up Upper Room Church and noticed you don't have plan your visit, but 80% of contemporary churches do — it's probably costing you visitors every week. I built a version of your site that fixes it. Two minutes to show you?",
+    "assets": {
+      "slug": "urimperialbeach-com",
+      "demo": null,
+      "funnel": null,
+      "teardown": null
+    },
+    "email": null
   },
   {
     "type": "business",
@@ -1942,7 +2075,17 @@
         "peerPct": 0
       }
     ],
-    "opener": "Hi — I looked at Dr. Heidi Oster MD, PC's site (scored it 52/100 vs a 47 average for business businesses). I rebuilt a sharper version — can I send it over?"
+    "opener": "Hi — I looked at Dr. Heidi Oster MD, PC's site (scored it 52/100 vs a 47 average for business businesses). I rebuilt a sharper version — can I send it over?",
+    "assets": {
+      "slug": "heidiosterobgyn-com",
+      "demo": "/heidiosterobgyn-com/",
+      "funnel": "/p/heidiosterobgyn-com/",
+      "teardown": "/teardowns/heidiosterobgyn-com/"
+    },
+    "email": {
+      "subject": "I rebuilt Dr. Heidi Oster MD, PC's website — it's ready to look at",
+      "body": "Hi — Kris here from Sightline Studio, here in Colorado.\n\nI scored heidiosterobgyn.com against 11 other business businesses: 52/100 vs a 47 average.\n\nSo instead of sending a pitch deck, I just built it. Here's Dr. Heidi Oster MD, PC's new site, live right now:\n\nhttps://sightline-studio.vercel.app/p/heidiosterobgyn-com/\n\nThat's a real, working site — your name, your services, your photos, built for phones and built to be found on Google. The same link shows how you stack up against your local competitors, measured on public signals.\n\nIf you like it, it's yours: we host it, watch it, and market it from $59.99/mo with $0 down — and you own the site. If not, no hard feelings; the preview was free.\n\nWorth two minutes? Just reply to this email.\n\n— Kris\nSightline Studio · look sharp, stay safe, get found"
+    }
   },
   {
     "type": "church",
@@ -2052,7 +2195,14 @@
         "peerPct": 63
       }
     ],
-    "opener": "Hi — I pulled up Vriesland Church and noticed you don't have service times & campus, but 77% of contemporary churches do — it's probably costing you visitors every week. I built a version of your site that fixes it. Two minutes to show you?"
+    "opener": "Hi — I pulled up Vriesland Church and noticed you don't have service times & campus, but 77% of contemporary churches do — it's probably costing you visitors every week. I built a version of your site that fixes it. Two minutes to show you?",
+    "assets": {
+      "slug": "vrieslandchurch-org",
+      "demo": null,
+      "funnel": null,
+      "teardown": null
+    },
+    "email": null
   },
   {
     "type": "business",
@@ -2146,7 +2296,17 @@
         "peerPct": 67
       }
     ],
-    "opener": "Hi — I pulled up Homestead Title and Escrow and noticed you don't have new-customer offer, but 67% of dental businesses do — it's probably costing you bookings every week. I built a version of your site that fixes it. Two minutes to show you?"
+    "opener": "Hi — I pulled up Homestead Title and Escrow and noticed you don't have new-customer offer, but 67% of dental businesses do — it's probably costing you bookings every week. I built a version of your site that fixes it. Two minutes to show you?",
+    "assets": {
+      "slug": "homesteadtc-com",
+      "demo": "/homesteadtc-com/",
+      "funnel": "/p/homesteadtc-com/",
+      "teardown": "/teardowns/homesteadtc-com/"
+    },
+    "email": {
+      "subject": "I rebuilt Homestead Title and Escrow's website — it's ready to look at",
+      "body": "Hi — Kris here from Sightline Studio, here in Colorado.\n\nI pulled up homesteadtc.com and noticed it's missing new-customer offer — 67% of dental businesses have it, and it's likely costing you customers every week.\n\nSo instead of sending a pitch deck, I just built it. Here's Homestead Title and Escrow's new site, live right now:\n\nhttps://sightline-studio.vercel.app/p/homesteadtc-com/\n\nThat's a real, working site — your name, your services, your photos, built for phones and built to be found on Google. The same link shows how you stack up against your local competitors, measured on public signals.\n\nIf you like it, it's yours: we host it, watch it, and market it from $59.99/mo with $0 down — and you own the site. If not, no hard feelings; the preview was free.\n\nWorth two minutes? Just reply to this email.\n\n— Kris\nSightline Studio · look sharp, stay safe, get found"
+    }
   },
   {
     "type": "church",
@@ -2267,7 +2427,14 @@
         "peerPct": 70
       }
     ],
-    "opener": "Hi — I pulled up Move Church and noticed you don't have service times & campus, but 77% of contemporary churches do — it's probably costing you visitors every week. I built a version of your site that fixes it. Two minutes to show you?"
+    "opener": "Hi — I pulled up Move Church and noticed you don't have service times & campus, but 77% of contemporary churches do — it's probably costing you visitors every week. I built a version of your site that fixes it. Two minutes to show you?",
+    "assets": {
+      "slug": "movechurch-ca",
+      "demo": null,
+      "funnel": null,
+      "teardown": null
+    },
+    "email": null
   },
   {
     "type": "business",
@@ -2360,7 +2527,17 @@
         "peerPct": 67
       }
     ],
-    "opener": "Hi — I pulled up Colorado Group & Individual Health, Life, Disability, Long Term Care Insurance broker in Highlands Ranch Colorado - Niederman Insurance Agency and noticed you don't have services / what we do, but 67% of dental businesses do — it's probably costing you bookings every week. I built a version of your site that fixes it. Two minutes to show you?"
+    "opener": "Hi — I pulled up Colorado Group & Individual Health, Life, Disability, Long Term Care Insurance broker in Highlands Ranch Colorado - Niederman Insurance Agency and noticed you don't have services / what we do, but 67% of dental businesses do — it's probably costing you bookings every week. I built a version of your site that fixes it. Two minutes to show you?",
+    "assets": {
+      "slug": "niedermaninsurance-com",
+      "demo": "/niedermaninsurance-com/",
+      "funnel": "/p/niedermaninsurance-com/",
+      "teardown": "/teardowns/niedermaninsurance-com/"
+    },
+    "email": {
+      "subject": "I rebuilt Colorado Group & Individual Health, Life, Disability, Long Term Care Insurance broker in Highlands Ranch Colorado - Niederman Insurance Agency's website — it's ready to look at",
+      "body": "Hi — Kris here from Sightline Studio, here in Colorado.\n\nI pulled up niedermaninsurance.com and noticed it's missing services / what we do — 67% of dental businesses have it, and it's likely costing you customers every week.\n\nSo instead of sending a pitch deck, I just built it. Here's Colorado Group & Individual Health, Life, Disability, Long Term Care Insurance broker in Highlands Ranch Colorado - Niederman Insurance Agency's new site, live right now:\n\nhttps://sightline-studio.vercel.app/p/niedermaninsurance-com/\n\nThat's a real, working site — your name, your services, your photos, built for phones and built to be found on Google. The same link shows how you stack up against your local competitors, measured on public signals.\n\nIf you like it, it's yours: we host it, watch it, and market it from $59.99/mo with $0 down — and you own the site. If not, no hard feelings; the preview was free.\n\nWorth two minutes? Just reply to this email.\n\n— Kris\nSightline Studio · look sharp, stay safe, get found"
+    }
   },
   {
     "type": "church",
@@ -2469,7 +2646,14 @@
         "peerPct": 57
       }
     ],
-    "opener": "Hi — I pulled up St. Michael Lutheran Church and noticed you don't have plan your visit, but 80% of contemporary churches do — it's probably costing you visitors every week. I built a version of your site that fixes it. Two minutes to show you?"
+    "opener": "Hi — I pulled up St. Michael Lutheran Church and noticed you don't have plan your visit, but 80% of contemporary churches do — it's probably costing you visitors every week. I built a version of your site that fixes it. Two minutes to show you?",
+    "assets": {
+      "slug": "stmichaelelca-org",
+      "demo": null,
+      "funnel": null,
+      "teardown": null
+    },
+    "email": null
   },
   {
     "type": "business",
@@ -2573,7 +2757,17 @@
         "peerPct": 50
       }
     ],
-    "opener": "Hi — I pulled up Family Lawyers Highlands Ranch, CO and noticed you don't have book / request appointment, but 50% of law businesses do — it's probably costing you bookings every week. I built a version of your site that fixes it. Two minutes to show you?"
+    "opener": "Hi — I pulled up Family Lawyers Highlands Ranch, CO and noticed you don't have book / request appointment, but 50% of law businesses do — it's probably costing you bookings every week. I built a version of your site that fixes it. Two minutes to show you?",
+    "assets": {
+      "slug": "rosslawcolorado-com",
+      "demo": "/rosslawcolorado-com/",
+      "funnel": "/p/rosslawcolorado-com/",
+      "teardown": "/teardowns/rosslawcolorado-com/"
+    },
+    "email": {
+      "subject": "I rebuilt Family Lawyers Highlands Ranch, CO's website — it's ready to look at",
+      "body": "Hi — Kris here from Sightline Studio, here in Colorado.\n\nI pulled up rosslawcolorado.com and noticed it's missing book / request appointment — 50% of law businesses have it, and it's likely costing you customers every week.\n\nSo instead of sending a pitch deck, I just built it. Here's Family Lawyers Highlands Ranch, CO's new site, live right now:\n\nhttps://sightline-studio.vercel.app/p/rosslawcolorado-com/\n\nThat's a real, working site — your name, your services, your photos, built for phones and built to be found on Google. The same link shows how you stack up against your local competitors, measured on public signals.\n\nIf you like it, it's yours: we host it, watch it, and market it from $59.99/mo with $0 down — and you own the site. If not, no hard feelings; the preview was free.\n\nWorth two minutes? Just reply to this email.\n\n— Kris\nSightline Studio · look sharp, stay safe, get found"
+    }
   },
   {
     "type": "church",
@@ -2683,7 +2877,14 @@
         "peerPct": 63
       }
     ],
-    "opener": "Hi — I pulled up Hopewell Church and noticed you don't have service times & campus, but 77% of contemporary churches do — it's probably costing you visitors every week. I built a version of your site that fixes it. Two minutes to show you?"
+    "opener": "Hi — I pulled up Hopewell Church and noticed you don't have service times & campus, but 77% of contemporary churches do — it's probably costing you visitors every week. I built a version of your site that fixes it. Two minutes to show you?",
+    "assets": {
+      "slug": "hopewellchurch-online",
+      "demo": null,
+      "funnel": null,
+      "teardown": null
+    },
+    "email": null
   },
   {
     "type": "church",
@@ -2782,7 +2983,14 @@
         "peerPct": 77
       }
     ],
-    "opener": "Hi — I pulled up Kingdom Culture and noticed you don't have service times & campus, but 77% of contemporary churches do — it's probably costing you visitors every week. I built a version of your site that fixes it. Two minutes to show you?"
+    "opener": "Hi — I pulled up Kingdom Culture and noticed you don't have service times & campus, but 77% of contemporary churches do — it's probably costing you visitors every week. I built a version of your site that fixes it. Two minutes to show you?",
+    "assets": {
+      "slug": "kingdomculturephx-com",
+      "demo": null,
+      "funnel": null,
+      "teardown": null
+    },
+    "email": null
   },
   {
     "type": "church",
@@ -2892,7 +3100,14 @@
         "peerPct": 57
       }
     ],
-    "opener": "Hi — I pulled up Northland Bible Baptist Church and noticed you don't have serve & volunteer, but 70% of contemporary churches do — it's probably costing you visitors every week. I built a version of your site that fixes it. Two minutes to show you?"
+    "opener": "Hi — I pulled up Northland Bible Baptist Church and noticed you don't have serve & volunteer, but 70% of contemporary churches do — it's probably costing you visitors every week. I built a version of your site that fixes it. Two minutes to show you?",
+    "assets": {
+      "slug": "northland",
+      "demo": null,
+      "funnel": null,
+      "teardown": null
+    },
+    "email": null
   },
   {
     "type": "church",
@@ -2991,7 +3206,14 @@
         "peerPct": 93
       }
     ],
-    "opener": "Hi — I pulled up Rose Church and noticed you don't have sermons / watch, but 93% of contemporary churches do — it's probably costing you visitors every week. I built a version of your site that fixes it. Two minutes to show you?"
+    "opener": "Hi — I pulled up Rose Church and noticed you don't have sermons / watch, but 93% of contemporary churches do — it's probably costing you visitors every week. I built a version of your site that fixes it. Two minutes to show you?",
+    "assets": {
+      "slug": "rosechurch-ca",
+      "demo": null,
+      "funnel": null,
+      "teardown": null
+    },
+    "email": null
   },
   {
     "type": "church",
@@ -3095,7 +3317,14 @@
         "peerPct": 0
       }
     ],
-    "opener": "Hi — I looked at Zion Lutheran Church's site (scored it 64/100 vs a 64 average for mainline churches). I rebuilt a sharper version — can I send it over?"
+    "opener": "Hi — I looked at Zion Lutheran Church's site (scored it 64/100 vs a 64 average for mainline churches). I rebuilt a sharper version — can I send it over?",
+    "assets": {
+      "slug": "zionlincoln-org",
+      "demo": null,
+      "funnel": null,
+      "teardown": null
+    },
+    "email": null
   },
   {
     "type": "church",
@@ -3194,7 +3423,14 @@
         "peerPct": 80
       }
     ],
-    "opener": "Hi — I pulled up Friendship Baptist Church and noticed you don't have plan your visit, but 80% of contemporary churches do — it's probably costing you visitors every week. I built a version of your site that fixes it. Two minutes to show you?"
+    "opener": "Hi — I pulled up Friendship Baptist Church and noticed you don't have plan your visit, but 80% of contemporary churches do — it's probably costing you visitors every week. I built a version of your site that fixes it. Two minutes to show you?",
+    "assets": {
+      "slug": "friendshipbc-com",
+      "demo": null,
+      "funnel": null,
+      "teardown": null
+    },
+    "email": null
   },
   {
     "type": "business",
@@ -3292,7 +3528,17 @@
         "peerPct": 0
       }
     ],
-    "opener": "Hi — I looked at Jewelry Store in Aurora, CO's site (scored it 66/100 vs a 47 average for business businesses). I rebuilt a sharper version — can I send it over?"
+    "opener": "Hi — I looked at Jewelry Store in Aurora, CO's site (scored it 66/100 vs a 47 average for business businesses). I rebuilt a sharper version — can I send it over?",
+    "assets": {
+      "slug": "biondijewelry-com",
+      "demo": "/biondijewelry-com/",
+      "funnel": "/p/biondijewelry-com/",
+      "teardown": "/teardowns/biondijewelry-com/"
+    },
+    "email": {
+      "subject": "I rebuilt Jewelry Store in Aurora, CO's website — it's ready to look at",
+      "body": "Hi — Kris here from Sightline Studio, here in Colorado.\n\nI scored biondijewelry.com against 11 other business businesses: 66/100 vs a 47 average.\n\nSo instead of sending a pitch deck, I just built it. Here's Jewelry Store in Aurora, CO's new site, live right now:\n\nhttps://sightline-studio.vercel.app/p/biondijewelry-com/\n\nThat's a real, working site — your name, your services, your photos, built for phones and built to be found on Google. The same link shows how you stack up against your local competitors, measured on public signals.\n\nIf you like it, it's yours: we host it, watch it, and market it from $59.99/mo with $0 down — and you own the site. If not, no hard feelings; the preview was free.\n\nWorth two minutes? Just reply to this email.\n\n— Kris\nSightline Studio · look sharp, stay safe, get found"
+    }
   },
   {
     "type": "business",
@@ -3385,7 +3631,17 @@
         "peerPct": 50
       }
     ],
-    "opener": "Hi — I pulled up Griffiths Law and noticed you don't have reviews & social proof, but 50% of law businesses do — it's probably costing you bookings every week. I built a version of your site that fixes it. Two minutes to show you?"
+    "opener": "Hi — I pulled up Griffiths Law and noticed you don't have reviews & social proof, but 50% of law businesses do — it's probably costing you bookings every week. I built a version of your site that fixes it. Two minutes to show you?",
+    "assets": {
+      "slug": "griffithslawpc-com",
+      "demo": "/griffithslawpc-com/",
+      "funnel": "/p/griffithslawpc-com/",
+      "teardown": "/teardowns/griffithslawpc-com/"
+    },
+    "email": {
+      "subject": "I rebuilt Griffiths Law's website — it's ready to look at",
+      "body": "Hi — Kris here from Sightline Studio, here in Colorado.\n\nI pulled up griffithslawpc.com and noticed it's missing reviews & social proof — 50% of law businesses have it, and it's likely costing you customers every week.\n\nSo instead of sending a pitch deck, I just built it. Here's Griffiths Law's new site, live right now:\n\nhttps://sightline-studio.vercel.app/p/griffithslawpc-com/\n\nThat's a real, working site — your name, your services, your photos, built for phones and built to be found on Google. The same link shows how you stack up against your local competitors, measured on public signals.\n\nIf you like it, it's yours: we host it, watch it, and market it from $59.99/mo with $0 down — and you own the site. If not, no hard feelings; the preview was free.\n\nWorth two minutes? Just reply to this email.\n\n— Kris\nSightline Studio · look sharp, stay safe, get found"
+    }
   },
   {
     "type": "church",
@@ -3494,7 +3750,14 @@
         "peerPct": 57
       }
     ],
-    "opener": "Hi — I pulled up Petra Church and noticed you don't have kids & families, but 63% of contemporary churches do — it's probably costing you visitors every week. I built a version of your site that fixes it. Two minutes to show you?"
+    "opener": "Hi — I pulled up Petra Church and noticed you don't have kids & families, but 63% of contemporary churches do — it's probably costing you visitors every week. I built a version of your site that fixes it. Two minutes to show you?",
+    "assets": {
+      "slug": "petrachurch-net",
+      "demo": null,
+      "funnel": null,
+      "teardown": null
+    },
+    "email": null
   },
   {
     "type": "business",
@@ -3587,7 +3850,17 @@
         "peerPct": 64
       }
     ],
-    "opener": "Hi — I pulled up Colorado Lending Team | Carrie Bakunas & Scott Baade Mortgage and noticed you don't have services / what we do, but 64% of business businesses do — it's probably costing you bookings every week. I built a version of your site that fixes it. Two minutes to show you?"
+    "opener": "Hi — I pulled up Colorado Lending Team | Carrie Bakunas & Scott Baade Mortgage and noticed you don't have services / what we do, but 64% of business businesses do — it's probably costing you bookings every week. I built a version of your site that fixes it. Two minutes to show you?",
+    "assets": {
+      "slug": "coloradolendingteam-com",
+      "demo": "/coloradolendingteam-com/",
+      "funnel": "/p/coloradolendingteam-com/",
+      "teardown": "/teardowns/coloradolendingteam-com/"
+    },
+    "email": {
+      "subject": "I rebuilt Colorado Lending Team | Carrie Bakunas & Scott Baade Mortgage's website — it's ready to look at",
+      "body": "Hi — Kris here from Sightline Studio, here in Colorado.\n\nI pulled up coloradolendingteam.com and noticed it's missing services / what we do — 64% of business businesses have it, and it's likely costing you customers every week.\n\nSo instead of sending a pitch deck, I just built it. Here's Colorado Lending Team | Carrie Bakunas & Scott Baade Mortgage's new site, live right now:\n\nhttps://sightline-studio.vercel.app/p/coloradolendingteam-com/\n\nThat's a real, working site — your name, your services, your photos, built for phones and built to be found on Google. The same link shows how you stack up against your local competitors, measured on public signals.\n\nIf you like it, it's yours: we host it, watch it, and market it from $59.99/mo with $0 down — and you own the site. If not, no hard feelings; the preview was free.\n\nWorth two minutes? Just reply to this email.\n\n— Kris\nSightline Studio · look sharp, stay safe, get found"
+    }
   },
   {
     "type": "business",
@@ -3673,7 +3946,17 @@
         "peerPct": 0
       }
     ],
-    "opener": "Hi — I looked at Denver, Littleton, Centennial, CO | Paramount Title Agency's site (scored it 68/100 vs a 47 average for business businesses). I rebuilt a sharper version — can I send it over?"
+    "opener": "Hi — I looked at Denver, Littleton, Centennial, CO | Paramount Title Agency's site (scored it 68/100 vs a 47 average for business businesses). I rebuilt a sharper version — can I send it over?",
+    "assets": {
+      "slug": "paramounttitle-com",
+      "demo": "/paramounttitle-com/",
+      "funnel": "/p/paramounttitle-com/",
+      "teardown": "/teardowns/paramounttitle-com/"
+    },
+    "email": {
+      "subject": "I rebuilt Denver, Littleton, Centennial, CO | Paramount Title Agency's website — it's ready to look at",
+      "body": "Hi — Kris here from Sightline Studio, here in Colorado.\n\nI scored paramounttitle.com against 11 other business businesses: 68/100 vs a 47 average.\n\nSo instead of sending a pitch deck, I just built it. Here's Denver, Littleton, Centennial, CO | Paramount Title Agency's new site, live right now:\n\nhttps://sightline-studio.vercel.app/p/paramounttitle-com/\n\nThat's a real, working site — your name, your services, your photos, built for phones and built to be found on Google. The same link shows how you stack up against your local competitors, measured on public signals.\n\nIf you like it, it's yours: we host it, watch it, and market it from $59.99/mo with $0 down — and you own the site. If not, no hard feelings; the preview was free.\n\nWorth two minutes? Just reply to this email.\n\n— Kris\nSightline Studio · look sharp, stay safe, get found"
+    }
   },
   {
     "type": "church",
@@ -3782,7 +4065,14 @@
         "peerPct": 63
       }
     ],
-    "opener": "Hi — I pulled up Cclongview and noticed you don't have current & alive, but 77% of contemporary churches do — it's probably costing you visitors every week. I built a version of your site that fixes it. Two minutes to show you?"
+    "opener": "Hi — I pulled up Cclongview and noticed you don't have current & alive, but 77% of contemporary churches do — it's probably costing you visitors every week. I built a version of your site that fixes it. Two minutes to show you?",
+    "assets": {
+      "slug": "cclongview-com",
+      "demo": null,
+      "funnel": null,
+      "teardown": null
+    },
+    "email": null
   },
   {
     "type": "business",
@@ -3874,7 +4164,17 @@
         "peerPct": 0
       }
     ],
-    "opener": "Hi — I looked at True Beauty MedSpa's site (scored it 71/100 vs a 49 average for medspa businesses). I rebuilt a sharper version — can I send it over?"
+    "opener": "Hi — I looked at True Beauty MedSpa's site (scored it 71/100 vs a 49 average for medspa businesses). I rebuilt a sharper version — can I send it over?",
+    "assets": {
+      "slug": "truebeautymedspa-com",
+      "demo": "/truebeautymedspa-com/",
+      "funnel": "/p/truebeautymedspa-com/",
+      "teardown": "/teardowns/truebeautymedspa-com/"
+    },
+    "email": {
+      "subject": "I rebuilt True Beauty MedSpa's website — it's ready to look at",
+      "body": "Hi — Kris here from Sightline Studio, here in Colorado.\n\nI scored truebeautymedspa.com against 3 other medspa businesses: 71/100 vs a 49 average.\n\nSo instead of sending a pitch deck, I just built it. Here's True Beauty MedSpa's new site, live right now:\n\nhttps://sightline-studio.vercel.app/p/truebeautymedspa-com/\n\nThat's a real, working site — your name, your services, your photos, built for phones and built to be found on Google. The same link shows how you stack up against your local competitors, measured on public signals.\n\nIf you like it, it's yours: we host it, watch it, and market it from $59.99/mo with $0 down — and you own the site. If not, no hard feelings; the preview was free.\n\nWorth two minutes? Just reply to this email.\n\n— Kris\nSightline Studio · look sharp, stay safe, get found"
+    }
   },
   {
     "type": "church",
@@ -3972,7 +4272,14 @@
         "peerPct": 70
       }
     ],
-    "opener": "Hi — I pulled up Lifepointe Church and noticed you don't have serve & volunteer, but 70% of contemporary churches do — it's probably costing you visitors every week. I built a version of your site that fixes it. Two minutes to show you?"
+    "opener": "Hi — I pulled up Lifepointe Church and noticed you don't have serve & volunteer, but 70% of contemporary churches do — it's probably costing you visitors every week. I built a version of your site that fixes it. Two minutes to show you?",
+    "assets": {
+      "slug": "lifepointecc-com",
+      "demo": null,
+      "funnel": null,
+      "teardown": null
+    },
+    "email": null
   },
   {
     "type": "business",
@@ -4065,7 +4372,17 @@
         "peerPct": 67
       }
     ],
-    "opener": "Hi — I pulled up Cherry Hills Dental Associates and noticed you don't have financing / insurance / pricing, but 67% of dental businesses do — it's probably costing you bookings every week. I built a version of your site that fixes it. Two minutes to show you?"
+    "opener": "Hi — I pulled up Cherry Hills Dental Associates and noticed you don't have financing / insurance / pricing, but 67% of dental businesses do — it's probably costing you bookings every week. I built a version of your site that fixes it. Two minutes to show you?",
+    "assets": {
+      "slug": "cherryhillsdentist-com",
+      "demo": "/cherryhillsdentist-com/",
+      "funnel": "/p/cherryhillsdentist-com/",
+      "teardown": "/teardowns/cherryhillsdentist-com/"
+    },
+    "email": {
+      "subject": "I rebuilt Cherry Hills Dental Associates's website — it's ready to look at",
+      "body": "Hi — Kris here from Sightline Studio, here in Colorado.\n\nI pulled up cherryhillsdentist.com and noticed it's missing financing / insurance / pricing — 67% of dental businesses have it, and it's likely costing you customers every week.\n\nSo instead of sending a pitch deck, I just built it. Here's Cherry Hills Dental Associates's new site, live right now:\n\nhttps://sightline-studio.vercel.app/p/cherryhillsdentist-com/\n\nThat's a real, working site — your name, your services, your photos, built for phones and built to be found on Google. The same link shows how you stack up against your local competitors, measured on public signals.\n\nIf you like it, it's yours: we host it, watch it, and market it from $59.99/mo with $0 down — and you own the site. If not, no hard feelings; the preview was free.\n\nWorth two minutes? Just reply to this email.\n\n— Kris\nSightline Studio · look sharp, stay safe, get found"
+    }
   },
   {
     "type": "business",
@@ -4151,7 +4468,17 @@
         "peerPct": 0
       }
     ],
-    "opener": "Hi — I looked at Colorado Dermatology Mohs Surgery's site (scored it 72/100 vs a 49 average for medspa businesses). I rebuilt a sharper version — can I send it over?"
+    "opener": "Hi — I looked at Colorado Dermatology Mohs Surgery's site (scored it 72/100 vs a 49 average for medspa businesses). I rebuilt a sharper version — can I send it over?",
+    "assets": {
+      "slug": "coloradodermatology-com",
+      "demo": "/coloradodermatology-com/",
+      "funnel": "/p/coloradodermatology-com/",
+      "teardown": "/teardowns/coloradodermatology-com/"
+    },
+    "email": {
+      "subject": "I rebuilt Colorado Dermatology Mohs Surgery's website — it's ready to look at",
+      "body": "Hi — Kris here from Sightline Studio, here in Colorado.\n\nI scored coloradodermatology.com against 3 other medspa businesses: 72/100 vs a 49 average.\n\nSo instead of sending a pitch deck, I just built it. Here's Colorado Dermatology Mohs Surgery's new site, live right now:\n\nhttps://sightline-studio.vercel.app/p/coloradodermatology-com/\n\nThat's a real, working site — your name, your services, your photos, built for phones and built to be found on Google. The same link shows how you stack up against your local competitors, measured on public signals.\n\nIf you like it, it's yours: we host it, watch it, and market it from $59.99/mo with $0 down — and you own the site. If not, no hard feelings; the preview was free.\n\nWorth two minutes? Just reply to this email.\n\n— Kris\nSightline Studio · look sharp, stay safe, get found"
+    }
   },
   {
     "type": "church",
@@ -4249,7 +4576,14 @@
         "peerPct": 77
       }
     ],
-    "opener": "Hi — I pulled up Calvary Chapel Northside and noticed you don't have current & alive, but 77% of contemporary churches do — it's probably costing you visitors every week. I built a version of your site that fixes it. Two minutes to show you?"
+    "opener": "Hi — I pulled up Calvary Chapel Northside and noticed you don't have current & alive, but 77% of contemporary churches do — it's probably costing you visitors every week. I built a version of your site that fixes it. Two minutes to show you?",
+    "assets": {
+      "slug": "calvarychapelnorthside-com",
+      "demo": null,
+      "funnel": null,
+      "teardown": null
+    },
+    "email": null
   },
   {
     "type": "church",
@@ -4347,7 +4681,14 @@
         "peerPct": 57
       }
     ],
-    "opener": "Hi — I pulled up Patuxent Presbyterian Church and noticed you don't have next steps pathway, but 57% of contemporary churches do — it's probably costing you visitors every week. I built a version of your site that fixes it. Two minutes to show you?"
+    "opener": "Hi — I pulled up Patuxent Presbyterian Church and noticed you don't have next steps pathway, but 57% of contemporary churches do — it's probably costing you visitors every week. I built a version of your site that fixes it. Two minutes to show you?",
+    "assets": {
+      "slug": "paxpres-com",
+      "demo": null,
+      "funnel": null,
+      "teardown": null
+    },
+    "email": null
   },
   {
     "type": "business",
@@ -4439,7 +4780,17 @@
         "peerPct": 64
       }
     ],
-    "opener": "Hi — I pulled up KC Mortgage Kay Cleland - First Time Homebuyer Loans, Manufactured Homes in Castle Rock, Colorado Springs, Parker and noticed you don't have services / what we do, but 64% of business businesses do — it's probably costing you bookings every week. I built a version of your site that fixes it. Two minutes to show you?"
+    "opener": "Hi — I pulled up KC Mortgage Kay Cleland - First Time Homebuyer Loans, Manufactured Homes in Castle Rock, Colorado Springs, Parker and noticed you don't have services / what we do, but 64% of business businesses do — it's probably costing you bookings every week. I built a version of your site that fixes it. Two minutes to show you?",
+    "assets": {
+      "slug": "kcmortgagecolorado-com",
+      "demo": "/kcmortgagecolorado-com/",
+      "funnel": "/p/kcmortgagecolorado-com/",
+      "teardown": "/teardowns/kcmortgagecolorado-com/"
+    },
+    "email": {
+      "subject": "I rebuilt KC Mortgage Kay Cleland - First Time Homebuyer Loans, Manufactured Homes in Castle Rock, Colorado Springs, Parker's website — it's ready to look at",
+      "body": "Hi — Kris here from Sightline Studio, here in Colorado.\n\nI pulled up kcmortgagecolorado.com and noticed it's missing services / what we do — 64% of business businesses have it, and it's likely costing you customers every week.\n\nSo instead of sending a pitch deck, I just built it. Here's KC Mortgage Kay Cleland - First Time Homebuyer Loans, Manufactured Homes in Castle Rock, Colorado Springs, Parker's new site, live right now:\n\nhttps://sightline-studio.vercel.app/p/kcmortgagecolorado-com/\n\nThat's a real, working site — your name, your services, your photos, built for phones and built to be found on Google. The same link shows how you stack up against your local competitors, measured on public signals.\n\nIf you like it, it's yours: we host it, watch it, and market it from $59.99/mo with $0 down — and you own the site. If not, no hard feelings; the preview was free.\n\nWorth two minutes? Just reply to this email.\n\n— Kris\nSightline Studio · look sharp, stay safe, get found"
+    }
   },
   {
     "type": "church",
@@ -4530,7 +4881,14 @@
         "peerPct": 0
       }
     ],
-    "opener": "Hi — I looked at Kempsville Christian Church's site (scored it 77/100 vs a 59 average for contemporary churches). I rebuilt a sharper version — can I send it over?"
+    "opener": "Hi — I looked at Kempsville Christian Church's site (scored it 77/100 vs a 59 average for contemporary churches). I rebuilt a sharper version — can I send it over?",
+    "assets": {
+      "slug": "kccfamily-org",
+      "demo": null,
+      "funnel": null,
+      "teardown": null
+    },
+    "email": null
   },
   {
     "type": "church",
@@ -4627,7 +4985,14 @@
         "peerPct": 0
       }
     ],
-    "opener": "Hi — I looked at Mosaic Church's site (scored it 78/100 vs a 59 average for contemporary churches). I rebuilt a sharper version — can I send it over?"
+    "opener": "Hi — I looked at Mosaic Church's site (scored it 78/100 vs a 59 average for contemporary churches). I rebuilt a sharper version — can I send it over?",
+    "assets": {
+      "slug": "mosaicchurch-live",
+      "demo": null,
+      "funnel": null,
+      "teardown": null
+    },
+    "email": null
   },
   {
     "type": "church",
@@ -4735,7 +5100,14 @@
         "peerPct": 57
       }
     ],
-    "opener": "Hi — I pulled up Emmanuel Fellowship Church and noticed you don't have serve & volunteer, but 70% of contemporary churches do — it's probably costing you visitors every week. I built a version of your site that fixes it. Two minutes to show you?"
+    "opener": "Hi — I pulled up Emmanuel Fellowship Church and noticed you don't have serve & volunteer, but 70% of contemporary churches do — it's probably costing you visitors every week. I built a version of your site that fixes it. Two minutes to show you?",
+    "assets": {
+      "slug": "efcsweetwater-com",
+      "demo": null,
+      "funnel": null,
+      "teardown": null
+    },
+    "email": null
   },
   {
     "type": "church",
@@ -4843,7 +5215,14 @@
         "peerPct": 57
       }
     ],
-    "opener": "Hi — I pulled up Demolab 5 and noticed you don't have kids & families, but 63% of contemporary churches do — it's probably costing you visitors every week. I built a version of your site that fixes it. Two minutes to show you?"
+    "opener": "Hi — I pulled up Demolab 5 and noticed you don't have kids & families, but 63% of contemporary churches do — it's probably costing you visitors every week. I built a version of your site that fixes it. Two minutes to show you?",
+    "assets": {
+      "slug": "faithconnector-demo",
+      "demo": null,
+      "funnel": null,
+      "teardown": null
+    },
+    "email": null
   },
   {
     "type": "church",
@@ -4940,7 +5319,14 @@
         "peerPct": 0
       }
     ],
-    "opener": "Hi — I looked at Oxfordbaptist's site (scored it 80/100 vs a 59 average for contemporary churches). I rebuilt a sharper version — can I send it over?"
+    "opener": "Hi — I looked at Oxfordbaptist's site (scored it 80/100 vs a 59 average for contemporary churches). I rebuilt a sharper version — can I send it over?",
+    "assets": {
+      "slug": "oxfordbaptist-ca",
+      "demo": null,
+      "funnel": null,
+      "teardown": null
+    },
+    "email": null
   },
   {
     "type": "church",
@@ -5037,7 +5423,14 @@
         "peerPct": 77
       }
     ],
-    "opener": "Hi — I pulled up Branch Life Church and noticed you don't have current & alive, but 77% of contemporary churches do — it's probably costing you visitors every week. I built a version of your site that fixes it. Two minutes to show you?"
+    "opener": "Hi — I pulled up Branch Life Church and noticed you don't have current & alive, but 77% of contemporary churches do — it's probably costing you visitors every week. I built a version of your site that fixes it. Two minutes to show you?",
+    "assets": {
+      "slug": "branchlife-church",
+      "demo": null,
+      "funnel": null,
+      "teardown": null
+    },
+    "email": null
   },
   {
     "type": "church",
@@ -5128,7 +5521,14 @@
         "peerPct": 0
       }
     ],
-    "opener": "Hi — I looked at Church in Gainesville's site (scored it 90/100 vs a 59 average for contemporary churches). I rebuilt a sharper version — can I send it over?"
+    "opener": "Hi — I looked at Church in Gainesville's site (scored it 90/100 vs a 59 average for contemporary churches). I rebuilt a sharper version — can I send it over?",
+    "assets": {
+      "slug": "westsidebaptist-org",
+      "demo": null,
+      "funnel": null,
+      "teardown": null
+    },
+    "email": null
   },
   {
     "type": "church",
@@ -5211,6 +5611,13 @@
     },
     "competitorGaps": [],
     "talkingPoints": [],
-    "opener": "Hi — I looked at New Hope Christian Church's site (scored it 98/100 vs a 59 average for contemporary churches). I rebuilt a sharper version — can I send it over?"
+    "opener": "Hi — I looked at New Hope Christian Church's site (scored it 98/100 vs a 59 average for contemporary churches). I rebuilt a sharper version — can I send it over?",
+    "assets": {
+      "slug": "newhopechristianchurch-com",
+      "demo": null,
+      "funnel": null,
+      "teardown": null
+    },
+    "email": null
   }
 ]
