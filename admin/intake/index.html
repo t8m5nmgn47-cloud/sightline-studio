@@ -127,6 +127,37 @@
     </div>
   </div>
 
+  <div id="buildWrap" class="out hide">
+    <div class="panel" style="border-left:3px solid var(--ac)">
+      <div class="outbar" style="margin-bottom:6px"><h2>Build the website</h2><span id="smState" class="badge warn">checking builder…</span></div>
+      <div id="smOff" class="hide">
+        <p class="hint" style="margin-top:0">The site builder runs on your Mac (it needs Chrome and your repo). Start it, then this page connects automatically:</p>
+        <p class="hint"><code>cd ~/sightline-studio && node engine/studio-local.mjs</code>
+          <button class="lnk" id="copyCmd">copy</button>
+          <button class="lnk" id="reProbe">↻ re-check</button></p>
+      </div>
+      <div id="smOn" class="hide">
+        <p class="hint" style="margin-top:0">Builder connected. Your reviewed profile above is sent with the build — it overrides anything the crawler got wrong.</p>
+        <div class="run" style="margin:10px 0">
+          <select id="bkind" style="border:1px solid var(--line);border-radius:10px;padding:11px 13px;font-family:var(--body);font-size:.92rem">
+            <option value="">Auto-detect type</option>
+            <option value="--vertical dental">Dental</option><option value="--vertical medical">Medical</option>
+            <option value="--vertical law">Law</option><option value="--vertical medspa">Med spa</option>
+            <option value="--vertical business">General business</option>
+            <option value="--tradition catholic">Church — Catholic</option>
+            <option value="--tradition mainline">Church — Mainline</option>
+            <option value="--tradition contemporary">Church — Contemporary</option>
+          </select>
+          <button id="build" class="btn">Generate website</button>
+          <button id="publish" class="btn ghost hide">Publish to live site</button>
+        </div>
+        <div id="bstatus" class="status"></div>
+        <pre id="blog" class="hide" style="background:var(--acd);color:#e8f3ee;border-radius:12px;padding:14px;font-family:var(--mono);font-size:.75rem;max-height:260px;overflow:auto"></pre>
+        <p id="blinks" class="hint"></p>
+      </div>
+    </div>
+  </div>
+
   <div id="outWrap" class="out hide">
     <div class="outbar"><h2>prospects.json record</h2><button id="copy" class="btn">Copy</button></div>
     <pre id="out"></pre>
@@ -145,7 +176,7 @@ async function run(){
   if(!domain){ return; }
   $("go").disabled = true;
   $("status").className = "status"; $("status").textContent = "Reading " + domain + " …";
-  $("badges").innerHTML = ""; $("result").classList.add("hide"); $("outWrap").classList.add("hide");
+  $("badges").innerHTML = ""; $("result").classList.add("hide"); $("outWrap").classList.add("hide"); $("buildWrap").classList.add("hide");
   try{
     const res = await fetch("/api/intake", {
       method:"POST", headers:{"content-type":"application/json"},
@@ -215,8 +246,66 @@ function fill(domain, data){
   if(selectedLogo) sampleLogoColors(selectedLogo);
 
   $("result").classList.remove("hide"); $("outWrap").classList.remove("hide");
+  $("buildWrap").classList.remove("hide"); probeBuilder();
   syncOut();
 }
+
+/* ---- build step: hand the reviewed profile to the local Site Maker ---- */
+const SM = "http://localhost:4747";
+let BUILT = null;
+async function probeBuilder(){
+  $("smState").textContent = "checking builder…"; $("smState").className = "badge warn";
+  try{
+    const r = await fetch(SM + "/api/ping", { signal: AbortSignal.timeout(2500) });
+    const d = await r.json();
+    if(!d.ok) throw 0;
+    $("smState").textContent = "builder connected"; $("smState").className = "badge";
+    $("smOn").classList.remove("hide"); $("smOff").classList.add("hide");
+  }catch(e){
+    $("smState").textContent = "builder not running"; $("smState").className = "badge warn";
+    $("smOff").classList.remove("hide"); $("smOn").classList.add("hide");
+  }
+}
+$("reProbe").onclick = probeBuilder;
+$("copyCmd").onclick = async () => {
+  try{ await navigator.clipboard.writeText("cd ~/sightline-studio && node engine/studio-local.mjs");
+    $("copyCmd").textContent="copied ✓"; setTimeout(()=>$("copyCmd").textContent="copy",1400); }catch(e){}
+};
+$("build").onclick = async () => {
+  const p = collect();
+  if(!p.domain){ return; }
+  $("build").disabled = true; $("build").textContent = "Generating…";
+  $("bstatus").className = "status"; $("bstatus").textContent = "Building " + p.domain + " — usually 10–30 s…";
+  $("blog").classList.add("hide"); $("blinks").innerHTML = ""; $("publish").classList.add("hide");
+  try{
+    const r = await fetch(SM + "/api/run", { method:"POST", headers:{"content-type":"application/json"},
+      body: JSON.stringify({ domain: p.domain, kind: $("bkind").value, profile: p }) });
+    const d = await r.json();
+    $("blog").textContent = d.log || ""; $("blog").classList.remove("hide");
+    if(!d.ok) throw new Error("Build failed — see log below.");
+    BUILT = d.slug;
+    $("bstatus").textContent = "Demo ready ✓";
+    $("blinks").innerHTML = `Preview (your Mac only): <a target="_blank" href="${SM}/demos/${d.slug}/">${SM}/demos/${d.slug}/</a>`;
+    $("publish").classList.remove("hide");
+  }catch(e){
+    $("bstatus").className = "status err";
+    $("bstatus").textContent = (e.name==="TypeError"||e.name==="AbortError") ? "Lost connection to the builder — is it still running?" : e.message;
+  }finally{ $("build").disabled = false; $("build").textContent = "Generate website"; }
+};
+$("publish").onclick = async () => {
+  if(!BUILT) return;
+  if(!confirm("Publish this demo to sightline-studio.vercel.app/demos/" + BUILT + "/ ?")) return;
+  $("publish").disabled = true; $("publish").textContent = "Publishing…";
+  try{
+    const r = await fetch(SM + "/api/publish", { method:"POST", headers:{"content-type":"application/json"},
+      body: JSON.stringify({ slug: BUILT }) });
+    const d = await r.json();
+    if(!d.ok) throw new Error("Publish failed — check the Site Maker window.");
+    $("blinks").innerHTML = `<span style="color:var(--ac);font-weight:700">Published ✓</span> Live in ~2 min: <a target="_blank" href="${d.url}">${d.url}</a>`;
+  }catch(e){
+    $("bstatus").className = "status err"; $("bstatus").textContent = e.message;
+  }finally{ $("publish").disabled = false; $("publish").textContent = "Publish to live site"; }
+};
 
 function selectLogo(url, el){
   selectedLogo = url; $("logoUrl").value = url;

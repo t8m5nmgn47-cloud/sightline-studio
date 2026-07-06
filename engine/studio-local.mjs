@@ -17,10 +17,37 @@ const MIME = { '.html':'text/html', '.css':'text/css', '.js':'text/javascript', 
   '.png':'image/png', '.jpg':'image/jpeg', '.jpeg':'image/jpeg', '.webp':'image/webp', '.svg':'image/svg+xml',
   '.mp4':'video/mp4', '.woff2':'font/woff2', '.json':'application/json', '.ico':'image/x-icon' };
 
-const json = (res, code, obj) => { res.writeHead(code, {'content-type':'application/json'}); res.end(JSON.stringify(obj)); };
+// CORS: the hosted admin (intake page) calls this local server directly from
+// the browser, so preflights + responses must allow that origin.
+const ALLOWED_ORIGINS = /^https:\/\/sightline-studio(-[a-z0-9-]+)?\.vercel\.app$|^http:\/\/localhost(:\d+)?$/;
+const cors = (req) => {
+  const o = req.headers.origin || '';
+  return ALLOWED_ORIGINS.test(o) ? { 'access-control-allow-origin': o, 'access-control-allow-headers': 'content-type', 'access-control-allow-methods': 'POST, GET, OPTIONS' } : {};
+};
+const json = (res, code, obj, extra = {}) => { res.writeHead(code, {'content-type':'application/json', ...extra}); res.end(JSON.stringify(obj)); };
 
-function runPipeline(domain, kindFlag, res) {
-  const args = ['engine/pipeline.mjs', domain];
+// Reviewed intake profile → engine/content-overrides.json (highest-priority
+// content source: beats capture, AI, and pack defaults). This is what makes
+// the human review on the intake page actually count in the built site.
+function saveOverride(slug, profile) {
+  if (!profile || typeof profile !== 'object') return false;
+  const file = path.join(ROOT, 'engine/content-overrides.json');
+  let all = {}; try { all = JSON.parse(fs.readFileSync(file, 'utf8')); } catch {}
+  const ov = {};
+  if (profile.motto) ov.headline = String(profile.motto).slice(0, 140);
+  if (profile.tagline) ov.subhead = String(profile.tagline).slice(0, 300);
+  const svcs = (profile.services || []).map(s => (s && s.name ? String(s.name) : '')).filter(Boolean);
+  if (svcs.length >= 3) ov.services = svcs.slice(0, 8);
+  if (profile.category) ov.specialty = String(profile.category).slice(0, 120);
+  if (profile.notes) ov.about = String(profile.notes).slice(0, 600);
+  if (!Object.keys(ov).length) return false;
+  all[slug] = { ...(all[slug] || {}), ...ov };
+  fs.writeFileSync(file, JSON.stringify(all, null, 2) + '\n');
+  return true;
+}
+
+function runPipeline(domain, kindFlag, res, extra = {}) {
+  const args = ['engine/pipeline.mjs', domain, '--pages'];
   if (kindFlag) args.push(...kindFlag.split(' '));
   const child = spawn(process.execPath, args, { cwd: ROOT });
   let out = '', err = '';
@@ -28,8 +55,8 @@ function runPipeline(domain, kindFlag, res) {
   child.stderr.on('data', d => err += d);
   child.on('close', code => {
     const m = out.match(/published:\s*demos\/([^/\s]+)\/index\.html/);
-    if (code === 0 && m) json(res, 200, { ok:true, slug:m[1], log:out.trim() });
-    else json(res, 500, { ok:false, log:(out+'\n'+err).trim() || ('exited with code '+code) });
+    if (code === 0 && m) json(res, 200, { ok:true, slug:m[1], log:out.trim() }, extra);
+    else json(res, 500, { ok:false, log:(out+'\n'+err).trim() || ('exited with code '+code) }, extra);
   });
 }
 
@@ -40,17 +67,17 @@ function git(args) {
   });
 }
 
-async function publish(slug, res) {
-  if (!/^[a-z0-9-]+$/.test(slug)) return json(res, 400, { ok:false, log:'bad slug' });
+async function publish(slug, res, extra = {}) {
+  if (!/^[a-z0-9-]+$/.test(slug)) return json(res, 400, { ok:false, log:'bad slug' }, extra);
   const steps = [];
-  let r = await git(['add', '-f', `demos/${slug}`]); steps.push(r.out);
-  if (!r.ok) return json(res, 500, { ok:false, log:steps.join('\n') });
+  let r = await git(['add', '-f', `demos/${slug}`, 'engine/content-overrides.json']); steps.push(r.out);
+  if (!r.ok) return json(res, 500, { ok:false, log:steps.join('\n') }, extra);
   r = await git(['-c','user.name=Sightline Site Maker','-c','user.email=kris.emery@brains-and-motion.com',
                  'commit','-m',`Publish demo: ${slug}`]); steps.push(r.out);
-  if (!r.ok && !/nothing to commit/.test(r.out)) return json(res, 500, { ok:false, log:steps.join('\n') });
+  if (!r.ok && !/nothing to commit/.test(r.out)) return json(res, 500, { ok:false, log:steps.join('\n') }, extra);
   r = await git(['push','origin','main']); steps.push(r.out);
-  if (!r.ok) return json(res, 500, { ok:false, log:steps.join('\n') });
-  json(res, 200, { ok:true, url:`https://sightline-studio.vercel.app/demos/${slug}/`, log:steps.join('\n') });
+  if (!r.ok) return json(res, 500, { ok:false, log:steps.join('\n') }, extra);
+  json(res, 200, { ok:true, url:`https://sightline-studio.vercel.app/demos/${slug}/`, log:steps.join('\n') }, extra);
 }
 
 const PAGE = `<!doctype html><html lang="en"><head><meta charset="utf-8">
@@ -134,6 +161,9 @@ $("pub").onclick=async()=>{
 
 const server = http.createServer((req, res) => {
   const url = new URL(req.url, 'http://localhost');
+  const C = cors(req);
+  if (req.method === 'OPTIONS') { res.writeHead(204, C); return res.end(); }
+  if (url.pathname === '/api/ping') return json(res, 200, { ok:true, app:'sightline-site-maker' }, C);
   if (url.pathname === '/' ) { res.writeHead(200, {'content-type':'text/html'}); return res.end(PAGE); }
   if (req.method === 'POST' && (url.pathname === '/api/run' || url.pathname === '/api/publish')) {
     let body = '';
@@ -142,12 +172,15 @@ const server = http.createServer((req, res) => {
       let b = {}; try { b = JSON.parse(body || '{}'); } catch {}
       if (url.pathname === '/api/run') {
         const domain = String(b.domain||'').trim().replace(/^https?:\/\//,'').split('/')[0];
-        if (!/^[a-z0-9.-]+\.[a-z]{2,}$/i.test(domain)) return json(res, 400, {ok:false, log:'Please enter a website like sunnysidedental.com'});
+        if (!/^[a-z0-9.-]+\.[a-z]{2,}$/i.test(domain)) return json(res, 400, {ok:false, log:'Please enter a website like sunnysidedental.com'}, C);
         const kind = ['--vertical dental','--vertical medical','--vertical law','--vertical medspa','--vertical business',
           '--tradition catholic','--tradition mainline','--tradition contemporary'].includes(b.kind) ? b.kind : '';
-        return runPipeline(domain, kind, res);
+        // reviewed intake profile (optional) → highest-priority content override
+        const slug = domain.replace(/^www\./,'').replace(/\./g,'-').toLowerCase();
+        try { if (b.profile) saveOverride(slug, b.profile); } catch (e) { console.warn('override save failed:', e.message); }
+        return runPipeline(domain, kind, res, C);
       }
-      return publish(String(b.slug||''), res);
+      return publish(String(b.slug||''), res, C);
     });
     return;
   }
