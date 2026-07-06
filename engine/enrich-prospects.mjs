@@ -80,8 +80,16 @@ export function enrich(rows){
     r.assets = resolveAssets(r.domain);
     const link = r.assets.funnel ? SITE + r.assets.funnel : r.assets.demo ? SITE + r.assets.demo : null;
     if (!link || r.stale){ r.email = null; continue; }   // stale = unverified: never email on old facts
+    const breachHit = r.breach && r.breach.count > 0;
+    const breachLead = breachHit ? (() => {
+      const e = r.breach.exposures?.[0];
+      const where = r.breach.checkedEmail ? `your published address ${r.breach.checkedEmail}` : `${r.domain}`;
+      return `I ran an exposure check on ${where} (public breach records only) and it turned up in ${r.breach.count} known data breach${r.breach.count>1?'es':''}${e?`, including ${e.title}${e.year?' ('+e.year+')':''}`:''}${r.breach.hasPasswords?' — with passwords among the leaked data':''}. Most owners have no idea, and it's exactly the kind of thing that spooks a ${r.tradition==='law'?'client':(r.tradition==='dental'||r.tradition==='medical')?'patient':'customer'} who looks you up.`;
+    })() : null;
     const hook = r.dead
       ? `Your current site at ${r.domain} is down — a placeholder is standing where your front door should be, so anyone searching for you right now finds nothing.`
+      : (breachLead && isBiz)
+        ? breachLead
       : (r.audit?.scary && isBiz)
         ? `I ran a standard security check on ${r.domain} (public signals only — nothing invasive) and found something you should know about: ${r.audit.scary}. ${/DMARC/i.test(r.audit.scary)?"That's the setting that stops criminals impersonating your email to your own "+(r.tradition==='law'?'clients':(r.tradition==='dental'||r.tradition==='medical')?'patients':'customers')+".":"For a local "+r.tradition+" business, that's the kind of thing that erodes trust before you ever get the call."}`
       : (r.reviews?.weak && isBiz)
@@ -106,7 +114,9 @@ That's a real, working site — your name, your ${isBiz?'services':'ministries'}
 
 It also ships with our review engine — the steady ask that turns happy customers into the Google reviews you're missing.`:''}${(r.audit?.scary && isBiz)?`
 
-And the security gap above? Closed on day one — every Sightline build ships with proper HTTPS, hardened security headers, and email-impersonation protection as standard.`:''}
+And the security gap above? Closed on day one — every Sightline build ships with proper HTTPS, hardened security headers, and email-impersonation protection as standard.`:''}${(breachHit && isBiz)?`
+
+That breach exposure is exactly what our monitoring watches for — you'd get a plain-English heads-up the moment your business shows up somewhere new, instead of finding out from a customer.`:''}
 
 If you like it, it's yours: ${isBiz?'we host it, watch it, and market it from $59.99/mo with $0 down':'we host it, keep it fresh, and handle the tech for one simple monthly price'} — and you own the site. If not, no hard feelings; the preview was free.
 

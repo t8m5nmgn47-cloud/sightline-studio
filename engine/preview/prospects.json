@@ -147,6 +147,11 @@
       "topGap": "Weak search presence — no meta description for Google",
       "scary": null,
       "at": "2026-07-06"
+    },
+    "breach": {
+      "count": 0,
+      "checkedEmail": null,
+      "at": "2026-07-06"
     }
   },
   {
@@ -286,7 +291,12 @@
     "phone": null,
     "stale": false,
     "verifiedAt": "2026-07-06",
-    "audit": null
+    "audit": null,
+    "breach": {
+      "count": 0,
+      "checkedEmail": null,
+      "at": "2026-07-06"
+    }
   },
   {
     "type": "business",
@@ -431,6 +441,11 @@
       "topGap": "A couple of web-security headers are missing",
       "scary": null,
       "at": "2026-07-06"
+    },
+    "breach": {
+      "count": 0,
+      "checkedEmail": null,
+      "at": "2026-07-06"
     }
   },
   {
@@ -553,6 +568,11 @@
       "securityMax": 63,
       "topGap": "No DMARC record — your email domain can be impersonated",
       "scary": "no enforced DMARC — scammers can send email that looks like it comes from you",
+      "at": "2026-07-06"
+    },
+    "breach": {
+      "count": 0,
+      "checkedEmail": null,
       "at": "2026-07-06"
     }
   },
@@ -707,6 +727,11 @@
       "securityMax": 63,
       "topGap": "DMARC isn't enforced (p=none) — your email can be spoofed by scammers",
       "scary": "no enforced DMARC — scammers can send email that looks like it comes from you",
+      "at": "2026-07-06"
+    },
+    "breach": {
+      "count": 0,
+      "checkedEmail": null,
       "at": "2026-07-06"
     }
   },
@@ -863,6 +888,11 @@
       "topGap": "No DMARC record — your email domain can be impersonated",
       "scary": "no enforced DMARC — scammers can send email that looks like it comes from you",
       "at": "2026-07-06"
+    },
+    "breach": {
+      "count": 0,
+      "checkedEmail": null,
+      "at": "2026-07-06"
     }
   },
   {
@@ -1018,6 +1048,11 @@
       "topGap": "DMARC isn't enforced (p=none) — your email can be spoofed by scammers",
       "scary": "no enforced DMARC — scammers can send email that looks like it comes from you",
       "at": "2026-07-06"
+    },
+    "breach": {
+      "count": 0,
+      "checkedEmail": null,
+      "at": "2026-07-06"
     }
   },
   {
@@ -1147,6 +1182,11 @@
       "securityMax": 63,
       "topGap": "No DMARC record — your email domain can be impersonated",
       "scary": "no enforced DMARC — scammers can send email that looks like it comes from you",
+      "at": "2026-07-06"
+    },
+    "breach": {
+      "count": 0,
+      "checkedEmail": null,
       "at": "2026-07-06"
     }
   },
