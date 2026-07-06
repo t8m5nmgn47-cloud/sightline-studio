@@ -160,7 +160,7 @@ const profile = normalize(sig, {
   fonts: cap.fonts.head ? cap.fonts : null,
   phone: cap.facts.phone || '',
   gallery: assets.gallery,
-  heroImage: assets.heroImage || (isBiz ? null : '/assets/stock/church-2.webp'),
+  heroImage: (override && override.heroImage) || assets.heroImage || (isBiz ? null : '/assets/stock/church-2.webp'),
   hero: { kick: name, headline: heroHeadline,
     sub: (override && override.subhead) ? override.subhead : (ai && ai.subhead) ? ai.subhead : heroSub(sig.description, isBiz?'Modern, friendly service — get in touch in a minute.':'Come as you are.'),
     ctas: [{label: bookCta, href: isBiz?'#book':'#visit'}] },
