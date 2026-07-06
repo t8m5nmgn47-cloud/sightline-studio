@@ -79,7 +79,7 @@ export function enrich(rows){
     // ── the built goods + the exact email we send ───────────────────────────
     r.assets = resolveAssets(r.domain);
     const link = r.assets.funnel ? SITE + r.assets.funnel : r.assets.demo ? SITE + r.assets.demo : null;
-    if (!link){ r.email = null; continue; }
+    if (!link || r.stale){ r.email = null; continue; }   // stale = unverified: never email on old facts
     const hook = r.dead
       ? `Your current site at ${r.domain} is down — a placeholder is standing where your front door should be, so anyone searching for you right now finds nothing.`
       : (r.reviews?.weak && isBiz)

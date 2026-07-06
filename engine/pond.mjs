@@ -19,10 +19,8 @@ import fs from 'node:fs';
 import path from 'node:path';
 import * as cheerio from 'cheerio';
 import { fileURLToPath } from 'node:url';
-import { scoreBusiness, corpusFromPages } from './business.mjs';
-import { scoreCongregation } from './congregation.mjs';
-import { detectVertical } from './vertical-content.mjs';
 import { enrich } from './enrich-prospects.mjs';
+import { scoreDomain } from './score-prospect.mjs';
 
 const ROOT = fileURLToPath(new URL('..', import.meta.url));
 const FILE = path.join(ROOT, 'engine/preview/prospects.json');
@@ -78,69 +76,6 @@ async function fromOSM(category, city){
   return out;
 }
 
-// ── scoring helpers (same maths as the original prospector) ──────────────────
-const JUNK_NAME = /^(home ?page|home|welcome|untitled|index|error|checking your browser|just a moment|attention required)$|^\d{3}\b|forbidden|not found|access denied|default web ?site|apache|nginx|test page/i;
-const BAD_CAPTURE = /checking your browser|just a moment\.\.\.|attention required|access denied|error 40[34]|are you a (human|robot)|enable javascript to/i;
-const DEAD = /launching soon|coming soon|under construction|site is being built|domain (is )?for sale|godaddy|this domain|parked|account suspended|default web ?site|page not found|404 not found/i;
-const humanize = d => d.replace(/\.[a-z]+$/,'').replace(/[-_.]+/g,' ').replace(/\b\w/g,c=>c.toUpperCase());
-function detectTradition(t){ t=t.toLowerCase();
-  if (/\b(mass times?|sacrament|parish|eucharist|reconciliation|diocese|ocia|rcia)\b/.test(t)) return 'catholic';
-  if (/\b(elca|lcms|umc|pc\(usa\)|pcusa|episcopal|synod)\b/.test(t)) return 'mainline';
-  return 'contemporary'; }
-const MRR = { dental:249, medical:249, optometry:229, law:299, accounting:229, insurance:199, mortgage:229, title:229, medspa:249, trades:199, childcare:199, retail:199, business:199, church:99 };
-
-async function scoreDomain(entry, isChurch){
-  let html = null;
-  try {
-    const ac = new AbortController(); const t = setTimeout(()=>ac.abort(), 15000);
-    const res = await fetch('https://'+entry.domain, { ...UA, signal: ac.signal });
-    clearTimeout(t);
-    if (res.ok) html = await res.text();
-  } catch {}
-  if (html && BAD_CAPTURE.test(html)) html = null;        // bot-wall: can't judge fairly — skip
-  if (!html) return null;                                  // unreachable sites: skip (can't score honestly)
-
-  const $ = cheerio.load(html);
-  const bodyText = $('body').text();
-  const rawName = ($('meta[property="og:site_name"]').attr('content') || $('title').first().text().split(/[|–—·]/)[0] || '').replace(/\s+/g,' ').trim();
-  const name = (!rawName || JUNK_NAME.test(rawName) || rawName.length<3) ? (entry.hintName || humanize(entry.domain)) : rawName;
-  const dead = DEAD.test(html) || (html.length < 40000 && bodyText.replace(/\s+/g,' ').length < 400);
-  const corpus = corpusFromPages({ home: html }, cheerio, { https:true, mobile:/viewport/.test(html) });
-
-  let type, tradition, r;
-  if (isChurch || /\b(church|worship|sermon|congregation)\b/i.test(bodyText.slice(0,4000))){
-    type = 'church'; tradition = detectTradition(bodyText);
-    r = scoreCongregation(corpus, { tradition });
-  } else {
-    type = 'business'; tradition = detectVertical(name+' '+bodyText.slice(0,4000));
-    // we KNOW what we searched for — if page text was too thin to classify,
-    // the search category is better evidence than the generic bucket
-    const CAT_VERTICAL = { dentist:'dental', medical:'medical', optometry:'optometry', law:'law',
-      accounting:'accounting', insurance:'insurance', medspa:'medspa', trades:'trades', childcare:'childcare' };
-    if (tradition === 'business' && CAT_VERTICAL[category]) tradition = CAT_VERTICAL[category];
-    r = scoreBusiness(corpus);
-  }
-  const gaps = r.dims.filter(d=>!d.found).map(d=>d.label);
-  const tier = dead ? 'DEAD' : r.score < (type==='church'?45:40) ? 'HOT' : r.score < 60 ? 'WARM' : r.score < 80 ? 'MILD' : 'SERVED';
-  const pitch = dead
-    ? `${name} has no working website — a dead placeholder where their front door should be.`
-    : gaps.length
-      ? (type==='business'
-          ? `Leaking leads — missing ${gaps.slice(0,3).join(', ').toLowerCase()}. Scores ${r.score}/100; each fix is booked revenue.`
-          : `Pays for a site but it's missing ${gaps.slice(0,3).join(', ').toLowerCase()} — scores ${r.score}/100 on congregation-readiness.`)
-      : `Strong site (${r.score}/100) — low priority.`;
-  const base = MRR[tradition] || MRR.business;
-  const need = dead ? 0.55 : Math.min(0.6, 0.2 + (100 - r.score)/100*0.45);
-  return {
-    type, domain: entry.domain, name, platform:'pond', tradition,
-    score: dead?0:r.score, tier, gaps, pitch, dead,
-    dims: r.dims.map(d=>({l:d.label,f:d.found,w:d.why})),
-    phone: entry.phone || null,
-    mrr: base, annual: base*12, winPct: Math.round(need*100), expected: Math.round(base*12*need),
-    capturedAt: new Date().toISOString().slice(0,10),
-  };
-}
-
 // ── run ───────────────────────────────────────────────────────────────────────
 const category = flag('category'), city = flag('city');
 let targets = [];
@@ -157,9 +92,9 @@ console.log(`◦ ${targets.length} candidates · ${targets.length-fresh.length} 
 let added = 0, skipped = 0;
 for (const t of fresh){
   process.stdout.write(`  ${t.domain.padEnd(36)}`);
-  const row = await scoreDomain(t, category==='church');
+  const row = await scoreDomain(t, { churchHint: category==='church', categoryHint: category });
   if (!row){ console.log('✗ unreachable — skipped'); skipped++; continue; }
-  rows.push(row); added++;
+  row.platform='pond'; row.capturedAt=new Date().toISOString().slice(0,10); row.verifiedAt=row.capturedAt; rows.push(row); added++;
   console.log(`${row.dead?'✕ DEAD':row.score+'/100'}  [${row.tier}] ${row.type}/${row.tradition}`);
   await sleep(400); // be polite to small-business servers
 }
