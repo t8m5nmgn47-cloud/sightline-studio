@@ -112,8 +112,32 @@ S.nav = (p) => `
   <a class="btn sm" href="#visit">${p._t?.imNew || "I'm New"}</a>
 </nav>`;
 
-S.hero = (p, {mood}) => {
+S.hero = (p, {mood, arch}) => {
   const h = p.hero || {};
+  // ── FLAGSHIP hero: cinematic, editorial, layered. The signature look. ──────
+  if (arch === 'flagship'){
+    const words = (h.headline || p.name).split(' ');
+    const anim = words.map((w,i)=>`<span class="w" style="--i:${i}">${w}</span>`).join(' ');
+    const media = p.heroVideo
+      ? `<video autoplay muted loop playsinline preload="metadata" poster="${p.heroImage||''}"><source src="${p.heroVideo}" type="video/mp4"></video>`
+      : p.heroImage ? `<img src="${p.heroImage}" alt="${p.name}" loading="eager">` : '';
+    const trust = (p._t && p._t.trust) ? p._t.trust.slice(0,3) : [];
+    return `
+<header class="fhero" id="top">
+  <div class="fhero-media">${media}<div class="fhero-veil"></div></div>
+  <div class="wrap fhero-in">
+    ${h.kick?`<span class="fkick"><span class="fkick-dot"></span>${h.kick}</span>`:''}
+    <h1 class="fhead">${anim}</h1>
+    ${h.sub?`<p class="fsub">${h.sub}</p>`:''}
+    <div class="fcta">
+      ${(h.ctas||[{label:'Get started →',href:'#book'}]).map((c,i)=>`<a class="fbtn${i?' ghost':''}" href="${c.href}">${c.label}</a>`).join('')}
+      ${p.phone?`<a class="fbtn ghost" href="tel:${p.phone.replace(/[^0-9]/g,'')}">${p.phone}</a>`:''}
+    </div>
+    ${trust.length?`<ul class="ftrust">${trust.map(t=>`<li>${t}</li>`).join('')}</ul>`:''}
+  </div>
+  <a class="fscroll" href="#book" aria-label="Scroll"><span></span></a>
+</header>`;
+  }
   // Video hero when the church gives us footage (their own, or AI for commercial demos);
   // the still image is the poster + instant fallback, so it degrades gracefully.
   const bg = p.heroVideo
@@ -312,6 +336,9 @@ export const ARCHETYPES = {
   minimal:{   order:['nav','hero','services','times','events','giving','cta','footer'], body:'arch-minimal' },
   // congregation-first: ordered around the visitor's journey, not the institution
   journey:{   order:['announce','nav','hero','times','nextsteps','services','groups','serve','events','team','care','giving','sermons','cta','footer'], body:'arch-journey' },
+  // FLAGSHIP: the $15k look. Cinematic hero, editorial type, layered depth,
+  // staggered reveals. The one we show on every call.
+  flagship:{  order:['nav','hero','marquee','services','reviews','offer','hours','cta','footer'], body:'arch-flagship' },
 };
 
 // ── business sections (local high-value verticals: dental / law / medspa) ────
@@ -323,6 +350,15 @@ S.bookbar = (p) => { const b=p.sections.book||{};
     <div class="bookbtns"><a class="btn lg" href="${b.href||'#book'}">${p._t?.bookCta||'Book appointment →'}</a>${p.phone?`<a class="btn ghost lg" href="tel:${p.phone.replace(/[^0-9]/g,'')}">📞 ${p.phone}</a>`:''}</div>
   </div>
 </section>`; };
+
+// FLAGSHIP marquee — a slow scrolling band of what they do / who they serve.
+S.marquee = (p) => {
+  const items = (p._t?.services || p.sections?.services?.items?.map(i=>i.h) || []).filter(Boolean).slice(0,8);
+  if (!items.length) return '';
+  const run = items.map(x=>`<span>${x}</span><span class="mstar">✦</span>`).join('');
+  return `
+<section class="fmarquee" aria-hidden="true"><div class="fmarquee-t">${run}${run}</div></section>`;
+};
 
 S.reviews = (p) => { const s=p.sections.reviews; if(!s) return '';
   const items = s.items || [];
@@ -639,6 +675,86 @@ body:not(.arch-split):not(.arch-minimal) .nav.scrolled{background:color-mix(in s
 /* richer footer */
 .foot{padding:56px 0 40px}.foot .wrap{display:flex;flex-wrap:wrap;gap:20px;align-items:baseline;justify-content:space-between}
 .foot-fine{width:100%;border-top:1px solid rgba(255,255,255,.12);padding-top:16px;margin-top:8px}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   FLAGSHIP — the $15k look. Cinematic hero, editorial scale, layered depth.
+   ═══════════════════════════════════════════════════════════════════════════ */
+.arch-flagship{--ease:cubic-bezier(.2,.7,.2,1)}
+.arch-flagship .nav{position:fixed;top:0;left:0;right:0;z-index:40;padding:18px 0;transition:padding .3s var(--ease),background .3s,box-shadow .3s,backdrop-filter .3s}
+.arch-flagship .nav .wrap,.arch-flagship .nav{display:flex;align-items:center;justify-content:space-between}
+.arch-flagship .nav.solid{padding:11px 0;background:color-mix(in srgb,var(--bg) 82%,transparent);backdrop-filter:saturate(1.6) blur(14px);box-shadow:0 1px 0 var(--line),0 12px 30px -18px rgba(0,0,0,.4)}
+/* transparent brandmark over the hero — no floating white pill */
+.arch-flagship .nav .brandmark{background:transparent;box-shadow:none;padding:0}
+.arch-flagship .nav .wordmark{font-family:'__DISPLAY__',Georgia,serif;font-weight:600;font-size:1.34rem;letter-spacing:-.02em;color:#fff}
+.arch-flagship .nav .logo{max-height:40px}
+.arch-flagship .navlinks a{font-size:.9rem;font-weight:500;opacity:.85;transition:opacity .2s}
+.arch-flagship .navlinks a:hover{opacity:1}
+.arch-flagship .nav:not(.solid) .navlinks a{color:#fff}
+.arch-flagship .nav:not(.solid) .btn.sm{background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.42);color:#fff;backdrop-filter:blur(6px)}
+/* once scrolled onto the light glass bar, flip type back to ink */
+.arch-flagship .nav.solid .wordmark{color:var(--ink)}
+.arch-flagship .nav.solid .navlinks a{color:var(--ink)}
+
+/* cinematic hero */
+.fhero{position:relative;min-height:100svh;display:flex;align-items:flex-end;overflow:hidden;color:#fff;isolation:isolate;background:linear-gradient(150deg,color-mix(in srgb,var(--brand) 78%,#000),color-mix(in srgb,var(--brand) 30%,#0a0d12) 70%,#0a0d12)}
+/* no photo? a premium layered brand gradient instead of flat gray */
+.fhero:has(.fhero-media:empty)::after,.fhero .fhero-media:empty{background:radial-gradient(90% 70% at 78% 8%,color-mix(in srgb,var(--accent,#fff) 26%,transparent),transparent 55%),radial-gradient(70% 60% at 12% 96%,color-mix(in srgb,var(--brand) 60%,transparent),transparent 60%)}
+.fhero .fhero-media:empty{position:absolute;inset:0;z-index:-1}
+.fhero-media{position:absolute;inset:0;z-index:-2}
+.fhero-media img,.fhero-media video{width:100%;height:100%;object-fit:cover;transform:scale(1.08);animation:fkenburns 18s var(--ease) forwards}
+@keyframes fkenburns{to{transform:scale(1)}}
+.fhero-veil{position:absolute;inset:0;background:linear-gradient(180deg,rgba(8,10,14,.28) 0%,rgba(8,10,14,.12) 32%,rgba(8,10,14,.62) 78%,rgba(8,10,14,.88) 100%),radial-gradient(120% 80% at 15% 100%,color-mix(in srgb,var(--brand) 55%,transparent),transparent 60%)}
+.fhero-in{position:relative;padding:0 clamp(20px,5vw,64px) clamp(64px,10vh,120px);max-width:1180px;margin:0 auto;width:100%}
+.fkick{display:inline-flex;align-items:center;gap:9px;font-size:.76rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;padding:8px 15px;border:1px solid rgba(255,255,255,.28);border-radius:999px;backdrop-filter:blur(6px);opacity:0;animation:frise .8s var(--ease) .1s forwards}
+.fkick-dot{width:7px;height:7px;border-radius:50%;background:var(--accent,#fff);box-shadow:0 0 0 0 var(--accent,#fff);animation:fpulse 2.6s ease-in-out infinite}
+@keyframes fpulse{0%,100%{box-shadow:0 0 0 0 color-mix(in srgb,var(--accent,#fff) 70%,transparent)}50%{box-shadow:0 0 0 7px transparent}}
+.fhead{font-family:'__DISPLAY__',Georgia,serif;font-weight:600;letter-spacing:-.025em;line-height:.98;font-size:clamp(2.9rem,7vw,6.2rem);margin:20px 0 0;max-width:16ch;text-wrap:balance}
+.fhead .w{display:inline-block;opacity:0;transform:translateY(1.1em) rotate(2deg);animation:fword .9s var(--ease) forwards;animation-delay:calc(.25s + var(--i) * .075s)}
+@keyframes fword{to{opacity:1;transform:none}}
+.fsub{font-size:clamp(1.05rem,1.6vw,1.35rem);line-height:1.5;max-width:52ch;margin:22px 0 0;color:rgba(255,255,255,.86);opacity:0;animation:frise .8s var(--ease) .7s forwards}
+.fcta{display:flex;flex-wrap:wrap;gap:12px;margin-top:32px;opacity:0;animation:frise .8s var(--ease) .85s forwards}
+.fbtn{display:inline-flex;align-items:center;gap:8px;font-weight:600;font-size:1rem;padding:15px 28px;border-radius:999px;background:#fff;color:#111;text-decoration:none;transition:transform .2s var(--ease),box-shadow .2s,background .2s}
+.fbtn:hover{transform:translateY(-3px);box-shadow:0 16px 40px -12px rgba(0,0,0,.5)}
+.fbtn.ghost{background:transparent;color:#fff;border:1px solid rgba(255,255,255,.4)}
+.fbtn.ghost:hover{background:rgba(255,255,255,.12)}
+.ftrust{list-style:none;display:flex;flex-wrap:wrap;gap:10px 26px;margin:34px 0 0;padding:0;opacity:0;animation:frise .8s var(--ease) 1s forwards}
+.ftrust li{position:relative;font-size:.9rem;color:rgba(255,255,255,.8);padding-left:22px}
+.ftrust li::before{content:"✓";position:absolute;left:0;color:var(--accent,#fff);font-weight:700}
+.fscroll{position:absolute;left:50%;bottom:26px;translate:-50% 0;width:26px;height:42px;border:2px solid rgba(255,255,255,.45);border-radius:14px;z-index:2}
+.fscroll span{position:absolute;left:50%;top:8px;translate:-50% 0;width:4px;height:8px;border-radius:2px;background:#fff;animation:fscrolldot 1.8s var(--ease) infinite}
+@keyframes fscrolldot{0%{opacity:0;transform:translate(-50%,0)}30%{opacity:1}70%{opacity:1}100%{opacity:0;transform:translate(-50%,14px)}}
+@keyframes frise{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
+@media(prefers-reduced-motion:reduce){.fhead .w,.fkick,.fsub,.fcta,.ftrust{animation:none!important;opacity:1!important;transform:none!important}.fhero-media img,.fhero-media video{animation:none;transform:none}}
+
+/* scrolling marquee band */
+.fmarquee{overflow:hidden;background:var(--brand);color:#fff;padding:20px 0;white-space:nowrap;user-select:none}
+.fmarquee-t{display:inline-block;animation:fmarq 32s linear infinite;font-family:'__DISPLAY__',Georgia,serif;font-weight:600;font-size:1.5rem;letter-spacing:-.01em}
+.fmarquee-t span{padding:0 26px;opacity:.96}.fmarquee-t .mstar{opacity:.5}
+@keyframes fmarq{to{transform:translateX(-50%)}}
+@media(prefers-reduced-motion:reduce){.fmarquee-t{animation:none}}
+
+/* elevated section rhythm */
+.arch-flagship .sec{padding:clamp(64px,9vw,120px) 0}
+.arch-flagship .sec-k{display:inline-block;font-size:.74rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--brand);margin-bottom:14px}
+.arch-flagship .sec h2{font-family:'__DISPLAY__',Georgia,serif;font-weight:600;letter-spacing:-.02em;line-height:1.05;font-size:clamp(2rem,4vw,3.2rem);max-width:20ch;text-wrap:balance}
+.arch-flagship .cardgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:20px;margin-top:44px}
+.arch-flagship .card{position:relative;background:var(--surf);border:1px solid var(--line);border-radius:20px;padding:30px 26px;overflow:hidden;transition:transform .3s var(--ease),box-shadow .3s,border-color .3s}
+.arch-flagship .card::before{content:"";position:absolute;inset:0 0 auto 0;height:3px;background:linear-gradient(90deg,var(--brand),transparent);transform:scaleX(0);transform-origin:left;transition:transform .4s var(--ease)}
+.arch-flagship .card:hover{transform:translateY(-6px);box-shadow:0 30px 60px -30px rgba(0,0,0,.28);border-color:color-mix(in srgb,var(--brand) 40%,var(--line))}
+.arch-flagship .card:hover::before{transform:scaleX(1)}
+.arch-flagship .card h3{font-family:'__DISPLAY__',Georgia,serif;font-weight:600;font-size:1.22rem;margin:0 0 6px}
+.arch-flagship .card p{color:var(--mut);line-height:1.55}
+/* stagger the reveals within a grid */
+.arch-flagship .cardgrid .reveal{transition-delay:calc(var(--n,0) * .08s)}
+/* reviews as pull-quotes */
+.arch-flagship .reviews{background:color-mix(in srgb,var(--brand) 6%,var(--bg))}
+.arch-flagship .rvgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:22px;margin-top:40px}
+.arch-flagship .rv{background:var(--bg);border:1px solid var(--line);border-radius:20px;padding:30px;font-size:1.12rem;line-height:1.6;font-family:'__DISPLAY__',Georgia,serif;font-weight:500}
+.arch-flagship .rv cite{display:block;margin-top:16px;font-family:var(--body);font-style:normal;font-size:.88rem;color:var(--mut);font-weight:600}
+/* offer band = full-bleed brand gradient */
+.arch-flagship .band{background:linear-gradient(120deg,var(--brand),color-mix(in srgb,var(--brand) 60%,#000));color:#fff;border-radius:28px;margin:0 clamp(16px,4vw,40px)}
+.arch-flagship .band .sec-k,.arch-flagship .band h2{color:#fff}
+.arch-flagship .band .btn,.arch-flagship .band .fbtn{background:#fff;color:var(--brand)}
 `; }
 
 // injected at end of <body> — nav-solid-on-scroll + scroll-reveal (a11y-safe)
@@ -763,7 +879,7 @@ export function assemble(profile, recipe={}){
   const p = trad ? { ...profile, _t:trad } : profile;   // expose tradition labels to renderers
   const order = trad ? trad.order : archetype.order;    // tradition drives content IA when set
   const bodyClass = archetype.body + (recipe.tradition ? ` trad-${recipe.tradition}` : '') + (recipe.vertical ? ` vert-${recipe.vertical}` : '');
-  const body = order.map(name => (S[name] ? S[name](p, {mood}) : '')).join('\n');
+  const body = order.map(name => (S[name] ? S[name](p, {mood, arch: recipe.archetype}) : '')).join('\n');
   return `<!doctype html><html lang="en"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>${profile.name}${profile.tagline?` — ${profile.tagline}`:''}</title>

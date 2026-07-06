@@ -142,6 +142,10 @@ const recipe = recommendRecipe(profile);
 // of forcing every business site into the same 'minimal' layout.
 if (pack.kind==='vertical') recipe.vertical = pack.key;
 else recipe.tradition = pack.key, recipe.archetype = recipe.archetype||'journey';
+// --archetype flagship (or any archetype) overrides the auto pick. Flagship is
+// the signature "wow" look; it pairs best with a bold theme + candle motion.
+const archOverride = flag('archetype');
+if (archOverride){ recipe.archetype = archOverride; if (archOverride==='flagship' && recipe.mood==='none') recipe.mood='candle'; }
 
 const site = assemble(profile, recipe);
 const outDir = path.join(ROOT,'demos',slug); fs.mkdirSync(outDir,{recursive:true});
