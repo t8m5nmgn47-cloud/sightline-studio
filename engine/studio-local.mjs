@@ -199,5 +199,6 @@ const server = http.createServer((req, res) => {
 server.listen(PORT, '127.0.0.1', () => {
   const url = `http://localhost:${PORT}`;
   console.log(`\n  Sightline Site Maker running → ${url}\n  (leave this window open; close it to stop)\n`);
-  execFile('open', [url], () => {});
+  // as a background service (launchd sets SIGHTLINE_SERVICE=1) don't pop a browser
+  if (!process.env.SIGHTLINE_SERVICE) execFile('open', [url], () => {});
 });

@@ -131,10 +131,10 @@
     <div class="panel" style="border-left:3px solid var(--ac)">
       <div class="outbar" style="margin-bottom:6px"><h2>Build the website</h2><span id="smState" class="badge warn">checking builder…</span></div>
       <div id="smOff" class="hide">
-        <p class="hint" style="margin-top:0">The site builder runs on your Mac (it needs Chrome and your repo). Start it, then this page connects automatically:</p>
-        <p class="hint"><code>cd ~/sightline-studio && node engine/studio-local.mjs</code>
-          <button class="lnk" id="copyCmd">copy</button>
-          <button class="lnk" id="reProbe">↻ re-check</button></p>
+        <p class="hint" style="margin-top:0">Can't reach the builder on your Mac. It normally runs in the background automatically — this usually just means you're on a different computer, or it's mid-restart. <button class="lnk" id="reProbe">↻ try again</button></p>
+        <p class="hint">If it stays offline on your Mac, run this once to revive it:
+          <code>launchctl kickstart -k gui/$(id -u)/com.sightline.sitemaker</code>
+          <button class="lnk" id="copyCmd">copy</button></p>
       </div>
       <div id="smOn" class="hide">
         <p class="hint" style="margin-top:0">Builder connected. Your reviewed profile above is sent with the build — it overrides anything the crawler got wrong.</p>
@@ -268,7 +268,7 @@ async function probeBuilder(){
 }
 $("reProbe").onclick = probeBuilder;
 $("copyCmd").onclick = async () => {
-  try{ await navigator.clipboard.writeText("cd ~/sightline-studio && node engine/studio-local.mjs");
+  try{ await navigator.clipboard.writeText("launchctl kickstart -k gui/$(id -u)/com.sightline.sitemaker");
     $("copyCmd").textContent="copied ✓"; setTimeout(()=>$("copyCmd").textContent="copy",1400); }catch(e){}
 };
 $("build").onclick = async () => {
