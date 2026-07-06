@@ -90,14 +90,13 @@ const fresh = targets.filter(t=>t.domain && !have.has(t.domain));
 console.log(`◦ ${targets.length} candidates · ${targets.length-fresh.length} already in the pond · scoring ${fresh.length} new…`);
 
 let added = 0, skipped = 0;
-for (const t of fresh){
-  process.stdout.write(`  ${t.domain.padEnd(36)}`);
+const { pool } = await import('./score-prospect.mjs');
+await pool(fresh, 6, async (t) => {
   const row = await scoreDomain(t, { churchHint: category==='church', categoryHint: category });
-  if (!row){ console.log('✗ unreachable — skipped'); skipped++; continue; }
+  if (!row){ console.log(`  ${t.domain.padEnd(36)}✗ unreachable — skipped`); skipped++; return; }
   row.platform='pond'; row.capturedAt=new Date().toISOString().slice(0,10); row.verifiedAt=row.capturedAt; rows.push(row); added++;
-  console.log(`${row.dead?'✕ DEAD':row.score+'/100'}  [${row.tier}] ${row.type}/${row.tradition}`);
-  await sleep(400); // be polite to small-business servers
-}
+  console.log(`  ${t.domain.padEnd(36)}${row.dead?'✕ DEAD':row.score+'/100'}  [${row.tier}] ${row.type}/${row.tradition}`);
+});
 
 enrich(rows);
 const order = { DEAD:0, HOT:1, WARM:2, MILD:3, SERVED:4 };

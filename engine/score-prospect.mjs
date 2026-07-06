@@ -12,6 +12,16 @@ import { renderWithChrome } from './capture.mjs';
 
 const UA = { headers: { 'user-agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126 Safari/537.36' }, redirect: 'follow' };
 
+// Run fn over items with N parallel workers. Every prospect is a different
+// host, so modest parallelism is polite AND ~6x faster than one-at-a-time.
+export async function pool(items, size, fn){
+  const out = new Array(items.length); let i = 0;
+  await Promise.all(Array.from({ length: Math.min(size, items.length) }, async () => {
+    while (i < items.length){ const idx = i++; out[idx] = await fn(items[idx], idx); }
+  }));
+  return out;
+}
+
 export const JUNK_NAME = /^(home ?page|home|welcome|untitled|index|error|checking your browser|just a moment|attention required)$|^\d{3}\b|forbidden|not found|access denied|default web ?site|apache|nginx|test page/i;
 export const BAD_CAPTURE = /checking your browser|just a moment\.\.\.|attention required|access denied|error 40[34]|are you a (human|robot)|enable javascript to/i;
 export const DEAD = /launching soon|coming soon|under construction|site is being built|domain (is )?for sale|godaddy|this domain|parked|account suspended|default web ?site|page not found|404 not found/i;

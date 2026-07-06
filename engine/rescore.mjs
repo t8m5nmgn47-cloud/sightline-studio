@@ -36,13 +36,13 @@ console.log(`◦ re-verifying ${targets.length} prospects against their live sit
 
 const changes = [];
 let verified = 0, stale = 0;
-for (const r of targets){
-  process.stdout.write(`  ${r.domain.padEnd(36)}`);
+const { pool } = await import('./score-prospect.mjs');
+await pool(targets, 6, async (r) => {
   const fresh = await scoreDomain({ domain: r.domain, hintName: r.name, phone: r.phone }, { churchHint: r.type === 'church' });
   if (!fresh){
     r.stale = true; stale++;
-    console.log('unreachable — flagged stale (no outreach)');
-    continue;
+    console.log(`  ${r.domain.padEnd(36)}unreachable — flagged stale (no outreach)`);
+    return;
   }
   const before = `${r.tier} ${r.score}`;
   const changedTier = fresh.tier !== r.tier;
@@ -53,9 +53,8 @@ for (const r of targets){
   });
   verified++;
   if (changedTier) changes.push(`${r.name}: ${before} → ${r.tier} ${r.score}`);
-  console.log(`${r.dead?'✕ DEAD':r.score+'/100'} [${r.tier}]${changedTier?'  ← was '+before:''}${fresh.rendered?'  (JS site, browser-rendered)':''}`);
-  await sleep(350);
-}
+  console.log(`  ${r.domain.padEnd(36)}${r.dead?'✕ DEAD':r.score+'/100'} [${r.tier}]${changedTier?'  ← was '+before:''}${fresh.rendered?'  (JS site, browser-rendered)':''}`);
+});
 
 enrich(rows);
 const order = { DEAD:0, HOT:1, WARM:2, MILD:3, SERVED:4 };

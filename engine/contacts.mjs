@@ -59,10 +59,11 @@ const targets = rows.filter(r => all || !(r.contact?.email || r.contact?.phone))
 console.log(`◦ hunting published contact info for ${targets.length} prospects…`);
 
 let got = 0;
-for (const r of targets){
-  process.stdout.write(`  ${r.domain.padEnd(36)}`);
+const { pool } = await import('./score-prospect.mjs');
+await pool(targets, 6, async (r) => {
+  let line = `  ${r.domain.padEnd(36)}`;
   const home = await page('https://' + r.domain);
-  if (!home){ console.log('unreachable'); continue; }
+  if (!home){ console.log(line+'unreachable'); return; }
   const $home = cheerio.load(home);
   const pages = [$home];
   // find their contact page and read it too — that's where the email usually is
@@ -86,10 +87,9 @@ for (const r of targets){
     r.contact = { ...(r.contact||{}), email: email || r.contact?.email || null, phone, socials: facts.socials,
       source: 'their website', at: new Date().toISOString().slice(0,10) };
     got++;
-    console.log([email, phone].filter(Boolean).join(' · '));
-  } else console.log('nothing published');
-  await sleep(400);
-}
+    console.log(line+[email, phone].filter(Boolean).join(' · '));
+  } else console.log(line+'nothing published');
+});
 
 enrich(rows);
 fs.writeFileSync(FILE, JSON.stringify(rows, null, 2));
