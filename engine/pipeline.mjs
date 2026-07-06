@@ -104,12 +104,21 @@ const logo = assets.logo;
 
 const isBiz = pack.kind==='vertical';
 
+// Hand-verified content override (highest priority): fixes any prospect whose
+// real services didn't extract cleanly. Beats capture, AI, and pack defaults.
+let override = null;
+try {
+  const ov = JSON.parse(fs.readFileSync(path.join(ROOT,'engine/content-overrides.json'),'utf8'));
+  if (ov[slug]) override = ov[slug];
+} catch {}
+
 // AI content pass: read THEIR real site and write THEIR services/headline in
 // their voice. Heuristics-first — only ask AI to fill what capture couldn't,
 // so we spend nothing when the site already yielded clean structured content.
+// Skipped entirely when a manual override already supplies the content.
 // Silent no-op when no ANTHROPIC_KEY is set (engine behaves exactly as before).
 let ai = null;
-const needsAI = (cap.services || []).length < 3;   // capture found nothing usable
+const needsAI = !override && (cap.services || []).length < 3;   // capture found nothing usable
 if (needsAI || flag('ai') === 'always') {
   try {
     const { aiContent } = await import('./ai-content.mjs');
@@ -122,12 +131,16 @@ const aiServices = (ai && ai.services && ai.services.length >= 3) ? ai.services 
 // nothing fabricated). Churches keep their tradition-based default sections.
 let bizPack = null, bizSections = null;
 if (isBiz) {
-  // Prefer captured real services, then AI-extracted real services, then pack defaults.
-  const realServices = (cap.services && cap.services.length >= 3) ? cap.services : (aiServices || []);
+  // Priority: hand-verified override → captured real services → AI → pack defaults.
+  const realServices = (override && override.services && override.services.length)
+    ? override.services
+    : (cap.services && cap.services.length >= 3) ? cap.services : (aiServices || []);
   const built = buildSections(pack.key, name, { realReviews: sig.reviews || [], realServices });
   bizSections = built.sections; bizPack = built.pack;
 }
-const heroHeadline = (ai && ai.headline) ? ai.headline : (isBiz ? (bizPack.hero(name)) : 'You’re welcome here.');
+const heroHeadline = (override && override.headline) ? override.headline
+  : (ai && ai.headline) ? ai.headline
+  : (isBiz ? (bizPack.hero(name)) : 'You’re welcome here.');
 const bookCta = isBiz ? bizPack.bookCta : 'Plan your visit →';
 
 // Hero sub: first full sentence of their real description (≤180 chars), never
@@ -149,7 +162,7 @@ const profile = normalize(sig, {
   gallery: assets.gallery,
   heroImage: assets.heroImage || (isBiz ? null : '/assets/stock/church-2.webp'),
   hero: { kick: name, headline: heroHeadline,
-    sub: (ai && ai.subhead) ? ai.subhead : heroSub(sig.description, isBiz?'Modern, friendly service — get in touch in a minute.':'Come as you are.'),
+    sub: (override && override.subhead) ? override.subhead : (ai && ai.subhead) ? ai.subhead : heroSub(sig.description, isBiz?'Modern, friendly service — get in touch in a minute.':'Come as you are.'),
     ctas: [{label: bookCta, href: isBiz?'#book':'#visit'}] },
   sections: isBiz ? bizSections : defaultSections(pack, name),
 });
@@ -176,10 +189,11 @@ qa.push([!!logo, logo ? 'brand logo captured & shape-validated' : 'no usable log
 qa.push([!!cap.fonts.head, cap.fonts.head ? `brand font carried over (${cap.fonts.head})` : 'no brand font detected — using template type']);
 qa.push([(cap.colors||[]).length >= 2, (cap.colors||[]).length >= 2 ? 'brand palette extracted' : 'weak color signal — template palette in use']);
 qa.push([assets.gallery.length >= 3, `${assets.gallery.length} real photos captured`]);
-const svcSource = (cap.services||[]).length >= 3 ? `${cap.services.length} real services pulled from their site`
+const svcSource = (override && override.services && override.services.length) ? `${override.services.length} hand-verified services (override)`
+  : (cap.services||[]).length >= 3 ? `${cap.services.length} real services pulled from their site`
   : aiServices ? `${aiServices.length} real services written by AI from their own words`
   : 'no services found — using vertical defaults';
-qa.push([(cap.services||[]).length >= 3 || !!aiServices, svcSource]);
+qa.push([!!(override&&override.services&&override.services.length) || (cap.services||[]).length >= 3 || !!aiServices, svcSource]);
 qa.push([!!(sig.description||'').trim(), (sig.description||'').trim() ? 'hero copy grounded in their real description' : 'no site description — hero copy is template text']);
 qa.push([pack.key !== 'business' || pack.kind !== 'vertical', pack.kind==='vertical' && pack.key==='business' ? 'industry unclear — generic business pack (consider --vertical)' : `industry: ${pack.key}`]);
 const passed = qa.filter(([ok]) => ok).length;

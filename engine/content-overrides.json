@@ -1,0 +1,17 @@
+{
+  "_comment": "Per-prospect hand-verified content. Highest priority — beats capture, AI, and pack defaults. Keyed by slug. Use to correct any demo whose real services didn't extract cleanly. Fields: services[], headline, subhead, about, specialty.",
+  "vaughn-law-com": {
+    "headline": "Fractional counsel and M&A advisors for closely held businesses.",
+    "subhead": "We serve as fractional general counsel and sell-side M&A advisors, guiding owners of $5M–$100M companies from strategy to a profitable exit.",
+    "services": [
+      "Fractional General Counsel",
+      "Sell-Side M&A Advisory",
+      "Business Exit Planning",
+      "Governance & Board Advisory",
+      "Commercial Contracts",
+      "Joint Ventures & Partnerships"
+    ],
+    "specialty": "Sell-side M&A for $5M–$100M businesses",
+    "about": "The Vaughn Law Offices provide fractional general counsel — strategic, legal, and operational guidance — and act as lead sell-side M&A advisors for closely held companies valued between $5M and $100M. Led by Justin Vaughn, a former litigation attorney, the firm guides owners through every phase from preparation and positioning to a successful exit."
+  }
+}
