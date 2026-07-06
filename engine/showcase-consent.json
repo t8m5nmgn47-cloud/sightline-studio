@@ -1,0 +1,4 @@
+{
+  "_comment": "Slugs of clients who have signed consent to be shown by their REAL name on public marketing pages (homepage 'our work' + /gallery). Everyone not listed here is shown with a generic label (e.g. 'Lone Tree Law Firm'). Add a slug here after they sign, then run: node engine/showcase.mjs",
+  "consented": []
+}
