@@ -1,0 +1,40 @@
+{
+  "name": "Northline Electric",
+  "nameShort": "Northline",
+  "vertical": "electrical contractor",
+  "tags": ["residential", "remodel", "lighting", "EV charging", "Colorado homes"],
+  "locale": "Denver, Colorado",
+  "phone": "(303) 555-0142",
+  "email": "projects@northline-demo.com",
+  "cta": "Plan a project",
+  "headline": ["Electrical work for homes", "that refuse shortcuts."],
+  "lede": "Thoughtful electrical work for remodels, additions, lighting, panels, EV charging and the systems behind modern Colorado homes.",
+  "proof": [
+    {"title":"Plan before walls close","desc":"Coordinate load, lighting, controls and future capacity before rough-in becomes expensive to change."},
+    {"title":"Document the decisions","desc":"Clear scopes, labeled systems and handoffs that make sense to homeowners, builders and the next trade in line."},
+    {"title":"Finish like it belongs there","desc":"Devices, trims and lighting aligned to the architecture—not treated as an afterthought at the end of the job."}
+  ],
+  "problems": [
+    {"label":"The house is changing","title":"Renovation + addition planning","desc":"Rework circuits, loads, lighting and controls around the new plan before drywall locks in old assumptions."},
+    {"label":"The lighting feels wrong","title":"Architectural lighting + controls","desc":"Layer task, ambient and accent light with controls that are intuitive at 6 a.m. and at midnight."},
+    {"label":"The panel is out of room","title":"Service + panel strategy","desc":"Assess real demand, future loads and upgrade paths before buying hardware or opening walls."},
+    {"label":"The garage needs to catch up","title":"EV charging + energy readiness","desc":"Plan charging around actual driving, panel capacity and the rest of the home’s future electrical load."},
+    {"label":"The old wiring is a question mark","title":"Existing-system investigation","desc":"Trace, test and document what is actually there so the project can move forward with fewer surprises."}
+  ],
+  "projects": [
+    {"code":"NL-024","type":"Whole-home renovation","location":"Hilltop · Denver","title":"A 1938 house, rewritten for modern loads.","constraint":"Original service, layered renovations and limited wall access.","decision":"Separate immediate safety work from future capacity; map new lighting and kitchen loads before finish selections.","result":"A phased electrical plan that let construction move without treating every discovery as an emergency."},
+    {"code":"NL-031","type":"Lighting + controls","location":"Cherry Creek · Denver","title":"Quiet lighting for a house built around art.","constraint":"Large glass openings, reflective surfaces and a client who did not want visible ceiling clutter.","decision":"Use fewer fixture types, deliberate beam control and scene-based switching instead of more cans.","result":"Rooms that change character through the day without making the controls feel like a cockpit."},
+    {"code":"NL-037","type":"EV + panel planning","location":"Golden · Colorado","title":"Capacity for the car today—and the heat pump later.","constraint":"An EV charger request that would consume most of the existing service headroom.","decision":"Model future loads first, then sequence charging, panel and electrification work as one system.","result":"No duplicate upgrade work and a clear path for the next phase of the home."}
+  ],
+  "process": [
+    {"title":"Walk the problem","desc":"Start on site with the plans, the existing conditions and the decisions that are still open."},
+    {"title":"Map the system","desc":"Define loads, routes, controls, fixture intent and coordination points before work begins."},
+    {"title":"Build + document","desc":"Execute cleanly, communicate changes early and keep the system understandable as the project moves."},
+    {"title":"Commission the home","desc":"Test, label, tune scenes and walk the owner through the system before the project disappears into daily life."}
+  ],
+  "faq": [
+    {"q":"Can you join a project before construction starts?","a":"Yes. For remodels and additions, early coordination is usually where the most expensive rework can be avoided."},
+    {"q":"Do you work with designers and builders?","a":"The demo strategy is built around coordinated residential work, with electrical decisions documented for the whole project team."},
+    {"q":"Can you help decide what should be upgraded now versus later?","a":"Yes. The planning model separates urgent work, project-dependent work and future-capacity decisions so the scope can be sequenced intelligently."}
+  ]
+}
