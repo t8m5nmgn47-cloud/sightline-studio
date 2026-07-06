@@ -85,47 +85,47 @@
     "benchmark": {
       "catN": 28,
       "catLabel": "contemporary churches",
-      "avg": 62,
-      "max": 96,
-      "delta": -62
+      "avg": 60,
+      "max": 84,
+      "delta": -60
     },
     "competitorGaps": [
       {
         "label": "Online giving",
         "why": "Digital givers give 33% more; giving must be one tap.",
-        "peerPct": 89
+        "peerPct": 86
       },
       {
         "label": "Sermons / Watch",
         "why": "Watch online is the on-ramp — it lets someone sample before they step in.",
-        "peerPct": 82
+        "peerPct": 79
       },
       {
         "label": "Service times & campus",
         "why": "43% of church-seekers come to find service times and where to go.",
-        "peerPct": 79
+        "peerPct": 75
       },
       {
         "label": "Plan Your Visit",
         "why": "A first-timer needs a clear \"I'm new → here's what to expect\" path — the #1 job of a church front door.",
-        "peerPct": 75
+        "peerPct": 71
       }
     ],
     "talkingPoints": [
       {
         "label": "Online giving",
         "why": "Digital givers give 33% more; giving must be one tap.",
-        "peerPct": 89
+        "peerPct": 86
       },
       {
         "label": "Sermons / Watch",
         "why": "Watch online is the on-ramp — it lets someone sample before they step in.",
-        "peerPct": 82
+        "peerPct": 79
       },
       {
         "label": "Service times & campus",
         "why": "43% of church-seekers come to find service times and where to go.",
-        "peerPct": 79
+        "peerPct": 75
       }
     ],
     "opener": "Hi — I was looking up gfamilychurchmi.org online and your website's actually down / a placeholder. Your contemporary neighbors all have a real one, so you're invisible to anyone searching right now. I already rebuilt a version for you — can I send it over?",
@@ -283,18 +283,175 @@
       "funnel": "/p/castlerockcpa-com/",
       "teardown": "/teardowns/castlerockcpa-com/"
     },
-    "email": {
-      "subject": "Castlerockcpa — your website is down (I built you a new one)",
-      "body": "Hi — Kris here from Sightline Studio, here in Colorado.\n\nYour current site at castlerockcpa.com is down — a placeholder is standing where your front door should be, so anyone searching for you right now finds nothing.\n\nSo instead of sending a pitch deck, I just built it. Here's Castlerockcpa's new site, live right now:\n\nhttps://sightline-studio.vercel.app/p/castlerockcpa-com/\n\nThat's a real, working site — your name, your services, your photos, built for phones and built to be found on Google. The same link shows how you stack up against your local competitors, measured on public signals.\n\nIf you like it, it's yours: we host it, watch it, and market it from $59.99/mo with $0 down — and you own the site. If not, no hard feelings; the preview was free.\n\nWorth two minutes? Just reply to this email.\n\n— Kris\nSightline Studio · look sharp, stay safe, get found"
-    },
+    "email": null,
     "rendered": true,
     "phone": null,
-    "stale": false,
+    "stale": true,
     "verifiedAt": "2026-07-06",
     "audit": null,
     "breach": {
       "count": 0,
       "checkedEmail": null,
+      "at": "2026-07-06"
+    }
+  },
+  {
+    "type": "church",
+    "domain": "movechurch.ca",
+    "name": "Move Church",
+    "platform": "FaithConnector",
+    "tradition": "contemporary",
+    "score": 0,
+    "tier": "DEAD",
+    "gaps": [
+      "Plan Your Visit",
+      "Service times & campus",
+      "Next Steps pathway",
+      "Groups & belonging",
+      "Serve & volunteer",
+      "Care & Prayer",
+      "Online giving",
+      "Sermons / Watch",
+      "Kids & Families",
+      "Current & alive"
+    ],
+    "pitch": "Move Church has no working website — a dead placeholder where their front door should be.",
+    "dead": true,
+    "dims": [
+      {
+        "l": "Plan Your Visit",
+        "f": false,
+        "w": "A first-timer needs a clear \"I'm new → here's what to expect\" path — the #1 job of a church front door."
+      },
+      {
+        "l": "Service times & campus",
+        "f": false,
+        "w": "43% of church-seekers come to find service times and where to go."
+      },
+      {
+        "l": "Next Steps pathway",
+        "f": false,
+        "w": "A defined \"what now?\" path turns a first visit into belonging."
+      },
+      {
+        "l": "Groups & belonging",
+        "f": false,
+        "w": "People stay when they find their people — a group finder beats a static list."
+      },
+      {
+        "l": "Serve & volunteer",
+        "f": false,
+        "w": "Serving is how attenders become members."
+      },
+      {
+        "l": "Care & Prayer",
+        "f": false,
+        "w": "Pastoral care/prayer signals a church that meets you in the hard moments — not transactional."
+      },
+      {
+        "l": "Online giving",
+        "f": false,
+        "w": "Digital givers give 33% more; giving must be one tap."
+      },
+      {
+        "l": "Sermons / Watch",
+        "f": false,
+        "w": "Watch online is the on-ramp — it lets someone sample before they step in."
+      },
+      {
+        "l": "Kids & Families",
+        "f": false,
+        "w": "Parents decide on kids' safety and programming first."
+      },
+      {
+        "l": "Current & alive",
+        "f": false,
+        "w": "Live announcements and dated upcoming events prove a real, active community."
+      },
+      {
+        "l": "Accessible & solid",
+        "f": true,
+        "w": "Accessibility, mobile, and HTTPS say \"everyone is welcome and we're legit.\""
+      }
+    ],
+    "mrr": 199,
+    "annual": 2388,
+    "winPct": 55,
+    "expected": 1313,
+    "benchmark": {
+      "catN": 28,
+      "catLabel": "contemporary churches",
+      "avg": 60,
+      "max": 84,
+      "delta": -60
+    },
+    "competitorGaps": [
+      {
+        "label": "Online giving",
+        "why": "Digital givers give 33% more; giving must be one tap.",
+        "peerPct": 86
+      },
+      {
+        "label": "Sermons / Watch",
+        "why": "Watch online is the on-ramp — it lets someone sample before they step in.",
+        "peerPct": 79
+      },
+      {
+        "label": "Service times & campus",
+        "why": "43% of church-seekers come to find service times and where to go.",
+        "peerPct": 75
+      },
+      {
+        "label": "Plan Your Visit",
+        "why": "A first-timer needs a clear \"I'm new → here's what to expect\" path — the #1 job of a church front door.",
+        "peerPct": 71
+      }
+    ],
+    "talkingPoints": [
+      {
+        "label": "Online giving",
+        "why": "Digital givers give 33% more; giving must be one tap.",
+        "peerPct": 86
+      },
+      {
+        "label": "Sermons / Watch",
+        "why": "Watch online is the on-ramp — it lets someone sample before they step in.",
+        "peerPct": 79
+      },
+      {
+        "label": "Service times & campus",
+        "why": "43% of church-seekers come to find service times and where to go.",
+        "peerPct": 75
+      }
+    ],
+    "opener": "Hi — I was looking up Move Church online and your website's actually down / a placeholder. Your contemporary neighbors all have a real one, so you're invisible to anyone searching right now. I already rebuilt a version for you — can I send it over?",
+    "assets": {
+      "slug": "movechurch-ca",
+      "demo": null,
+      "funnel": null,
+      "teardown": null
+    },
+    "email": null,
+    "contact": {
+      "email": "office@movechurch.ca",
+      "phone": null,
+      "socials": {
+        "youtube": "https://www.youtube.com/@movechurchca",
+        "facebook": "http://facebook.com/movechurch.ca"
+      },
+      "source": "their website",
+      "at": "2026-07-05"
+    },
+    "rendered": true,
+    "phone": null,
+    "stale": false,
+    "verifiedAt": "2026-07-06",
+    "audit": {
+      "score": 63,
+      "security": 30,
+      "securityMax": 63,
+      "topGap": "No DMARC record — your email domain can be impersonated",
+      "scary": "no enforced DMARC — scammers can send email that looks like it comes from you",
       "at": "2026-07-06"
     }
   },
@@ -659,20 +816,20 @@
     "benchmark": {
       "catN": 28,
       "catLabel": "contemporary churches",
-      "avg": 62,
-      "max": 96,
-      "delta": -35
+      "avg": 60,
+      "max": 84,
+      "delta": -33
     },
     "competitorGaps": [
       {
         "label": "Sermons / Watch",
         "why": "Watch online is the on-ramp — it lets someone sample before they step in.",
-        "peerPct": 82
+        "peerPct": 79
       },
       {
         "label": "Plan Your Visit",
         "why": "A first-timer needs a clear \"I'm new → here's what to expect\" path — the #1 job of a church front door.",
-        "peerPct": 75
+        "peerPct": 71
       },
       {
         "label": "Serve & volunteer",
@@ -689,12 +846,12 @@
       {
         "label": "Sermons / Watch",
         "why": "Watch online is the on-ramp — it lets someone sample before they step in.",
-        "peerPct": 82
+        "peerPct": 79
       },
       {
         "label": "Plan Your Visit",
         "why": "A first-timer needs a clear \"I'm new → here's what to expect\" path — the #1 job of a church front door.",
-        "peerPct": 75
+        "peerPct": 71
       },
       {
         "label": "Serve & volunteer",
@@ -702,7 +859,7 @@
         "peerPct": 71
       }
     ],
-    "opener": "Hi — I pulled up Zion Lutheran Church and noticed you don't have sermons / watch, but 82% of contemporary churches do — it's probably costing you visitors every week. I built a version of your site that fixes it. Two minutes to show you?",
+    "opener": "Hi — I pulled up Zion Lutheran Church and noticed you don't have sermons / watch, but 79% of contemporary churches do — it's probably costing you visitors every week. I built a version of your site that fixes it. Two minutes to show you?",
     "assets": {
       "slug": "zionlincoln-org",
       "demo": null,
@@ -817,20 +974,20 @@
     "benchmark": {
       "catN": 28,
       "catLabel": "contemporary churches",
-      "avg": 62,
-      "max": 96,
-      "delta": -27
+      "avg": 60,
+      "max": 84,
+      "delta": -25
     },
     "competitorGaps": [
       {
         "label": "Online giving",
         "why": "Digital givers give 33% more; giving must be one tap.",
-        "peerPct": 89
+        "peerPct": 86
       },
       {
         "label": "Plan Your Visit",
         "why": "A first-timer needs a clear \"I'm new → here's what to expect\" path — the #1 job of a church front door.",
-        "peerPct": 75
+        "peerPct": 71
       },
       {
         "label": "Current & alive",
@@ -840,19 +997,19 @@
       {
         "label": "Kids & Families",
         "why": "Parents decide on kids' safety and programming first.",
-        "peerPct": 68
+        "peerPct": 64
       }
     ],
     "talkingPoints": [
       {
         "label": "Online giving",
         "why": "Digital givers give 33% more; giving must be one tap.",
-        "peerPct": 89
+        "peerPct": 86
       },
       {
         "label": "Plan Your Visit",
         "why": "A first-timer needs a clear \"I'm new → here's what to expect\" path — the #1 job of a church front door.",
-        "peerPct": 75
+        "peerPct": 71
       },
       {
         "label": "Current & alive",
@@ -860,7 +1017,7 @@
         "peerPct": 71
       }
     ],
-    "opener": "Hi — I pulled up Refuge Bible Church and noticed you don't have online giving, but 89% of contemporary churches do — it's probably costing you visitors every week. I built a version of your site that fixes it. Two minutes to show you?",
+    "opener": "Hi — I pulled up Refuge Bible Church and noticed you don't have online giving, but 86% of contemporary churches do — it's probably costing you visitors every week. I built a version of your site that fixes it. Two minutes to show you?",
     "assets": {
       "slug": "refugeindy-com",
       "demo": null,
@@ -976,20 +1133,20 @@
     "benchmark": {
       "catN": 28,
       "catLabel": "contemporary churches",
-      "avg": 62,
-      "max": 96,
-      "delta": -18
+      "avg": 60,
+      "max": 84,
+      "delta": -16
     },
     "competitorGaps": [
       {
         "label": "Sermons / Watch",
         "why": "Watch online is the on-ramp — it lets someone sample before they step in.",
-        "peerPct": 82
+        "peerPct": 79
       },
       {
         "label": "Service times & campus",
         "why": "43% of church-seekers come to find service times and where to go.",
-        "peerPct": 79
+        "peerPct": 75
       },
       {
         "label": "Current & alive",
@@ -999,19 +1156,19 @@
       {
         "label": "Kids & Families",
         "why": "Parents decide on kids' safety and programming first.",
-        "peerPct": 68
+        "peerPct": 64
       }
     ],
     "talkingPoints": [
       {
         "label": "Sermons / Watch",
         "why": "Watch online is the on-ramp — it lets someone sample before they step in.",
-        "peerPct": 82
+        "peerPct": 79
       },
       {
         "label": "Service times & campus",
         "why": "43% of church-seekers come to find service times and where to go.",
-        "peerPct": 79
+        "peerPct": 75
       },
       {
         "label": "Current & alive",
@@ -1019,7 +1176,7 @@
         "peerPct": 71
       }
     ],
-    "opener": "Hi — I pulled up Greaterglorychurch and noticed you don't have sermons / watch, but 82% of contemporary churches do — it's probably costing you visitors every week. I built a version of your site that fixes it. Two minutes to show you?",
+    "opener": "Hi — I pulled up Greaterglorychurch and noticed you don't have sermons / watch, but 79% of contemporary churches do — it's probably costing you visitors every week. I built a version of your site that fixes it. Two minutes to show you?",
     "assets": {
       "slug": "greaterglorychurch-com",
       "demo": null,
@@ -1271,9 +1428,9 @@
     "benchmark": {
       "catN": 28,
       "catLabel": "contemporary churches",
-      "avg": 62,
-      "max": 96,
-      "delta": -16
+      "avg": 60,
+      "max": 84,
+      "delta": -14
     },
     "competitorGaps": [
       {
@@ -1284,12 +1441,12 @@
       {
         "label": "Kids & Families",
         "why": "Parents decide on kids' safety and programming first.",
-        "peerPct": 68
+        "peerPct": 64
       },
       {
         "label": "Next Steps pathway",
         "why": "A defined \"what now?\" path turns a first visit into belonging.",
-        "peerPct": 61
+        "peerPct": 57
       }
     ],
     "talkingPoints": [
@@ -1301,12 +1458,12 @@
       {
         "label": "Kids & Families",
         "why": "Parents decide on kids' safety and programming first.",
-        "peerPct": 68
+        "peerPct": 64
       },
       {
         "label": "Next Steps pathway",
         "why": "A defined \"what now?\" path turns a first visit into belonging.",
-        "peerPct": 61
+        "peerPct": 57
       }
     ],
     "opener": "Hi — I pulled up Faith Tabernacle - South FL and noticed you don't have serve & volunteer, but 71% of contemporary churches do — it's probably costing you visitors every week. I built a version of your site that fixes it. Two minutes to show you?",
@@ -1558,15 +1715,15 @@
     "benchmark": {
       "catN": 28,
       "catLabel": "contemporary churches",
-      "avg": 62,
-      "max": 96,
-      "delta": -14
+      "avg": 60,
+      "max": 84,
+      "delta": -12
     },
     "competitorGaps": [
       {
         "label": "Plan Your Visit",
         "why": "A first-timer needs a clear \"I'm new → here's what to expect\" path — the #1 job of a church front door.",
-        "peerPct": 75
+        "peerPct": 71
       },
       {
         "label": "Serve & volunteer",
@@ -1576,14 +1733,14 @@
       {
         "label": "Next Steps pathway",
         "why": "A defined \"what now?\" path turns a first visit into belonging.",
-        "peerPct": 61
+        "peerPct": 57
       }
     ],
     "talkingPoints": [
       {
         "label": "Plan Your Visit",
         "why": "A first-timer needs a clear \"I'm new → here's what to expect\" path — the #1 job of a church front door.",
-        "peerPct": 75
+        "peerPct": 71
       },
       {
         "label": "Serve & volunteer",
@@ -1593,10 +1750,10 @@
       {
         "label": "Next Steps pathway",
         "why": "A defined \"what now?\" path turns a first visit into belonging.",
-        "peerPct": 61
+        "peerPct": 57
       }
     ],
-    "opener": "Hi — I pulled up Ebenezer Baptist Church and noticed you don't have plan your visit, but 75% of contemporary churches do — it's probably costing you visitors every week. I built a version of your site that fixes it. Two minutes to show you?",
+    "opener": "Hi — I pulled up Ebenezer Baptist Church and noticed you don't have plan your visit, but 71% of contemporary churches do — it's probably costing you visitors every week. I built a version of your site that fixes it. Two minutes to show you?",
     "assets": {
       "slug": "ebenezerdacula-org",
       "demo": null,
@@ -1853,45 +2010,45 @@
     "benchmark": {
       "catN": 28,
       "catLabel": "contemporary churches",
-      "avg": 62,
-      "max": 96,
-      "delta": -10
+      "avg": 60,
+      "max": 84,
+      "delta": -8
     },
     "competitorGaps": [
       {
         "label": "Plan Your Visit",
         "why": "A first-timer needs a clear \"I'm new → here's what to expect\" path — the #1 job of a church front door.",
-        "peerPct": 75
+        "peerPct": 71
       },
       {
         "label": "Kids & Families",
         "why": "Parents decide on kids' safety and programming first.",
-        "peerPct": 68
+        "peerPct": 64
       },
       {
         "label": "Next Steps pathway",
         "why": "A defined \"what now?\" path turns a first visit into belonging.",
-        "peerPct": 61
+        "peerPct": 57
       }
     ],
     "talkingPoints": [
       {
         "label": "Plan Your Visit",
         "why": "A first-timer needs a clear \"I'm new → here's what to expect\" path — the #1 job of a church front door.",
-        "peerPct": 75
+        "peerPct": 71
       },
       {
         "label": "Kids & Families",
         "why": "Parents decide on kids' safety and programming first.",
-        "peerPct": 68
+        "peerPct": 64
       },
       {
         "label": "Next Steps pathway",
         "why": "A defined \"what now?\" path turns a first visit into belonging.",
-        "peerPct": 61
+        "peerPct": 57
       }
     ],
-    "opener": "Hi — I pulled up Upper Room Church and noticed you don't have plan your visit, but 75% of contemporary churches do — it's probably costing you visitors every week. I built a version of your site that fixes it. Two minutes to show you?",
+    "opener": "Hi — I pulled up Upper Room Church and noticed you don't have plan your visit, but 71% of contemporary churches do — it's probably costing you visitors every week. I built a version of your site that fixes it. Two minutes to show you?",
     "assets": {
       "slug": "urimperialbeach-com",
       "demo": null,
@@ -2003,35 +2160,35 @@
     "benchmark": {
       "catN": 28,
       "catLabel": "contemporary churches",
-      "avg": 62,
-      "max": 96,
-      "delta": -9
+      "avg": 60,
+      "max": 84,
+      "delta": -7
     },
     "competitorGaps": [
       {
         "label": "Service times & campus",
         "why": "43% of church-seekers come to find service times and where to go.",
-        "peerPct": 79
+        "peerPct": 75
       },
       {
         "label": "Kids & Families",
         "why": "Parents decide on kids' safety and programming first.",
-        "peerPct": 68
+        "peerPct": 64
       }
     ],
     "talkingPoints": [
       {
         "label": "Service times & campus",
         "why": "43% of church-seekers come to find service times and where to go.",
-        "peerPct": 79
+        "peerPct": 75
       },
       {
         "label": "Kids & Families",
         "why": "Parents decide on kids' safety and programming first.",
-        "peerPct": 68
+        "peerPct": 64
       }
     ],
-    "opener": "Hi — I pulled up Vriesland Church and noticed you don't have service times & campus, but 79% of contemporary churches do — it's probably costing you visitors every week. I built a version of your site that fixes it. Two minutes to show you?",
+    "opener": "Hi — I pulled up Vriesland Church and noticed you don't have service times & campus, but 75% of contemporary churches do — it's probably costing you visitors every week. I built a version of your site that fixes it. Two minutes to show you?",
     "assets": {
       "slug": "vrieslandchurch-org",
       "demo": null,
@@ -2176,156 +2333,6 @@
       "securityMax": 63,
       "topGap": "Missing web-security headers (clickjacking & content protections)",
       "scary": null,
-      "at": "2026-07-06"
-    }
-  },
-  {
-    "type": "church",
-    "domain": "movechurch.ca",
-    "name": "Move Church",
-    "platform": "FaithConnector",
-    "tradition": "contemporary",
-    "score": 55,
-    "tier": "WARM",
-    "gaps": [
-      "Service times & campus",
-      "Groups & belonging",
-      "Serve & volunteer",
-      "Care & Prayer",
-      "Current & alive"
-    ],
-    "pitch": "Pays for a site but it's missing service times & campus, groups & belonging, serve & volunteer — scores 55/100 on congregation-readiness.",
-    "dead": false,
-    "dims": [
-      {
-        "l": "Plan Your Visit",
-        "f": true,
-        "w": "A first-timer needs a clear \"I'm new → here's what to expect\" path — the #1 job of a church front door."
-      },
-      {
-        "l": "Service times & campus",
-        "f": false,
-        "w": "43% of church-seekers come to find service times and where to go."
-      },
-      {
-        "l": "Next Steps pathway",
-        "f": true,
-        "w": "A defined \"what now?\" path turns a first visit into belonging."
-      },
-      {
-        "l": "Groups & belonging",
-        "f": false,
-        "w": "People stay when they find their people — a group finder beats a static list."
-      },
-      {
-        "l": "Serve & volunteer",
-        "f": false,
-        "w": "Serving is how attenders become members."
-      },
-      {
-        "l": "Care & Prayer",
-        "f": false,
-        "w": "Pastoral care/prayer signals a church that meets you in the hard moments — not transactional."
-      },
-      {
-        "l": "Online giving",
-        "f": true,
-        "w": "Digital givers give 33% more; giving must be one tap."
-      },
-      {
-        "l": "Sermons / Watch",
-        "f": true,
-        "w": "Watch online is the on-ramp — it lets someone sample before they step in."
-      },
-      {
-        "l": "Kids & Families",
-        "f": true,
-        "w": "Parents decide on kids' safety and programming first."
-      },
-      {
-        "l": "Current & alive",
-        "f": false,
-        "w": "Live announcements and dated upcoming events prove a real, active community."
-      },
-      {
-        "l": "Accessible & solid",
-        "f": true,
-        "w": "Accessibility, mobile, and HTTPS say \"everyone is welcome and we're legit.\""
-      }
-    ],
-    "mrr": 199,
-    "annual": 2388,
-    "winPct": 40,
-    "expected": 961,
-    "benchmark": {
-      "catN": 28,
-      "catLabel": "contemporary churches",
-      "avg": 62,
-      "max": 96,
-      "delta": -7
-    },
-    "competitorGaps": [
-      {
-        "label": "Service times & campus",
-        "why": "43% of church-seekers come to find service times and where to go.",
-        "peerPct": 79
-      },
-      {
-        "label": "Serve & volunteer",
-        "why": "Serving is how attenders become members.",
-        "peerPct": 71
-      },
-      {
-        "label": "Current & alive",
-        "why": "Live announcements and dated upcoming events prove a real, active community.",
-        "peerPct": 71
-      }
-    ],
-    "talkingPoints": [
-      {
-        "label": "Service times & campus",
-        "why": "43% of church-seekers come to find service times and where to go.",
-        "peerPct": 79
-      },
-      {
-        "label": "Serve & volunteer",
-        "why": "Serving is how attenders become members.",
-        "peerPct": 71
-      },
-      {
-        "label": "Current & alive",
-        "why": "Live announcements and dated upcoming events prove a real, active community.",
-        "peerPct": 71
-      }
-    ],
-    "opener": "Hi — I pulled up Move Church and noticed you don't have service times & campus, but 79% of contemporary churches do — it's probably costing you visitors every week. I built a version of your site that fixes it. Two minutes to show you?",
-    "assets": {
-      "slug": "movechurch-ca",
-      "demo": null,
-      "funnel": null,
-      "teardown": null
-    },
-    "email": null,
-    "contact": {
-      "email": "office@movechurch.ca",
-      "phone": null,
-      "socials": {
-        "youtube": "https://www.youtube.com/@movechurchca",
-        "facebook": "http://facebook.com/movechurch.ca"
-      },
-      "source": "their website",
-      "at": "2026-07-05"
-    },
-    "rendered": false,
-    "phone": null,
-    "stale": false,
-    "verifiedAt": "2026-07-06",
-    "audit": {
-      "score": 63,
-      "security": 30,
-      "securityMax": 63,
-      "topGap": "No DMARC record — your email domain can be impersonated",
-      "scary": "no enforced DMARC — scammers can send email that looks like it comes from you",
       "at": "2026-07-06"
     }
   },
@@ -2658,35 +2665,35 @@
     "benchmark": {
       "catN": 28,
       "catLabel": "contemporary churches",
-      "avg": 62,
-      "max": 96,
-      "delta": -4
+      "avg": 60,
+      "max": 84,
+      "delta": -2
     },
     "competitorGaps": [
       {
         "label": "Plan Your Visit",
         "why": "A first-timer needs a clear \"I'm new → here's what to expect\" path — the #1 job of a church front door.",
-        "peerPct": 75
+        "peerPct": 71
       },
       {
         "label": "Next Steps pathway",
         "why": "A defined \"what now?\" path turns a first visit into belonging.",
-        "peerPct": 61
+        "peerPct": 57
       }
     ],
     "talkingPoints": [
       {
         "label": "Plan Your Visit",
         "why": "A first-timer needs a clear \"I'm new → here's what to expect\" path — the #1 job of a church front door.",
-        "peerPct": 75
+        "peerPct": 71
       },
       {
         "label": "Next Steps pathway",
         "why": "A defined \"what now?\" path turns a first visit into belonging.",
-        "peerPct": 61
+        "peerPct": 57
       }
     ],
-    "opener": "Hi — I pulled up St. Michael Lutheran Church and noticed you don't have plan your visit, but 75% of contemporary churches do — it's probably costing you visitors every week. I built a version of your site that fixes it. Two minutes to show you?",
+    "opener": "Hi — I pulled up St. Michael Lutheran Church and noticed you don't have plan your visit, but 71% of contemporary churches do — it's probably costing you visitors every week. I built a version of your site that fixes it. Two minutes to show you?",
     "assets": {
       "slug": "stmichaelelca-org",
       "demo": null,
@@ -2934,35 +2941,35 @@
     "benchmark": {
       "catN": 28,
       "catLabel": "contemporary churches",
-      "avg": 62,
-      "max": 96,
-      "delta": -2
+      "avg": 60,
+      "max": 84,
+      "delta": 0
     },
     "competitorGaps": [
       {
         "label": "Service times & campus",
         "why": "43% of church-seekers come to find service times and where to go.",
-        "peerPct": 79
+        "peerPct": 75
       },
       {
         "label": "Kids & Families",
         "why": "Parents decide on kids' safety and programming first.",
-        "peerPct": 68
+        "peerPct": 64
       }
     ],
     "talkingPoints": [
       {
         "label": "Service times & campus",
         "why": "43% of church-seekers come to find service times and where to go.",
-        "peerPct": 79
+        "peerPct": 75
       },
       {
         "label": "Kids & Families",
         "why": "Parents decide on kids' safety and programming first.",
-        "peerPct": 68
+        "peerPct": 64
       }
     ],
-    "opener": "Hi — I pulled up Hopewell Church and noticed you don't have service times & campus, but 79% of contemporary churches do — it's probably costing you visitors every week. I built a version of your site that fixes it. Two minutes to show you?",
+    "opener": "Hi — I pulled up Hopewell Church and noticed you don't have service times & campus, but 75% of contemporary churches do — it's probably costing you visitors every week. I built a version of your site that fixes it. Two minutes to show you?",
     "assets": {
       "slug": "hopewellchurch-online",
       "demo": null,
@@ -3073,25 +3080,25 @@
     "benchmark": {
       "catN": 28,
       "catLabel": "contemporary churches",
-      "avg": 62,
-      "max": 96,
-      "delta": -1
+      "avg": 60,
+      "max": 84,
+      "delta": 1
     },
     "competitorGaps": [
       {
         "label": "Service times & campus",
         "why": "43% of church-seekers come to find service times and where to go.",
-        "peerPct": 79
+        "peerPct": 75
       }
     ],
     "talkingPoints": [
       {
         "label": "Service times & campus",
         "why": "43% of church-seekers come to find service times and where to go.",
-        "peerPct": 79
+        "peerPct": 75
       }
     ],
-    "opener": "Hi — I pulled up Kingdom Culture and noticed you don't have service times & campus, but 79% of contemporary churches do — it's probably costing you visitors every week. I built a version of your site that fixes it. Two minutes to show you?",
+    "opener": "Hi — I pulled up Kingdom Culture and noticed you don't have service times & campus, but 75% of contemporary churches do — it's probably costing you visitors every week. I built a version of your site that fixes it. Two minutes to show you?",
     "assets": {
       "slug": "kingdomculturephx-com",
       "demo": null,
@@ -3201,25 +3208,25 @@
     "benchmark": {
       "catN": 28,
       "catLabel": "contemporary churches",
-      "avg": 62,
-      "max": 96,
-      "delta": 0
+      "avg": 60,
+      "max": 84,
+      "delta": 2
     },
     "competitorGaps": [
       {
         "label": "Sermons / Watch",
         "why": "Watch online is the on-ramp — it lets someone sample before they step in.",
-        "peerPct": 82
+        "peerPct": 79
       }
     ],
     "talkingPoints": [
       {
         "label": "Sermons / Watch",
         "why": "Watch online is the on-ramp — it lets someone sample before they step in.",
-        "peerPct": 82
+        "peerPct": 79
       }
     ],
-    "opener": "Hi — I pulled up Rose Church and noticed you don't have sermons / watch, but 82% of contemporary churches do — it's probably costing you visitors every week. I built a version of your site that fixes it. Two minutes to show you?",
+    "opener": "Hi — I pulled up Rose Church and noticed you don't have sermons / watch, but 79% of contemporary churches do — it's probably costing you visitors every week. I built a version of your site that fixes it. Two minutes to show you?",
     "assets": {
       "slug": "rosechurch-ca",
       "demo": null,
@@ -3581,25 +3588,25 @@
     "benchmark": {
       "catN": 28,
       "catLabel": "contemporary churches",
-      "avg": 62,
-      "max": 96,
-      "delta": 1
+      "avg": 60,
+      "max": 84,
+      "delta": 3
     },
     "competitorGaps": [
       {
         "label": "Sermons / Watch",
         "why": "Watch online is the on-ramp — it lets someone sample before they step in.",
-        "peerPct": 82
+        "peerPct": 79
       }
     ],
     "talkingPoints": [
       {
         "label": "Sermons / Watch",
         "why": "Watch online is the on-ramp — it lets someone sample before they step in.",
-        "peerPct": 82
+        "peerPct": 79
       }
     ],
-    "opener": "Hi — I pulled up Mosaic Church and noticed you don't have sermons / watch, but 82% of contemporary churches do — it's probably costing you visitors every week. I built a version of your site that fixes it. Two minutes to show you?",
+    "opener": "Hi — I pulled up Mosaic Church and noticed you don't have sermons / watch, but 79% of contemporary churches do — it's probably costing you visitors every week. I built a version of your site that fixes it. Two minutes to show you?",
     "assets": {
       "slug": "mosaicchurch-live",
       "demo": null,
@@ -3710,25 +3717,25 @@
     "benchmark": {
       "catN": 28,
       "catLabel": "contemporary churches",
-      "avg": 62,
-      "max": 96,
-      "delta": 4
+      "avg": 60,
+      "max": 84,
+      "delta": 6
     },
     "competitorGaps": [
       {
         "label": "Plan Your Visit",
         "why": "A first-timer needs a clear \"I'm new → here's what to expect\" path — the #1 job of a church front door.",
-        "peerPct": 75
+        "peerPct": 71
       }
     ],
     "talkingPoints": [
       {
         "label": "Plan Your Visit",
         "why": "A first-timer needs a clear \"I'm new → here's what to expect\" path — the #1 job of a church front door.",
-        "peerPct": 75
+        "peerPct": 71
       }
     ],
-    "opener": "Hi — I pulled up Friendship Baptist Church and noticed you don't have plan your visit, but 75% of contemporary churches do — it's probably costing you visitors every week. I built a version of your site that fixes it. Two minutes to show you?",
+    "opener": "Hi — I pulled up Friendship Baptist Church and noticed you don't have plan your visit, but 71% of contemporary churches do — it's probably costing you visitors every week. I built a version of your site that fixes it. Two minutes to show you?",
     "assets": {
       "slug": "friendshipbc-com",
       "demo": null,
@@ -4099,35 +4106,35 @@
     "benchmark": {
       "catN": 28,
       "catLabel": "contemporary churches",
-      "avg": 62,
-      "max": 96,
-      "delta": 6
+      "avg": 60,
+      "max": 84,
+      "delta": 8
     },
     "competitorGaps": [
       {
         "label": "Kids & Families",
         "why": "Parents decide on kids' safety and programming first.",
-        "peerPct": 68
+        "peerPct": 64
       },
       {
         "label": "Next Steps pathway",
         "why": "A defined \"what now?\" path turns a first visit into belonging.",
-        "peerPct": 61
+        "peerPct": 57
       }
     ],
     "talkingPoints": [
       {
         "label": "Kids & Families",
         "why": "Parents decide on kids' safety and programming first.",
-        "peerPct": 68
+        "peerPct": 64
       },
       {
         "label": "Next Steps pathway",
         "why": "A defined \"what now?\" path turns a first visit into belonging.",
-        "peerPct": 61
+        "peerPct": 57
       }
     ],
-    "opener": "Hi — I pulled up Petra Church and noticed you don't have kids & families, but 68% of contemporary churches do — it's probably costing you visitors every week. I built a version of your site that fixes it. Two minutes to show you?",
+    "opener": "Hi — I pulled up Petra Church and noticed you don't have kids & families, but 64% of contemporary churches do — it's probably costing you visitors every week. I built a version of your site that fixes it. Two minutes to show you?",
     "assets": {
       "slug": "petrachurch-net",
       "demo": null,
@@ -4354,9 +4361,9 @@
     "benchmark": {
       "catN": 28,
       "catLabel": "contemporary churches",
-      "avg": 62,
-      "max": 96,
-      "delta": 7
+      "avg": 60,
+      "max": 84,
+      "delta": 9
     },
     "competitorGaps": [
       {
@@ -4367,7 +4374,7 @@
       {
         "label": "Kids & Families",
         "why": "Parents decide on kids' safety and programming first.",
-        "peerPct": 68
+        "peerPct": 64
       }
     ],
     "talkingPoints": [
@@ -4379,7 +4386,7 @@
       {
         "label": "Kids & Families",
         "why": "Parents decide on kids' safety and programming first.",
-        "peerPct": 68
+        "peerPct": 64
       }
     ],
     "opener": "Hi — I pulled up Cclongview and noticed you don't have current & alive, but 71% of contemporary churches do — it's probably costing you visitors every week. I built a version of your site that fixes it. Two minutes to show you?",
@@ -4750,9 +4757,9 @@
     "benchmark": {
       "catN": 28,
       "catLabel": "contemporary churches",
-      "avg": 62,
-      "max": 96,
-      "delta": 10
+      "avg": 60,
+      "max": 84,
+      "delta": 12
     },
     "competitorGaps": [
       {
@@ -5117,9 +5124,9 @@
     "benchmark": {
       "catN": 28,
       "catLabel": "contemporary churches",
-      "avg": 62,
-      "max": 96,
-      "delta": 11
+      "avg": 60,
+      "max": 84,
+      "delta": 13
     },
     "competitorGaps": [
       {
@@ -5244,25 +5251,25 @@
     "benchmark": {
       "catN": 28,
       "catLabel": "contemporary churches",
-      "avg": 62,
-      "max": 96,
-      "delta": 12
+      "avg": 60,
+      "max": 84,
+      "delta": 14
     },
     "competitorGaps": [
       {
         "label": "Next Steps pathway",
         "why": "A defined \"what now?\" path turns a first visit into belonging.",
-        "peerPct": 61
+        "peerPct": 57
       }
     ],
     "talkingPoints": [
       {
         "label": "Next Steps pathway",
         "why": "A defined \"what now?\" path turns a first visit into belonging.",
-        "peerPct": 61
+        "peerPct": 57
       }
     ],
-    "opener": "Hi — I pulled up Patuxent Presbyterian Church and noticed you don't have next steps pathway, but 61% of contemporary churches do — it's probably costing you visitors every week. I built a version of your site that fixes it. Two minutes to show you?",
+    "opener": "Hi — I pulled up Patuxent Presbyterian Church and noticed you don't have next steps pathway, but 57% of contemporary churches do — it's probably costing you visitors every week. I built a version of your site that fixes it. Two minutes to show you?",
     "assets": {
       "slug": "paxpres-com",
       "demo": null,
@@ -5745,9 +5752,9 @@
     "benchmark": {
       "catN": 28,
       "catLabel": "contemporary churches",
-      "avg": 62,
-      "max": 96,
-      "delta": 15
+      "avg": 60,
+      "max": 84,
+      "delta": 17
     },
     "competitorGaps": [],
     "talkingPoints": [
@@ -5757,7 +5764,7 @@
         "peerPct": 0
       }
     ],
-    "opener": "Hi — I looked at Kempsville Christian Church's site (scored it 77/100 vs a 62 average for contemporary churches). I rebuilt a sharper version — can I send it over?",
+    "opener": "Hi — I looked at Kempsville Christian Church's site (scored it 77/100 vs a 60 average for contemporary churches). I rebuilt a sharper version — can I send it over?",
     "assets": {
       "slug": "kccfamily-org",
       "demo": null,
@@ -5996,13 +6003,13 @@
     "benchmark": {
       "catN": 28,
       "catLabel": "contemporary churches",
-      "avg": 62,
-      "max": 96,
-      "delta": 17
+      "avg": 60,
+      "max": 84,
+      "delta": 19
     },
     "competitorGaps": [],
     "talkingPoints": [],
-    "opener": "Hi — I looked at Breakthrough Church's site (scored it 79/100 vs a 62 average for contemporary churches). I rebuilt a sharper version — can I send it over?",
+    "opener": "Hi — I looked at Breakthrough Church's site (scored it 79/100 vs a 60 average for contemporary churches). I rebuilt a sharper version — can I send it over?",
     "assets": {
       "slug": "breakthroughchurchsd-com",
       "demo": null,
@@ -6112,9 +6119,9 @@
     "benchmark": {
       "catN": 28,
       "catLabel": "contemporary churches",
-      "avg": 62,
-      "max": 96,
-      "delta": 18
+      "avg": 60,
+      "max": 84,
+      "delta": 20
     },
     "competitorGaps": [
       {
@@ -6125,7 +6132,7 @@
       {
         "label": "Next Steps pathway",
         "why": "A defined \"what now?\" path turns a first visit into belonging.",
-        "peerPct": 61
+        "peerPct": 57
       }
     ],
     "talkingPoints": [
@@ -6137,7 +6144,7 @@
       {
         "label": "Next Steps pathway",
         "why": "A defined \"what now?\" path turns a first visit into belonging.",
-        "peerPct": 61
+        "peerPct": 57
       }
     ],
     "opener": "Hi — I pulled up Total Life Church and noticed you don't have serve & volunteer, but 71% of contemporary churches do — it's probably costing you visitors every week. I built a version of your site that fixes it. Two minutes to show you?",
@@ -6250,9 +6257,9 @@
     "benchmark": {
       "catN": 28,
       "catLabel": "contemporary churches",
-      "avg": 62,
-      "max": 96,
-      "delta": 18
+      "avg": 60,
+      "max": 84,
+      "delta": 20
     },
     "competitorGaps": [
       {
@@ -6263,7 +6270,7 @@
       {
         "label": "Next Steps pathway",
         "why": "A defined \"what now?\" path turns a first visit into belonging.",
-        "peerPct": 61
+        "peerPct": 57
       }
     ],
     "talkingPoints": [
@@ -6275,7 +6282,7 @@
       {
         "label": "Next Steps pathway",
         "why": "A defined \"what now?\" path turns a first visit into belonging.",
-        "peerPct": 61
+        "peerPct": 57
       }
     ],
     "opener": "Hi — I pulled up Emmanuel Fellowship Church and noticed you don't have serve & volunteer, but 71% of contemporary churches do — it's probably costing you visitors every week. I built a version of your site that fixes it. Two minutes to show you?",
@@ -6387,9 +6394,9 @@
     "benchmark": {
       "catN": 28,
       "catLabel": "contemporary churches",
-      "avg": 62,
-      "max": 96,
-      "delta": 18
+      "avg": 60,
+      "max": 84,
+      "delta": 20
     },
     "competitorGaps": [],
     "talkingPoints": [
@@ -6404,7 +6411,7 @@
         "peerPct": 0
       }
     ],
-    "opener": "Hi — I looked at Oxfordbaptist's site (scored it 80/100 vs a 62 average for contemporary churches). I rebuilt a sharper version — can I send it over?",
+    "opener": "Hi — I looked at Oxfordbaptist's site (scored it 80/100 vs a 60 average for contemporary churches). I rebuilt a sharper version — can I send it over?",
     "assets": {
       "slug": "oxfordbaptist-ca",
       "demo": null,
@@ -6515,25 +6522,25 @@
     "benchmark": {
       "catN": 28,
       "catLabel": "contemporary churches",
-      "avg": 62,
-      "max": 96,
-      "delta": 18
+      "avg": 60,
+      "max": 84,
+      "delta": 20
     },
     "competitorGaps": [
       {
         "label": "Online giving",
         "why": "Digital givers give 33% more; giving must be one tap.",
-        "peerPct": 89
+        "peerPct": 86
       }
     ],
     "talkingPoints": [
       {
         "label": "Online giving",
         "why": "Digital givers give 33% more; giving must be one tap.",
-        "peerPct": 89
+        "peerPct": 86
       }
     ],
-    "opener": "Hi — I pulled up Church in Gainesville and noticed you don't have online giving, but 89% of contemporary churches do — it's probably costing you visitors every week. I built a version of your site that fixes it. Two minutes to show you?",
+    "opener": "Hi — I pulled up Church in Gainesville and noticed you don't have online giving, but 86% of contemporary churches do — it's probably costing you visitors every week. I built a version of your site that fixes it. Two minutes to show you?",
     "assets": {
       "slug": "westsidebaptist-org",
       "demo": null,
@@ -6642,9 +6649,9 @@
     "benchmark": {
       "catN": 28,
       "catLabel": "contemporary churches",
-      "avg": 62,
-      "max": 96,
-      "delta": 21
+      "avg": 60,
+      "max": 84,
+      "delta": 23
     },
     "competitorGaps": [
       {
@@ -6818,6 +6825,122 @@
     "audit": {
       "score": 71,
       "security": 39,
+      "securityMax": 63,
+      "topGap": "No DMARC record — your email domain can be impersonated",
+      "scary": "no enforced DMARC — scammers can send email that looks like it comes from you",
+      "at": "2026-07-06"
+    }
+  },
+  {
+    "type": "church",
+    "domain": "newhopechristianchurch.com",
+    "name": "New Hope Christian Church",
+    "platform": "FaithConnector",
+    "tradition": "contemporary",
+    "score": 84,
+    "tier": "SERVED",
+    "gaps": [
+      "Service times & campus"
+    ],
+    "pitch": "Pays for a site but it's missing service times & campus — scores 84/100 on congregation-readiness.",
+    "dead": false,
+    "dims": [
+      {
+        "l": "Plan Your Visit",
+        "f": true,
+        "w": "A first-timer needs a clear \"I'm new → here's what to expect\" path — the #1 job of a church front door."
+      },
+      {
+        "l": "Service times & campus",
+        "f": false,
+        "w": "43% of church-seekers come to find service times and where to go."
+      },
+      {
+        "l": "Next Steps pathway",
+        "f": true,
+        "w": "A defined \"what now?\" path turns a first visit into belonging."
+      },
+      {
+        "l": "Groups & belonging",
+        "f": true,
+        "w": "People stay when they find their people — a group finder beats a static list."
+      },
+      {
+        "l": "Serve & volunteer",
+        "f": true,
+        "w": "Serving is how attenders become members."
+      },
+      {
+        "l": "Care & Prayer",
+        "f": true,
+        "w": "Pastoral care/prayer signals a church that meets you in the hard moments — not transactional."
+      },
+      {
+        "l": "Online giving",
+        "f": true,
+        "w": "Digital givers give 33% more; giving must be one tap."
+      },
+      {
+        "l": "Sermons / Watch",
+        "f": true,
+        "w": "Watch online is the on-ramp — it lets someone sample before they step in."
+      },
+      {
+        "l": "Kids & Families",
+        "f": true,
+        "w": "Parents decide on kids' safety and programming first."
+      },
+      {
+        "l": "Current & alive",
+        "f": true,
+        "w": "Live announcements and dated upcoming events prove a real, active community."
+      },
+      {
+        "l": "Accessible & solid",
+        "f": true,
+        "w": "Accessibility, mobile, and HTTPS say \"everyone is welcome and we're legit.\""
+      }
+    ],
+    "mrr": 199,
+    "annual": 2388,
+    "winPct": 27,
+    "expected": 650,
+    "benchmark": {
+      "catN": 28,
+      "catLabel": "contemporary churches",
+      "avg": 60,
+      "max": 84,
+      "delta": 24
+    },
+    "competitorGaps": [
+      {
+        "label": "Service times & campus",
+        "why": "43% of church-seekers come to find service times and where to go.",
+        "peerPct": 75
+      }
+    ],
+    "talkingPoints": [
+      {
+        "label": "Service times & campus",
+        "why": "43% of church-seekers come to find service times and where to go.",
+        "peerPct": 75
+      }
+    ],
+    "opener": "Hi — I pulled up New Hope Christian Church and noticed you don't have service times & campus, but 75% of contemporary churches do — it's probably costing you visitors every week. I built a version of your site that fixes it. Two minutes to show you?",
+    "assets": {
+      "slug": "newhopechristianchurch-com",
+      "demo": null,
+      "funnel": null,
+      "teardown": null
+    },
+    "email": null,
+    "rendered": false,
+    "phone": null,
+    "stale": false,
+    "verifiedAt": "2026-07-06",
+    "audit": {
+      "score": 75,
+      "security": 36,
       "securityMax": 63,
       "topGap": "No DMARC record — your email domain can be impersonated",
       "scary": "no enforced DMARC — scammers can send email that looks like it comes from you",
@@ -7034,108 +7157,6 @@
     "audit": {
       "score": 79,
       "security": 41,
-      "securityMax": 63,
-      "topGap": "No DMARC record — your email domain can be impersonated",
-      "scary": "no enforced DMARC — scammers can send email that looks like it comes from you",
-      "at": "2026-07-06"
-    }
-  },
-  {
-    "type": "church",
-    "domain": "newhopechristianchurch.com",
-    "name": "New Hope Christian Church",
-    "platform": "FaithConnector",
-    "tradition": "contemporary",
-    "score": 96,
-    "tier": "SERVED",
-    "gaps": [],
-    "pitch": "Strong site (96/100) — low priority.",
-    "dead": false,
-    "dims": [
-      {
-        "l": "Plan Your Visit",
-        "f": true,
-        "w": "A first-timer needs a clear \"I'm new → here's what to expect\" path — the #1 job of a church front door."
-      },
-      {
-        "l": "Service times & campus",
-        "f": true,
-        "w": "43% of church-seekers come to find service times and where to go."
-      },
-      {
-        "l": "Next Steps pathway",
-        "f": true,
-        "w": "A defined \"what now?\" path turns a first visit into belonging."
-      },
-      {
-        "l": "Groups & belonging",
-        "f": true,
-        "w": "People stay when they find their people — a group finder beats a static list."
-      },
-      {
-        "l": "Serve & volunteer",
-        "f": true,
-        "w": "Serving is how attenders become members."
-      },
-      {
-        "l": "Care & Prayer",
-        "f": true,
-        "w": "Pastoral care/prayer signals a church that meets you in the hard moments — not transactional."
-      },
-      {
-        "l": "Online giving",
-        "f": true,
-        "w": "Digital givers give 33% more; giving must be one tap."
-      },
-      {
-        "l": "Sermons / Watch",
-        "f": true,
-        "w": "Watch online is the on-ramp — it lets someone sample before they step in."
-      },
-      {
-        "l": "Kids & Families",
-        "f": true,
-        "w": "Parents decide on kids' safety and programming first."
-      },
-      {
-        "l": "Current & alive",
-        "f": true,
-        "w": "Live announcements and dated upcoming events prove a real, active community."
-      },
-      {
-        "l": "Accessible & solid",
-        "f": true,
-        "w": "Accessibility, mobile, and HTTPS say \"everyone is welcome and we're legit.\""
-      }
-    ],
-    "mrr": 199,
-    "annual": 2388,
-    "winPct": 22,
-    "expected": 521,
-    "benchmark": {
-      "catN": 28,
-      "catLabel": "contemporary churches",
-      "avg": 62,
-      "max": 96,
-      "delta": 34
-    },
-    "competitorGaps": [],
-    "talkingPoints": [],
-    "opener": "Hi — I looked at New Hope Christian Church's site (scored it 96/100 vs a 62 average for contemporary churches). I rebuilt a sharper version — can I send it over?",
-    "assets": {
-      "slug": "newhopechristianchurch-com",
-      "demo": null,
-      "funnel": null,
-      "teardown": null
-    },
-    "email": null,
-    "rendered": false,
-    "phone": null,
-    "stale": false,
-    "verifiedAt": "2026-07-06",
-    "audit": {
-      "score": 75,
-      "security": 36,
       "securityMax": 63,
       "topGap": "No DMARC record — your email domain can be impersonated",
       "scary": "no enforced DMARC — scammers can send email that looks like it comes from you",
