@@ -1,0 +1,44 @@
+{
+  "name": "Ember Dental House",
+  "nameShort": "Ember",
+  "vertical": "dental office",
+  "locale": "Cherry Creek · Denver",
+  "phone": "(303) 555-0186",
+  "email": "hello@ember-demo.com",
+  "cta": "Book a visit",
+  "headline": ["Dentistry that feels", "considered from the start."],
+  "lede": "Calm, modern dental care for people who want thoughtful treatment, clear explanations and a visit that never feels rushed.",
+  "heroImage": "https://images.unsplash.com/photo-1606811971618-4486d14f3f99?auto=format&fit=crop&w=2400&q=88",
+  "carePaths": [
+    {"title":"I want to stay ahead of problems","label":"Preventive care","desc":"Thorough exams, cleanings and a long-term plan built around what your mouth actually needs."},
+    {"title":"Something hurts or feels wrong","label":"Urgent + restorative","desc":"A focused first visit to understand the problem, explain the options and get you comfortable again."},
+    {"title":"I want to improve my smile","label":"Cosmetic planning","desc":"Conservative options, careful mockups and a plan that respects your face instead of chasing a trend."},
+    {"title":"I have been putting this off","label":"A gentler restart","desc":"No lecture. We begin with where things are now, what matters most and the first step that feels manageable."}
+  ],
+  "confidence": [
+    {"title":"You will know what we see","desc":"Photos, scans and plain-language explanations make the diagnosis visible before treatment begins."},
+    {"title":"You will know what comes next","desc":"Priorities, timing and alternatives are organized into a plan you can actually understand."},
+    {"title":"You will never be rushed","desc":"Appointments are built to leave room for questions, comfort and careful work."}
+  ],
+  "visitJourney": [
+    {"title":"Before you arrive","desc":"Simple forms, clear directions and a quick note about anything that makes dental visits harder for you."},
+    {"title":"See the whole picture","desc":"Conversation first, then a careful exam, imaging when appropriate and time to understand what we found."},
+    {"title":"Build the plan together","desc":"We separate what is urgent, what can wait and what is purely optional so decisions stay yours."},
+    {"title":"Care without surprises","desc":"Each visit follows the plan, with clear expectations and the same calm, deliberate approach."}
+  ],
+  "team": [
+    {"name":"Dr. Mara Ellis","role":"General + restorative dentistry","note":"Known for careful diagnosis, conservative treatment planning and a calm chairside manner."},
+    {"name":"Dr. Theo Reed","role":"Cosmetic + comprehensive care","note":"Focused on natural-looking outcomes, function and treatment that still feels like you."}
+  ],
+  "faq": [
+    {"q":"What happens at a first visit?","a":"We start with a conversation about what brought you in, what has changed and what matters most to you. The exam and imaging follow, then we review what we see together."},
+    {"q":"Do you offer cosmetic dentistry?","a":"Yes. The emphasis is on conservative treatment, careful planning and outcomes that fit the person rather than a one-size-fits-all smile."},
+    {"q":"What if I am nervous about dental treatment?","a":"Tell us before the visit or when you arrive. The appointment can be paced around your comfort, with extra explanation and breaks whenever needed."}
+  ],
+  "images": [
+    "https://images.unsplash.com/photo-1606811971618-4486d14f3f99?auto=format&fit=crop&w=2200&q=88",
+    "https://images.unsplash.com/photo-1629909613654-28e377c37b09?auto=format&fit=crop&w=1800&q=86",
+    "https://images.unsplash.com/photo-1609840114035-3c981b782dfe?auto=format&fit=crop&w=1800&q=86",
+    "https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?auto=format&fit=crop&w=1800&q=86"
+  ]
+}
