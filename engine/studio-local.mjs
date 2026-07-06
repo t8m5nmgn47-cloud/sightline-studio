@@ -22,7 +22,9 @@ const MIME = { '.html':'text/html', '.css':'text/css', '.js':'text/javascript', 
 const ALLOWED_ORIGINS = /^https:\/\/sightline-studio(-[a-z0-9-]+)?\.vercel\.app$|^http:\/\/localhost(:\d+)?$/;
 const cors = (req) => {
   const o = req.headers.origin || '';
-  return ALLOWED_ORIGINS.test(o) ? { 'access-control-allow-origin': o, 'access-control-allow-headers': 'content-type', 'access-control-allow-methods': 'POST, GET, OPTIONS' } : {};
+  // allow-private-network: Chrome blocks public-HTTPS → localhost requests
+  // (Private Network Access) unless the preflight explicitly opts in.
+  return ALLOWED_ORIGINS.test(o) ? { 'access-control-allow-origin': o, 'access-control-allow-headers': 'content-type', 'access-control-allow-methods': 'POST, GET, OPTIONS', 'access-control-allow-private-network': 'true' } : {};
 };
 const json = (res, code, obj, extra = {}) => { res.writeHead(code, {'content-type':'application/json', ...extra}); res.end(JSON.stringify(obj)); };
 
