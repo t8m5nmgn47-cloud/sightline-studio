@@ -9,9 +9,9 @@ import fs from 'node:fs';
 import path from 'node:path';
 import * as cheerio from 'cheerio';
 import { extractSignals } from '../api/_intake.js';
-import { normalize, assemble, recommendRecipe, VERTICALS, TRADITIONS } from './site-engine.mjs';
+import { normalize, assemble, assembleSite, recommendRecipe, VERTICALS, TRADITIONS } from './site-engine.mjs';
 import { capture, saveAssets } from './capture.mjs';
-import { detectVertical, buildSections } from './vertical-content.mjs';
+import { detectVertical, buildSections, vary } from './vertical-content.mjs';
 
 import { fileURLToPath } from 'node:url';
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
@@ -91,11 +91,15 @@ function pickName(sig, domain){
   const humanize = d => d.replace(/^www\./,'').replace(/\.[a-z]+$/,'').replace(/[-_.]+/g,' ').replace(/\b\w/g,c=>c.toUpperCase());
   const raw = clean(sig.og_site_name) || clean(sig.title||'');
   const parts = raw.split(/[|–—·:]/).map(s=>s.trim()).filter(Boolean);
-  if (parts.length===1 && parts[0].length>=3 && !/^(home|welcome|index)$/i.test(parts[0])) return parts[0];
+  // SHOUTING TITLES read as broken — title-case anything that's all caps
+  const decap = p => /^[^a-z]+$/.test(p) && p.length > 6
+    ? p.toLowerCase().replace(/\b\w/g,c=>c.toUpperCase()).replace(/\b(Of|The|And|In|At)\b/g,m=>m.toLowerCase()).replace(/^./,c=>c.toUpperCase())
+    : p;
+  if (parts.length===1 && parts[0].length>=3 && !/^(home|welcome|index)$/i.test(parts[0])) return decap(parts[0]);
   // prefer a segment that reads like a proper business name: no comma/state, 2+ Title-case words
   const named = parts.filter(p=>!/,/.test(p) && /[A-Z][a-z]+ [A-Z]/.test(p)).sort((a,b)=>a.length-b.length);
-  const pick = named[0] || parts.find(p=>!/^(home|welcome|index)$/i.test(p) && p.length>=3);
-  return pick || humanize(domain);
+  const pick = named[0] || parts.find(p=>!/^(home|welcome|index)$/i.test(p) && p.length>=3) || humanize(domain);
+  return decap(pick);
 }
 
 // download brand assets: ranked-logo fallback chain + real photos + hero pick
@@ -135,36 +139,45 @@ if (isBiz) {
   const realServices = (override && override.services && override.services.length)
     ? override.services
     : (cap.services && cap.services.length >= 3) ? cap.services : (aiServices || []);
-  const built = buildSections(pack.key, name, { realReviews: sig.reviews || [], realServices });
+  const built = buildSections(pack.key, name, {
+    realReviews: cap.reviews || sig.reviews || [], rating: cap.rating, reviewCount: cap.reviewCount,
+    realServices, serviceDetails: cap.copy?.serviceDetails || [], slug,
+  });
   bizSections = built.sections; bizPack = built.pack;
+  if (cap.hours && cap.hours.length) bizSections.hours = { items: cap.hours };
+  if (cap.copy?.offer) bizSections.offer = { ...(bizSections.offer||{}), lead: cap.copy.offer };
 }
+const sections = isBiz ? bizSections : defaultSections(pack, name);
+// real people (LLM/JSON-LD capture) → team section, church or business alike
+if (cap.staff && cap.staff.length) sections.team = { items: cap.staff };
+// Headline priority: hand-verified override → AI → slug-hash rotated pack
+// variant (neighbouring demos never read identically)
 const heroHeadline = (override && override.headline) ? override.headline
   : (ai && ai.headline) ? ai.headline
-  : (isBiz ? (bizPack.hero(name)) : 'You’re welcome here.');
+  : isBiz
+    ? vary(slug, bizPack.heroes || [bizPack.hero])(name)
+    : vary(slug, ['You’re welcome here.', 'Come as you are.', 'Find your place here.', 'A church that feels like family.']);
 const bookCta = isBiz ? bizPack.bookCta : 'Plan your visit →';
-
-// Hero sub: first full sentence of their real description (≤180 chars), never
-// a mid-word chop. Falls back to the pack default when the description is
-// missing or unusable.
-function heroSub(desc, fallback){
-  const d = (desc||'').replace(/\s+/g,' ').trim();
-  if (d.length < 30) return fallback;
-  const sentence = d.match(/^.{30,178}?[.!?](?=\s|$)/);
-  if (sentence) return sentence[0];
-  if (d.length <= 180) return d;
-  return d.slice(0, 178).replace(/\s+\S*$/, '') + '…';    // word boundary + ellipsis
-}
+// their own voice beats a truncated meta description; cut at a word boundary,
+// never mid-word ("spiritu…" reads broken)
+const trimWords = (s, max=160) => { s=(s||'').trim(); if(s.length<=max) return s;
+  const cut = s.slice(0, max); return cut.slice(0, cut.lastIndexOf(' ')).replace(/[,;:.]$/,'') + '…'; };
+const heroSub = cap.copy?.tagline || trimWords(cap.copy?.mission) || trimWords(sig.description)
+  || (isBiz?'Modern, friendly service — get in touch in a minute.':'Come as you are.');
 
 const profile = normalize(sig, {
   slug, name, logo,
   fonts: cap.fonts.head ? cap.fonts : null,
   phone: cap.facts.phone || '',
+  location: cap.facts.address || '',
+  serviceTimes: (!isBiz && cap.copy?.serviceTimes?.length) ? cap.copy.serviceTimes : [],
   gallery: assets.gallery,
   heroImage: (override && override.heroImage) || assets.heroImage || (isBiz ? null : '/assets/stock/church-2.webp'),
-  hero: { kick: name, headline: heroHeadline,
-    sub: (override && override.subhead) ? override.subhead : (ai && ai.subhead) ? ai.subhead : heroSub(sig.description, isBiz?'Modern, friendly service — get in touch in a minute.':'Come as you are.'),
+  // no kick: it repeated the name directly under the nav logo/wordmark
+  hero: { headline: heroHeadline,
+    sub: (override && override.subhead) ? override.subhead : (ai && ai.subhead) ? ai.subhead : heroSub,
     ctas: [{label: bookCta, href: isBiz?'#book':'#visit'}] },
-  sections: isBiz ? bizSections : defaultSections(pack, name),
+  sections,
 });
 
 const recipe = recommendRecipe(profile);
@@ -177,34 +190,34 @@ else recipe.tradition = pack.key, recipe.archetype = recipe.archetype||'journey'
 const archOverride = flag('archetype');
 if (archOverride){ recipe.archetype = archOverride; if (archOverride==='flagship' && recipe.mood==='none') recipe.mood='candle'; }
 
-const site = assemble(profile, recipe);
+// --pages: full multi-page site (Services/About/Contact with a shared real nav);
+// default: single-page demo
 const outDir = path.join(ROOT,'demos',slug); fs.mkdirSync(outDir,{recursive:true});
-fs.writeFileSync(path.join(outDir,'index.html'), site);
+const multipage = args.includes('--pages');
+const files = multipage ? assembleSite(profile, recipe) : { 'index.html': assemble(profile, recipe) };
+// self-contained pages: every image inlined as a data URI so the demo renders
+// identically as a local file, in a preview pane, or deployed. Never again a
+// blank hero because a path didn't resolve.
+const { inlineAssets } = await import('./inline-assets.mjs');
+for (const [file, html] of Object.entries(files)) fs.writeFileSync(path.join(outDir, file), await inlineAssets(html, outDir, ROOT));
+if (multipage) {
+  // per-demo sitemap — matters once a demo becomes the client's delivered site
+  const origin = (process.env.SITE_ORIGIN || 'https://sightline-studio.vercel.app').replace(/\/$/,'');
+  const today = new Date().toISOString().slice(0,10);
+  const urls = Object.keys(files).map(f =>
+    `  <url><loc>${origin}/demos/${slug}/${f==='index.html'?'':f}</loc><lastmod>${today}</lastmod></url>`).join('\n');
+  fs.writeFileSync(path.join(outDir,'sitemap.xml'),
+    `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls}\n</urlset>\n`);
+}
 
-// ── QA gate: score the build so a weak site announces itself ────────────────
-// "World-class as the floor" means the pipeline TELLS you when it fell short,
-// instead of quietly publishing a generic page.
-const qa = [];
-qa.push([!!logo, logo ? 'brand logo captured & shape-validated' : 'no usable logo found — header shows a styled wordmark (send them a logo request)']);
-qa.push([!!cap.fonts.head, cap.fonts.head ? `brand font carried over (${cap.fonts.head})` : 'no brand font detected — using template type']);
-qa.push([(cap.colors||[]).length >= 2, (cap.colors||[]).length >= 2 ? 'brand palette extracted' : 'weak color signal — template palette in use']);
-qa.push([assets.gallery.length >= 3, `${assets.gallery.length} real photos captured`]);
-const svcSource = (override && override.services && override.services.length) ? `${override.services.length} hand-verified services (override)`
-  : (cap.services||[]).length >= 3 ? `${cap.services.length} real services pulled from their site`
-  : aiServices ? `${aiServices.length} real services written by AI from their own words`
-  : 'no services found — using vertical defaults';
-qa.push([!!(override&&override.services&&override.services.length) || (cap.services||[]).length >= 3 || !!aiServices, svcSource]);
-qa.push([!!(sig.description||'').trim(), (sig.description||'').trim() ? 'hero copy grounded in their real description' : 'no site description — hero copy is template text']);
-qa.push([pack.key !== 'business' || pack.kind !== 'vertical', pack.kind==='vertical' && pack.key==='business' ? 'industry unclear — generic business pack (consider --vertical)' : `industry: ${pack.key}`]);
-const passed = qa.filter(([ok]) => ok).length;
-const grade = passed >= 6 ? 'A' : passed >= 5 ? 'B' : passed >= 3 ? 'C' : 'D';
-
+// QA gate: static checks always; rendered checks when Chromium is available.
+// A failing demo still gets written (so you can inspect it) but exits non-zero.
+const { qa } = await import('./qa.mjs');
+const qr = await qa(slug, { rendered: !args.includes('--no-render-qa') });
 console.log(`✓ ${name}
   source:   ${src}
-  pack:     ${pack.kind}=${pack.key}${cap.jsShell?'  · ⚠ JS shell (install Chrome for rendered capture)':''}
+  pack:     ${pack.kind}=${pack.key}${logo?'  · logo':''}${assets.gallery.length?`  · ${assets.gallery.length} photos`:''}${cap.services&&cap.services.length?`  · ${cap.services.length} real services`:''}${cap.reviews&&cap.reviews.length?`  · ${cap.reviews.length} real reviews`:''}${cap.staff&&cap.staff.length?`  · ${cap.staff.length} staff`:''}${cap.fonts.head?`  · font: ${cap.fonts.head}`:''}${cap.facts.phone?'  · phone':''}${cap.facts.address?'  · address':''}${cap.llm?'  · llm':'  · heuristics-only (set ANTHROPIC_API_KEY for full extraction)'}${cap.jsShell?'  · ⚠ JS shell (install Chrome for rendered capture)':''}
   recipe:   ${recipe.archetype} · ${recipe.theme} · ${recipe.mood||'none'}${recipe.vertical?' · '+recipe.vertical:recipe.tradition?' · '+recipe.tradition:''}
-
-  QUALITY ${grade} (${passed}/${qa.length})
-${qa.map(([ok, msg]) => `    ${ok ? '✓' : '✗'} ${msg}`).join('\n')}
-${grade <= 'B' ? '' : '\n  ⚠ Below the bar — fix the ✗ items (or add flags) before sending this to a prospect.\n'}
-  published: demos/${slug}/index.html`);
+  published: demos/${slug}/index.html
+  qa:       ${qr.pass?'✅ pass':'❌ FAIL'}${qr.rendered?'':' (static only)'}${qr.fails.map(f=>'\n            ✗ '+f).join('')}${qr.warns.map(w=>'\n            ⚠ '+w).join('')}`);
+if (!qr.pass) process.exit(2);

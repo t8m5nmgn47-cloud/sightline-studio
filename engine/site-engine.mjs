@@ -13,6 +13,16 @@ function lum([r,g,b]){ const f=v=>{v/=255; return v<=.03928?v/12.92:((v+.055)/1.
 function sat([r,g,b]){ const mx=Math.max(r,g,b),mn=Math.min(r,g,b); return mx===0?0:(mx-mn)/mx; }
 function darken(h,amt){ const [r,g,b]=rgb(h); const f=v=>Math.max(0,Math.round(v*(1-amt))); return `#${[f(r),f(g),f(b)].map(v=>v.toString(16).padStart(2,'0')).join('')}`; }
 const rgbStr = h => rgb(h).join(',');
+// WCAG contrast ratio between two hex colours
+function contrast(a,b){ const [x,y]=[lum(rgb(a)),lum(rgb(b))].sort((p,q)=>q-p); return (x+.05)/(y+.05); }
+// darken a colour until white text/buttons on it hit the target ratio
+function clampForWhite(h, target=3){ let c=h, i=0; while(contrast(c,'#ffffff')<target && i++<12) c=darken(c,.12); return c; }
+// pull an over-saturated colour toward its own grey — neon captured brands
+// (pure reds/oranges) become rich instead of overwhelming
+function desat(h, amt){ const [r,g,b]=rgb(h); const grey=Math.round(.299*r+.587*g+.114*b);
+  const f=v=>Math.round(v+(grey-v)*amt);
+  return `#${[f(r),f(g),f(b)].map(v=>v.toString(16).padStart(2,'0')).join('')}`; }
+function tame(h){ const c=rgb(h); return sat(c)>.72 ? desat(h,.28) : h; }
 
 // Derive a coherent palette from the real captured colours.
 function derivePalette(colors){
@@ -24,8 +34,11 @@ function derivePalette(colors){
   const accent = vivid.find(c=>Math.abs(lum(rgb(c))-lum(rgb(brand)))>.08 && c!==brand) || '#c0914c';
   const darks = cs.filter(c=>lum(rgb(c))<.14).sort((a,b)=>lum(rgb(a))-lum(rgb(b)));
   const lights = cs.filter(c=>lum(rgb(c))>.85).sort((a,b)=>lum(rgb(b))-lum(rgb(a)));
+  // buttons and bands put white text on brand — clamp so it always reads;
+  // tame() caps saturation so a neon captured brand can't shout down the page
+  const safeBrand = clampForWhite(tame(brand), 3);
   return {
-    brand, brandD: darken(brand,.18), accent,
+    brand: safeBrand, brandD: darken(safeBrand,.18), accent,
     ink: darks[0] || '#1b1b1f',
     bg: lights[0] || '#faf8f4', surf:'#ffffff',
     mut:'#6a6a72', line:'rgba(0,0,0,.10)',
@@ -40,7 +53,7 @@ export function normalize(sig, over={}){
   const name = clean(over.name || sig.og_site_name || (sig.title||'').split(/[|–—]/)[0]);
   const tabs = (sig.nav_tabs||[])
     .map(t=>({label:clean(t.label), href:t.href}))
-    .filter(t=>t.label && t.label.length<=22 && !/^(skip|search|menu)$/i.test(t.label))
+    .filter(t=>t.label && t.label.length<=22 && !/^(skip|search|menu|back|home|log ?in|sign ?in|donate)$/i.test(t.label))
     .filter((t,i,a)=>a.findIndex(x=>x.label.toLowerCase()===t.label.toLowerCase())===i)
     .slice(0,6);
   const phrases = (sig.hero_phrases||[]).map(clean).filter(Boolean);
@@ -106,7 +119,7 @@ const S = {};
 S.nav = (p) => `
 <nav class="nav">
   <a class="brandmark" href="#top">${p.logo
-    ? `<img src="${p.logo}" alt="${p.name}" class="logo">`
+    ? `<img src="${p.logo}" alt="${p.name}" class="logo" onerror="this.outerHTML='<span class=&quot;wordmark&quot;>${p.name.replace(/'/g,'’')}</span>'">`
     : `<span class="wordmark">${p.name}</span>`}</a>
   ${p.nav ? `<div class="navlinks">${p.nav.map(t=>`<a href="${t.href}">${t.label}</a>`).join('')}</div>` : ''}
   <a class="btn sm" href="#visit">${p._t?.imNew || "I'm New"}</a>
@@ -144,8 +157,9 @@ S.hero = (p, {mood, arch}) => {
     ? `<video class="hero-bg hero-video" autoplay muted loop playsinline preload="metadata" poster="${p.heroImage||''}"><source src="${p.heroVideo}" type="video/mp4"></video>`
     : p.heroImage ? `<div class="hero-bg" style="background-image:url('${p.heroImage}')"></div>` : '';
   const glow = mood && mood!=='none' ? `<div class="glow"></div>` : '';
+  const noImg = !p.heroVideo && !p.heroImage ? ' no-img' : '';
   return `
-<header class="hero mood-${mood||'none'}" id="top">
+<header class="hero mood-${mood||'none'}${noImg}" id="top">
   ${bg}${glow}<div class="scrim"></div>
   <div class="hero-in">
     ${h.kick?`<span class="kick">${h.kick}</span>`:''}
@@ -195,14 +209,18 @@ S.giving = (p) => { const s=p.sections.giving; if(!s) return '';
   </div>
 </section>`; };
 
-S.cta = (p) => `
-<section class="sec cta" id="join">
+S.cta = (p) => {
+  // photo-backed close when we captured enough imagery (their own photos > flat colour)
+  const pics = (p.gallery||[]).filter(g=>g!==p.heroImage);
+  const img = pics.length >= 4 ? pics[pics.length-1] : null;
+  return `
+<section class="sec cta${img?' cta-photo':''}" id="join"${img?` style="background-image:linear-gradient(rgba(0,0,0,.55),rgba(0,0,0,.55)),url('${img}')"`:''}>
   <div class="wrap">
     <h2>${(p.sections.cta&&p.sections.cta.title)||'We saved you a seat.'}</h2>
-    <p class="lead">${(p.sections.cta&&p.sections.cta.lead)||'Come as you are — this Sunday.'}</p>
-    <a class="btn lg" href="#visit">Plan Your Visit →</a>
+    <p class="lead${img?' light':''}">${(p.sections.cta&&p.sections.cta.lead)||'Come as you are — this Sunday.'}</p>
+    <a class="btn lg${img?' light':''}" href="#visit">${(p.sections.cta&&p.sections.cta.cta)||'Plan Your Visit →'}</a>
   </div>
-</section>`;
+</section>`; };
 
 // live announcement bar — proof the church is current & alive
 S.announce = (p) => p.announce ? `<div class="announce"><span class="adot"></span>${p.announce}</div>` : '';
@@ -253,11 +271,12 @@ S.care = (p) => { const s=p.sections.care; if(!s) return '';
   <div class="wrap care-in">
     <div class="care-copy"><span class="sec-k">Care & prayer</span><h2>${s.title||'However you come, you don’t come alone.'}</h2>
       <p class="lead">${s.lead||'Need prayer, or just want someone to know you’re coming? Send a note — a real person reads every one.'}</p></div>
-    <form class="care-form" onsubmit="return false">
-      <input type="text" placeholder="Your name" aria-label="Your name">
-      <input type="email" placeholder="Email" aria-label="Email">
-      <textarea rows="3" placeholder="How can we pray for you, or how can we help?" aria-label="Message"></textarea>
+    <form class="care-form" data-source="demo:${p.slug||p.name||''}">
+      <input type="text" name="cname" placeholder="Your name" aria-label="Your name" required>
+      <input type="email" name="cemail" placeholder="Email" aria-label="Email" required>
+      <textarea rows="3" name="cmsg" placeholder="How can we pray for you, or how can we help?" aria-label="Message" required></textarea>
       <button class="btn" type="submit">Send it →</button>
+      <p class="form-note" hidden></p>
     </form>
   </div></section>`; };
 
@@ -314,11 +333,33 @@ S.team = (p) => { const s=p.sections.team; if(!s||!s.items||!s.items.length) ret
     <span class="sec-k">${s.kicker||'Our team'}</span>
     <h2>${s.title||'People you\'ll meet'}</h2>
     <div class="teamgrid">${s.items.map(m=>`
-      <article class="tcard">${m.photo?`<img src="${m.photo}" alt="${m.name}">`:`<div class="tinitial">${(m.name||'?')[0]}</div>`}
+      <article class="tcard">${m.photo?`<img src="${m.photo}" alt="${m.name}" loading="lazy" decoding="async">`:`<div class="tinitial">${(m.name||'?')[0]}</div>`}
         <h3>${m.name}</h3><span class="trole">${m.role||''}</span></article>`).join('')}
     </div>
   </div>
 </section>`; };
+
+// gallery strip — the prospect's own photos, proof the site is really theirs.
+// Renders only with 3+ captured photos beyond the hero; all lazy-loaded.
+S.gallerystrip = (p) => {
+  const hero = p.heroImage;
+  const pics = (p.gallery||[]).filter(g=>g!==hero).slice(0,6);
+  if (pics.length < 2) return '';
+  return `
+<section class="sec gstrip" id="gallery">
+  <div class="wrap"><span class="sec-k">${p._t?.copy?.gallery?.kicker||'Take a look'}</span><h2>${p._t?.copy?.gallery?.title||'Real photos, not stock.'}</h2></div>
+  <div class="gstrip-row">${pics.map((g,i)=>`<img src="${g}" alt="${p.name} — photo ${i+1}" loading="lazy" decoding="async">`).join('')}</div>
+</section>`; };
+
+// compact page header for interior pages (multi-page output)
+S.pagehero = (p) => `
+<header class="pagehero">
+  <div class="wrap">
+    <span class="sec-k light">${p.name}</span>
+    <h1>${p._page?.title || ''}</h1>
+    ${p._page?.lead ? `<p class="pagehero-lead">${p._page.lead}</p>` : ''}
+  </div>
+</header>`;
 
 S.footer = (p) => `
 <footer class="foot"><div class="wrap">
@@ -389,6 +430,13 @@ S.results = (p) => { const s=p.sections.results; if(!s) return '';
     <div class="cardgrid">${items.map(it=>`<article class="card"><h3>${it.h}</h3><p>${it.p||''}</p></article>`).join('')}</div>
   </div></section>`; };
 
+// trust band — the pack's proof points, right under the hero/services
+S.trust = (p) => { const s=p.sections.trust; if(!s||!s.items||!s.items.length) return '';
+  return `
+<section class="trustband">
+  <div class="wrap trust-in">${s.items.map(t=>`<div class="trustitem"><span class="tcheck">✓</span>${t}</div>`).join('')}</div>
+</section>`; };
+
 S.bizmoney = (p) => { const s=p.sections.money; if(!s) return '';
   return `
 <section class="sec money" id="money">
@@ -404,6 +452,64 @@ S.hours = (p) => { const s=p.sections.hours||{};
     <div class="times-h"><span class="sec-k">Visit us</span><h2>Hours & location</h2>${p.location?`<p class="lead">${p.location}</p>`:''}</div>
     <ul class="times-list">${(s.items||['Mon–Fri · 8:00 AM – 5:00 PM','Sat · By appointment']).map(x=>`<li><span class="tdot"></span>${x}</li>`).join('')}</ul>
   </div></section>`; };
+
+// ── demo-only upsell layer ────────────────────────────────────────────────────
+// Renders ONLY on demos (recipe.indexable !== true); disable per render with
+// recipe.upsells = false. Shows the prospect what higher Sightline tiers add.
+// These are clearly-labelled optional add-ons — nothing pretends to be live.
+const UPSELL_BASE = [
+  { h:'Online booking',        p:'Patients and clients book themselves 24/7 — synced to your calendar, with reminders that cut no-shows.', tier:'Growth' },
+  { h:'Review engine',         p:'Automatic post-visit review requests that grow your Google rating on autopilot.', tier:'Growth' },
+  { h:'Monthly SEO content',   p:'Fresh, search-optimised pages every month so you climb the rankings for the services that pay.', tier:'Pro' },
+  { h:'Google Business sync',  p:'Hours, photos, offers and posts pushed to your Google profile automatically.', tier:'Pro' },
+];
+const UPSELL_VERTICAL = {
+  dental:   { h:'Insurance & membership pages', p:'Plan-by-plan insurance pages plus an in-house membership club that converts the uninsured.', tier:'Pro' },
+  medical:  { h:'Patient intake forms',         p:'HIPAA-conscious online intake that fills your front desk’s day before patients arrive.', tier:'Pro' },
+  medspa:   { h:'Before & after gallery',       p:'A consent-managed results gallery — your strongest closer, updated from your phone.', tier:'Growth' },
+  law:      { h:'Lead-qualifying intake',       p:'Case-type intake forms that qualify prospects before the first consult.', tier:'Pro' },
+  trades:   { h:'Instant estimate requests',    p:'Photo-upload estimate forms that turn night-time browsers into booked jobs.', tier:'Growth' },
+  optometry:{ h:'Frame gallery & insurance',    p:'A browsable frame gallery plus vision-plan pages that pre-answer the #1 phone question.', tier:'Pro' },
+  childcare:{ h:'Tour scheduling & waitlist',   p:'Parents book tours online and join a managed waitlist — no more phone tag.', tier:'Growth' },
+};
+const UPSELL_CSS = `<style id="sl-upsell-css">
+.upsell .upgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:18px;margin-top:26px}
+.upcard{position:relative;background:var(--surf);border:1px dashed var(--line);border-radius:var(--rad);padding:22px;opacity:.92}
+.upcard h3{margin:8px 0 6px;font-size:1.05rem}
+.upcard p{margin:0;color:var(--mut);font-size:.92rem}
+.uptier{position:absolute;top:14px;right:14px;font-size:.72rem;font-weight:600;letter-spacing:.04em;text-transform:uppercase;color:var(--brand);border:1px solid var(--brand);border-radius:999px;padding:3px 10px}
+.uplock{font-size:1.1rem;opacity:.7}
+.upgrade{background:linear-gradient(120deg,var(--brand),var(--brand-d));color:#fff}
+.upgrade .wrap{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:18px;padding-top:34px;padding-bottom:34px}
+.upgrade b{font-size:1.12rem}.upgrade span{opacity:.9;display:block;margin-top:4px;max-width:56ch}
+.upgrade .btn.light{background:#fff;color:var(--brand-d)}
+</style>`;
+
+S.upsell = (p) => {
+  const extra = UPSELL_VERTICAL[p._vertical] ? [UPSELL_VERTICAL[p._vertical]] : [];
+  const items = [...extra, ...UPSELL_BASE].slice(0, 4);
+  return `
+<section class="sec upsell" id="upgrades">
+  <div class="wrap">
+    <span class="sec-k">Ready when you are</span>
+    <h2>Your site can do even more.</h2>
+    <p class="lead">This demo is the Foundation build. These add-ons switch on without a redesign:</p>
+    <div class="upgrid">${items.map(u=>`
+      <article class="upcard"><span class="uptier">${u.tier}</span><span class="uplock">🔒</span><h3>${u.h}</h3><p>${u.p}</p></article>`).join('')}
+    </div>
+  </div>
+</section>`;
+};
+
+S.upgradecta = (p) => `
+${UPSELL_CSS}
+<section class="sec upgrade" id="upgrade">
+  <div class="wrap">
+    <div><b>Like what you see? This is just the Foundation tier.</b>
+      <span>Online booking, an automatic review engine and monthly SEO content are one conversation away — no rebuild, no downtime.</span></div>
+    <a class="btn lg light" href="https://sightline-studio.vercel.app/pricing" target="_blank" rel="noopener">See what's included →</a>
+  </div>
+</section>`;
 
 // ── traditions: the CONTENT layer (which sections, vocabulary, tone) ─────────
 // Separate from archetype (visual structure) and theme (palette/type). A Catholic
@@ -429,29 +535,29 @@ export const TRADITIONS = {
 // ── business verticals: the profit engine (same architecture as traditions) ──
 export const VERTICALS = {
   dental:{ label:'Dental', imNew:'New Patients', bookCta:'Book appointment →',
-    order:['announce','nav','hero','bookbar','services','reviews','offer','team','results','bizmoney','hours','cta','footer'] },
+    order:['announce','nav','hero','bookbar','trust','services','reviews','offer','team','results','bizmoney','hours','cta','footer'] },
   medical:{ label:'Medical', imNew:'New Patients', bookCta:'Request an appointment →',
-    order:['announce','nav','hero','bookbar','services','reviews','bizmoney','team','offer','hours','cta','footer'] },
+    order:['announce','nav','hero','bookbar','trust','services','reviews','bizmoney','team','offer','hours','cta','footer'] },
   optometry:{ label:'Eye Care', imNew:'New Patients', bookCta:'Book an eye exam →',
-    order:['announce','nav','hero','bookbar','services','reviews','offer','bizmoney','team','hours','cta','footer'] },
+    order:['announce','nav','hero','bookbar','trust','services','reviews','offer','bizmoney','team','hours','cta','footer'] },
   law:{ label:'Law', imNew:'Free Consult', bookCta:'Request a free consult →',
-    order:['announce','nav','hero','bookbar','services','reviews','team','offer','hours','cta','footer'] },
+    order:['announce','nav','hero','bookbar','trust','services','reviews','team','offer','hours','cta','footer'] },
   accounting:{ label:'Accounting', imNew:'New Clients', bookCta:'Book a consultation →',
-    order:['announce','nav','hero','bookbar','services','reviews','team','offer','hours','cta','footer'] },
+    order:['announce','nav','hero','bookbar','trust','services','reviews','team','offer','hours','cta','footer'] },
   insurance:{ label:'Insurance', imNew:'Free Quote', bookCta:'Get a free quote →',
-    order:['announce','nav','hero','bookbar','services','offer','reviews','team','hours','cta','footer'] },
+    order:['announce','nav','hero','bookbar','trust','services','offer','reviews','team','hours','cta','footer'] },
   mortgage:{ label:'Mortgage', imNew:'Get Started', bookCta:'Get pre-approved →',
-    order:['announce','nav','hero','bookbar','services','offer','reviews','team','hours','cta','footer'] },
+    order:['announce','nav','hero','bookbar','trust','services','offer','reviews','team','hours','cta','footer'] },
   title:{ label:'Title & Escrow', imNew:'Start a File', bookCta:'Open an order →',
-    order:['announce','nav','hero','bookbar','services','offer','reviews','team','hours','cta','footer'] },
+    order:['announce','nav','hero','bookbar','trust','services','offer','reviews','team','hours','cta','footer'] },
   medspa:{ label:'Med Spa', imNew:'Book Now', bookCta:'Book your visit →',
-    order:['announce','nav','hero','bookbar','services','reviews','offer','results','team','bizmoney','hours','cta','footer'] },
+    order:['announce','nav','hero','bookbar','trust','services','reviews','offer','results','team','bizmoney','hours','cta','footer'] },
   trades:{ label:'Home Services', imNew:'Free Estimate', bookCta:'Get a free estimate →',
-    order:['announce','nav','hero','bookbar','services','offer','reviews','bizmoney','results','hours','cta','footer'] },
+    order:['announce','nav','hero','bookbar','trust','services','offer','reviews','bizmoney','results','hours','cta','footer'] },
   childcare:{ label:'Childcare & Education', imNew:'Schedule a Tour', bookCta:'Schedule a tour →',
-    order:['announce','nav','hero','bookbar','services','offer','reviews','team','hours','cta','footer'] },
+    order:['announce','nav','hero','bookbar','trust','services','offer','reviews','team','hours','cta','footer'] },
   business:{ label:'Local Business', imNew:'Get Started', bookCta:'Get in touch →',
-    order:['announce','nav','hero','bookbar','services','offer','reviews','team','hours','cta','footer'] },
+    order:['announce','nav','hero','bookbar','trust','services','offer','reviews','team','hours','cta','footer'] },
 };
 
 // ── the stylesheet (structure + archetype/mood variations) ───────────────────
@@ -485,7 +591,7 @@ h1,h2,h3{font-family:'__DISPLAY__',Georgia,serif;font-weight:600;line-height:1.0
 .hero-bg{position:absolute;inset:0;z-index:-3;background-size:cover;background-position:center;transform:scale(1.06);transform-origin:60% 40%}
 .hero-video{width:100%;height:100%;object-fit:cover}
 .glow{position:absolute;z-index:-2;pointer-events:none;display:none;mix-blend-mode:screen}
-.scrim{position:absolute;inset:0;z-index:-1;background:linear-gradient(180deg,rgba(0,0,0,.28),rgba(0,0,0,0) 34%,rgba(0,0,0,.32) 66%,rgba(0,0,0,.8))}
+.scrim{position:absolute;inset:0;z-index:-1;background:linear-gradient(180deg,rgba(0,0,0,.44),rgba(0,0,0,.12) 34%,rgba(0,0,0,.42) 62%,rgba(0,0,0,.86))}
 .hero-in{padding:0 clamp(20px,4vw,44px) clamp(44px,7vw,84px);max-width:820px}
 .hero .kick{font-size:.78rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase}
 .hero h1{font-size:clamp(2.4rem,6.5vw,4.6rem);margin:.24em 0 .2em;text-shadow:0 2px 30px rgba(0,0,0,.35);text-wrap:balance}
@@ -540,6 +646,7 @@ h1,h2,h3{font-family:'__DISPLAY__',Georgia,serif;font-weight:600;line-height:1.0
 .care-form input,.care-form textarea{font:inherit;padding:13px 15px;border:1px solid var(--line);border-radius:calc(var(--rad)*1px);background:var(--surf);color:var(--ink);resize:vertical}
 .care-form input:focus,.care-form textarea:focus{outline:2px solid var(--brand);border-color:transparent}
 .care-form .btn{align-self:flex-start}
+.form-note{margin:0;font-size:.92rem;color:var(--brand);font-weight:600}
 @media(max-width:760px){.care-in{grid-template-columns:1fr;gap:24px}.steparrow{display:none}}
 /* watch / livestream */
 .watch-in{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center}
@@ -567,20 +674,51 @@ h1,h2,h3{font-family:'__DISPLAY__',Georgia,serif;font-weight:600;line-height:1.0
 .band h2{margin-top:.2em}
 /* cta */
 .cta{text-align:center}.cta h2{font-size:clamp(2rem,4vw,3rem)}.cta .lead{margin:.6em auto 24px}
+.cta-photo{background-size:cover;background-position:center;color:#fff}
+.cta-photo h2{text-shadow:0 2px 24px rgba(0,0,0,.4)}
+/* trust band */
+.trustband{background:var(--surf);border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:18px 0}
+.trust-in{display:flex;flex-wrap:wrap;gap:12px 34px;justify-content:center}
+.trustitem{font-weight:600;font-size:.92rem;display:flex;align-items:center;gap:8px}
+.tcheck{color:var(--accent);font-weight:800}
+/* no-photo hero: a designed brand poster, never a bare text block */
+.hero.no-img{background:
+  radial-gradient(90% 70% at 85% 10%,color-mix(in srgb,var(--accent) 22%,transparent),transparent 60%),
+  radial-gradient(70% 90% at 5% 95%,color-mix(in srgb,var(--brand) 30%,transparent),transparent 65%),
+  linear-gradient(135deg,color-mix(in srgb,var(--brand) 55%,#14161a),color-mix(in srgb,var(--brand-d) 45%,#0e1013));
+  color:#fff;min-height:78vh;align-items:center}
+.hero.no-img .scrim{display:none}
+.hero.no-img h1,.arch-editorial .hero.no-img h1,.arch-split .hero.no-img h1,.arch-minimal .hero.no-img h1{color:#fff;text-shadow:none}
+.hero.no-img .hero-sub,.arch-editorial .hero.no-img .hero-sub,.arch-split .hero.no-img .hero-sub,.arch-minimal .hero.no-img .hero-sub{color:rgba(255,255,255,.9)}
+.hero.no-img .kick{color:rgba(255,255,255,.85)}
+/* the brandmark must never fall back to UA link blue/underline */
+.nav .brandmark{color:var(--ink);text-decoration:none}
+.nav .wordmark{color:inherit}
+/* interior pages */
+.subpage .nav{position:relative;background:color-mix(in srgb,var(--ink) 92%,#000)}
+.pagehero{background:linear-gradient(135deg,var(--brand),var(--brand-d));color:#fff;padding:clamp(48px,7vw,90px) 0 clamp(36px,5vw,64px)}
+.pagehero h1{font-size:clamp(2rem,5vw,3.4rem);margin:.2em 0 0}
+.pagehero-lead{color:rgba(255,255,255,.92);max-width:56ch;margin:.6em 0 0;font-size:1.06rem}
+/* gallery strip */
+.gstrip .wrap{margin-bottom:26px}
+.gstrip-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px;padding:0 clamp(10px,2vw,24px)}
+.gstrip-row img{width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:calc(var(--rad)*1px);transition:transform .25s}
+.gstrip-row img:hover{transform:scale(1.02)}
+@media(max-width:720px){.gstrip-row{grid-template-columns:repeat(2,1fr)}}
 /* footer */
 .foot{background:var(--ink);color:#fff;padding:44px 0}
 .foot-brand{font-family:'__DISPLAY__',serif;font-size:1.3rem;font-weight:600}
 .foot-loc{color:rgba(255,255,255,.7);margin-top:6px}.foot-fine{color:rgba(255,255,255,.45);margin-top:18px;font-size:.85rem}
 /* motion moods */
 @keyframes drift{from{transform:scale(1.06)}to{transform:scale(1.16) translate(-2.4%,-2%)}}
-@keyframes rays{0%{transform:translate(-4%,-3%) rotate(-1.1deg);opacity:.3}100%{transform:translate(4%,3%) rotate(1.1deg);opacity:.66}}
-@keyframes flick{0%,100%{opacity:.48}20%{opacity:.72}36%{opacity:.44}54%{opacity:.66}70%{opacity:.52}86%{opacity:.78}}
+@keyframes rays{0%{transform:translate(-4%,-3%) rotate(-1.1deg);opacity:.14}100%{transform:translate(4%,3%) rotate(1.1deg);opacity:.3}}
+@keyframes flick{0%,100%{opacity:.18}30%{opacity:.28}60%{opacity:.2}85%{opacity:.3}}
 .mood-drift .hero-bg,.mood-godrays .hero-bg,.mood-candle .hero-bg{animation:drift 26s ease-in-out infinite alternate}
 .mood-godrays .glow{display:block;inset:-28%;filter:blur(9px);animation:rays 15s ease-in-out infinite alternate;
   background:radial-gradient(52% 46% at 70% 6%,color-mix(in srgb,var(--accent) 62%,transparent),transparent 72%),
   linear-gradient(101deg,transparent 20%,rgba(255,252,242,.11) 32%,transparent 46%),
   linear-gradient(101deg,transparent 50%,rgba(255,250,238,.07) 62%,transparent 78%)}
-.mood-candle .glow{display:block;inset:0;animation:flick 5s ease-in-out infinite;
+.mood-candle .glow{display:block;inset:0;animation:flick 9s ease-in-out infinite;
   background:radial-gradient(58% 60% at 50% 84%,color-mix(in srgb,var(--accent) 42%,#ffb066),transparent 66%)}
 /* ARCHETYPE: editorial — a framed magazine cover. Headline ABOVE a boxed image on a light ground. */
 .arch-editorial .nav{position:relative;background:var(--bg);color:var(--ink);border-bottom:1px solid var(--line)}
@@ -593,10 +731,11 @@ h1,h2,h3{font-family:'__DISPLAY__',Georgia,serif;font-weight:600;line-height:1.0
 .arch-editorial .hero-bg{position:relative;inset:auto;z-index:0;order:1;width:100%;max-width:1080px;margin:0 auto;
   height:min(58vh,540px);border-radius:calc(var(--rad)*2.2px);transform:none;box-shadow:0 30px 70px rgba(0,0,0,.16)}
 .arch-editorial .scrim,.arch-editorial .glow{display:none}
-/* ARCHETYPE: modern — a bold brand-color poster. Oversized type; photo becomes a luminous texture. */
-.arch-modern .hero{align-items:center;background:linear-gradient(135deg,var(--brand),var(--brand-d));color:#fff}
-.arch-modern .hero-bg{opacity:.30;mix-blend-mode:luminosity}
-.arch-modern .scrim{background:linear-gradient(180deg,rgba(0,0,0,.15),transparent 40%,rgba(0,0,0,.25))}
+/* ARCHETYPE: modern — a deep brand-tinted poster. Oversized type; photo becomes a quiet texture.
+   The gradient mixes brand into near-black so vivid captured brands stay rich, never neon. */
+.arch-modern .hero{align-items:center;background:linear-gradient(135deg,color-mix(in srgb,var(--brand) 52%,#14161a),color-mix(in srgb,var(--brand-d) 42%,#0e1013));color:#fff}
+.arch-modern .hero-bg{opacity:.22;mix-blend-mode:luminosity}
+.arch-modern .scrim{background:linear-gradient(180deg,rgba(0,0,0,.25),transparent 40%,rgba(0,0,0,.35))}
 .arch-modern .hero-in{max-width:960px}
 .arch-modern .hero h1{font-size:clamp(3rem,9vw,6.5rem);letter-spacing:-.03em;line-height:.98}
 .arch-modern .hero .kick{opacity:.9}
@@ -766,7 +905,21 @@ const RUNTIME = `<script>
    els.forEach(function(e){e.classList.add('reveal')});
    var io=new IntersectionObserver(function(es){es.forEach(function(x){if(x.isIntersecting){x.target.classList.add('in');io.unobserve(x.target)}})},{threshold:.12});
    els.forEach(function(e){io.observe(e)});
- }})();
+ }
+ // live form submit → /api/contact (lead capture during the sales window)
+ document.querySelectorAll('form.care-form').forEach(function(f){
+   f.addEventListener('submit',function(ev){
+     ev.preventDefault();
+     var btn=f.querySelector('button[type=submit]'), note=f.querySelector('.form-note');
+     var body={cname:f.cname.value.trim(),cemail:f.cemail.value.trim(),cmsg:f.cmsg.value.trim(),source:f.dataset.source||'demo'};
+     if(!body.cname||!body.cemail||!body.cmsg)return;
+     btn.disabled=true;var old=btn.textContent;btn.textContent='Sending…';
+     fetch('/api/contact',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify(body)})
+       .then(function(r){if(!r.ok)throw 0;return r.json();})
+       .then(function(){note.hidden=false;note.textContent='✓ Sent — a real person will get back to you soon.';f.reset();btn.textContent=old;btn.disabled=false;})
+       .catch(function(){note.hidden=false;note.textContent='Something went wrong — please call or email us directly.';btn.textContent=old;btn.disabled=false;});
+   });
+ });})();
 </script>`;
 
 // ── auto-recommend a recipe from the captured brand ──────────────────────────
@@ -783,8 +936,10 @@ export function recommendRecipe(profile){
   else if (isGreen)    { theme='evergreen'; archetype='cathedral'; }
   else if (s < .2)     { theme='quiet';     archetype='minimal'; }     // muted → quiet/minimal
   else                 { theme='sanctuary'; archetype='cathedral'; }
-  mood = (archetype==='minimal'||archetype==='split') ? 'drift'
-       : (archetype==='cathedral') ? 'godrays' : 'candle';
+  // auto recipes get subtle Ken-Burns drift ONLY. The godrays/candle glow
+  // effects read as a flashing light over real photos — they're opt-in now,
+  // never auto-assigned.
+  mood = 'drift';
   return { archetype, theme, mood, useCapturedPalette:true,
     why:`brand ${p.brand} — saturation ${(s*100)|0}%, ${isBlueNavy?'navy':isWarm?'warm':isGreen?'green':'neutral'} → ${archetype} + ${theme}` };
 }
@@ -863,8 +1018,52 @@ function conciergeWidget(profile, opts={}){
 })();</script>`;
 }
 
+// ── SEO / schema head block ──────────────────────────────────────────────────
+// JSON-LD type per business vertical (schema.org LocalBusiness subtypes) or Church.
+const SCHEMA_TYPE = {
+  dental:'Dentist', medical:'MedicalClinic', optometry:'Optician', law:'Attorney',
+  accounting:'AccountingService', insurance:'InsuranceAgency', mortgage:'FinancialService',
+  title:'FinancialService', medspa:'HealthAndBeautyBusiness', trades:'HomeAndConstructionBusiness',
+  childcare:'ChildCare', business:'LocalBusiness',
+};
+const escAttr = s => (s||'').replace(/"/g,'&quot;');
+function seoHead(profile, recipe, page=null){
+  const origin = (recipe.origin || process.env.SITE_ORIGIN || 'https://sightline-studio.vercel.app').replace(/\/$/,'');
+  const abs = u => !u ? null : /^https?:/i.test(u) ? u : origin + (u.startsWith('/')?'':'/') + u;
+  const canonical = profile.slug ? `${origin}/demos/${profile.slug}/${page?.file||''}` : null;
+  const desc = (profile.description||'').slice(0,300);
+  const img = abs(profile.heroImage) || abs(profile.logo);
+  const meta = [
+    // demos are sales assets, not the client's real site — never let them
+    // compete with (or leak into) search results. recipe.indexable=true for
+    // delivered production sites.
+    recipe.indexable ? '' : `<meta name="robots" content="noindex">`,
+    canonical && `<link rel="canonical" href="${canonical}">`,
+    profile.logo && `<link rel="icon" href="${escAttr(profile.logo)}">`,
+    `<meta property="og:type" content="website">`,
+    `<meta property="og:title" content="${escAttr(profile.name)}${profile.tagline?` — ${escAttr(profile.tagline)}`:''}">`,
+    desc && `<meta property="og:description" content="${escAttr(desc)}">`,
+    canonical && `<meta property="og:url" content="${canonical}">`,
+    img && `<meta property="og:image" content="${escAttr(img)}">`,
+    `<meta name="twitter:card" content="${img?'summary_large_image':'summary'}">`,
+  ].filter(Boolean).join('\n');
+  // structured data — only fields we actually captured; nothing invented
+  const type = recipe.vertical ? (SCHEMA_TYPE[recipe.vertical]||'LocalBusiness') : recipe.tradition ? 'Church' : null;
+  if (!type) return meta;
+  const ld = { '@context':'https://schema.org', '@type':type, name: profile.name };
+  if (canonical) ld.url = canonical;
+  if (desc) ld.description = desc;
+  if (profile.phone) ld.telephone = profile.phone;
+  if (profile.location) ld.address = profile.location;
+  if (abs(profile.logo)) ld.logo = abs(profile.logo);
+  if (img) ld.image = img;
+  return meta + `\n<script type="application/ld+json">${JSON.stringify(ld)}</script>`;
+}
+
 // ── the assembler ─────────────────────────────────────────────────────────────
-export function assemble(profile, recipe={}){
+// page (optional): {order, title, lead} renders an interior page — compact
+// pagehero instead of the full hero, solid nav, no auto gallery weave.
+export function assemble(profile, recipe={}, page=null){
   const archetype = ARCHETYPES[recipe.archetype] || ARCHETYPES.cathedral;
   const theme = THEMES[recipe.theme] || THEMES.evergreen;
   const trad = TRADITIONS[recipe.tradition] || VERTICALS[recipe.vertical] || null;   // content pack: church tradition OR business vertical
@@ -876,14 +1075,36 @@ export function assemble(profile, recipe={}){
   const displayFont = brandFont || theme.font;
   const displayUrl = brandFont ? brandFont.replace(/ /g,'+') + ':wght@400;500;600;700' : theme.fontUrl;
   const css = stylesheet().replace(/__DISPLAY__/g, displayFont);
-  const p = trad ? { ...profile, _t:trad } : profile;   // expose tradition labels to renderers
-  const order = trad ? trad.order : archetype.order;    // tradition drives content IA when set
-  const bodyClass = archetype.body + (recipe.tradition ? ` trad-${recipe.tradition}` : '') + (recipe.vertical ? ` vert-${recipe.vertical}` : '');
+  const p = { ...profile, ...(trad ? { _t:trad } : {}), ...(page ? { _page:page } : {}), _vertical: recipe.vertical || null };
+  let order = page?.order || (trad ? trad.order : archetype.order);
+  // Demo-only upsell layer (business demos): teaser grid on the homepage,
+  // upgrade band above the footer on EVERY page. Never on delivered sites
+  // (recipe.indexable) and removable with recipe.upsells=false.
+  if (recipe.vertical && recipe.upsells !== false && !recipe.indexable) {
+    order = [...order];
+    if (!page && !order.includes('upsell')) {
+      const at = order.indexOf('cta');
+      order.splice(at > 0 ? at : order.length - 1, 0, 'upsell');
+    }
+    if (!order.includes('upgradecta')) {
+      const at = order.indexOf('footer');
+      order.splice(at > 0 ? at : order.length, 0, 'upgradecta');
+    }
+  }
+  // art direction: when we captured real photos, weave a gallery strip in
+  // before the closing CTA (the renderer no-ops below 3 photos anyway)
+  if (!page && (profile.gallery||[]).length >= 3 && !order.includes('gallerystrip')) {
+    order = [...order];
+    const at = order.indexOf('cta');
+    order.splice(at > 0 ? at : order.length - 1, 0, 'gallerystrip');
+  }
+  const bodyClass = archetype.body + (recipe.tradition ? ` trad-${recipe.tradition}` : '') + (recipe.vertical ? ` vert-${recipe.vertical}` : '') + (page ? ' subpage' : '');
   const body = order.map(name => (S[name] ? S[name](p, {mood, arch: recipe.archetype}) : '')).join('\n');
   return `<!doctype html><html lang="en"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>${profile.name}${profile.tagline?` — ${profile.tagline}`:''}</title>
+<title>${page?.title?`${page.title} — ${profile.name}`:`${profile.name}${profile.tagline?` — ${profile.tagline}`:''}`}</title>
 <meta name="description" content="${(profile.description||'').replace(/"/g,'&quot;').slice(0,300)}">
+${seoHead(profile, recipe, page)}
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=${displayUrl}&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>:root{${themeVars(profile,recipe.theme,useCaptured)}}
@@ -893,4 +1114,40 @@ ${body}
 ${recipe.concierge === false ? '' : conciergeWidget(p, {business:!!recipe.vertical, vertical:recipe.vertical})}
 ${RUNTIME}
 </body></html>`;
+}
+
+// ── multi-page site builder ───────────────────────────────────────────────────
+// Same section system, real pages — a one-page demo reads "template", separate
+// Services / About / Contact pages read "real site". Returns {filename: html}.
+export function assembleSite(profile, recipe={}){
+  const isBiz = !!recipe.vertical;
+  const hasReviews = !!(profile.sections?.reviews?.items?.length);
+  const manifests = isBiz ? [
+    { file:'services.html', title:'Services', lead:'Everything we do, and how to get started.',
+      order:['nav','pagehero','services','trust','results','offer','bizmoney','bookbar','cta','footer'] },
+    { file:'about.html', title:'About us', lead:`Get to know ${profile.name}.`,
+      order:['nav','pagehero','team','gallerystrip','trust',...(hasReviews?[]:['reviews']),'bizmoney','bookbar','cta','footer'] },
+    // Reviews gets its own tab only when REAL reviews were captured — the
+    // engine never fabricates social proof.
+    ...(hasReviews ? [{ file:'reviews.html', title:'Reviews', lead:'What our patients and clients actually say.',
+      order:['nav','pagehero','reviews','results','trust','bookbar','cta','footer'] }] : []),
+    { file:'contact.html', title:'Contact', lead:'Hours, location, and the fastest ways to reach us.',
+      order:['nav','pagehero','hours','bookbar','care','footer'] },
+  ] : [
+    { file:'visit.html', title:'Plan your visit', lead:'Everything you need to know before your first Sunday.',
+      order:['nav','pagehero','times','nextsteps','services','cta','footer'] },
+    { file:'about.html', title:'About us', lead:`The people and story of ${profile.name}.`,
+      order:['nav','pagehero','team','gallerystrip','serve','groups','cta','footer'] },
+    { file:'contact.html', title:'Contact', lead:'We\'d love to hear from you.',
+      order:['nav','pagehero','times','care','footer'] },
+  ];
+  // real nav across every page
+  const nav = [
+    { label:'Home', href:'index.html' },
+    ...manifests.map(m => ({ label:m.title.replace('Plan your visit','Visit').replace(' us',''), href:m.file })),
+  ];
+  const p = { ...profile, nav };
+  const out = { 'index.html': assemble(p, recipe) };
+  for (const m of manifests) out[m.file] = assemble(p, recipe, m);
+  return out;
 }

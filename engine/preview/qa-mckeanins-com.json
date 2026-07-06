@@ -1,0 +1,15 @@
+{
+  "slug": "mckeanins-com",
+  "pass": false,
+  "fails": [
+    "no canonical",
+    "no og:title",
+    "white-on-brand contrast 2.11 < 3.0 (#8ab4f8)"
+  ],
+  "warns": [
+    "no meta description",
+    "no JSON-LD"
+  ],
+  "rendered": false,
+  "at": "2026-07-05T17:11:22.964Z"
+}

@@ -1,0 +1,15 @@
+{
+  "slug": "northspokanedental-com",
+  "pass": false,
+  "fails": [
+    "no canonical",
+    "no og:title",
+    "white-on-brand contrast 2.00 < 3.0 (#bbbb78)"
+  ],
+  "warns": [
+    "no meta description",
+    "no JSON-LD"
+  ],
+  "rendered": false,
+  "at": "2026-07-05T17:11:23.050Z"
+}

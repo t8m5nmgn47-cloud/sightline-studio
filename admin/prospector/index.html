@@ -68,6 +68,16 @@
   .send b.h{display:block;font-size:.68rem;letter-spacing:.05em;text-transform:uppercase;color:var(--gold);margin-bottom:5px}
   .send .subj{font-weight:700;font-size:.86rem;margin-bottom:7px}
   .send pre{margin:0;white-space:pre-wrap;font:inherit;font-size:.82rem;color:var(--ink);opacity:.9;max-height:260px;overflow:auto}
+  /* CRM + signals */
+  .stbadge{font-size:.62rem;font-weight:700;letter-spacing:.04em;padding:3px 8px;border-radius:100px;text-transform:uppercase;vertical-align:middle;margin-left:6px}
+  .st-new{background:rgba(79,155,209,.16);color:var(--mild)}.st-contacted{background:rgba(224,185,58,.16);color:var(--warm)}
+  .st-demo-sent{background:rgba(198,162,74,.2);color:var(--gold)}.st-won{background:rgba(67,196,125,.18);color:var(--good)}.st-lost{background:rgba(91,100,114,.2);color:var(--served)}
+  .delta{font-size:.68rem;font-weight:700;margin-left:6px;font-variant-numeric:tabular-nums}
+  .delta.down{color:var(--dead)}.delta.up{color:var(--good)}
+  .fact{background:rgba(224,118,58,.1);border-left:3px solid var(--hot);border-radius:6px;padding:8px 11px;font-size:.8rem}
+  .fact b{display:block;font-size:.64rem;letter-spacing:.05em;text-transform:uppercase;color:var(--hot);margin-bottom:3px}
+  .reeng{color:var(--hot);font-size:.78rem;font-weight:600}
+  .notes{color:var(--mut);font-size:.78rem;font-style:italic}
 </style></head>
 <body><div class="wrap">
   <a class="back" href="../">← Admin</a>
@@ -93,21 +103,24 @@ $('kpis').innerHTML=`
   <div class="kpi"><b>${data.filter(d=>d.assets&&(d.assets.demo||d.assets.funnel)).length}</b><span>Demos ready to send</span></div>
   <div class="kpi"><b>${data.length}</b><span>Total scored</span></div>`;
 // controls
-let seg='leads', typ='all', sort='opp';
+let seg='leads', typ='all', sort='opp', stat='all';
 $('bar').innerHTML=`
   <span class="lbl">Show</span><div class="grp" data-k="seg">
     ${[['leads','Leads'],['DEAD','Dead'],['HOT','Hot'],['WARM','Warm'],['MILD','Mild'],['SERVED','Served'],['all','All']].map(([k,l])=>`<button data-v="${k}" class="${k===seg?'on':''}">${l}</button>`).join('')}</div>
   <span class="lbl sp">Type</span><div class="grp" data-k="typ">
     ${[['all','All'],['church','⛪ Church'],['business','🏢 Business']].map(([k,l])=>`<button data-v="${k}" class="${k===typ?'on':''}">${l}</button>`).join('')}</div>
+  <span class="lbl">Status</span><div class="grp" data-k="stat">
+    ${[['all','All'],['new','New'],['contacted','Contacted'],['demo-sent','Demo sent'],['won','Won'],['lost','Lost']].map(([k,l])=>`<button data-v="${k}" class="${k===stat?'on':''}">${l}</button>`).join('')}</div>
   <span class="lbl">Sort</span><div class="grp" data-k="sort">
     ${[['opp','Opportunity'],['value','Value'],['score','Score']].map(([k,l])=>`<button data-v="${k}" class="${k===sort?'on':''}">${l}</button>`).join('')}</div>`;
 $('bar').onclick=e=>{const b=e.target.closest('button');if(!b)return;const k=b.parentNode.dataset.k;
-  if(k==='seg')seg=b.dataset.v; if(k==='typ')typ=b.dataset.v; if(k==='sort')sort=b.dataset.v;
-  b.parentNode.querySelectorAll('button').forEach(x=>x.classList.toggle('on',x.dataset.v===({seg,typ,sort})[k]));render();};
+  if(k==='seg')seg=b.dataset.v; if(k==='typ')typ=b.dataset.v; if(k==='sort')sort=b.dataset.v; if(k==='stat')stat=b.dataset.v;
+  b.parentNode.querySelectorAll('button').forEach(x=>x.classList.toggle('on',x.dataset.v===({seg,typ,sort,stat})[k]));render();};
 const order={DEAD:0,HOT:1,WARM:2,MILD:3,SERVED:4};
 function render(){
   let rows=data.filter(d=>seg==='all'?true:seg==='leads'?['DEAD','HOT','WARM'].includes(d.tier):d.tier===seg)
-                 .filter(d=>typ==='all'?true:d.type===typ);
+                 .filter(d=>typ==='all'?true:d.type===typ)
+                 .filter(d=>stat==='all'?true:(d.status||'new')===stat);
   rows.sort((a,b)=> sort==='value'? b.expected-a.expected : sort==='score'? a.score-b.score : (order[a.tier]-order[b.tier])||(a.score-b.score));
   $('list').innerHTML = rows.map((d,i)=>{
     const bm=d.benchmark||{}, pct=v=>Math.max(2,Math.min(100,v));
@@ -124,7 +137,11 @@ function render(){
           <div class="bench"><div class="benchbar"><div class="you" style="width:${pct(d.score)}%;background:${d.score>=(bm.avg||60)?'var(--good)':'var(--warm)'}"></div><div class="avg" style="left:${pct(bm.avg||60)}%"></div><div class="best" style="left:${pct(bm.max||100)}%"></div></div>
           <span class="benchtxt">you ${d.score} · avg ${bm.avg||'–'} · best ${bm.max||'–'}</span></div></div>
         ${(d.competitorGaps&&d.competitorGaps.length)?`<div><div class="lbl2">Competitors do this — they don't</div><ul class="cg">${d.competitorGaps.map(g=>`<li><span class="pct">${g.peerPct}%</span> <span><b>${g.label}</b> — <span class="why">${g.why}</span></span></li>`).join('')}</ul></div>`:''}
-        <div class="opener"><b>Cold-call opener</b>${d.opener||''}<br><button class="copybtn" data-i="${i}">Copy opener</button></div>
+        ${d.externalFact?`<div class="fact"><b>Verifiable external fact (Google/DNS)</b>${d.externalFact}</div>`:''}
+        ${d.reengage?`<div class="reeng">↻ ${d.reengage}</div>`:''}
+        ${d.notes?`<div class="notes">📝 ${d.notes}</div>`:''}
+        <div class="opener"><b>Cold-call opener</b>${d.opener||''}<br><button class="copybtn" data-i="${i}">Copy opener</button>
+          <button class="copybtn" data-crm="${d.domain}">Copy CRM cmd</button></div>
         ${d.email?`<div class="send"><b class="h">✉️ What we send — ready to go</b>
           ${d.contact?`<div class="subj" style="color:var(--good)">To: ${d.contact.person||''}${d.contact.email?' <'+d.contact.email+'>':''}${d.contact.phone?' · '+d.contact.phone:''}</div>`:''}
           <div class="subj">Subject: ${d.email.subject}</div>
@@ -137,18 +154,21 @@ function render(){
       <div class="lead ${d.tier}">
         <div class="sc"><b style="color:${d.dead?'var(--dead)':'inherit'}">${d.dead?'✕':d.score}</b><span>${d.dead?'dead':'/100'}</span></div>
         <div>
-          <h3><a href="https://${d.domain}" target="_blank" rel="noopener">${d.name}</a> <span class="chip">${d.tradition}${d.platform!=='—'?' · '+d.platform:''}</span></h3>
+          <h3><a href="https://${d.domain}" target="_blank" rel="noopener">${d.name}</a> <span class="chip">${d.tradition}${d.platform!=='—'?' · '+d.platform:''}</span>${d.status&&d.status!=='new'?`<span class="stbadge st-${d.status}">${d.status}</span>`:''}${d.scoreDelta?`<span class="delta ${d.scoreDelta<0?'down':'up'}">${d.scoreDelta<0?'▼':'▲'}${Math.abs(d.scoreDelta)}</span>`:''}${(d.signals&&d.signals.perf!=null)?`<span class="chip" style="color:${d.signals.perf<50?'var(--dead)':d.signals.perf<80?'var(--warm)':'var(--good)'}"> PSI ${d.signals.perf}</span>`:''}</h3>
           <div class="meta">${d.domain}${d.audit?` · <span style="color:${d.audit.scary?'var(--dead)':d.audit.score<60?'var(--warm)':'var(--mut)'}">🛡 ${d.audit.score}/100${d.audit.scary?' ⚠':''}</span>`:''}${d.breach&&d.breach.count>0?` · <span style="color:var(--dead)" title="${(d.breach.exposures||[]).map(e=>e.title+(e.year?' ('+e.year+')':'')).join(', ')}">🔓 ${d.breach.count} breach${d.breach.count>1?'es':''}${d.breach.hasPasswords?' ⚠':''}</span>`:''}${d.reviews?` · <span style="color:${d.reviews.weak?'var(--warm)':'var(--mut)'}">★ ${d.reviews.rating??'—'} · ${d.reviews.count} reviews${d.reviews.peerMedianCount?` (peers: ${d.reviews.peerMedianCount})`:''}</span>`:''}${d.phone?` · ${d.phone}`:''}</div>
           <div class="pitch">${d.pitch}</div>
           ${goods}
         </div>
-        <div class="val"><div class="mo">$${d.mrr}<small>/mo</small></div><div class="yr">$${d.annual.toLocaleString()}/yr</div><div class="exp">${d.winPct}% → $${d.expected.toLocaleString()} exp.</div></div>
+        <div class="val"><div class="mo">$${d.mrr}<small>/mo</small></div><div class="yr">$${d.annual.toLocaleString()}/yr</div><div class="exp">priority ${d.winPct} · $${d.expected.toLocaleString()} est.</div></div>
         <div class="tierbadge ${d.tier}">${labels[d.tier]}</div>
       </div>${brief}</div>`;
   }).join('') || '<p style="color:var(--mut)">None in this view.</p>';
-  document.querySelectorAll('.copybtn').forEach(b=>b.onclick=e=>{e.preventDefault();const d=rows[+b.dataset.i];
-    if(b.classList.contains('mailto')){ if(d.email) location.href='mailto:?subject='+encodeURIComponent(d.email.subject)+'&body='+encodeURIComponent(d.email.body); return; }
-    const txt=b.classList.contains('mail') ? (d.email?('Subject: '+d.email.subject+'\n\n'+d.email.body):'') : d.opener;
+  document.querySelectorAll('.copybtn').forEach(b=>b.onclick=e=>{e.preventDefault();
+    const d=rows[+b.dataset.i];
+    if(b.classList.contains('mailto')){ if(d&&d.email) location.href='mailto:?subject='+encodeURIComponent(d.email.subject)+'&body='+encodeURIComponent(d.email.body); return; }
+    const txt=b.dataset.crm?`node engine/crm.mjs set ${b.dataset.crm} contacted ""`
+      : b.classList.contains('mail') ? (d&&d.email?('Subject: '+d.email.subject+'\n\n'+d.email.body):'')
+      : d.opener;
     const orig=b.textContent;
     navigator.clipboard&&navigator.clipboard.writeText(txt);b.textContent='Copied ✓';setTimeout(()=>b.textContent=orig,1500);});
 }

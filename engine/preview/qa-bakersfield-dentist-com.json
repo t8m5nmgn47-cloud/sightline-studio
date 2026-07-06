@@ -1,0 +1,14 @@
+{
+  "slug": "bakersfield-dentist-com",
+  "pass": false,
+  "fails": [
+    "no canonical",
+    "no og:title"
+  ],
+  "warns": [
+    "no meta description",
+    "no JSON-LD"
+  ],
+  "rendered": false,
+  "at": "2026-07-05T17:11:22.537Z"
+}

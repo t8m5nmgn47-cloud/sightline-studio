@@ -1,0 +1,52 @@
+[
+  {
+    "name": "Platte Canyon Dental Care",
+    "domain": null,
+    "vertical": "dental",
+    "phone": "",
+    "address": "",
+    "lat": 39.6085483,
+    "lng": -105.0363286,
+    "noSite": true
+  },
+  {
+    "name": "Comfort Dental",
+    "domain": null,
+    "vertical": "dental",
+    "phone": "",
+    "address": "",
+    "lat": 39.5742571,
+    "lng": -104.9890177,
+    "noSite": true
+  },
+  {
+    "name": "Dentists of Littleton",
+    "domain": "dentistsoflittleton.com",
+    "vertical": "dental",
+    "phone": "",
+    "address": "7330 South Broadway, Littleton, CO, 80122",
+    "lat": 39.5834695,
+    "lng": -104.9877341,
+    "noSite": false
+  },
+  {
+    "name": "Orchard Creek Dentistry",
+    "domain": null,
+    "vertical": "dental",
+    "phone": "",
+    "address": "191 East Orchard Road, Littleton, CO, 80121",
+    "lat": 39.609928,
+    "lng": -104.9863915,
+    "noSite": true
+  },
+  {
+    "name": "Morris Family Dentistry",
+    "domain": null,
+    "vertical": "dental",
+    "phone": "",
+    "address": "7720 South Broadway, Littleton, CO, 80122",
+    "lat": 39.5773409,
+    "lng": -104.9870114,
+    "noSite": true
+  }
+]

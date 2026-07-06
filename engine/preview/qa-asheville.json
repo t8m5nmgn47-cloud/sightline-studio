@@ -1,0 +1,10 @@
+{
+  "slug": "asheville",
+  "pass": true,
+  "fails": [],
+  "warns": [
+    "no meta description"
+  ],
+  "rendered": true,
+  "at": "2026-07-05T18:36:07.169Z"
+}

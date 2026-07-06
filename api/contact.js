@@ -8,6 +8,9 @@ export default async function handler(req, res) {
   const name = clean(body.cname, 200);
   const email = clean(body.cemail, 320);
   const message = clean(body.cmsg, 5000);
+  // optional source tag — generated demo sites send "demo:<slug>" so leads
+  // captured during the sales window are attributable to the prospect
+  const source = clean(body.source, 100) || "contact";
 
   if (!name || !isEmail(email) || !message) {
     return res.status(400).json({ ok: false, error: "Missing or invalid fields" });
@@ -19,7 +22,7 @@ export default async function handler(req, res) {
       business: name,
       email,
       message,
-      source: "contact",
+      source,
       user_agent: req.headers["user-agent"] || null,
     });
   } catch (e) {

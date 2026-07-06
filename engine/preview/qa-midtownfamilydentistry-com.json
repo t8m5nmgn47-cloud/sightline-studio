@@ -1,0 +1,13 @@
+{
+  "slug": "midtownfamilydentistry-com",
+  "pass": false,
+  "fails": [
+    "no canonical",
+    "no og:title"
+  ],
+  "warns": [
+    "no JSON-LD"
+  ],
+  "rendered": false,
+  "at": "2026-07-05T17:11:22.986Z"
+}

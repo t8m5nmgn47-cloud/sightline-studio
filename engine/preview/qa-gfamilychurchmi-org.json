@@ -1,0 +1,12 @@
+{
+  "slug": "gfamilychurchmi-org",
+  "pass": false,
+  "fails": [
+    "horizontal overflow at 360px (+23px)"
+  ],
+  "warns": [
+    "no meta description"
+  ],
+  "rendered": true,
+  "at": "2026-07-05T18:33:32.007Z"
+}

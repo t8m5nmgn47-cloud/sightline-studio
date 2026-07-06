@@ -1,0 +1,14 @@
+{
+  "slug": "shallowfordfamilydental-com",
+  "pass": false,
+  "fails": [
+    "no canonical",
+    "no og:title",
+    "white-on-brand contrast 2.03 < 3.0 (#00d084)"
+  ],
+  "warns": [
+    "no JSON-LD"
+  ],
+  "rendered": false,
+  "at": "2026-07-05T17:11:23.112Z"
+}

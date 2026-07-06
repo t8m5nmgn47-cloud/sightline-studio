@@ -1,0 +1,14 @@
+{
+  "slug": "yoursmileisourmission-com",
+  "pass": false,
+  "fails": [
+    "no canonical",
+    "no og:title",
+    "white-on-brand contrast 2.72 < 3.0 (#b99860)"
+  ],
+  "warns": [
+    "no JSON-LD"
+  ],
+  "rendered": false,
+  "at": "2026-07-05T17:11:23.293Z"
+}

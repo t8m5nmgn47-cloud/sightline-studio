@@ -58,7 +58,11 @@ for (const { dir, platform } of SOURCES){
     const domain = f.replace(/\.html$/,'').replace(/^fc-/,'');
     const name = niceName($, domain);
     const bodyText = $('body').text();
-    const dead = DEAD.test(html) || html.length < 60000 && !/service|worship|sunday|give|sermon/i.test(bodyText);
+    // dead = explicit placeholder markers, OR genuinely thin rendered text with
+    // zero church vocabulary. Raw-HTML byte length was a bad proxy: lean, fast
+    // sites are short; bloated page-builder shells are long.
+    const textYield = bodyText.replace(/\s+/g, ' ').trim().length;
+    const dead = DEAD.test(html) || (textYield < 400 && !/service|worship|sunday|give|sermon/i.test(bodyText));
     const tradition = detectTradition(bodyText);
     const corpus = corpusFromPages({home:html}, cheerio, {https:true, mobile:/viewport/.test(html)});
     const r = scoreCongregation(corpus, { tradition });
@@ -98,10 +102,12 @@ for (const r of rows){
   const base = r.type === 'business' ? (MRR[r.tradition] || MRR.business) : MRR.church;
   r.mrr = base;
   r.annual = base * 12;
-  // weaker/dead site → more need → higher close likelihood (capped, honest)
+  // weaker/dead site → more need → higher priority. NOTE: winPct is a
+  // heuristic PRIORITY INDEX, not a calibrated close rate — surface it as
+  // "priority" in UIs until real win/loss data exists to calibrate against.
   const need = r.dead ? 0.55 : Math.min(0.6, 0.2 + (100 - r.score) / 100 * 0.45);
   r.winPct = Math.round(need * 100);
-  r.expected = Math.round(r.annual * need);   // risk-adjusted annual value
+  r.expected = Math.round(r.annual * need);   // priority-weighted annual value
 }
 
 // ── the goods: does a built site already exist for this prospect? ────────────
@@ -131,11 +137,15 @@ for (const r of rows){
   const c = cats[r.type+'/'+r.tradition];
   const avg = Math.round(c.scores.reduce((s,x)=>s+x,0)/c.scores.length);
   const max = Math.max(...c.scores);
+  // Peer-percentage claims need a real sample: with n<5 a "67% of peers" line
+  // in a cold call is 2-of-3 — misleading and easy to get burned on. Suppress.
+  const MIN_PEERS = 5;
+  const peerOk = c.n >= MIN_PEERS;
   // features MOST peers have (>=50%) that THIS prospect lacks = "competitors do this, you don't"
-  const compGaps = (r.dims||[]).filter(d=>!d.f && (c.found[d.l]/c.n) >= 0.5)
+  const compGaps = !peerOk ? [] : (r.dims||[]).filter(d=>!d.f && (c.found[d.l]/c.n) >= 0.5)
     .map(d=>({ label:d.l, why:d.w, peerPct: Math.round(c.found[d.l]/c.n*100) }))
     .sort((a,b)=>b.peerPct-a.peerPct);
-  r.benchmark = { catN:c.n, catLabel:`${r.tradition} ${catLabel[r.type]}`, avg, max, delta:r.score-avg };
+  r.benchmark = { catN:c.n, catLabel:`${r.tradition} ${catLabel[r.type]}`, avg: peerOk?avg:null, max: peerOk?max:null, delta: peerOk?r.score-avg:null, peerOk };
   r.competitorGaps = compGaps.slice(0,4);
   r.talkingPoints = (compGaps.length?compGaps:(r.dims||[]).filter(d=>!d.f).map(d=>({label:d.l,why:d.w,peerPct:0}))).slice(0,3);
   // a ready cold-call opener grounded in their real gaps + peer context
@@ -144,7 +154,9 @@ for (const r of rows){
     ? `Hi — I was looking up ${r.name} online and your website's actually down / a placeholder. Your ${r.tradition} ${r.type==='business'?'competitors':'neighbors'} all have a real one, so you're invisible to anyone searching right now. I already rebuilt a version for you — can I send it over?`
     : top
       ? `Hi — I pulled up ${r.name} and noticed you don't have ${top.label.toLowerCase()}, but ${top.peerPct}% of ${r.tradition} ${catLabel[r.type]} do — it's probably costing you ${r.type==='business'?'bookings':'visitors'} every week. I built a version of your site that fixes it. Two minutes to show you?`
-      : `Hi — I looked at ${r.name}'s site (scored it ${r.score}/100 vs a ${avg} average for ${r.tradition} ${catLabel[r.type]}). I rebuilt a sharper version — can I send it over?`;
+      : peerOk
+        ? `Hi — I looked at ${r.name}'s site (scored it ${r.score}/100 vs a ${avg} average for ${r.tradition} ${catLabel[r.type]}). I rebuilt a sharper version — can I send it over?`
+        : `Hi — I looked at ${r.name}'s site and scored it ${r.score}/100 on ${r.type==='business'?'how well it turns visitors into bookings':'how well it welcomes a first-time visitor'}. I rebuilt a sharper version — can I send it over?`;
 
   // the built goods + the exact email we send
   r.assets = resolveAssets(r.domain);
@@ -180,9 +192,31 @@ Sightline Studio · look sharp, stay safe, get found`,
   } : null;
 }
 
-// rank: dead first, then weakest score
+// ── CRM state: survive regeneration ──────────────────────────────────────────
+// prospect-state.json is the memory: status (new/contacted/demo-sent/won/lost),
+// notes, and a score history per domain. Scores are recomputed every run;
+// the human-entered state never is. A score DROP since last run is itself a
+// re-engagement trigger ("their site got worse — call again").
+const STATE = path.join(ROOT,'engine/preview/prospect-state.json');
+const state = fs.existsSync(STATE) ? JSON.parse(fs.readFileSync(STATE,'utf8')) : {};
+const today = new Date().toISOString().slice(0,10);
+for (const r of rows){
+  const s = state[r.domain] ??= { status:'new', notes:'', history:[] };
+  const last = s.history[s.history.length-1];
+  if (!last || last.score !== r.score) s.history.push({ at: today, score: r.score });
+  if (s.history.length > 24) s.history = s.history.slice(-24);
+  r.status = s.status; r.notes = s.notes;
+  const prev = s.history.length > 1 ? s.history[s.history.length-2].score : null;
+  r.scoreDelta = prev == null ? null : r.score - prev;
+  if (r.scoreDelta != null && r.scoreDelta < -5 && r.status !== 'won')
+    r.reengage = `score dropped ${-r.scoreDelta} pts since ${s.history[s.history.length-2].at} — their site got worse; good moment to call again`;
+}
+fs.writeFileSync(STATE, JSON.stringify(state,null,1));
+
+// rank: dead first, then weakest score; won/lost sink to the bottom of their tier
 const order = { DEAD:0, HOT:1, WARM:2, MILD:3, SERVED:4 };
-rows.sort((a,b)=> (order[a.tier]-order[b.tier]) || (a.score-b.score));
+const closed = s => s==='won'||s==='lost' ? 1 : 0;
+rows.sort((a,b)=> closed(a.status)-closed(b.status) || (order[a.tier]-order[b.tier]) || (a.score-b.score));
 // never clobber a good prospect list with an empty run (e.g. harvest data
 // missing on this machine) — enrich the existing file instead: enrich-prospects.mjs
 if (!rows.length) {

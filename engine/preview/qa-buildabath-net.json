@@ -1,0 +1,14 @@
+{
+  "slug": "buildabath-net",
+  "pass": false,
+  "fails": [
+    "no canonical",
+    "no og:title",
+    "white-on-brand contrast 2.41 < 3.0 (#32b4dd)"
+  ],
+  "warns": [
+    "no JSON-LD"
+  ],
+  "rendered": false,
+  "at": "2026-07-05T17:11:22.590Z"
+}

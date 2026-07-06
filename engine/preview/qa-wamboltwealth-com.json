@@ -1,0 +1,11 @@
+{
+  "slug": "wamboltwealth-com",
+  "pass": false,
+  "fails": [
+    "horizontal overflow at 360px (+144px)",
+    "horizontal overflow at 768px (+37px)"
+  ],
+  "warns": [],
+  "rendered": true,
+  "at": "2026-07-05T18:33:10.343Z"
+}

@@ -1,0 +1,14 @@
+{
+  "slug": "davenportdds-com",
+  "pass": false,
+  "fails": [
+    "no canonical",
+    "no og:title",
+    "white-on-brand contrast 2.75 < 3.0 (#2ea3f2)"
+  ],
+  "warns": [
+    "no JSON-LD"
+  ],
+  "rendered": false,
+  "at": "2026-07-05T17:11:22.678Z"
+}

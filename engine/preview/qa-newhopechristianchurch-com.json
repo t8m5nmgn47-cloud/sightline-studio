@@ -1,0 +1,10 @@
+{
+  "slug": "newhopechristianchurch-com",
+  "pass": false,
+  "fails": [
+    "horizontal overflow at 360px (+33px)"
+  ],
+  "warns": [],
+  "rendered": true,
+  "at": "2026-07-05T18:33:56.254Z"
+}

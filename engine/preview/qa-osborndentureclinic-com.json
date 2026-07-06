@@ -1,0 +1,14 @@
+{
+  "slug": "osborndentureclinic-com",
+  "pass": false,
+  "fails": [
+    "no canonical",
+    "no og:title",
+    "white-on-brand contrast 2.62 < 3.0 (#3fb1a3)"
+  ],
+  "warns": [
+    "no JSON-LD"
+  ],
+  "rendered": false,
+  "at": "2026-07-05T17:11:23.055Z"
+}

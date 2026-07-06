@@ -30,6 +30,7 @@ import path from 'node:path';
 import { execFileSync } from 'node:child_process';
 import * as cheerio from 'cheerio';
 import { extractSignals } from '../api/_intake.js';
+import { llmExtract } from './llm-extract.mjs';
 
 const UA = { headers: { 'user-agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126 Safari/537.36' }, redirect: 'follow' };
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
@@ -128,7 +129,19 @@ export async function collectCss($, baseUrl, maxSheets = 4) {
       const u = new URL(href, baseUrl).href;
       if (/fonts\.googleapis\.com/.test(u)) continue;      // handled by font parser
       const r = await fetchText(u, 8000);
-      if (r && /text\/css|^$/.test(r.type.split(';')[0]) || r) css += '\n' + (r?.text || '');
+      // only accept real CSS (or servers that omit content-type) — the old
+      // `a && b || a` precedence bug appended HTML error pages into the corpus
+      if (r && (!r.type || /text\/css/i.test(r.type.split(';')[0]))) css += '\n' + r.text;
+    } catch {}
+  }
+  // follow @import (WordPress themes often hide brand tokens one level deep)
+  const imports = [...css.matchAll(/@import\s+(?:url\()?['"]?([^'")\s;]+)/gi)].map((m) => m[1]).slice(0, 3);
+  for (const href of imports) {
+    try {
+      const u = new URL(href, baseUrl).href;
+      if (/fonts\.googleapis\.com/.test(u)) continue;
+      const r = await fetchText(u, 8000);
+      if (r && (!r.type || /text\/css/i.test(r.type.split(';')[0]))) css += '\n' + r.text;
     } catch {}
   }
   return css.slice(0, 600000);
@@ -265,6 +278,51 @@ export function extractPhotos($pages, baseUrl) {
   return [...out.values()].sort((a, b) => ((b.w || 0) * (b.h || 0)) - ((a.w || 0) * (a.h || 0))).slice(0, 20);
 }
 
+// ── JSON-LD structured data (address / hours / rating / reviews / geo) ──────
+const fmtTime = (t) => {
+  const m = String(t||'').match(/^(\d{1,2}):(\d{2})/); if (!m) return t;
+  let h = +m[1]; const ap = h >= 12 ? 'PM' : 'AM'; h = h % 12 || 12;
+  return `${h}:${m[2]} ${ap}`;
+};
+export function extractJsonLd($pages) {
+  const out = { address: '', hours: [], rating: null, reviewCount: null, reviews: [], geo: null };
+  const nodes = [];
+  for (const $ of $pages) $('script[type="application/ld+json"]').each((_, el) => {
+    try {
+      const j = JSON.parse($(el).contents().text());
+      nodes.push(...(Array.isArray(j) ? j : j['@graph'] ? j['@graph'] : [j]));
+    } catch {}
+  });
+  const flat = [];
+  const walk = (n, d = 0) => { if (!n || typeof n !== 'object' || d > 4) return; flat.push(n); for (const v of Object.values(n)) if (v && typeof v === 'object') walk(v, d + 1); };
+  nodes.forEach((n) => walk(n));
+  for (const n of flat) {
+    if (n.address && !out.address) {
+      const a = n.address;
+      out.address = typeof a === 'string' ? a
+        : [a.streetAddress, a.addressLocality, a.addressRegion, a.postalCode].filter(Boolean).join(', ');
+    }
+    if (n.openingHoursSpecification && !out.hours.length) {
+      for (const h of [].concat(n.openingHoursSpecification)) {
+        const days = [].concat(h.dayOfWeek || []).map((d) => String(d).replace(/.*\//, '').slice(0, 3)).join(', ');
+        if (days && h.opens) out.hours.push(`${days} · ${fmtTime(h.opens)} – ${fmtTime(h.closes)}`);
+      }
+    }
+    if (typeof n.openingHours === 'string' && !out.hours.length) out.hours.push(n.openingHours);
+    if (Array.isArray(n.openingHours) && !out.hours.length) out.hours.push(...n.openingHours.map(String));
+    if (n.aggregateRating && out.rating == null) {
+      out.rating = +n.aggregateRating.ratingValue || null;
+      out.reviewCount = +(n.aggregateRating.reviewCount || n.aggregateRating.ratingCount) || null;
+    }
+    if (n.geo && !out.geo && n.geo.latitude) out.geo = { lat: +n.geo.latitude, lng: +n.geo.longitude };
+    const body = n.reviewBody || (String(n['@type'] || '') === 'Review' && n.description);
+    if (body) out.reviews.push({ q: String(body).replace(/\s+/g, ' ').trim().slice(0, 300), name: (n.author && (n.author.name || (typeof n.author === 'string' ? n.author : ''))) || '' });
+  }
+  out.hours = [...new Set(out.hours)].slice(0, 7);
+  out.reviews = out.reviews.filter((r, i, a) => r.q.length > 20 && a.findIndex((x) => x.q === r.q) === i).slice(0, 6);
+  return out;
+}
+
 // ── facts (phone / email / socials) ─────────────────────────────────────────
 export function extractFacts($pages) {
   const facts = { phone: '', email: '', socials: {} };
@@ -340,9 +398,13 @@ export async function capture(domain, { render = 'auto', maxPages = 5, htmlOverr
   const $home = cheerio.load(home.html);
   const pages = [home];
   if (!htmlOverride) {
+    // If the homepage needed a headless render (JS-built site), subpages will
+    // too — 'auto' renders only when the raw fetch yields thin text, so this
+    // costs nothing on server-rendered sites but rescues Wix/Squarespace/etc.
+    const subRender = home.rendered ? 'auto' : 'never';
     for (const url of pickSubpages($home, home.url, maxPages)) {
       await sleep(250);                                   // be polite
-      const p = await getPage(url, { render: 'never' }); // subpages: fetch only
+      const p = await getPage(url, { render: subRender });
       if (p) pages.push(p);
     }
   }
@@ -365,31 +427,54 @@ export async function capture(domain, { render = 'auto', maxPages = 5, htmlOverr
   const colors = extractColors({ html: home.html, css, themeColor: sig.theme_color, svgLogo });
   if (colors.length) sig.color_signals = colors;          // upgrade the old signal in place
 
+  // structured data: address / hours / rating / real reviews from JSON-LD
+  const ld = extractJsonLd($pages);
+  const facts = extractFacts($pages);
+  if (ld.address) facts.address = ld.address;
+  if (ld.hours.length) facts.hours = ld.hours;
+
+  // heuristic extraction first (free), then the LLM pass upgrades it in place
+  // when ANTHROPIC_API_KEY is set. LLM output only replaces a field when it
+  // found MORE than the heuristic did — never downgrades, never invents.
+  let services = extractServices($pages);
+  let staff = [], reviews = ld.reviews, hours = ld.hours, copy = {};
+  const llm = await llmExtract(pages, { domain });
+  if (llm) {
+    if (llm.services.length >= Math.max(3, services.length ? 0 : 3) && llm.services.length >= services.length)
+      services = llm.services.map((s) => s.h);
+    copy.serviceDetails = llm.services;                 // names + descriptions
+    if (llm.staff.length) staff = llm.staff;
+    if (llm.reviews.length > reviews.length) reviews = llm.reviews;
+    if (llm.hours.length && !hours.length) hours = llm.hours;
+    if (llm.address && !facts.address) facts.address = llm.address;
+    copy.tagline = llm.tagline; copy.mission = llm.mission; copy.offer = llm.offer;
+    copy.differentiators = llm.differentiators; copy.serviceTimes = llm.serviceTimes;
+  }
+
   return {
     domain, pages: pages.map((p) => ({ url: p.url, rendered: p.rendered })),
     sig, fonts, colors,
     logos: rankLogos(sig.logo_candidates),
     photos: extractPhotos($pages, home.url),
-    services: extractServices($pages),
-    facts: extractFacts($pages),
+    services,
+    staff, reviews, hours, copy,
+    rating: ld.rating, reviewCount: ld.reviewCount, geo: ld.geo,
+    facts,
+    llm: !!llm,
     jsShell: !!sig.js_shell && !home.rendered,
   };
 }
 
 // ── image dimensions from raw bytes (no deps: PNG / JPEG / GIF / WebP) ──────
-export function imageSize(buf) {
+export function imageDims(buf) {
   try {
-    if (buf.length > 24 && buf.readUInt32BE(0) === 0x89504e47)                       // PNG
+    // PNG: IHDR width/height at bytes 16..24 (big-endian)
+    if (buf.length > 24 && buf[0] === 0x89 && buf[1] === 0x50)
       return { w: buf.readUInt32BE(16), h: buf.readUInt32BE(20) };
     if (buf.length > 10 && buf[0] === 0x47 && buf[1] === 0x49 && buf[2] === 0x46)    // GIF
       return { w: buf.readUInt16LE(6), h: buf.readUInt16LE(8) };
-    if (buf.length > 30 && buf.toString('ascii', 0, 4) === 'RIFF' && buf.toString('ascii', 8, 12) === 'WEBP') {
-      const fmt = buf.toString('ascii', 12, 16);
-      if (fmt === 'VP8 ') return { w: buf.readUInt16LE(26) & 0x3fff, h: buf.readUInt16LE(28) & 0x3fff };
-      if (fmt === 'VP8L') { const b = buf.readUInt32LE(21); return { w: (b & 0x3fff) + 1, h: ((b >> 14) & 0x3fff) + 1 }; }
-      if (fmt === 'VP8X') return { w: (buf.readUIntLE(24, 3)) + 1, h: (buf.readUIntLE(27, 3)) + 1 };
-    }
-    if (buf.length > 4 && buf[0] === 0xff && buf[1] === 0xd8) {                       // JPEG: walk SOF markers
+    // JPEG: scan markers for SOF0/1/2 (baseline/extended/progressive)
+    if (buf.length > 4 && buf[0] === 0xff && buf[1] === 0xd8) {
       let i = 2;
       while (i + 9 < buf.length) {
         if (buf[i] !== 0xff) { i++; continue; }
@@ -399,15 +484,23 @@ export function imageSize(buf) {
         i += 2 + buf.readUInt16BE(i + 2);
       }
     }
+    // WebP: RIFF....WEBP + VP8/VP8L/VP8X chunk
+    if (buf.length > 30 && buf.toString('ascii', 0, 4) === 'RIFF' && buf.toString('ascii', 8, 12) === 'WEBP') {
+      const fmt = buf.toString('ascii', 12, 16);
+      if (fmt === 'VP8X') return { w: 1 + buf.readUIntLE(24, 3), h: 1 + buf.readUIntLE(27, 3) };
+      if (fmt === 'VP8L') { const b = buf.readUInt32LE(21); return { w: 1 + (b & 0x3fff), h: 1 + ((b >> 14) & 0x3fff) }; }
+      if (fmt === 'VP8 ') return { w: buf.readUInt16LE(26) & 0x3fff, h: buf.readUInt16LE(28) & 0x3fff };
+    }
   } catch {}
   return null;
 }
+export const imageSize = imageDims;   // back-compat alias
 
 // A real logo is small-to-medium and usually wide or square — a large
 // square-ish JPEG is almost always a photo that lied its way up the ranking.
 export function looksLikeLogo(buf, ext) {
   if (ext === 'svg') return true;
-  const d = imageSize(buf);
+  const d = imageDims(buf);
   if (!d || !d.w || !d.h) return false;                    // unreadable → don't trust it
   const ar = d.w / d.h;
   if (d.w < 40 || d.h < 24) return false;                  // favicon-tiny → blurry in a header
@@ -420,20 +513,27 @@ export function looksLikeLogo(buf, ext) {
 }
 
 // ── asset download (logo + photos) ───────────────────────────────────────────
-async function download(url, dest, { min = 500, max = 4 * 1024 * 1024, validate = null } = {}) {
+async function download(url, dest, { min = 500, max = 4 * 1024 * 1024, minW = 0, validate = null } = {}) {
   try {
     const res = await fetch(url, UA);
     if (!res.ok || !/image\//.test(res.headers.get('content-type') || '')) return null;
     const buf = Buffer.from(await res.arrayBuffer());
     if (buf.length < min || buf.length > max) return null;
-    if (validate && !validate(buf)) return null;           // e.g. logo shape check
+    if (validate && !validate(buf)) return null;          // e.g. logo shape check
+    const dims = imageDims(buf);
+    if (minW && dims && dims.w < minW) return null;       // too small to use
     fs.writeFileSync(dest, buf);
-    return { bytes: buf.length };
+    return { bytes: buf.length, w: dims?.w || null, h: dims?.h || null };
   } catch { return null; }
 }
 
 export async function saveAssets(slug, cap, ROOT, { maxPhotos = 8 } = {}) {
   const dir = path.join(ROOT, 'assets/captured', slug);
+  try {
+    fs.rmSync(path.join(dir, 'photos'), { recursive: true, force: true }); // no stale photos from earlier captures
+  } catch (e) {
+    console.warn(`  ! could not clear old photos for ${slug} (${e.code}) — overwriting in place`);
+  }
   fs.mkdirSync(path.join(dir, 'photos'), { recursive: true });
   const rel = (p) => '/assets/captured/' + slug + '/' + p;
 
@@ -446,19 +546,29 @@ export async function saveAssets(slug, cap, ROOT, { maxPhotos = 8 } = {}) {
         { min: 400, max: 2 * 1024 * 1024, validate: (buf) => looksLikeLogo(buf, ext) })) { logo = rel('logo.' + ext); break; }
   }
 
-  const gallery = [];
-  let heroImage = null;
+  // photos: probe REAL dimensions from bytes (declared width/height are absent
+  // on most <img> tags), gate quality, dedupe near-identical files, then pick
+  // the hero from measured size + aspect instead of byte-count guessing.
+  const saved = [];
+  const seen = new Set();                                  // dedupe by bytes+dims
   for (const ph of cap.photos) {
-    if (gallery.length >= maxPhotos) break;
+    if (saved.length >= maxPhotos) break;
     const ext = ((ph.url.split('.').pop() || 'jpg').split('?')[0].slice(0, 5).toLowerCase().replace(/[^a-z0-9]/g, '') || 'jpg');
-    const file = `photos/${gallery.length + 1}.${ext}`;
-    const got = await download(ph.url, path.join(dir, file), { min: 12000 });   // ≥12 KB = real photo
+    const file = `photos/${saved.length + 1}.${ext}`;
+    const got = await download(ph.url, path.join(dir, file), { min: 12000, minW: 480 });   // real photo, usable width
     if (!got) continue;
-    gallery.push(rel(file));
-    // hero: first genuinely large landscape-ish photo
-    if (!heroImage && (got.bytes > 120000 || (ph.w && ph.w >= 1000 && (!ph.h || ph.w > ph.h)))) heroImage = rel(file);
+    const key = `${got.bytes}:${got.w}x${got.h}`;
+    if (seen.has(key)) { try { fs.unlinkSync(path.join(dir, file)); } catch {} continue; }
+    seen.add(key);
+    saved.push({ path: rel(file), ...got });
   }
-  return { logo, gallery, heroImage: heroImage || gallery[0] || null };
+  const gallery = saved.map((s) => s.path);
+  // hero: widest landscape photo ≥800px; fall back to the largest file
+  const landscape = saved.filter((s) => s.w >= 800 && (!s.h || s.w >= s.h)).sort((a, b) => b.w - a.w);
+  const heroImage = landscape[0]?.path
+    || saved.slice().sort((a, b) => (b.w || 0) - (a.w || 0) || b.bytes - a.bytes)[0]?.path
+    || null;
+  return { logo, gallery, heroImage, photoMeta: saved };
 }
 
 export default { capture, saveAssets };
