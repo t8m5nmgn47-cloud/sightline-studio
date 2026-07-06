@@ -3,7 +3,7 @@
 // Body: { domain: "example.com", render?: boolean }
 // Returns: { ok, tier, signals, profile }  — profile is null when no LLM key.
 
-import { readBody, clean, methodGuard } from "./_lib.js";
+import { readBody, clean, methodGuard, sbUpsert } from "./_lib.js";
 import { fetchHtml, fetchViaFirecrawl, renderHtml, extractSignals, normalizeWithClaude, llmAvailable } from "./_intake.js";
 
 const DOMAIN_RE = /^([a-z0-9-]+\.)+[a-z]{2,}$/i;
@@ -63,5 +63,16 @@ export default async function handler(req, res) {
   // Trim the heavy visible_text out of the response — the client doesn't need it.
   const { visible_text, ...slim } = signals;
 
-  return res.status(200).json({ ok: true, tier, llm, signals: slim, profile });
+  // Persist every run (latest per domain) so intake work survives the browser
+  // tab. Never fatal — intake still returns even if Supabase is down.
+  let saved = false;
+  try {
+    await sbUpsert("prospect_intakes",
+      { domain, tier, profile, signals: slim, updated_at: new Date().toISOString() }, "domain");
+    saved = true;
+  } catch (e) {
+    console.error("intake save failed:", e.message);
+  }
+
+  return res.status(200).json({ ok: true, tier, llm, signals: slim, profile, saved });
 }

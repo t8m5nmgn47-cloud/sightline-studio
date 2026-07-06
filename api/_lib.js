@@ -65,6 +65,17 @@ export async function sbSelect(table, query = "select=*") {
   return res.json();
 }
 
+// Upsert: insert or replace on a unique column, e.g. onConflict="domain".
+export async function sbUpsert(table, row, onConflict) {
+  if (!SUPABASE_URL || !SUPABASE_SERVICE_ROLE_KEY) throw new Error("Supabase env vars are not configured");
+  const res = await fetch(`${SUPABASE_URL}/rest/v1/${table}?on_conflict=${onConflict}`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json", apikey: SUPABASE_SERVICE_ROLE_KEY, Authorization: `Bearer ${SUPABASE_SERVICE_ROLE_KEY}`, Prefer: "resolution=merge-duplicates,return=minimal" },
+    body: JSON.stringify(row),
+  });
+  if (!res.ok) throw new Error(`Supabase upsert failed (${res.status}): ${await res.text().catch(() => "")}`);
+}
+
 // Patch rows matching a PostgREST filter, e.g. filter="slug=eq.foo".
 export async function sbUpdate(table, filter, row) {
   if (!SUPABASE_URL || !SUPABASE_SERVICE_ROLE_KEY) throw new Error("Supabase env vars are not configured");

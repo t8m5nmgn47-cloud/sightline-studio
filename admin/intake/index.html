@@ -76,6 +76,11 @@
   <div id="status" class="status"></div>
   <div id="badges" class="badges"></div>
 
+  <div id="recentWrap" class="hide" style="margin-top:14px">
+    <div class="sub" style="margin:0 0 8px">Recent intakes — click to reopen (no re-crawl)</div>
+    <div id="recent" style="display:flex;flex-wrap:wrap;gap:7px"></div>
+  </div>
+
   <div id="result" class="cols hide">
     <div>
       <div class="panel">
@@ -185,7 +190,10 @@ async function run(){
     const data = await res.json();
     if(!data.ok){ throw new Error(data.error || "Intake failed"); }
     fill(domain, data);
-    $("status").textContent = "Done — review and adjust below.";
+    $("status").textContent = data.saved === false
+      ? "Done — review below. (⚠ not saved to the database — check Supabase env vars)"
+      : "Done — saved. Review and adjust below.";
+    loadRecent();
   }catch(e){
     $("status").className = "status err"; $("status").textContent = e.message;
   }finally{ $("go").disabled = false; }
@@ -437,6 +445,34 @@ function collect(){
   };
 }
 function syncOut(){ $("out").textContent = JSON.stringify(collect(), null, 2); }
+
+/* ---- recent intakes: saved runs, reopen without re-crawling ---- */
+async function loadRecent(){
+  try{
+    const r = await fetch("/api/intakes");
+    const d = await r.json();
+    if(!d.ok || !d.intakes.length) return;
+    const wrap = $("recent"); wrap.innerHTML = "";
+    d.intakes.forEach(row => {
+      const c = document.createElement("span");
+      c.className = "chip"; c.style.cursor = "pointer";
+      const when = new Date(row.updated_at);
+      const ago = Math.round((Date.now()-when)/36e5);
+      c.title = when.toLocaleString();
+      c.textContent = row.domain + " · " + (ago < 1 ? "just now" : ago < 24 ? ago+"h ago" : Math.round(ago/24)+"d ago");
+      c.onclick = () => {
+        $("domain").value = row.domain;
+        fill(row.domain, { tier: row.tier, signals: row.signals || {}, profile: row.profile, llm: {available:true}, saved: true });
+        $("status").className = "status";
+        $("status").textContent = "Reopened saved intake from " + when.toLocaleString() + " — run intake again for fresh data.";
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      };
+      wrap.appendChild(c);
+    });
+    $("recentWrap").classList.remove("hide");
+  }catch(e){ /* list is a convenience — never block the page */ }
+}
+loadRecent();
 
 $("go").onclick = run;
 $("domain").addEventListener("keydown", e=>{ if(e.key==="Enter") run(); });
