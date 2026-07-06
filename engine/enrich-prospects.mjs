@@ -82,6 +82,8 @@ export function enrich(rows){
     if (!link || r.stale){ r.email = null; continue; }   // stale = unverified: never email on old facts
     const hook = r.dead
       ? `Your current site at ${r.domain} is down — a placeholder is standing where your front door should be, so anyone searching for you right now finds nothing.`
+      : (r.audit?.scary && isBiz)
+        ? `I ran a standard security check on ${r.domain} (public signals only — nothing invasive) and found something you should know about: ${r.audit.scary}. ${/DMARC/i.test(r.audit.scary)?"That's the setting that stops criminals impersonating your email to your own "+(r.tradition==='law'?'clients':(r.tradition==='dental'||r.tradition==='medical')?'patients':'customers')+".":"For a local "+r.tradition+" business, that's the kind of thing that erodes trust before you ever get the call."}`
       : (r.reviews?.weak && isBiz)
         ? `I looked up ${r.name} on Google: ${r.reviews.rating!=null?r.reviews.rating+'★ from ':''}${r.reviews.count} reviews, while similar ${catLabel[r.type]} around you sit at a median of ${r.reviews.peerMedianCount}. Reviews decide who gets the call — and your website does nothing to grow them.`
         : top
@@ -102,7 +104,9 @@ ${link}
 
 That's a real, working site — your name, your ${isBiz?'services':'ministries'}, your photos, built for phones and built to be found on Google.${r.assets.teardown?` The same link shows how you stack up against ${isBiz?'your local competitors':'nearby churches'}, measured on public signals.`:''}${(r.reviews?.weak && isBiz)?`
 
-It also ships with our review engine — the steady ask that turns happy customers into the Google reviews you're missing.`:''}
+It also ships with our review engine — the steady ask that turns happy customers into the Google reviews you're missing.`:''}${(r.audit?.scary && isBiz)?`
+
+And the security gap above? Closed on day one — every Sightline build ships with proper HTTPS, hardened security headers, and email-impersonation protection as standard.`:''}
 
 If you like it, it's yours: ${isBiz?'we host it, watch it, and market it from $59.99/mo with $0 down':'we host it, keep it fresh, and handle the tech for one simple monthly price'} — and you own the site. If not, no hard feelings; the preview was free.
 

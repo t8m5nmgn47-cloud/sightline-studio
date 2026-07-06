@@ -9,6 +9,8 @@ import { scoreBusiness, corpusFromPages } from './business.mjs';
 import { scoreCongregation } from './congregation.mjs';
 import { detectVertical } from './vertical-content.mjs';
 import { renderWithChrome } from './capture.mjs';
+import { auditDomain } from '../api/_audit.js';
+import { topGap } from '../api/audit-refresh.js';
 
 const UA = { headers: { 'user-agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126 Safari/537.36' }, redirect: 'follow' };
 
@@ -91,10 +93,34 @@ export async function scoreDomain(entry, { churchHint = false, categoryHint = nu
           ? `Leaking leads — missing ${gaps.slice(0,3).join(', ').toLowerCase()}. Scores ${r.score}/100; each fix is booked revenue.`
           : `Pays for a site but it's missing ${gaps.slice(0,3).join(', ').toLowerCase()} — scores ${r.score}/100 on congregation-readiness.`)
       : `Strong site (${r.score}/100) — low priority.`;
+  // ── Exposure Audit: real measured security/quality/presence signals ───────
+  // (HTTPS, security headers, DMARC spoofability, mobile, SEO). Same engine
+  // that powers /admin/audit, the funnels and the daily pipeline cron.
+  let audit = null;
+  try {
+    const a = await auditDomain(entry.domain);
+    if (a && a.score && !a.score.unreachable){
+      const em = a.email || {};
+      const httpsBad = !(a.https?.cert_valid && a.https?.ok);
+      const spoofable = !em.dmarc_present || em.dmarc_policy === 'none';
+      audit = {
+        score: a.score.overall,
+        security: a.score.areas?.security ?? null,
+        securityMax: a.score.maxes?.security ?? null,
+        topGap: topGap(a),
+        // "scary" = a verified gap worth leading the outreach with
+        scary: httpsBad ? 'no valid HTTPS — browsers can warn visitors the site isn\'t secure'
+             : spoofable ? 'no enforced DMARC — scammers can send email that looks like it comes from you'
+             : null,
+        at: new Date().toISOString().slice(0,10),
+      };
+    }
+  } catch {}
+
   const base = MRR[tradition] || MRR.business;
   const need = dead ? 0.55 : Math.min(0.6, 0.2 + (100 - r.score)/100*0.45);
   return {
-    type, domain: entry.domain, name, tradition,
+    type, domain: entry.domain, name, tradition, audit,
     score: dead?0:r.score, tier, gaps, pitch, dead, rendered,
     dims: r.dims.map(d=>({l:d.label,f:d.found,w:d.why})),
     phone: entry.phone || null,

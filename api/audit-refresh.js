@@ -8,7 +8,7 @@ import { auditDomain, normDomain } from "./_audit.js";
 
 const BATCH = 6; // stalest N per run — daily cron cycles the full book in ~1 week
 
-function topGap(a) {
+export function topGap(a) {
   if (!a || !a.ok) return "Site not reachable over HTTPS";
   const by = {}; (a.score.checks || []).forEach((c) => (by[c.label] = c));
   const failed = (l) => by[l] && !by[l].ok;

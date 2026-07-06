@@ -139,7 +139,15 @@
     "rendered": false,
     "phone": null,
     "stale": false,
-    "verifiedAt": "2026-07-06"
+    "verifiedAt": "2026-07-06",
+    "audit": {
+      "score": 61,
+      "security": 45,
+      "securityMax": 63,
+      "topGap": "Weak search presence — no meta description for Google",
+      "scary": null,
+      "at": "2026-07-06"
+    }
   },
   {
     "type": "business",
@@ -277,7 +285,8 @@
     "rendered": true,
     "phone": null,
     "stale": false,
-    "verifiedAt": "2026-07-06"
+    "verifiedAt": "2026-07-06",
+    "audit": null
   },
   {
     "type": "business",
@@ -414,7 +423,15 @@
     "rendered": true,
     "phone": null,
     "stale": false,
-    "verifiedAt": "2026-07-06"
+    "verifiedAt": "2026-07-06",
+    "audit": {
+      "score": 76,
+      "security": 44,
+      "securityMax": 63,
+      "topGap": "A couple of web-security headers are missing",
+      "scary": null,
+      "at": "2026-07-06"
+    }
   },
   {
     "type": "business",
@@ -524,12 +541,20 @@
     },
     "email": {
       "subject": "I rebuilt Montessori School at Lone Tree's website — it's ready to look at",
-      "body": "Hi — Kris here from Sightline Studio, here in Colorado.\n\nI scored montessoriatlonetree.com against 1 other childcare businesses: 23/100 vs a 23 average.\n\nSo instead of sending a pitch deck, I just built it. Here's Montessori School at Lone Tree's new site, live right now:\n\nhttps://sightline-studio.vercel.app/p/montessoriatlonetree-com/\n\nThat's a real, working site — your name, your services, your photos, built for phones and built to be found on Google. The same link shows how you stack up against your local competitors, measured on public signals.\n\nIf you like it, it's yours: we host it, watch it, and market it from $59.99/mo with $0 down — and you own the site. If not, no hard feelings; the preview was free.\n\nWorth two minutes? Just reply to this email.\n\n— Kris\nSightline Studio · look sharp, stay safe, get found"
+      "body": "Hi — Kris here from Sightline Studio, here in Colorado.\n\nI ran a standard security check on montessoriatlonetree.com (public signals only — nothing invasive) and found something you should know about: no enforced DMARC — scammers can send email that looks like it comes from you. That's the setting that stops criminals impersonating your email to your own customers.\n\nSo instead of sending a pitch deck, I just built it. Here's Montessori School at Lone Tree's new site, live right now:\n\nhttps://sightline-studio.vercel.app/p/montessoriatlonetree-com/\n\nThat's a real, working site — your name, your services, your photos, built for phones and built to be found on Google. The same link shows how you stack up against your local competitors, measured on public signals.\n\nAnd the security gap above? Closed on day one — every Sightline build ships with proper HTTPS, hardened security headers, and email-impersonation protection as standard.\n\nIf you like it, it's yours: we host it, watch it, and market it from $59.99/mo with $0 down — and you own the site. If not, no hard feelings; the preview was free.\n\nWorth two minutes? Just reply to this email.\n\n— Kris\nSightline Studio · look sharp, stay safe, get found"
     },
     "rendered": false,
     "phone": null,
     "stale": false,
-    "verifiedAt": "2026-07-06"
+    "verifiedAt": "2026-07-06",
+    "audit": {
+      "score": 67,
+      "security": 27,
+      "securityMax": 63,
+      "topGap": "No DMARC record — your email domain can be impersonated",
+      "scary": "no enforced DMARC — scammers can send email that looks like it comes from you",
+      "at": "2026-07-06"
+    }
   },
   {
     "type": "church",
@@ -675,7 +700,15 @@
     "rendered": false,
     "phone": null,
     "stale": false,
-    "verifiedAt": "2026-07-06"
+    "verifiedAt": "2026-07-06",
+    "audit": {
+      "score": 54,
+      "security": 32,
+      "securityMax": 63,
+      "topGap": "DMARC isn't enforced (p=none) — your email can be spoofed by scammers",
+      "scary": "no enforced DMARC — scammers can send email that looks like it comes from you",
+      "at": "2026-07-06"
+    }
   },
   {
     "type": "church",
@@ -822,7 +855,15 @@
     "rendered": false,
     "phone": null,
     "stale": false,
-    "verifiedAt": "2026-07-06"
+    "verifiedAt": "2026-07-06",
+    "audit": {
+      "score": 62,
+      "security": 30,
+      "securityMax": 63,
+      "topGap": "No DMARC record — your email domain can be impersonated",
+      "scary": "no enforced DMARC — scammers can send email that looks like it comes from you",
+      "at": "2026-07-06"
+    }
   },
   {
     "type": "church",
@@ -969,7 +1010,15 @@
     "rendered": false,
     "phone": null,
     "stale": false,
-    "verifiedAt": "2026-07-06"
+    "verifiedAt": "2026-07-06",
+    "audit": {
+      "score": 67,
+      "security": 34,
+      "securityMax": 63,
+      "topGap": "DMARC isn't enforced (p=none) — your email can be spoofed by scammers",
+      "scary": "no enforced DMARC — scammers can send email that looks like it comes from you",
+      "at": "2026-07-06"
+    }
   },
   {
     "type": "business",
@@ -1076,7 +1125,7 @@
     },
     "email": {
       "subject": "I rebuilt Aspen Falls Landscape and Construction's website — it's ready to look at",
-      "body": "Hi — Kris here from Sightline Studio, here in Colorado.\n\nI scored aspenfallslandscaping.com against 1 other trades businesses: 41/100 vs a 41 average.\n\nSo instead of sending a pitch deck, I just built it. Here's Aspen Falls Landscape and Construction's new site, live right now:\n\nhttps://sightline-studio.vercel.app/p/aspenfallslandscaping-com/\n\nThat's a real, working site — your name, your services, your photos, built for phones and built to be found on Google. The same link shows how you stack up against your local competitors, measured on public signals.\n\nIf you like it, it's yours: we host it, watch it, and market it from $59.99/mo with $0 down — and you own the site. If not, no hard feelings; the preview was free.\n\nWorth two minutes? Just reply to this email.\n\n— Kris\nSightline Studio · look sharp, stay safe, get found"
+      "body": "Hi — Kris here from Sightline Studio, here in Colorado.\n\nI ran a standard security check on aspenfallslandscaping.com (public signals only — nothing invasive) and found something you should know about: no enforced DMARC — scammers can send email that looks like it comes from you. That's the setting that stops criminals impersonating your email to your own customers.\n\nSo instead of sending a pitch deck, I just built it. Here's Aspen Falls Landscape and Construction's new site, live right now:\n\nhttps://sightline-studio.vercel.app/p/aspenfallslandscaping-com/\n\nThat's a real, working site — your name, your services, your photos, built for phones and built to be found on Google. The same link shows how you stack up against your local competitors, measured on public signals.\n\nAnd the security gap above? Closed on day one — every Sightline build ships with proper HTTPS, hardened security headers, and email-impersonation protection as standard.\n\nIf you like it, it's yours: we host it, watch it, and market it from $59.99/mo with $0 down — and you own the site. If not, no hard feelings; the preview was free.\n\nWorth two minutes? Just reply to this email.\n\n— Kris\nSightline Studio · look sharp, stay safe, get found"
     },
     "contact": {
       "email": "office@aspenfallslandscaping.org",
@@ -1091,7 +1140,15 @@
     "rendered": false,
     "phone": null,
     "stale": false,
-    "verifiedAt": "2026-07-06"
+    "verifiedAt": "2026-07-06",
+    "audit": {
+      "score": 80,
+      "security": 42,
+      "securityMax": 63,
+      "topGap": "No DMARC record — your email domain can be impersonated",
+      "scary": "no enforced DMARC — scammers can send email that looks like it comes from you",
+      "at": "2026-07-06"
+    }
   },
   {
     "type": "church",
@@ -1234,7 +1291,15 @@
     "rendered": false,
     "phone": null,
     "stale": false,
-    "verifiedAt": "2026-07-06"
+    "verifiedAt": "2026-07-06",
+    "audit": {
+      "score": 63,
+      "security": 30,
+      "securityMax": 63,
+      "topGap": "No DMARC record — your email domain can be impersonated",
+      "scary": "no enforced DMARC — scammers can send email that looks like it comes from you",
+      "at": "2026-07-06"
+    }
   },
   {
     "type": "business",
@@ -1357,12 +1422,20 @@
     },
     "email": {
       "subject": "I rebuilt RKM Homes's website — it's ready to look at",
-      "body": "Hi — Kris here from Sightline Studio, here in Colorado.\n\nI pulled up myrkmhome.com and noticed it's missing book / request appointment — 63% of business businesses have it, and it's likely costing you customers every week.\n\nSo instead of sending a pitch deck, I just built it. Here's RKM Homes's new site, live right now:\n\nhttps://sightline-studio.vercel.app/p/myrkmhome-com/\n\nThat's a real, working site — your name, your services, your photos, built for phones and built to be found on Google. The same link shows how you stack up against your local competitors, measured on public signals.\n\nIf you like it, it's yours: we host it, watch it, and market it from $59.99/mo with $0 down — and you own the site. If not, no hard feelings; the preview was free.\n\nWorth two minutes? Just reply to this email.\n\n— Kris\nSightline Studio · look sharp, stay safe, get found"
+      "body": "Hi — Kris here from Sightline Studio, here in Colorado.\n\nI ran a standard security check on myrkmhome.com (public signals only — nothing invasive) and found something you should know about: no enforced DMARC — scammers can send email that looks like it comes from you. That's the setting that stops criminals impersonating your email to your own customers.\n\nSo instead of sending a pitch deck, I just built it. Here's RKM Homes's new site, live right now:\n\nhttps://sightline-studio.vercel.app/p/myrkmhome-com/\n\nThat's a real, working site — your name, your services, your photos, built for phones and built to be found on Google. The same link shows how you stack up against your local competitors, measured on public signals.\n\nAnd the security gap above? Closed on day one — every Sightline build ships with proper HTTPS, hardened security headers, and email-impersonation protection as standard.\n\nIf you like it, it's yours: we host it, watch it, and market it from $59.99/mo with $0 down — and you own the site. If not, no hard feelings; the preview was free.\n\nWorth two minutes? Just reply to this email.\n\n— Kris\nSightline Studio · look sharp, stay safe, get found"
     },
     "rendered": false,
     "phone": null,
     "stale": false,
-    "verifiedAt": "2026-07-06"
+    "verifiedAt": "2026-07-06",
+    "audit": {
+      "score": 81,
+      "security": 40,
+      "securityMax": 63,
+      "topGap": "No DMARC record — your email domain can be impersonated",
+      "scary": "no enforced DMARC — scammers can send email that looks like it comes from you",
+      "at": "2026-07-06"
+    }
   },
   {
     "type": "church",
@@ -1504,7 +1577,15 @@
     "rendered": false,
     "phone": null,
     "stale": false,
-    "verifiedAt": "2026-07-06"
+    "verifiedAt": "2026-07-06",
+    "audit": {
+      "score": 66,
+      "security": 33,
+      "securityMax": 63,
+      "topGap": "No DMARC record — your email domain can be impersonated",
+      "scary": "no enforced DMARC — scammers can send email that looks like it comes from you",
+      "at": "2026-07-06"
+    }
   },
   {
     "type": "business",
@@ -1628,7 +1709,7 @@
     },
     "email": {
       "subject": "I rebuilt Stone Aspen Signature Builders | Castle Rock Custom Home Builder and Design-Build | Colorado's website — it's ready to look at",
-      "body": "Hi — Kris here from Sightline Studio, here in Colorado.\n\nI pulled up stoneaspen.com and noticed it's missing call / contact prominent — 75% of business businesses have it, and it's likely costing you customers every week.\n\nSo instead of sending a pitch deck, I just built it. Here's Stone Aspen Signature Builders | Castle Rock Custom Home Builder and Design-Build | Colorado's new site, live right now:\n\nhttps://sightline-studio.vercel.app/p/stoneaspen-com/\n\nThat's a real, working site — your name, your services, your photos, built for phones and built to be found on Google. The same link shows how you stack up against your local competitors, measured on public signals.\n\nIf you like it, it's yours: we host it, watch it, and market it from $59.99/mo with $0 down — and you own the site. If not, no hard feelings; the preview was free.\n\nWorth two minutes? Just reply to this email.\n\n— Kris\nSightline Studio · look sharp, stay safe, get found"
+      "body": "Hi — Kris here from Sightline Studio, here in Colorado.\n\nI ran a standard security check on stoneaspen.com (public signals only — nothing invasive) and found something you should know about: no enforced DMARC — scammers can send email that looks like it comes from you. That's the setting that stops criminals impersonating your email to your own customers.\n\nSo instead of sending a pitch deck, I just built it. Here's Stone Aspen Signature Builders | Castle Rock Custom Home Builder and Design-Build | Colorado's new site, live right now:\n\nhttps://sightline-studio.vercel.app/p/stoneaspen-com/\n\nThat's a real, working site — your name, your services, your photos, built for phones and built to be found on Google. The same link shows how you stack up against your local competitors, measured on public signals.\n\nAnd the security gap above? Closed on day one — every Sightline build ships with proper HTTPS, hardened security headers, and email-impersonation protection as standard.\n\nIf you like it, it's yours: we host it, watch it, and market it from $59.99/mo with $0 down — and you own the site. If not, no hard feelings; the preview was free.\n\nWorth two minutes? Just reply to this email.\n\n— Kris\nSightline Studio · look sharp, stay safe, get found"
     },
     "contact": {
       "email": null,
@@ -1642,7 +1723,15 @@
     "rendered": false,
     "phone": null,
     "stale": false,
-    "verifiedAt": "2026-07-06"
+    "verifiedAt": "2026-07-06",
+    "audit": {
+      "score": 73,
+      "security": 40,
+      "securityMax": 63,
+      "topGap": "No DMARC record — your email domain can be impersonated",
+      "scary": "no enforced DMARC — scammers can send email that looks like it comes from you",
+      "at": "2026-07-06"
+    }
   },
   {
     "type": "church",
@@ -1784,7 +1873,15 @@
     "rendered": false,
     "phone": null,
     "stale": false,
-    "verifiedAt": "2026-07-06"
+    "verifiedAt": "2026-07-06",
+    "audit": {
+      "score": 67,
+      "security": 32,
+      "securityMax": 63,
+      "topGap": "DMARC isn't enforced (p=none) — your email can be spoofed by scammers",
+      "scary": "no enforced DMARC — scammers can send email that looks like it comes from you",
+      "at": "2026-07-06"
+    }
   },
   {
     "type": "church",
@@ -1916,7 +2013,15 @@
     "rendered": false,
     "phone": null,
     "stale": false,
-    "verifiedAt": "2026-07-06"
+    "verifiedAt": "2026-07-06",
+    "audit": {
+      "score": 68,
+      "security": 32,
+      "securityMax": 63,
+      "topGap": "No DMARC record — your email domain can be impersonated",
+      "scary": "no enforced DMARC — scammers can send email that looks like it comes from you",
+      "at": "2026-07-06"
+    }
   },
   {
     "type": "business",
@@ -2024,7 +2129,15 @@
     "rendered": false,
     "phone": null,
     "stale": false,
-    "verifiedAt": "2026-07-06"
+    "verifiedAt": "2026-07-06",
+    "audit": {
+      "score": 72,
+      "security": 33,
+      "securityMax": 63,
+      "topGap": "Missing web-security headers (clickjacking & content protections)",
+      "scary": null,
+      "at": "2026-07-06"
+    }
   },
   {
     "type": "church",
@@ -2166,7 +2279,15 @@
     "rendered": false,
     "phone": null,
     "stale": false,
-    "verifiedAt": "2026-07-06"
+    "verifiedAt": "2026-07-06",
+    "audit": {
+      "score": 63,
+      "security": 30,
+      "securityMax": 63,
+      "topGap": "No DMARC record — your email domain can be impersonated",
+      "scary": "no enforced DMARC — scammers can send email that looks like it comes from you",
+      "at": "2026-07-06"
+    }
   },
   {
     "type": "business",
@@ -2267,7 +2388,7 @@
     },
     "email": {
       "subject": "I rebuilt Colorado Group & Individual Health, Life, Disability, Long Term Care Insurance broker in Highlands Ranch Colorado - Niederman Insurance Agency's website — it's ready to look at",
-      "body": "Hi — Kris here from Sightline Studio, here in Colorado.\n\nI scored niedermaninsurance.com against 1 other insurance businesses: 56/100 vs a 56 average.\n\nSo instead of sending a pitch deck, I just built it. Here's Colorado Group & Individual Health, Life, Disability, Long Term Care Insurance broker in Highlands Ranch Colorado - Niederman Insurance Agency's new site, live right now:\n\nhttps://sightline-studio.vercel.app/p/niedermaninsurance-com/\n\nThat's a real, working site — your name, your services, your photos, built for phones and built to be found on Google. The same link shows how you stack up against your local competitors, measured on public signals.\n\nIf you like it, it's yours: we host it, watch it, and market it from $59.99/mo with $0 down — and you own the site. If not, no hard feelings; the preview was free.\n\nWorth two minutes? Just reply to this email.\n\n— Kris\nSightline Studio · look sharp, stay safe, get found"
+      "body": "Hi — Kris here from Sightline Studio, here in Colorado.\n\nI ran a standard security check on niedermaninsurance.com (public signals only — nothing invasive) and found something you should know about: no enforced DMARC — scammers can send email that looks like it comes from you. That's the setting that stops criminals impersonating your email to your own customers.\n\nSo instead of sending a pitch deck, I just built it. Here's Colorado Group & Individual Health, Life, Disability, Long Term Care Insurance broker in Highlands Ranch Colorado - Niederman Insurance Agency's new site, live right now:\n\nhttps://sightline-studio.vercel.app/p/niedermaninsurance-com/\n\nThat's a real, working site — your name, your services, your photos, built for phones and built to be found on Google. The same link shows how you stack up against your local competitors, measured on public signals.\n\nAnd the security gap above? Closed on day one — every Sightline build ships with proper HTTPS, hardened security headers, and email-impersonation protection as standard.\n\nIf you like it, it's yours: we host it, watch it, and market it from $59.99/mo with $0 down — and you own the site. If not, no hard feelings; the preview was free.\n\nWorth two minutes? Just reply to this email.\n\n— Kris\nSightline Studio · look sharp, stay safe, get found"
     },
     "contact": {
       "email": "niedermaninsuranceagency@niedermaninsurance.com",
@@ -2283,7 +2404,15 @@
     "rendered": false,
     "phone": null,
     "stale": false,
-    "verifiedAt": "2026-07-06"
+    "verifiedAt": "2026-07-06",
+    "audit": {
+      "score": 85,
+      "security": 52,
+      "securityMax": 63,
+      "topGap": "DMARC isn't enforced (p=none) — your email can be spoofed by scammers",
+      "scary": "no enforced DMARC — scammers can send email that looks like it comes from you",
+      "at": "2026-07-06"
+    }
   },
   {
     "type": "business",
@@ -2384,7 +2513,7 @@
     },
     "email": {
       "subject": "I rebuilt Dr. Heidi Oster MD, PC's website — it's ready to look at",
-      "body": "Hi — Kris here from Sightline Studio, here in Colorado.\n\nI pulled up heidiosterobgyn.com and noticed it's missing book / request appointment — 50% of medical businesses have it, and it's likely costing you customers every week.\n\nSo instead of sending a pitch deck, I just built it. Here's Dr. Heidi Oster MD, PC's new site, live right now:\n\nhttps://sightline-studio.vercel.app/p/heidiosterobgyn-com/\n\nThat's a real, working site — your name, your services, your photos, built for phones and built to be found on Google. The same link shows how you stack up against your local competitors, measured on public signals.\n\nIf you like it, it's yours: we host it, watch it, and market it from $59.99/mo with $0 down — and you own the site. If not, no hard feelings; the preview was free.\n\nWorth two minutes? Just reply to this email.\n\n— Kris\nSightline Studio · look sharp, stay safe, get found"
+      "body": "Hi — Kris here from Sightline Studio, here in Colorado.\n\nI ran a standard security check on heidiosterobgyn.com (public signals only — nothing invasive) and found something you should know about: no enforced DMARC — scammers can send email that looks like it comes from you. That's the setting that stops criminals impersonating your email to your own patients.\n\nSo instead of sending a pitch deck, I just built it. Here's Dr. Heidi Oster MD, PC's new site, live right now:\n\nhttps://sightline-studio.vercel.app/p/heidiosterobgyn-com/\n\nThat's a real, working site — your name, your services, your photos, built for phones and built to be found on Google. The same link shows how you stack up against your local competitors, measured on public signals.\n\nAnd the security gap above? Closed on day one — every Sightline build ships with proper HTTPS, hardened security headers, and email-impersonation protection as standard.\n\nIf you like it, it's yours: we host it, watch it, and market it from $59.99/mo with $0 down — and you own the site. If not, no hard feelings; the preview was free.\n\nWorth two minutes? Just reply to this email.\n\n— Kris\nSightline Studio · look sharp, stay safe, get found"
     },
     "contact": {
       "email": null,
@@ -2400,7 +2529,15 @@
     "rendered": false,
     "phone": null,
     "stale": false,
-    "verifiedAt": "2026-07-06"
+    "verifiedAt": "2026-07-06",
+    "audit": {
+      "score": 63,
+      "security": 29,
+      "securityMax": 63,
+      "topGap": "No DMARC record — your email domain can be impersonated",
+      "scary": "no enforced DMARC — scammers can send email that looks like it comes from you",
+      "at": "2026-07-06"
+    }
   },
   {
     "type": "church",
@@ -2531,7 +2668,15 @@
     "rendered": false,
     "phone": null,
     "stale": false,
-    "verifiedAt": "2026-07-06"
+    "verifiedAt": "2026-07-06",
+    "audit": {
+      "score": 68,
+      "security": 32,
+      "securityMax": 63,
+      "topGap": "DMARC isn't enforced (p=none) — your email can be spoofed by scammers",
+      "scary": "no enforced DMARC — scammers can send email that looks like it comes from you",
+      "at": "2026-07-06"
+    }
   },
   {
     "type": "business",
@@ -2644,7 +2789,7 @@
     },
     "email": {
       "subject": "I rebuilt Family Lawyers Highlands Ranch, CO's website — it's ready to look at",
-      "body": "Hi — Kris here from Sightline Studio, here in Colorado.\n\nI pulled up rosslawcolorado.com and noticed it's missing book / request appointment — 50% of law businesses have it, and it's likely costing you customers every week.\n\nSo instead of sending a pitch deck, I just built it. Here's Family Lawyers Highlands Ranch, CO's new site, live right now:\n\nhttps://sightline-studio.vercel.app/p/rosslawcolorado-com/\n\nThat's a real, working site — your name, your services, your photos, built for phones and built to be found on Google. The same link shows how you stack up against your local competitors, measured on public signals.\n\nIf you like it, it's yours: we host it, watch it, and market it from $59.99/mo with $0 down — and you own the site. If not, no hard feelings; the preview was free.\n\nWorth two minutes? Just reply to this email.\n\n— Kris\nSightline Studio · look sharp, stay safe, get found"
+      "body": "Hi — Kris here from Sightline Studio, here in Colorado.\n\nI ran a standard security check on rosslawcolorado.com (public signals only — nothing invasive) and found something you should know about: no enforced DMARC — scammers can send email that looks like it comes from you. That's the setting that stops criminals impersonating your email to your own clients.\n\nSo instead of sending a pitch deck, I just built it. Here's Family Lawyers Highlands Ranch, CO's new site, live right now:\n\nhttps://sightline-studio.vercel.app/p/rosslawcolorado-com/\n\nThat's a real, working site — your name, your services, your photos, built for phones and built to be found on Google. The same link shows how you stack up against your local competitors, measured on public signals.\n\nAnd the security gap above? Closed on day one — every Sightline build ships with proper HTTPS, hardened security headers, and email-impersonation protection as standard.\n\nIf you like it, it's yours: we host it, watch it, and market it from $59.99/mo with $0 down — and you own the site. If not, no hard feelings; the preview was free.\n\nWorth two minutes? Just reply to this email.\n\n— Kris\nSightline Studio · look sharp, stay safe, get found"
     },
     "contact": {
       "email": "office@rosslawcolorado.com",
@@ -2659,7 +2804,15 @@
     "rendered": false,
     "phone": null,
     "stale": false,
-    "verifiedAt": "2026-07-06"
+    "verifiedAt": "2026-07-06",
+    "audit": {
+      "score": 85,
+      "security": 49,
+      "securityMax": 63,
+      "topGap": "DMARC isn't enforced (p=none) — your email can be spoofed by scammers",
+      "scary": "no enforced DMARC — scammers can send email that looks like it comes from you",
+      "at": "2026-07-06"
+    }
   },
   {
     "type": "church",
@@ -2791,7 +2944,15 @@
     "rendered": false,
     "phone": null,
     "stale": false,
-    "verifiedAt": "2026-07-06"
+    "verifiedAt": "2026-07-06",
+    "audit": {
+      "score": 71,
+      "security": 35,
+      "securityMax": 63,
+      "topGap": "DMARC isn't enforced (p=none) — your email can be spoofed by scammers",
+      "scary": "no enforced DMARC — scammers can send email that looks like it comes from you",
+      "at": "2026-07-06"
+    }
   },
   {
     "type": "church",
@@ -2911,7 +3072,15 @@
     "rendered": false,
     "phone": null,
     "stale": false,
-    "verifiedAt": "2026-07-06"
+    "verifiedAt": "2026-07-06",
+    "audit": {
+      "score": 68,
+      "security": 36,
+      "securityMax": 63,
+      "topGap": "DMARC isn't enforced (p=none) — your email can be spoofed by scammers",
+      "scary": "no enforced DMARC — scammers can send email that looks like it comes from you",
+      "at": "2026-07-06"
+    }
   },
   {
     "type": "church",
@@ -3032,7 +3201,15 @@
     "rendered": false,
     "phone": null,
     "stale": false,
-    "verifiedAt": "2026-07-06"
+    "verifiedAt": "2026-07-06",
+    "audit": {
+      "score": 67,
+      "security": 34,
+      "securityMax": 63,
+      "topGap": "DMARC isn't enforced (p=none) — your email can be spoofed by scammers",
+      "scary": "no enforced DMARC — scammers can send email that looks like it comes from you",
+      "at": "2026-07-06"
+    }
   },
   {
     "type": "business",
@@ -3146,7 +3323,15 @@
     },
     "rendered": false,
     "stale": false,
-    "verifiedAt": "2026-07-06"
+    "verifiedAt": "2026-07-06",
+    "audit": {
+      "score": 68,
+      "security": 38,
+      "securityMax": 63,
+      "topGap": "No DMARC record — your email domain can be impersonated",
+      "scary": "no enforced DMARC — scammers can send email that looks like it comes from you",
+      "at": "2026-07-06"
+    }
   },
   {
     "type": "business",
@@ -3253,7 +3438,7 @@
     },
     "email": {
       "subject": "I rebuilt Colorado Lending Team | Carrie Bakunas & Scott Baade Mortgage's website — it's ready to look at",
-      "body": "Hi — Kris here from Sightline Studio, here in Colorado.\n\nI scored coloradolendingteam.com against 3 other mortgage businesses: 63/100 vs a 64 average.\n\nSo instead of sending a pitch deck, I just built it. Here's Colorado Lending Team | Carrie Bakunas & Scott Baade Mortgage's new site, live right now:\n\nhttps://sightline-studio.vercel.app/p/coloradolendingteam-com/\n\nThat's a real, working site — your name, your services, your photos, built for phones and built to be found on Google. The same link shows how you stack up against your local competitors, measured on public signals.\n\nIf you like it, it's yours: we host it, watch it, and market it from $59.99/mo with $0 down — and you own the site. If not, no hard feelings; the preview was free.\n\nWorth two minutes? Just reply to this email.\n\n— Kris\nSightline Studio · look sharp, stay safe, get found"
+      "body": "Hi — Kris here from Sightline Studio, here in Colorado.\n\nI ran a standard security check on coloradolendingteam.com (public signals only — nothing invasive) and found something you should know about: no enforced DMARC — scammers can send email that looks like it comes from you. That's the setting that stops criminals impersonating your email to your own customers.\n\nSo instead of sending a pitch deck, I just built it. Here's Colorado Lending Team | Carrie Bakunas & Scott Baade Mortgage's new site, live right now:\n\nhttps://sightline-studio.vercel.app/p/coloradolendingteam-com/\n\nThat's a real, working site — your name, your services, your photos, built for phones and built to be found on Google. The same link shows how you stack up against your local competitors, measured on public signals.\n\nAnd the security gap above? Closed on day one — every Sightline build ships with proper HTTPS, hardened security headers, and email-impersonation protection as standard.\n\nIf you like it, it's yours: we host it, watch it, and market it from $59.99/mo with $0 down — and you own the site. If not, no hard feelings; the preview was free.\n\nWorth two minutes? Just reply to this email.\n\n— Kris\nSightline Studio · look sharp, stay safe, get found"
     },
     "contact": {
       "email": "team@coloradolendingteam.com",
@@ -3267,7 +3452,15 @@
     "rendered": false,
     "phone": null,
     "stale": false,
-    "verifiedAt": "2026-07-06"
+    "verifiedAt": "2026-07-06",
+    "audit": {
+      "score": 59,
+      "security": 29,
+      "securityMax": 63,
+      "topGap": "DMARC isn't enforced (p=none) — your email can be spoofed by scammers",
+      "scary": "no enforced DMARC — scammers can send email that looks like it comes from you",
+      "at": "2026-07-06"
+    }
   },
   {
     "type": "church",
@@ -3388,7 +3581,15 @@
     "rendered": false,
     "phone": null,
     "stale": false,
-    "verifiedAt": "2026-07-06"
+    "verifiedAt": "2026-07-06",
+    "audit": {
+      "score": 70,
+      "security": 34,
+      "securityMax": 63,
+      "topGap": "DMARC isn't enforced (p=none) — your email can be spoofed by scammers",
+      "scary": "no enforced DMARC — scammers can send email that looks like it comes from you",
+      "at": "2026-07-06"
+    }
   },
   {
     "type": "church",
@@ -3507,7 +3708,15 @@
     "rendered": false,
     "phone": null,
     "stale": false,
-    "verifiedAt": "2026-07-06"
+    "verifiedAt": "2026-07-06",
+    "audit": {
+      "score": 63,
+      "security": 32,
+      "securityMax": 63,
+      "topGap": "DMARC isn't enforced (p=none) — your email can be spoofed by scammers",
+      "scary": "no enforced DMARC — scammers can send email that looks like it comes from you",
+      "at": "2026-07-06"
+    }
   },
   {
     "type": "business",
@@ -3620,7 +3829,7 @@
     },
     "email": {
       "subject": "I rebuilt Jewelry Store in Aurora, CO's website — it's ready to look at",
-      "body": "Hi — Kris here from Sightline Studio, here in Colorado.\n\nI pulled up biondijewelry.com and noticed it's missing book / request appointment — 63% of business businesses have it, and it's likely costing you customers every week.\n\nSo instead of sending a pitch deck, I just built it. Here's Jewelry Store in Aurora, CO's new site, live right now:\n\nhttps://sightline-studio.vercel.app/p/biondijewelry-com/\n\nThat's a real, working site — your name, your services, your photos, built for phones and built to be found on Google. The same link shows how you stack up against your local competitors, measured on public signals.\n\nIf you like it, it's yours: we host it, watch it, and market it from $59.99/mo with $0 down — and you own the site. If not, no hard feelings; the preview was free.\n\nWorth two minutes? Just reply to this email.\n\n— Kris\nSightline Studio · look sharp, stay safe, get found"
+      "body": "Hi — Kris here from Sightline Studio, here in Colorado.\n\nI ran a standard security check on biondijewelry.com (public signals only — nothing invasive) and found something you should know about: no enforced DMARC — scammers can send email that looks like it comes from you. That's the setting that stops criminals impersonating your email to your own customers.\n\nSo instead of sending a pitch deck, I just built it. Here's Jewelry Store in Aurora, CO's new site, live right now:\n\nhttps://sightline-studio.vercel.app/p/biondijewelry-com/\n\nThat's a real, working site — your name, your services, your photos, built for phones and built to be found on Google. The same link shows how you stack up against your local competitors, measured on public signals.\n\nAnd the security gap above? Closed on day one — every Sightline build ships with proper HTTPS, hardened security headers, and email-impersonation protection as standard.\n\nIf you like it, it's yours: we host it, watch it, and market it from $59.99/mo with $0 down — and you own the site. If not, no hard feelings; the preview was free.\n\nWorth two minutes? Just reply to this email.\n\n— Kris\nSightline Studio · look sharp, stay safe, get found"
     },
     "contact": {
       "email": null,
@@ -3636,7 +3845,15 @@
     "rendered": false,
     "phone": null,
     "stale": false,
-    "verifiedAt": "2026-07-06"
+    "verifiedAt": "2026-07-06",
+    "audit": {
+      "score": 82,
+      "security": 43,
+      "securityMax": 63,
+      "topGap": "DMARC isn't enforced (p=none) — your email can be spoofed by scammers",
+      "scary": "no enforced DMARC — scammers can send email that looks like it comes from you",
+      "at": "2026-07-06"
+    }
   },
   {
     "type": "business",
@@ -3753,7 +3970,15 @@
     "rendered": false,
     "phone": null,
     "stale": false,
-    "verifiedAt": "2026-07-06"
+    "verifiedAt": "2026-07-06",
+    "audit": {
+      "score": 74,
+      "security": 35,
+      "securityMax": 63,
+      "topGap": "Missing web-security headers (clickjacking & content protections)",
+      "scary": null,
+      "at": "2026-07-06"
+    }
   },
   {
     "type": "church",
@@ -3883,7 +4108,15 @@
     "rendered": false,
     "phone": null,
     "stale": false,
-    "verifiedAt": "2026-07-06"
+    "verifiedAt": "2026-07-06",
+    "audit": {
+      "score": 67,
+      "security": 35,
+      "securityMax": 63,
+      "topGap": "DMARC isn't enforced (p=none) — your email can be spoofed by scammers",
+      "scary": "no enforced DMARC — scammers can send email that looks like it comes from you",
+      "at": "2026-07-06"
+    }
   },
   {
     "type": "business",
@@ -3978,7 +4211,7 @@
     },
     "email": {
       "subject": "I rebuilt Denver, Littleton, Centennial, CO | Paramount Title Agency's website — it's ready to look at",
-      "body": "Hi — Kris here from Sightline Studio, here in Colorado.\n\nI scored paramounttitle.com against 2 other title businesses: 68/100 vs a 44 average.\n\nSo instead of sending a pitch deck, I just built it. Here's Denver, Littleton, Centennial, CO | Paramount Title Agency's new site, live right now:\n\nhttps://sightline-studio.vercel.app/p/paramounttitle-com/\n\nThat's a real, working site — your name, your services, your photos, built for phones and built to be found on Google. The same link shows how you stack up against your local competitors, measured on public signals.\n\nIf you like it, it's yours: we host it, watch it, and market it from $59.99/mo with $0 down — and you own the site. If not, no hard feelings; the preview was free.\n\nWorth two minutes? Just reply to this email.\n\n— Kris\nSightline Studio · look sharp, stay safe, get found"
+      "body": "Hi — Kris here from Sightline Studio, here in Colorado.\n\nI ran a standard security check on paramounttitle.com (public signals only — nothing invasive) and found something you should know about: no enforced DMARC — scammers can send email that looks like it comes from you. That's the setting that stops criminals impersonating your email to your own customers.\n\nSo instead of sending a pitch deck, I just built it. Here's Denver, Littleton, Centennial, CO | Paramount Title Agency's new site, live right now:\n\nhttps://sightline-studio.vercel.app/p/paramounttitle-com/\n\nThat's a real, working site — your name, your services, your photos, built for phones and built to be found on Google. The same link shows how you stack up against your local competitors, measured on public signals.\n\nAnd the security gap above? Closed on day one — every Sightline build ships with proper HTTPS, hardened security headers, and email-impersonation protection as standard.\n\nIf you like it, it's yours: we host it, watch it, and market it from $59.99/mo with $0 down — and you own the site. If not, no hard feelings; the preview was free.\n\nWorth two minutes? Just reply to this email.\n\n— Kris\nSightline Studio · look sharp, stay safe, get found"
     },
     "contact": {
       "email": "info@paramounttitle.com",
@@ -3992,7 +4225,15 @@
     "rendered": false,
     "phone": null,
     "stale": false,
-    "verifiedAt": "2026-07-06"
+    "verifiedAt": "2026-07-06",
+    "audit": {
+      "score": 63,
+      "security": 32,
+      "securityMax": 63,
+      "topGap": "DMARC isn't enforced (p=none) — your email can be spoofed by scammers",
+      "scary": "no enforced DMARC — scammers can send email that looks like it comes from you",
+      "at": "2026-07-06"
+    }
   },
   {
     "type": "church",
@@ -4123,7 +4364,15 @@
     "rendered": false,
     "phone": null,
     "stale": false,
-    "verifiedAt": "2026-07-06"
+    "verifiedAt": "2026-07-06",
+    "audit": {
+      "score": 70,
+      "security": 34,
+      "securityMax": 63,
+      "topGap": "DMARC isn't enforced (p=none) — your email can be spoofed by scammers",
+      "scary": "no enforced DMARC — scammers can send email that looks like it comes from you",
+      "at": "2026-07-06"
+    }
   },
   {
     "type": "business",
@@ -4235,7 +4484,7 @@
     },
     "email": {
       "subject": "I rebuilt True Beauty MedSpa's website — it's ready to look at",
-      "body": "Hi — Kris here from Sightline Studio, here in Colorado.\n\nI pulled up truebeautymedspa.com and noticed it's missing new-customer offer — 50% of medspa businesses have it, and it's likely costing you customers every week.\n\nSo instead of sending a pitch deck, I just built it. Here's True Beauty MedSpa's new site, live right now:\n\nhttps://sightline-studio.vercel.app/p/truebeautymedspa-com/\n\nThat's a real, working site — your name, your services, your photos, built for phones and built to be found on Google. The same link shows how you stack up against your local competitors, measured on public signals.\n\nIf you like it, it's yours: we host it, watch it, and market it from $59.99/mo with $0 down — and you own the site. If not, no hard feelings; the preview was free.\n\nWorth two minutes? Just reply to this email.\n\n— Kris\nSightline Studio · look sharp, stay safe, get found"
+      "body": "Hi — Kris here from Sightline Studio, here in Colorado.\n\nI ran a standard security check on truebeautymedspa.com (public signals only — nothing invasive) and found something you should know about: no enforced DMARC — scammers can send email that looks like it comes from you. That's the setting that stops criminals impersonating your email to your own customers.\n\nSo instead of sending a pitch deck, I just built it. Here's True Beauty MedSpa's new site, live right now:\n\nhttps://sightline-studio.vercel.app/p/truebeautymedspa-com/\n\nThat's a real, working site — your name, your services, your photos, built for phones and built to be found on Google. The same link shows how you stack up against your local competitors, measured on public signals.\n\nAnd the security gap above? Closed on day one — every Sightline build ships with proper HTTPS, hardened security headers, and email-impersonation protection as standard.\n\nIf you like it, it's yours: we host it, watch it, and market it from $59.99/mo with $0 down — and you own the site. If not, no hard feelings; the preview was free.\n\nWorth two minutes? Just reply to this email.\n\n— Kris\nSightline Studio · look sharp, stay safe, get found"
     },
     "contact": {
       "email": "team@latofonts.com",
@@ -4250,7 +4499,15 @@
     "rendered": false,
     "phone": null,
     "stale": false,
-    "verifiedAt": "2026-07-06"
+    "verifiedAt": "2026-07-06",
+    "audit": {
+      "score": 79,
+      "security": 41,
+      "securityMax": 63,
+      "topGap": "No DMARC record — your email domain can be impersonated",
+      "scary": "no enforced DMARC — scammers can send email that looks like it comes from you",
+      "at": "2026-07-06"
+    }
   },
   {
     "type": "business",
@@ -4365,7 +4622,15 @@
     },
     "rendered": false,
     "stale": false,
-    "verifiedAt": "2026-07-06"
+    "verifiedAt": "2026-07-06",
+    "audit": {
+      "score": 73,
+      "security": 34,
+      "securityMax": 63,
+      "topGap": "No DMARC record — your email domain can be impersonated",
+      "scary": "no enforced DMARC — scammers can send email that looks like it comes from you",
+      "at": "2026-07-06"
+    }
   },
   {
     "type": "church",
@@ -4485,7 +4750,15 @@
     "rendered": false,
     "phone": null,
     "stale": false,
-    "verifiedAt": "2026-07-06"
+    "verifiedAt": "2026-07-06",
+    "audit": {
+      "score": 69,
+      "security": 33,
+      "securityMax": 63,
+      "topGap": "No DMARC record — your email domain can be impersonated",
+      "scary": "no enforced DMARC — scammers can send email that looks like it comes from you",
+      "at": "2026-07-06"
+    }
   },
   {
     "type": "business",
@@ -4597,12 +4870,20 @@
     },
     "email": {
       "subject": "I rebuilt Cherry Hills Dental Associates's website — it's ready to look at",
-      "body": "Hi — Kris here from Sightline Studio, here in Colorado.\n\nI pulled up cherryhillsdentist.com and noticed it's missing photos / results — 50% of dental businesses have it, and it's likely costing you customers every week.\n\nSo instead of sending a pitch deck, I just built it. Here's Cherry Hills Dental Associates's new site, live right now:\n\nhttps://sightline-studio.vercel.app/p/cherryhillsdentist-com/\n\nThat's a real, working site — your name, your services, your photos, built for phones and built to be found on Google. The same link shows how you stack up against your local competitors, measured on public signals.\n\nIf you like it, it's yours: we host it, watch it, and market it from $59.99/mo with $0 down — and you own the site. If not, no hard feelings; the preview was free.\n\nWorth two minutes? Just reply to this email.\n\n— Kris\nSightline Studio · look sharp, stay safe, get found"
+      "body": "Hi — Kris here from Sightline Studio, here in Colorado.\n\nI ran a standard security check on cherryhillsdentist.com (public signals only — nothing invasive) and found something you should know about: no enforced DMARC — scammers can send email that looks like it comes from you. That's the setting that stops criminals impersonating your email to your own patients.\n\nSo instead of sending a pitch deck, I just built it. Here's Cherry Hills Dental Associates's new site, live right now:\n\nhttps://sightline-studio.vercel.app/p/cherryhillsdentist-com/\n\nThat's a real, working site — your name, your services, your photos, built for phones and built to be found on Google. The same link shows how you stack up against your local competitors, measured on public signals.\n\nAnd the security gap above? Closed on day one — every Sightline build ships with proper HTTPS, hardened security headers, and email-impersonation protection as standard.\n\nIf you like it, it's yours: we host it, watch it, and market it from $59.99/mo with $0 down — and you own the site. If not, no hard feelings; the preview was free.\n\nWorth two minutes? Just reply to this email.\n\n— Kris\nSightline Studio · look sharp, stay safe, get found"
     },
     "rendered": true,
     "phone": null,
     "stale": false,
-    "verifiedAt": "2026-07-06"
+    "verifiedAt": "2026-07-06",
+    "audit": {
+      "score": 46,
+      "security": 33,
+      "securityMax": 63,
+      "topGap": "DMARC isn't enforced (p=none) — your email can be spoofed by scammers",
+      "scary": "no enforced DMARC — scammers can send email that looks like it comes from you",
+      "at": "2026-07-06"
+    }
   },
   {
     "type": "business",
@@ -4703,12 +4984,20 @@
     },
     "email": {
       "subject": "I rebuilt Colorado Dermatology Mohs Surgery's website — it's ready to look at",
-      "body": "Hi — Kris here from Sightline Studio, here in Colorado.\n\nI pulled up coloradodermatology.com and noticed it's missing reviews & social proof — 50% of medical businesses have it, and it's likely costing you customers every week.\n\nSo instead of sending a pitch deck, I just built it. Here's Colorado Dermatology Mohs Surgery's new site, live right now:\n\nhttps://sightline-studio.vercel.app/p/coloradodermatology-com/\n\nThat's a real, working site — your name, your services, your photos, built for phones and built to be found on Google. The same link shows how you stack up against your local competitors, measured on public signals.\n\nIf you like it, it's yours: we host it, watch it, and market it from $59.99/mo with $0 down — and you own the site. If not, no hard feelings; the preview was free.\n\nWorth two minutes? Just reply to this email.\n\n— Kris\nSightline Studio · look sharp, stay safe, get found"
+      "body": "Hi — Kris here from Sightline Studio, here in Colorado.\n\nI ran a standard security check on coloradodermatology.com (public signals only — nothing invasive) and found something you should know about: no valid HTTPS — browsers can warn visitors the site isn't secure. For a local medical business, that's the kind of thing that erodes trust before you ever get the call.\n\nSo instead of sending a pitch deck, I just built it. Here's Colorado Dermatology Mohs Surgery's new site, live right now:\n\nhttps://sightline-studio.vercel.app/p/coloradodermatology-com/\n\nThat's a real, working site — your name, your services, your photos, built for phones and built to be found on Google. The same link shows how you stack up against your local competitors, measured on public signals.\n\nAnd the security gap above? Closed on day one — every Sightline build ships with proper HTTPS, hardened security headers, and email-impersonation protection as standard.\n\nIf you like it, it's yours: we host it, watch it, and market it from $59.99/mo with $0 down — and you own the site. If not, no hard feelings; the preview was free.\n\nWorth two minutes? Just reply to this email.\n\n— Kris\nSightline Studio · look sharp, stay safe, get found"
     },
     "rendered": true,
     "phone": null,
     "stale": false,
-    "verifiedAt": "2026-07-06"
+    "verifiedAt": "2026-07-06",
+    "audit": {
+      "score": 33,
+      "security": 29,
+      "securityMax": 63,
+      "topGap": "No proper HTTPS — browsers can warn visitors your site isn't secure",
+      "scary": "no valid HTTPS — browsers can warn visitors the site isn't secure",
+      "at": "2026-07-06"
+    }
   },
   {
     "type": "church",
@@ -4827,7 +5116,15 @@
     "rendered": false,
     "phone": null,
     "stale": false,
-    "verifiedAt": "2026-07-06"
+    "verifiedAt": "2026-07-06",
+    "audit": {
+      "score": 67,
+      "security": 31,
+      "securityMax": 63,
+      "topGap": "No DMARC record — your email domain can be impersonated",
+      "scary": "no enforced DMARC — scammers can send email that looks like it comes from you",
+      "at": "2026-07-06"
+    }
   },
   {
     "type": "church",
@@ -4947,7 +5244,15 @@
     "rendered": false,
     "phone": null,
     "stale": false,
-    "verifiedAt": "2026-07-06"
+    "verifiedAt": "2026-07-06",
+    "audit": {
+      "score": 64,
+      "security": 33,
+      "securityMax": 63,
+      "topGap": "No DMARC record — your email domain can be impersonated",
+      "scary": "no enforced DMARC — scammers can send email that looks like it comes from you",
+      "at": "2026-07-06"
+    }
   },
   {
     "type": "business",
@@ -5071,7 +5376,15 @@
     },
     "rendered": false,
     "stale": false,
-    "verifiedAt": "2026-07-06"
+    "verifiedAt": "2026-07-06",
+    "audit": {
+      "score": 67,
+      "security": 29,
+      "securityMax": 63,
+      "topGap": "No DMARC record — your email domain can be impersonated",
+      "scary": "no enforced DMARC — scammers can send email that looks like it comes from you",
+      "at": "2026-07-06"
+    }
   },
   {
     "type": "business",
@@ -5172,7 +5485,7 @@
     },
     "email": {
       "subject": "I rebuilt The Firm Medspa's website — it's ready to look at",
-      "body": "Hi — Kris here from Sightline Studio, here in Colorado.\n\nI pulled up firmmedspa.com and noticed it's missing reviews & social proof — 50% of medspa businesses have it, and it's likely costing you customers every week.\n\nSo instead of sending a pitch deck, I just built it. Here's The Firm Medspa's new site, live right now:\n\nhttps://sightline-studio.vercel.app/p/firmmedspa-com/\n\nThat's a real, working site — your name, your services, your photos, built for phones and built to be found on Google. The same link shows how you stack up against your local competitors, measured on public signals.\n\nIf you like it, it's yours: we host it, watch it, and market it from $59.99/mo with $0 down — and you own the site. If not, no hard feelings; the preview was free.\n\nWorth two minutes? Just reply to this email.\n\n— Kris\nSightline Studio · look sharp, stay safe, get found"
+      "body": "Hi — Kris here from Sightline Studio, here in Colorado.\n\nI ran a standard security check on firmmedspa.com (public signals only — nothing invasive) and found something you should know about: no valid HTTPS — browsers can warn visitors the site isn't secure. For a local medspa business, that's the kind of thing that erodes trust before you ever get the call.\n\nSo instead of sending a pitch deck, I just built it. Here's The Firm Medspa's new site, live right now:\n\nhttps://sightline-studio.vercel.app/p/firmmedspa-com/\n\nThat's a real, working site — your name, your services, your photos, built for phones and built to be found on Google. The same link shows how you stack up against your local competitors, measured on public signals.\n\nAnd the security gap above? Closed on day one — every Sightline build ships with proper HTTPS, hardened security headers, and email-impersonation protection as standard.\n\nIf you like it, it's yours: we host it, watch it, and market it from $59.99/mo with $0 down — and you own the site. If not, no hard feelings; the preview was free.\n\nWorth two minutes? Just reply to this email.\n\n— Kris\nSightline Studio · look sharp, stay safe, get found"
     },
     "contact": {
       "email": null,
@@ -5187,7 +5500,15 @@
     "rendered": false,
     "phone": null,
     "stale": false,
-    "verifiedAt": "2026-07-06"
+    "verifiedAt": "2026-07-06",
+    "audit": {
+      "score": 46,
+      "security": 29,
+      "securityMax": 63,
+      "topGap": "No proper HTTPS — browsers can warn visitors your site isn't secure",
+      "scary": "no valid HTTPS — browsers can warn visitors the site isn't secure",
+      "at": "2026-07-06"
+    }
   },
   {
     "type": "business",
@@ -5282,7 +5603,7 @@
     },
     "email": {
       "subject": "I rebuilt KC Mortgage Kay Cleland - First Time Homebuyer Loans, Manufactured Homes in Castle Rock, Colorado Springs, Parker's website — it's ready to look at",
-      "body": "Hi — Kris here from Sightline Studio, here in Colorado.\n\nI scored kcmortgagecolorado.com against 3 other mortgage businesses: 76/100 vs a 64 average.\n\nSo instead of sending a pitch deck, I just built it. Here's KC Mortgage Kay Cleland - First Time Homebuyer Loans, Manufactured Homes in Castle Rock, Colorado Springs, Parker's new site, live right now:\n\nhttps://sightline-studio.vercel.app/p/kcmortgagecolorado-com/\n\nThat's a real, working site — your name, your services, your photos, built for phones and built to be found on Google. The same link shows how you stack up against your local competitors, measured on public signals.\n\nIf you like it, it's yours: we host it, watch it, and market it from $59.99/mo with $0 down — and you own the site. If not, no hard feelings; the preview was free.\n\nWorth two minutes? Just reply to this email.\n\n— Kris\nSightline Studio · look sharp, stay safe, get found"
+      "body": "Hi — Kris here from Sightline Studio, here in Colorado.\n\nI ran a standard security check on kcmortgagecolorado.com (public signals only — nothing invasive) and found something you should know about: no enforced DMARC — scammers can send email that looks like it comes from you. That's the setting that stops criminals impersonating your email to your own customers.\n\nSo instead of sending a pitch deck, I just built it. Here's KC Mortgage Kay Cleland - First Time Homebuyer Loans, Manufactured Homes in Castle Rock, Colorado Springs, Parker's new site, live right now:\n\nhttps://sightline-studio.vercel.app/p/kcmortgagecolorado-com/\n\nThat's a real, working site — your name, your services, your photos, built for phones and built to be found on Google. The same link shows how you stack up against your local competitors, measured on public signals.\n\nAnd the security gap above? Closed on day one — every Sightline build ships with proper HTTPS, hardened security headers, and email-impersonation protection as standard.\n\nIf you like it, it's yours: we host it, watch it, and market it from $59.99/mo with $0 down — and you own the site. If not, no hard feelings; the preview was free.\n\nWorth two minutes? Just reply to this email.\n\n— Kris\nSightline Studio · look sharp, stay safe, get found"
     },
     "contact": {
       "email": "kay@kcmortgagecolorado.com",
@@ -5297,7 +5618,15 @@
     "rendered": false,
     "phone": null,
     "stale": false,
-    "verifiedAt": "2026-07-06"
+    "verifiedAt": "2026-07-06",
+    "audit": {
+      "score": 80,
+      "security": 42,
+      "securityMax": 63,
+      "topGap": "DMARC isn't enforced (p=none) — your email can be spoofed by scammers",
+      "scary": "no enforced DMARC — scammers can send email that looks like it comes from you",
+      "at": "2026-07-06"
+    }
   },
   {
     "type": "church",
@@ -5410,7 +5739,15 @@
     "rendered": false,
     "phone": null,
     "stale": false,
-    "verifiedAt": "2026-07-06"
+    "verifiedAt": "2026-07-06",
+    "audit": {
+      "score": 71,
+      "security": 35,
+      "securityMax": 63,
+      "topGap": "DMARC isn't enforced (p=none) — your email can be spoofed by scammers",
+      "scary": "no enforced DMARC — scammers can send email that looks like it comes from you",
+      "at": "2026-07-06"
+    }
   },
   {
     "type": "business",
@@ -5534,7 +5871,15 @@
     },
     "rendered": false,
     "stale": false,
-    "verifiedAt": "2026-07-06"
+    "verifiedAt": "2026-07-06",
+    "audit": {
+      "score": 84,
+      "security": 53,
+      "securityMax": 63,
+      "topGap": "A couple of web-security headers are missing",
+      "scary": null,
+      "at": "2026-07-06"
+    }
   },
   {
     "type": "church",
@@ -5639,7 +5984,15 @@
     "rendered": false,
     "phone": null,
     "stale": false,
-    "verifiedAt": "2026-07-06"
+    "verifiedAt": "2026-07-06",
+    "audit": {
+      "score": 62,
+      "security": 32,
+      "securityMax": 63,
+      "topGap": "No DMARC record — your email domain can be impersonated",
+      "scary": "no enforced DMARC — scammers can send email that looks like it comes from you",
+      "at": "2026-07-06"
+    }
   },
   {
     "type": "church",
@@ -5769,7 +6122,15 @@
     "rendered": false,
     "phone": null,
     "stale": false,
-    "verifiedAt": "2026-07-06"
+    "verifiedAt": "2026-07-06",
+    "audit": {
+      "score": 67,
+      "security": 32,
+      "securityMax": 63,
+      "topGap": "DMARC isn't enforced (p=none) — your email can be spoofed by scammers",
+      "scary": "no enforced DMARC — scammers can send email that looks like it comes from you",
+      "at": "2026-07-06"
+    }
   },
   {
     "type": "church",
@@ -5898,7 +6259,15 @@
     "rendered": false,
     "phone": null,
     "stale": false,
-    "verifiedAt": "2026-07-06"
+    "verifiedAt": "2026-07-06",
+    "audit": {
+      "score": 65,
+      "security": 32,
+      "securityMax": 63,
+      "topGap": "DMARC isn't enforced (p=none) — your email can be spoofed by scammers",
+      "scary": "no enforced DMARC — scammers can send email that looks like it comes from you",
+      "at": "2026-07-06"
+    }
   },
   {
     "type": "church",
@@ -6018,7 +6387,15 @@
     "rendered": false,
     "phone": null,
     "stale": false,
-    "verifiedAt": "2026-07-06"
+    "verifiedAt": "2026-07-06",
+    "audit": {
+      "score": 74,
+      "security": 35,
+      "securityMax": 63,
+      "topGap": "DMARC isn't enforced (p=none) — your email can be spoofed by scammers",
+      "scary": "no enforced DMARC — scammers can send email that looks like it comes from you",
+      "at": "2026-07-06"
+    }
   },
   {
     "type": "church",
@@ -6138,7 +6515,15 @@
     "rendered": false,
     "phone": null,
     "stale": false,
-    "verifiedAt": "2026-07-06"
+    "verifiedAt": "2026-07-06",
+    "audit": {
+      "score": 67,
+      "security": 35,
+      "securityMax": 63,
+      "topGap": "DMARC isn't enforced (p=none) — your email can be spoofed by scammers",
+      "scary": "no enforced DMARC — scammers can send email that looks like it comes from you",
+      "at": "2026-07-06"
+    }
   },
   {
     "type": "church",
@@ -6257,7 +6642,15 @@
     "rendered": false,
     "phone": null,
     "stale": false,
-    "verifiedAt": "2026-07-06"
+    "verifiedAt": "2026-07-06",
+    "audit": {
+      "score": 71,
+      "security": 35,
+      "securityMax": 63,
+      "topGap": "DMARC isn't enforced (p=none) — your email can be spoofed by scammers",
+      "scary": "no enforced DMARC — scammers can send email that looks like it comes from you",
+      "at": "2026-07-06"
+    }
   },
   {
     "type": "business",
@@ -6381,7 +6774,15 @@
     },
     "rendered": false,
     "stale": false,
-    "verifiedAt": "2026-07-06"
+    "verifiedAt": "2026-07-06",
+    "audit": {
+      "score": 71,
+      "security": 39,
+      "securityMax": 63,
+      "topGap": "No DMARC record — your email domain can be impersonated",
+      "scary": "no enforced DMARC — scammers can send email that looks like it comes from you",
+      "at": "2026-07-06"
+    }
   },
   {
     "type": "business",
@@ -6481,7 +6882,15 @@
     },
     "rendered": false,
     "stale": false,
-    "verifiedAt": "2026-07-06"
+    "verifiedAt": "2026-07-06",
+    "audit": {
+      "score": 81,
+      "security": 44,
+      "securityMax": 63,
+      "topGap": "DMARC isn't enforced (p=none) — your email can be spoofed by scammers",
+      "scary": "no enforced DMARC — scammers can send email that looks like it comes from you",
+      "at": "2026-07-06"
+    }
   },
   {
     "type": "business",
@@ -6581,7 +6990,15 @@
     },
     "rendered": false,
     "stale": false,
-    "verifiedAt": "2026-07-06"
+    "verifiedAt": "2026-07-06",
+    "audit": {
+      "score": 79,
+      "security": 41,
+      "securityMax": 63,
+      "topGap": "No DMARC record — your email domain can be impersonated",
+      "scary": "no enforced DMARC — scammers can send email that looks like it comes from you",
+      "at": "2026-07-06"
+    }
   },
   {
     "type": "church",
@@ -6675,6 +7092,14 @@
     "rendered": false,
     "phone": null,
     "stale": false,
-    "verifiedAt": "2026-07-06"
+    "verifiedAt": "2026-07-06",
+    "audit": {
+      "score": 75,
+      "security": 36,
+      "securityMax": 63,
+      "topGap": "No DMARC record — your email domain can be impersonated",
+      "scary": "no enforced DMARC — scammers can send email that looks like it comes from you",
+      "at": "2026-07-06"
+    }
   }
 ]
