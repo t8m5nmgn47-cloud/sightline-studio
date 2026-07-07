@@ -77,7 +77,7 @@ const slug = slugify(domain);
 // capture: multi-page crawl + stylesheets + fonts + colours + photos + facts.
 // A cached/--html capture short-circuits to single-page mode (no network).
 const cached = flag('html') || findCapture(slug, domain);
-const cap = await capture(domain, cached ? { htmlOverride: fs.readFileSync(cached, 'utf8') } : {});
+const cap = await capture(domain, cached ? { htmlOverride: fs.readFileSync(cached, 'utf8') } : { render: args.includes('--render') ? 'always' : 'auto' });
 const src = cached ? 'cache:'+path.basename(cached) : `live-crawl (${cap.pages.length} pages${cap.pages[0].rendered ? ', rendered' : ''})`;
 const html = null; // page HTML now lives in cap
 const sig = cap.sig;
@@ -89,20 +89,50 @@ const name = pickName(sig, domain);
 function pickName(sig, domain){
   const clean = s => (s||'').replace(/\s+/g,' ').trim();
   const humanize = d => d.replace(/^www\./,'').replace(/\.[a-z]+$/,'').replace(/[-_.]+/g,' ').replace(/\b\w/g,c=>c.toUpperCase());
-  const raw = clean(sig.og_site_name) || clean(sig.title||'');
-  const parts = raw.split(/[|–—·:]/).map(s=>s.trim()).filter(Boolean);
+  // consider BOTH og_site_name and <title> segments — either can hold SEO junk
+  const raw = [clean(sig.og_site_name), clean(sig.title||'')].filter(Boolean).join(' | ');
+  const parts = raw.split(/[|–—·:]/).map(s=>s.trim()).filter(Boolean)
+    .filter((p,i,a)=>a.findIndex(x=>x.toLowerCase()===p.toLowerCase())===i);
+  if (!parts.length) return humanize(domain);
   // SHOUTING TITLES read as broken — title-case anything that's all caps
   const decap = p => /^[^a-z]+$/.test(p) && p.length > 6
     ? p.toLowerCase().replace(/\b\w/g,c=>c.toUpperCase()).replace(/\b(Of|The|And|In|At)\b/g,m=>m.toLowerCase()).replace(/^./,c=>c.toUpperCase())
     : p;
-  if (parts.length===1 && parts[0].length>=3 && !/^(home|welcome|index)$/i.test(parts[0])) return decap(parts[0]);
-  // prefer a segment that reads like a proper business name: no comma/state, 2+ Title-case words
-  const named = parts.filter(p=>!/,/.test(p) && /[A-Z][a-z]+ [A-Z]/.test(p)).sort((a,b)=>a.length-b.length);
-  const pick = named[0] || parts.find(p=>!/^(home|welcome|index)$/i.test(p) && p.length>=3) || humanize(domain);
-  return decap(pick);
+  // Score each segment for how much it looks like the actual business NAME:
+  // + token overlap with the domain (acaciadentalgroup → "Acacia Dental Group" wins)
+  // − geo-SEO patterns ("Englewood CO Dentist", "Dentist in Denver, CO")
+  const domTokens = domain.replace(/^www\./,'').replace(/\.[a-z]+$/,'').toLowerCase().match(/[a-z]+/g) || [];
+  const GEO = /\b(AL|AK|AZ|AR|CA|CO|CT|DE|FL|GA|HI|ID|IL|IN|IA|KS|KY|LA|ME|MD|MA|MI|MN|MS|MO|MT|NE|NV|NH|NJ|NM|NY|NC|ND|OH|OK|OR|PA|RI|SC|SD|TN|TX|UT|VT|VA|WA|WV|WI|WY)\b/;
+  const KEYWORDY = /\b(dentist|dental|attorney|lawyer|law firm|plumber|roofing|hvac|cpa|insurance|mortgage|realtor|med spa|near me|in [A-Z])\b/i;
+  const score = p => {
+    if (/^(home|welcome|index)$/i.test(p) || p.length<3) return -99;
+    const words = p.toLowerCase().match(/[a-z]+/g) || [];
+    let s = words.filter(w=>w.length>2 && domTokens.includes(w)).length * 3;   // domain echo = strongest signal
+    if (/[A-Z][a-z]+ [A-Z]/.test(p)) s += 1;                                    // reads like a proper name
+    if (/,/.test(p)) s -= 2;
+    if (GEO.test(p)) s -= 3;                                                    // "… CO …" = SEO string
+    if (KEYWORDY.test(p) && !words.some(w=>domTokens.includes(w))) s -= 2;      // industry keyword w/o name
+    if (words.length > 6) s -= 1;
+    return s;
+  };
+  const best = parts.map(p=>[p,score(p)]).sort((a,b)=>b[1]-a[1])[0];
+  if (best[1] > 0) return decap(best[0]);
+  // Title was pure SEO junk ("Englewood CO Dentist"). Mine the page text for a
+  // Title-Case phrase whose letters spell the domain: "Acacia Dental Group"
+  // ⇐ acaciadentalgroup.com. That's the business's real name, verbatim.
+  const dom = domTokens.join('');
+  const prose = [sig.description, sig.og_title_tag, (sig.visible_text||'').slice(0,3000)].filter(Boolean).join(' ');
+  const mined = (prose.match(/(?:[A-Z][A-Za-z&'’.]+ ){1,4}[A-Z][A-Za-z&'’.]+/g) || [])
+    .map(m=>m.trim())
+    .find(m=>{ const flat=m.toLowerCase().replace(/[^a-z]/g,''); return flat.length>=6 && (dom.includes(flat)||flat.includes(dom)); });
+  return decap(mined || parts.find(p=>score(p)>-2) || humanize(domain));
 }
 
-// download brand assets: ranked-logo fallback chain + real photos + hero pick
+// download brand assets: ranked-logo fallback chain + real photos + hero pick.
+// Photos are re-ranked for the DETECTED industry first, so the hero shot looks
+// like the business (a contractor's crew, not the prettiest random building).
+const { rankPhotosForVertical } = await import('./capture.mjs');
+if (pack.kind === 'vertical') cap.photos = rankPhotosForVertical(cap.photos, pack.key);
 const assets = await saveAssets(slug, cap, ROOT);
 const logo = assets.logo;
 
@@ -138,10 +168,14 @@ if (isBiz) {
   // Priority: hand-verified override → captured real services → AI → pack defaults.
   const realServices = (override && override.services && override.services.length)
     ? override.services
+    : (pack.key === 'retail' && (cap.products || []).length >= 3) ? cap.products
     : (cap.services && cap.services.length >= 3) ? cap.services : (aiServices || []);
   const built = buildSections(pack.key, name, {
     realReviews: cap.reviews || sig.reviews || [], rating: cap.rating, reviewCount: cap.reviewCount,
     realServices, serviceDetails: cap.copy?.serviceDetails || [], slug,
+    gallery: assets.gallery || [],                    // real photos → gallery + about image
+    description: (override && override.about) || (ai && ai.about) || sig.description || '',
+    location: cap.facts.address || '',
   });
   bizSections = built.sections; bizPack = built.pack;
   if (cap.hours && cap.hours.length) bizSections.hours = { items: cap.hours };
@@ -172,7 +206,7 @@ const profile = normalize(sig, {
   location: cap.facts.address || '',
   serviceTimes: (!isBiz && cap.copy?.serviceTimes?.length) ? cap.copy.serviceTimes : [],
   gallery: assets.gallery,
-  heroImage: (override && override.heroImage) || assets.heroImage || (isBiz ? null : '/assets/stock/church-2.webp'),
+  heroImage: flag('hero') || (override && override.heroImage) || assets.heroImage || (isBiz ? null : '/assets/stock/church-2.webp'),
   // no kick: it repeated the name directly under the nav logo/wordmark
   hero: { headline: heroHeadline,
     sub: (override && override.subhead) ? override.subhead : (ai && ai.subhead) ? ai.subhead : heroSub,
@@ -181,9 +215,11 @@ const profile = normalize(sig, {
 });
 
 const recipe = recommendRecipe(profile);
-// Business: keep the palette-driven archetype (varies by brand colour) instead
-// of forcing every business site into the same 'minimal' layout.
-if (pack.kind==='vertical') recipe.vertical = pack.key;
+// Business: FLAGSHIP is the default — the cinematic, editorial signature look.
+// The theme/palette still varies with the captured brand (colour, type, radius),
+// so no two businesses render alike; the church-derived layouts remain available
+// via --archetype for anyone who wants them.
+if (pack.kind==='vertical'){ recipe.vertical = pack.key; recipe.archetype='flagship'; if(recipe.mood==='none') recipe.mood='candle'; }
 else recipe.tradition = pack.key, recipe.archetype = recipe.archetype||'journey';
 // --archetype flagship (or any archetype) overrides the auto pick. Flagship is
 // the signature "wow" look; it pairs best with a bold theme + candle motion.
@@ -209,6 +245,7 @@ if (multipage) {
   fs.writeFileSync(path.join(outDir,'sitemap.xml'),
     `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls}\n</urlset>\n`);
 }
+
 
 // QA gate: static checks always; rendered checks when Chromium is available.
 // A failing demo still gets written (so you can inspect it) but exits non-zero.

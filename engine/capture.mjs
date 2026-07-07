@@ -63,17 +63,26 @@ export function renderWithChrome(url) {
   return null;
 }
 async function renderWithPlaywright(url) {
-  try {
-    const { chromium } = await import('playwright-core');
-    let exe;
-    try { exe = await (await import('@sparticuz/chromium')).default.executablePath(); } catch {}
-    const browser = await chromium.launch(exe ? { executablePath: exe, args: ['--no-sandbox'] } : {});
-    const page = await browser.newPage();
-    await page.goto(url, { waitUntil: 'networkidle', timeout: 20000 }).catch(() => {});
-    const html = await page.content();
-    await browser.close();
-    return html;
-  } catch { return null; }
+  const { chromium } = await import('playwright-core');
+  // try playwright's own browser first (npx playwright install chromium), then
+  // the @sparticuz serverless binary — either may exist depending on the host
+  const attempts = [ { args: ['--no-sandbox', '--single-process', '--disable-gpu'] } ];
+  try { const exe = await (await import('@sparticuz/chromium')).default.executablePath();
+        attempts.push({ executablePath: exe, args: ['--no-sandbox'] }); } catch {}
+  for (const opts of attempts) {
+    try {
+      const browser = await chromium.launch({ headless: true, ...opts });
+      const page = await browser.newPage();
+      await page.goto(url, { waitUntil: 'domcontentloaded', timeout: 12000 }).catch(() => {});
+      await page.waitForTimeout(1200);
+      // nudge lazy-loaders: most stores only hydrate product tiles in-view
+      for (let i = 0; i < 3; i++) { await page.evaluate(() => scrollBy(0, 1000)).catch(()=>{}); await page.waitForTimeout(350); }
+      const html = await page.content();
+      await browser.close();
+      return html;
+    } catch { /* try next */ }
+  }
+  return null;
 }
 async function getRendered(url) {
   return renderWithChrome(url) || await renderWithPlaywright(url);
@@ -267,15 +276,84 @@ export function extractPhotos($pages, baseUrl) {
       const w = parseInt(a.width) || null, h = parseInt(a.height) || null;
       if (w && w < 300) return;                      // skip declared-small images
       if (a.srcset) { const b = biggestFromSrcset(a.srcset); add(b.url, { w: b.w || w, h, alt: a.alt || '' }); }
-      add(a.src || a['data-src'] || a['data-lazy-src'], { w, h, alt: a.alt || '' });
+      // lazy-loader attribute zoo: Slider Revolution (data-lazyload), generic
+      // lazyload libs (data-original, data-bg) — sliders hold the photos the
+      // business chose to LEAD with, so missing these misses the best shots.
+      add(a.src || a['data-src'] || a['data-lazy-src'] || a['data-lazyload'] || a['data-original'] || a['data-bg'], { w, h, alt: a.alt || '' });
     });
+    // photos referenced from <style> blocks / inline CSS url(...) — WP themes
+    // put section backgrounds (team, projects, values) here.
+    for (const m of ($.html() || '').matchAll(/url\((['"]?)(https?:\/\/[^'")]+\.(?:jpe?g|png|webp))\1\)/gi)) add(m[2], {});
     $('[style*="background-image"]').each((_, el) => {
       const m = ((el.attribs || {}).style || '').match(/background-image\s*:\s*url\(['"]?([^'")]+)/i);
       if (m) add(m[1], {});
     });
     $('meta[property="og:image"]').each((_, el) => add((el.attribs || {}).content, {}));
   }
-  return [...out.values()].sort((a, b) => ((b.w || 0) * (b.h || 0)) - ((a.w || 0) * (a.h || 0))).slice(0, 20);
+  // Promo/seasonal graphics (raffle banners, holiday popups, coupons) are real
+  // <img>s and often huge — but they make a terrible hero and a worse gallery.
+  // Detectable from URL + alt text; rank them dead last instead of first.
+  const PROMO = /raffle|contest|giveaway|holiday|christmas|santa|xmas|halloween|easter|black.?friday|coupon|special.?offer|promo|sale.?banner|popup|pop-up|flyer|announcement|gift.?card|certificate|award|associat|chapter|accredit|sponsor|member.?of|project.?of.?the.?year/i;
+  const isPromo = (p) => PROMO.test(p.url) || PROMO.test(p.alt || '');
+  return [...out.values()]
+    .map((p) => ({ ...p, promo: isPromo(p) }))
+    // unknown-size images (slider/background photos rarely declare w/h) get a
+    // NEUTRAL area instead of zero — punishing them to the bottom is how a
+    // contractor's crew photo loses to a smaller image with width attributes.
+    .sort((a, b) => (a.promo - b.promo) || (areaOf(b) - areaOf(a)))
+    .slice(0, 24);
+}
+const areaOf = (p) => (p.w && p.h) ? p.w * p.h : 420000;
+
+// ── industry-aware photo ranking ─────────────────────────────────────────────
+// The hero must LOOK like the industry: a contractor leads with crew-on-site,
+// a dentist with patients and smiles — not whichever image happens to be
+// largest. Scores come from URL + alt keywords; slider/hero filenames get a
+// boost because they're what the business itself chose to lead with.
+const HERO_HINTS = {
+  construction: /crew|jobsite|job-site|\bsite\b|team|construction|project|concrete|steel|excavat|equipment|crane|scaffold|safety|vest|hard.?hat|field|build/i,
+  trades:       /crew|team|truck|install|repair|service|tech|work|roof|hvac|plumb/i,
+  dental:       /smile|patient|team|office|operatory|chair|doctor|staff|family|hygien/i,
+  medical:      /patient|doctor|provider|physician|exam|team|care|clinic|staff|nurse/i,
+  optometry:    /exam|frame|glasses|patient|optical|eye|lens|doctor|team/i,
+  medspa:       /treatment|spa|client|room|provider|team|facial|skin/i,
+  law:          /attorney|team|office|court|partner|staff|lawyer|conference/i,
+  childcare:    /class|kids|child|play|teacher|campus|learn|student/i,
+  business:     /team|staff|office|store|building|work/i,
+};
+const LEAD_IMG = /hero|slider|slide[-_0-9]|banner[-_0-9]|carousel|masthead|feature/i;
+export function rankPhotosForVertical(photos, vertical) {
+  const hint = HERO_HINTS[vertical] || HERO_HINTS.business;
+  const score = (p) => {
+    const s = p.url + ' ' + (p.alt || '');
+    return (p.promo ? -10 : 0) + (hint.test(s) ? 4 : 0) + (LEAD_IMG.test(s) ? 2 : 0);
+  };
+  return [...photos].sort((a, b) => (score(b) - score(a)) || (areaOf(b) - areaOf(a)));
+}
+
+// ── products (retail/e-commerce) ─────────────────────────────────────────────
+// A store's "services" are its products. From rendered shop pages, a product
+// name is a short Title-Case text node whose surrounding tile also shows a
+// price. Works across GoDaddy/Shopify/Woo tile markup without per-platform code.
+const PROD_STOP = /quick view|more options|add to cart|most popular|best seller|featured|new arrival|^sale!?$|^shop|^products?$|in stock|out of stock|free shipping|reviews?$|^\$/i;
+export function extractProducts($pages, max = 12) {
+  const names = new Map();
+  for (const $ of $pages) {
+    $('h1,h2,h3,h4,h5,a,p,span,div').each((_, el) => {
+      const own = $(el).clone().children().remove().end().text().replace(/\s+/g, ' ').trim();
+      if (!own || own.length < 10 || own.length > 70) return;
+      if (/[$€£]\s?\d/.test(own) || PROD_STOP.test(own)) return;
+      if (!/^[A-Z0-9]/.test(own) || own.split(' ').length < 3) return;
+      // a real product tile shows a price within a few ancestors
+      let p = $(el).parent(), priced = false;
+      for (let i = 0; i < 4 && p.length; i++, p = p.parent()) {
+        if (/[$€£]\s?\d/.test(p.text())) { priced = true; break; }
+      }
+      if (!priced) return;
+      names.set(own, (names.get(own) || 0) + 1);
+    });
+  }
+  return [...names.keys()].slice(0, max);
 }
 
 // ── JSON-LD structured data (address / hours / rating / reviews / geo) ──────
@@ -456,6 +534,7 @@ export async function capture(domain, { render = 'auto', maxPages = 5, htmlOverr
     sig, fonts, colors,
     logos: rankLogos(sig.logo_candidates),
     photos: extractPhotos($pages, home.url),
+    products: extractProducts($pages),
     services,
     staff, reviews, hours, copy,
     rating: ld.rating, reviewCount: ld.reviewCount, geo: ld.geo,
@@ -539,7 +618,7 @@ export async function saveAssets(slug, cap, ROOT, { maxPhotos = 8 } = {}) {
 
   let logo = null;
   for (const c of cap.logos) {                            // fall down the ranked list
-    const ext = (c.url.split('.').pop() || 'png').split('?')[0].slice(0, 4).toLowerCase();
+    const ext = ((c.url.match(/\.([a-z0-9]{2,4})(?=$|[?\/:#])/i) || [,'png'])[1]).toLowerCase();
     // shape-validate every candidate: a photo pretending to be a logo is worse
     // than no logo (the header falls back to a clean styled wordmark instead)
     if (await download(c.url, path.join(dir, 'logo.' + ext),
@@ -553,7 +632,8 @@ export async function saveAssets(slug, cap, ROOT, { maxPhotos = 8 } = {}) {
   const seen = new Set();                                  // dedupe by bytes+dims
   for (const ph of cap.photos) {
     if (saved.length >= maxPhotos) break;
-    const ext = ((ph.url.split('.').pop() || 'jpg').split('?')[0].slice(0, 5).toLowerCase().replace(/[^a-z0-9]/g, '') || 'jpg');
+    if (ph.promo && saved.length >= 3) continue;   // award/promo slides: last resort only
+    const ext = ((ph.url.match(/\.([a-z0-9]{2,4})(?=$|[?\/:#])/i) || [,'jpg'])[1]).toLowerCase();
     const file = `photos/${saved.length + 1}.${ext}`;
     const got = await download(ph.url, path.join(dir, file), { min: 12000, minW: 480 });   // real photo, usable width
     if (!got) continue;
