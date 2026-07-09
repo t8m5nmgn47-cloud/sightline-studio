@@ -2,13 +2,14 @@
   "slug": "paxchristi",
   "pass": false,
   "fails": [
-    "no canonical",
-    "no og:title"
-  ],
-  "warns": [
     "no meta description",
+    "no canonical",
+    "no og:title",
     "no JSON-LD"
   ],
-  "rendered": false,
-  "at": "2026-07-05T17:11:23.067Z"
+  "warns": [
+    "image-poor page (0 images) — capture found no usable photos?"
+  ],
+  "rendered": true,
+  "at": "2026-07-09T07:19:10.780Z"
 }

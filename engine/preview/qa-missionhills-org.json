@@ -4,12 +4,11 @@
   "fails": [
     "no canonical",
     "no og:title",
+    "no JSON-LD",
     "white-on-brand contrast 2.59 < 3.0 (#00afd7)",
     "care form present but not wired to /api/contact"
   ],
-  "warns": [
-    "no JSON-LD"
-  ],
-  "rendered": false,
-  "at": "2026-07-05T17:11:22.994Z"
+  "warns": [],
+  "rendered": true,
+  "at": "2026-07-09T07:18:54.936Z"
 }

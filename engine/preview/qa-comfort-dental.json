@@ -1,10 +1,14 @@
 {
   "slug": "comfort-dental",
-  "pass": true,
-  "fails": [],
-  "warns": [
+  "pass": false,
+  "fails": [
     "no meta description"
   ],
-  "rendered": false,
-  "at": "2026-07-05T17:47:24.695Z"
+  "warns": [
+    "no FAQ section (business page)",
+    "no about/story section (business page)",
+    "template-scent headline: \"Care, tailored to you.\" (regenerate with current engine)"
+  ],
+  "rendered": true,
+  "at": "2026-07-09T07:18:10.159Z"
 }

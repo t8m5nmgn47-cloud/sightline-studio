@@ -2,13 +2,17 @@
   "slug": "bakersfield-dentist-com",
   "pass": false,
   "fails": [
+    "no meta description",
     "no canonical",
-    "no og:title"
+    "no og:title",
+    "no JSON-LD",
+    "horizontal overflow at 768px (+9px)"
   ],
   "warns": [
-    "no meta description",
-    "no JSON-LD"
+    "no FAQ section (business page)",
+    "no about/story section (business page)",
+    "template-scent headline: \"How we can help.\" (regenerate with current engine)"
   ],
-  "rendered": false,
-  "at": "2026-07-05T17:11:22.537Z"
+  "rendered": true,
+  "at": "2026-07-09T07:17:52.838Z"
 }

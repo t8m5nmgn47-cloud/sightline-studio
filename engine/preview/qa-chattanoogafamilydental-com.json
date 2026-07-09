@@ -2,13 +2,18 @@
   "slug": "chattanoogafamilydental-com",
   "pass": false,
   "fails": [
-    "no canonical",
-    "no og:title"
-  ],
-  "warns": [
     "no meta description",
+    "no canonical",
+    "no og:title",
     "no JSON-LD"
   ],
-  "rendered": false,
-  "at": "2026-07-05T17:11:22.619Z"
+  "warns": [
+    "image-poor page (1 image) — capture found no usable photos?",
+    "no FAQ section (business page)",
+    "no about/story section (business page)",
+    "thin page: only 5 sections",
+    "template-scent headline: \"How we can help.\" (regenerate with current engine)"
+  ],
+  "rendered": true,
+  "at": "2026-07-09T07:18:05.128Z"
 }

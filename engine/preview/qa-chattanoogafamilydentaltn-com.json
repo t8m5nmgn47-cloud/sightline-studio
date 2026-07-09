@@ -4,11 +4,15 @@
   "fails": [
     "no canonical",
     "no og:title",
-    "white-on-brand contrast 2.41 < 3.0 (#1abc9c)"
+    "no JSON-LD",
+    "white-on-brand contrast 2.41 < 3.0 (#1abc9c)",
+    "horizontal overflow at 768px (+66px)"
   ],
   "warns": [
-    "no JSON-LD"
+    "no FAQ section (business page)",
+    "no about/story section (business page)",
+    "template-scent headline: \"How we can help.\" (regenerate with current engine)"
   ],
-  "rendered": false,
-  "at": "2026-07-05T17:11:22.626Z"
+  "rendered": true,
+  "at": "2026-07-09T07:18:05.869Z"
 }

@@ -2,14 +2,13 @@
   "slug": "new3c-org",
   "pass": false,
   "fails": [
+    "no meta description",
     "no canonical",
     "no og:title",
+    "no JSON-LD",
     "care form present but not wired to /api/contact"
   ],
-  "warns": [
-    "no meta description",
-    "no JSON-LD"
-  ],
-  "rendered": false,
-  "at": "2026-07-05T17:11:23.037Z"
+  "warns": [],
+  "rendered": true,
+  "at": "2026-07-09T07:19:02.353Z"
 }

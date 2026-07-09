@@ -4,11 +4,15 @@
   "fails": [
     "no canonical",
     "no og:title",
+    "no JSON-LD",
     "white-on-brand contrast 2.62 < 3.0 (#3fb1a3)"
   ],
   "warns": [
-    "no JSON-LD"
+    "image-poor page (1 image) — capture found no usable photos?",
+    "no FAQ section (business page)",
+    "no about/story section (business page)",
+    "template-scent headline: \"How we can help.\" (regenerate with current engine)"
   ],
-  "rendered": false,
-  "at": "2026-07-05T17:11:23.055Z"
+  "rendered": true,
+  "at": "2026-07-09T07:19:07.488Z"
 }

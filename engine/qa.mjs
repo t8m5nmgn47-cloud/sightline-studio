@@ -54,10 +54,27 @@ function staticChecks(slug) {
 
   // 2. SEO block
   if (!$('title').text().trim()) fails.push('empty <title>');
-  if (!$('meta[name="description"]').attr('content')) warns.push('no meta description');
+  const headText = $('title').text() + ' ' + $('h1').first().text() + ' ' + $('.brandmark').text();
+  if (/checking your browser|just a moment|attention required|access denied|cloudflare/i.test(headText))
+    fails.push('bot-challenge text leaked into the page — source capture was a shell, regenerate live');
+  if (!$('meta[name="description"]').attr('content')) fails.push('no meta description');
   if (!$('link[rel="canonical"]').length) fails.push('no canonical');
   if (!$('meta[property="og:title"]').length) fails.push('no og:title');
-  if (!$('script[type="application/ld+json"]').length) warns.push('no JSON-LD');
+  if (!$('script[type="application/ld+json"]').length) fails.push('no JSON-LD');
+
+  // 2b. richness floor — the compfm bar. A business demo (has a book bar)
+  // must carry the narrative arc; an image-starved page reads "template".
+  const isBiz = $('.bookbar').length > 0;
+  const imgCount = $('img').length + [...html.matchAll(/background-image:[^;"}]*url\(/g)].length;
+  if (imgCount < 2) warns.push(`image-poor page (${imgCount} image${imgCount===1?'':'s'}) — capture found no usable photos?`);
+  if (isBiz) {
+    if (!$('#faq').length) warns.push('no FAQ section (business page)');
+    if (!$('#about').length && !$('.aboutband').length) warns.push('no about/story section (business page)');
+    if ($('section').length < 6) warns.push(`thin page: only ${$('section').length} sections`);
+    // template-scent: the retired generic defaults should never ship again
+    const scent = ['How we can help.', 'What we do.', 'Care, tailored to you.'].filter(t => html.includes('<h2>'+t+'</h2>'));
+    if (scent.length) warns.push('template-scent headline: "' + scent[0] + '" (regenerate with current engine)');
+  }
 
   // 3. contrast from the generated CSS custom properties
   const vars = Object.fromEntries([...html.matchAll(/--([\w-]+):\s*(#[0-9a-fA-F]{6})/g)].map((m) => [m[1], m[2]]));

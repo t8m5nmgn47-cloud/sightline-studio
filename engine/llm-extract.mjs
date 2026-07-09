@@ -9,8 +9,33 @@
 // Usage:  const x = await llmExtract(pages, { domain });   // pages: [{url, html}]
 // ─────────────────────────────────────────────────────────────────────────────
 import * as cheerio from 'cheerio';
+import fs from 'node:fs';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
+const ROOT = fileURLToPath(new URL('..', import.meta.url));
 
-const MODEL = process.env.EXTRACT_MODEL || 'claude-haiku-4-5';
+// Key resolution (matches ai-content.mjs): either env var name, or the
+// gitignored .sightline.env file at the repo root — one key, set once,
+// activates BOTH AI passes.
+function resolveKey(){
+  const k = process.env.ANTHROPIC_API_KEY || process.env.ANTHROPIC_KEY;
+  if (k) return k.trim();
+  try {
+    const m = fs.readFileSync(path.join(ROOT, '.sightline.env'),'utf8').match(/ANTHROPIC(?:_API)?_KEY\s*=\s*(\S+)/);
+    if (m) return m[1];
+  } catch {}
+  return null;
+}
+
+function extractModel(){
+  if (process.env.EXTRACT_MODEL) return process.env.EXTRACT_MODEL.trim();
+  try {
+    const m = fs.readFileSync(path.join(ROOT, '.sightline.env'),'utf8').match(/EXTRACT_MODEL\s*=\s*(\S+)/);
+    if (m) return m[1];
+  } catch {}
+  return 'claude-haiku-4-5';
+}
+const MODEL = extractModel();
 const MAX_PER_PAGE = 9000;    // chars of text per page
 const MAX_TOTAL = 32000;      // chars total across pages
 
@@ -27,6 +52,7 @@ const arr = (v) => (Array.isArray(v) ? v : []);
 function sanitize(j) {
   if (!j || typeof j !== 'object') return null;
   return {
+    businessName: str(j.business_name, 60),
     services: arr(j.services).map((s) => ({ h: str(s.name || s.h, 60), p: str(s.description || s.p, 160) }))
       .filter((s) => s.h && s.h.length >= 3).slice(0, 8),
     staff: arr(j.staff).map((s) => ({ name: str(s.name, 60), role: str(s.role, 60) }))
@@ -44,7 +70,7 @@ function sanitize(j) {
 }
 
 export async function llmExtract(pages, { domain = '', timeoutMs = 45000 } = {}) {
-  const key = process.env.ANTHROPIC_API_KEY;
+  const key = resolveKey();
   if (!key) return null;
 
   let total = 0;
@@ -63,6 +89,7 @@ Extract ONLY information that is explicitly present in the text. Never invent, e
 
 Return ONLY a JSON object (no markdown fence, no commentary) with exactly these keys:
 {
+  "business_name": "the official business/practice/organization name as they write it (check logo text, footer, about page) — NOT an SEO phrase like 'Denver CO Dentist'",
   "services": [{"name": "...", "description": "one short sentence, from their text, may be empty string"}],   // their actual named services/practice areas/ministries, max 8
   "staff": [{"name": "First Last", "role": "their title"}],   // real people only, max 8
   "testimonials": [{"quote": "verbatim or lightly trimmed customer quote", "author": "name if given, else empty"}],   // ONLY real quotes attributed to customers/patients/clients on the site, max 6

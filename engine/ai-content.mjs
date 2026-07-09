@@ -20,9 +20,10 @@ import { fileURLToPath } from 'node:url';
 const ROOT = fileURLToPath(new URL('..', import.meta.url));
 
 export function aiKey(){
-  if (process.env.ANTHROPIC_KEY) return process.env.ANTHROPIC_KEY.trim();
+  const k = process.env.ANTHROPIC_KEY || process.env.ANTHROPIC_API_KEY;
+  if (k) return k.trim();
   const f = path.join(ROOT, '.sightline.env');
-  if (fs.existsSync(f)){ const m = fs.readFileSync(f,'utf8').match(/ANTHROPIC_KEY\s*=\s*(\S+)/); if (m) return m[1]; }
+  if (fs.existsSync(f)){ const m = fs.readFileSync(f,'utf8').match(/ANTHROPIC(?:_API)?_KEY\s*=\s*(\S+)/); if (m) return m[1]; }
   return null;
 }
 function aiModel(){

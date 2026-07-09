@@ -447,6 +447,7 @@ export async function capture(domain, { render = 'auto', maxPages = 5, htmlOverr
     if (llm.reviews.length > reviews.length) reviews = llm.reviews;
     if (llm.hours.length && !hours.length) hours = llm.hours;
     if (llm.address && !facts.address) facts.address = llm.address;
+    copy.businessName = llm.businessName || '';
     copy.tagline = llm.tagline; copy.mission = llm.mission; copy.offer = llm.offer;
     copy.differentiators = llm.differentiators; copy.serviceTimes = llm.serviceTimes;
   }

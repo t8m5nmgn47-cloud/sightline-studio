@@ -2,14 +2,19 @@
   "slug": "carterdmd-com",
   "pass": false,
   "fails": [
+    "no meta description",
     "no canonical",
     "no og:title",
+    "no JSON-LD",
     "white-on-brand contrast 2.11 < 3.0 (#8ab4f8)"
   ],
   "warns": [
-    "no meta description",
-    "no JSON-LD"
+    "image-poor page (0 images) — capture found no usable photos?",
+    "no FAQ section (business page)",
+    "no about/story section (business page)",
+    "thin page: only 5 sections",
+    "template-scent headline: \"How we can help.\" (regenerate with current engine)"
   ],
-  "rendered": false,
-  "at": "2026-07-05T17:11:22.596Z"
+  "rendered": true,
+  "at": "2026-07-09T07:18:01.711Z"
 }

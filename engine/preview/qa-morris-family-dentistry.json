@@ -1,10 +1,14 @@
 {
   "slug": "morris-family-dentistry",
-  "pass": true,
-  "fails": [],
-  "warns": [
+  "pass": false,
+  "fails": [
     "no meta description"
   ],
-  "rendered": false,
-  "at": "2026-07-05T17:47:25.027Z"
+  "warns": [
+    "no FAQ section (business page)",
+    "no about/story section (business page)",
+    "template-scent headline: \"What we do.\" (regenerate with current engine)"
+  ],
+  "rendered": true,
+  "at": "2026-07-09T07:18:57.056Z"
 }

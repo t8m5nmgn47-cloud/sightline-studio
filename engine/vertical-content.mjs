@@ -187,10 +187,169 @@ export const PACKS = {
   },
 };
 
+
+// ─────────────────────────────────────────────────────────────────────────────
+// CONTENT_PLUS — the narrative-arc content layer (feature diff points, about
+// story, FAQ, benefit-led section headlines) per vertical. This is what closes
+// the gap between engine output and the hand-built flagship demos: every site
+// gets a full story, not five generic bands. All copy is safe-default honest —
+// no invented years, counts, or credentials. Captured/LLM content still wins.
+// ─────────────────────────────────────────────────────────────────────────────
+const CONTENT_PLUS = {
+  dental: {
+    moneyLead: ["Great dentistry shouldn't require a spreadsheet. We verify your benefits before you sit down, explain every cost in plain English, and offer financing that makes the full treatment plan possible — not just the patch.", "No surprise bills. Ever. We check your coverage before your visit, tell you the number up front, and our front desk fights the insurance battles so you don't have to."],
+    svcTitles: ["Everything your smile needs, under one roof.", "Complete care for every smile in the family.", "From checkups to full smile makeovers."],
+    diff: ["Same-week appointments — pain never waits in a queue", "Judgment-free care, whether it's been six months or six years", "Modern equipment that makes visits faster and gentler", "One office for the whole family, from first tooth to dentures"],
+    about: [(n)=>`${n} was built around a simple idea: dental visits shouldn't be something you dread. From the front desk to the chair, every step is designed to be unhurried, transparent, and genuinely comfortable — so taking care of your smile becomes the easiest thing on your list.`,
+            (n)=>`Behind ${n} is a team that treats patients the way we'd want our own families treated: honest recommendations, clear pricing before any work begins, and gentle care at every visit. That's why our patients stay for decades — and bring their kids.`],
+    faq: [
+      {q:"Are you taking new patients?", a:"Yes — new patients are welcome and we hold same-week slots for first visits. Book online or call and we'll find a time that fits."},
+      {q:"Do you accept my insurance?", a:"We work with most major dental plans and will verify your benefits before your visit, so there are no surprises. No insurance? Ask about our flexible payment options."},
+      {q:"I haven't been to a dentist in years. Will that be a problem?", a:"Not at all — you'll get a warm welcome, not a lecture. We'll take stock of where things stand and build a plan at whatever pace works for you."},
+      {q:"What should I expect at my first appointment?", a:"A conversation first, then a thorough exam and any needed X-rays. You'll leave knowing exactly where your oral health stands and what (if anything) comes next."}],
+  },
+  medical: {
+    moneyLead: ["The best care is the kind you never have to fight your insurance company for. We verify benefits before you arrive, explain costs in plain English, and handle the paperwork — you just show up and get better.", "Healthcare billing is broken; ours isn't. Coverage checked before your visit, costs explained before treatment, and a real person at the front desk who untangles claims for you."],
+    svcTitles: ["Everything your family needs, under one roof.", "Whole-person care, for every age and stage.", "The care you need, when you actually need it."],
+    diff: ["Same-day sick visits — call in the morning, be seen today", "Providers who know your history, not just your chart", "On-site labs and procedures that save you a second trip", "Care coordinated across every specialist you see"],
+    about: [(n)=>`${n} practices medicine the way it should feel: unhurried visits, providers who remember your story, and care that looks at the whole person — not just today's symptom. We're the medical home your family comes back to for years.`,
+            (n)=>`At ${n}, primary care means being your first call and your best advocate. We take the time to listen, explain your options in plain language, and coordinate everything else — so navigating your health never feels like a second job.`],
+    faq: [
+      {q:"Are you accepting new patients?", a:"Yes — we're welcoming new patients of all ages. Request an appointment online or call, and we'll get your records transferred painlessly."},
+      {q:"Do you take my insurance?", a:"We accept most major medical plans. Call with your plan details and we'll confirm your coverage and expected costs before your first visit."},
+      {q:"Can I be seen the same day if I'm sick?", a:"That's the goal — we reserve same-day slots for sick visits. Call when we open and we'll work you in."},
+      {q:"Can the whole family be seen here?", a:"Yes — from pediatric checkups to senior wellness, we care for every generation, often in back-to-back appointments to save you trips."}],
+  },
+  optometry: {
+    moneyLead: ["Your vision benefits expire every year — most people leave them on the table. Bring your plan and we'll squeeze every dollar out of it: exam, lenses, frames, the works.", "We take the mystery out of vision insurance: benefits verified up front, out-of-pocket explained before you choose frames, and honest guidance on where your plan gets you the most."],
+    svcTitles: ["Complete eye care, from exam to eyewear.", "Everything your eyes need, in one visit.", "See better. Look better. Feel taken care of."],
+    diff: ["Exams that check eye health, not just your prescription", "Hundreds of frames with honest, unhurried styling help", "Same-week appointments and easy insurance handling", "The latest imaging technology — catch problems years earlier"],
+    about: [(n)=>`${n} blends serious clinical eye care with a frame selection you'll actually be excited about. Every exam looks at the full health of your eyes, and every fitting ends with eyewear that fits your face, your budget, and your life.`,
+            (n)=>`We built ${n} for people who want more than a prescription mill: real doctors with time to explain, technology that catches issues early, and a team that remembers your name — and your style.`],
+    faq: [
+      {q:"How often should I get an eye exam?", a:"Most adults should be seen every one to two years; annually if you wear contacts, have diabetes, or are over 60. We'll recommend the right interval for you."},
+      {q:"Do you take vision insurance?", a:"We accept most vision and medical plans and handle the paperwork for you — bring your card and we'll do the rest."},
+      {q:"Can you fit hard-to-fit contacts?", a:"Yes — astigmatism, multifocals, and dry-eye-friendly lenses included. We fit until it's comfortable, not until it's close enough."},
+      {q:"Do you see kids?", a:"Absolutely. Kids' vision changes fast and drives school performance — we make exams easy and even fun."}],
+  },
+  law: {
+    svcTitles: ["Serious representation, start to finish.", "The counsel you want in your corner.", "Clear answers. Strong advocacy. Real results."],
+    diff: ["A real attorney returns your call — not a call center", "Plain-English advice, so you always know where you stand", "Honest case assessments, even when the answer is 'don't sue'", "Prepared for trial from day one — and it shows in settlements"],
+    about: [(n)=>`${n} was founded on the belief that good counsel means telling clients the truth: what's strong, what's weak, and what it will take. Clients come to us at stressful moments — we answer with clarity, preparation, and steady advocacy until it's resolved.`,
+            (n)=>`At ${n}, you work with your attorney — not a rotating cast of assistants. We keep caseloads deliberately manageable so every matter gets senior attention, prompt responses, and a strategy built for your specific situation.`],
+    faq: [
+      {q:"How much does an initial consultation cost?", a:"Your initial consultation is free. We'll listen, give you an honest read on your situation, and outline your options — no obligation."},
+      {q:"How are your fees structured?", a:"It depends on the matter — some cases are flat-fee, some hourly, some contingency. You'll get the structure and an estimate in writing before we start."},
+      {q:"How long will my case take?", a:"Every matter is different, but after our first meeting we'll give you a realistic timeline and keep you updated at every stage — you'll never wonder what's happening with your case."},
+      {q:"Will you actually take my case to trial if needed?", a:"Yes. We prepare every case as if it's going to trial — which is exactly why most of them settle well."}],
+  },
+  accounting: {
+    svcTitles: ["Taxes, books, and strategy — handled.", "Your numbers, working as hard as you do.", "From tax season to year-round strategy."],
+    diff: ["Year-round advice, not just an April scramble", "Proactive planning that finds savings before deadlines pass", "Flat, transparent pricing — no surprise invoices", "A real person who answers when the IRS letter arrives"],
+    about: [(n)=>`${n} exists for people who want more from an accountant than a signed return. We watch deadlines, flag opportunities, and translate the tax code into plain-English decisions — so you keep more of what you earn and sleep better doing it.`,
+            (n)=>`Behind ${n} is a simple promise: you'll never be surprised — not by your tax bill, not by our invoice. We plan ahead, communicate all year, and treat your business's numbers like our own.`],
+    faq: [
+      {q:"Can you help if I'm behind on my taxes?", a:"Yes — catching up back years is routine work for us. We'll get you current, deal with any notices, and set you up so it doesn't happen again."},
+      {q:"What do you charge?", a:"Most of our work is flat-fee, quoted up front after a short conversation about your situation. No hourly meter running while you talk to us."},
+      {q:"Do you work with small businesses?", a:"They're the heart of our practice — bookkeeping, payroll, entity strategy, and the tax planning that keeps more profit in the business."},
+      {q:"What should I bring to a first meeting?", a:"Last year's return and your questions. That's enough for us to spot what your current setup is costing you."}],
+  },
+  insurance: {
+    svcTitles: ["The right coverage for every part of your life.", "Coverage that fits — auto, home, life, business.", "Protection, explained in plain English."],
+    diff: ["Independent — we shop multiple carriers for your best rate", "Annual reviews that catch gaps before claims find them", "A local agent who picks up when you call", "Real help navigating claims, when it matters most"],
+    about: [(n)=>`${n} is an advocate, not a sales script. As independent agents we work for you — comparing carriers, explaining the fine print, and building coverage around how you actually live. And when something goes wrong, we're the first call that makes it easier.`,
+            (n)=>`Insurance is a promise you buy years before you need it. ${n} makes sure it's the right promise: honest comparisons across carriers, coverage reviews as your life changes, and a familiar voice on the line when you file a claim.`],
+    faq: [
+      {q:"Why use an independent agent instead of buying online?", a:"We compare multiple carriers for your situation and re-shop at renewal — the same coverage often costs less, and you get an advocate at claim time."},
+      {q:"Will you review my current policy for free?", a:"Yes — send it over and we'll flag gaps, overlaps, and savings, no obligation. Most people are surprised by what they find."},
+      {q:"What happens when I need to file a claim?", a:"Call us first. We'll walk you through it, deal with the carrier, and keep it moving — you're never on your own with an 800 number."},
+      {q:"Can you bundle home and auto?", a:"Usually, and it's often the fastest savings available. We'll run the numbers both ways and show you."}],
+  },
+  mortgage: {
+    svcTitles: ["From pre-approval to keys in hand.", "The right loan, at the right rate, on time.", "Home financing, minus the runaround."],
+    diff: ["Pre-approvals fast enough to win the house", "Rates and fees explained line by line, before you commit", "A loan officer who answers evenings and weekends", "Local processing — decisions made here, not in a queue"],
+    about: [(n)=>`${n} believes a mortgage should feel like progress, not paperwork. We shop your scenario across programs, explain every number before you sign, and stay reachable straight through closing day — because your offer is only as strong as your lender's follow-through.`,
+            (n)=>`Buying a home is stressful enough without wondering what your lender is doing. At ${n} you'll always know where your loan stands, what it costs, and what happens next — from the first pre-approval call to the wire at closing.`],
+    faq: [
+      {q:"How fast can I get pre-approved?", a:"Often the same day. One short conversation and a few documents gets you a real number — and a letter strong enough to make offers with."},
+      {q:"What credit score do I need?", a:"Lower than most people think — several programs work from the low 600s, and we'll show you the fastest path to better terms if you're close."},
+      {q:"How much do I need for a down payment?", a:"It ranges from 0% (VA/USDA) to 3–5% for many first-time programs. Twenty percent is an option, not a requirement — we'll run your scenarios."},
+      {q:"Should I wait for rates to drop?", a:"You marry the house and date the rate — if the payment works today, you can refinance when rates improve. We'll show you the math for your situation."}],
+  },
+  title: {
+    svcTitles: ["Closings handled with care, start to finish.", "Clear title, smooth closing, zero surprises.", "The closing team agents ask for by name."],
+    diff: ["On-time closings agents can build reputations on", "Wire-fraud safeguards on every single transfer", "Proactive updates — you'll never chase your closer", "Purchase, refi, and commercial handled under one roof"],
+    about: [(n)=>`${n} treats every closing like the biggest transaction of someone's life — because it usually is. Careful title work, verified wires, and a closing team that communicates early mean deals close on time and everyone leaves the table confident.`,
+            (n)=>`Agents and lenders send their clients to ${n} for a simple reason: files move, phones get answered, and closings happen on the date on the contract. We sweat the details so the day itself feels easy.`],
+    faq: [
+      {q:"What does title insurance actually protect me from?", a:"Hidden defects in the property's history — unknown liens, forged deeds, missed heirs. One premium at closing protects your ownership for as long as you hold the property."},
+      {q:"How long does a closing take?", a:"Most residential closings run 30–45 days from contract; refinances are often faster. We'll give you a timeline up front and flag anything that could move it."},
+      {q:"How do you protect against wire fraud?", a:"Verified instructions, calls to known numbers before any transfer, and staff trained on the latest schemes. Never wire from an email alone — we'll walk you through the safe process."},
+      {q:"Can I choose my own title company?", a:"In most transactions, yes — it's negotiable in the contract. Ask your agent to name us and we'll take it from there."}],
+  },
+  medspa: {
+    moneyLead: ["Looking your best shouldn't wait for a bonus check. Transparent per-treatment pricing, package plans that reward commitment, and financing that starts when you're ready.", "No mystery menus. Every treatment has a clear price, every plan has a clear payoff, and financing options mean the mirror doesn't have to wait."],
+    svcTitles: ["Treatments that look like you, refreshed.", "Modern aesthetics, medical-grade care.", "Subtle results. Serious expertise."],
+    diff: ["Medical oversight behind every treatment plan", "Natural-first philosophy — enhance, never overdo", "Free consultations with honest recommendations", "Clinical-grade technology, spa-level comfort"],
+    about: [(n)=>`${n} was created for people who want to look refreshed, not 'done.' Every plan starts with a real consultation, every treatment is delivered with medical rigor, and every recommendation is honest — including the ones that make us less money.`,
+            (n)=>`At ${n}, aesthetics is healthcare: proper assessments, evidence-based treatments, and results measured in how confident you feel. We'd rather earn a client for ten years than oversell a single visit.`],
+    faq: [
+      {q:"Will my results look natural?", a:"That's the entire philosophy. We work conservatively — you can always add, but the goal is 'you look great,' never 'what did you have done?'"},
+      {q:"Is the consultation really free?", a:"Yes — a real assessment and a written plan with pricing, no pressure. If we don't think a treatment will help, we'll tell you."},
+      {q:"How long do results last?", a:"It varies by treatment — neuromodulators typically 3–4 months, fillers 6–18 months, laser results longer with maintenance. Your plan will spell it out."},
+      {q:"Does it hurt? Is there downtime?", a:"Most treatments involve minimal discomfort and little to no downtime — many clients come on a lunch break. We'll tell you exactly what to expect beforehand."}],
+  },
+  trades: {
+    moneyLead: ["A broken furnace doesn't check your bank balance first. Approved financing on bigger jobs, straight quotes on everything, and the price we say is the price you pay.", "Big repair, small monthly payment. We offer simple approved financing so urgent work gets done right now — and done right."],
+    svcTitles: ["Done right the first time, guaranteed.", "The crew your neighbors recommend.", "Quality work, straight prices, no surprises."],
+    diff: ["The quote is the price — no invoice surprises", "Licensed, insured, background-checked crews", "We show up when we say we will (and call if anything changes)", "Workmanship guaranteed in writing"],
+    about: [(n)=>`${n} runs on the old-fashioned basics done uncommonly well: show up on time, quote it straight, do the work right, and stand behind it. That's how a local crew becomes the name neighbors pass over the fence.`,
+            (n)=>`Every job ${n} takes carries our name around town, and we act like it. Clean job sites, honest recommendations — including the cheaper fix when it's the right one — and work we're proud to sign.`],
+    faq: [
+      {q:"Are estimates really free?", a:"Yes — we come out, look at the actual job, and give you a written price. No fee, no obligation, no pressure."},
+      {q:"Are you licensed and insured?", a:"Fully — licensing, liability, and workers' comp. We're happy to provide certificates before work begins; any contractor who hesitates on that is telling you something."},
+      {q:"Do you offer financing?", a:"On larger jobs, yes — simple approved financing so an urgent repair doesn't have to wait on a paycheck."},
+      {q:"What if something isn't right after the job?", a:"Call us and we make it right — our workmanship guarantee is in writing. Standing behind the work is the whole reputation."}],
+  },
+  childcare: {
+    svcTitles: ["Where little learners love to grow.", "Care, curiosity, and confidence — every day.", "The foundation every childhood deserves."],
+    diff: ["Low child-to-teacher ratios — every child is truly known", "Secure check-in and real-time updates through the day", "Play-based curriculum that builds school-ready skills", "Warm, qualified teachers who stay year after year"],
+    about: [(n)=>`${n} believes the early years deserve more than supervision — they deserve wonder. Our days blend purposeful play, early literacy, and plenty of outdoor time, guided by teachers who know every child's name, story, and spark.`,
+            (n)=>`Walk into ${n} and you'll feel it immediately: children busy and happy, teachers down at eye level, classrooms built for curiosity. We partner with parents to make every drop-off easy and every milestone celebrated.`],
+    faq: [
+      {q:"What are your ratios and group sizes?", a:"We keep ratios low — at or better than state requirements — so every child gets real attention. Exact numbers by age group are shared on your tour."},
+      {q:"How do you handle security?", a:"Secure entry, verified pick-up lists, and staff who personally know every family. Nobody unfamiliar walks in, and nobody unauthorized walks out."},
+      {q:"Do you provide meals and snacks?", a:"We'll walk you through our food program on your tour, including how we handle allergies — every classroom knows every child's needs."},
+      {q:"How do I enroll?", a:"Start with a tour — kids welcome. If it feels right, we'll walk you through availability, paperwork, and a gentle first-week transition plan."}],
+  },
+  retail: {
+    svcTitles: ["Gear worth owning, service worth remembering.", "Shop confidently — we stand behind everything.", "Quality you can count on, delivered fast."],
+    diff: ["Every product tested and stood behind — no junk", "Real humans answer sizing and fit questions fast", "Fast, tracked shipping on every order", "Returns and exchanges without the runaround"],
+    about: [(n)=>`${n} started with a refusal to sell anything we wouldn't buy ourselves. Every product earns its place, every order ships fast, and every question gets answered by someone who actually knows the gear.`,
+            (n)=>`Behind ${n} is a small team obsessed with the details: quality sourcing, honest descriptions, careful packing, and support that fixes things fast when the rare issue comes up.`],
+    faq: [
+      {q:"How fast do orders ship?", a:"Most orders ship within one business day with tracking sent the moment the label prints. You'll know where your package is the whole way."},
+      {q:"What's your return policy?", a:"Easy returns and exchanges — if it's not right, we'll fix it without the interrogation. Details are on our returns page, but the short version is: we make it right."},
+      {q:"Can you help me pick the right size or model?", a:"Yes — that's the best part of buying from us. Message or call before you order and a real person who knows the products will help you choose."},
+      {q:"Is checkout secure?", a:"Fully — encrypted checkout with trusted payment processors. We never see or store your full card details."}],
+  },
+  business: {
+    svcTitles: ["Everything you need, handled with care.", "Service the way it used to be — done right.", "Local expertise you can actually reach."],
+    diff: ["You'll talk to people who know your name and your history", "Straight quotes and no surprise charges", "Deep local roots — our reputation is the business", "If it's not right, we make it right"],
+    about: [(n)=>`${n} runs on relationships: know the customer, do the work well, be there next time. It's not complicated — it's just increasingly rare, and it's why people who find us tend to stay.`,
+            (n)=>`At ${n}, being local isn't a marketing line — it's accountability. We live where we work, we answer our phones, and we treat every customer like they'll be telling their neighbors about us. Because they will.`],
+    faq: [
+      {q:"How do I get started?", a:"Reach out — a quick call or message is all it takes. We'll listen to what you need and lay out exactly how we can help, with no pressure."},
+      {q:"What does it cost?", a:"You'll get clear, upfront pricing before anything begins. No surprises on the invoice — that's a promise we build the business on."},
+      {q:"How fast can you help?", a:"Usually faster than you'd expect — tell us what you need and when, and we'll be straight with you about timing."},
+      {q:"What if I'm not satisfied?", a:"Tell us, and we'll make it right. We're local — our reputation rides on every single customer."}],
+  },
+};
+
 // Build the site-engine `sections` object for a business vertical.
 // realReviews: array of {q, name} captured from the prospect (optional). When
 // absent, the reviews section is OMITTED entirely — we never invent reviews.
-export function buildSections(vertical, name, { realReviews = [], rating = null, reviewCount = null, realServices = [], serviceDetails = [], slug = "" } = {}) {
+export function buildSections(vertical, name, { realReviews = [], rating = null, reviewCount = null, realServices = [], serviceDetails = [], slug = "", mission = "", town = "" } = {}) {
   const pk = PACKS[vertical] || PACKS.business;
   const v = (arr) => vary(slug || name, arr);
   // Best → worst: captured services WITH their own descriptions (LLM pass),
@@ -210,7 +369,9 @@ export function buildSections(vertical, name, { realReviews = [], rating = null,
         "Two clicks and you're booked — or just give us a call.",
       ]),
     },
-    services: { kicker: "Our services", title: v(["How we can help.", "What we do.", "Care, tailored to you."]), items },
+    services: { kicker: "Our services",
+      title: v((CONTENT_PLUS[vertical] || CONTENT_PLUS.business).svcTitles || ["How we can help.", "What we do.", "Care, tailored to you."]),
+      items },
     offer: pk.offer || undefined,
     hours: {},
     cta: {
@@ -218,8 +379,44 @@ export function buildSections(vertical, name, { realReviews = [], rating = null,
       lead: pk.offer?.lead || "Reach out and we'll take great care of you.",
     },
   };
-  if (pk.money) sections.money = pk.money;
+  // Narrative arc content source (also feeds the money story below).
+  const plus = CONTENT_PLUS[vertical] || CONTENT_PLUS.business;
+  if (pk.money) {
+    sections.money = { ...pk.money, lead: plus.moneyLead ? v(plus.moneyLead) : pk.money.lead };
+    // SELL: when a real review talks about cost/coverage/billing, put it right
+    // next to the claim — proof beside promise. It moves out of the main
+    // reviews grid so the same quote never appears twice.
+    let mi = (realReviews || []).findIndex(r => /\binsur|\bcoverage|\bcovered\b|\bbilling|\bbill(s|ed)?\b|\bcost|\bprice|\bafford|\bpayment|\bco-?pay|\bdeductible/i.test(r.q || r.quote || ''));
+    // no cost-specific quote? promote the most substantive general review —
+    // proof beside promise either way (but never strip the grid below 2)
+    if (mi === -1 && (realReviews || []).length >= 3) {
+      const lens = realReviews.map(r => (r.q || r.quote || '').length);
+      mi = lens.indexOf(Math.max(...lens));
+    }
+    if (mi > -1) {
+      const r = realReviews.splice(mi, 1)[0];
+      sections.money.quote = { q: r.q || r.quote, name: r.name || 'Verified patient' };
+    }
+  }
   if (pk.trust) sections.trust = { items: pk.trust };
+  if (plus.diff) sections.feature = {
+    kicker: v(["Why us", "The difference", "What to expect"]),
+    title: v([`Why ${town ? town + " chooses" : "neighbors choose"} ${name}.`, `The ${name} difference.`, `What you can expect from ${name}.`]),
+    points: plus.diff,
+  };
+  // captured mission (their own words) beats our default story copy
+  const aboutBody = (mission && mission.length > 80) ? mission : v(plus.about)(name);
+  sections.about = {
+    kicker: "Our story",
+    title: v([`The people behind ${name}.`, `Get to know ${name}.`, town ? `Proudly serving ${town}.` : `Built on trust, kept by service.`]),
+    body: aboutBody,
+    stats: [
+      rating ? { v: `${rating}★`, k: reviewCount ? `${reviewCount} reviews` : "average rating" } : null,
+      { v: "100%", k: "locally owned & operated" },
+    ].filter(Boolean),
+  };
+  if (plus.faq) sections.faq = { title: "Questions, answered.", items: plus.faq };
+
   // Reviews: ONLY when real ones were captured. No fabrication.
   if (realReviews && realReviews.length) {
     sections.reviews = {

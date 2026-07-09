@@ -3,11 +3,15 @@
   "pass": false,
   "fails": [
     "no canonical",
-    "no og:title"
+    "no og:title",
+    "no JSON-LD",
+    "horizontal overflow at 768px (+68px)"
   ],
   "warns": [
-    "no JSON-LD"
+    "no FAQ section (business page)",
+    "no about/story section (business page)",
+    "template-scent headline: \"How we can help.\" (regenerate with current engine)"
   ],
-  "rendered": false,
-  "at": "2026-07-05T17:11:22.848Z"
+  "rendered": true,
+  "at": "2026-07-09T07:18:38.509Z"
 }

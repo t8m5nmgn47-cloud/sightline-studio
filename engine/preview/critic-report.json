@@ -1,0 +1,1982 @@
+[
+  {
+    "slug": "acaciadentalgroup-com",
+    "score": 8,
+    "verdict": "pass",
+    "issues": [
+      "Maroon accent color could be slightly more refined in shade",
+      "Chat widget button slightly intrudes on composition flow",
+      "Hero image could benefit from subtle vignette to enhance text contrast"
+    ],
+    "best": "Excellent typography hierarchy and contrast; compelling emotional copy ('modern dentistry, without the anxiety'); professional family imagery builds trust; clean two-column layout with proper breathing room; maroon accent used strategically on CTA only (not overdone); logo/business name alignment is perfect; 'High-tech care. Hometown comfort.' subheading perfectly reinforces brand promise",
+    "at": "2026-07-09T17:22:21.866Z"
+  },
+  {
+    "slug": "apdentistry-com",
+    "score": 6,
+    "verdict": "flag",
+    "issues": [
+      "Monochromatic orange wash dominates entire hero—lacks visual hierarchy and breathing room",
+      "Logo image appears broken or placeholder-like (small, unclear icon)",
+      "Copy describes services (tooth restoration, implants, cosmetic) but headline is generic—no differentiation",
+      "CTA button blends into background color; insufficient contrast against orange",
+      "No hero imagery visible—just flat color; feels incomplete for a dental practice (missing trust-building patient/office photos)",
+      "Right side is empty white space—unbalanced composition on desktop",
+      "Navigation bar text is white on orange—acceptable but not ideal contrast"
+    ],
+    "best": "Clean typography, clear business intent, straightforward CTA placement",
+    "at": "2026-07-09T17:22:26.580Z"
+  },
+  {
+    "slug": "appleaire-com",
+    "score": 5,
+    "verdict": "flag",
+    "issues": [
+      "Monochromatic orange wash dominates entire hero—brand color floods the design rather than accenting, creating visual monotony and reduced hierarchy",
+      "Logo image appears broken or placeholder-like (shows only text 'Apple Aire Heating & Cooling' in a box, not an actual logo mark)",
+      "Hero headline is readable but lacks contrast variation; white text on orange gradient feels flat",
+      "Navigation bar text is small and difficult to distinguish against the orange background",
+      "Introductory paragraph at bottom is cramped and uses tiny font size relative to headline",
+      "No imagery of actual HVAC equipment, technicians, or homes—missing visual proof of legitimacy for a 35-year-old local business",
+      "Layout feels template-heavy; generic gradient background doesn't communicate professionalism or specificity to Denver market",
+      "CTA button ('Free Estimate') gets lost in the orange; lacks sufficient contrast and visual weight"
+    ],
+    "best": "Tagline 'dependable work, done right the first time' is clear and honest; navigation structure is present and functional",
+    "at": "2026-07-09T17:22:36.938Z"
+  },
+  {
+    "slug": "araoent-com",
+    "score": 7,
+    "verdict": "pass",
+    "issues": [
+      "Green brand color dominates buttons/accents appropriately but CTA button could have stronger visual hierarchy",
+      "Hero headline is bold and legible, but tagline 'Rest. Breathe. Live.' feels generic for medical practice",
+      "Hero image cut off at bottom—unclear if intentional or layout issue",
+      "Navigation is clean but 'New Patients' button competes with 'Request an appointment' below"
+    ],
+    "best": "Strong headline hierarchy, professional color restraint (green used as accent only), clear navigation structure, responsive button placement, business-appropriate messaging",
+    "at": "2026-07-09T17:22:41.169Z"
+  },
+  {
+    "slug": "araoent-com--bold",
+    "score": 5,
+    "verdict": "flag",
+    "issues": [
+      "Heavy purple color wash over entire hero—reduces image clarity and readability; monochromatic tint is dated",
+      "Headline text legible but battles against the overlay; contrast could be stronger",
+      "Background image appears slightly soft/unfocused, weakening perceived professionalism",
+      "Doctor in image is slightly blurred/shadowed by overlay—doesn't inspire confidence in medical practice",
+      "CTA button color (purple) blends too closely with background wash; insufficient contrast",
+      "Tagline 'Rest. Breathe. Live.' is generic and doesn't differentiate ENT/Allergy specialty",
+      "Logo placement and sizing feel disconnected from the overall layout hierarchy",
+      "Template feel: this hero pattern (image + purple overlay + centered text) is common in healthcare templates"
+    ],
+    "best": "Typography hierarchy is clear; messaging intent (local, attentive care) is appropriate for the business",
+    "at": "2026-07-09T17:22:46.690Z"
+  },
+  {
+    "slug": "araoent-com--choose",
+    "score": 8,
+    "verdict": "pass",
+    "issues": [
+      "Bottom two previews are cut off/incomplete - reduces confidence in full-page execution",
+      "Green accent color could be slightly more sophisticated in shade",
+      "Typography hierarchy is good but could push contrast harder on some variant headlines"
+    ],
+    "best": "Excellent strategic concept—six distinct design directions with clear personality differentiation (Editorial/Bold/Warm tones are immediately apparent). Hero copy is crisp and business-appropriate for medical practice. Color restraint is tasteful; green accent used as proper punctuation, not tint. Layout is clean, spacious, and professional. Logo/name/content alignment is solid. The 'View full site' CTAs and personality descriptions show sophisticated design thinking. This feels like genuine design exploration, not templated mediocrity.",
+    "at": "2026-07-09T17:22:51.843Z"
+  },
+  {
+    "slug": "araoent-com--direct",
+    "score": 6,
+    "verdict": "flag",
+    "issues": [
+      "Green color floods the entire hero section as a tint/wash over background imagery—reduces contrast and legibility of the subtle chair image",
+      "Headline is readable but the green overlay makes the background feel monochromatic and diminishes visual interest",
+      "CTA button ('Request an appointment') blends too closely with the green background wash—insufficient contrast between button and hero tint",
+      "Background imagery (medical office chair) is heavily desaturated/tinted, making it feel generic and template-like rather than distinctive",
+      "Logo area feels disconnected from the hero design; branding could be more integrated"
+    ],
+    "best": "Typography is clean and centered; headline copy is clear and matches the ENT/Allergy business type; tagline 'Rest. Breathe. Live.' is memorable; layout structure is balanced with proper vertical spacing; overall composition is organized",
+    "at": "2026-07-09T17:22:57.651Z"
+  },
+  {
+    "slug": "araoent-com--editorial",
+    "score": 6,
+    "verdict": "flag",
+    "issues": [
+      "Hero image is washed out and low-contrast—text legibility is compromised, especially on light background areas",
+      "Green CTA button lacks sufficient visual weight/hierarchy; feels generic rather than branded",
+      "Tagline 'Rest. Breathe. Live.' is vague for medical practice—doesn't clearly communicate ENT or allergy expertise",
+      "Hero copy mentions 'close to home' but no location/address visible above fold—missed trust signal for local medical practice",
+      "Image appears cropped/unclear at bottom—professional medical practice imagery should be crisp and intentional",
+      "Spacing between headline and CTA feels slightly loose; layout lacks tightness expected of established healthcare provider"
+    ],
+    "best": "Tagline is memorable and emotionally resonant; green accent color is appropriate for healthcare; layout is fundamentally sound with clear hierarchy",
+    "at": "2026-07-09T17:23:02.608Z"
+  },
+  {
+    "slug": "araoent-com--flagship",
+    "score": 5,
+    "verdict": "flag",
+    "issues": [
+      "Entire hero is tinted/washed in gray monochrome—destroys visual hierarchy and brand presence",
+      "Tagline 'Rest. Breathe. Live.' is vague and doesn't differentiate ENT & Allergy services",
+      "Dental chair imagery is confusing for an ENT/Allergy practice—wrong equipment entirely",
+      "Headline legibility compromised by dark overlay and small font weight",
+      "No clear CTA (only vague 'New Patients' button, hard to spot top-right)",
+      "Layout feels generic/templated; no personality or medical credibility signals",
+      "Brand logo barely visible in top-left corner",
+      "Copy-to-industry mismatch: nothing suggests specialized ENT/Allergy care"
+    ],
+    "best": "Clean, modern dental office environment—but executed for wrong business type",
+    "at": "2026-07-09T17:23:07.781Z"
+  },
+  {
+    "slug": "araoent-com--showcase",
+    "score": 6,
+    "verdict": "flag",
+    "issues": [
+      "Dark image tint creates low contrast; white headline text is hard to read against clinical background",
+      "Green brand color floods the CTA button but lacks accent use elsewhere—feels disconnected from overall palette",
+      "Hero image (medical equipment) is generic stock-like; doesn't convey warmth or 'close to home' promise",
+      "Tagline 'Rest. Breathe. Live.' is vague for ENT/Allergy; could apply to any healthcare provider",
+      "Logo placement in top-left is correct but small; brand identity doesn't reinforce throughout",
+      "CTA button is the only visual focal point—layout feels front-weighted and sparse"
+    ],
+    "best": "Clear hierarchy and legible logo; green CTA is action-oriented; responsive spacing at top is clean",
+    "at": "2026-07-09T17:23:13.225Z"
+  },
+  {
+    "slug": "araoent-com--warm",
+    "score": 7,
+    "verdict": "pass",
+    "issues": [
+      "Hero image has slight softness/blur quality - could be crisper",
+      "Green CTA button is solid but lacks visual hierarchy differentiation",
+      "Tagline 'Rest. Breathe. Live.' feels generic for ENT specificity",
+      "Right-side image dominates; left text could feel more anchored with stronger visual balance"
+    ],
+    "best": "Clean, professional medical aesthetic. Green accent color is restrained and appropriate. Headline is legible and copy matches ENT/Allergy business. Logo and branding are coherent. Layout is spacious with good negative space. Trust-worthy presentation for healthcare context.",
+    "at": "2026-07-09T17:23:17.514Z"
+  },
+  {
+    "slug": "asheville",
+    "score": 5,
+    "verdict": "flag",
+    "issues": [
+      "Hero headline is severely washed out/low contrast — nearly illegible white-on-light text",
+      "Body copy in hero section is also extremely faint and hard to read",
+      "Monochrome light wash across entire hero section creates poor readability",
+      "Generic template language ('trusted service close to home') feels placeholder-like and doesn't establish clear business identity",
+      "Unclear what service 'asheville' actually provides — lacks specificity",
+      "Hero imagery appears to be a faded/washed-out stock background rather than branded photography",
+      "Three identical 'Get in touch' CTAs across page suggests incomplete design or placeholder iteration"
+    ],
+    "best": "Navigation is clean and well-spaced; trust indicators (Locally owned, Upfront pricing, etc.) are appropriate and use clear checkmarks; footer CTA button has good contrast",
+    "at": "2026-07-09T17:23:22.673Z"
+  },
+  {
+    "slug": "aspenfallslandscaping-com",
+    "score": 7,
+    "verdict": "pass",
+    "issues": [
+      "Hero image is slightly out of focus/soft—reduces impact for above-fold real estate",
+      "CTA button text 'Get a free estimate →' repeats 'Free Estimate' in nav—minor redundancy",
+      "Blue accent color is solid and restrained, but hero image doesn't integrate seamlessly with text overlay (contrast/readability fine, but feels layered rather than unified)",
+      "Tagline 'Outdoor living environments designed around you' is generic—doesn't differentiate from competitors"
+    ],
+    "best": "Clean, professional layout with excellent spacing and hierarchy. Typography is bold and legible. Blue accent is restrained and professional. Logo and business name align perfectly. Navigation is clear. No template feel—looks custom-built for a real landscaping firm.",
+    "at": "2026-07-09T17:23:27.618Z"
+  },
+  {
+    "slug": "attorneysofhighlandsranch-com",
+    "score": 7,
+    "verdict": "pass",
+    "issues": [
+      "Hero image cut off awkwardly at bottom—unclear composition",
+      "CTA button ('Request a free consult') could be more prominent given conversion importance",
+      "Navigation could use slight visual hierarchy refinement",
+      "Subheading text color (gray) acceptable but slightly undersells the value proposition"
+    ],
+    "best": "Strong teal accent color used judiciously; headline is clear and attorney-appropriate; layout is balanced and professional; trust signals present (award-winning, local, affordable messaging); no template feel or brand mismatch",
+    "at": "2026-07-09T17:23:31.615Z"
+  },
+  {
+    "slug": "bakersfield-dentist-com",
+    "score": 7,
+    "verdict": "pass",
+    "issues": [
+      "Hero image missing or not visible—text-only layout reduces visual impact for a dental practice",
+      "Logo not clearly visible in viewport (small, top-left corner)",
+      "Blue CTA buttons lack visual hierarchy differentiation",
+      "Navigation menu items could benefit from hover state clarity",
+      "Tagline 'get in touch in a minute' is vague for dental context"
+    ],
+    "best": "Clean typography, strong primary blue accent used appropriately (not flooded), professional tone matches dental practice, clear CTA placement, balanced whitespace",
+    "at": "2026-07-09T17:23:35.978Z"
+  },
+  {
+    "slug": "bakersfielddentaloffice-com",
+    "score": 6,
+    "verdict": "flag",
+    "issues": [
+      "Hero headline is elegantly styled but slightly cramped—excessive line breaks hurt scanability",
+      "Hero image (logo area) is extremely small and adds minimal visual impact; dental practice deserves stronger imagery",
+      "Color palette relies too heavily on blue—nav, CTA button, chat widget all same bright blue creates slight monotony",
+      "Body copy font size is small (appears <16px); reduces readability for older demographic (common dental patients)",
+      "Services list is truncated mid-sentence ('Full porcelain cr') suggesting incomplete content or overflow",
+      "No high-trust signals visible (credentials, years in practice, patient testimonials, certifications) above fold",
+      "Chat widget placement (lower right) is standard but competes with primary CTA ('Book appointment')",
+      "Layout is clean but feels sparse—whitespace could be better leveraged to guide hierarchy"
+    ],
+    "best": "Navigation is uncluttered; typography hierarchy is clear; blue accent color choice is professional for healthcare; headline copy is conversational and warm",
+    "at": "2026-07-09T17:23:41.742Z"
+  },
+  {
+    "slug": "biondijewelry-com",
+    "score": 6,
+    "verdict": "flag",
+    "issues": [
+      "Monochromatic cream/beige wash dominates entire hero—brand color should accent, not flood",
+      "Logo and nav barely visible against pale background; contrast insufficient",
+      "Hero imagery missing or invisible—no product photography for jewelry store (critical for category)",
+      "Tagline 'gear you can count on' is generic and mismatched to 'fine jewelry' positioning",
+      "CTA button color blends into background; lacks visual pop",
+      "Text hierarchy unclear—no visual separation between headline and subtitle",
+      "Layout feels template-heavy; no distinctive jewelry brand personality"
+    ],
+    "best": "Navigation is clean and well-spaced; 'I'm New' CTA shows consideration for new customers",
+    "at": "2026-07-09T17:23:46.401Z"
+  },
+  {
+    "slug": "boisedentistsmiles-com",
+    "score": 5,
+    "verdict": "flag",
+    "issues": [
+      "Monochromatic orange wash dominates entire viewport—brand color floods everything, no visual breathing room or accent hierarchy",
+      "Navigation menu text is white-on-orange with insufficient contrast; difficult to read at normal viewing distance",
+      "Hero headline is large but competes for attention with an equally-sized logo; unclear focal hierarchy",
+      "Logo image appears faint/washed out against the orange background—brand mark should anchor with confidence",
+      "Copy 'gentle dentistry for the whole family' is generic and doesn't differentiate; lacks unique value proposition",
+      "No hero imagery, patient testimonials, or trust signals visible—pure text on color wash feels incomplete",
+      "Layout feels template-heavy; spacing between nav and hero is unclear; no visual separation or card-based structure",
+      "Navigation links (SERVICES, ROOT CANAL, etc.) are cramped horizontally without clear visual spacing or hover states"
+    ],
+    "best": "Logo placement and responsive headline size show intent, but execution needs contrast relief, imagery, and trust elements.",
+    "at": "2026-07-09T17:23:53.540Z"
+  },
+  {
+    "slug": "boiseriverviewdental-com",
+    "score": 7,
+    "verdict": "pass",
+    "issues": [
+      "Hero image missing or not visible—layout relies entirely on typography and whitespace",
+      "Blue CTA button is solid and functional, but lacks visual hierarchy variation",
+      "Navigation menu is clean but could benefit from subtle hover states or visual feedback cues",
+      "Chat widget (bottom right) feels tacked-on rather than integrated into design language"
+    ],
+    "best": "Typography is strong and legible; tagline 'gentle dentistry for the whole family' is clear and on-brand; generous whitespace creates professional, approachable feel; color palette (navy blue + white) is trustworthy and appropriate for healthcare",
+    "at": "2026-07-09T17:24:04.542Z"
+  },
+  {
+    "slug": "branchlife-church",
+    "score": 7,
+    "verdict": "pass",
+    "issues": [
+      "Hero image has slight color cast (blue tint from clothing dominates the visual weight)",
+      "CTA button 'Plan your visit' is small and could be more prominent for conversion",
+      "Tagline 'Connecting You with God and Others' is generic—could be sharper/more distinctive"
+    ],
+    "best": "Clean, trustworthy layout with proper hierarchy. Teal accent color is restrained and professional. Image feels authentic (actual baptism scene, not stock). Logo and site name aligned. No template jank visible. Readable typography, balanced spacing.",
+    "at": "2026-07-09T17:24:08.976Z"
+  },
+  {
+    "slug": "breakthroughchurchsd-com",
+    "score": 7,
+    "verdict": "pass",
+    "issues": [
+      "Hero image is dark and somewhat moody—fine for a church, but legibility of the performer is secondary to the message",
+      "CTA button 'Plan your visit' is solid but somewhat generic; could be more specific",
+      "Tagline 'People seeking God • Sharing Jesus' is on-brand but uses small text that could be bolder",
+      "Navigation is clean but 'I'm New' button competes slightly with 'Plan your visit' for attention"
+    ],
+    "best": "Strong, confident headline ('Find your place here'). Logo and navigation are professional and uncluttered. Color palette (navy/white) is harmonious and trustworthy for a church. Hero image feels authentic and matches the mission. Layout is balanced with no awkward spacing or alignment issues.",
+    "at": "2026-07-09T17:24:13.874Z"
+  },
+  {
+    "slug": "bridgedentalcare-com",
+    "score": 7,
+    "verdict": "pass",
+    "issues": [
+      "Hero image area appears empty/missing - no actual dental imagery visible, just light background",
+      "Navigation slightly cramped in header; font sizes could breathe more",
+      "CTA buttons are functional but lack visual hierarchy distinction between 'Book appointment' and 'New Patients'"
+    ],
+    "best": "Strong, confident headline with excellent serif/sans-serif pairing; brand blue used as tasteful accent (buttons, nav) without tinting entire page; clear messaging aligned to family dental practice; good negative space; professional color harmony",
+    "at": "2026-07-09T17:24:18.029Z"
+  },
+  {
+    "slug": "buildabath-net",
+    "score": 6,
+    "verdict": "flag",
+    "issues": [
+      "Monochromatic teal wash dominates entire hero—lacks visual hierarchy and feels generic/template-y",
+      "No actual bathroom imagery or design work shown; abstract gradient doesn't demonstrate expertise or build trust",
+      "Logo is barely visible (small, low contrast against teal background)",
+      "Copy cuts off mid-sentence ('We are professionals with enthusiasm for your satisf') suggesting sloppy QA",
+      "Headline is legible but generic; no differentiation from 100 bathroom remodel sites",
+      "CTA button ('Get a free estimate') blends into background; insufficient contrast",
+      "Navigation feels corporate/stock rather than bespoke to a local Denver bath company"
+    ],
+    "best": "Clean typography, professional tone, clear hierarchy of information",
+    "at": "2026-07-09T17:24:22.837Z"
+  },
+  {
+    "slug": "calvarychapelnorthside-com",
+    "score": 7,
+    "verdict": "pass",
+    "issues": [
+      "Hero image area is blank/placeholder—needs actual photography or illustration to match the 'family' warmth messaging",
+      "Logo/branding on left is cut off in screenshot—unclear what the church name is",
+      "CTA button 'Plan your visit' is solid, but could benefit from supporting secondary CTAs (e.g., 'Service times' or 'Connect')",
+      "Tagline 'Followers of Jesus equipping others to be followers of Jesus' is strong but generic—no differentiation visible"
+    ],
+    "best": "Teal accent color is restrained and professional. Typography hierarchy is clear. Navigation is clean and uncluttered. Copy tone matches church/community mission. Spacing feels intentional, not cramped.",
+    "at": "2026-07-09T17:24:28.470Z"
+  },
+  {
+    "slug": "carterdmd-com",
+    "score": 5,
+    "verdict": "flag",
+    "issues": [
+      "Monochromatic gray gradient wash dominates entire hero—brand blue accent barely visible, creates depressing/corporate feel rather than modern/friendly positioning",
+      "Headline legibility compromised by light text on darkening gradient background with no contrast management",
+      "Hero imagery (blurred gray background) looks generic/placeholder, not natural or authentic to medical practice",
+      "Copy says 'trusted service, close to home' but no visual or contextual cues suggest healthcare/medical (logo text alone insufficient)",
+      "Blue buttons feel disconnected from the oppressive gray palette—no cohesive color harmony",
+      "Layout spacing adequate but overshadowed by poor color execution—feels template-y and corporate rather than 'modern, friendly service'",
+      "Brand positioning unclear: 'carterdmd.com' suggests medical but visual language reads generic B2B software"
+    ],
+    "best": "Logo lockup is clean; button CTA placement is logical; headline hierarchy present but undermined by execution",
+    "at": "2026-07-09T17:24:37.888Z"
+  },
+  {
+    "slug": "carterfamilydds-com",
+    "score": 6,
+    "verdict": "flag",
+    "issues": [
+      "Monochrome color wash: The entire hero is a single magenta gradient with no visual hierarchy or contrast—everything feels tinted rather than thoughtfully designed",
+      "No hero imagery: A dentistry practice needs visual trust signals (smiling patients, office/equipment, doctor headshots). Text-only hero feels corporate and generic, not 'gentle family dentistry'",
+      "Logo placement awkward: Small logo in top-left corner sits in a light box; feels like an afterthought rather than anchor",
+      "CTA button blends with background: 'Book appointment' button uses same magenta as hero, making it hard to distinguish from background",
+      "Typography heavy-handed: All-caps 'CARTER FAMILY DDS' + massive headline feels more luxury retail than approachable dentistry",
+      "Generic template feel: This color/layout combo is standard Webflow/Wix template territory—not custom-built confidence",
+      "Missing trust elements: No photos of dentists, office, or testimonials visible; 'gentle dentistry' claim needs visual proof"
+    ],
+    "best": "Readable headline, clear navigation structure, and 'New Patients' CTA in header shows smart conversion thinking",
+    "at": "2026-07-09T17:24:44.668Z"
+  },
+  {
+    "slug": "castlerockcpa-com",
+    "score": 4,
+    "verdict": "flag",
+    "issues": [
+      "Hero headline is nearly invisible—extremely faint white text on light background, fails legibility test",
+      "Generic 'Default Web Site Page' branding suggests unfinished/placeholder state, not a real business",
+      "Monochromatic blue color scheme floods the page (header, buttons, chat widget)—lacks accent variety and visual interest",
+      "Hero imagery appears washed out/low contrast, reinforces unpolished impression",
+      "Generic messaging ('Your next visit starts here') doesn't align with any specific business type",
+      "Four checkmarks at bottom feel templated and lack context (what business are these selling?)",
+      "Overall appearance reads as abandoned template, not a real business ready for customers"
+    ],
+    "best": "Clean navigation bar; clear button hierarchy with 'Get Started' CTA",
+    "at": "2026-07-09T17:24:52.249Z"
+  },
+  {
+    "slug": "cclongview-com",
+    "score": 6,
+    "verdict": "flag",
+    "issues": [
+      "Hero image area is blank/missing – massive visual void below fold that kills engagement",
+      "Green accent color is good but CTA button styling lacks sophistication (flat, generic)",
+      "Navigation menu feels cramped; logo area undefined/weak",
+      "Copy is clear but headline treatment could be bolder – serif font is good but needs breathing room",
+      "Trust signals absent – no photos of community, leadership, or gathering space; looks sterile",
+      "Chat widget (bottom right) appears unbranded/generic; feels bolted-on",
+      "Layout is safe but uninspiring; no visual hierarchy beyond text size"
+    ],
+    "best": "Typography choice (serif headline) is appropriate for faith community; green accent is warm and trustworthy; core messaging is clear and welcoming",
+    "at": "2026-07-09T17:24:58.170Z"
+  },
+  {
+    "slug": "chattanoogafamilydental-com",
+    "score": 6,
+    "verdict": "flag",
+    "issues": [
+      "Pale cream background with teal accents creates insufficient contrast; body text is hard to read",
+      "Hero headline is strong but the tagline 'trusted service, close to home' is generic and doesn't differentiate Plesk Obsidian's technical offering",
+      "Logo/name mismatch: 'Plesk Obsidian' suggests enterprise software, but copy ('friendly service,' 'get in touch in a minute') reads like a local service business—unclear positioning",
+      "No hero image shown—missed opportunity to demonstrate product or build credibility for a technical platform",
+      "CTA buttons are good, but 'Get Started' top-right competes with hero CTA, fragmenting focus",
+      "Typography is elegant but 'Ready when you are' section feels disconnected from above-the-fold narrative",
+      "No visual indication of what Plesk Obsidian *is*—product screenshots, features, or use cases needed for trust"
+    ],
+    "best": "Balanced spacing and clean typography; teal brand color used as accent (not a wash); dual CTAs present",
+    "at": "2026-07-09T17:25:03.684Z"
+  },
+  {
+    "slug": "chattanoogafamilydentaltn-com",
+    "score": 6,
+    "verdict": "flag",
+    "issues": [
+      "Monochromatic teal color wash dominates entire viewport—lacks accent hierarchy and visual breathing room",
+      "Logo image appears broken or missing (shows placeholder icon rather than actual practice branding)",
+      "Hero headline is legible but uses generic serif font that feels dated for modern dental practice",
+      "Navigation menu text (all caps) competes visually with headline rather than supporting it",
+      "CTA button ('Book appointment') blends into background due to similar teal hue—insufficient contrast",
+      "No imagery of actual dentist/staff/office—feels impersonal for family dental practice",
+      "Welcome copy is generic/template-like; doesn't differentiate the practice or build trust",
+      "Excessive whitespace on right side suggests responsive design issues or incomplete layout"
+    ],
+    "best": "Clear navigation structure and straightforward value proposition ('gentle dentistry for the whole family')",
+    "at": "2026-07-09T17:25:08.646Z"
+  },
+  {
+    "slug": "cherryhillsdentist-com",
+    "score": 7,
+    "verdict": "pass",
+    "issues": [
+      "Hero image on right feels slightly disconnected from left text block—could benefit from tighter visual integration",
+      "Navigation bar is functional but somewhat plain; gold accent button is good but nav items could have more breathing room",
+      "Tagline 'Expert Dental Care You Can Trust' is generic—could be more distinctive"
+    ],
+    "best": "Color harmony is excellent: warm golds and earth tones feel professional and welcoming without overwhelming. Headline is bold and instantly legible. Interior photo is authentic and builds trust. Layout is clean with proper white space. Brand identity is consistent and matches the business perfectly.",
+    "at": "2026-07-09T17:25:12.803Z"
+  },
+  {
+    "slug": "clchr-org",
+    "score": 7,
+    "verdict": "pass",
+    "issues": [
+      "Hero image area is blank/missing - significant missed opportunity for visual impact",
+      "Description text cuts off mid-sentence ('incredibly engaged membership that') - appears unfinished",
+      "Navy blue is used heavily but somewhat one-note; accent variety is minimal",
+      "CTA button ('Plan your visit') lacks secondary visual hierarchy"
+    ],
+    "best": "Clean typography, strong headline legibility, well-balanced white space, professional color palette (navy + white), appropriate for religious institution, logo treatment is consistent",
+    "at": "2026-07-09T17:25:16.804Z"
+  },
+  {
+    "slug": "coloradodermatology-com",
+    "score": 7,
+    "verdict": "pass",
+    "issues": [
+      "Hero image team photo is generic stock-adjacent; lacks personality for a specialty medical practice",
+      "Navigation bar logo area is blank/missing—brand identity weakness at top level",
+      "CTA button ('Request an appointment') could be more prominent or secondary CTA needed",
+      "Subheading 'Leaders in Dermatology and Mohs Surgery' is confident but unsupported by credentials/proof points in this section"
+    ],
+    "best": "Blue accent color is well-restrained and professional; headline is large and scannable; layout is clean with breathing room; copy immediately clarifies service area (Colorado + Mohs Surgery)",
+    "at": "2026-07-09T17:25:21.120Z"
+  },
+  {
+    "slug": "coloradolendingteam-com",
+    "score": 7,
+    "verdict": "pass",
+    "issues": [
+      "Orange accent color is effective but used heavily on CTAs—verges on saturation without crossing into poor taste",
+      "Right-side image has slight vignette/darkening that feels slightly processed rather than naturally photographed",
+      "Logo circular badge is visually strong but competes slightly with headline for attention on right side",
+      "Tagline 'Your hometown mortgage experts!' is generic—could be more differentiated"
+    ],
+    "best": "Excellent hierarchy and legibility. Hero headline is bold and immediately clear. Colorado branding (logo + mountain imagery) is cohesive and contextually appropriate for a local lender. Layout is balanced, breathing room is generous, no cramped/overlapping elements. Passes the 'would a business owner send this to customers' test—looks professional and trustworthy without feeling over-designed.",
+    "at": "2026-07-09T17:25:26.052Z"
+  },
+  {
+    "slug": "comfort-dental",
+    "score": 7,
+    "verdict": "pass",
+    "issues": [
+      "Hero image has heavy dark overlay/tint that reduces image clarity and feels slightly stock-photo",
+      "Green CTA button could be slightly more prominent given it's the primary conversion point",
+      "Navigation is functional but minimal—'SERVICES' link clarity could improve (what services?)"
+    ],
+    "best": "Headline is bold, legible, and perfectly on-brand messaging ('modern dentistry, without the anxiety'). Green accent color is restrained and harmonious—used only on logo, button, and chat widget. Layout is clean, well-spaced, and balanced. Copy matches business type. Overall feels professional and trustworthy without being generic.",
+    "at": "2026-07-09T17:25:30.631Z"
+  },
+  {
+    "slug": "compfm-com",
+    "score": 6,
+    "verdict": "flag",
+    "issues": [
+      "Brand color (navy blue) dominates too heavily—hero CTA, nav button, and footer CTA create visual monotony rather than accent use",
+      "Headline is legible but generic; 'Privacy error' as a business name is unconventional and potentially confusing—unclear if this is a privacy service, legal firm, or tech company",
+      "Hero copy ('trusted service, close to home') is vague and doesn't clearly communicate what Privacy error actually does",
+      "Layout is clean but sparse—large whitespace in hero feels unfinished; no supporting imagery, icons, or visual hierarchy to anchor the page",
+      "Trust concern: 'Privacy error' as a business name reads like an error state rather than a brand; no logo visible, no trust signals (certifications, testimonials, years in business)",
+      "Messaging mismatch: 'Modern, friendly service' and 'get in touch in a minute' suggest a personal services business, but the name suggests a technical/legal offering—tone and positioning are unclear"
+    ],
+    "best": "Clean typography, adequate breathing room, two clear CTAs",
+    "at": "2026-07-09T17:25:36.562Z"
+  },
+  {
+    "slug": "copelandfamilydental-com",
+    "score": 6,
+    "verdict": "flag",
+    "issues": [
+      "Hero headline uses ornate cursive script that sacrifices legibility for aesthetics—dental patients need clarity, not decorative ambiguity",
+      "Tagline 'Your mouth will thank you!' feels generic and trivializes professional dental care",
+      "Color palette (teal/green accent + warm field photo) is safe but uninspired—no visual hierarchy to guide attention",
+      "Hero image tint is warm/golden and feels mismatched to clinical dental brand positioning",
+      "CTA button blends into background due to muted teal; lacks punch",
+      "Layout spacing is adequate but pedestrian—no creative tension or focal point strategy",
+      "Overall aesthetic leans 'wellness retreat' rather than 'trusted dental practice'—mixed messaging for professional credibility"
+    ],
+    "best": "Navigation is clean and functional; logo placement is correct; no obvious technical breaks or misalignment",
+    "at": "2026-07-09T17:25:41.911Z"
+  },
+  {
+    "slug": "cotitleescrow-com",
+    "score": 7,
+    "verdict": "pass",
+    "issues": [
+      "Hero image lacks depth—feels like a generic stock photo rather than specific Denver context",
+      "CTA button 'Open an order' is vague; could be more specific (e.g. 'Start Your Closing')",
+      "Blue brand color is solid but slightly overused in header nav + button; needs more restraint",
+      "Subheading copy is functional but dry—reads like boilerplate real estate language"
+    ],
+    "best": "Clean, professional layout with excellent hierarchy. Logo and navigation are crisp. Headline is bold and immediately communicates the value prop ('closings that actually close on time'). No template indicators or broken elements. Spacing is generous and balanced.",
+    "at": "2026-07-09T17:25:46.366Z"
+  },
+  {
+    "slug": "davenportdds-com",
+    "score": 6,
+    "verdict": "flag",
+    "issues": [
+      "Monochromatic blue wash dominates entire hero—lacks visual breathing room and accent contrast",
+      "Navigation text (white on blue) has adequate contrast but feels corporate rather than friendly/dental",
+      "Logo placement cramped in top-left corner; could be more prominent",
+      "Hero copy incomplete—cuts off mid-sentence ('Receive personalized care from')—suggests unfinished CTA",
+      "Large headline is legible but serif font feels dated for modern dental practice",
+      "No hero imagery visible—text-only design misses opportunity to humanize 'whole family' positioning",
+      "Layout feels safe/template-y; lacks personality expected from boutique family dental brand",
+      "Chat bubble in bottom-right is generic template element"
+    ],
+    "best": "Typography hierarchy is clear; navigation structure is intuitive and well-organized across top; blue choice is on-brand for healthcare trust",
+    "at": "2026-07-09T17:25:51.835Z"
+  },
+  {
+    "slug": "dedicateddental-net",
+    "score": 7,
+    "verdict": "pass",
+    "issues": [
+      "Hero image area is blank/missing - significant visual opportunity lost",
+      "Typography hierarchy is strong but relies entirely on text; no supporting imagery above fold",
+      "Chat widget (blue circle, bottom right) feels like an afterthought and breaks clean layout"
+    ],
+    "best": "Excellent color discipline—bright blue used as precise accent only (nav, CTA buttons). Clean sans-serif hierarchy. Copy is clear, specific ('31+ years', 'Tucson, AZ'), and matches dental practice positioning. Logo/name alignment is seamless. Spacing is generous and professional.",
+    "at": "2026-07-09T17:25:56.688Z"
+  },
+  {
+    "slug": "dentalcarecenterofboise-com",
+    "score": 5,
+    "verdict": "flag",
+    "issues": [
+      "Monochromatic red wash dominates entire hero—design principle violated; creates visual monotony and readability strain",
+      "Hero imagery missing or invisible against red background; no visual differentiation or breathing room",
+      "Navigation links (BONDING/WHITE FILLINGS, BRIDGES, etc.) lack contrast; white text on red is difficult to scan quickly",
+      "Logo placement cramped in top-left; doesn't establish clear brand hierarchy",
+      "Body copy is small and competes with massive headline; no visual hierarchy between headline sizes",
+      "CTA button (Book appointment) blends into background due to similar red tone—should contrast sharply",
+      "Generic template aesthetic—diagonal gradient overlay, centered copy stack feels mass-produced, not custom",
+      "No imagery humanizing the practice (dentist, staff, office) despite 'whole family' messaging; lacks authenticity",
+      "Mobile responsiveness unclear; spacing and readability would suffer on smaller screens"
+    ],
+    "best": "Headline copy ('gentle dentistry for the whole family') matches business perfectly and is bold",
+    "at": "2026-07-09T17:26:03.030Z"
+  },
+  {
+    "slug": "dentalcaretucson-com",
+    "score": 5,
+    "verdict": "flag",
+    "issues": [
+      "Monochromatic orange wash: entire background is a gradient of the same brand color, creating monotony and reducing contrast for readability",
+      "Hero headline is white-on-orange with no visual hierarchy or accent color variation—relies purely on size, not sophisticated design",
+      "No imagery present in hero section despite 'Family Dentist' positioning—missing opportunity for trust-building visual (smiling faces, modern office, etc.)",
+      "Logo appears to be a generic placeholder ('Family' alt text) rather than actual branded mark",
+      "Navigation items and CTAs blend into the color-flooded background; weak visual separation",
+      "Copy mentions '50+ years' but this feels generic—no specific differentiators or proof points visible",
+      "Overall feels like an unfinished template rather than a custom design; lacks personality or memorable visual identity"
+    ],
+    "best": "CTA button has clear affordance; headline message is clear and on-brand for the service",
+    "at": "2026-07-09T17:26:08.557Z"
+  },
+  {
+    "slug": "dentist-boise-net",
+    "score": 6,
+    "verdict": "flag",
+    "issues": [
+      "Monochromatic green wash—entire above-the-fold is tinted the same brand green, reducing visual hierarchy and contrast",
+      "Hero headline is legible but the white-on-green lacks sophistication; no secondary visual anchor or imagery to break monotony",
+      "No hero image present—'gentle dentistry' messaging would benefit from warm, reassuring imagery (smiling patients, modern office, Dr. Simms) to build trust",
+      "Copy is generic and could apply to any dental practice; doesn't differentiate or showcase unique value",
+      "Logo placement and nav feel standard/template-like; no distinctive visual signature",
+      "CTA button style is adequate but not memorable; blends into the color scheme"
+    ],
+    "best": "Navigation is clean and well-organized; button hierarchy is clear; layout spacing is balanced and responsive-friendly",
+    "at": "2026-07-09T17:26:14.962Z"
+  },
+  {
+    "slug": "dentists-tucson-com",
+    "score": 7,
+    "verdict": "pass",
+    "issues": [
+      "Entire page tinted in monochromatic orange/brown wash—brand color floods background, reducing visual hierarchy and contrast flexibility",
+      "White text on warm background is legible but lacks sophistication; no secondary color accent to break monotony",
+      "Hero headline is strong, but supporting copy ('Modern, friendly service') is generic and could apply to any service business",
+      "CTA button blends too closely with background (both warm tones); insufficient contrast",
+      "No hero imagery visible—relies entirely on text against flat color, feels incomplete for a dentistry practice that should build trust visually"
+    ],
+    "best": "Headline is bold and immediately communicates the value prop. Layout is clean and spacious. Logo placement and navigation are professional. Copy tone matches family-friendly positioning.",
+    "at": "2026-07-09T17:26:20.416Z"
+  },
+  {
+    "slug": "dosterdental-com",
+    "score": 4,
+    "verdict": "flag",
+    "issues": [
+      "Monochromatic red wash dominates entire viewport—no contrast hierarchy or breathing room",
+      "Logo image broken/not loading (shows alt-text placeholder)",
+      "Hero headline illegible against red background—white text on red lacks sufficient contrast",
+      "Navigation text white-on-red creates eye strain and professionalism concerns",
+      "Generic tagline ('gentle dentistry for the whole family') doesn't differentiate from competitors",
+      "No visible CTA button or appointment booking mechanism above fold",
+      "Footer text ('Chattanooga, TN Dentist...') cut off/incomplete",
+      "Layout feels cramped with no whitespace—all elements fighting for attention",
+      "Red color choice, while bold, reads as medical alert/emergency rather than welcoming cosmetic practice"
+    ],
+    "best": "Logo placement attempt at top-left is conventional; responsive nav structure is correct",
+    "at": "2026-07-09T17:26:25.194Z"
+  },
+  {
+    "slug": "downtowndentalchatt-com",
+    "score": 7,
+    "verdict": "pass",
+    "issues": [
+      "Hero image area appears empty/placeholder—no actual dental imagery visible, reducing visual impact and trust",
+      "Navigation could use better visual hierarchy; 'New Patients' button is only accent color, somewhat buried",
+      "Tagline 'gentle dentistry for the whole family' is generic; could be more distinctive",
+      "Logo is small and low-contrast against white background"
+    ],
+    "best": "Clean, professional typography; excellent use of blue as restrained brand accent (nav, buttons, subheading); ample whitespace; clear CTA; copy is appropriate to dental business; no template-y elements or mismatches between brand name and site purpose",
+    "at": "2026-07-09T17:26:30.033Z"
+  },
+  {
+    "slug": "drayaladentistry-com",
+    "score": 5,
+    "verdict": "flag",
+    "issues": [
+      "Monochrome green wash dominates entire hero—lacks visual hierarchy and appears template-heavy",
+      "Headline text is legible but copy cuts off mid-sentence ('teeth whi' instead of 'teeth whitening')—unprofessional and broken",
+      "No actual imagery of Dr. Ayala or dental practice visible—only logo in header; hero relies entirely on text over solid color",
+      "Small logo in top-left corner feels disconnected from strong headline below; weak visual anchoring",
+      "CTA button blends into background (same green family)—insufficient contrast",
+      "Copy description is generic and incomplete; doesn't differentiate from competitor sites",
+      "Navigation menu is clean but the overall design reads as a bare-bones template fill-in"
+    ],
+    "best": "Clean navigation structure and readable headline font choice; green is appropriate for healthcare",
+    "at": "2026-07-09T17:26:35.138Z"
+  },
+  {
+    "slug": "drdalesandro-com",
+    "score": 4,
+    "verdict": "flag",
+    "issues": [
+      "Monochromatic red wash — entire design is flooded with red, no tasteful accent use",
+      "Zero visual hierarchy or contrast — white text on red is readable but monotonous and fatiguing",
+      "Hero copy is cut off mid-sentence ('veneers & other dent') — incomplete/broken",
+      "Logo awkwardly positioned in top-left white box, doesn't integrate with design",
+      "No imagery beyond solid color gradient — feels template-y and low-effort",
+      "CTA button blends into background (red-on-red gradient), poor contrast",
+      "Navigation is plain and cramped; no breathing room",
+      "Dentist photo/practice environment missing — no trust-building visual assets",
+      "Generic, unfinished copy tone — 'Adam Dalesandro DMD is a local, trusted' reads like placeholder"
+    ],
+    "best": "Navigation structure and CTA button placement are functional",
+    "at": "2026-07-09T17:26:40.468Z"
+  },
+  {
+    "slug": "dream-dental-care-edan-io",
+    "score": 7,
+    "verdict": "pass",
+    "issues": [
+      "Blue CTA button repeats twice (header + hero) without clear distinction—slightly redundant",
+      "Hero headline is strong but serif font choice feels formal; 'gentle dentistry' messaging could benefit from warmer visual support (no hero image shown)",
+      "Tagline 'Modern, friendly service' is generic; doesn't differentiate from competitors",
+      "Color palette is safe (blue + white + gray) but predictable for dental; lacks personality"
+    ],
+    "best": "Typography hierarchy is clean and readable; brand blue is used as accent, not wash; layout is spacious and professional; CTA placement is clear; copy directly matches business type (family dentistry)",
+    "at": "2026-07-09T17:26:44.719Z"
+  },
+  {
+    "slug": "drjayspokane-com",
+    "score": 7,
+    "verdict": "pass",
+    "issues": [
+      "Hero image missing or not visible—text-only hero feels incomplete for a dental practice where patient comfort/trust is visual",
+      "Navigation menu could use better visual hierarchy; all caps links feel flat",
+      "CTA button ('Book appointment') is only one shade of blue—could benefit from a secondary accent color for depth",
+      "Small/light gray body copy may struggle with accessibility on light background"
+    ],
+    "best": "Clean, professional layout with strong headline. Blue brand color is restrained and appropriate for healthcare. Typography is clear. CTA is prominent. Copy is honest and patient-focused ('gentle dentistry for the whole family'). No template artifacts or brand mismatch.",
+    "at": "2026-07-09T17:26:49.808Z"
+  },
+  {
+    "slug": "drmillerdentistry-com",
+    "score": 6,
+    "verdict": "flag",
+    "issues": [
+      "Hero headline is massive and dominates—legible but creates awkward visual hierarchy; copy extends very far down without image anchor",
+      "No hero imagery visible (dental practice needs visual trust cues—smiling patients, modern office, or dentist portrait)",
+      "Breadcrumb and navigation feel cramped at top; primary CTA 'New Patients' button competes with nav instead of anchoring focus",
+      "Brand teal accent is minimal/reserved, which is safe but feels underutilized—site reads as generic 'dental template' rather than Greg Miller's practice",
+      "Tagline 'gentle dentistry for the whole family' is generic dental-industry boilerplate; no differentiation or personality",
+      "Logo area slightly blurry/low contrast on cream background",
+      "No visible trust signals, testimonials, or differentiators above fold—pure text feels corporate, not warm/approachable for 'gentle' positioning"
+    ],
+    "best": "Navigation is clean and organized; color palette (teal + cream) is professional and calming for healthcare; responsive breadcrumb hierarchy is functional.",
+    "at": "2026-07-09T17:26:55.800Z"
+  },
+  {
+    "slug": "drritaharding-com",
+    "score": 5,
+    "verdict": "flag",
+    "issues": [
+      "Monochromatic green wash dominates entire hero—no tasteful accent use, reduces visual hierarchy and breathing room",
+      "Hero imagery missing or invisible—no photo of Dr. Harding, office, or patient interaction visible; dentistry site needs faces/trust-building visuals",
+      "Text contrast adequate but white-on-green gradient becomes muddy at bottom; legibility drops",
+      "Logo placement/sizing unclear in header; logo image alt text shows but visual hierarchy weak",
+      "Navigation menu items (MEET THE DOCTORS, MEET THE TEAM) promise content that should be previewed or visually hinted on hero—none present",
+      "CTA button 'Book appointment' lacks urgency or visual distinction from background; blends in",
+      "Layout feels safe but generic—could be any service business; no dentistry-specific visual language (smile, teeth, chair, instruments as subtle design elements)",
+      "Tagline 'gentle dentistry for the whole family' is solid, but no supporting visuals (multi-generational imagery, warm environment shots)"
+    ],
+    "best": "Hero headline is clear and on-brand; color choice (green) is professional and calming for dental context",
+    "at": "2026-07-09T17:27:02.982Z"
+  },
+  {
+    "slug": "ebenezerdacula-org",
+    "score": 7,
+    "verdict": "pass",
+    "issues": [
+      "Hero image slightly washed/desaturated—loses some visual pop",
+      "CTA button ('Plan your visit') is small and could be more prominent",
+      "Tagline 'We're glad you're here' is generic—could be more distinctive",
+      "Logo area is unclear in this crop—brand identity not fully verified"
+    ],
+    "best": "Clean, professional layout with excellent hierarchy. Headline is bold and legible. Church + family messaging aligns perfectly. Photo is natural and contextually appropriate. Color palette (teal/navy + white) is harmonious and trustworthy. Spacing is balanced throughout.",
+    "at": "2026-07-09T17:27:07.209Z"
+  },
+  {
+    "slug": "efcsweetwater-com",
+    "score": 6,
+    "verdict": "flag",
+    "issues": [
+      "Hero headline is strong, but the massive image below creates awkward visual hierarchy and competes for attention",
+      "Color palette is serviceable (teal + green accent) but the beige/cream background with orange couch feels disconnected from the teal branding—color harmony is off",
+      "Image quality concern: the 'Reason Better Together' graphic with couch looks stock/generic and doesn't authentically represent a church community",
+      "Layout balance breaks at fold: headline/CTA sit alone on left, while hero image dominates right—creates lopsided feel",
+      "The tagline 'Bringing Faith to Life' is barely visible on the logo in the image; brand presence is weak",
+      "Navigation is clean, but the overall page reads more like a lifestyle brand than a fellowship church—copy/imagery mismatch"
+    ],
+    "best": "Typography is crisp and readable; 'Plan your visit' CTA is clear and well-positioned; navigation structure is uncluttered",
+    "at": "2026-07-09T17:27:12.544Z"
+  },
+  {
+    "slug": "elevatemyeyes-com",
+    "score": 7,
+    "verdict": "pass",
+    "issues": [
+      "Hero image has slight green tint/color cast that feels artificial rather than natural photography",
+      "CTA button 'Book an eye exam' could be more prominent—currently competes with large headline",
+      "Navigation items are small; could improve scannability",
+      "Hero copy 'Experience elevated eyecare' is generic and doesn't differentiate from competitors"
+    ],
+    "best": "Strong, legible headline with confident dark green brand color used as accent, not wash. Image placement and layout are clean and balanced. Logo–business name alignment is solid. Professional enough for customer-facing use.",
+    "at": "2026-07-09T17:27:16.825Z"
+  },
+  {
+    "slug": "equippedchurch-net",
+    "score": 6,
+    "verdict": "flag",
+    "issues": [
+      "Monochromatic teal wash dominates entire hero—lacks visual hierarchy and breathing room",
+      "No hero imagery present; text-only composition feels incomplete and generic",
+      "Logo placement cramped in top-left; inconsistent with modern design standards",
+      "CTA button 'Plan your visit' lacks urgency or clear visual distinction from background",
+      "Navigation items (I'M NEW, EVENTS, MESSAGES, etc.) blend into header; insufficient contrast",
+      "Copy is generic church language—doesn't differentiate Equipped Church's unique value proposition",
+      "Chat icon in bottom-right appears orphaned; unclear purpose",
+      "Gradient background creates visual fatigue rather than sophistication"
+    ],
+    "best": "Clean typography hierarchy and welcoming tone appropriate for a church community",
+    "at": "2026-07-09T17:27:21.685Z"
+  },
+  {
+    "slug": "erfamilydental-com",
+    "score": 5,
+    "verdict": "flag",
+    "issues": [
+      "Monochromatic color wash: entire background is solid green with no meaningful color variation or accent hierarchy",
+      "Logo/branding mismatch: small, faint logo in top-left is barely visible and inconsistent with the bold white headline treatment",
+      "Hero headline is legible but the green-on-green text creates low contrast and feels monotonous rather than dynamic",
+      "CTA button ('Book appointment') is good but undersized relative to the dominant headline",
+      "No supporting imagery visible—dental practice should showcase trust signals (office photos, team, patient testimonials, credentials) above the fold",
+      "Copy is generic and template-like ('why patients trust us') without differentiation or specific value prop for East Ridge TN",
+      "Layout feels unbalanced: heavy text weight on left, empty right side with only a chat icon—wasted real estate",
+      "Green tint overwhelms the entire viewport; no breathing room or visual hierarchy through color contrast"
+    ],
+    "best": "Headline typography is bold and readable; tagline clearly states the business type (family dentistry)",
+    "at": "2026-07-09T17:27:27.557Z"
+  },
+  {
+    "slug": "faithconnector-demo",
+    "score": 6,
+    "verdict": "flag",
+    "issues": [
+      "Hero image (beach cleanup) doesn't match headline messaging—appears to be community service/environmental work, not worship or spiritual gathering",
+      "Color palette feels disconnected: warm brown/tan CTA button doesn't harmonize with cool blues in hero image",
+      "Typography hierarchy is strong but body copy is thin/light gray on white—readability concern",
+      "No visible brand consistency between logo and site color scheme",
+      "Hero image has awkward composition with feet/hands in foreground—doesn't convey 'worship' or 'community gathering' effectively",
+      "Layout is clean but the image-text pairing feels misaligned with the church's stated mission"
+    ],
+    "best": "Headline typography is bold and legible; layout has good breathing room; CTA button is clear",
+    "at": "2026-07-09T17:27:32.322Z"
+  },
+  {
+    "slug": "familydentaltucson-com",
+    "score": 7,
+    "verdict": "pass",
+    "issues": [
+      "Logo image alt-text is generic ('Family Dental Group') rather than brand-specific",
+      "Hero image area appears to be missing or very subtle—relies entirely on typography",
+      "Navigation feels crowded; some menu items may wrap on smaller viewports",
+      "CTA buttons are identical blue—no visual hierarchy between primary actions"
+    ],
+    "best": "Clean, modern typography with strong hierarchy. Warm beige background + bright blue accent is harmonious and professional. Copy is clear, friendly, and directly matches the dental practice brand. Ample whitespace. No color wash or template-y feel.",
+    "at": "2026-07-09T17:27:36.506Z"
+  },
+  {
+    "slug": "firmmedspa-com",
+    "score": 7,
+    "verdict": "pass",
+    "issues": [
+      "Hero image is dark and somewhat moody—fine for medspa aesthetic but reduces visual hierarchy of headline",
+      "Tagline 'Incredible Transformations for Renewed Confidence' is generic; could be more distinctive",
+      "CTA button 'Book your visit' lacks urgency or specificity compared to competitors",
+      "No visible trust signals above fold (credentials, testimonials, certifications)"
+    ],
+    "best": "Brand color (blue) is restrained and used as accent only (nav, buttons). Typography is elegant and legible. Logo/site name alignment is clean. Layout is spacious and professional. Imagery matches medspa category credibly.",
+    "at": "2026-07-09T17:27:40.952Z"
+  },
+  {
+    "slug": "foxsspokanedenture-com",
+    "score": 6,
+    "verdict": "flag",
+    "issues": [
+      "Monochromatic teal wash dominates entire hero—lacks visual breathing room and accent color hierarchy",
+      "Logo appears small and underutilized in top-left corner; brand presence feels weak",
+      "Hero image missing or heavily tinted—no actual denture clinic imagery to establish credibility",
+      "Navigation menu items are small and low-contrast against dark background; accessibility concern",
+      "Body copy ('Discover Fox's...') is white-on-dark-teal, readable but fatiguing; lacks visual separation",
+      "No visual hierarchy between headline and subtext—both feel monolithic",
+      "Mobile dentures/service imagery absent from above-fold; medical/dental business needs trust-building visuals"
+    ],
+    "best": "Clean typography and professional tone are appropriate for healthcare; navigation structure is sound",
+    "at": "2026-07-09T17:27:46.929Z"
+  },
+  {
+    "slug": "frankdds-com",
+    "score": 6,
+    "verdict": "flag",
+    "issues": [
+      "Monochromatic green wash dominates entire viewport—brand color floods instead of accenting. Reduces visual hierarchy and readability contrast.",
+      "Logo/name pairing unclear: logo appears generic/placeholder, doesn't reinforce 'Thomas Frank, DDS' identity strongly enough.",
+      "Hero imagery missing or heavily tinted—no authentic photo of dentist/practice visible, reducing trust and professionalism.",
+      "Typography scale and weight could be sharper; headline legible but not commanding enough for above-the-fold real estate.",
+      "CTA button ('Book appointment') is secondary visually despite being primary action—should be more prominent.",
+      "Chat widget in corner (bottom right) adds clutter to an already simple layout; premature for above-the-fold."
+    ],
+    "best": "Navigation menu is clean and scannable; copy tone is warm and addresses patient anxiety directly ('Nervous about the dentist?')—good emotional targeting for the niche.",
+    "at": "2026-07-09T17:27:52.496Z"
+  },
+  {
+    "slug": "franksondds-com",
+    "score": 6,
+    "verdict": "flag",
+    "issues": [
+      "Hero copy cuts off mid-sentence ('friendly sta' instead of 'staff') – appears unfinished/broken",
+      "Blue CTA buttons are functional but lack sophistication; feel generic/template-derived",
+      "Serif headline is elegant but navigation menu uses generic sans-serif creating tonal disconnect",
+      "Hero section lacks imagery entirely – just text on beige background feels incomplete for a dental practice (no smile, teeth, professional headshots, or office photo)",
+      "Beige background is safe but bland; combined with serif typography reads more like a law firm than modern dental practice",
+      "Logo appears cut off/unclear in header – brand identity weak at first glance"
+    ],
+    "best": "Serif headline typography is sophisticated and readable; color palette is professional and calming; 'New Patients' CTA placement is prominent",
+    "at": "2026-07-09T17:27:57.481Z"
+  },
+  {
+    "slug": "friendshipbc-com",
+    "score": 6,
+    "verdict": "flag",
+    "issues": [
+      "Hero imagery is cut off and unfinished—large decorative text 'ing Our Commu' is partially visible and incomplete, suggesting a layout or crop problem",
+      "Teal/turquoise brand color dominates too heavily (buttons, accents, logo); feels monochromatic rather than balanced accent use",
+      "Hero section lacks a strong supporting image—only partial decorative text visible; needs actual photography or complete visual asset",
+      "Spacing between headline and subheader is generous, but the incomplete graphic element below breaks visual hierarchy",
+      "Navigation is clean, but the overall composition feels unfinished rather than polished"
+    ],
+    "best": "Typography hierarchy is clear and legible; color choice (teal) is appropriate for a community/faith organization; navigation structure is intuitive; tagline copy is relevant and on-brand",
+    "at": "2026-07-09T17:28:02.470Z"
+  },
+  {
+    "slug": "gfamilychurchmi-org",
+    "score": 6,
+    "verdict": "flag",
+    "issues": [
+      "Hero headline nearly invisible—white text on light background with minimal contrast",
+      "Teal brand color floods the entire page (header, buttons, accents)—feels monochromatic and corporate-sterile rather than tasteful",
+      "Hero image/background unclear—appears to be a washed-out tint rather than natural imagery",
+      "Copy mismatch: 'Airo' + 'GoDaddy' branding feels generic; unclear what service differentiates this business",
+      "CTA buttons repeated identically ('Get in touch') twice above fold—redundant and suggests template recycling",
+      "Typography hierarchy weak—body copy barely visible in faded state",
+      "Section 'OUR SERVICES' heading appears cut off or incomplete at fold"
+    ],
+    "best": "Trust indicators (locally owned, upfront pricing, etc.) are well-placed; teal accent color itself is professional when used sparingly",
+    "at": "2026-07-09T17:28:07.395Z"
+  },
+  {
+    "slug": "greaterglorychurch-com",
+    "score": 7,
+    "verdict": "pass",
+    "issues": [
+      "Hero image area is blank/missing - a church website needs visual warmth and authenticity",
+      "Call-to-action button could be more prominent or paired with secondary action",
+      "Tagline is generic; could be more specific to denomination/mission",
+      "No visible social proof, upcoming events, or community imagery above fold"
+    ],
+    "best": "Clean, professional typography hierarchy; tasteful teal brand color used as accent only (nav, buttons); well-aligned layout with breathing room; logo and 'Greater Glory' name are consistent and appropriate for a church; navigation is intuitive and trustworthy",
+    "at": "2026-07-09T17:28:12.005Z"
+  },
+  {
+    "slug": "griffithslawpc-com",
+    "score": 7,
+    "verdict": "pass",
+    "issues": [
+      "Hero image tint is slightly heavy—frost/window effect reads a bit murky, reduces emotional clarity",
+      "CTA button could use stronger visual hierarchy or hover state indication",
+      "Tagline 'Protecting Your Future' is generic; could be more specific to legal services"
+    ],
+    "best": "Clean typography hierarchy, professional navy/burgundy palette is harmonious and law-firm appropriate, navigation is clear, logo-to-brand alignment is solid, image choice (vulnerability/protection) matches messaging well",
+    "at": "2026-07-09T17:28:16.547Z"
+  },
+  {
+    "slug": "haciendadental-com",
+    "score": 5,
+    "verdict": "flag",
+    "issues": [
+      "Monochromatic green wash dominates entire viewport - reduces contrast and legibility despite white text",
+      "Logo image alt text reads 'Bakersfield, California' instead of practice/doctor name - confusing identity signal",
+      "Headline uses generic serif font on green that reduces visual hierarchy vs. site name",
+      "CTA button ('Book appointment') lacks visual distinction - similar green to background",
+      "Navigation bar text white-on-green with minimal contrast at normal viewing distance",
+      "Small body copy at bottom ('Contact Nirup Reddy...') gets lost in gradient - critical info buried",
+      "No imagery beyond solid color - feels incomplete for 'gentle dentistry' promise",
+      "Layout appears to treat text as primary design element rather than composition; feels text-heavy and flat"
+    ],
+    "best": "Clean, spacious layout structure and straightforward call-to-action placement shows basic competence",
+    "at": "2026-07-09T17:28:23.475Z"
+  },
+  {
+    "slug": "hammeldentistry-com",
+    "score": 6,
+    "verdict": "flag",
+    "issues": [
+      "Hero headline is legible but overly large and dominates with no supporting imagery—feels empty",
+      "No hero image visible; plain cream background looks unfinished for a dental practice",
+      "Navigation is adequate but generic; no visual hierarchy differentiating 'New Patients' CTA",
+      "Tagline ('gentle dentistry for the whole family') is buried in small gray text below fold—should amplify trust",
+      "Brand color (blue) used only in nav and button; underutilized for cohesion",
+      "Copy 'Serving Client:StreetCity, Client:StreetState' at bottom looks like placeholder/debug text, not real address",
+      "Logo is present but small; no clear visual anchor for brand identity",
+      "Overall aesthetic is stark and minimal—lacks warmth expected for family dentistry"
+    ],
+    "best": "Navigation structure is clean and well-organized; blue accent color is professional when used",
+    "at": "2026-07-09T17:28:29.120Z"
+  },
+  {
+    "slug": "heidiosterobgyn-com",
+    "score": 7,
+    "verdict": "pass",
+    "issues": [
+      "Hero image cut off at bottom—unclear composition and patient story",
+      "Serif headline typeface is elegant but risks reduced scanability on mobile",
+      "CTA button ('Request an appointment') could be more visually prominent",
+      "Brand blue is restrained but underutilized—feels safer than distinctive"
+    ],
+    "best": "Professional, clean typography; mission statement is clear and relevant; strong logo/name alignment; trustworthy color palette for medical practice; ample whitespace",
+    "at": "2026-07-09T17:28:33.112Z"
+  },
+  {
+    "slug": "homesteadtc-com",
+    "score": 5,
+    "verdict": "flag",
+    "issues": [
+      "Brand/name mismatch: Logo says 'BRIDGE' but hero promotes 'ARMED FORCES INC' — confusing identity",
+      "Hero image is poorly integrated — awkward crop, black-and-white wash creates disconnect from the green banner above",
+      "Color strategy is broken: olive green banner + black/white photo + orange button = no cohesive palette",
+      "Copy mismatch: Homestead title/escrow language doesn't align with military branding shown in imagery",
+      "Right-side image appears unprofessionally tinted/filtered; looks like a stock photo with heavy post-processing",
+      "Layout feels disjointed — left text block doesn't visually connect to right imagery",
+      "The '20%' offer on military image appears disconnected from the homestead financing pitch",
+      "Overall: Looks like two different websites spliced together; lacks unified visual identity"
+    ],
+    "best": "Navigation bar is clean and well-spaced; heading typography is bold and readable.",
+    "at": "2026-07-09T17:28:38.345Z"
+  },
+  {
+    "slug": "hopewellchurch-online",
+    "score": 7,
+    "verdict": "pass",
+    "issues": [
+      "Hero image is very dark/low contrast - text legibility requires careful eye strain on mobile",
+      "Green accent color (CTA buttons) is serviceable but somewhat generic/template-feeling",
+      "Tagline 'Gather, grow, go' is vague - doesn't immediately signal church/community aspect",
+      "Image quality appears compressed/grainy in the crowd shot"
+    ],
+    "best": "Clean typography hierarchy, appropriate warmth in navigation, clear CTA placement, on-brand green used as accent not wash, layout is spacious and uncluttered",
+    "at": "2026-07-09T17:28:42.213Z"
+  },
+  {
+    "slug": "hrcoc-org",
+    "score": 6,
+    "verdict": "flag",
+    "issues": [
+      "Hero image area is completely blank/missing – massive wasted space below fold",
+      "Color flooding: bright blue (#0052CC) dominates nav and CTA, lacks sophistication; no secondary palette visible",
+      "Logo 'Mysite' is generic placeholder text, not a real brand mark – undermines credibility",
+      "Navigation items (LEADERSHIP, BELIEFS, SERMONS, etc.) suggest religious/church org, but 'Mysite' branding is corporate-generic – identity mismatch",
+      "CTA button 'Plan your visit' is bold but copy is vague and doesn't match the org's mission context",
+      "Tagline 'Come as you are' is welcoming but feels disconnected from the institutional nav structure",
+      "No imagery, no visual hierarchy beyond typography – feels incomplete/template default state"
+    ],
+    "best": "Typography is clean and readable; welcome message tone is warm and appropriate for faith-based org",
+    "at": "2026-07-09T17:28:50.948Z"
+  },
+  {
+    "slug": "idahofamilydental-com",
+    "score": 7,
+    "verdict": "pass",
+    "issues": [
+      "Hero text truncates mid-sentence ('We look forward to') with no visible continuation—appears unfinished",
+      "Logo area feels cramped relative to navigation; logo image alt text only ('Idaho Family') lacks branding polish",
+      "Body copy is gray on white with modest contrast; fine for body text but slightly conservative for a dental brand",
+      "CTA button ('Book appointment →') uses teal but blends with nav—could be bolder or secondary styled for hierarchy"
+    ],
+    "best": "Teal accent color is restrained and professional; doesn't dominate. Navigation is clean and organized by service type. Hero headline is confident and service-aligned ('gentle dentistry for the whole family'). Layout is spacious and uncluttered. Matches dental/family practice positioning.",
+    "at": "2026-07-09T17:28:56.161Z"
+  },
+  {
+    "slug": "idahostreetdental-com",
+    "score": 5,
+    "verdict": "flag",
+    "issues": [
+      "Monochrome color wash: entire hero is tinted green, creating poor contrast and visual monotony despite white text",
+      "No actual hero imagery: gradient background only, missing teeth/smile/dental chair photography that builds trust and shows the service",
+      "Logo placement awkward: small and disconnected from headline; logo text says 'Idaho Street Dental' but feels like an afterthought",
+      "CTA button blends into background: teal 'Book appointment' button lacks sufficient contrast against green gradient",
+      "Copy is generic dental boilerplate ('gentle dentistry for the whole family') with no differentiator or local personality",
+      "Template feel: layout and messaging could apply to any family dental practice; no unique value proposition visible",
+      "Navigation feels corporate/sterile; lacks warmth matching 'family friendly' claim"
+    ],
+    "best": "White headline typography is clean and legible; navigation structure is organized and accessible",
+    "at": "2026-07-09T17:29:01.297Z"
+  },
+  {
+    "slug": "ivanmedinadds-com",
+    "score": 7,
+    "verdict": "pass",
+    "issues": [
+      "Hero image missing or not visible - relies entirely on text, reducing visual interest",
+      "Navigation menu text is small and could have better contrast against white background",
+      "CTA button ('Book appointment') is good but could be more prominent given it's primary conversion goal",
+      "Brand burgundy color is well-used as accent but feels slightly underutilized in the hero section"
+    ],
+    "best": "Typography is clean and professional; color palette (burgundy + blue) is harmonious and appropriate for healthcare; layout is well-balanced with generous whitespace; headline copy is clear and directly matches service offering; no template artifacts or brand mismatches detected",
+    "at": "2026-07-09T17:29:05.595Z"
+  },
+  {
+    "slug": "jorgealvarezdds-com",
+    "score": 7,
+    "verdict": "pass",
+    "issues": [
+      "Hero image missing or not visible—text-only hero lacks visual interest and professional photography",
+      "Navigation menu is dense and could benefit from better visual hierarchy",
+      "Chat widget (bottom right) appears generic/template-like, breaks custom branding"
+    ],
+    "best": "Clean, readable typography with strong hierarchy; appropriate use of blue accent color for CTAs without overwhelming the page; headline copy is clear and directly addresses the service offering",
+    "at": "2026-07-09T17:29:09.542Z"
+  },
+  {
+    "slug": "kccfamily-org",
+    "score": 6,
+    "verdict": "flag",
+    "issues": [
+      "Green brand color creates subtle monochrome tint across hero image, reducing contrast and visual clarity",
+      "Large partial image of 'GREAT' text at bottom is cut off and unclear—appears unfinished or poorly cropped",
+      "Headline legibility is strong, but the overlaid text on image creates slight readability tension",
+      "CTA button 'Plan your visit' is good, but feels like a template pattern rather than bespoke design",
+      "Hero image people appear slightly desaturated/tinted green, suggesting heavy color filter rather than natural photography",
+      "No visible differentiator—layout and structure feel generic church-site boilerplate"
+    ],
+    "best": "Typography hierarchy is clean and confident; navigation is uncluttered; tagline copy is clear and mission-aligned",
+    "at": "2026-07-09T17:29:14.401Z"
+  },
+  {
+    "slug": "kcmortgagecolorado-com",
+    "score": 6,
+    "verdict": "flag",
+    "issues": [
+      "Headline is extremely long and cramped—difficult to scan quickly; should prioritize the most compelling USP first",
+      "Hero image (Kay Cleland portrait) feels disconnected from the service offering; no visual context for mortgage/lending products",
+      "Navigation bar lacks visual hierarchy—all caps links blend together; 'Get Started' button is the only accent but feels isolated",
+      "Color palette is muted (grays/golds); brand accent (gold button) is underutilized and doesn't reinforce trust or professionalism for financial services",
+      "Layout feels split rather than integrated—left text block and right image don't create a cohesive hero experience",
+      "No clear value proposition visible above the fold; 'First Time Homebuyer Loans, Manufactured Homes' is descriptive but not emotionally compelling",
+      "Missing CTAs or trust signals (rates, certifications, testimonials) that financial services require"
+    ],
+    "best": "Clean typography and professional headshot; navigation structure is clear; no broken elements or egregious template artifacts",
+    "at": "2026-07-09T17:29:20.439Z"
+  },
+  {
+    "slug": "kingdomculturephx-com",
+    "score": 7,
+    "verdict": "pass",
+    "issues": [
+      "Hero image area is blank/white – lacks visual interest and doesn't leverage above-the-fold real estate effectively",
+      "Gold/olive button color is appropriate but could feel dated; minimal color strategy overall",
+      "Typography hierarchy is strong but the page feels sparse – needs supporting imagery or visual elements",
+      "Chat widget in bottom-right corner is generic and doesn't reinforce brand identity"
+    ],
+    "best": "Clean, legible headline ('Come as you are') with clear value prop. Excellent type hierarchy and breathing room. Tagline contextualizes the church clearly. CTA button is prominent and action-oriented. Navigation is professional and uncluttered.",
+    "at": "2026-07-09T17:29:24.735Z"
+  },
+  {
+    "slug": "latahcreekfamilydentistry-com",
+    "score": 6,
+    "verdict": "flag",
+    "issues": [
+      "Hero image is cut off/not fully visible in screenshot - appears cropped awkwardly on right side",
+      "Blue brand color dominates too heavily (nav bar, buttons, chat widget) creating slight monochromatic wash",
+      "Navigation menu text is small and lacks visual hierarchy",
+      "Logo/brand name partially cut off in top-left corner",
+      "Chat widget (bottom-right) feels intrusive for above-the-fold real estate",
+      "Headline is good but body copy is generic/template-like ('Our dentistry staff will work with...')",
+      "CTA button 'Book appointment →' is tiny and understyled for primary action"
+    ],
+    "best": "Headline is clear, professional serif typography; color palette (navy + bright blue) is dentistry-appropriate; copy messaging (patient-focused, family-friendly) aligns with business type",
+    "at": "2026-07-09T17:29:29.790Z"
+  },
+  {
+    "slug": "lifepointecc-com",
+    "score": 6,
+    "verdict": "flag",
+    "issues": [
+      "Hero image is extremely faint/washed out - logo barely visible, lacks visual impact",
+      "Color application is monochromatic wash effect (light beige/cream tint over everything) - reduces visual hierarchy",
+      "Large whitespace on right side of hero creates imbalanced composition",
+      "CTA button 'Plan your visit' lacks visual prominence relative to headline",
+      "Tagline 'Discover Full Life in Jesus' is small and underpowered for hero section",
+      "No clear visual separation between text and background imagery",
+      "Image feels low contrast and low-energy for a church homepage hero"
+    ],
+    "best": "Typography is clean and readable; brand green accent color is tasteful; navigation is clear; 'Come as you are' headline matches church positioning well",
+    "at": "2026-07-09T17:29:34.922Z"
+  },
+  {
+    "slug": "mckeanins-com",
+    "score": 5,
+    "verdict": "flag",
+    "issues": [
+      "Monochromatic gray wash dominates entire hero—brand blue accent barely visible, creates muddy, depressing aesthetic",
+      "Background image is heavily tinted/desaturated, reducing visual interest and professionalism",
+      "Headline legibility compromised by low contrast against dark gradient background",
+      "Copy ('trusted service, close to home') is generic and could apply to any local business—lacks specificity about what mckeanins.com actually does",
+      "No clear value proposition or service definition visible; business type is ambiguous",
+      "Spacing is adequate but overall composition feels template-heavy and uninspired",
+      "Blue CTA buttons are the only visual relief, making them work too hard to carry design weight"
+    ],
+    "best": "CTA button color and basic layout structure are clean; whitespace is respectful and not cramped",
+    "at": "2026-07-09T17:29:39.905Z"
+  },
+  {
+    "slug": "mckinneydentaltn-com",
+    "score": 7,
+    "verdict": "pass",
+    "issues": [
+      "Hero image area is blank/missing – significant lost opportunity for visual trust-building in dental practice",
+      "Blue CTA button is solid and functional but lacks subtle hover state design visible in screenshot",
+      "Typography hierarchy is strong but could benefit from slightly more generous line-height on the body copy for readability"
+    ],
+    "best": "Excellent headline clarity and brand voice; blue accent color is restrained and professional; layout is clean with proper breathing room; copy directly addresses target market (Chattanooga families); navigation is intuitive and complete",
+    "at": "2026-07-09T17:29:43.908Z"
+  },
+  {
+    "slug": "michaelduvalldds-com",
+    "score": 5,
+    "verdict": "flag",
+    "issues": [
+      "Monochrome color wash: The entire hero is flooded with yellow/gold, creating a single-tone tint that overwhelms the design and reduces visual hierarchy",
+      "Logo branding mismatch: Small logo in top-left uses blue accent; site is entirely yellow—inconsistent brand application",
+      "Hero imagery missing: No dental/clinical photography or relevant visual content; purely text-based hero lacks professional visual anchor",
+      "Copy-content disconnect: 'Best Dentists in Chattanooga, TN' is buried in small text at bottom of hero; doesn't support the main headline visually",
+      "Template feel: Predictable layout, generic 'Book appointment' button styling, and standard navigation read as stock website",
+      "Contrast issue: White text on yellow is legible but creates eye strain; lacks sophistication in color pairing",
+      "No trust signals visible: No credibility markers (credentials, photos, testimonials) in above-fold area despite 'TESTIMONIALS' nav item existing"
+    ],
+    "best": "Headline is large and immediately readable; messaging is clear ('gentle dentistry for the whole family')",
+    "at": "2026-07-09T17:29:49.893Z"
+  },
+  {
+    "slug": "midtownfamilydentistry-com",
+    "score": 6,
+    "verdict": "flag",
+    "issues": [
+      "Color wash: Orange tint dominates entire hero—monochromatic background reduces visual hierarchy and feels flat",
+      "Hero imagery missing: No dental/smile/clinical visuals present; text-only hero weakens credibility for a dental practice",
+      "Contrast concern: White text on orange gradient is legible but not premium; lacks sophistication for healthcare brand",
+      "CTA button: 'Book appointment →' uses same orange as background (low contrast edge), slightly undermines clarity",
+      "Layout: Heavy left-aligned text block feels static; no counterbalancing visual element on right side",
+      "Trust factor: Minimal visual proof (no team photos, facility images, patient testimonials, credentials shown)"
+    ],
+    "best": "Logo design is clean and readable; headline copy is clear and benefit-focused; navigation structure is organized",
+    "at": "2026-07-09T17:29:56.021Z"
+  },
+  {
+    "slug": "missionhills-org",
+    "score": 6,
+    "verdict": "flag",
+    "issues": [
+      "Monochromatic teal wash dominates entire viewport—no meaningful color hierarchy or accent contrast",
+      "Hero headline is large but lacks visual anchor; copy blends into background without sufficient contrast management",
+      "White text on teal is readable but feels flat; no secondary visual elements (image, shape, pattern) to break monotony",
+      "Layout is safe but generic—feels template-driven; no differentiation from dozens of church sites using identical structure",
+      "CTA button ('Plan your visit') is styled identically to nav items; weak visual distinction for primary action",
+      "Logo is present but small; brand personality undefined beyond institutional color choice",
+      "Copy is warm and welcoming but generic—could apply to any 50 churches; no distinctive positioning"
+    ],
+    "best": "Typography is clean and legible; messaging tone is genuinely inclusive and inviting; spacing is uncluttered",
+    "at": "2026-07-09T17:30:01.227Z"
+  },
+  {
+    "slug": "montessoriatlonetree-com",
+    "score": 7,
+    "verdict": "pass",
+    "issues": [
+      "Orange CTA button could be more refined in shade/styling",
+      "Right-side classroom image slightly underutilized—could extend higher or be better integrated with text hierarchy",
+      "Tagline font weight could provide more contrast against background"
+    ],
+    "best": "Strong typographic hierarchy, clean left-right balance, warm/professional color palette, authentic classroom imagery, messaging aligned perfectly with Montessori school positioning, logo consistent with brand voice",
+    "at": "2026-07-09T17:30:05.136Z"
+  },
+  {
+    "slug": "morris-family-dentistry",
+    "score": 6,
+    "verdict": "flag",
+    "issues": [
+      "Monochromatic color wash: entire hero is desaturated/muted gray overlay, drastically reducing visual impact and brand presence",
+      "Hero imagery appears professionally photographed but heavily tinted—loses vitality and feels dated",
+      "CTA button color (dark teal) has minimal contrast against the grayed backdrop; barely stands out",
+      "Typography is elegant but the gray wash makes the headline blend into background rather than command attention",
+      "Address text is small and low-contrast against the overlay—readability concern",
+      "No visible brand accent color differentiation; site feels corporate-generic rather than owning a distinctive visual identity"
+    ],
+    "best": "Headline is well-written and immediately communicates value; copy tone is warm and professional; layout is clean and centered with proper breathing room; logo/business name alignment is solid; address and CTA placement is logical",
+    "at": "2026-07-09T17:30:10.342Z"
+  },
+  {
+    "slug": "mosaicchurch-live",
+    "score": 7,
+    "verdict": "pass",
+    "issues": [
+      "Hero image area is blank/placeholder—undermines visual impact for above-the-fold",
+      "Tagline 'A PLACE TO FIND AND FOLLOW JESUS' is small and de-emphasized; could anchor stronger",
+      "CTA button 'Plan your visit' is solid but could benefit from secondary call-to-action",
+      "Navigation bar is clean but minimal—relies heavily on the hero to drive engagement"
+    ],
+    "best": "Restrained, tasteful use of teal accent color (nav, buttons, chat). Clear hierarchy with bold headline. No monochrome wash or template artifacting. Logo and messaging align (faith-based organization). Spacing and alignment are professional and balanced.",
+    "at": "2026-07-09T17:30:15.889Z"
+  },
+  {
+    "slug": "movechurch-ca",
+    "score": 7,
+    "verdict": "pass",
+    "issues": [
+      "Hero image is dark/underexposed—faces and details are obscured, reducing visual impact",
+      "CTA button could be more prominent; green is good but could pop more against the light background",
+      "Spacing between headline and subheading is generous but feels slightly loose",
+      "Image crop/framing is awkward—subjects are out of focus and composition feels accidental rather than intentional"
+    ],
+    "best": "Clean typography hierarchy, trustworthy color palette (institutional green), professional copy tone matches church positioning, nav is clear and uncluttered, layout is balanced and not cramped",
+    "at": "2026-07-09T17:30:20.077Z"
+  },
+  {
+    "slug": "mrutherfordlaw-com",
+    "score": 6,
+    "verdict": "flag",
+    "issues": [
+      "Orange monochrome wash dominates entire hero—lacks visual hierarchy and feels one-note despite being a professional legal services site",
+      "Logo image placeholder ('Creating Solutions Together' alt text) suggests missing or broken logo asset",
+      "Navigation menu items (FAMILY LAW, DIVORCE, etc.) have zero visual contrast against orange background—readability suffers",
+      "Hero image completely absent or invisible against orange gradient—relies entirely on typography",
+      "CTA button ('Request a free consult') blends into background orange; low contrast against hero",
+      "Tagline 'steady counsel when it matters most' is generic and doesn't reinforce the modern/friendly positioning claimed below",
+      "Right-aligned chat icon feels orphaned; placement lacks intentionality"
+    ],
+    "best": "Bold, confident typography is well-sized and readable in white. The 'modern, friendly service' subheading is on-brand promise. Free consult CTA is clear in intent. Overall structure is sound but undermined by color execution.",
+    "at": "2026-07-09T17:30:26.781Z"
+  },
+  {
+    "slug": "myfaithtab-com",
+    "score": 6,
+    "verdict": "flag",
+    "issues": [
+      "Hero image is significantly blurred/out of focus—reduces professionalism and legibility of 'Welcome to Bernacle South' text",
+      "Right-side image text is partially cut off ('ITH • FAMILY • FELLOWSHI' missing final letters)—suggests responsive design failure or poor cropping",
+      "Color scheme is somewhat muted; the rust/burgundy accent is appropriate but underutilized—feels safe rather than distinctive",
+      "Tagline ('Faith that grows, family that thrives, fellowship that lasts') is generic—could apply to many churches; doesn't differentiate",
+      "Layout is asymmetrical but functional; however, the overlapping text box on the hero image creates visual tension rather than hierarchy",
+      "Call-to-action button is clear, but 'Plan your visit' is standard—no urgency or unique value prop"
+    ],
+    "best": "Clear navigation structure, legible headline 'Come as you are' establishes welcoming tone, and burgundy accent color is contextually appropriate for a faith community.",
+    "at": "2026-07-09T17:30:32.528Z"
+  },
+  {
+    "slug": "myrkmhome-com",
+    "score": 7,
+    "verdict": "pass",
+    "issues": [
+      "Headline uses serif font that feels slightly formal/corporate rather than approachable for residential home services",
+      "Green CTA button competes slightly with the hero image composition",
+      "Tagline 'Building Dreams For Your Lifestyle' is generic and could apply to many contractors",
+      "Hero image quality is good but composition places house center-right, leaving empty sky on left"
+    ],
+    "best": "Clean, professional layout with excellent breathing room. Strong visual hierarchy: headline > tagline > CTA. Color palette (green + blue + neutral) is harmonious and on-brand. Navigation is clear. House imagery is natural and well-lit, reinforcing the residential contractor business type. Logo-to-business alignment is solid (RKM Homes = home remodeling/construction). Typography is legible. Spacing and alignment are professional-grade.",
+    "at": "2026-07-09T17:30:37.967Z"
+  },
+  {
+    "slug": "new3c-org",
+    "score": 5,
+    "verdict": "flag",
+    "issues": [
+      "Monochromatic teal wash floods entire hero—no tasteful accent use of brand color, creates visual monotony",
+      "Logo image appears broken or placeholder (shows alt text 'Deactivated FaithConnector Church Website' rather than actual logo)",
+      "Site name mismatch: header says 'Deactivated FaithConnector' but should display active branding—'deactivated' is embarrassing for live business",
+      "Copy 'Come as you are' is generic; lacks church-specific warmth or mission clarity expected for faith organization",
+      "CTA button 'Plan your visit' is appropriate but underdeveloped—no supporting context about services, times, location",
+      "Gradient overlay obscures any potential background imagery; feels unfinished rather than intentional",
+      "No visual hierarchy between headline size and body copy—text feels floating rather than anchored",
+      "Missing essential church info above fold: service times, location, core message"
+    ],
+    "best": "Generous whitespace and clean sans-serif typography are readable; welcoming tone matches church mission",
+    "at": "2026-07-09T17:30:43.882Z"
+  },
+  {
+    "slug": "newhopechristianchurch-com",
+    "score": 6,
+    "verdict": "flag",
+    "issues": [
+      "Hero image is a generic placeholder (faint, low-contrast, unclear relevance to 'Hope Lives Here')",
+      "Color palette relies too heavily on one blue—lacks secondary accent colors for visual depth and interest",
+      "'Hope Lives Here' tagline is vague and doesn't communicate what the business actually does or offers",
+      "Layout feels sparse and unfinished—large empty space below fold suggests incomplete design",
+      "Logo area appears empty/placeholder on left—brand identity unclear",
+      "CTA button 'Plan your visit' is generic; no context for what visitor is planning or why",
+      "Typography hierarchy is weak—subheading is same weight/size as supporting text",
+      "Mobile nav icon suggests responsive design may not be tested thoroughly"
+    ],
+    "best": "Clean nav bar, clear blue CTA buttons with good contrast, breathing room in hero section",
+    "at": "2026-07-09T17:30:48.791Z"
+  },
+  {
+    "slug": "niedermaninsurance-com",
+    "score": 5,
+    "verdict": "flag",
+    "issues": [
+      "Monochromatic maroon color wash dominates entire hero—reduces contrast and visual hierarchy",
+      "Headline is extremely long (8+ lines) and dense; difficult to scan quickly",
+      "No imagery in hero section—looks text-heavy and static for an insurance broker",
+      "Navigation bar text (HOME, SERVICES, ABOUT) is small and low-contrast against cream background",
+      "Typography hierarchy unclear; no visual break between headline and supporting copy",
+      "Logo + site name (Niederman Insurance Agency) doesn't appear in hero—weak brand presence",
+      "Cream background + maroon text lacks modern polish; feels dated/template-like",
+      "CTA button (Free Quote) is isolated in top-right; should anchor the hero primary message",
+      "No trust signals (badges, certifications, testimonial teasers) visible above fold"
+    ],
+    "best": "Navigation menu is clean and well-organized at top",
+    "at": "2026-07-09T17:30:54.197Z"
+  },
+  {
+    "slug": "northland",
+    "score": 5,
+    "verdict": "flag",
+    "issues": [
+      "Hero headline is barely legible—white text on light background creates severe contrast failure",
+      "Monochromatic wash of pale text across entire hero section (automatic ≤4 violation)",
+      "Subheading text is nearly invisible, defeating communication purpose",
+      "Generic, template-heavy design with no distinctive visual identity",
+      "Hero background imagery is washed out/tinted to the point of being unusable",
+      "Copy ('local, dependable, easy to work with') is vague and could apply to any service business—no differentiation",
+      "Visual hierarchy is broken; critical messaging is subordinated to whitespace",
+      "Four benefit callouts at bottom feel tacked-on and generic ('Locally owned', 'Great reviews'—every small business claims these)"
+    ],
+    "best": "Clean, minimal nav bar and clear CTA buttons (blue is appropriate accent color when used correctly)",
+    "at": "2026-07-09T17:30:59.189Z"
+  },
+  {
+    "slug": "northspokanedental-com",
+    "score": 6,
+    "verdict": "flag",
+    "issues": [
+      "Hero headline is massive but lacks supporting imagery—empty right half feels unfinished and unbalanced",
+      "No hero image/visual to anchor above-the-fold; text-only design feels incomplete for a dental practice",
+      "Color palette is muted (navy + pale gold accent); the gold circular element bottom-right feels orphaned and decorative rather than functional",
+      "Tagline 'gentle dentistry for the whole' is cut off mid-sentence—appears truncated or incomplete",
+      "Logo and site title both say 'North Spokane Dental Practice' but lack visual distinction; feels redundant",
+      "No CTA button visible above fold besides 'New Patients' header button—weak conversion path",
+      "Layout is left-aligned text dump; right side is blank white space suggesting poor grid planning"
+    ],
+    "best": "Typography hierarchy is clean and legible; 'gentle dentistry' messaging is appropriate for the dental niche",
+    "at": "2026-07-09T17:31:05.198Z"
+  },
+  {
+    "slug": "orchard-creek-dentistry",
+    "score": 6,
+    "verdict": "flag",
+    "issues": [
+      "Dark overlay tints entire hero image, reducing visual clarity and making dentistry space feel gloomy rather than clean/welcoming",
+      "Headline serif font lacks hierarchy contrast—'gentle dentistry' emphasis box feels afterthought, not intentional design",
+      "Green accent button (CTA) is only pop of brand color; underutilized in nav/branding—feels disconnected from overall palette",
+      "Address text is small and low-contrast against overlay; trust signifier buried",
+      "Hero copy is generic ('gentle dentistry for the whole family')—could be any dental practice; no differentiation",
+      "Logo wordmark lacks visual distinction; doesn't anchor brand identity strongly"
+    ],
+    "best": "Clean, modern dentistry interior photography; professional layout structure; green CTA button is crisp; address grounds credibility",
+    "at": "2026-07-09T17:31:10.623Z"
+  },
+  {
+    "slug": "osborndentureclinic-com",
+    "score": 6,
+    "verdict": "flag",
+    "issues": [
+      "Monochromatic teal wash dominates entire hero—color floods the composition rather than accenting tastefully",
+      "No visual imagery or photography shown (no dentist/clinic/patient context visible)",
+      "Copy claims 'gentle dentistry' but this is a denture clinic—messaging misaligned with actual service offering",
+      "Logo/text treatment feels generic; no distinctive visual identity beyond the color",
+      "CTA button blends into background due to similar teal—insufficient contrast/hierarchy",
+      "15+ years claim needs credibility markers (credentials, testimonials, before/afters for dentures)",
+      "Text legibility acceptable but the teal-on-slightly-darker-teal creates fatigue"
+    ],
+    "best": "Clean typography, simple layout structure, and mobile-ready apparent sizing",
+    "at": "2026-07-09T17:31:15.882Z"
+  },
+  {
+    "slug": "oxfordbaptist-ca",
+    "score": 7,
+    "verdict": "pass",
+    "issues": [
+      "Hero image area is completely blank/missing—seems unfinished or failed to load",
+      "Heavy reliance on single teal color creates slight monotone feeling",
+      "Tagline is small and could be more prominent relative to massive headline",
+      "No visible social proof, testimonials, or secondary calls-to-action above fold"
+    ],
+    "best": "Excellent headline hierarchy and legibility; clean, spacious layout; brand color used as purposeful accent rather than wash; copy clearly matches a faith-based organization; professional navigation and CTA button placement",
+    "at": "2026-07-09T17:31:20.268Z"
+  },
+  {
+    "slug": "paramounttitle-com",
+    "score": 7,
+    "verdict": "pass",
+    "issues": [
+      "Hero image (Union Station) doesn't clearly connect to 'title agency' services—feels stock/generic rather than communicating closing/title work",
+      "Tagline 'closings that actually close on time' is clever but could be more explicitly trustworthy/professional in tone",
+      "CTA button 'Open an order' is vague; 'Start a Title Search' or 'Schedule Closing' would be clearer",
+      "Color palette safe but unremarkable—navy + light gray lacks personality for a premium service brand"
+    ],
+    "best": "Clean, legible hierarchy. Professional nav structure. Solid spacing and alignment. The dark navy and white combo is trustworthy and on-brand for financial/legal services. Logo is crisp. No template smell or misalignment.",
+    "at": "2026-07-09T17:31:25.187Z"
+  },
+  {
+    "slug": "paxchristi",
+    "score": 8,
+    "verdict": "pass",
+    "issues": [
+      "Dark teal/navy background risks readability for some users; white text contrast is good but hero imagery/background relationship unclear",
+      "Six sightline options at top (Living Light, Reverent, etc.) feel somewhat redundant without immediate context—may confuse first-time visitors",
+      "CTA buttons ('Plan your first visit' vs 'Watch a message') compete subtly; hierarchy could be sharper"
+    ],
+    "best": "Sophisticated, intentional color palette (deep teal + cream/white) feels premium and on-brand for Catholic institution. Typography is elegant and spacious. Clear welcome copy ('You belong at the table') aligns perfectly with mission. Navigation is modern and uncluttered. Layout has breathing room—nothing feels cramped or template-y.",
+    "at": "2026-07-09T17:31:30.452Z"
+  },
+  {
+    "slug": "paxchristi-org",
+    "score": 5,
+    "verdict": "flag",
+    "issues": [
+      "Monochromatic color wash — entire page is orange/gold gradient with no meaningful accent variation or contrast hierarchy",
+      "Hero headline is legible but copy below is thin, low-contrast white text on warm orange that fatigues reading",
+      "Navigation menu text (PRAYER & WORSHIP, SPIRITUAL ENRICHMENT, etc.) blends into background with insufficient contrast",
+      "Logo placement/sizing appears cramped in top-left corner; logo image itself is difficult to read against background",
+      "CTA button ('Plan your visit') uses same orange as background with darker orange text — poor contrast and visual separation",
+      "Copy is truncated mid-sentence ('Pax Christi Catholic Community's Mission …') suggesting incomplete or placeholder content",
+      "Layout lacks breathing room; content feels anchored only to upper-left quadrant with massive empty space below",
+      "Template-y feel: generic welcome copy, overused 'You're welcome here' messaging without church-specific personality"
+    ],
+    "best": "Clear, well-sized hero headline; straightforward navigation structure; appropriate warmth for faith organization",
+    "at": "2026-07-09T17:31:36.259Z"
+  },
+  {
+    "slug": "paxpres-com",
+    "score": 7,
+    "verdict": "pass",
+    "issues": [
+      "Hero image (ocean) is generic and doesn't convey 'church' or 'community family' messaging—feels disconnected from purpose",
+      "CTA button 'Plan your visit' is functional but visually understated for primary action",
+      "Navigation items could use slight visual hierarchy; all caps text feels rigid",
+      "No visible loading of trust signals (testimonials, stats, service times) above fold"
+    ],
+    "best": "Clean typography hierarchy, excellent color restraint (dark navy + light blue = harmonious), well-balanced layout with proper breathing room, logo/brand alignment clear, professional polish throughout",
+    "at": "2026-07-09T17:31:40.788Z"
+  },
+  {
+    "slug": "petrachurch-net",
+    "score": 7,
+    "verdict": "pass",
+    "issues": [
+      "Hero image has slight sepia/warm tint that could read as dated or overly filtered",
+      "CTA button 'Plan your visit' is small and could be more prominent for conversion",
+      "Typography hierarchy is clear but body copy is quite light gray—contrast could be stronger for accessibility"
+    ],
+    "best": "Excellent asymmetrical layout with strong breathing room; headline is bold and legible; mountain imagery matches spiritual/faith messaging authentically; brown accent color feels warm and intentional without overwhelming; no template smell or misalignment issues",
+    "at": "2026-07-09T17:31:44.892Z"
+  },
+  {
+    "slug": "platte-canyon-dental-care",
+    "score": 7,
+    "verdict": "pass",
+    "issues": [
+      "Hero image appears to show a modern office/medical space rather than dental-specific imagery—lacks immediate industry context",
+      "CTA button ('Book appointment') uses arrow icon which is slightly trendy but acceptable",
+      "Tagline 'Local, friendly, and ready to help' is generic; could be any service business"
+    ],
+    "best": "Strong serif headline with excellent legibility; navy accent color is professional and restrained; clean navigation; layout is balanced with appropriate white space; logo and site name align; button placement clear",
+    "at": "2026-07-09T17:31:49.661Z"
+  },
+  {
+    "slug": "refugeindy-com",
+    "score": 6,
+    "verdict": "flag",
+    "issues": [
+      "Right-side hero image is cut off mid-word ('JESUS' and 'PSALM' incomplete) — appears unfinished or poorly cropped",
+      "Monochromatic blue wash on hero image creates readability tension and feels like a color tint rather than intentional design",
+      "Left and right content feel disconnected; no visual bridge between text block and image",
+      "CTA button 'Plan your visit' uses arrow but no clear destination signal — generic feel",
+      "Tagline 'The Gospel is Central' is small and lacks visual hierarchy relative to main headline",
+      "Chat widget (bottom right) appears functional but not integrated into design language"
+    ],
+    "best": "Headline 'Find your place here' is clear and welcoming; brand logo reads professional; navigation is clean and uncluttered",
+    "at": "2026-07-09T17:31:54.629Z"
+  },
+  {
+    "slug": "revivedental-org",
+    "score": 6,
+    "verdict": "flag",
+    "issues": [
+      "Color wash: Orange/warm gradient floods entire hero—monochromatic tint reduces contrast and visual hierarchy",
+      "Hero imagery: No actual photo visible; relies solely on typography against gradient, feels incomplete",
+      "Trust concern: 'New Patients' button style/placement inconsistent with primary CTA ('Book appointment'); mixed messaging",
+      "Layout: Left-aligned text block is solid, but right side appears empty—asymmetrical and unfinished",
+      "Logo: Subtle 'Revive Dental' text logo top-left is barely visible against warm background; brand presence weak",
+      "Copy match: 'Gentle dentistry' is appropriate, but non-profit mission statement buried—should be more prominent for a mission-driven org"
+    ],
+    "best": "Clear, confident headline typography and honest value proposition (non-profit, low-cost, uninsured focus) communicate business intent effectively",
+    "at": "2026-07-09T17:32:00.364Z"
+  },
+  {
+    "slug": "rosechurch-ca",
+    "score": 7,
+    "verdict": "pass",
+    "issues": [
+      "Hero image area is blank/missing—seems unfinished or slow-loading",
+      "Color palette is safe but somewhat generic for a church brand",
+      "CTA button text 'Plan your visit →' is functional but uninspiring",
+      "Logo/brand identity not visible in screenshot—hard to assess cohesion"
+    ],
+    "best": "Clean, readable typography hierarchy; trustworthy neutral tone; clear value proposition ('life-giving church community'); professional navigation; appropriate accent color use (not oversaturated)",
+    "at": "2026-07-09T17:32:04.170Z"
+  },
+  {
+    "slug": "rosslawcolorado-com",
+    "score": 7,
+    "verdict": "pass",
+    "issues": [
+      "Hero image feels stock-photo generic (hands with ring) – low uniqueness for legal firm",
+      "Nav bar could use stronger visual hierarchy; 'Free Consult' button blends into dark header",
+      "Headline is strong but body copy is small and gray on light – readability could improve",
+      "CTA button ('Request a free consult') could be more prominent given conversion goal"
+    ],
+    "best": "Clean, professional layout with excellent typography hierarchy in headline. Navy/teal accent color applied tastefully (not oversaturated). Logo and firm name aligned. Good breathing room and balanced spacing overall. Relevant imagery for family/estate law context. Trustworthy for a legal practice website.",
+    "at": "2026-07-09T17:32:08.846Z"
+  },
+  {
+    "slug": "shallowfordfamilydental-com",
+    "score": 5,
+    "verdict": "flag",
+    "issues": [
+      "Monochromatic green wash — entire site is tinted with brand color, reducing contrast and visual hierarchy",
+      "Hero image (logo) is barely visible/integrated — appears lost in the green background",
+      "Typography lacks breathing room — large headline lacks visual rest from solid color field",
+      "CTA button ('Book appointment') blends into background — insufficient color contrast",
+      "Copy mentions 'Chattanooga, TN' prominently but tagline is generic/boilerplate ('gentle dentistry for the whole family')",
+      "No visual hierarchy between headline and supporting copy — both swim in green",
+      "Layout feels flat — no depth, layering, or visual separation of sections",
+      "Trust signals weak — no images of actual dentists/hygienists/office, no patient testimonials visible, no credentials displayed"
+    ],
+    "best": "Tagline clearly matches dental business; navigation structure is present and organized",
+    "at": "2026-07-09T17:32:14.412Z"
+  },
+  {
+    "slug": "smilespokanevalley-com",
+    "score": 7,
+    "verdict": "pass",
+    "issues": [
+      "Hero text is large but slightly cramped with 4 lines; could break more elegantly",
+      "Incomplete copy ('providing quality dental care for children, teens, and adults. Cal') appears cut off mid-sentence",
+      "Navy color is functional but somewhat conservative/safe for modern dentistry—could benefit from warmer accent",
+      "Hero image missing entirely—dentistry site with no visual is a missed opportunity for trust/warmth",
+      "CTA button color blends too closely with nav bar (same navy); should contrast more"
+    ],
+    "best": "Clean, professional layout with excellent typography hierarchy; logo/name alignment is consistent; navigation is clear and appropriately sparse; copy tone matches family-friendly positioning",
+    "at": "2026-07-09T17:32:19.682Z"
+  },
+  {
+    "slug": "smokyhillumc-org",
+    "score": 5,
+    "verdict": "flag",
+    "issues": [
+      "Monochromatic orange wash dominates entire above-fold—no visual hierarchy or accent restraint. Color floods background, headline, and CTA indistinguishably.",
+      "Hero copy is cut off mid-sentence ('We encourage' with no completion visible)—appears unfinished and unprofessional.",
+      "Logo poorly integrated—'SHUMC' text label redundant beside logo; awkward placement in top-left corner.",
+      "No imagery or visual interest beyond flat orange gradient—hero feels hollow and template-heavy.",
+      "CTA button ('Plan your visit →') blends into background due to similar orange tone—poor contrast and discoverability.",
+      "Headline legible but generic; lacks personality or warmth expected from a church brand.",
+      "Navigation menu compressed and cramped at top—no breathing room.",
+      "Small business church wouldn't pay for this: feels abandoned mid-build, lacks polish and completion."
+    ],
+    "best": "Headline size and white text pop against orange; navigation structure is sensible.",
+    "at": "2026-07-09T17:32:25.665Z"
+  },
+  {
+    "slug": "southdenverobgyn-com",
+    "score": 7,
+    "verdict": "pass",
+    "issues": [
+      "Hero image appears slightly soft/compressed in quality",
+      "CTA button text could use stronger affordance (arrow is small)",
+      "Tagline font hierarchy could be more distinct from body copy"
+    ],
+    "best": "Clean navy accent color used sparingly and effectively; headline is immediately legible and on-brand; layout is well-balanced with proper breathing room; logo and service name align professionally; image choice (mother/child outdoors) perfectly matches OB/GYN/midwifery positioning",
+    "at": "2026-07-09T17:32:29.776Z"
+  },
+  {
+    "slug": "southwestheating-com",
+    "score": 5,
+    "verdict": "flag",
+    "issues": [
+      "Monochrome red wash dominates entire viewport—brand color floods design instead of accenting. Automatic deduction per criteria.",
+      "Navigation text (white on red) has adequate contrast but feels strained; no visual hierarchy between nav items.",
+      "Hero imagery appears to be a generic gradient/texture rather than photography relevant to HVAC work—lacks authenticity and professionalism.",
+      "Logo placement is cramped in top-left; logo image itself is small and unclear.",
+      "Large body copy block (phone number + guarantee) sits in low-contrast zone near bottom; readability compromised.",
+      "CTA button ('Get a free estimate') blends into background due to red-on-red treatment—should pop.",
+      "Layout feels unbalanced: heavy text weight on left, empty right side, chat bubble isolated bottom-right.",
+      "Overall impression reads as template-heavy with insufficient customization for a professional HVAC contractor."
+    ],
+    "best": "Headline is clear and on-brand messaging ('dependable work, done right the first time') matches the business well.",
+    "at": "2026-07-09T17:32:35.529Z"
+  },
+  {
+    "slug": "spokanevalleydds-com",
+    "score": 6,
+    "verdict": "flag",
+    "issues": [
+      "Navy blue dominates the design (hero text, nav, buttons) creating a monochromatic wash that lacks visual hierarchy and accent contrast",
+      "Cursive script headline is stylistically inconsistent with the professional navy nav/buttons—mixed design language feels disjointed",
+      "No hero image despite 'for the whole family' positioning—missed opportunity to humanize the practice and build trust with faces/smiles",
+      "Excessive use of one navy shade; no complementary or accent colors to guide attention or add visual interest",
+      "Typography pairing (script + sans-serif) works thematically but clashes in execution—script feels decorative rather than professional",
+      "CTA button blends into nav styling rather than standing out as primary action"
+    ],
+    "best": "Clean, spacious layout with good breathing room. Clear hierarchy of information. 'Psomas, Warnica and Jones, DDS' name establishes credibility immediately.",
+    "at": "2026-07-09T17:32:40.670Z"
+  },
+  {
+    "slug": "stmichaelelca-org",
+    "score": 7,
+    "verdict": "pass",
+    "issues": [
+      "Hero image is slightly dark/low-contrast against the text area—legibility is acceptable but could be sharper",
+      "The tagline 'A Welcoming Community of Grace' is small and could have more visual hierarchy",
+      "CTA button 'Plan your visit' is generic; could be more specific to the organization's mission",
+      "Navigation is clean but fairly minimal—standard corporate template feel"
+    ],
+    "best": "Strong, clear headline 'You're welcome here.' instantly communicates warmth and inclusivity. Hero photography is authentic and relevant—diverse group of real people conveys community genuinely. Color palette (navy + cream) is professional and intentional, not a wash. Layout is balanced with proper breathing room. Overall feels trustworthy and appropriate for a faith/community organization.",
+    "at": "2026-07-09T17:32:45.932Z"
+  },
+  {
+    "slug": "stoneaspen-com",
+    "score": 5,
+    "verdict": "flag",
+    "issues": [
+      "Hero headline is nearly illegible—white text on very light background with minimal contrast",
+      "Monochromatic color wash dominates; teal brand color floods the entire hero section making text disappear",
+      "Hero copy is vague ('Signature Builders — injured service, close to home') and doesn't clearly communicate value or service type",
+      "Hero image appears washed out/tinted; unclear what it depicts or if it matches the construction/building business",
+      "Navigation menu items are barely visible against light background",
+      "Tagline 'Ready when you are' feels generic and doesn't reinforce construction/signature builder positioning",
+      "No clear visual hierarchy between elements—everything competes for attention equally",
+      "Template-heavy feel; lacks distinctive branding or personality for a 'signature' builder"
+    ],
+    "best": "Teal accent color on CTAs is clean; nav structure is logical; secondary CTA section at bottom is well-structured with clear benefits list",
+    "at": "2026-07-09T17:32:51.417Z"
+  },
+  {
+    "slug": "thesmilesite-com",
+    "score": 5,
+    "verdict": "flag",
+    "issues": [
+      "Monochromatic red wash overwhelms the entire hero—no tasteful accent use, creates low contrast and fatiguing design",
+      "White text on red background has accessibility concerns; readability is strained",
+      "Hero image (dentist logo) is tiny and lost in upper left—fails to anchor or support the headline",
+      "Layout feels unbalanced: large headline block on left, empty red space on right, no visual anchor or supporting imagery",
+      "Copy mentions 'Bakersfield dentist' but appears generic—no personality, differentiation, or visual hierarchy reinforcing the gentle/family angle",
+      "CTA button ('Book appointment') blends into background due to red-on-red; lacks visual pop",
+      "Navigation bar text is small and competes with headline for attention",
+      "Overall impression: template-heavy, color-flooded, and lacks the polish expected for a dental practice positioning itself as 'trusted' and 'gentle'"
+    ],
+    "best": "Logo and headline typography are clean and legible; navigation structure is logical",
+    "at": "2026-07-09T17:32:57.081Z"
+  },
+  {
+    "slug": "thrive",
+    "score": 8,
+    "verdict": "pass",
+    "issues": [
+      "Teal/cyan brand color dominates hero section—risks monochrome wash (mitigated by white text contrast, but edges toward tint)",
+      "Hero imagery absent; relies entirely on typography (acceptable for faith-focused brand, but no visual anchor)"
+    ],
+    "best": "Excellent typographic hierarchy; tagline 'Faith for the unfinished' is memorable and on-brand. Clear CTA hierarchy (teal button vs. outlined secondary). Navigation clean. Copy authentically matches church mission—not generic. Spacing balanced, logo + name aligned, no template artifacts.",
+    "at": "2026-07-09T17:33:02.197Z"
+  },
+  {
+    "slug": "thrivechurch-com",
+    "score": 6,
+    "verdict": "flag",
+    "issues": [
+      "Color is a monochromatic orange wash that floods the entire viewport—lacks visual hierarchy and breathing room",
+      "Gradient fade (orange to gold) feels generic and doesn't reinforce brand identity distinctly",
+      "Hero headline is legible but unremarkable; copy is generic church language without personality differentiation",
+      "No meaningful imagery—solid color background is lazy for a 2024 website; feels template-heavy",
+      "Logo placement is small and lacks distinction in the top-left corner",
+      "CTA button ('Plan your visit') blends too closely with background; insufficient contrast",
+      "Layout is vertically sparse—lots of dead orange space; could use supporting visuals, testimonials, or service indicators",
+      "Trust signal missing: no service times prominently displayed, no photos of actual location/community, no leadership or social proof",
+      "Navigation is adequate but generic; no visual hierarchy cues"
+    ],
+    "best": "Headline messaging is warm and inviting; simple, uncluttered layout shows restraint",
+    "at": "2026-07-09T17:33:07.721Z"
+  },
+  {
+    "slug": "totallife-org",
+    "score": 6,
+    "verdict": "flag",
+    "issues": [
+      "Hero image cuts off awkwardly at bottom—person appears cropped/unfinished",
+      "Tagline 'Come as you are' repeated twice with no variation (lazy copy)",
+      "No clear business identity—logo area blank, unclear what organization this is",
+      "Color palette is safe but generic; teal accent button feels disconnected from warm portrait",
+      "Layout spacing is loose; white space underutilized above headline",
+      "CTA button ('Plan your visit') vague without context of venue/purpose",
+      "Image appears slightly overexposed/washed in shadows despite blue sky"
+    ],
+    "best": "Navigation is clean and aligned; typography hierarchy is clear; button styling is readable",
+    "at": "2026-07-09T17:33:12.161Z"
+  },
+  {
+    "slug": "truebeautymedspa-com",
+    "score": 7,
+    "verdict": "pass",
+    "issues": [
+      "Hero image cuts off awkwardly at bottom—unclear if intentional or layout break",
+      "CTA button 'Book your visit' lacks visual hierarchy compared to top nav 'Book Now'—redundant messaging",
+      "Tagline 'Relax. Refresh. Rejuvenate. Enhance the beauty within.' is generic spa-speak, doesn't differentiate from competitors",
+      "Green accent color is restrained but underutilized—appears only in buttons and logo, feels safe rather than confident"
+    ],
+    "best": "Typography is clean and professional. Logo–brand name alignment is solid. Color palette (greens + warm neutrals) appropriate for medspa. Navigation layout is uncluttered. Image quality is high and well-lit. Spacing feels intentional, not cramped.",
+    "at": "2026-07-09T17:33:17.329Z"
+  },
+  {
+    "slug": "urimperialbeach-com",
+    "score": 7,
+    "verdict": "pass",
+    "issues": [
+      "Hero image appears cropped/cut off awkwardly at bottom—loses impact",
+      "Teal accent color is well-used but slightly heavy on the CTA button",
+      "Tagline could be more specific to the church's unique value proposition",
+      "Chat widget (bottom right) is functional but slightly distracts from clean design"
+    ],
+    "best": "Strong typography hierarchy, excellent color restraint (teal + dark navy + white), headline is clear and mission-aligned, layout feels balanced and spacious, logo is professional. Copy authentically matches a Pentecostal church identity.",
+    "at": "2026-07-09T17:33:21.592Z"
+  },
+  {
+    "slug": "vaughn-law-com",
+    "score": 6,
+    "verdict": "flag",
+    "issues": [
+      "Monochromatic teal wash dominates entire hero—no tasteful accent use of brand color, reduces visual hierarchy and feels template-heavy",
+      "Hero copy cuts off mid-sentence ('This work is often closely aligned wi[th]')—unprofessional and suggests rushed QA",
+      "Logo placement/size feels small relative to headline; brand presence underplayed",
+      "CTA button ('Request a free consult') blends too closely with background teal; insufficient contrast",
+      "Generic gradient background + large text block reads as stock template rather than custom design for a law firm",
+      "No imagery supporting the legal/counsel positioning—feels incomplete"
+    ],
+    "best": "Headline is large and legible; layout spacing is clean and not cramped; nav is uncluttered",
+    "at": "2026-07-09T17:33:26.952Z"
+  },
+  {
+    "slug": "velisdental-com",
+    "score": 6,
+    "verdict": "flag",
+    "issues": [
+      "Brand name 'Privacy error' is confusing and unprofessional for a dental practice—sounds like a tech error, not a dentistry brand",
+      "Hero headline legible but tagline 'gentle dentistry for the whole family' feels generic/template-y",
+      "Navy blue dominates heavily (buttons, text blocks)—risks monochromatic wash; lacks accent color balance",
+      "No imagery above fold despite 'modern, friendly service' claim—text-only feels corporate/cold, not warm dental practice",
+      "'New Patients' tab at top is redundant with dual 'Book appointment' CTAs below",
+      "Gray background section mid-page feels disconnected; spacing could be tighter",
+      "No visible brand personality, patient testimonials, or differentiator—could be any generic dental site"
+    ],
+    "best": "Clean typography hierarchy and straightforward CTA placement are professional; layout is balanced and not cramped",
+    "at": "2026-07-09T17:33:32.812Z"
+  },
+  {
+    "slug": "visitcrcc-org",
+    "score": 6,
+    "verdict": "flag",
+    "issues": [
+      "Monochromatic color wash: entire hero is deep maroon/burgundy tint with minimal contrast; brand red accent (buttons) blends into background rather than pops",
+      "Hero imagery appears heavily filtered/tinted rather than naturally photographed; reduces visual clarity and professional polish",
+      "Logo readability is poor in top-left corner; text appears cramped and logo mark is indistinct",
+      "Typography hierarchy could be stronger; body copy color (light gray) lacks sufficient contrast against tinted background",
+      "CTA button 'Plan your visit' is clear, but 'I'm New' button styling is redundant with same treatment",
+      "Layout is solid and well-spaced, but the overall monochromatic treatment undermines trust and visual hierarchy",
+      "Copy is appropriate for church context, but the visual presentation feels generic 'template-y' rather than distinctive"
+    ],
+    "best": "Headline legibility is good; layout spacing is clean; copy tone matches community church positioning",
+    "at": "2026-07-09T17:33:38.423Z"
+  },
+  {
+    "slug": "vrieslandchurch-org",
+    "score": 7,
+    "verdict": "pass",
+    "issues": [
+      "Hero image area is blank/placeholder — appears unfinished",
+      "Color palette is minimal (greens + grays) — lacks visual richness for a faith community",
+      "CTA button text 'Plan your visit →' is generic; could be more compelling",
+      "No visible trust signals (testimonials, service times, community photos) above fold"
+    ],
+    "best": "Clean typography hierarchy, professional navigation, appropriate teal accent color for non-profit context, strong tagline alignment with mission",
+    "at": "2026-07-09T17:33:42.548Z"
+  },
+  {
+    "slug": "wamboltwealth-com",
+    "score": 7,
+    "verdict": "pass",
+    "issues": [
+      "Hero image (autumn trees) feels generic and disconnected from financial services messaging",
+      "CTA button color (teal) clashes slightly with navy brand palette—could be more integrated",
+      "Subheading text is small and could benefit from slightly larger type for scannability",
+      "OneTrust 'Powered by' footer placement feels like a third-party tool rather than custom branding"
+    ],
+    "best": "Strong headline clarity, excellent visual hierarchy, professional navy + white foundation, solid button contrast, authentic local messaging ('Littleton, CO'), balanced whitespace, copy matches wealth advisory business type perfectly",
+    "at": "2026-07-09T17:33:47.185Z"
+  },
+  {
+    "slug": "westsidebaptist-org",
+    "score": 7,
+    "verdict": "pass",
+    "issues": [
+      "Hero image has slight warm color cast (orange/amber tint) that doesn't feel intentional",
+      "CTA button 'Plan your visit' uses arrow convention but lacks hover state visibility in static view",
+      "Tagline 'journey to life's greatest potential in Christ' is small and could compete less with headline for attention"
+    ],
+    "best": "Clean, confident headline typography in deep teal; well-chosen lifestyle photography that feels authentic (not stock-generic); balanced whitespace; teal accent color is restrained and professional; logo-to-site coherence is strong; layout grid is tight and aligned",
+    "at": "2026-07-09T17:33:51.794Z"
+  },
+  {
+    "slug": "woodmenvalley-org",
+    "score": 6,
+    "verdict": "flag",
+    "issues": [
+      "Monochromatic brown/gray wash dominates hero—brand accent color (coral) appears only in buttons, minimal tasteful use",
+      "Imagery is heavily tinted/desaturated, reducing visual appeal and making background feel generic rather than inviting for a chapel",
+      "Hero headline legible but copy 'Come as you are' is vague—doesn't clearly communicate chapel identity or value proposition",
+      "Logo/branding feels disconnected from the warm, welcoming tagline; visual tone skews corporate/austere for a religious/community space",
+      "Background image quality appears soft/blurry, reducing perceived professionalism",
+      "CTA button placement is good, but lacks supporting visual hierarchy or secondary messaging"
+    ],
+    "best": "Clean navigation structure, logical CTA placement, and straightforward layout with breathing room",
+    "at": "2026-07-09T17:33:57.054Z"
+  },
+  {
+    "slug": "yoursmileisourmission-com",
+    "score": 7,
+    "verdict": "pass",
+    "issues": [
+      "Hero image missing or not visible above fold – reduces visual impact and trust signals",
+      "Gold accent color underutilized; appears only in nav button and small chat widget – inconsistent branding",
+      "Body copy cuts off mid-sentence ('including dental exams, dental makeover') – incomplete and unprofessional",
+      "Navigation could be slightly more visually distinct; text-only feels sparse",
+      "No trust markers visible (credentials, testimonials, years in practice) in hero section"
+    ],
+    "best": "Clean, readable typography hierarchy; professional spacing and layout; color palette is harmonious (navy/gold/gray); headline is clear and family-focused; copy tone matches dental practice positioning",
+    "at": "2026-07-09T17:34:02.113Z"
+  },
+  {
+    "slug": "zionlincoln-org",
+    "score": 7,
+    "verdict": "pass",
+    "issues": [
+      "Burgundy brand color dominates left side with heavy type weight; feels slightly oppressive rather than accented",
+      "Nav bar text is faint/low contrast against cream background—readability concern",
+      "CTA button 'Plan your visit →' is small and could be more prominent for conversion",
+      "Hero image has slight warm/sepia tint that feels dated rather than intentional",
+      "No visible logo/wordmark in top-left (only faint placeholder text)—weakens brand identity"
+    ],
+    "best": "Authentic, natural photography of real congregation members creates genuine trust and community feel. Headline hierarchy and messaging are clear and appropriate for the business type. Layout is well-balanced with good breathing room. Cream + burgundy palette is harmonious and fits religious institution aesthetic.",
+    "at": "2026-07-09T17:34:07.041Z"
+  }
+]

@@ -22,7 +22,7 @@ function clampForWhite(h, target=3){ let c=h, i=0; while(contrast(c,'#ffffff')<t
 function desat(h, amt){ const [r,g,b]=rgb(h); const grey=Math.round(.299*r+.587*g+.114*b);
   const f=v=>Math.round(v+(grey-v)*amt);
   return `#${[f(r),f(g),f(b)].map(v=>v.toString(16).padStart(2,'0')).join('')}`; }
-function tame(h){ const c=rgb(h); return sat(c)>.72 ? desat(h,.28) : h; }
+function tame(h){ const c=rgb(h); const sv=sat(c); return sv>.6 ? desat(h, Math.min(.4, (sv-.55)*1.1)) : h; }
 
 // Derive a coherent palette from the real captured colours.
 function derivePalette(colors){
@@ -30,8 +30,17 @@ function derivePalette(colors){
   const vivid = cs.filter(c=>sat(rgb(c))>.35 && lum(rgb(c))>.06 && lum(rgb(c))<.7)
                   .sort((a,b)=>sat(rgb(b))-sat(rgb(a)));
   const brand = vivid[0] || '#1f6f5c';
-  // accent: a second vivid hue distinct from brand, else a warm gold
-  const accent = vivid.find(c=>Math.abs(lum(rgb(c))-lum(rgb(brand)))>.08 && c!==brand) || '#c0914c';
+  // accent: a second vivid hue distinct from brand, else a warm gold.
+  // HARMONY GUARD: an accent must be either analogous to the brand (≤70° hue
+  // distance) or a warm gold/amber — a saturated clashing hue (pink checkmarks
+  // on a green site) reads broken, so it falls back to the designed gold.
+  const hue = ([r,g,b]) => { const mx=Math.max(r,g,b),mn=Math.min(r,g,b),d=mx-mn||1;
+    let h = mx===r ? (g-b)/d % 6 : mx===g ? (b-r)/d+2 : (r-g)/d+4; return ((h*60)+360)%360; };
+  const hueDist = (a,b)=>{ const d=Math.abs(hue(rgb(a))-hue(rgb(b))); return Math.min(d,360-d); };
+  let accent = vivid.find(c=>Math.abs(lum(rgb(c))-lum(rgb(brand)))>.08 && c!==brand) || '#c0914c';
+  const aHue = hue(rgb(accent));
+  const harmonious = hueDist(accent,brand) <= 70 || (aHue >= 20 && aHue <= 70) || sat(rgb(accent)) < .35;
+  if (!harmonious) accent = '#c0914c';
   const darks = cs.filter(c=>lum(rgb(c))<.14).sort((a,b)=>lum(rgb(a))-lum(rgb(b)));
   const lights = cs.filter(c=>lum(rgb(c))>.85).sort((a,b)=>lum(rgb(b))-lum(rgb(a)));
   // buttons and bands put white text on brand — clamp so it always reads;
@@ -58,6 +67,10 @@ export function normalize(sig, over={}){
     .slice(0,6);
   const phrases = (sig.hero_phrases||[]).map(clean).filter(Boolean);
   const mission = phrases.find(p=>/\b(exist|mission|help you|we are|our vision)\b/i.test(p));
+  // display-format US phone numbers: "+13035005783" reads like a database
+  // leak; "(303) 500-5783" reads like a business card
+  const fmtPhone = (ph) => { const d = String(ph||'').replace(/[^0-9]/g,'').replace(/^1(?=\d{10}$)/,'');
+    return d.length === 10 ? `(${d.slice(0,3)}) ${d.slice(3,6)}-${d.slice(6)}` : (ph||''); };
   return {
     slug: over.slug,
     name,
@@ -71,11 +84,12 @@ export function normalize(sig, over={}){
     phrases,
     hero: over.hero || null,               // {kick, headline, sub, ctas:[{label,href,ghost}]}
     location: over.location || '',
-    phone: over.phone || '',               // for click-to-call in the book bar
+    phone: fmtPhone(over.phone),           // for click-to-call in the book bar
     serviceTimes: over.serviceTimes || [], // real captured service times
     gallery: over.gallery || [],           // real captured photo URLs
     sections: over.sections || {},         // {services, events, giving, team, ...}
     heroImage: over.heroImage || null,     // data URI or path
+    stock: over.stock || [],               // curated vertical stock (ambience slots only)
     finalUrl: sig.finalUrl,
   };
 }
@@ -174,14 +188,19 @@ S.hero = (p, {mood, arch}) => {
 };
 
 S.services = (p) => { const s=p.sections.services; if(!s||!s.items) return ''; const tc=p._t?.copy?.services||{};
+  // grid evenness: described items lead; when under 60% carry descriptions the
+  // whole grid renders compact (title-led) so no card looks accidentally empty
+  const items = [...s.items].sort((a,b)=>((b.p?1:0)-(a.p?1:0)));
+  const described = items.filter(i=>i.p && i.p.trim()).length;
+  const compact = described / items.length < .6;
   return `
 <section class="sec services" id="visit">
   <div class="wrap">
     <span class="sec-k">${s.kicker||tc.kicker||'New here?'}</span>
     <h2>${s.title||tc.title||'What to expect'}</h2>
     ${s.lead?`<p class="lead">${s.lead}</p>`:''}
-    <div class="cardgrid">${s.items.map((it,i)=>`
-      <article class="card"><span class="cn">${i+1}</span><h3>${it.h}</h3><p>${it.p}</p></article>`).join('')}
+    <div class="cardgrid${compact?' compactgrid':''}">${items.map((it,i)=>`
+      <article class="card${compact?' compact':''}"><span class="cn">${i+1}</span><h3>${it.h}</h3>${!compact&&it.p?`<p>${it.p}</p>`:''}</article>`).join('')}
     </div>
   </div>
 </section>`; };
@@ -438,11 +457,18 @@ S.trust = (p) => { const s=p.sections.trust; if(!s||!s.items||!s.items.length) r
 </section>`; };
 
 S.bizmoney = (p) => { const s=p.sections.money; if(!s) return '';
+  const img = photoPlan(p).money;
   return `
 <section class="sec money" id="money">
-  <div class="wrap"><span class="sec-k">${s.kicker||'Affordable care'}</span><h2>${s.title||'Insurance & financing, made easy.'}</h2>
-    <p class="lead">${s.lead||'We accept most major insurance and offer flexible financing so cost never stands between you and care.'}</p>
-    ${s.logos?`<div class="chips">${s.logos.map(l=>`<span class="chip">${l}</span>`).join('')}</div>`:''}
+  <div class="wrap money-in${img?'':' noimg'}">
+    <div class="money-copy">
+      <span class="sec-k">${s.kicker||'Affordable care'}</span><h2>${s.title||'Insurance & financing, made easy.'}</h2>
+      <p class="lead">${s.lead||'We accept most major insurance and offer flexible financing so cost never stands between you and care.'}</p>
+      ${s.quote?`<blockquote class="money-quote">“${s.quote.q}”<cite>— ${s.quote.name||'Verified patient'}</cite></blockquote>`:''}
+      ${s.logos?`<div class="chips">${s.logos.map(l=>`<span class="chip">${l}</span>`).join('')}</div>`:''}
+      <a class="btn" href="#book" style="margin-top:20px">${s.cta||'Check your coverage →'}</a>
+    </div>
+    ${img?`<div class="money-img"><img src="${img}" alt="${p.name}" loading="lazy" decoding="async"></div>`:''}
   </div></section>`; };
 
 S.hours = (p) => { const s=p.sections.hours||{};
@@ -452,6 +478,89 @@ S.hours = (p) => { const s=p.sections.hours||{};
     <div class="times-h"><span class="sec-k">Visit us</span><h2>Hours & location</h2>${p.location?`<p class="lead">${p.location}</p>`:''}</div>
     <ul class="times-list">${(s.items||['Mon–Fri · 8:00 AM – 5:00 PM','Sat · By appointment']).map(x=>`<li><span class="tdot"></span>${x}</li>`).join('')}</ul>
   </div></section>`; };
+
+
+// ── narrative-arc sections (the compfm bar): feature split, about story, ─────
+// gallery grid, FAQ. Every renderer no-ops without content, so a thin capture
+// degrades gracefully instead of rendering an empty frame.
+// Photo allocation: one plan per page so feature/about/gallery/CTA never
+// repeat the same image.
+function photoPlan(p){
+  if (p._photoPlan) return p._photoPlan;
+  const pics = (p.gallery||[]).filter(g=>g && g!==p.heroImage);
+  const stock = (p.stock||[]).filter(g=>g && g!==p.heroImage);
+  const galEnd = pics.length >= 4 ? pics.length - 1 : pics.length;   // reserve the last pic for the CTA background
+  // captured photos first; curated stock fills the ambience slots (feature,
+  // about) when capture ran thin. The gallery grid stays captured-only —
+  // stock is never presented as "their photos".
+  return p._photoPlan = {
+    feature: pics[0] || stock[0] || null,
+    about:   pics[1] || (pics[0] ? stock[0] : stock[1]) || null,
+    money:   pics[2] || stock[2] || stock[1] || null,
+    gallery: pics.slice(3, Math.min(11, galEnd)),
+  };
+}
+
+// split image/checklist band — the "why choose us" story with a real photo
+S.feature = (p) => { const s=p.sections.feature; if(!s||!s.points||!s.points.length) return '';
+  const img = photoPlan(p).feature;
+  return `
+<section class="sec featsplit" id="why">
+  <div class="wrap feat-in${img?'':' noimg'}">
+    ${img?`<div class="feat-img"><img src="${img}" alt="${p.name}" loading="lazy" decoding="async"></div>`:''}
+    <div class="feat-copy">
+      <span class="sec-k">${s.kicker||'Why us'}</span>
+      <h2>${s.title||`Why neighbors choose ${p.name}.`}</h2>
+      ${s.lead?`<p class="lead">${s.lead}</p>`:''}
+      <ul class="feat-points">${s.points.map(x=>`<li><span class="tcheck">✓</span><span>${x}</span></li>`).join('')}</ul>
+    </div>
+  </div>
+</section>`; };
+
+// about/story band — mission narrative + stat chips, photo when captured
+S.about = (p) => { const s=p.sections.about; if(!s||!s.body) return '';
+  const img = photoPlan(p).about;
+  const stats = (s.stats||[]).filter(x=>x&&x.v);
+  return `
+<section class="sec aboutband" id="about">
+  <div class="wrap about-in${img?'':' noimg'}">
+    <div class="about-copy">
+      <span class="sec-k">${s.kicker||'Our story'}</span>
+      <h2>${s.title||`The story behind ${p.name}.`}</h2>
+      <p class="lead">${s.body}</p>
+      ${stats.length?`<div class="about-stats">${stats.map(x=>`<div class="astat"><b>${x.v}</b><span>${x.k}</span></div>`).join('')}</div>`:''}
+    </div>
+    ${img?`<div class="about-img"><img src="${img}" alt="${p.name}" loading="lazy" decoding="async"></div>`:''}
+  </div>
+</section>`; };
+
+// business gallery grid ("A closer look") — needs 3+ photos beyond hero/feature/about
+S.gallery = (p) => {
+  const pics = photoPlan(p).gallery;
+  if (pics.length < 3) return '';
+  return `
+<section class="sec bizgallery" id="gallery">
+  <div class="wrap"><span class="sec-k">${p.sections.gallery?.kicker||'Gallery'}</span><h2>${p.sections.gallery?.title||'A closer look.'}</h2>
+    <div class="bgal">${pics.map((g,i)=>`<figure class="bgal-i${i===0?' wide':''}"><img src="${g}" alt="${p.name} — photo ${i+1}" loading="lazy" decoding="async"></figure>`).join('')}</div>
+  </div>
+</section>`; };
+
+// FAQ accordion + FAQPage structured data (rich-result eligible)
+S.faq = (p) => { const s=p.sections.faq; if(!s||!s.items||!s.items.length) return '';
+  const strip = (t)=>String(t||'').replace(/<[^>]+>/g,'');
+  const ld = { '@context':'https://schema.org','@type':'FAQPage',
+    mainEntity: s.items.map(f=>({'@type':'Question',name:strip(f.q),acceptedAnswer:{'@type':'Answer',text:strip(f.a)}})) };
+  return `
+<section class="sec faqsec" id="faq">
+  <div class="wrap">
+    <span class="sec-k">${s.kicker||'Good to know'}</span>
+    <h2>${s.title||'Questions, answered.'}</h2>
+    <div class="faqlist">${s.items.map((f,i)=>`
+      <details class="faq-i"${i===0?' open':''}><summary>${f.q}</summary><p>${f.a}</p></details>`).join('')}
+    </div>
+  </div>
+  <script type="application/ld+json">${JSON.stringify(ld)}</script>
+</section>`; };
 
 // ── demo-only upsell layer ────────────────────────────────────────────────────
 // Renders ONLY on demos (recipe.indexable !== true); disable per render with
@@ -560,6 +669,36 @@ export const VERTICALS = {
     order:['announce','nav','hero','bookbar','trust','services','offer','reviews','team','hours','cta','footer'] },
 };
 
+// Every business vertical carries the full narrative arc (feature split →
+// about story → gallery → FAQ) — the structure of the hand-built flagship
+// demos. Renderers no-op without content, so this never produces empty frames.
+for (const v of Object.values(VERTICALS)) {
+  const o = v.order;
+  const insAfter = (name, ...anchors) => {
+    if (o.includes(name)) return;
+    for (const a of anchors) { const i = o.indexOf(a); if (i > -1) { o.splice(i+1, 0, name); return; } }
+    o.splice(o.indexOf('cta'), 0, name);
+  };
+  insAfter('feature', 'services');
+  insAfter('about', 'reviews', 'feature');
+  insAfter('gallery', 'team', 'about');
+  insAfter('faq', 'gallery');
+}
+
+
+
+// ── structural variants: six skeletons over the same conversion spine ────────
+// Same six visitor questions, different order of argument. recipe.structure
+// picks one; sections without content no-op as always. Business verticals only.
+export const STRUCTURES = {
+  // classic: trust-led funnel (the default per-vertical order) — structure=null
+  proof:    ['announce','nav','hero','reviews','bookbar','trust','services','feature','about','offer','team','gallery','faq','bizmoney','hours','cta','footer'],
+  story:    ['announce','nav','hero','about','feature','services','gallery','reviews','team','offer','faq','bizmoney','hours','bookbar','cta','footer'],
+  offer:    ['announce','nav','hero','offer','bookbar','services','trust','reviews','faq','feature','about','gallery','bizmoney','hours','cta','footer'],
+  showcase: ['announce','nav','hero','gallery','feature','services','reviews','about','trust','offer','team','faq','bizmoney','hours','cta','footer'],
+  flagship: ['nav','hero','marquee','services','feature','reviews','about','offer','gallery','faq','bizmoney','hours','cta','footer'],
+};
+
 // ── the stylesheet (structure + archetype/mood variations) ───────────────────
 function stylesheet(){ return `
 *{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);
@@ -578,12 +717,12 @@ h1,h2,h3{font-family:'__DISPLAY__',Georgia,serif;font-weight:600;line-height:1.0
 .sec{padding:clamp(48px,7vw,96px) 0}
 /* nav */
 .nav{position:absolute;top:0;left:0;right:0;z-index:10;display:flex;align-items:center;gap:20px;
-  padding:18px clamp(20px,4vw,44px);color:#fff}
+  padding:18px clamp(20px,4vw,44px);color:#fff;flex-wrap:wrap;row-gap:10px}
 .nav .brandmark{display:inline-flex;align-items:center;background:#fff;border-radius:9px;padding:7px 12px;box-shadow:0 2px 12px rgba(0,0,0,.12);text-decoration:none}
-.nav .logo{height:30px;width:auto;display:block}
+.nav .logo{height:30px;width:auto;max-width:min(56vw,230px);object-fit:contain;display:block}
 .arch-split .nav .brandmark,.arch-minimal .nav .brandmark{box-shadow:none;background:transparent;padding:0}
 .nav .wordmark{font-family:'__DISPLAY__',serif;font-size:1.4rem;font-weight:600}
-.navlinks{display:flex;gap:20px;margin-left:auto;font-size:.82rem;font-weight:600;letter-spacing:.02em}
+.navlinks{display:flex;gap:12px 20px;margin-left:auto;font-size:.82rem;font-weight:600;letter-spacing:.02em;flex-wrap:wrap;justify-content:flex-end}
 .navlinks a{color:#fff;text-decoration:none;opacity:.9;text-transform:uppercase}
 .navlinks a:hover{opacity:1}.nav .btn{margin-left:12px}
 /* hero */
@@ -602,6 +741,9 @@ h1,h2,h3{font-family:'__DISPLAY__',Georgia,serif;font-weight:600;line-height:1.0
 .card{background:var(--surf);border:1px solid var(--line);border-radius:calc(var(--rad)*1px);padding:26px}
 .card .cn{display:inline-grid;place-items:center;width:34px;height:34px;border-radius:50%;background:var(--brand);color:#fff;font-weight:700;margin-bottom:12px}
 .card h3{font-size:1.16rem}.card p{color:var(--mut);margin:.4em 0 0}
+.compactgrid{grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:14px}
+.card.compact{display:flex;align-items:center;gap:14px;padding:18px 20px}
+.card.compact .cn{margin:0;flex:none}.card.compact h3{font-size:1.02rem}
 /* events */
 .evlist{margin-top:30px;display:flex;flex-direction:column;gap:2px}
 .ev{display:flex;gap:22px;padding:20px 0;border-top:1px solid var(--line);align-items:baseline}
@@ -681,6 +823,35 @@ h1,h2,h3{font-family:'__DISPLAY__',Georgia,serif;font-weight:600;line-height:1.0
 .trust-in{display:flex;flex-wrap:wrap;gap:12px 34px;justify-content:center}
 .trustitem{font-weight:600;font-size:.92rem;display:flex;align-items:center;gap:8px}
 .tcheck{color:var(--accent);font-weight:800}
+/* feature split / about band / gallery grid / FAQ (narrative-arc sections) */
+.feat-in,.about-in{display:grid;grid-template-columns:1fr 1fr;gap:clamp(28px,5vw,64px);align-items:center}
+.feat-in.noimg,.about-in.noimg{grid-template-columns:1fr}
+.feat-img img,.about-img img{width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:calc(var(--rad)*1px);box-shadow:0 24px 60px rgba(0,0,0,.14)}
+.feat-points{list-style:none;margin:26px 0 0;padding:0;display:flex;flex-direction:column;gap:12px}
+.feat-points li{display:flex;gap:12px;align-items:baseline;font-weight:600}
+.aboutband{background:color-mix(in srgb,var(--brand) 5%,var(--bg))}
+.about-stats{display:flex;gap:34px;margin-top:28px;flex-wrap:wrap}
+.astat b{font-family:'__DISPLAY__',serif;font-size:1.9rem;color:var(--brand);display:block;line-height:1.1}
+.astat span{color:var(--mut);font-size:.9rem}
+.money-in{display:grid;grid-template-columns:1.15fr 1fr;gap:clamp(28px,5vw,60px);align-items:center}
+.money-in.noimg{grid-template-columns:1fr}
+.money-img img{width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:calc(var(--rad)*1px);box-shadow:0 24px 60px rgba(0,0,0,.14)}
+.money-quote{margin:22px 0 0;padding:18px 22px;background:var(--surf);border-left:4px solid var(--accent);border-radius:0 calc(var(--rad)*1px) calc(var(--rad)*1px) 0;font-style:italic;font-size:1.04rem}
+.money-quote cite{display:block;margin-top:10px;font-style:normal;font-weight:600;font-size:.88rem;color:var(--mut)}
+@media(max-width:760px){.money-in{grid-template-columns:1fr}}
+.bgal{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:30px}
+.bgal-i{margin:0;overflow:hidden;border-radius:calc(var(--rad)*1px)}
+.bgal-i.wide{grid-column:span 2}
+.bgal-i img{width:100%;height:100%;min-height:220px;object-fit:cover;display:block;transition:transform .35s}
+.bgal-i:hover img{transform:scale(1.04)}
+.faqlist{margin-top:30px;max-width:820px}
+.faq-i{border-top:1px solid var(--line);padding:4px 0}
+.faq-i summary{cursor:pointer;font-weight:600;font-size:1.08rem;padding:16px 0;list-style:none;display:flex;justify-content:space-between;gap:16px}
+.faq-i summary::-webkit-details-marker{display:none}
+.faq-i summary::after{content:'+';color:var(--brand);font-weight:700;font-size:1.3rem}
+.faq-i[open] summary::after{content:'–'}
+.faq-i p{color:var(--mut);margin:0 0 18px;max-width:70ch}
+@media(max-width:760px){.feat-in,.about-in{grid-template-columns:1fr}.bgal{grid-template-columns:1fr 1fr}}
 /* no-photo hero: a designed brand poster, never a bare text block */
 .hero.no-img{background:
   radial-gradient(90% 70% at 85% 10%,color-mix(in srgb,var(--accent) 22%,transparent),transparent 60%),
@@ -726,15 +897,15 @@ h1,h2,h3{font-family:'__DISPLAY__',Georgia,serif;font-weight:600;line-height:1.0
 .arch-editorial .hero{display:flex;flex-direction:column;min-height:auto;background:var(--bg);color:var(--ink);padding:clamp(28px,5vw,68px) clamp(20px,5vw,64px)}
 .arch-editorial .hero-in{order:0;position:relative;z-index:1;max-width:1080px;margin:0 auto 26px;padding:0;width:100%}
 .arch-editorial .hero .kick{color:var(--brand)}
-.arch-editorial .hero h1{color:var(--ink);text-shadow:none;font-size:clamp(2.6rem,7vw,5rem);max-width:16ch}
+.arch-editorial .hero h1{color:var(--ink);text-shadow:none;font-size:clamp(2.6rem,7vw,5rem);max-width:24ch}
 .arch-editorial .hero-sub{color:var(--mut);text-shadow:none;max-width:52ch}
 .arch-editorial .hero-bg{position:relative;inset:auto;z-index:0;order:1;width:100%;max-width:1080px;margin:0 auto;
-  height:min(58vh,540px);border-radius:calc(var(--rad)*2.2px);transform:none;box-shadow:0 30px 70px rgba(0,0,0,.16)}
+  height:min(66vh,640px);border-radius:calc(var(--rad)*2.2px);transform:none;box-shadow:0 30px 70px rgba(0,0,0,.16)}
 .arch-editorial .scrim,.arch-editorial .glow{display:none}
 /* ARCHETYPE: modern — a deep brand-tinted poster. Oversized type; photo becomes a quiet texture.
    The gradient mixes brand into near-black so vivid captured brands stay rich, never neon. */
-.arch-modern .hero{align-items:center;background:linear-gradient(135deg,color-mix(in srgb,var(--brand) 52%,#14161a),color-mix(in srgb,var(--brand-d) 42%,#0e1013));color:#fff}
-.arch-modern .hero-bg{opacity:.22;mix-blend-mode:luminosity}
+.arch-modern .hero{align-items:center;background:linear-gradient(135deg,color-mix(in srgb,var(--brand) 32%,#14161a),color-mix(in srgb,var(--brand-d) 24%,#0e1013));color:#fff}
+.arch-modern .hero-bg{opacity:.32;mix-blend-mode:luminosity}
 .arch-modern .scrim{background:linear-gradient(180deg,rgba(0,0,0,.25),transparent 40%,rgba(0,0,0,.35))}
 .arch-modern .hero-in{max-width:960px}
 .arch-modern .hero h1{font-size:clamp(3rem,9vw,6.5rem);letter-spacing:-.03em;line-height:.98}
@@ -931,9 +1102,16 @@ export function recommendRecipe(profile){
   const isGreen = b[1] >= b[0] && b[1] >= b[2] && s > .25;
   let theme, archetype, mood;
   if (isBlueNavy)      { theme='heritage';  archetype='editorial'; }
-  else if (s > .6)     { theme='modern';    archetype='modern'; }      // vivid → modern
+  // greens get the editorial frame, never the brand-poster: a green-flooded
+  // hero reads like a monochrome wash (murky, unattractive) — as an accent on
+  // a light editorial ground the same green reads fresh and professional.
+  else if (isGreen)    { theme='evergreen'; archetype='editorial'; }
+  // arch-modern's brand-tinted poster is reserved for DESIGNED palettes
+  // (variants' --theme-palette). Captured brand colors flooding a photo reads
+  // as a monochrome wash — the art critic flags it every time. Vivid captured
+  // brands get split (warm) or editorial (cool) instead.
+  else if (s > .6)     { theme = isWarm ? 'community' : 'heritage'; archetype = isWarm ? 'split' : 'editorial'; }
   else if (isWarm)     { theme='community'; archetype='split'; }
-  else if (isGreen)    { theme='evergreen'; archetype='cathedral'; }
   else if (s < .2)     { theme='quiet';     archetype='minimal'; }     // muted → quiet/minimal
   else                 { theme='sanctuary'; archetype='cathedral'; }
   // auto recipes get subtle Ken-Burns drift ONLY. The godrays/candle glow
@@ -1057,6 +1235,9 @@ function seoHead(profile, recipe, page=null){
   if (profile.location) ld.address = profile.location;
   if (abs(profile.logo)) ld.logo = abs(profile.logo);
   if (img) ld.image = img;
+  const rv = profile.sections?.reviews;
+  if (rv?.rating && rv?.count && /^\d+$/.test(String(rv.count)))
+    ld.aggregateRating = { '@type':'AggregateRating', ratingValue: String(rv.rating), reviewCount: String(rv.count) };
   return meta + `\n<script type="application/ld+json">${JSON.stringify(ld)}</script>`;
 }
 
@@ -1077,6 +1258,8 @@ export function assemble(profile, recipe={}, page=null){
   const css = stylesheet().replace(/__DISPLAY__/g, displayFont);
   const p = { ...profile, ...(trad ? { _t:trad } : {}), ...(page ? { _page:page } : {}), _vertical: recipe.vertical || null };
   let order = page?.order || (trad ? trad.order : archetype.order);
+  if (!page && recipe.vertical && recipe.structure && STRUCTURES[recipe.structure])
+    order = STRUCTURES[recipe.structure];
   // Demo-only upsell layer (business demos): teaser grid on the homepage,
   // upgrade band above the footer on EVERY page. Never on delivered sites
   // (recipe.indexable) and removable with recipe.upsells=false.
@@ -1093,7 +1276,7 @@ export function assemble(profile, recipe={}, page=null){
   }
   // art direction: when we captured real photos, weave a gallery strip in
   // before the closing CTA (the renderer no-ops below 3 photos anyway)
-  if (!page && (profile.gallery||[]).length >= 3 && !order.includes('gallerystrip')) {
+  if (!page && (profile.gallery||[]).length >= 3 && !order.includes('gallerystrip') && !order.includes('gallery')) {
     order = [...order];
     const at = order.indexOf('cta');
     order.splice(at > 0 ? at : order.length - 1, 0, 'gallerystrip');
@@ -1103,7 +1286,7 @@ export function assemble(profile, recipe={}, page=null){
   return `<!doctype html><html lang="en"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>${page?.title?`${page.title} — ${profile.name}`:`${profile.name}${profile.tagline?` — ${profile.tagline}`:''}`}</title>
-<meta name="description" content="${(profile.description||'').replace(/"/g,'&quot;').slice(0,300)}">
+<meta name="description" content="${((profile.description||profile.hero?.sub||`${profile.name}${profile.tagline?` — ${profile.tagline}`:''}`)||'').replace(/"/g,'&quot;').slice(0,300)}">
 ${seoHead(profile, recipe, page)}
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=${displayUrl}&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
