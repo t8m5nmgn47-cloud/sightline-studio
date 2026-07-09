@@ -25,6 +25,11 @@ function desat(h, amt){ const [r,g,b]=rgb(h); const grey=Math.round(.299*r+.587*
 function tame(h){ const c=rgb(h); const sv=sat(c); return sv>.6 ? desat(h, Math.min(.4, (sv-.55)*1.1)) : h; }
 
 // Derive a coherent palette from the real captured colours.
+// Framework/default colours that appear in almost every site's CSS but are
+// nobody's brand: Bootstrap/Tailwind/WP defaults. Never let these win.
+const FRAMEWORK = new Set(['#007bff','#0056b3','#0d6efd','#6610f2','#6f42c1','#e83e8c','#dc3545','#fd7e14','#ffc107','#28a745','#20c997','#17a2b8','#6c757d','#343a40','#f8f9fa','#563d7c','#0069d9','#004085','#3b82f6','#2563eb','#1d4ed8','#0073aa','#0085ba','#2271b1','#135e96','#ff0000','#00ff00','#0000ff',
+  // social-platform brand colours (share buttons / embeds — never THE brand)
+  '#1877f2','#4267b2','#3b5998','#1da1f2','#1d9bf0','#0a66c2','#0077b5','#e60023','#bd081c','#25d366','#128c7e','#ff4500','#7289da','#5865f2','#e1306c','#c13584','#fe2c55','#ff0050']);
 function derivePalette(colors){
   const cs = (colors||[]).map(hex).filter(c=>/^#[0-9a-f]{6}$/.test(c));
   const vivid = cs.filter(c=>sat(rgb(c))>.35 && lum(rgb(c))>.06 && lum(rgb(c))<.7)
@@ -43,6 +48,12 @@ function derivePalette(colors){
   if (!harmonious) accent = '#c0914c';
   const darks = cs.filter(c=>lum(rgb(c))<.14).sort((a,b)=>lum(rgb(a))-lum(rgb(b)));
   const lights = cs.filter(c=>lum(rgb(c))>.85).sort((a,b)=>lum(rgb(b))-lum(rgb(a)));
+  // Monochrome brands (all-black/gray sites) get a deliberate gunmetal palette —
+  // near-black brand + steel accent — instead of an arbitrary default colour.
+  const mono = !vivid.length;
+  const brand = vivid[0] || (mono && (darks[1] || darks[0])) || '#26262b';
+  const accent = mono ? '#a8adb8'
+    : vivid.find(c=>Math.abs(lum(rgb(c))-lum(rgb(brand)))>.08 && c!==brand) || '#c0914c';
   // buttons and bands put white text on brand — clamp so it always reads;
   // tame() caps saturation so a neon captured brand can't shout down the page
   const safeBrand = clampForWhite(tame(brand), 3);
@@ -62,7 +73,7 @@ export function normalize(sig, over={}){
   const name = clean(over.name || sig.og_site_name || (sig.title||'').split(/[|–—]/)[0]);
   const tabs = (sig.nav_tabs||[])
     .map(t=>({label:clean(t.label), href:t.href}))
-    .filter(t=>t.label && t.label.length<=22 && !/^(skip|search|menu|back|home|log ?in|sign ?in|donate)$/i.test(t.label))
+    .filter(t=>t.label && t.label.length<=22 && !/^(skip|search|menu|back|home|log ?in|log ?out|sign ?in|sign ?out|donate|create account|my account|account|orders?|cart|checkout|register)$/i.test(t.label))
     .filter((t,i,a)=>a.findIndex(x=>x.label.toLowerCase()===t.label.toLowerCase())===i)
     .slice(0,6);
   const phrases = (sig.hero_phrases||[]).map(clean).filter(Boolean);
@@ -148,7 +159,7 @@ S.hero = (p, {mood, arch}) => {
     const media = p.heroVideo
       ? `<video autoplay muted loop playsinline preload="metadata" poster="${p.heroImage||''}"><source src="${p.heroVideo}" type="video/mp4"></video>`
       : p.heroImage ? `<img src="${p.heroImage}" alt="${p.name}" loading="eager">` : '';
-    const trust = (p._t && p._t.trust) ? p._t.trust.slice(0,3) : [];
+    const trust = (p.sections?.trust?.length ? p.sections.trust : (p._t && p._t.trust) || []).slice(0,3);
     return `
 <header class="fhero" id="top">
   <div class="fhero-media">${media}<div class="fhero-veil"></div></div>
@@ -158,7 +169,7 @@ S.hero = (p, {mood, arch}) => {
     ${h.sub?`<p class="fsub">${h.sub}</p>`:''}
     <div class="fcta">
       ${(h.ctas||[{label:'Get started →',href:'#book'}]).map((c,i)=>`<a class="fbtn${i?' ghost':''}" href="${c.href}">${c.label}</a>`).join('')}
-      ${p.phone?`<a class="fbtn ghost" href="tel:${p.phone.replace(/[^0-9]/g,'')}">${p.phone}</a>`:''}
+      ${p.phone?`<a class="fbtn ghost" href="tel:${p.phone.replace(/[^0-9]/g,'')}">${fmtPhone(p.phone)}</a>`:''}
     </div>
     ${trust.length?`<ul class="ftrust">${trust.map(t=>`<li>${t}</li>`).join('')}</ul>`:''}
   </div>
@@ -237,7 +248,7 @@ S.cta = (p) => {
   <div class="wrap">
     <h2>${(p.sections.cta&&p.sections.cta.title)||'We saved you a seat.'}</h2>
     <p class="lead${img?' light':''}">${(p.sections.cta&&p.sections.cta.lead)||'Come as you are — this Sunday.'}</p>
-    <a class="btn lg${img?' light':''}" href="#visit">${(p.sections.cta&&p.sections.cta.cta)||'Plan Your Visit →'}</a>
+    <a class="btn lg${img?' light':''}" href="${p._t?.bookCta ? '#book' : '#visit'}">${(p.sections.cta&&p.sections.cta.cta) || p._t?.bookCta || 'Plan Your Visit →'}</a>
   </div>
 </section>`; };
 
@@ -398,16 +409,16 @@ export const ARCHETYPES = {
   journey:{   order:['announce','nav','hero','times','nextsteps','services','groups','serve','events','team','care','giving','sermons','cta','footer'], body:'arch-journey' },
   // FLAGSHIP: the $15k look. Cinematic hero, editorial type, layered depth,
   // staggered reveals. The one we show on every call.
-  flagship:{  order:['nav','hero','marquee','services','reviews','offer','hours','cta','footer'], body:'arch-flagship' },
+  flagship:{  order:['nav','hero','marquee','services','about','whyus','reviews','offer','gallery','faq','hours','cta','footer'], body:'arch-flagship' },
 };
 
 // ── business sections (local high-value verticals: dental / law / medspa) ────
 S.bookbar = (p) => { const b=p.sections.book||{};
   return `
-<section class="sec bookbar">
+<section class="sec bookbar" id="book">
   <div class="wrap bookbar-in">
     <div><b>${b.title||'Ready when you are.'}</b><span>${b.sub||'Book online in under a minute — or call and we’ll take care of the rest.'}</span></div>
-    <div class="bookbtns"><a class="btn lg" href="${b.href||'#book'}">${p._t?.bookCta||'Book appointment →'}</a>${p.phone?`<a class="btn ghost lg" href="tel:${p.phone.replace(/[^0-9]/g,'')}">📞 ${p.phone}</a>`:''}</div>
+    <div class="bookbtns"><a class="btn lg" href="${b.href||'#book'}">${p._t?.bookCta||'Book appointment →'}</a>${p.phone?`<a class="btn ghost lg" href="tel:${p.phone.replace(/[^0-9]/g,'')}">📞 ${fmtPhone(p.phone)}</a>`:''}</div>
   </div>
 </section>`; };
 
@@ -470,6 +481,63 @@ S.bizmoney = (p) => { const s=p.sections.money; if(!s) return '';
     </div>
     ${img?`<div class="money-img"><img src="${img}" alt="${p.name}" loading="lazy" decoding="async"></div>`:''}
   </div></section>`; };
+
+// About / story — the section every real $15k site has and thin demos lack.
+// Editorial split: narrative on one side, a real photo (or brand panel) on the other.
+S.about = (p) => { const s=p.sections.about; if(!s||!s.body) return '';
+  const media = s.image
+    ? `<figure class="about-media"><img src="${s.image}" alt="${p.name}" loading="lazy"></figure>`
+    : `<div class="about-media about-panel"><span class="about-mark">${(p.name||'').split(/\s+/).map(w=>w[0]).join('').slice(0,3)}</span></div>`;
+  return `
+<section class="sec about" id="about">
+  <div class="wrap about-in">
+    <div class="about-copy">
+      <span class="sec-k">${s.kicker||'About us'}</span>
+      <h2>${s.title||`The story behind ${p.name}.`}</h2>
+      <p class="about-body">${s.body}</p>
+      ${p.location?`<p class="about-loc">◆ ${p.location}</p>`:''}
+      <a class="btn lg" href="#book">${p._t?.bookCta||'Get in touch →'}</a>
+    </div>
+    ${media}
+  </div>
+</section>`; };
+
+// Why-us pillars — credibility without fabricating reviews.
+S.whyus = (p) => { const s=p.sections.whyus; if(!s||!s.items||!s.items.length) return '';
+  return `
+<section class="sec whyus" id="why">
+  <div class="wrap">
+    <span class="sec-k">${s.kicker||'Why choose us'}</span>
+    <h2>${s.title||"The difference you'll feel."}</h2>
+    <div class="whygrid">${s.items.map((it,i)=>`
+      <div class="why" style="--n:${i}"><span class="whycheck">✓</span><div><h3>${it.h}</h3><p>${it.p||''}</p></div></div>`).join('')}
+    </div>
+  </div>
+</section>`; };
+
+// Gallery — the real photos the capture already collected, finally on the page.
+S.gallery = (p) => { const s=p.sections.gallery; if(!s||!s.items||s.items.length<3) return '';
+  return `
+<section class="sec gallery" id="gallery">
+  <div class="wrap">
+    <span class="sec-k">${s.kicker||'Take a look'}</span>
+    <h2>${s.title||'A glimpse inside.'}</h2>
+    <div class="galgrid">${s.items.map((src,i)=>`<figure class="gal g${i%5}"><img src="${src}" alt="${p.name} — photo ${i+1}" loading="lazy"></figure>`).join('')}</div>
+  </div>
+</section>`; };
+
+// FAQ — native accordion, zero JS required.
+S.faq = (p) => { const s=p.sections.faq; if(!s||!s.items||!s.items.length) return '';
+  return `
+<section class="sec faq" id="faq">
+  <div class="wrap faq-in">
+    <div class="faq-h"><span class="sec-k">${s.kicker||'Good to know'}</span><h2>${s.title||'Questions, answered.'}</h2>
+      <p class="lead">Don't see yours? ${p.phone?`Call <a href="tel:${p.phone.replace(/[^0-9]/g,'')}">${fmtPhone(p.phone)}</a> — a real person answers.`:'Reach out — a real person answers.'}</p></div>
+    <div class="faqlist">${s.items.map(({q,a},i)=>`
+      <details class="qa"${i===0?' open':''}><summary>${q}<span class="qplus" aria-hidden="true"></span></summary><p>${a}</p></details>`).join('')}
+    </div>
+  </div>
+</section>`; };
 
 S.hours = (p) => { const s=p.sections.hours||{};
   return `
@@ -644,29 +712,33 @@ export const TRADITIONS = {
 // ── business verticals: the profit engine (same architecture as traditions) ──
 export const VERTICALS = {
   dental:{ label:'Dental', imNew:'New Patients', bookCta:'Book appointment →',
-    order:['announce','nav','hero','bookbar','trust','services','reviews','offer','team','results','bizmoney','hours','cta','footer'] },
+    order:['announce','nav','hero','marquee','bookbar','services','about','whyus','reviews','offer','gallery','team','results','bizmoney','faq','hours','cta','footer'] },
   medical:{ label:'Medical', imNew:'New Patients', bookCta:'Request an appointment →',
-    order:['announce','nav','hero','bookbar','trust','services','reviews','bizmoney','team','offer','hours','cta','footer'] },
+    order:['announce','nav','hero','marquee','bookbar','services','about','whyus','reviews','bizmoney','gallery','team','offer','faq','hours','cta','footer'] },
   optometry:{ label:'Eye Care', imNew:'New Patients', bookCta:'Book an eye exam →',
-    order:['announce','nav','hero','bookbar','trust','services','reviews','offer','bizmoney','team','hours','cta','footer'] },
+    order:['announce','nav','hero','marquee','bookbar','services','about','whyus','reviews','offer','gallery','bizmoney','team','faq','hours','cta','footer'] },
   law:{ label:'Law', imNew:'Free Consult', bookCta:'Request a free consult →',
-    order:['announce','nav','hero','bookbar','trust','services','reviews','team','offer','hours','cta','footer'] },
+    order:['announce','nav','hero','marquee','bookbar','services','about','whyus','reviews','team','offer','faq','hours','cta','footer'] },
   accounting:{ label:'Accounting', imNew:'New Clients', bookCta:'Book a consultation →',
-    order:['announce','nav','hero','bookbar','trust','services','reviews','team','offer','hours','cta','footer'] },
+    order:['announce','nav','hero','marquee','bookbar','services','about','whyus','reviews','team','offer','faq','hours','cta','footer'] },
   insurance:{ label:'Insurance', imNew:'Free Quote', bookCta:'Get a free quote →',
-    order:['announce','nav','hero','bookbar','trust','services','offer','reviews','team','hours','cta','footer'] },
+    order:['announce','nav','hero','marquee','bookbar','services','about','whyus','offer','reviews','team','faq','hours','cta','footer'] },
   mortgage:{ label:'Mortgage', imNew:'Get Started', bookCta:'Get pre-approved →',
-    order:['announce','nav','hero','bookbar','trust','services','offer','reviews','team','hours','cta','footer'] },
+    order:['announce','nav','hero','marquee','bookbar','services','about','whyus','offer','reviews','team','faq','hours','cta','footer'] },
   title:{ label:'Title & Escrow', imNew:'Start a File', bookCta:'Open an order →',
-    order:['announce','nav','hero','bookbar','trust','services','offer','reviews','team','hours','cta','footer'] },
+    order:['announce','nav','hero','marquee','bookbar','services','about','whyus','offer','reviews','team','faq','hours','cta','footer'] },
   medspa:{ label:'Med Spa', imNew:'Book Now', bookCta:'Book your visit →',
-    order:['announce','nav','hero','bookbar','trust','services','reviews','offer','results','team','bizmoney','hours','cta','footer'] },
+    order:['announce','nav','hero','marquee','bookbar','services','about','whyus','reviews','offer','gallery','results','team','bizmoney','faq','hours','cta','footer'] },
+  construction:{ label:'Commercial Construction', imNew:'Work With Us', bookCta:'Discuss your project \u2192',
+    order:['announce','nav','hero','marquee','bookbar','services','about','whyus','reviews','gallery','results','offer','team','faq','hours','cta','footer'] },
   trades:{ label:'Home Services', imNew:'Free Estimate', bookCta:'Get a free estimate →',
-    order:['announce','nav','hero','bookbar','trust','services','offer','reviews','bizmoney','results','hours','cta','footer'] },
+    order:['announce','nav','hero','marquee','bookbar','services','about','whyus','offer','reviews','gallery','bizmoney','results','faq','hours','cta','footer'] },
   childcare:{ label:'Childcare & Education', imNew:'Schedule a Tour', bookCta:'Schedule a tour →',
-    order:['announce','nav','hero','bookbar','trust','services','offer','reviews','team','hours','cta','footer'] },
+    order:['announce','nav','hero','marquee','bookbar','services','about','whyus','offer','reviews','gallery','team','faq','hours','cta','footer'] },
+  retail:{ label:'Shop', imNew:'Shop', bookCta:'Shop now →',
+    order:['announce','nav','hero','marquee','services','about','whyus','reviews','offer','gallery','faq','bookbar','cta','footer'] },
   business:{ label:'Local Business', imNew:'Get Started', bookCta:'Get in touch →',
-    order:['announce','nav','hero','bookbar','trust','services','offer','reviews','team','hours','cta','footer'] },
+    order:['announce','nav','hero','marquee','bookbar','services','about','whyus','offer','reviews','gallery','team','faq','hours','cta','footer'] },
 };
 
 // Every business vertical carries the full narrative arc (feature split →
@@ -811,7 +883,7 @@ h1,h2,h3{font-family:'__DISPLAY__',Georgia,serif;font-weight:600;line-height:1.0
 .tinitial{display:grid;place-items:center;background:var(--brand);color:#fff;font-family:'__DISPLAY__',serif;font-size:2.4rem;font-weight:600}
 .tcard h3{font-size:1.1rem;margin-top:14px}.trole{color:var(--mut);font-size:.92rem}
 /* band */
-.band{background:var(--brand);color:#fff}
+.band{background:linear-gradient(120deg,color-mix(in srgb,var(--brand) 48%,#14161b),color-mix(in srgb,var(--brand) 22%,#0e1014));color:#fff}
 .band-in{display:flex;gap:30px;align-items:center;justify-content:space-between;flex-wrap:wrap}
 .band h2{margin-top:.2em}
 /* cta */
@@ -990,9 +1062,9 @@ body:not(.arch-split):not(.arch-minimal) .nav.scrolled{background:color-mix(in s
    FLAGSHIP — the $15k look. Cinematic hero, editorial scale, layered depth.
    ═══════════════════════════════════════════════════════════════════════════ */
 .arch-flagship{--ease:cubic-bezier(.2,.7,.2,1)}
-.arch-flagship .nav{position:fixed;top:0;left:0;right:0;z-index:40;padding:18px 0;transition:padding .3s var(--ease),background .3s,box-shadow .3s,backdrop-filter .3s}
+.arch-flagship .nav{position:fixed;top:0;left:0;right:0;z-index:40;padding:18px clamp(20px,4vw,56px);transition:padding .3s var(--ease),background .3s,box-shadow .3s,backdrop-filter .3s}
 .arch-flagship .nav .wrap,.arch-flagship .nav{display:flex;align-items:center;justify-content:space-between}
-.arch-flagship .nav.solid{padding:11px 0;background:color-mix(in srgb,var(--bg) 82%,transparent);backdrop-filter:saturate(1.6) blur(14px);box-shadow:0 1px 0 var(--line),0 12px 30px -18px rgba(0,0,0,.4)}
+.arch-flagship .nav.solid{padding:11px clamp(20px,4vw,56px);background:color-mix(in srgb,var(--bg) 82%,transparent);backdrop-filter:saturate(1.6) blur(14px);box-shadow:0 1px 0 var(--line),0 12px 30px -18px rgba(0,0,0,.4)}
 /* transparent brandmark over the hero — no floating white pill */
 .arch-flagship .nav .brandmark{background:transparent;box-shadow:none;padding:0}
 .arch-flagship .nav .wordmark{font-family:'__DISPLAY__',Georgia,serif;font-weight:600;font-size:1.34rem;letter-spacing:-.02em;color:#fff}
@@ -1006,14 +1078,14 @@ body:not(.arch-split):not(.arch-minimal) .nav.scrolled{background:color-mix(in s
 .arch-flagship .nav.solid .navlinks a{color:var(--ink)}
 
 /* cinematic hero */
-.fhero{position:relative;min-height:100svh;display:flex;align-items:flex-end;overflow:hidden;color:#fff;isolation:isolate;background:linear-gradient(150deg,color-mix(in srgb,var(--brand) 78%,#000),color-mix(in srgb,var(--brand) 30%,#0a0d12) 70%,#0a0d12)}
+.fhero{position:relative;min-height:100svh;display:flex;align-items:flex-end;overflow:hidden;color:#fff;isolation:isolate;background:linear-gradient(150deg,color-mix(in srgb,var(--brand) 42%,#0a0d12),color-mix(in srgb,var(--brand) 16%,#0a0d12) 70%,#0a0d12)}
 /* no photo? a premium layered brand gradient instead of flat gray */
 .fhero:has(.fhero-media:empty)::after,.fhero .fhero-media:empty{background:radial-gradient(90% 70% at 78% 8%,color-mix(in srgb,var(--accent,#fff) 26%,transparent),transparent 55%),radial-gradient(70% 60% at 12% 96%,color-mix(in srgb,var(--brand) 60%,transparent),transparent 60%)}
 .fhero .fhero-media:empty{position:absolute;inset:0;z-index:-1}
 .fhero-media{position:absolute;inset:0;z-index:-2}
 .fhero-media img,.fhero-media video{width:100%;height:100%;object-fit:cover;transform:scale(1.08);animation:fkenburns 18s var(--ease) forwards}
 @keyframes fkenburns{to{transform:scale(1)}}
-.fhero-veil{position:absolute;inset:0;background:linear-gradient(180deg,rgba(8,10,14,.28) 0%,rgba(8,10,14,.12) 32%,rgba(8,10,14,.62) 78%,rgba(8,10,14,.88) 100%),radial-gradient(120% 80% at 15% 100%,color-mix(in srgb,var(--brand) 55%,transparent),transparent 60%)}
+.fhero-veil{position:absolute;inset:0;background:linear-gradient(180deg,rgba(8,10,14,.28) 0%,rgba(8,10,14,.12) 32%,rgba(8,10,14,.62) 78%,rgba(8,10,14,.88) 100%),radial-gradient(120% 80% at 15% 100%,color-mix(in srgb,var(--brand) 28%,transparent),transparent 60%)}
 .fhero-in{position:relative;padding:0 clamp(20px,5vw,64px) clamp(64px,10vh,120px);max-width:1180px;margin:0 auto;width:100%}
 .fkick{display:inline-flex;align-items:center;gap:9px;font-size:.76rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;padding:8px 15px;border:1px solid rgba(255,255,255,.28);border-radius:999px;backdrop-filter:blur(6px);opacity:0;animation:frise .8s var(--ease) .1s forwards}
 .fkick-dot{width:7px;height:7px;border-radius:50%;background:var(--accent,#fff);box-shadow:0 0 0 0 var(--accent,#fff);animation:fpulse 2.6s ease-in-out infinite}
@@ -1037,7 +1109,7 @@ body:not(.arch-split):not(.arch-minimal) .nav.scrolled{background:color-mix(in s
 @media(prefers-reduced-motion:reduce){.fhead .w,.fkick,.fsub,.fcta,.ftrust{animation:none!important;opacity:1!important;transform:none!important}.fhero-media img,.fhero-media video{animation:none;transform:none}}
 
 /* scrolling marquee band */
-.fmarquee{overflow:hidden;background:var(--brand);color:#fff;padding:20px 0;white-space:nowrap;user-select:none}
+.fmarquee{overflow:hidden;background:linear-gradient(100deg,color-mix(in srgb,var(--brand) 32%,#14161b),color-mix(in srgb,var(--brand) 14%,#0e1014));color:#fff;padding:20px 0;white-space:nowrap;user-select:none}
 .fmarquee-t{display:inline-block;animation:fmarq 32s linear infinite;font-family:'__DISPLAY__',Georgia,serif;font-weight:600;font-size:1.5rem;letter-spacing:-.01em}
 .fmarquee-t span{padding:0 26px;opacity:.96}.fmarquee-t .mstar{opacity:.5}
 @keyframes fmarq{to{transform:translateX(-50%)}}
@@ -1062,9 +1134,54 @@ body:not(.arch-split):not(.arch-minimal) .nav.scrolled{background:color-mix(in s
 .arch-flagship .rv{background:var(--bg);border:1px solid var(--line);border-radius:20px;padding:30px;font-size:1.12rem;line-height:1.6;font-family:'__DISPLAY__',Georgia,serif;font-weight:500}
 .arch-flagship .rv cite{display:block;margin-top:16px;font-family:var(--body);font-style:normal;font-size:.88rem;color:var(--mut);font-weight:600}
 /* offer band = full-bleed brand gradient */
-.arch-flagship .band{background:linear-gradient(120deg,var(--brand),color-mix(in srgb,var(--brand) 60%,#000));color:#fff;border-radius:28px;margin:0 clamp(16px,4vw,40px)}
+.arch-flagship .band{background:linear-gradient(120deg,color-mix(in srgb,var(--brand) 42%,#12151b),color-mix(in srgb,var(--brand) 16%,#0b0d11));color:#fff;border-radius:28px;margin:0 clamp(16px,4vw,40px)}
 .arch-flagship .band .sec-k,.arch-flagship .band h2{color:#fff}
 .arch-flagship .band .btn,.arch-flagship .band .fbtn{background:#fff;color:var(--brand)}
+
+/* ── ABOUT: editorial split — narrative beside a framed photo ─────────────── */
+.about-in{display:grid;grid-template-columns:1.05fr .95fr;gap:clamp(32px,5vw,72px);align-items:center}
+.about-body{font-size:1.08rem;line-height:1.75;color:color-mix(in srgb,var(--ink) 82%,var(--mut));max-width:58ch;margin:1.1em 0 1.4em}
+.about-loc{color:var(--brand);font-weight:600;font-size:.92rem;letter-spacing:.04em;margin:0 0 22px}
+.about-media{position:relative;margin:0;border-radius:calc(var(--rad)*2px);overflow:hidden;aspect-ratio:4/5;max-height:560px;box-shadow:0 30px 70px -30px rgba(0,0,0,.35)}
+.about-media img{width:100%;height:100%;object-fit:cover;transition:transform .6s var(--ease,ease)}
+.about-media:hover img{transform:scale(1.04)}
+.about-media::after{content:"";position:absolute;inset:0;box-shadow:inset 0 0 0 1px rgba(255,255,255,.14);border-radius:inherit;pointer-events:none}
+.about-panel{display:grid;place-items:center;background:linear-gradient(145deg,color-mix(in srgb,var(--brand) 55%,#171a20),color-mix(in srgb,var(--brand) 25%,#0e1014))}
+.about-mark{font-family:'__DISPLAY__',Georgia,serif;font-size:clamp(4rem,9vw,7rem);font-weight:600;color:rgba(255,255,255,.9);letter-spacing:.04em}
+.arch-flagship .about-media{transform:rotate(1.2deg)}
+@media(max-width:820px){.about-in{grid-template-columns:1fr;gap:28px}.about-media{aspect-ratio:16/10;max-height:340px}}
+
+/* ── WHY-US: check pillars ────────────────────────────────────────────────── */
+.whygrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:22px;margin-top:38px}
+.why{display:flex;gap:16px;align-items:flex-start;padding:24px;border-radius:calc(var(--rad)*1.4px);background:var(--surf);border:1px solid var(--line);transition:transform .25s var(--ease,ease),box-shadow .25s}
+.why:hover{transform:translateY(-4px);box-shadow:0 20px 44px -24px rgba(0,0,0,.25)}
+.whycheck{flex:none;display:grid;place-items:center;width:34px;height:34px;border-radius:50%;background:color-mix(in srgb,var(--brand) 12%,var(--bg));color:var(--brand);font-weight:800}
+.why h3{font-size:1.06rem;margin:0 0 4px}.why p{color:var(--mut);font-size:.94rem;line-height:1.55;margin:0}
+
+/* ── GALLERY: rhythm-broken grid, not a boring strip ──────────────────────── */
+.galgrid{display:grid;grid-template-columns:repeat(4,1fr);grid-auto-rows:150px;gap:14px;margin-top:36px}
+.gal{margin:0;border-radius:calc(var(--rad)*1.2px);overflow:hidden;position:relative}
+.gal img{width:100%;height:100%;object-fit:cover;transition:transform .6s var(--ease,ease),filter .4s}
+.gal:hover img{transform:scale(1.06)}
+.gal.g0{grid-column:span 2;grid-row:span 2}.gal.g3{grid-row:span 2}
+@media(max-width:760px){.galgrid{grid-template-columns:repeat(2,1fr);grid-auto-rows:130px}.gal.g0{grid-column:span 2}}
+
+/* ── FAQ: native accordion, editorial two-column ──────────────────────────── */
+.faq-in{display:grid;grid-template-columns:.85fr 1.15fr;gap:clamp(28px,5vw,64px);align-items:start}
+.faq-h{position:sticky;top:96px}
+.faq-h .lead a{color:var(--brand);font-weight:600;text-decoration:none}
+.faqlist{display:flex;flex-direction:column}
+.qa{border-bottom:1px solid var(--line)}
+.qa summary{list-style:none;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:18px;
+  padding:20px 2px;font-weight:600;font-size:1.06rem;font-family:'__DISPLAY__',Georgia,serif}
+.qa summary::-webkit-details-marker{display:none}
+.qplus{flex:none;position:relative;width:22px;height:22px}
+.qplus::before,.qplus::after{content:"";position:absolute;background:var(--brand);inset:10px 2px;transition:transform .25s var(--ease,ease)}
+.qplus::after{transform:rotate(90deg)}
+.qa[open] .qplus::after{transform:rotate(0)}
+.qa p{margin:0 0 22px;color:var(--mut);line-height:1.65;max-width:60ch}
+.qa summary:hover{color:var(--brand)}
+@media(max-width:820px){.faq-in{grid-template-columns:1fr}.faq-h{position:static}}
 `; }
 
 // injected at end of <body> — nav-solid-on-scroll + scroll-reveal (a11y-safe)
@@ -1252,7 +1369,8 @@ export function assemble(profile, recipe={}, page=null){
   const useCaptured = recipe.useCapturedPalette !== false;
   // Brand-font echo: if capture found a Google Font the prospect already
   // loads, use it as the display face (guaranteed available on Google Fonts).
-  const brandFont = profile.fonts && profile.fonts.head;
+  // sanitize: captures sometimes carry weight/variant suffixes ("Roboto Condensed:400,700|…")
+  const brandFont = profile.fonts && profile.fonts.head && profile.fonts.head.split(/[:|,]/)[0].trim();
   const displayFont = brandFont || theme.font;
   const displayUrl = brandFont ? brandFont.replace(/ /g,'+') + ':wght@400;500;600;700' : theme.fontUrl;
   const css = stylesheet().replace(/__DISPLAY__/g, displayFont);

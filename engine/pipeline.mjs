@@ -116,8 +116,11 @@ if (cap.copy?.businessName && cap.copy.businessName.length >= 3) {
 function pickName(sig, domain){
   const clean = s => (s||'').replace(/\s+/g,' ').trim();
   const humanize = d => d.replace(/^www\./,'').replace(/\.[a-z]+$/,'').replace(/[-_.]+/g,' ').replace(/\b\w/g,c=>c.toUpperCase());
-  const raw = clean(sig.og_site_name) || clean(sig.title||'');
-  const parts = raw.split(/[|–—·:]/).map(s=>s.trim()).filter(Boolean);
+  // consider BOTH og_site_name and <title> segments — either can hold SEO junk
+  const raw = [clean(sig.og_site_name), clean(sig.title||'')].filter(Boolean).join(' | ');
+  const parts = raw.split(/[|–—·:]/).map(s=>s.trim()).filter(Boolean)
+    .filter((p,i,a)=>a.findIndex(x=>x.toLowerCase()===p.toLowerCase())===i);
+  if (!parts.length) return humanize(domain);
   // SHOUTING TITLES read as broken — title-case anything that's all caps
   const decap = p => /^[^a-z]+$/.test(p) && p.length > 6
     ? p.toLowerCase().replace(/\b\w/g,c=>c.toUpperCase()).replace(/\b(Of|The|And|In|At)\b/g,m=>m.toLowerCase()).replace(/^./,c=>c.toUpperCase())
@@ -134,7 +137,11 @@ function pickName(sig, domain){
   return decap(pick);
 }
 
-// download brand assets: ranked-logo fallback chain + real photos + hero pick
+// download brand assets: ranked-logo fallback chain + real photos + hero pick.
+// Photos are re-ranked for the DETECTED industry first, so the hero shot looks
+// like the business (a contractor's crew, not the prettiest random building).
+const { rankPhotosForVertical } = await import('./capture.mjs');
+if (pack.kind === 'vertical') cap.photos = rankPhotosForVertical(cap.photos, pack.key);
 const assets = await saveAssets(slug, cap, ROOT);
 const logo = assets.logo;
 
@@ -170,6 +177,7 @@ if (isBiz) {
   // Priority: hand-verified override → captured real services → AI → pack defaults.
   const realServices = (override && override.services && override.services.length)
     ? override.services
+    : (pack.key === 'retail' && (cap.products || []).length >= 3) ? cap.products
     : (cap.services && cap.services.length >= 3) ? cap.services : (aiServices || []);
   // town from the captured address ("123 Main St, Highlands Ranch, CO 80126" → "Highlands Ranch")
   const addrParts = (cap.facts.address || '').split(',').map(x=>x.trim());
@@ -240,9 +248,11 @@ const profile = normalize(sig, {
 });
 
 const recipe = recommendRecipe(profile);
-// Business: keep the palette-driven archetype (varies by brand colour) instead
-// of forcing every business site into the same 'minimal' layout.
-if (pack.kind==='vertical') recipe.vertical = pack.key;
+// Business: FLAGSHIP is the default — the cinematic, editorial signature look.
+// The theme/palette still varies with the captured brand (colour, type, radius),
+// so no two businesses render alike; the church-derived layouts remain available
+// via --archetype for anyone who wants them.
+if (pack.kind==='vertical'){ recipe.vertical = pack.key; recipe.archetype='flagship'; if(recipe.mood==='none') recipe.mood='candle'; }
 else recipe.tradition = pack.key, recipe.archetype = recipe.archetype||'journey';
 // --archetype flagship (or any archetype) overrides the auto pick. Flagship is
 // the signature "wow" look; it pairs best with a bold theme + candle motion.
@@ -275,6 +285,7 @@ if (multipage) {
   fs.writeFileSync(path.join(outDir,'sitemap.xml'),
     `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls}\n</urlset>\n`);
 }
+
 
 // QA gate: static checks always; rendered checks when Chromium is available.
 // A failing demo still gets written (so you can inspect it) but exits non-zero.

@@ -33,6 +33,9 @@ const MATCHERS = [
   ["insurance",/insurance agenc|independent (?:insurance )?agen|\binsurance\b|coverage options|allstate|farmers insurance|state farm/g],
   ["law",      /attorney|law ?firm|lawyer|litigation|\blegal\b|\bcounsel\b|practice areas|\besq\b/g],
   ["childcare",/montessori|childcare|daycare|preschool|early learning|nursery|tutoring/g],
+  // Commercial construction / general contracting is B2B — completely different
+  // voice from residential home services. Detect it BEFORE the trades catch-all.
+  ["construction", /general contractor|preconstruction|pre-construction|design.?build|construction management|self.?perform|cm\/gc|cmgc|commercial construction|civil construction|sitework|earthwork|tenant improvement|owner'?s rep|alternate delivery|ground.?up construction/g],
   ["trades",   /hvac|plumb|roof|electric|landscap|\blawn\b|contractor|remodel|construction|heating|cooling|garage door|handyman|concrete|fencing|excavat|hardscape/g],
   // Retail / e-commerce: the site SELLS PRODUCTS. These signals (cart,
   // shipping, SKUs) are structural, so they outrank incidental keyword hits.
@@ -158,6 +161,15 @@ export const PACKS = {
     money: { kicker: "Financing", title: "Financing on bigger jobs.", lead: "Approved financing options so a big repair doesn't wait." },
     trust: ["Licensed & insured", "Upfront pricing", "Emergency service", "Satisfaction guaranteed"],
   },
+  construction: {
+    label: "Commercial Construction", bookCta: "Discuss your project \u2192", imNew: "Work With Us",
+    book: { title: "Have a project on the boards?", sub: "Tell us the scope and timeline \u2014 a principal will get back to you within one business day." },
+    hero: (n) => `Built right. Delivered on schedule.`,
+    services: ["Preconstruction services", "Construction management", "Design-build delivery", "General contracting", "Self-perform capabilities", "Civil & sitework"],
+    offer: { kicker: "On the boards?", title: "Let's talk about your next project.", lead: "Bring us in early \u2014 preconstruction input is where budgets and schedules are won.", cta: "Start the conversation \u2192" },
+    money: null,
+    trust: ["Bonded & fully insured", "Safety-first jobsite culture", "On-time, on-budget delivery", "Self-perform capabilities"],
+  },
   childcare: {
     label: "Childcare & Education", bookCta: "Schedule a tour →", imNew: "Schedule a Tour",
     hero: (n) => `${n} — where curious kids love to learn.`,
@@ -169,7 +181,7 @@ export const PACKS = {
   },
   retail: {
     label: "Shop", bookCta: "Shop now →", imNew: "Shop",
-    hero: (n) => `${n} — gear you can count on, shipped fast.`,
+    hero: (n) => `Gear you can count on, shipped fast.`,
     book: { title: "Questions before you order?", sub: "Real people answer — get sizing, fit and compatibility help before you buy." },
     services: ["Quality products, tested by us", "Fast, tracked shipping", "Easy returns & exchanges", "Expert product support", "Secure checkout", "Order updates that keep you posted"],
     offer: { kicker: "New here?", title: "Join the list, get first dibs.", lead: "New products, restocks and subscriber-only deals — no spam, unsubscribe anytime.", cta: "Sign me up →" },
@@ -352,12 +364,13 @@ const CONTENT_PLUS = {
 export function buildSections(vertical, name, { realReviews = [], rating = null, reviewCount = null, realServices = [], serviceDetails = [], slug = "", mission = "", town = "" } = {}) {
   const pk = PACKS[vertical] || PACKS.business;
   const v = (arr) => vary(slug || name, arr);
-  // Best → worst: captured services WITH their own descriptions (LLM pass),
-  // captured service names, vertical pack defaults.
+  // Best -> worst: captured services WITH their own descriptions (LLM pass),
+  // captured service names (each given keyword-matched copy - never blank),
+  // vertical pack defaults (which ship {h,p}).
   const detailed = (serviceDetails || []).filter((s) => s && s.h);
   const items = detailed.length >= 3 ? detailed.map((s) => svc(s.h, s.p || ""))
-    : realServices && realServices.length >= 3 ? realServices.map((s) => svc(s, ""))
-    : pk.services.map((s) => (typeof s === "string" ? svc(s, "") : s));   // packs ship {h,p}
+    : (realServices && realServices.length >= 3) ? realServices.map((s, i) => svc(s, describeService(s, i, vertical)))
+    : pk.services.map((s, i) => (typeof s === "string" ? svc(s, describeService(s, i, vertical)) : s));
   const sections = {
     // packs may override the "book" band (retail says "questions before you
     // order?", not "book online")
