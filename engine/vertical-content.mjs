@@ -67,6 +67,32 @@ export function detectVertical(text = "") {
 
 const svc = (h, p) => ({ h, p });
 
+// One honest line of copy for a captured service NAME (no LLM description
+// available). Keyword-matched where possible, benefit-generic otherwise —
+// a card should never ship blank. (Restores the merged session's intent.)
+const SVC_HINTS = [
+  [/consult|assessment|evaluation|exam\b/i, "Start with a clear, unhurried look at where things stand — and what we'd recommend."],
+  [/emergenc|same.?day|urgent/i, "When it can't wait, we make room — call and we'll take it from there."],
+  [/clean|maintenance|tune.?up|preventive|wellness/i, "Regular care that keeps small issues from ever becoming big ones."],
+  [/repair|restor|fix|treatment/i, "Done carefully, explained plainly, and built to last."],
+  [/install|replace|new\b/i, "From first measurements to final walkthrough, handled end to end."],
+  [/cosmetic|whiten|aesthetic|smile/i, "Subtle, natural-looking results you'll actually love."],
+  [/surg|procedure|operat/i, "Performed with precision, with comfort and clear aftercare built in."],
+  [/insur|coverage|financ|payment|billing/i, "We handle the paperwork and explain the costs before anything begins."],
+  [/refinanc|escrow|closing|title|settlement/i, "Handled accurately and on schedule, with clear communication at every step."],
+  [/kids?|child|pediatric|family/i, "Gentle, patient care that puts the youngest members of the family at ease."],
+];
+const SVC_GENERIC = [
+  "Handled by experienced hands, with clear communication throughout.",
+  "Tailored to your situation — never one-size-fits-all.",
+  "Straightforward pricing and honest recommendations, every time.",
+  "Quality work, delivered when we say it will be.",
+];
+function describeService(name, i = 0, vertical = "") {
+  const hit = SVC_HINTS.find(([re]) => re.test(String(name)));
+  return hit ? hit[1] : SVC_GENERIC[i % SVC_GENERIC.length];
+}
+
 // Deterministic per-prospect variant picker: same slug always renders the same
 // copy (stable demos), but neighbouring prospects in the same vertical don't
 // read identically — kills the template scent on side-by-side cold calls.
