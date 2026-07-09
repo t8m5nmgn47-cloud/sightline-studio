@@ -46,9 +46,13 @@ const MATCHERS = [
 
 export function detectVertical(text = "") {
   const t = text.toLowerCase();
+  // The HEAD of the text (title/business name region) is who they ARE; the
+  // body is what they mention. "Homestead Title and Escrow" must beat a dozen
+  // deep-page "refinance order" links — head matches count 5×.
+  const head = t.slice(0, 250);
   const scores = new Map();
   for (const [key, re] of MATCHERS) {
-    const hits = (t.match(re) || []).length;
+    const hits = (t.match(re) || []).length + ((head.match(re) || []).length * 5);
     if (!hits) continue;
     const k = key === "medical2" ? "medical" : key;
     // medical2 is a weak catch-all; retail signals are structural and strong

@@ -576,6 +576,19 @@ export function imageDims(buf) {
 }
 export const imageSize = imageDims;   // back-compat alias
 
+// True image extension from magic bytes — never trust the URL's "extension"
+// (an extensionless URL once produced "logo.com", which browsers can't render).
+export function sniffExt(buf, fallback = 'jpg') {
+  if (!buf || buf.length < 12) return fallback;
+  if (buf[0] === 0x89 && buf[1] === 0x50) return 'png';
+  if (buf[0] === 0xff && buf[1] === 0xd8) return 'jpg';
+  if (buf[0] === 0x47 && buf[1] === 0x49 && buf[2] === 0x46) return 'gif';
+  if (buf.toString('ascii', 0, 4) === 'RIFF' && buf.toString('ascii', 8, 12) === 'WEBP') return 'webp';
+  if (buf.toString('utf8', 0, 200).trimStart().startsWith('<svg') || buf.toString('utf8', 0, 200).includes('<svg')) return 'svg';
+  if (buf.toString('ascii', 4, 12) === 'ftypavif') return 'avif';
+  return fallback;
+}
+
 // A real logo is small-to-medium and usually wide or square — a large
 // square-ish JPEG is almost always a photo that lied its way up the ranking.
 export function looksLikeLogo(buf, ext) {
@@ -602,8 +615,11 @@ async function download(url, dest, { min = 500, max = 4 * 1024 * 1024, minW = 0,
     if (validate && !validate(buf)) return null;          // e.g. logo shape check
     const dims = imageDims(buf);
     if (minW && dims && dims.w < minW) return null;       // too small to use
-    fs.writeFileSync(dest, buf);
-    return { bytes: buf.length, w: dims?.w || null, h: dims?.h || null };
+    // correct the extension from the actual bytes before writing
+    const realExt = sniffExt(buf, (dest.split('.').pop() || 'jpg'));
+    const fixedDest = dest.replace(/\.[a-z0-9]+$/i, '.' + realExt);
+    fs.writeFileSync(fixedDest, buf);
+    return { bytes: buf.length, w: dims?.w || null, h: dims?.h || null, ext: realExt, path: fixedDest };
   } catch { return null; }
 }
 
@@ -622,8 +638,9 @@ export async function saveAssets(slug, cap, ROOT, { maxPhotos = 8 } = {}) {
     const ext = ((c.url.match(/\.([a-z0-9]{2,4})(?=$|[?\/:#])/i) || [,'png'])[1]).toLowerCase();
     // shape-validate every candidate: a photo pretending to be a logo is worse
     // than no logo (the header falls back to a clean styled wordmark instead)
-    if (await download(c.url, path.join(dir, 'logo.' + ext),
-        { min: 400, max: 2 * 1024 * 1024, validate: (buf) => looksLikeLogo(buf, ext) })) { logo = rel('logo.' + ext); break; }
+    const gotLogo = await download(c.url, path.join(dir, 'logo.' + ext),
+        { min: 400, max: 2 * 1024 * 1024, validate: (buf) => looksLikeLogo(buf, ext) });
+    if (gotLogo) { logo = rel('logo.' + (gotLogo.ext || ext)); break; }
   }
 
   // photos: probe REAL dimensions from bytes (declared width/height are absent
@@ -638,10 +655,11 @@ export async function saveAssets(slug, cap, ROOT, { maxPhotos = 8 } = {}) {
     const file = `photos/${saved.length + 1}.${ext}`;
     const got = await download(ph.url, path.join(dir, file), { min: 12000, minW: 480 });   // real photo, usable width
     if (!got) continue;
+    const realFile = got.ext ? file.replace(/\.[a-z0-9]+$/i, '.' + got.ext) : file;
     const key = `${got.bytes}:${got.w}x${got.h}`;
-    if (seen.has(key)) { try { fs.unlinkSync(path.join(dir, file)); } catch {} continue; }
+    if (seen.has(key)) { try { fs.unlinkSync(got.path || path.join(dir, realFile)); } catch {} continue; }
     seen.add(key);
-    saved.push({ path: rel(file), ...got });
+    saved.push({ path: rel(realFile), bytes: got.bytes, w: got.w, h: got.h });
   }
   const gallery = saved.map((s) => s.path);
   // hero: widest landscape photo ≥800px; fall back to the largest file

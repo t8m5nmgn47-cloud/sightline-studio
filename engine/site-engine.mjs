@@ -23,6 +23,10 @@ function desat(h, amt){ const [r,g,b]=rgb(h); const grey=Math.round(.299*r+.587*
   const f=v=>Math.round(v+(grey-v)*amt);
   return `#${[f(r),f(g),f(b)].map(v=>v.toString(16).padStart(2,'0')).join('')}`; }
 function tame(h){ const c=rgb(h); const sv=sat(c); return sv>.6 ? desat(h, Math.min(.4, (sv-.55)*1.1)) : h; }
+// display-format a US phone: +13035005783 → (303) 500-5783 (module-scope —
+// used by hero CTAs and normalize alike)
+const fmtPhone = ph => { const d=String(ph||'').replace(/[^0-9]/g,'').replace(/^1(?=\d{10}$)/,'');
+  return d.length===10 ? `(${d.slice(0,3)}) ${d.slice(3,6)}-${d.slice(6)}` : (ph||''); };
 
 // Derive a coherent palette from the real captured colours.
 // Framework/default colours that appear in almost every site's CSS but are
@@ -31,29 +35,30 @@ const FRAMEWORK = new Set(['#007bff','#0056b3','#0d6efd','#6610f2','#6f42c1','#e
   // social-platform brand colours (share buttons / embeds — never THE brand)
   '#1877f2','#4267b2','#3b5998','#1da1f2','#1d9bf0','#0a66c2','#0077b5','#e60023','#bd081c','#25d366','#128c7e','#ff4500','#7289da','#5865f2','#e1306c','#c13584','#fe2c55','#ff0050']);
 function derivePalette(colors){
-  const cs = (colors||[]).map(hex).filter(c=>/^#[0-9a-f]{6}$/.test(c));
-  const vivid = cs.filter(c=>sat(rgb(c))>.35 && lum(rgb(c))>.06 && lum(rgb(c))<.7)
-                  .sort((a,b)=>sat(rgb(b))-sat(rgb(a)));
-  const brand = vivid[0] || '#1f6f5c';
-  // accent: a second vivid hue distinct from brand, else a warm gold.
-  // HARMONY GUARD: an accent must be either analogous to the brand (≤70° hue
-  // distance) or a warm gold/amber — a saturated clashing hue (pink checkmarks
-  // on a green site) reads broken, so it falls back to the designed gold.
-  const hue = ([r,g,b]) => { const mx=Math.max(r,g,b),mn=Math.min(r,g,b),d=mx-mn||1;
-    let h = mx===r ? (g-b)/d % 6 : mx===g ? (b-r)/d+2 : (r-g)/d+4; return ((h*60)+360)%360; };
-  const hueDist = (a,b)=>{ const d=Math.abs(hue(rgb(a))-hue(rgb(b))); return Math.min(d,360-d); };
-  let accent = vivid.find(c=>Math.abs(lum(rgb(c))-lum(rgb(brand)))>.08 && c!==brand) || '#c0914c';
-  const aHue = hue(rgb(accent));
-  const harmonious = hueDist(accent,brand) <= 70 || (aHue >= 20 && aHue <= 70) || sat(rgb(accent)) < .35;
-  if (!harmonious) accent = '#c0914c';
+  const cs = (colors||[]).map(hex).filter(c=>/^#[0-9a-f]{6}$/.test(c)).filter(c=>!FRAMEWORK.has(c));
+  // capture ranks colours by real usage weight — respect that order. The FIRST
+  // sufficiently-vivid colour is the brand; sorting by raw saturation let one
+  // stray utility colour outrank the actual brand.
+  const vivid = cs.filter(c=>sat(rgb(c))>.35 && lum(rgb(c))>.06 && lum(rgb(c))<.7);
   const darks = cs.filter(c=>lum(rgb(c))<.14).sort((a,b)=>lum(rgb(a))-lum(rgb(b)));
   const lights = cs.filter(c=>lum(rgb(c))>.85).sort((a,b)=>lum(rgb(b))-lum(rgb(a)));
   // Monochrome brands (all-black/gray sites) get a deliberate gunmetal palette —
   // near-black brand + steel accent — instead of an arbitrary default colour.
   const mono = !vivid.length;
-  const brand = vivid[0] || (mono && (darks[1] || darks[0])) || '#26262b';
-  const accent = mono ? '#a8adb8'
+  const brand = vivid[0] || (mono && (darks[1] || darks[0])) || '#1f6f5c';
+  // accent: mono → steel; else a second vivid hue, guarded for HARMONY — it
+  // must be analogous to the brand (≤70° hue distance) or a warm gold/amber;
+  // a saturated clashing hue (pink checkmarks on a green site) reads broken.
+  const hue = ([r,g,b]) => { const mx=Math.max(r,g,b),mn=Math.min(r,g,b),d=mx-mn||1;
+    let h = mx===r ? (g-b)/d % 6 : mx===g ? (b-r)/d+2 : (r-g)/d+4; return ((h*60)+360)%360; };
+  const hueDist = (a,b)=>{ const d=Math.abs(hue(rgb(a))-hue(rgb(b))); return Math.min(d,360-d); };
+  let accent = mono ? '#a8adb8'
     : vivid.find(c=>Math.abs(lum(rgb(c))-lum(rgb(brand)))>.08 && c!==brand) || '#c0914c';
+  if (!mono){
+    const aHue = hue(rgb(accent));
+    const harmonious = hueDist(accent,brand) <= 70 || (aHue >= 20 && aHue <= 70) || sat(rgb(accent)) < .35;
+    if (!harmonious) accent = '#c0914c';
+  }
   // buttons and bands put white text on brand — clamp so it always reads;
   // tame() caps saturation so a neon captured brand can't shout down the page
   const safeBrand = clampForWhite(tame(brand), 3);
@@ -78,10 +83,6 @@ export function normalize(sig, over={}){
     .slice(0,6);
   const phrases = (sig.hero_phrases||[]).map(clean).filter(Boolean);
   const mission = phrases.find(p=>/\b(exist|mission|help you|we are|our vision)\b/i.test(p));
-  // display-format US phone numbers: "+13035005783" reads like a database
-  // leak; "(303) 500-5783" reads like a business card
-  const fmtPhone = (ph) => { const d = String(ph||'').replace(/[^0-9]/g,'').replace(/^1(?=\d{10}$)/,'');
-    return d.length === 10 ? `(${d.slice(0,3)}) ${d.slice(3,6)}-${d.slice(6)}` : (ph||''); };
   return {
     slug: over.slug,
     name,

@@ -102,8 +102,14 @@ const sig = cap.sig;
 // nav labels are strong classification evidence (a "Shop" tab means a shop) —
 // weight them by repeating alongside the page text
 const navText = ((sig.nav_tabs||[]).map(t=>t.label).join(' ')+' ').repeat(3);
-const pack = detectPack((sig.title||'')+' '+navText+(sig.visible_text||'').slice(0,4000), {vertical:flag('vertical'), tradition:flag('tradition')});
 let name = pickName(sig, domain);
+// The business NAME is who they are — it leads the classification text so
+// "Homestead Title and Escrow" can't be out-shouted by its own nav's
+// "Refinance Order" product links.
+const pack = detectPack((name+' ').repeat(5)+(sig.title||'')+' '+navText+(sig.visible_text||'').slice(0,4000), {vertical:flag('vertical'), tradition:flag('tradition')});
+// Surgical disambiguation: a mortgage classification with title/escrow in the
+// NAME is a title company that processes refinance orders, not a lender.
+if (pack.kind==='vertical' && pack.key==='mortgage' && /\btitle\b|\bescrow\b/i.test(name)) pack.key = 'title';
 // SEO-spam title guard: when the title-derived name shares no words with the
 // domain but the LLM found the official name on the pages (logo/footer/about),
 // trust the LLM — "Acacia Dental Group" beats "Englewood CO Dentist".
@@ -143,7 +149,15 @@ function pickName(sig, domain){
 const { rankPhotosForVertical } = await import('./capture.mjs');
 if (pack.kind === 'vertical') cap.photos = rankPhotosForVertical(cap.photos, pack.key);
 const assets = await saveAssets(slug, cap, ROOT);
-const logo = assets.logo;
+let logo = assets.logo;
+
+// Logo sanity (vision, ~1¢): a captured logo bearing a DIFFERENT brand's name
+// (vendor badges, partner marks) is worse than no logo — the wordmark takes over.
+if (logo) {
+  const { logoMatchesBusiness } = await import('./photo-engine.mjs');
+  const ok = await logoMatchesBusiness(path.join(ROOT, logo.replace(/^\//, '')), name);
+  if (ok === false) { console.log('  ! captured logo rejected by vision gate (different brand) — using styled wordmark'); logo = null; }
+}
 
 const isBiz = pack.kind==='vertical';
 
@@ -227,9 +241,20 @@ if (sfx && stock.length > 1) {
 }
 const heroGate = (m) => m && m.w >= 1400 && (m.bytes / ((m.w * m.h) / 1000)) >= 30;
 const heroMeta = (assets.photoMeta || []).find(m => m.path === assets.heroImage);
-const capturedHero = (override && override.heroImage) || ((!isBiz || heroGate(heroMeta)) ? assets.heroImage : null);
+let capturedHero = (override && override.heroImage) || ((!isBiz || heroGate(heroMeta)) ? assets.heroImage : null);
 if (isBiz && assets.heroImage && !capturedHero)
   console.log('  ! captured hero failed the quality gate (low res / soft focus) — using curated stock hero');
+// VISION gate (needs ANTHROPIC key, ~1¢): promo banners with baked-in text,
+// collages and extreme close-ups pass byte checks but ruin heroes. An AI eye
+// rejects them; stock steps in. Their photo still serves smaller sections.
+if (isBiz && capturedHero && !(override && override.heroImage)) {
+  const { heroLooksClean } = await import('./photo-engine.mjs');
+  const clean = await heroLooksClean(path.join(ROOT, capturedHero.replace(/^\//, '')));
+  if (clean === false) {
+    console.log('  ! captured hero rejected by vision gate (baked-in text / banner / close-up) — using curated stock hero');
+    capturedHero = null;
+  }
+}
 
 const profile = normalize(sig, {
   slug, name, logo,

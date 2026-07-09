@@ -8,13 +8,13 @@
 <meta property="og:type" content="website">
 <meta property="og:title" content="Colorado Lending Team">
 <meta property="og:url" content="https://sightline-studio.vercel.app/demos/coloradolendingteam-com/services.html">
-<meta property="og:image" content="https://sightline-studio.vercel.app/assets/captured/coloradolendingteam-com/photos/1.jpg">
+<meta property="og:image" content="https://sightline-studio.vercel.app/assets/stock/finance-1.webp">
 <meta name="twitter:card" content="summary_large_image">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"FinancialService","name":"Colorado Lending Team","url":"https://sightline-studio.vercel.app/demos/coloradolendingteam-com/services.html","telephone":"(303) 477-3889","logo":"https://sightline-studio.vercel.app/assets/captured/coloradolendingteam-com/logo.png","image":"https://sightline-studio.vercel.app/assets/captured/coloradolendingteam-com/photos/1.jpg"}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"FinancialService","name":"Colorado Lending Team","url":"https://sightline-studio.vercel.app/demos/coloradolendingteam-com/services.html","telephone":"(303) 477-3889","logo":"https://sightline-studio.vercel.app/assets/captured/coloradolendingteam-com/logo.png","image":"https://sightline-studio.vercel.app/assets/stock/finance-1.webp"}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-<style>:root{--ink:#191919;--bg:#f8f9fa;--surf:#ffffff;--mut:#6a6a72;--line:rgba(0,0,0,.10);
-    --brand:#d07637;--brand-d:#ab612d;--accent:#cf2e2e;--brand-rgb:208,118,55;--rad:18px}
+<style>:root{--ink:#191919;--bg:#faf8f4;--surf:#ffffff;--mut:#6a6a72;--line:rgba(0,0,0,.10);
+    --brand:#4788ca;--brand-d:#3a70a6;--accent:#c0914c;--brand-rgb:71,136,202;--rad:6px}
 
 *{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);
   font-family:Inter,system-ui,-apple-system,sans-serif;line-height:1.55;-webkit-font-smoothing:antialiased}
@@ -126,7 +126,7 @@ h1,h2,h3{font-family:'Plus Jakarta Sans',Georgia,serif;font-weight:600;line-heig
 .tinitial{display:grid;place-items:center;background:var(--brand);color:#fff;font-family:'Plus Jakarta Sans',serif;font-size:2.4rem;font-weight:600}
 .tcard h3{font-size:1.1rem;margin-top:14px}.trole{color:var(--mut);font-size:.92rem}
 /* band */
-.band{background:var(--brand);color:#fff}
+.band{background:linear-gradient(120deg,color-mix(in srgb,var(--brand) 48%,#14161b),color-mix(in srgb,var(--brand) 22%,#0e1014));color:#fff}
 .band-in{display:flex;gap:30px;align-items:center;justify-content:space-between;flex-wrap:wrap}
 .band h2{margin-top:.2em}
 /* cta */
@@ -305,9 +305,9 @@ body:not(.arch-split):not(.arch-minimal) .nav.scrolled{background:color-mix(in s
    FLAGSHIP — the $15k look. Cinematic hero, editorial scale, layered depth.
    ═══════════════════════════════════════════════════════════════════════════ */
 .arch-flagship{--ease:cubic-bezier(.2,.7,.2,1)}
-.arch-flagship .nav{position:fixed;top:0;left:0;right:0;z-index:40;padding:18px 0;transition:padding .3s var(--ease),background .3s,box-shadow .3s,backdrop-filter .3s}
+.arch-flagship .nav{position:fixed;top:0;left:0;right:0;z-index:40;padding:18px clamp(20px,4vw,56px);transition:padding .3s var(--ease),background .3s,box-shadow .3s,backdrop-filter .3s}
 .arch-flagship .nav .wrap,.arch-flagship .nav{display:flex;align-items:center;justify-content:space-between}
-.arch-flagship .nav.solid{padding:11px 0;background:color-mix(in srgb,var(--bg) 82%,transparent);backdrop-filter:saturate(1.6) blur(14px);box-shadow:0 1px 0 var(--line),0 12px 30px -18px rgba(0,0,0,.4)}
+.arch-flagship .nav.solid{padding:11px clamp(20px,4vw,56px);background:color-mix(in srgb,var(--bg) 82%,transparent);backdrop-filter:saturate(1.6) blur(14px);box-shadow:0 1px 0 var(--line),0 12px 30px -18px rgba(0,0,0,.4)}
 /* transparent brandmark over the hero — no floating white pill */
 .arch-flagship .nav .brandmark{background:transparent;box-shadow:none;padding:0}
 .arch-flagship .nav .wordmark{font-family:'Plus Jakarta Sans',Georgia,serif;font-weight:600;font-size:1.34rem;letter-spacing:-.02em;color:#fff}
@@ -321,14 +321,14 @@ body:not(.arch-split):not(.arch-minimal) .nav.scrolled{background:color-mix(in s
 .arch-flagship .nav.solid .navlinks a{color:var(--ink)}
 
 /* cinematic hero */
-.fhero{position:relative;min-height:100svh;display:flex;align-items:flex-end;overflow:hidden;color:#fff;isolation:isolate;background:linear-gradient(150deg,color-mix(in srgb,var(--brand) 78%,#000),color-mix(in srgb,var(--brand) 30%,#0a0d12) 70%,#0a0d12)}
+.fhero{position:relative;min-height:100svh;display:flex;align-items:flex-end;overflow:hidden;color:#fff;isolation:isolate;background:linear-gradient(150deg,color-mix(in srgb,var(--brand) 42%,#0a0d12),color-mix(in srgb,var(--brand) 16%,#0a0d12) 70%,#0a0d12)}
 /* no photo? a premium layered brand gradient instead of flat gray */
 .fhero:has(.fhero-media:empty)::after,.fhero .fhero-media:empty{background:radial-gradient(90% 70% at 78% 8%,color-mix(in srgb,var(--accent,#fff) 26%,transparent),transparent 55%),radial-gradient(70% 60% at 12% 96%,color-mix(in srgb,var(--brand) 60%,transparent),transparent 60%)}
 .fhero .fhero-media:empty{position:absolute;inset:0;z-index:-1}
 .fhero-media{position:absolute;inset:0;z-index:-2}
 .fhero-media img,.fhero-media video{width:100%;height:100%;object-fit:cover;transform:scale(1.08);animation:fkenburns 18s var(--ease) forwards}
 @keyframes fkenburns{to{transform:scale(1)}}
-.fhero-veil{position:absolute;inset:0;background:linear-gradient(180deg,rgba(8,10,14,.28) 0%,rgba(8,10,14,.12) 32%,rgba(8,10,14,.62) 78%,rgba(8,10,14,.88) 100%),radial-gradient(120% 80% at 15% 100%,color-mix(in srgb,var(--brand) 55%,transparent),transparent 60%)}
+.fhero-veil{position:absolute;inset:0;background:linear-gradient(180deg,rgba(8,10,14,.28) 0%,rgba(8,10,14,.12) 32%,rgba(8,10,14,.62) 78%,rgba(8,10,14,.88) 100%),radial-gradient(120% 80% at 15% 100%,color-mix(in srgb,var(--brand) 28%,transparent),transparent 60%)}
 .fhero-in{position:relative;padding:0 clamp(20px,5vw,64px) clamp(64px,10vh,120px);max-width:1180px;margin:0 auto;width:100%}
 .fkick{display:inline-flex;align-items:center;gap:9px;font-size:.76rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;padding:8px 15px;border:1px solid rgba(255,255,255,.28);border-radius:999px;backdrop-filter:blur(6px);opacity:0;animation:frise .8s var(--ease) .1s forwards}
 .fkick-dot{width:7px;height:7px;border-radius:50%;background:var(--accent,#fff);box-shadow:0 0 0 0 var(--accent,#fff);animation:fpulse 2.6s ease-in-out infinite}
@@ -352,7 +352,7 @@ body:not(.arch-split):not(.arch-minimal) .nav.scrolled{background:color-mix(in s
 @media(prefers-reduced-motion:reduce){.fhead .w,.fkick,.fsub,.fcta,.ftrust{animation:none!important;opacity:1!important;transform:none!important}.fhero-media img,.fhero-media video{animation:none;transform:none}}
 
 /* scrolling marquee band */
-.fmarquee{overflow:hidden;background:var(--brand);color:#fff;padding:20px 0;white-space:nowrap;user-select:none}
+.fmarquee{overflow:hidden;background:linear-gradient(100deg,color-mix(in srgb,var(--brand) 32%,#14161b),color-mix(in srgb,var(--brand) 14%,#0e1014));color:#fff;padding:20px 0;white-space:nowrap;user-select:none}
 .fmarquee-t{display:inline-block;animation:fmarq 32s linear infinite;font-family:'Plus Jakarta Sans',Georgia,serif;font-weight:600;font-size:1.5rem;letter-spacing:-.01em}
 .fmarquee-t span{padding:0 26px;opacity:.96}.fmarquee-t .mstar{opacity:.5}
 @keyframes fmarq{to{transform:translateX(-50%)}}
@@ -377,11 +377,56 @@ body:not(.arch-split):not(.arch-minimal) .nav.scrolled{background:color-mix(in s
 .arch-flagship .rv{background:var(--bg);border:1px solid var(--line);border-radius:20px;padding:30px;font-size:1.12rem;line-height:1.6;font-family:'Plus Jakarta Sans',Georgia,serif;font-weight:500}
 .arch-flagship .rv cite{display:block;margin-top:16px;font-family:var(--body);font-style:normal;font-size:.88rem;color:var(--mut);font-weight:600}
 /* offer band = full-bleed brand gradient */
-.arch-flagship .band{background:linear-gradient(120deg,var(--brand),color-mix(in srgb,var(--brand) 60%,#000));color:#fff;border-radius:28px;margin:0 clamp(16px,4vw,40px)}
+.arch-flagship .band{background:linear-gradient(120deg,color-mix(in srgb,var(--brand) 42%,#12151b),color-mix(in srgb,var(--brand) 16%,#0b0d11));color:#fff;border-radius:28px;margin:0 clamp(16px,4vw,40px)}
 .arch-flagship .band .sec-k,.arch-flagship .band h2{color:#fff}
 .arch-flagship .band .btn,.arch-flagship .band .fbtn{background:#fff;color:var(--brand)}
+
+/* ── ABOUT: editorial split — narrative beside a framed photo ─────────────── */
+.about-in{display:grid;grid-template-columns:1.05fr .95fr;gap:clamp(32px,5vw,72px);align-items:center}
+.about-body{font-size:1.08rem;line-height:1.75;color:color-mix(in srgb,var(--ink) 82%,var(--mut));max-width:58ch;margin:1.1em 0 1.4em}
+.about-loc{color:var(--brand);font-weight:600;font-size:.92rem;letter-spacing:.04em;margin:0 0 22px}
+.about-media{position:relative;margin:0;border-radius:calc(var(--rad)*2px);overflow:hidden;aspect-ratio:4/5;max-height:560px;box-shadow:0 30px 70px -30px rgba(0,0,0,.35)}
+.about-media img{width:100%;height:100%;object-fit:cover;transition:transform .6s var(--ease,ease)}
+.about-media:hover img{transform:scale(1.04)}
+.about-media::after{content:"";position:absolute;inset:0;box-shadow:inset 0 0 0 1px rgba(255,255,255,.14);border-radius:inherit;pointer-events:none}
+.about-panel{display:grid;place-items:center;background:linear-gradient(145deg,color-mix(in srgb,var(--brand) 55%,#171a20),color-mix(in srgb,var(--brand) 25%,#0e1014))}
+.about-mark{font-family:'Plus Jakarta Sans',Georgia,serif;font-size:clamp(4rem,9vw,7rem);font-weight:600;color:rgba(255,255,255,.9);letter-spacing:.04em}
+.arch-flagship .about-media{transform:rotate(1.2deg)}
+@media(max-width:820px){.about-in{grid-template-columns:1fr;gap:28px}.about-media{aspect-ratio:16/10;max-height:340px}}
+
+/* ── WHY-US: check pillars ────────────────────────────────────────────────── */
+.whygrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:22px;margin-top:38px}
+.why{display:flex;gap:16px;align-items:flex-start;padding:24px;border-radius:calc(var(--rad)*1.4px);background:var(--surf);border:1px solid var(--line);transition:transform .25s var(--ease,ease),box-shadow .25s}
+.why:hover{transform:translateY(-4px);box-shadow:0 20px 44px -24px rgba(0,0,0,.25)}
+.whycheck{flex:none;display:grid;place-items:center;width:34px;height:34px;border-radius:50%;background:color-mix(in srgb,var(--brand) 12%,var(--bg));color:var(--brand);font-weight:800}
+.why h3{font-size:1.06rem;margin:0 0 4px}.why p{color:var(--mut);font-size:.94rem;line-height:1.55;margin:0}
+
+/* ── GALLERY: rhythm-broken grid, not a boring strip ──────────────────────── */
+.galgrid{display:grid;grid-template-columns:repeat(4,1fr);grid-auto-rows:150px;gap:14px;margin-top:36px}
+.gal{margin:0;border-radius:calc(var(--rad)*1.2px);overflow:hidden;position:relative}
+.gal img{width:100%;height:100%;object-fit:cover;transition:transform .6s var(--ease,ease),filter .4s}
+.gal:hover img{transform:scale(1.06)}
+.gal.g0{grid-column:span 2;grid-row:span 2}.gal.g3{grid-row:span 2}
+@media(max-width:760px){.galgrid{grid-template-columns:repeat(2,1fr);grid-auto-rows:130px}.gal.g0{grid-column:span 2}}
+
+/* ── FAQ: native accordion, editorial two-column ──────────────────────────── */
+.faq-in{display:grid;grid-template-columns:.85fr 1.15fr;gap:clamp(28px,5vw,64px);align-items:start}
+.faq-h{position:sticky;top:96px}
+.faq-h .lead a{color:var(--brand);font-weight:600;text-decoration:none}
+.faqlist{display:flex;flex-direction:column}
+.qa{border-bottom:1px solid var(--line)}
+.qa summary{list-style:none;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:18px;
+  padding:20px 2px;font-weight:600;font-size:1.06rem;font-family:'Plus Jakarta Sans',Georgia,serif}
+.qa summary::-webkit-details-marker{display:none}
+.qplus{flex:none;position:relative;width:22px;height:22px}
+.qplus::before,.qplus::after{content:"";position:absolute;background:var(--brand);inset:10px 2px;transition:transform .25s var(--ease,ease)}
+.qplus::after{transform:rotate(90deg)}
+.qa[open] .qplus::after{transform:rotate(0)}
+.qa p{margin:0 0 22px;color:var(--mut);line-height:1.65;max-width:60ch}
+.qa summary:hover{color:var(--brand)}
+@media(max-width:820px){.faq-in{grid-template-columns:1fr}.faq-h{position:static}}
 </style></head>
-<body class="arch-split vert-mortgage subpage">
+<body class="arch-flagship vert-mortgage subpage">
 
 <nav class="nav">
   <a class="brandmark" href="#top"><img src="data:image/png;base64,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" alt="Colorado Lending Team" class="logo" onerror="this.outerHTML='<span class=&quot;wordmark&quot;>Colorado Lending Team</span>'"></a>
@@ -403,13 +448,13 @@ body:not(.arch-split):not(.arch-minimal) .nav.scrolled{background:color-mix(in s
     <h2>Home financing, minus the runaround.</h2>
     
     <div class="cardgrid compactgrid">
-      <article class="card compact"><span class="cn">1</span><h3>Purchase</h3></article>
-      <article class="card compact"><span class="cn">2</span><h3>Refinance</h3></article>
-      <article class="card compact"><span class="cn">3</span><h3>Conventional Mortgage</h3></article>
-      <article class="card compact"><span class="cn">4</span><h3>FHA Mortgage</h3></article>
-      <article class="card compact"><span class="cn">5</span><h3>VA Mortgage</h3></article>
-      <article class="card compact"><span class="cn">6</span><h3>Bridge Loan</h3></article>
-      <article class="card compact"><span class="cn">7</span><h3>All In One</h3></article>
+      <article class="card compact"><span class="cn">1</span><h3>Conventional Mortgage</h3></article>
+      <article class="card compact"><span class="cn">2</span><h3>FHA Mortgage</h3></article>
+      <article class="card compact"><span class="cn">3</span><h3>VA Mortgage</h3></article>
+      <article class="card compact"><span class="cn">4</span><h3>Bridge Loan</h3></article>
+      <article class="card compact"><span class="cn">5</span><h3>All In One</h3></article>
+      <article class="card compact"><span class="cn">6</span><h3>Refinance</h3></article>
+      <article class="card compact"><span class="cn">7</span><h3>Purchase</h3></article>
     </div>
   </div>
 </section>
@@ -427,7 +472,7 @@ body:not(.arch-split):not(.arch-minimal) .nav.scrolled{background:color-mix(in s
   </div></section>
 
 
-<section class="sec bookbar">
+<section class="sec bookbar" id="book">
   <div class="wrap bookbar-in">
     <div><b>Your next visit starts here.</b><span>Two clicks and you're booked — or just give us a call.</span></div>
     <div class="bookbtns"><a class="btn lg" href="#book">Get pre-approved →</a><a class="btn ghost lg" href="tel:3034773889">📞 (303) 477-3889</a></div>
@@ -438,7 +483,7 @@ body:not(.arch-split):not(.arch-minimal) .nav.scrolled{background:color-mix(in s
   <div class="wrap">
     <h2>Your first visit starts here.</h2>
     <p class="lead">Know your budget before you shop — a quick call gets you a real number.</p>
-    <a class="btn lg" href="#visit">Plan Your Visit →</a>
+    <a class="btn lg" href="#book">Get pre-approved →</a>
   </div>
 </section>
 
@@ -476,7 +521,7 @@ body:not(.arch-split):not(.arch-minimal) .nav.scrolled{background:color-mix(in s
   <form class="cx-in" id="cxForm"><input id="cxText" placeholder="Ask about hours, booking, insurance…" autocomplete="off"><button type="submit" aria-label="Send">→</button></form>
 </div>
 <script>(function(){
-  var D={"biz":true,"adv":"medical","name":"Colorado Lending Team","times":[],"location":"","phone":"(303) 477-3889","services":["Purchase","Refinance","Conventional Mortgage","FHA Mortgage","VA Mortgage","Bridge Loan"],"kids":"Yes — kids are welcome and cared for at every service.","giving":false,"watch":false,"money":false,"book":true};
+  var D={"biz":true,"adv":"medical","name":"Colorado Lending Team","times":[],"location":"","phone":"(303) 477-3889","services":["Conventional Mortgage","FHA Mortgage","VA Mortgage","Bridge Loan","All In One","Refinance"],"kids":"Yes — kids are welcome and cared for at every service.","giving":false,"watch":false,"money":false,"book":true};
   var log=document.getElementById('cxLog'), chips=document.getElementById('cxChips');
   function push(who,html){var d=document.createElement('div');d.className='cx-msg '+who;d.innerHTML=html;log.appendChild(d);log.scrollTop=log.scrollHeight;}
   function callCta(){return D.phone?['Call '+D.phone,'tel:'+D.phone.replace(/[^0-9]/g,'')]:['Send a message','#connect'];}
