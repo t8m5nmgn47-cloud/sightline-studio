@@ -3,175 +3,249 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>Sightline · Dashboard</title>
+  <title>Sightline · Command Center</title>
   <meta name="robots" content="noindex,nofollow">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
-    :root{--ink:#16140f;--mut:#6b6660;--line:#e7e2d8;--bg:#f4f1ea;--card:#fff;--ac:#1f6f5c;--deep:#11271f;--mint:#9fe3c4;--gold:#c2a04a;--red:#b4453a;--amber:#9a6b00;--head:'Fraunces',Georgia,serif;--body:'Inter',system-ui,sans-serif;--num:'Helvetica Neue',Helvetica,Arial,sans-serif}
+    :root{
+      --ink:#15130f;--mut:#6d675f;--mut2:#918a80;--line:#e5ded2;--bg:#f3efe7;--paper:#fffdf9;
+      --ac:#19735f;--ac2:#2c8b73;--mint:#a8e2cb;--deep:#0d2a20;--deep2:#173b2e;--gold:#c79b36;
+      --red:#b84b40;--amber:#a97912;--blue:#356b91;--violet:#6c5a8f;
+      --head:'Fraunces',Georgia,serif;--body:'Inter',system-ui,sans-serif;--num:'Inter',system-ui,sans-serif;
+      --shadow:0 18px 50px rgba(34,28,17,.07);
+    }
     *{box-sizing:border-box;margin:0}
+    html{scroll-behavior:smooth}
     body{background:var(--bg);color:var(--ink);font-family:var(--body);-webkit-font-smoothing:antialiased}
     a{color:inherit}
-    .shell{max-width:1180px;margin:0 auto;padding:0 clamp(18px,4vw,44px)}
-    .top{height:66px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--line)}
-    .brand{display:flex;align-items:center;gap:10px;font-family:var(--head);font-size:1.2rem;font-weight:600;text-decoration:none}
-    .dot{width:11px;height:11px;border-radius:50%;background:var(--ac)}
-    .topnav{display:flex;align-items:center;gap:18px}.topnav a{font-size:.83rem;color:var(--mut);text-decoration:none}.topnav a:hover{color:var(--ac)}
-    .hero{display:flex;justify-content:space-between;gap:28px;align-items:flex-end;padding:38px 0 22px}
-    .eyebrow{font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;color:var(--ac);font-weight:800;margin-bottom:7px}
-    h1{font-family:var(--head);font-size:clamp(2.1rem,1.5rem+2.2vw,3.4rem);font-weight:400;letter-spacing:-.03em;line-height:1.03}
-    .hero p{color:var(--mut);max-width:62ch;line-height:1.55;margin-top:10px}
-    .live{display:flex;align-items:center;gap:8px;color:var(--mut);font-size:.78rem;white-space:nowrap}.pulse{width:9px;height:9px;border-radius:50%;background:var(--ac);box-shadow:0 0 0 5px rgba(31,111,92,.12)}
-    .kpis{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:12px;margin-bottom:18px}
-    .kpi{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:17px 16px;min-height:112px;display:flex;flex-direction:column;justify-content:space-between}
-    .kpi .label{font-size:.7rem;color:var(--mut);font-weight:700;letter-spacing:.08em;text-transform:uppercase}
-    .kpi .value{font-family:var(--num);font-size:1.72rem;font-weight:800;letter-spacing:-.04em;margin-top:10px}
-    .kpi .sub{font-size:.73rem;color:var(--mut);margin-top:5px;line-height:1.3}
-    .kpi.alert{border-color:#ecc9c5;background:#fffafa}.kpi.alert .value{color:var(--red)}
-    .grid{display:grid;grid-template-columns:1.4fr .9fr;gap:16px;margin-bottom:16px}
-    .card{background:var(--card);border:1px solid var(--line);border-radius:18px;overflow:hidden}
-    .cardhead{padding:18px 20px 13px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--line)}
-    .cardhead h2{font-family:var(--head);font-size:1.25rem;font-weight:600}.cardhead a{font-size:.78rem;color:var(--ac);font-weight:700;text-decoration:none}
-    .priority{display:grid;grid-template-columns:92px 1fr auto;gap:14px;align-items:center;padding:14px 20px;border-top:1px solid var(--line)}
-    .priority:first-child{border-top:0}.pval{font-family:var(--num);font-size:.9rem;font-weight:800;color:var(--ac)}.priority.danger .pval{color:var(--red)}
-    .ptitle{font-size:.92rem;font-weight:700;line-height:1.35}.pdetail{font-size:.78rem;color:var(--mut);line-height:1.4;margin-top:3px}
-    .pillbtn{display:inline-flex;align-items:center;justify-content:center;border:1px solid var(--line);border-radius:999px;padding:7px 12px;font-size:.75rem;font-weight:700;text-decoration:none;white-space:nowrap;background:#fff}.pillbtn:hover{border-color:var(--ac);color:var(--ac)}
-    .empty{padding:26px 20px;color:var(--mut);font-size:.88rem;line-height:1.5}
-    .pulsebody{padding:18px 20px}.pulsegrid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.mini{border:1px solid var(--line);border-radius:12px;padding:13px;background:#fbfaf6}.mini b{display:block;font-family:var(--num);font-size:1.35rem}.mini span{display:block;color:var(--mut);font-size:.72rem;margin-top:3px;line-height:1.35}.mini.good b{color:var(--ac)}.mini.warn b{color:var(--amber)}.mini.bad b{color:var(--red)}
-    .quick{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;padding:0 0 16px}.quick a{background:var(--deep);color:#fff;text-decoration:none;border-radius:14px;padding:16px;min-height:100px;display:flex;flex-direction:column;justify-content:space-between;transition:transform .15s}.quick a:hover{transform:translateY(-2px)}.quick b{font-family:var(--head);font-size:1.05rem}.quick span{font-size:.72rem;color:rgba(255,255,255,.68);line-height:1.35}
-    .attention{margin-bottom:16px}.attrow{display:grid;grid-template-columns:1.5fr .55fr .55fr .9fr;gap:12px;align-items:center;padding:13px 20px;border-top:1px solid var(--line);font-size:.82rem}.attrow:first-child{border-top:0}.attrow .biz{font-weight:700}.attrow .dom{font-size:.72rem;color:var(--mut);margin-top:2px}.score{font-family:var(--num);font-weight:800}.bucket{display:inline-block;font-size:.66rem;font-weight:800;text-transform:uppercase;letter-spacing:.05em;border-radius:999px;padding:4px 8px;background:#edf4f1;color:var(--ac)}.bucket.attention{background:#f8ecea;color:var(--red)}.bucket.refresh_evidence,.bucket.build_evidence{background:#fbf2df;color:var(--amber)}.reason{color:var(--mut);line-height:1.35}
-    .linebar{background:#fff;border:1px solid var(--line);border-radius:18px;padding:18px 20px;margin:0 0 22px}.linebar h2{font-family:var(--head);font-size:1.25rem;margin-bottom:14px}.stations{display:grid;grid-template-columns:repeat(5,1fr);gap:8px}.stations a{text-decoration:none;border:1px solid var(--line);border-radius:12px;padding:12px;transition:border-color .15s,transform .15s}.stations a:hover{border-color:var(--ac);transform:translateY(-1px)}.stations small{display:block;color:var(--ac);font-weight:800;font-size:.62rem;letter-spacing:.08em;text-transform:uppercase}.stations b{display:block;margin-top:5px;font-size:.83rem}.stations span{display:block;color:var(--mut);font-size:.68rem;margin-top:4px;line-height:1.3}
-    .foot{padding:8px 0 40px;color:var(--mut);font-size:.75rem;display:flex;justify-content:space-between;gap:16px}
-    .loading{animation:pulseFade 1.2s ease-in-out infinite}@keyframes pulseFade{50%{opacity:.45}}
-    @media(max-width:1000px){.kpis{grid-template-columns:repeat(3,1fr)}.quick{grid-template-columns:repeat(2,1fr)}}
-    @media(max-width:760px){.topnav a:not(:last-child){display:none}.hero{align-items:flex-start;flex-direction:column}.kpis{grid-template-columns:repeat(2,1fr)}.grid{grid-template-columns:1fr}.priority{grid-template-columns:74px 1fr}.priority .pillbtn{grid-column:2;justify-self:start}.attrow{grid-template-columns:1fr auto auto}.attrow .reason{grid-column:1/-1}.stations{grid-template-columns:1fr 1fr}.foot{flex-direction:column}}
+    button,input{font:inherit}
+    .shell{max-width:1440px;margin:0 auto;padding:0 clamp(18px,3.4vw,52px)}
+    .top{height:70px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--line);position:sticky;top:0;background:rgba(243,239,231,.94);backdrop-filter:blur(14px);z-index:20}
+    .brand{display:flex;align-items:center;gap:10px;font-family:var(--head);font-size:1.25rem;font-weight:600;text-decoration:none;white-space:nowrap}
+    .branddot{width:11px;height:11px;border-radius:50%;background:var(--ac);box-shadow:0 0 0 5px rgba(25,115,95,.09)}
+    .topnav{display:flex;align-items:center;gap:8px}.topnav a{font-size:.78rem;color:var(--mut);text-decoration:none;padding:8px 10px;border-radius:999px}.topnav a:hover{background:rgba(255,255,255,.65);color:var(--ac)}
+    .hero{display:grid;grid-template-columns:minmax(0,1fr) minmax(360px,.82fr);gap:22px;padding:38px 0 18px;align-items:stretch}
+    .intro{padding:10px 4px 6px}.eyebrow{font-size:.68rem;letter-spacing:.15em;text-transform:uppercase;color:var(--ac);font-weight:800;margin-bottom:9px}.intro h1{font-family:var(--head);font-weight:400;font-size:clamp(2.7rem,2rem+2.5vw,4.7rem);line-height:.98;letter-spacing:-.045em;max-width:12ch}.intro p{color:var(--mut);font-size:1rem;line-height:1.65;max-width:64ch;margin-top:16px}.hero-meta{display:flex;align-items:center;gap:10px;margin-top:20px;color:var(--mut);font-size:.77rem;flex-wrap:wrap}.live-dot{width:8px;height:8px;border-radius:50%;background:var(--ac);box-shadow:0 0 0 5px rgba(25,115,95,.11)}.sep{width:1px;height:14px;background:var(--line)}
+    .focus{background:linear-gradient(140deg,var(--deep),var(--deep2));color:#fff;border-radius:24px;padding:26px 26px 22px;box-shadow:0 24px 60px rgba(13,42,32,.15);display:flex;flex-direction:column;justify-content:space-between;min-height:285px;position:relative;overflow:hidden}
+    .focus:after{content:"";position:absolute;width:260px;height:260px;border-radius:50%;right:-120px;top:-130px;background:radial-gradient(circle,rgba(168,226,203,.18),rgba(168,226,203,0) 65%)}
+    .focus .kicker{font-size:.66rem;letter-spacing:.15em;text-transform:uppercase;color:var(--mint);font-weight:800}.focus h2{font-family:var(--head);font-size:clamp(1.8rem,1.5rem+1vw,2.6rem);font-weight:400;line-height:1.05;max-width:14ch;margin:10px 0 10px}.focus p{color:rgba(255,255,255,.72);line-height:1.55;font-size:.88rem;max-width:54ch}.focus-bottom{display:flex;align-items:end;justify-content:space-between;gap:18px;margin-top:24px;position:relative;z-index:2}.focus-value{font-size:.75rem;color:rgba(255,255,255,.6);text-transform:uppercase;letter-spacing:.08em}.focus-value b{display:block;color:#fff;font-size:1.35rem;letter-spacing:-.03em;text-transform:none;margin-top:3px}.focus a{display:inline-flex;align-items:center;gap:8px;background:#fff;color:var(--deep);font-size:.77rem;font-weight:800;text-decoration:none;border-radius:999px;padding:10px 14px;white-space:nowrap}
+    .status-rail{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:18px}.status-chip{background:rgba(255,255,255,.55);border:1px solid var(--line);border-radius:14px;padding:12px 14px;display:flex;align-items:center;justify-content:space-between;gap:12px}.status-chip span{font-size:.72rem;color:var(--mut)}.status-chip b{font-size:1rem;font-weight:800}.status-chip.alert b{color:var(--red)}.status-chip.warn b{color:var(--amber)}.status-chip.good b{color:var(--ac)}
+    .kpis{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:12px;margin-bottom:18px}.kpi{background:var(--paper);border:1px solid var(--line);border-radius:18px;padding:17px 17px 15px;min-height:126px;box-shadow:0 7px 22px rgba(34,28,17,.025);display:flex;flex-direction:column;justify-content:space-between}.kpi .label{font-size:.65rem;color:var(--mut);font-weight:800;letter-spacing:.08em;text-transform:uppercase}.kpi .value{font-family:var(--num);font-size:1.78rem;font-weight:800;letter-spacing:-.055em;margin-top:12px}.kpi .sub{font-size:.7rem;color:var(--mut);margin-top:5px;line-height:1.35}.trend{font-size:.65rem;font-weight:800;border-radius:999px;padding:3px 6px;margin-left:5px;background:#e9f3ef;color:var(--ac)}.trend.down{background:#f8e9e7;color:var(--red)}
+    .section-grid{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,.8fr);gap:16px;margin-bottom:16px}.section-grid.equal{grid-template-columns:1fr 1fr}.section-grid.thirds{grid-template-columns:1.15fr .85fr .85fr}
+    .panel{background:var(--paper);border:1px solid var(--line);border-radius:22px;overflow:hidden;box-shadow:0 10px 28px rgba(34,28,17,.025)}.panelhead{padding:18px 20px 14px;display:flex;align-items:flex-start;justify-content:space-between;gap:18px;border-bottom:1px solid var(--line)}.paneltitle h2{font-family:var(--head);font-size:1.32rem;font-weight:600;line-height:1.1}.paneltitle p{color:var(--mut);font-size:.72rem;line-height:1.45;margin-top:5px}.panelhead a{font-size:.72rem;color:var(--ac);font-weight:800;text-decoration:none;white-space:nowrap;padding-top:2px}.panelbody{padding:18px 20px 20px}
+    .revenue-hero{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:18px}.metric-block{padding:14px;background:#f8f5ee;border-radius:14px;border:1px solid #eee7db}.metric-block span{font-size:.64rem;color:var(--mut);text-transform:uppercase;letter-spacing:.08em;font-weight:800}.metric-block b{font-size:1.42rem;display:block;margin-top:7px;letter-spacing:-.045em}.metric-block small{font-size:.68rem;color:var(--mut);display:block;margin-top:4px;line-height:1.35}
+    .barlist{display:grid;gap:11px}.barrow{display:grid;grid-template-columns:minmax(100px,1.1fr) minmax(120px,2fr) auto;gap:10px;align-items:center}.barlabel{font-size:.75rem;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.bartrack{height:8px;background:#ece7dd;border-radius:999px;overflow:hidden}.barfill{height:100%;background:var(--ac);border-radius:inherit;min-width:3px}.barval{font-size:.72rem;color:var(--mut);font-variant-numeric:tabular-nums;text-align:right}
+    .pipeline-top{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px}.velocity{border-radius:14px;padding:14px;background:#f8f5ee;border:1px solid #eee7db}.velocity .n{font-size:1.5rem;font-weight:800;letter-spacing:-.04em}.velocity .l{font-size:.68rem;color:var(--mut);margin-top:4px}.velocity .d{font-size:.67rem;font-weight:800;color:var(--ac);margin-top:5px}.velocity .d.neg{color:var(--red)}
+    .funnel{display:grid;gap:8px}.funnelrow{display:grid;grid-template-columns:82px 1fr 30px;gap:9px;align-items:center}.funnelrow .name{font-size:.7rem;text-transform:capitalize;color:var(--mut)}.funnelbar{height:24px;background:#f1ece2;border-radius:7px;overflow:hidden}.funnelbar i{display:block;height:100%;background:linear-gradient(90deg,var(--ac),var(--ac2));border-radius:inherit;min-width:4px}.funnelrow b{font-size:.76rem;text-align:right}
+    .intel-summary{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:15px}.intel-stat{border:1px solid var(--line);border-radius:13px;padding:12px}.intel-stat b{font-size:1.25rem}.intel-stat span{display:block;font-size:.64rem;color:var(--mut);margin-top:4px;line-height:1.3}.stack{height:16px;background:#eee8de;border-radius:999px;display:flex;overflow:hidden;margin:4px 0 14px}.stack i{height:100%;display:block}.seg-attention{background:var(--red)}.seg-refresh{background:var(--amber)}.seg-measure{background:var(--violet)}.seg-build{background:var(--gold)}.seg-ready{background:var(--ac)}.seg-monitor{background:var(--blue)}
+    .legend{display:flex;flex-wrap:wrap;gap:7px 12px}.legend span{font-size:.66rem;color:var(--mut);display:flex;align-items:center;gap:5px}.legend i{width:8px;height:8px;border-radius:50%;display:inline-block}
+    .attention-table{margin-top:18px;border-top:1px solid var(--line)}.attrow{display:grid;grid-template-columns:minmax(170px,1.35fr) 70px 82px 92px minmax(140px,1fr);gap:10px;align-items:center;padding:12px 0;border-bottom:1px solid var(--line);font-size:.74rem}.attrow:last-child{border-bottom:0}.biz{font-weight:800}.dom{font-size:.65rem;color:var(--mut);margin-top:2px}.score{font-weight:800;font-variant-numeric:tabular-nums}.bucket{display:inline-block;font-size:.59rem;font-weight:800;text-transform:uppercase;letter-spacing:.045em;border-radius:999px;padding:5px 7px;background:#edf4f1;color:var(--ac);white-space:nowrap}.bucket.attention{background:#f8e9e7;color:var(--red)}.bucket.refresh_evidence,.bucket.build_evidence{background:#fbf0d9;color:var(--amber)}.bucket.measure_recommendation{background:#efebf5;color:var(--violet)}.reason{color:var(--mut);line-height:1.35}
+    .campaign-layout{display:grid;grid-template-columns:150px 1fr;gap:22px;align-items:center}.ring{--pct:0;width:138px;height:138px;border-radius:50%;background:conic-gradient(var(--ac) calc(var(--pct)*1%),#e8e2d7 0);position:relative;display:grid;place-items:center;margin:auto}.ring:after{content:"";position:absolute;width:102px;height:102px;border-radius:50%;background:var(--paper)}.ring-content{position:relative;z-index:1;text-align:center}.ring-content b{font-size:1.65rem;display:block;letter-spacing:-.05em}.ring-content span{font-size:.62rem;color:var(--mut);display:block;margin-top:2px;line-height:1.2}.campaign-metrics{display:grid;grid-template-columns:1fr 1fr;gap:9px}.campaign-metric{padding:11px 12px;border-radius:12px;background:#f8f5ee;border:1px solid #eee7db}.campaign-metric b{font-size:1.05rem;display:block}.campaign-metric span{font-size:.62rem;color:var(--mut);display:block;margin-top:4px}.coverage-note{font-size:.67rem;color:var(--mut);line-height:1.45;margin-top:12px}
+    .learn-top{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-bottom:13px}.learn-big{padding:14px;border-radius:14px;background:var(--deep);color:#fff}.learn-big span{font-size:.62rem;color:rgba(255,255,255,.62);text-transform:uppercase;letter-spacing:.07em;font-weight:800}.learn-big b{font-size:1.65rem;display:block;margin-top:7px;letter-spacing:-.04em}.learn-big small{display:block;font-size:.65rem;color:rgba(255,255,255,.65);margin-top:3px}.outcome-grid{display:grid;grid-template-columns:1fr 1fr;gap:7px}.outcome{padding:10px;border:1px solid var(--line);border-radius:11px}.outcome b{display:block}.outcome span{font-size:.61rem;color:var(--mut);display:block;margin-top:3px}.outcome.success b{color:var(--ac)}.outcome.fail b{color:var(--red)}.outcome.inc b{color:var(--amber)}
+    .healthlist{display:grid;gap:8px}.healthrow{display:grid;grid-template-columns:auto 1fr auto;gap:9px;align-items:center;padding:10px 0;border-bottom:1px solid var(--line);text-decoration:none}.healthrow:last-child{border-bottom:0}.healthdot{width:10px;height:10px;border-radius:50%;background:var(--mut2)}.healthdot.fresh{background:var(--ac);box-shadow:0 0 0 4px rgba(25,115,95,.08)}.healthdot.aging{background:var(--amber)}.healthdot.stale,.healthdot.missing{background:var(--red)}.healthrow b{font-size:.74rem}.healthrow span{font-size:.64rem;color:var(--mut);display:block;margin-top:2px}.healthage{font-size:.67rem;color:var(--mut);white-space:nowrap}
+    .priority-list{display:grid}.priority{display:grid;grid-template-columns:94px minmax(0,1fr) auto;gap:14px;align-items:center;padding:14px 20px;border-bottom:1px solid var(--line)}.priority:last-child{border-bottom:0}.pval{font-size:.76rem;font-weight:800;color:var(--ac)}.priority.attention .pval{color:var(--red)}.priority.results .pval,.priority.refresh .pval{color:var(--amber)}.ptitle{font-size:.84rem;font-weight:800;line-height:1.35}.pdetail{font-size:.7rem;color:var(--mut);line-height:1.4;margin-top:3px}.pillbtn{display:inline-flex;align-items:center;justify-content:center;border:1px solid var(--line);border-radius:999px;padding:7px 11px;font-size:.67rem;font-weight:800;text-decoration:none;white-space:nowrap;background:#fff}.pillbtn:hover{border-color:var(--ac);color:var(--ac)}
+    .activity{display:grid}.activityrow{display:grid;grid-template-columns:14px minmax(0,1fr) auto;gap:11px;align-items:start;padding:11px 0;border-bottom:1px solid var(--line);text-decoration:none}.activityrow:last-child{border-bottom:0}.actdot{width:9px;height:9px;border-radius:50%;margin-top:5px;background:var(--mut2)}.actdot.pipeline{background:var(--blue)}.actdot.lead{background:var(--gold)}.actdot.result{background:var(--ac)}.actdot.campaign{background:var(--violet)}.actdot.insight{background:var(--amber)}.actdot.audit{background:#73877f}.activityrow b{font-size:.76rem;line-height:1.35}.activityrow span{display:block;font-size:.65rem;color:var(--mut);margin-top:3px;line-height:1.35}.acttime{font-size:.63rem;color:var(--mut);white-space:nowrap;padding-top:2px}
+    .launchpad{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:18px}.launch{background:var(--deep);color:#fff;text-decoration:none;border-radius:16px;padding:15px 16px;min-height:116px;display:flex;flex-direction:column;justify-content:space-between;position:relative;overflow:hidden;transition:transform .15s,box-shadow .15s}.launch:hover{transform:translateY(-2px);box-shadow:0 14px 30px rgba(13,42,32,.14)}.launch:after{content:"↗";position:absolute;right:13px;top:11px;color:var(--mint);font-size:.9rem}.launch small{font-size:.59rem;text-transform:uppercase;letter-spacing:.08em;color:var(--mint);font-weight:800}.launch b{font-family:var(--head);font-size:1.06rem;font-weight:600;margin-top:8px}.launch span{font-size:.65rem;color:rgba(255,255,255,.63);line-height:1.4;margin-top:6px}
+    .empty{padding:22px;color:var(--mut);font-size:.78rem;line-height:1.5}.loading{animation:pulseFade 1.25s ease-in-out infinite}@keyframes pulseFade{50%{opacity:.4}}
+    .foot{padding:8px 0 44px;color:var(--mut);font-size:.69rem;display:flex;justify-content:space-between;gap:18px}
+    @media(max-width:1180px){.kpis{grid-template-columns:repeat(3,1fr)}.section-grid.thirds{grid-template-columns:1fr 1fr}.section-grid.thirds .panel:last-child{grid-column:1/-1}.launchpad{grid-template-columns:repeat(2,1fr)}.attrow{grid-template-columns:1.2fr 60px 70px 90px}.attrow .reason{grid-column:1/-1}}
+    @media(max-width:900px){.hero{grid-template-columns:1fr}.intro h1{max-width:14ch}.section-grid,.section-grid.equal,.section-grid.thirds{grid-template-columns:1fr}.section-grid.thirds .panel:last-child{grid-column:auto}.status-rail{grid-template-columns:1fr 1fr}.campaign-layout{grid-template-columns:130px 1fr}}
+    @media(max-width:650px){.topnav a:not(:last-child){display:none}.hero{padding-top:26px}.intro h1{font-size:2.8rem}.focus{min-height:260px}.focus-bottom{align-items:flex-start;flex-direction:column}.kpis{grid-template-columns:1fr 1fr}.status-rail{grid-template-columns:1fr 1fr}.revenue-hero,.intel-summary{grid-template-columns:1fr 1fr}.campaign-layout{grid-template-columns:1fr}.launchpad{grid-template-columns:1fr 1fr}.priority{grid-template-columns:76px 1fr}.priority .pillbtn{grid-column:2;justify-self:start}.attrow{grid-template-columns:1fr auto auto}.attrow .bucketcell{grid-column:1/-1}.attrow .reason{grid-column:1/-1}.foot{flex-direction:column}}
+    @media(max-width:430px){.kpis,.launchpad,.revenue-hero,.campaign-metrics,.learn-top,.outcome-grid{grid-template-columns:1fr}.status-rail{grid-template-columns:1fr 1fr}.top{height:62px}.brand{font-size:1.1rem}}
   </style>
 </head>
 <body>
   <header class="shell top">
-    <a class="brand" href="/admin/"><span class="dot"></span>Sightline · Admin</a>
+    <a class="brand" href="/admin/"><span class="branddot"></span>Sightline · Admin</a>
     <nav class="topnav">
-      <a href="/admin/index.html">Five-station workflow</a>
-      <a href="/intelligence/portfolio/">Intelligence portfolio</a>
-      <a href="/gallery/">Public studio →</a>
+      <a href="/admin/workflow.html">Workflow</a>
+      <a href="/intelligence/portfolio/">Portfolio</a>
+      <a href="/intelligence/brief/">Weekly Brief</a>
+      <a href="/gallery/">Public studio ↗</a>
     </nav>
   </header>
 
   <main class="shell">
     <section class="hero">
-      <div>
-        <div class="eyebrow">Operating dashboard</div>
-        <h1>Your business, at a glance.</h1>
-        <p>Revenue, pipeline, campaign follow-through, and intelligence triage in one place. Use the dashboard to decide what matters; use the five-station workflow to do the work.</p>
+      <div class="intro">
+        <div class="eyebrow">Private operating command center</div>
+        <h1>See the whole business. Move the right thing.</h1>
+        <p>Revenue, pipeline, client health, campaign economics, recommendation learning, and intelligence readiness—connected into one operating view.</p>
+        <div class="hero-meta"><span class="live-dot"></span><span id="updated">Loading live operating data…</span><span class="sep"></span><span id="today"></span></div>
       </div>
-      <div class="live"><span class="pulse"></span><span id="updated">Loading live data…</span></div>
+      <article class="focus">
+        <div><div class="kicker" id="focusEyebrow">Calculating today’s move</div><h2 id="focusHeadline" class="loading">Reading the business…</h2><p id="focusDetail">Ranking risk, revenue, evidence gaps, and open loops.</p></div>
+        <div class="focus-bottom"><div class="focus-value">Signal <b id="focusValue">—</b></div><a id="focusAction" href="/intelligence/portfolio/">Open action →</a></div>
+      </article>
     </section>
 
-    <section class="kpis" aria-label="Key business metrics">
-      <article class="kpi"><div class="label">Monthly recurring revenue</div><div><div class="value loading" id="mrr">—</div><div class="sub" id="mrrSub">active client revenue</div></div></article>
+    <section class="status-rail" aria-label="Operating status">
+      <div class="status-chip alert"><span>Businesses needing attention</span><b id="railAttention">—</b></div>
+      <div class="status-chip warn"><span>Pending campaign results</span><b id="railPending">—</b></div>
+      <div class="status-chip"><span>Accepted recommendations open</span><b id="railAccepted">—</b></div>
+      <div class="status-chip good"><span>Intelligence-ready businesses</span><b id="railReady">—</b></div>
+    </section>
+
+    <section class="kpis" aria-label="Key performance indicators">
+      <article class="kpi"><div class="label">Monthly recurring revenue</div><div><div class="value loading" id="mrr">—</div><div class="sub" id="mrrSub">active recurring revenue</div></div></article>
+      <article class="kpi"><div class="label">Annual run rate</div><div><div class="value loading" id="arr">—</div><div class="sub">MRR × 12, not contracted revenue</div></div></article>
       <article class="kpi"><div class="label">Active clients</div><div><div class="value loading" id="clients">—</div><div class="sub" id="clientSub">paying subscribers</div></div></article>
-      <article class="kpi"><div class="label">Open opportunities</div><div><div class="value loading" id="opps">—</div><div class="sub" id="oppSub">pipeline waiting</div></div></article>
-      <article class="kpi"><div class="label">Tracked businesses</div><div><div class="value loading" id="tracked">—</div><div class="sub">with intelligence context</div></div></article>
-      <article class="kpi" id="attentionCard"><div class="label">Needs attention</div><div><div class="value loading" id="attention">—</div><div class="sub">regressions or urgent review</div></div></article>
-      <article class="kpi"><div class="label">Pending results</div><div><div class="value loading" id="pending">—</div><div class="sub">campaigns awaiting finalization</div></div></article>
+      <article class="kpi"><div class="label">Pipeline potential</div><div><div class="value loading" id="pipelineMrr">—</div><div class="sub" id="pipelineSub">open opportunity plan value</div></div></article>
+      <article class="kpi"><div class="label">Lead signals · 30 days</div><div><div class="value loading" id="leads30">—</div><div class="sub" id="leadTrend">recent lead activity</div></div></article>
+      <article class="kpi"><div class="label">Tracked businesses</div><div><div class="value loading" id="tracked">—</div><div class="sub" id="trackedSub">portfolio under observation</div></div></article>
     </section>
 
-    <section class="grid">
-      <article class="card">
-        <div class="cardhead"><h2>What needs attention now</h2><a href="/intelligence/portfolio/">Open portfolio →</a></div>
-        <div id="priorities"><div class="empty loading">Ranking your current priorities…</div></div>
+    <section class="section-grid">
+      <article class="panel">
+        <div class="panelhead"><div class="paneltitle"><h2>Revenue engine</h2><p>Recurring revenue structure and concentration.</p></div><a href="/bi/">Open business intelligence →</a></div>
+        <div class="panelbody">
+          <div class="revenue-hero">
+            <div class="metric-block"><span>MRR</span><b id="revMrr">—</b><small>active recurring revenue</small></div>
+            <div class="metric-block"><span>ARPA</span><b id="arpa">—</b><small>average revenue per active client</small></div>
+            <div class="metric-block"><span>Paused MRR</span><b id="pausedMrr">—</b><small>revenue currently not active</small></div>
+          </div>
+          <div class="barlist" id="planMix"><div class="empty loading">Building revenue mix…</div></div>
+        </div>
       </article>
 
-      <article class="card">
-        <div class="cardhead"><h2>Intelligence pulse</h2><a href="/intelligence/">Opportunity Feed →</a></div>
-        <div class="pulsebody">
-          <div class="pulsegrid">
-            <div class="mini bad"><b id="iAttention">—</b><span>businesses needing attention</span></div>
-            <div class="mini warn"><b id="iRefresh">—</b><span>need fresher evidence</span></div>
-            <div class="mini good"><b id="iReady">—</b><span>ready for deeper intelligence</span></div>
-            <div class="mini"><b id="iMeasure">—</b><span>accepted recommendations to measure</span></div>
+      <article class="panel">
+        <div class="panelhead"><div class="paneltitle"><h2>Pipeline velocity</h2><p>30-day demand and opportunity movement.</p></div><a href="/pipeline/">Open pipeline →</a></div>
+        <div class="panelbody">
+          <div class="pipeline-top">
+            <div class="velocity"><div class="n" id="new30">—</div><div class="l">new opportunities · 30d</div><div class="d" id="new30Delta">—</div></div>
+            <div class="velocity"><div class="n" id="lead30Metric">—</div><div class="l">lead signals · 30d</div><div class="d" id="lead30Delta">—</div></div>
+          </div>
+          <div class="funnel" id="funnel"><div class="empty loading">Mapping funnel stages…</div></div>
+        </div>
+      </article>
+    </section>
+
+    <section class="section-grid equal">
+      <article class="panel">
+        <div class="panelhead"><div class="paneltitle"><h2>Intelligence portfolio</h2><p>Business risk is kept separate from evidence readiness.</p></div><a href="/intelligence/portfolio/">Open portfolio →</a></div>
+        <div class="panelbody">
+          <div class="intel-summary">
+            <div class="intel-stat"><b id="avgScore">—</b><span>average business score</span></div>
+            <div class="intel-stat"><b id="avgReadiness">—</b><span>average evidence readiness</span></div>
+            <div class="intel-stat"><b id="staleBiz">—</b><span>businesses with stale evidence</span></div>
+            <div class="intel-stat"><b id="readyBiz">—</b><span>ready for deeper intelligence</span></div>
+          </div>
+          <div class="stack" id="portfolioStack"></div>
+          <div class="legend" id="portfolioLegend"></div>
+          <div class="attention-table" id="attentionTable"><div class="empty loading">Ranking business attention…</div></div>
+        </div>
+      </article>
+
+      <article class="panel">
+        <div class="panelhead"><div class="paneltitle"><h2>Campaign economics</h2><p>Finalized results only. Unknown is never treated as zero.</p></div><a href="/intelligence/economics/">Open economics →</a></div>
+        <div class="panelbody">
+          <div class="campaign-layout">
+            <div class="ring" id="coverageRing" style="--pct:0"><div class="ring-content"><b id="resultCoverage">0%</b><span>results<br>coverage</span></div></div>
+            <div>
+              <div class="campaign-metrics">
+                <div class="campaign-metric"><b id="campRevenue">—</b><span>recorded revenue</span></div>
+                <div class="campaign-metric"><b id="campSpend">—</b><span>recorded campaign spend</span></div>
+                <div class="campaign-metric"><b id="campContribution">—</b><span>revenue less recorded spend</span></div>
+                <div class="campaign-metric"><b id="campConversions">—</b><span>recorded outcomes</span></div>
+              </div>
+              <div class="coverage-note" id="coverageNote">Waiting for campaign evidence…</div>
+            </div>
           </div>
         </div>
       </article>
     </section>
 
-    <section class="quick" aria-label="Intelligence workspaces">
-      <a href="/intelligence/outcomes/"><b>Outcome Queue</b><span>Finalize bookings and revenue without confusing pending with zero.</span></a>
-      <a href="/intelligence/economics/"><b>Campaign Economics</b><span>Compare revenue, spend, contribution, and cost per outcome.</span></a>
-      <a href="/intelligence/recommendations/"><b>Recommendation Tracking</b><span>Move accepted ideas through implementation and measurement.</span></a>
-      <a href="/intelligence/brief/"><b>Weekly Brief</b><span>See the best opportunity, what is working, and what to watch.</span></a>
+    <section class="section-grid thirds">
+      <article class="panel">
+        <div class="panelhead"><div class="paneltitle"><h2>What needs attention now</h2><p>Ranked across business risk, evidence gaps, outcomes, and pipeline.</p></div><a href="/intelligence/portfolio/">Review all →</a></div>
+        <div class="priority-list" id="priorities"><div class="empty loading">Ranking priorities…</div></div>
+      </article>
+
+      <article class="panel">
+        <div class="panelhead"><div class="paneltitle"><h2>Recommendation learning</h2><p>Is Sightline’s advice earning trust?</p></div><a href="/intelligence/learning/">Learning memory →</a></div>
+        <div class="panelbody">
+          <div class="learn-top">
+            <div class="learn-big"><span>Decisive success rate</span><b id="successRate">—</b><small id="decisiveSub">waiting for measured outcomes</small></div>
+            <div class="learn-big"><span>Average measured lift</span><b id="avgLift">—</b><small>when lift was recorded</small></div>
+          </div>
+          <div class="outcome-grid">
+            <div class="outcome success"><b id="outSuccess">—</b><span>successful</span></div>
+            <div class="outcome fail"><b id="outFail">—</b><span>unsuccessful / reversed</span></div>
+            <div class="outcome inc"><b id="outInc">—</b><span>inconclusive</span></div>
+            <div class="outcome"><b id="outMeasured">—</b><span>measured recommendations</span></div>
+          </div>
+        </div>
+      </article>
+
+      <article class="panel">
+        <div class="panelhead"><div class="paneltitle"><h2>Data freshness</h2><p>The intelligence system is only as strong as its latest evidence.</p></div></div>
+        <div class="panelbody"><div class="healthlist" id="healthList"><div class="empty loading">Checking evidence freshness…</div></div></div>
+      </article>
     </section>
 
-    <section class="card attention">
-      <div class="cardhead"><h2>Business attention list</h2><a href="/intelligence/portfolio/">View all →</a></div>
-      <div id="attentionList"><div class="empty loading">Loading business triage…</div></div>
+    <section class="section-grid equal">
+      <article class="panel">
+        <div class="panelhead"><div class="paneltitle"><h2>Live activity</h2><p>Pipeline, campaigns, results, recommendations, and audit movement.</p></div></div>
+        <div class="panelbody"><div class="activity" id="activity"><div class="empty loading">Loading operating activity…</div></div></div>
+      </article>
+
+      <article class="panel">
+        <div class="panelhead"><div class="paneltitle"><h2>Portfolio watchlist</h2><p>The businesses with the highest current operating urgency.</p></div><a href="/intelligence/portfolio/">Full portfolio →</a></div>
+        <div class="panelbody"><div id="watchlist"><div class="empty loading">Loading watchlist…</div></div></div>
+      </article>
     </section>
 
-    <section class="linebar">
-      <h2>The operating line</h2>
-      <div class="stations">
-        <a href="/admin/prospector/"><small>Station 1 · Find</small><b>Prospector</b><span>Find the businesses losing customers online.</span></a>
-        <a href="/admin/intake/"><small>Station 2 · Build</small><b>Site Maker</b><span>Turn a real business into a bespoke demo.</span></a>
-        <a href="/pipeline/"><small>Station 3 · Send</small><b>Pipeline</b><span>Send funnels and move prospects forward.</span></a>
-        <a href="/leads/"><small>Station 4 · Close</small><b>Leads</b><span>Reply fast, take payment, and onboard.</span></a>
-        <a href="/marketing/"><small>Station 5 · Run</small><b>Client Growth</b><span>Deliver recurring work and prove what works.</span></a>
-      </div>
+    <section class="launchpad" aria-label="Admin workspaces">
+      <a class="launch" href="/admin/prospector/"><div><small>Find</small><b>Prospector</b></div><span>Rank markets weakest-first and find the pitch.</span></a>
+      <a class="launch" href="/admin/intake/"><div><small>Build</small><b>Site Maker</b></div><span>Turn a real business into a tailored demo.</span></a>
+      <a class="launch" href="/pipeline/"><div><small>Sell</small><b>Pipeline</b></div><span>Move qualified opportunities through the funnel.</span></a>
+      <a class="launch" href="/leads/"><div><small>Close</small><b>Leads</b></div><span>Respond fast and convert attention into customers.</span></a>
+      <a class="launch" href="/intelligence/outcomes/"><div><small>Measure</small><b>Outcome Queue</b></div><span>Finalize bookings and revenue without guessing.</span></a>
+      <a class="launch" href="/intelligence/brief/"><div><small>Decide</small><b>Weekly Brief</b></div><span>See the few decisions that matter right now.</span></a>
+      <a class="launch" href="/intelligence/experiments/"><div><small>Test</small><b>Experiment Planner</b></div><span>Turn recommendations into controlled learning.</span></a>
+      <a class="launch" href="/admin/workflow.html"><div><small>Operate</small><b>Five-station workflow</b></div><span>Work the full line from find to recurring growth.</span></a>
     </section>
 
-    <footer class="foot"><span>Sightline Admin · private operating system</span><span><a href="/admin/index.html">Open original five-station page →</a></span></footer>
+    <footer class="foot"><span>Sightline Admin · private operating system</span><span>Decisions backed by measured evidence, not decorative dashboards.</span></footer>
   </main>
 
   <script>
-    const money = (n) => '$' + Math.round(Number(n || 0)).toLocaleString();
-    const esc = (s) => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-    const bucketLabel = (b='') => ({attention:'Attention',refresh_evidence:'Refresh evidence',measure_recommendation:'Measure',build_evidence:'Build evidence',intelligence_ready:'Intelligence ready',monitor:'Monitor'}[b] || b.replaceAll('_',' '));
+    const $=id=>document.getElementById(id);
+    const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+    const money=n=>'$'+Math.round(Number(n||0)).toLocaleString();
+    const compactMoney=n=>{const v=Number(n||0);if(Math.abs(v)>=1000000)return '$'+(v/1000000).toFixed(1).replace('.0','')+'m';if(Math.abs(v)>=1000)return '$'+(v/1000).toFixed(1).replace('.0','')+'k';return money(v)};
+    const pct=n=>(n==null?'—':Math.round(Number(n))+'%');
+    const bucketLabel=b=>({attention:'Attention',refresh_evidence:'Refresh evidence',measure_recommendation:'Measure',build_evidence:'Build evidence',intelligence_ready:'Intelligence ready',monitor:'Monitor'}[b]||String(b||'').replaceAll('_',' '));
+    const relTime=at=>{if(!at)return 'No data';const diff=Date.now()-Date.parse(at),m=Math.floor(diff/60000);if(m<1)return 'just now';if(m<60)return m+'m ago';const h=Math.floor(m/60);if(h<24)return h+'h ago';const d=Math.floor(h/24);return d+'d ago'};
+    const deltaText=n=>{const v=Number(n||0);return `${v>0?'+':''}${v}% vs prior 30d`};
+    function setText(id,value){const el=$(id);if(el){el.textContent=value;el.classList.remove('loading')}}
 
-    function setText(id, value){ const el=document.getElementById(id); if(el){ el.textContent=value; el.classList.remove('loading'); } }
+    function renderFocus(data){const f=data.focus||{};setText('focusEyebrow',f.eyebrow||'Today’s move');setText('focusHeadline',f.headline||'Keep the operating loops moving');setText('focusDetail',f.detail||'Review the business and choose the highest-leverage next action.');setText('focusValue',f.value||'Review');const a=$('focusAction');a.href=f.href||'/intelligence/portfolio/';a.textContent=(f.action||'Open')+' →'}
 
-    function renderPriorities(rows=[]){
-      const host=document.getElementById('priorities');
-      if(!rows.length){host.innerHTML='<div class="empty">No urgent items. Use the quiet time to build the next qualified opportunity.</div>';return}
-      host.innerHTML=rows.map(p=>`<div class="priority ${p.type==='attention'?'danger':''}"><div class="pval">${esc(p.value)}</div><div><div class="ptitle">${esc(p.label)}</div><div class="pdetail">${esc(p.detail||'')}</div></div><a class="pillbtn" href="${esc(p.href)}">${esc(p.action)} →</a></div>`).join('');
-    }
+    function renderKpis(data){const k=data.kpis||{};setText('mrr',compactMoney(k.mrr));setText('arr',compactMoney(k.arr));setText('clients',k.active_subscribers||0);setText('pipelineMrr',compactMoney(k.pipeline_mrr));setText('leads30',k.lead_signals_30d||0);setText('tracked',k.tracked_businesses||0);$('mrrSub').textContent=`${k.active_subscribers||0} active clients · ${money(k.arpa||0)} ARPA`;$('clientSub').textContent=`${k.paused_subscribers||0} paused · ${k.canceled_subscribers||0} canceled`;$('pipelineSub').textContent=`${k.open_opportunities||0} open opportunities`;$('trackedSub').textContent=`${k.intelligence_ready||0} intelligence ready`;setText('railAttention',k.attention||0);setText('railPending',k.pending_campaign_results||0);setText('railAccepted',k.accepted_recommendations||0);setText('railReady',k.intelligence_ready||0)}
 
-    function renderAttention(rows=[]){
-      const host=document.getElementById('attentionList');
-      if(!rows.length){host.innerHTML='<div class="empty">No tracked businesses yet. Run audits to start building the intelligence portfolio.</div>';return}
-      host.innerHTML=rows.map(r=>`<div class="attrow"><div><div class="biz">${esc(r.name||r.domain||'Business')}</div><div class="dom">${esc(r.domain||'')}</div></div><div><span class="score">${Math.round(Number(r.score||0))}</span><div class="dom">score</div></div><div><span class="score">${Math.round(Number(r.readiness_score||0))}</span><div class="dom">readiness</div></div><div><span class="bucket ${esc(r.bucket||'')}">${esc(bucketLabel(r.bucket))}</span><div class="reason" style="margin-top:5px">${esc(r.reason||'')}</div></div></div>`).join('');
-    }
+    function renderRevenue(data){const r=data.revenue||{};setText('revMrr',money(r.mrr));setText('arpa',money(r.arpa));setText('pausedMrr',money(r.paused_mrr));const rows=r.plan_mix||[],max=Math.max(1,...rows.map(x=>Number(x.mrr||0)));$('planMix').innerHTML=rows.length?rows.map(x=>`<div class="barrow"><div class="barlabel">${esc(x.label)}</div><div class="bartrack"><div class="barfill" style="width:${Math.max(3,Math.round((Number(x.mrr||0)/max)*100))}%"></div></div><div class="barval">${esc(money(x.mrr))} · ${esc(x.clients)} client${x.clients===1?'':'s'}</div></div>`).join(''):'<div class="empty">No active subscriber revenue is recorded yet.</div>'}
 
-    async function loadDashboard(){
-      try{
-        const res=await fetch('/api/admin-dashboard',{cache:'no-store'});
-        const data=await res.json().catch(()=>({}));
-        if(!res.ok||!data.ok) throw new Error(data.error||'Dashboard request failed');
-        const k=data.kpis||{};
-        setText('mrr',money(k.mrr));
-        setText('clients',k.active_subscribers||0);
-        setText('opps',k.open_opportunities||0);
-        setText('tracked',k.tracked_businesses||0);
-        setText('attention',k.attention||0);
-        setText('pending',k.pending_campaign_results||0);
-        document.getElementById('mrrSub').textContent=`${k.active_subscribers||0} active client${k.active_subscribers===1?'':'s'}`;
-        document.getElementById('clientSub').textContent=`${k.paused_subscribers||0} paused · ${k.canceled_subscribers||0} canceled`;
-        document.getElementById('oppSub').textContent=k.pipeline_mrr?`${money(k.pipeline_mrr)}/mo potential`:'pipeline waiting';
-        if((k.attention||0)>0) document.getElementById('attentionCard').classList.add('alert');
-        const s=data.intelligence?.summary||{};
-        setText('iAttention',s.attention||0);
-        setText('iRefresh',s.refresh_evidence||0);
-        setText('iReady',s.intelligence_ready||0);
-        setText('iMeasure',k.accepted_recommendations||0);
-        renderPriorities(data.priorities||[]);
-        renderAttention(data.intelligence?.top_attention||[]);
-        const at=new Date(data.generated_at||Date.now());
-        document.getElementById('updated').textContent=`Live · updated ${at.toLocaleTimeString([], {hour:'numeric',minute:'2-digit'})}`;
-      }catch(error){
-        document.getElementById('updated').textContent='Dashboard data unavailable';
-        document.getElementById('priorities').innerHTML='<div class="empty"><b>Could not load live dashboard data.</b><br>Refresh the page. If the problem continues, check the protected dashboard API and Supabase service connection.</div>';
-        document.getElementById('attentionList').innerHTML='<div class="empty">Business triage is temporarily unavailable.</div>';
-      }
-    }
+    function renderPipeline(data){const p=data.pipeline||{},s=p.signup_30d||{},l=p.lead_30d||{};setText('new30',s.current||0);setText('lead30Metric',l.current||0);setText('new30Delta',deltaText(s.delta_percent));setText('lead30Delta',deltaText(l.delta_percent));$('new30Delta').classList.toggle('neg',Number(s.delta_percent)<0);$('lead30Delta').classList.toggle('neg',Number(l.delta_percent)<0);$('leadTrend').textContent=deltaText(l.delta_percent);const stages=p.stages||{},order=['new','contacted','qualified','demo_sent','proposal','negotiating','won','lost'];const keys=[...order.filter(k=>stages[k]!=null),...Object.keys(stages).filter(k=>!order.includes(k))];const max=Math.max(1,...keys.map(k=>Number(stages[k]||0)));$('funnel').innerHTML=keys.length?keys.map(k=>`<div class="funnelrow"><div class="name">${esc(k.replaceAll('_',' '))}</div><div class="funnelbar"><i style="width:${Math.max(4,Math.round((Number(stages[k]||0)/max)*100))}%"></i></div><b>${esc(stages[k]||0)}</b></div>`).join(''):'<div class="empty">No pipeline stages recorded yet.</div>'}
+
+    function renderIntelligence(data){const i=data.intelligence||{},s=i.summary||{};setText('avgScore',i.average_score||0);setText('avgReadiness',(i.average_readiness||0)+'/100');setText('staleBiz',i.stale_businesses||0);setText('readyBiz',s.intelligence_ready||0);const defs=[['attention','seg-attention','Attention'],['refresh_evidence','seg-refresh','Refresh'],['measure_recommendation','seg-measure','Measure'],['build_evidence','seg-build','Build evidence'],['intelligence_ready','seg-ready','Ready'],['monitor','seg-monitor','Monitor']];const total=Math.max(1,defs.reduce((sum,[k])=>sum+Number(s[k]||0),0));$('portfolioStack').innerHTML=defs.filter(([k])=>Number(s[k]||0)>0).map(([k,cls])=>`<i class="${cls}" style="width:${(Number(s[k]||0)/total)*100}%"></i>`).join('');$('portfolioLegend').innerHTML=defs.map(([k,cls,label])=>`<span><i class="${cls}"></i>${esc(label)} ${esc(s[k]||0)}</span>`).join('');renderAttention(i.top_attention||[])}
+
+    function renderAttention(rows){const html=rows.slice(0,6).map(r=>`<div class="attrow"><div><div class="biz">${esc(r.name||r.domain||'Business')}</div><div class="dom">${esc(r.domain||'')}</div></div><div><span class="score">${Math.round(Number(r.score||0))}</span><div class="dom">score</div></div><div><span class="score">${Math.round(Number(r.readiness_score||0))}</span><div class="dom">ready</div></div><div class="bucketcell"><span class="bucket ${esc(r.bucket||'')}">${esc(bucketLabel(r.bucket))}</span></div><div class="reason">${esc(r.reason||'')}</div></div>`).join('');$('attentionTable').innerHTML=html||'<div class="empty">No businesses are currently in the portfolio.</div>';$('watchlist').innerHTML=rows.length?rows.slice(0,7).map(r=>`<a class="activityrow" href="/intelligence/?domain=${encodeURIComponent(r.domain||'')}"><i class="actdot ${r.bucket==='attention'?'result':'audit'}"></i><div><b>${esc(r.name||r.domain||'Business')}</b><span>${esc(bucketLabel(r.bucket))} · score ${Math.round(Number(r.score||0))} · readiness ${Math.round(Number(r.readiness_score||0))}/100</span><span>${esc(r.reason||'')}</span></div><div class="acttime">urgency ${Math.round(Number(r.urgency||0))}</div></a>`).join(''):'<div class="empty">No portfolio watchlist yet.</div>'}
+
+    function renderCampaigns(data){const c=data.campaigns||{},coverage=Number(c.result_coverage_percent||0);$('coverageRing').style.setProperty('--pct',Math.max(0,Math.min(100,coverage)));setText('resultCoverage',coverage+'%');setText('campRevenue',money(c.revenue_recorded));setText('campSpend',money(c.recorded_spend));setText('campContribution',money(c.contribution_after_recorded_spend));setText('campConversions',c.conversions_recorded||0);$('coverageNote').textContent=`${c.results_recorded||0} of ${c.campaigns||0} campaigns finalized · ${c.pending_results||0} pending · spend coverage ${c.spend_coverage_percent||0}% of finalized results.`}
+
+    function renderLearning(data){const l=data.learning||{},o=l.outcomes||{};setText('successRate',o.success_rate==null?'Not enough data':o.success_rate+'%');setText('avgLift',o.average_measured_lift==null?'—':`${o.average_measured_lift>0?'+':''}${o.average_measured_lift}%`);setText('decisiveSub',`${o.decisive||0} decisive outcome${o.decisive===1?'':'s'}`);setText('outSuccess',o.successful||0);setText('outFail',(o.unsuccessful||0)+(o.reversed||0));setText('outInc',o.inconclusive||0);setText('outMeasured',l.measured||0)}
+
+    function renderPriorities(rows=[]){$('priorities').innerHTML=rows.length?rows.map(p=>`<div class="priority ${esc(p.type||'')}"><div class="pval">${esc(p.value)}</div><div><div class="ptitle">${esc(p.label)}</div><div class="pdetail">${esc(p.detail||'')}</div></div><a class="pillbtn" href="${esc(p.href)}">${esc(p.action)} →</a></div>`).join(''):'<div class="empty">No urgent items. Use the quiet time to create the next qualified opportunity.</div>'}
+
+    function renderActivity(rows=[]){$('activity').innerHTML=rows.length?rows.map(a=>`<a class="activityrow" href="${esc(a.href||'#')}"><i class="actdot ${esc(a.type||'')}"></i><div><b>${esc(a.title)}</b><span>${esc(a.detail||'')}</span></div><div class="acttime">${esc(relTime(a.at))}</div></a>`).join(''):'<div class="empty">No recent operating activity yet.</div>'}
+
+    function renderHealth(rows=[]){$('healthList').innerHTML=rows.map(h=>`<a class="healthrow" href="${esc(h.href||'#')}"><i class="healthdot ${esc(h.state||'missing')}"></i><div><b>${esc(h.label)}</b><span>${h.at?esc(new Date(h.at).toLocaleString()):'No evidence recorded'}</span></div><div class="healthage">${h.age_days==null?'missing':h.age_days===0?'today':h.age_days+'d old'}</div></a>`).join('')}
+
+    async function loadDashboard(){try{const res=await fetch('/api/admin-dashboard',{cache:'no-store'}),data=await res.json().catch(()=>({}));if(!res.ok||!data.ok)throw new Error(data.error||'Dashboard request failed');renderFocus(data);renderKpis(data);renderRevenue(data);renderPipeline(data);renderIntelligence(data);renderCampaigns(data);renderLearning(data);renderPriorities(data.priorities||[]);renderActivity(data.activity||[]);renderHealth(data.system_health||[]);const at=new Date(data.generated_at||Date.now());$('updated').textContent=`Live · updated ${at.toLocaleTimeString([], {hour:'numeric',minute:'2-digit'})}`;$('today').textContent=at.toLocaleDateString([], {weekday:'long',month:'long',day:'numeric'}).toUpperCase()}catch(error){console.error(error);$('updated').textContent='Dashboard data unavailable';$('focusHeadline').textContent='The live operating feed could not load';$('focusDetail').textContent='Refresh once. If the issue continues, check the protected dashboard API and Supabase service connection.';$('focusHeadline').classList.remove('loading');['priorities','activity','watchlist','attentionTable','healthList'].forEach(id=>$(id).innerHTML='<div class="empty"><b>Live data unavailable.</b><br>The interface is intact, but the protected dashboard feed did not return successfully.</div>')}}
+    $('today').textContent=new Date().toLocaleDateString([], {weekday:'long',month:'long',day:'numeric'}).toUpperCase();
     loadDashboard();
   </script>
 </body>
