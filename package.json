@@ -5,7 +5,8 @@
     "node": ">=18"
   },
   "scripts": {
-    "engine:check": "node engine/selftest.mjs"
+    "engine:check": "node engine/selftest.mjs",
+    "bi:check": "node bi/selftest.mjs"
   },
   "dependencies": {
     "@sparticuz/chromium": "^131.0.0",

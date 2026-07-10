@@ -3,8 +3,9 @@
 // score / top gap, and writes them back to Supabase. Triggered by a Vercel Cron
 // (which sends Authorization: Bearer $CRON_SECRET). Not behind Basic-Auth so the
 // cron can reach it; guarded by CRON_SECRET instead.
-import { sbSelect, sbUpdate } from "./_lib.js";
+import { sbSelect, sbUpdate, sbInsert } from "./_lib.js";
 import { auditDomain, normDomain } from "./_audit.js";
+import { scanObservationRows } from "./_intelligence.js";
 
 const BATCH = 6; // stalest N per run — daily cron cycles the full book in ~1 week
 
@@ -30,7 +31,7 @@ export default async function handler(req, res) {
   if (!secret) return res.status(503).json({ ok: false, error: "CRON_SECRET not configured" });
   if ((req.headers.authorization || "") !== `Bearer ${secret}`) return res.status(401).json({ ok: false, error: "unauthorized" });
   let rows;
-  try { rows = await sbSelect("prospect_audits", "select=slug,domain,competitors&order=updated_at.asc&limit=" + BATCH); }
+  try { rows = await sbSelect("prospect_audits", "select=slug,name,domain,competitors&order=updated_at.asc&limit=" + BATCH); }
   catch (e) { return res.status(500).json({ ok: false, error: String(e && e.message ? e.message : e) }); }
 
   const results = [];
@@ -52,9 +53,29 @@ export default async function handler(req, res) {
         name: (comps.find((c) => normDomain(c.domain) === normDomain(a.domain)) || {}).name || a.domain,
         domain: normDomain(a.domain), score: a.score.overall,
       }));
+      const observedAt = new Date().toISOString();
       await sbUpdate("prospect_audits", `slug=eq.${encodeURIComponent(row.slug)}`, {
-        rank, count: N, score, field_avg: avg, leads, top_gap: topGap(prospect), dmarc, competitors, updated_at: new Date().toISOString(),
+        rank, count: N, score, field_avg: avg, leads, top_gap: topGap(prospect), dmarc, competitors, updated_at: observedAt,
       });
+
+      // Preserve immutable history for the prospect and every measured peer.
+      // Best-effort: a BI storage issue should not stop the existing refresh loop.
+      try {
+        const observations = audited.flatMap((a) => {
+          const d = normDomain(a.domain);
+          const peer = comps.find((c) => normDomain(c.domain) === d);
+          return scanObservationRows(a, {
+            entityKey: d,
+            entityName: d === pd ? (row.name || pd) : (peer?.name || d),
+            source: "scheduled_audit_refresh",
+            observedAt,
+          });
+        });
+        if (observations.length) await sbInsert("bi_observations", observations);
+      } catch (e) {
+        console.error(`BI observation save failed for ${row.slug}:`, e?.message || e);
+      }
+
       results.push({ slug: row.slug, rank, count: N, score });
     } catch (e) { results.push({ slug: row.slug, error: String(e && e.message ? e.message : e) }); }
   }

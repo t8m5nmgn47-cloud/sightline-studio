@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Sightline · Opportunity Feed</title>
+  <meta name="robots" content="noindex,nofollow">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root{--ink:#16140f;--mut:#6b6660;--line:#e7e2d8;--bg:#f4f1ea;--ac:#1f6f5c;--deep:#11271f;--gold:#a37a12;--red:#b4453a;--blue:#315f86;--head:'Fraunces',Georgia,serif;--body:'Inter',system-ui,sans-serif}
+    *{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);-webkit-font-smoothing:antialiased}.wrap{max-width:960px;margin:auto;padding:0 clamp(18px,4vw,40px)}
+    .top{display:flex;align-items:center;justify-content:space-between;padding:16px 0;border-bottom:1px solid var(--line)}.brand{font-family:var(--head);font-weight:600;font-size:1.2rem;display:flex;gap:10px;align-items:center}.dot{width:11px;height:11px;border-radius:50%;background:var(--ac)}.top a{color:var(--mut);font-size:.85rem;text-decoration:none}
+    .hero{padding:42px 0 22px}.eyebrow{font-size:.72rem;text-transform:uppercase;letter-spacing:.13em;font-weight:800;color:var(--ac)}h1{font-family:var(--head);font-size:clamp(2rem,1.3rem+2.8vw,3.5rem);font-weight:400;letter-spacing:-.03em;margin:8px 0 10px;line-height:1.05}.lede{color:var(--mut);line-height:1.6;max-width:68ch;margin:0}
+    .lookup{display:grid;grid-template-columns:1fr auto;gap:10px;margin:24px 0 8px}.lookup input{width:100%;padding:14px 15px;border:1px solid var(--line);border-radius:11px;font:inherit;background:#fff}.lookup button{border:0;border-radius:11px;background:var(--ac);color:#fff;padding:0 20px;font:inherit;font-weight:800;cursor:pointer}.hint{font-size:.82rem;color:var(--mut)}
+    .status{display:flex;gap:18px;flex-wrap:wrap;margin:20px 0 4px;font-size:.83rem;color:var(--mut)}.status b{color:var(--ink)}
+    .feed{margin:22px 0 50px}.card{background:#fff;border:1px solid var(--line);border-radius:16px;margin:12px 0;padding:20px 22px;box-shadow:0 8px 28px rgba(40,34,20,.04)}.cardTop{display:flex;justify-content:space-between;gap:12px;align-items:center}.type{font-size:.68rem;font-weight:800;text-transform:uppercase;letter-spacing:.12em;padding:5px 9px;border-radius:999px}.repeat .type{background:#e8f5ee;color:var(--ac)}.fix .type{background:#f8e8e6;color:var(--red)}.test .type{background:#e8eef5;color:var(--blue)}.watch .type{background:#f7efd9;color:var(--gold)}.conf{font-size:.76rem;color:var(--mut)}
+    .card h2{font-family:var(--head);font-size:1.42rem;margin:12px 0 6px}.body{line-height:1.58;color:#393630;margin:0}.move{margin-top:15px;padding:13px 15px;border-radius:10px;background:#f7f5ef;line-height:1.5}.move b{color:var(--ac)}details{margin-top:12px;color:var(--mut);font-size:.82rem}summary{cursor:pointer;font-weight:700}.evidence{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:8px;margin-top:10px}.ev{background:#fbfaf6;border:1px solid var(--line);border-radius:8px;padding:9px}.ev span{display:block;font-size:.68rem;text-transform:uppercase;letter-spacing:.06em;margin-bottom:3px}.ev b{color:var(--ink);font-size:.86rem}
+    .empty,.error{background:#fff;border:1px solid var(--line);border-radius:16px;padding:30px;text-align:center;color:var(--mut);line-height:1.6}.empty b,.error b{color:var(--ink)}.error{border-color:#e7c2bd}.footer{padding:0 0 45px;color:var(--mut);font-size:.8rem;line-height:1.55}@media(max-width:620px){.lookup{grid-template-columns:1fr}.lookup button{padding:13px 18px}.card{padding:18px}.cardTop{align-items:flex-start}}
+  </style>
+</head>
+<body>
+  <header class="wrap top"><div class="brand"><span class="dot"></span>Sightline · Intelligence</div><a href="../admin/">← Admin</a></header>
+  <main class="wrap">
+    <section class="hero">
+      <div class="eyebrow">Opportunity Feed</div>
+      <h1>What changed. What worked. What to do next.</h1>
+      <p class="lede">Sightline turns measured history into a small number of decisions. Every card shows the evidence behind it, and the system waits when there is not enough data to make an honest recommendation.</p>
+      <form class="lookup" id="lookup"><input id="domain" autocomplete="url" placeholder="business.com" aria-label="Business domain" required><button>Build intelligence feed</button></form>
+      <div class="hint">Start with a domain that has been scanned or refreshed more than once.</div>
+    </section>
+    <div id="meta"></div>
+    <section id="feed" class="feed"><div class="empty"><b>Enter a business domain.</b><br>The first version uses scan history now and becomes richer as campaign and conversion events are connected.</div></section>
+    <footer class="footer">Private BI workspace · deterministic rules, visible evidence, no invented conclusions.</footer>
+  </main>
+<script>
+const form=document.getElementById('lookup'), input=document.getElementById('domain'), feed=document.getElementById('feed'), meta=document.getElementById('meta');
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const fmtDate=s=>s?new Date(s).toLocaleString(undefined,{month:'short',day:'numeric',year:'numeric'}):'—';
+const typeLabel={repeat:'Repeat',fix:'Fix',test:'Test',watch:'Watch'};
+function evidence(e){
+  const rows=[];
+  if(e.sample_size!=null) rows.push(['Sample',e.sample_size]);
+  if(e.comparison) rows.push(['Comparison',e.comparison]);
+  if(e.absolute_lift!=null) rows.push(['Absolute lift',e.absolute_lift]);
+  if(e.relative_lift!=null) rows.push(['Relative lift',e.relative_lift+'%']);
+  if(e.period_start||e.period_end) rows.push(['Evidence period',(e.period_start?fmtDate(e.period_start):'—')+' → '+(e.period_end?fmtDate(e.period_end):'—')]);
+  if(e.source) rows.push(['Source',e.source]);
+  return rows.map(r=>`<div class="ev"><span>${esc(r[0])}</span><b>${esc(r[1])}</b></div>`).join('');
+}
+function render(data){
+  meta.innerHTML=`<div class="status"><span><b>${data.summary.observation_count}</b> observations</span><span><b>${data.summary.event_count}</b> events</span><span>Latest evidence: <b>${fmtDate(data.summary.latest_observation_at)}</b></span><span>Generated: <b>${fmtDate(data.generated_at)}</b></span></div>`;
+  if(!data.cards.length){feed.innerHTML='<div class="empty">No cards yet. Keep collecting comparable evidence.</div>';return;}
+  feed.innerHTML=data.cards.map(c=>`<article class="card ${esc(c.type)}"><div class="cardTop"><span class="type">${esc(typeLabel[c.type]||c.type)}</span><span class="conf">${esc(c.confidence)} confidence</span></div><h2>${esc(c.headline)}</h2><p class="body">${esc(c.body)}</p><div class="move"><b>Next move:</b> ${esc(c.recommendation)}</div><details><summary>Why Sightline is saying this</summary><div class="evidence">${evidence(c.evidence||{})}</div></details></article>`).join('');
+}
+async function load(domain){
+  const clean=domain.trim().replace(/^https?:\/\//,'').replace(/\/.*$/,'').toLowerCase();
+  input.value=clean; history.replaceState(null,'','?domain='+encodeURIComponent(clean));
+  feed.innerHTML='<div class="empty">Building the opportunity feed…</div>';meta.innerHTML='';
+  try{
+    const r=await fetch('/api/intelligence?domain='+encodeURIComponent(clean),{credentials:'same-origin'}); const data=await r.json();
+    if(!r.ok||!data.ok) throw new Error(data.error||'Could not build the feed.');
+    render(data);
+  }catch(e){feed.innerHTML=`<div class="error"><b>Opportunity feed unavailable.</b><br>${esc(e.message)}</div>`;}
+}
+form.addEventListener('submit',e=>{e.preventDefault();load(input.value)});
+const initial=new URLSearchParams(location.search).get('domain');if(initial){input.value=initial;load(initial)}
+</script>
+</body>
+</html>
