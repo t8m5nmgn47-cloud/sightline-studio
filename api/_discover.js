@@ -3,6 +3,7 @@
 // Keyless. Files in /api starting with "_" are NOT routed by Vercel.
 
 import { normDomain } from "./_audit.js";
+import { scorePeer } from "./_peer_quality.js";
 
 const UA = "SightlineStudio/1.0 (+https://sightline-studio.vercel.app; kris.emery@brains-and-motion.com)";
 const NOMINATIM = "https://nominatim.openstreetmap.org/search";
@@ -26,6 +27,10 @@ const RULES = [
   [/hvac|heating|cooling|plumb|furnace/i, [["craft", "hvac"], ["craft", "plumber"], ["craft", "electrician"]]],
   [/home ?builder|construction|contractor|remodel|bath|kitchen|design-?build/i, [["craft", "builder"], ["shop", "doityourself"]]],
   [/montessori|preschool|pre-?k|childcare|early childhood|academy|\bschool\b|education/i, [["amenity", "kindergarten"], ["amenity", "childcare"], ["amenity", "school"]]],
+  [/restaurant|cafe|coffee|bakery|bar|grill|pizza/i, [["amenity", "restaurant"], ["amenity", "cafe"], ["amenity", "fast_food"]]],
+  [/fitness|gym|yoga|pilates|crossfit/i, [["leisure", "fitness_centre"], ["leisure", "sports_centre"], ["sport", "fitness"]]],
+  [/salon|barber|hair|nail|beauty/i, [["shop", "hairdresser"], ["shop", "beauty"]]],
+  [/real estate|realtor|broker|property/i, [["office", "estate_agent"]]],
 ];
 
 export function categoryFilters(category) {
@@ -98,13 +103,37 @@ export async function discoverCompetitors(category, location, { radiusKm = 12, l
     seen.add(key);
     const plat = el.lat != null ? el.lat : (el.center && el.center.lat);
     const plon = el.lon != null ? el.lon : (el.center && el.center.lon);
-    out.push({
+    const peer = {
       name: t.name || domain,
       domain,
       website: web,
       distance_km: (plat != null && plon != null) ? haversineKm(center.lat, center.lon, plat, plon) : null,
-    });
+    };
+    peer.peer_quality = scorePeer(category, peer, { tags: t, filters });
+    out.push(peer);
   }
-  out.sort((a, b) => (a.distance_km ?? 999) - (b.distance_km ?? 999));
-  return { ok: true, center: center.display, category_filters: filters, count: out.length, competitors: out.slice(0, limit) };
+
+  out.sort((a, b) => {
+    const quality = (b.peer_quality?.score || 0) - (a.peer_quality?.score || 0);
+    if (quality) return quality;
+    return (a.distance_km ?? 999) - (b.distance_km ?? 999);
+  });
+
+  const eligible = out.filter((peer) => peer.peer_quality?.eligible);
+  const suppressed = out.filter((peer) => !peer.peer_quality?.eligible);
+  return {
+    ok: true,
+    center: center.display,
+    category_filters: filters,
+    count: eligible.length,
+    discovered_count: out.length,
+    suppressed_count: suppressed.length,
+    competitors: eligible.slice(0, limit),
+    suppressed_preview: suppressed.slice(0, 5).map((peer) => ({
+      name: peer.name,
+      domain: peer.domain,
+      distance_km: peer.distance_km,
+      peer_quality: peer.peer_quality,
+    })),
+  };
 }
