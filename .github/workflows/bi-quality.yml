@@ -2,15 +2,27 @@ name: BI quality
 
 on:
   push:
-    branches: [main, feature/bi-opportunity-feed-v1]
+    branches: [main, feature/bi-learning-loop-v2]
     paths:
       - 'api/_intelligence.js'
+      - 'api/_bi_patterns.js'
+      - 'api/_bi_feed.js'
+      - 'api/bi-events.js'
+      - 'api/recommendations.js'
+      - 'api/weekly-brief.js'
+      - 'intelligence/**'
       - 'bi/**'
       - 'package.json'
       - '.github/workflows/bi-quality.yml'
   pull_request:
     paths:
       - 'api/_intelligence.js'
+      - 'api/_bi_patterns.js'
+      - 'api/_bi_feed.js'
+      - 'api/bi-events.js'
+      - 'api/recommendations.js'
+      - 'api/weekly-brief.js'
+      - 'intelligence/**'
       - 'bi/**'
       - 'package.json'
       - '.github/workflows/bi-quality.yml'
