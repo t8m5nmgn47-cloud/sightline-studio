@@ -14,6 +14,12 @@ const FIELDS = [
   "dimensions",
 ];
 
+function numericOrNull(value) {
+  if (value == null || value === "") return null;
+  const n = Number(value);
+  return Number.isFinite(n) ? n : null;
+}
+
 export function normalizeObservationInsertRows(rows = []) {
   return (Array.isArray(rows) ? rows : [])
     .filter((row) => row && row.entity_key && row.metric && row.observed_at)
@@ -21,7 +27,7 @@ export function normalizeObservationInsertRows(rows = []) {
       entity_key: String(row.entity_key),
       entity_name: row.entity_name == null ? null : String(row.entity_name),
       metric: String(row.metric),
-      value_numeric: Number.isFinite(Number(row.value_numeric)) ? Number(row.value_numeric) : null,
+      value_numeric: numericOrNull(row.value_numeric),
       value_text: row.value_text == null ? null : String(row.value_text),
       observed_at: String(row.observed_at),
       source: row.source == null ? null : String(row.source),
