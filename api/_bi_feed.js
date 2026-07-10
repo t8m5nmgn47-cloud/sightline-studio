@@ -7,6 +7,7 @@ import { buildCheckChangeCards, countCheckChanges } from "./_change_intelligence
 import { buildEvidenceReadiness } from "./_readiness_intelligence.js";
 import { buildLearningMemory } from "./_learning_memory.js";
 import { buildCampaignEconomics } from "./_campaign_economics.js";
+import { snapshotObservationRows, buildProspectSnapshotCard } from "./_prospect_snapshot.js";
 import { normDomain } from "./_audit.js";
 import { assessPeerSet } from "./_peer_quality.js";
 
@@ -31,11 +32,15 @@ export async function loadIntelligenceFeed(domain) {
     sbSelect("bi_events", `select=event_type,occurred_at,channel,campaign_id,offer_id,creative_id,local_weekday,local_hour,value_numeric,metadata&entity_key=eq.${entity}&order=occurred_at.asc&limit=5000`),
   ]);
 
+  let prospect = null;
   let peerObservations = [];
   let peerSet = { confidence: "low", average_score: 0, eligible_count: 0, suppressed_count: 0, eligible: [] };
   try {
-    const prospectRows = await sbSelect("prospect_audits", `select=vertical,competitors&domain=eq.${entity}&limit=1`);
-    const prospect = prospectRows?.[0] || null;
+    const prospectRows = await sbSelect(
+      "prospect_audits",
+      `select=score,field_avg,rank,count,top_gap,updated_at,vertical,competitors&domain=eq.${entity}&limit=1`,
+    );
+    prospect = prospectRows?.[0] || null;
     peerSet = assessPeerSet(prospect?.vertical || "", prospect?.competitors || []);
     const peers = peerSet.eligible.map((p) => normDomain(p?.domain || "")).filter(Boolean).slice(0, 8);
     if (peerSet.confidence !== "low" && peers.length) {
@@ -48,6 +53,13 @@ export async function loadIntelligenceFeed(domain) {
     }
   } catch (e) { console.error("BI peer context unavailable:", e?.message || e); }
 
+  // A tracked audit snapshot is valid point-in-time evidence. When immutable BI
+  // history is still empty, use it as a one-observation baseline without making
+  // any trend claim. Repeat measurements still come only from BI history.
+  const snapshotRows = observations.length ? [] : snapshotObservationRows(prospect);
+  const snapshotCard = snapshotRows.length ? buildProspectSnapshotCard(prospect) : null;
+  const effectiveObservations = observations.length ? observations : snapshotRows;
+
   let tracked = [];
   let outcomes = [];
   try {
@@ -57,18 +69,24 @@ export async function loadIntelligenceFeed(domain) {
   } catch (e) { console.error("BI recommendation tracking unavailable:", e?.message || e); }
 
   const generatedAt = new Date().toISOString();
-  const base = buildOpportunityFeed({ entityKey: domain, observations, events, generatedAt });
-  let feed = enrichOpportunityFeed(base, { observations, events, peerObservations, generatedAt });
-  const checkChangeCards = buildCheckChangeCards(observations);
-  const readiness = buildEvidenceReadiness({ observations, events, peerSet, peerObservations, insights: tracked });
+  const base = buildOpportunityFeed({ entityKey: domain, observations: effectiveObservations, events, generatedAt });
+  let feed = enrichOpportunityFeed(base, { observations: effectiveObservations, events, peerObservations, generatedAt });
+  const checkChangeCards = buildCheckChangeCards(effectiveObservations);
+  const readiness = buildEvidenceReadiness({ observations: effectiveObservations, events, peerSet, peerObservations, insights: tracked });
   const learningMemory = buildLearningMemory({ insights: tracked, outcomes });
   const campaignEconomics = buildCampaignEconomics(events);
   feed = {
     ...feed,
-    cards: mergeDecisionCards(checkChangeCards, [...feed.cards, ...campaignEconomics.cards, readiness.card, learningMemory.card]),
+    cards: mergeDecisionCards(
+      [...checkChangeCards, snapshotCard].filter(Boolean),
+      [...feed.cards, ...campaignEconomics.cards, readiness.card, learningMemory.card],
+    ),
     summary: {
       ...feed.summary,
-      check_changes: countCheckChanges(observations),
+      evidence_mode: observations.length ? "history" : snapshotCard ? "current_snapshot" : "empty",
+      history_observation_count: observations.length,
+      snapshot_baseline: !!snapshotCard,
+      check_changes: countCheckChanges(effectiveObservations),
       readiness: { score: readiness.score, status: readiness.status, next_unlock: readiness.next_unlock, ready_for: readiness.ready_for },
       learning_memory: {
         measured: learningMemory.summary.measured, decisive: learningMemory.summary.decisive,
