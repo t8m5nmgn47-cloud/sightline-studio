@@ -1,6 +1,6 @@
 // Vercel Edge Middleware — Basic-Auth gate on internal workspaces and APIs.
 // Set ADMIN_PASS (and optionally ADMIN_USER) in Vercel → Project → Settings → Environment Variables.
-export const config = { matcher: ["/admin/:path*", "/pipeline/:path*", "/intelligence/:path*", "/admin", "/pipeline", "/intelligence", "/engine/:path*", "/api/intake", "/api/intakes", "/api/audit", "/api/discover", "/api/pipeline-audits", "/api/intelligence"] };
+export const config = { matcher: ["/admin/:path*", "/pipeline/:path*", "/intelligence/:path*", "/admin", "/pipeline", "/intelligence", "/engine/:path*", "/api/intake", "/api/intakes", "/api/audit", "/api/discover", "/api/pipeline-audits", "/api/intelligence", "/api/bi-events", "/api/recommendations", "/api/weekly-brief"] };
 
 export default function middleware(request) {
   const env = (globalThis.process && process.env) || {};
