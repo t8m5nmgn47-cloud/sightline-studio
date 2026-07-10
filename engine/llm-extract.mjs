@@ -45,7 +45,12 @@ function pageText(html) {
   return $('body').text().replace(/[ \t]+/g, ' ').replace(/\n{2,}/g, '\n').trim();
 }
 
-const str = (v, max) => (typeof v === 'string' ? v.replace(/\s+/g, ' ').trim().slice(0, max) : '');
+// clamp at a WORD boundary — a hard slice once shipped "closely aligned wi"
+const str = (v, max) => { if (typeof v !== 'string') return '';
+  const t = v.replace(/\s+/g, ' ').trim();
+  if (t.length <= max) return t;
+  const cut = t.slice(0, max);
+  return cut.slice(0, Math.max(cut.lastIndexOf(' '), max - 25)).replace(/[,;:.\s]+$/, '') + '…'; };
 const arr = (v) => (Array.isArray(v) ? v : []);
 
 // validate + clamp the model's JSON so bad output can never poison a build
