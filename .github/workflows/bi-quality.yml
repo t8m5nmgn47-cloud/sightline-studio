@@ -2,13 +2,15 @@ name: BI quality
 
 on:
   push:
-    branches: [main, feature/bi-peer-quality-and-auto-events-v3]
+    branches: [main, feature/bi-check-change-intelligence-v4]
     paths:
       - 'api/_intelligence.js'
       - 'api/_bi_patterns.js'
       - 'api/_bi_feed.js'
       - 'api/_peer_quality.js'
       - 'api/_discover.js'
+      - 'api/_check_observations.js'
+      - 'api/_change_intelligence.js'
       - 'api/_lib.js'
       - 'api/audit-refresh.js'
       - 'api/bi-events.js'
@@ -28,6 +30,8 @@ on:
       - 'api/_bi_feed.js'
       - 'api/_peer_quality.js'
       - 'api/_discover.js'
+      - 'api/_check_observations.js'
+      - 'api/_change_intelligence.js'
       - 'api/_lib.js'
       - 'api/audit-refresh.js'
       - 'api/bi-events.js'
