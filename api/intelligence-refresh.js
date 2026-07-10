@@ -2,10 +2,11 @@
 // Scheduled after the daily audit refresh. Converts fresh measured history into
 // stored actionable insights without duplicating unchanged recommendations.
 
-import { sbInsert, sbSelect, sbUpdate } from "./_lib.js";
+import { notifySlack, sbInsert, sbSelect, sbUpdate } from "./_lib.js";
 import { normDomain } from "./_audit.js";
 import { loadIntelligenceFeed } from "./_bi_feed.js";
 import { planInsightRefresh } from "./_insight_refresh.js";
+import { buildOperatorDigest } from "./_operator_digest.js";
 
 const BATCH = 12;
 
@@ -46,23 +47,41 @@ export default async function handler(req, res) {
 
       results.push({
         slug: prospect.slug,
+        name: prospect.name || domain,
         domain,
         actionable: plan.actionable_count,
         created: plan.create.length,
         unchanged: plan.unchanged.length,
         expired: plan.expire.length,
+        new_insights: plan.create.map((row) => ({
+          type: row.insight_type,
+          headline: row.headline,
+          confidence: row.confidence,
+        })),
       });
     } catch (e) {
-      results.push({ slug: prospect.slug, domain, error: String(e?.message || e) });
+      results.push({
+        slug: prospect.slug,
+        name: prospect.name || domain,
+        domain,
+        error: String(e?.message || e),
+      });
     }
   }
+
+  const digest = buildOperatorDigest(results, {
+    baseUrl: process.env.PUBLIC_SITE_URL || "https://sightline-studio.vercel.app",
+  });
+  if (digest.should_notify) await notifySlack(digest.text);
 
   return res.status(200).json({
     ok: true,
     generated_at: generatedAt,
     processed: results.length,
-    created: results.reduce((sum, row) => sum + (row.created || 0), 0),
-    expired: results.reduce((sum, row) => sum + (row.expired || 0), 0),
+    created: digest.created,
+    expired: digest.expired,
+    errors: digest.errors,
+    digest_notified: digest.should_notify,
     results,
   });
 }
