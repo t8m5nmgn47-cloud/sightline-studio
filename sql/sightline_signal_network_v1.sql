@@ -32,6 +32,7 @@ create index if not exists signal_sources_platform_idx on public.signal_sources(
 create table if not exists public.signal_collection_runs (
   id uuid primary key default gen_random_uuid(),
   entity_key text not null,
+  anchor_entity_key text not null,
   collector text not null,
   relationship text not null default 'owned' check (relationship in ('owned','peer','market')),
   started_at timestamptz not null default now(),
@@ -46,6 +47,7 @@ create table if not exists public.signal_collection_runs (
 );
 
 create index if not exists signal_runs_entity_idx on public.signal_collection_runs(entity_key, started_at desc);
+create index if not exists signal_runs_anchor_idx on public.signal_collection_runs(anchor_entity_key, started_at desc);
 create index if not exists signal_runs_status_idx on public.signal_collection_runs(status, started_at desc);
 
 create table if not exists public.signal_snapshots (
