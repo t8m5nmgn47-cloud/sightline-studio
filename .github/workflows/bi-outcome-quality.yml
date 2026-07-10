@@ -1,0 +1,35 @@
+name: BI outcome completion quality
+
+on:
+  push:
+    branches: [main, feature/bi-outcome-completion-v12]
+    paths:
+      - 'api/_campaign_outcomes.js'
+      - 'api/_admin_auth.js'
+      - 'api/campaign-outcomes.js'
+      - 'intelligence/outcomes/**'
+      - 'bi/outcome-selftest.mjs'
+      - '.github/workflows/bi-outcome-quality.yml'
+  pull_request:
+    paths:
+      - 'api/_campaign_outcomes.js'
+      - 'api/_admin_auth.js'
+      - 'api/campaign-outcomes.js'
+      - 'intelligence/outcomes/**'
+      - 'bi/outcome-selftest.mjs'
+      - '.github/workflows/bi-outcome-quality.yml'
+  workflow_dispatch:
+
+jobs:
+  outcome-check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm run bi:check
+      - run: node bi/outcome-selftest.mjs
