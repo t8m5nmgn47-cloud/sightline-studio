@@ -38,12 +38,21 @@ function sbHeaders(prefer = null) {
   };
 }
 
+// PostgREST requires every object in a JSON insert array to have the same key set.
+// Normalize sparse rows to the union of keys so mixed observation types can be
+// inserted together without turning omitted fields into a batch-level failure.
+export function normalizeInsertRows(row) {
+  if (!Array.isArray(row) || row.length < 2) return row;
+  const keys = [...new Set(row.flatMap((item) => Object.keys(item || {})))];
+  return row.map((item) => Object.fromEntries(keys.map((key) => [key, Object.prototype.hasOwnProperty.call(item || {}, key) ? item[key] : null])));
+}
+
 // Insert one row or an array of rows via PostgREST.
 export async function sbInsert(table, row) {
   const res = await fetch(`${SUPABASE_URL}/rest/v1/${table}`, {
     method: "POST",
     headers: sbHeaders("return=minimal"),
-    body: JSON.stringify(row),
+    body: JSON.stringify(normalizeInsertRows(row)),
   });
   if (!res.ok) {
     const detail = await res.text().catch(() => "");
