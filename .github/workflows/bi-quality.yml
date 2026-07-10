@@ -2,7 +2,7 @@ name: BI quality
 
 on:
   push:
-    branches: [main, feature/bi-check-change-intelligence-v4]
+    branches: [main, feature/bi-evidence-readiness-v5]
     paths:
       - 'api/_intelligence.js'
       - 'api/_bi_patterns.js'
@@ -11,6 +11,7 @@ on:
       - 'api/_discover.js'
       - 'api/_check_observations.js'
       - 'api/_change_intelligence.js'
+      - 'api/_readiness_intelligence.js'
       - 'api/_lib.js'
       - 'api/audit-refresh.js'
       - 'api/bi-events.js'
@@ -32,6 +33,7 @@ on:
       - 'api/_discover.js'
       - 'api/_check_observations.js'
       - 'api/_change_intelligence.js'
+      - 'api/_readiness_intelligence.js'
       - 'api/_lib.js'
       - 'api/audit-refresh.js'
       - 'api/bi-events.js'
