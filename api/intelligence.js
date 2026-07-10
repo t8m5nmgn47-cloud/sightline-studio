@@ -1,10 +1,10 @@
 // GET /api/intelligence?domain=example.com
 // Admin-only via middleware. Reads immutable BI history and returns a transparent
-// Repeat / Fix / Test / Watch opportunity feed.
+// Repeat / Fix / Test / Watch opportunity feed with campaign, review, peer and
+// recommendation-tracking context.
 
-import { sbSelect } from "./_lib.js";
 import { normDomain } from "./_audit.js";
-import { buildOpportunityFeed } from "./_intelligence.js";
+import { loadIntelligenceFeed } from "./_bi_feed.js";
 
 const DOMAIN_RE = /^([a-z0-9-]+\.)+[a-z]{2,}$/i;
 
@@ -24,19 +24,7 @@ export default async function handler(req, res) {
   }
 
   try {
-    const entity = encodeURIComponent(domain);
-    const [observations, events] = await Promise.all([
-      sbSelect(
-        "bi_observations",
-        `select=metric,value_numeric,value_text,observed_at,source,dimensions&entity_key=eq.${entity}&order=observed_at.asc&limit=2000`,
-      ),
-      sbSelect(
-        "bi_events",
-        `select=event_type,occurred_at,channel,campaign_id,offer_id,creative_id,local_weekday,local_hour,value_numeric,metadata&entity_key=eq.${entity}&order=occurred_at.asc&limit=3000`,
-      ),
-    ]);
-
-    const feed = buildOpportunityFeed({ entityKey: domain, observations, events });
+    const feed = await loadIntelligenceFeed(domain);
     res.setHeader("Cache-Control", "private, no-store");
     return res.status(200).json({ ok: true, ...feed });
   } catch (e) {

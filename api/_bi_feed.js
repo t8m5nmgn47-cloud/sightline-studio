@@ -1,0 +1,67 @@
+// Shared server-side loader for Opportunity Feed and Weekly Brief endpoints.
+
+import { sbSelect } from "./_lib.js";
+import { buildOpportunityFeed } from "./_intelligence.js";
+import { enrichOpportunityFeed } from "./_bi_patterns.js";
+import { normDomain } from "./_audit.js";
+
+export async function loadIntelligenceFeed(domain) {
+  const entity = encodeURIComponent(domain);
+  const [observations, events] = await Promise.all([
+    sbSelect(
+      "bi_observations",
+      `select=metric,value_numeric,value_text,observed_at,source,dimensions&entity_key=eq.${entity}&order=observed_at.asc&limit=2000`,
+    ),
+    sbSelect(
+      "bi_events",
+      `select=event_type,occurred_at,channel,campaign_id,offer_id,creative_id,local_weekday,local_hour,value_numeric,metadata&entity_key=eq.${entity}&order=occurred_at.asc&limit=5000`,
+    ),
+  ]);
+
+  let peerObservations = [];
+  try {
+    const prospectRows = await sbSelect("prospect_audits", `select=competitors&domain=eq.${entity}&limit=1`);
+    const peers = (prospectRows?.[0]?.competitors || [])
+      .map((p) => normDomain(p?.domain || ""))
+      .filter(Boolean)
+      .slice(0, 8);
+    if (peers.length) {
+      const parts = await Promise.all(peers.map(async (peer) => {
+        try {
+          return await sbSelect(
+            "bi_observations",
+            `select=entity_key,metric,value_numeric,observed_at,source&entity_key=eq.${encodeURIComponent(peer)}&metric=eq.overall_score&order=observed_at.asc&limit=500`,
+          );
+        } catch {
+          return [];
+        }
+      }));
+      peerObservations = parts.flat();
+    }
+  } catch (e) {
+    console.error("BI peer context unavailable:", e?.message || e);
+  }
+
+  const generatedAt = new Date().toISOString();
+  const base = buildOpportunityFeed({ entityKey: domain, observations, events, generatedAt });
+  let feed = enrichOpportunityFeed(base, { observations, events, peerObservations, generatedAt });
+
+  // Attach the latest tracked recommendation state to cards by exact headline.
+  // The generated card remains the source of truth; tracking only adds workflow state.
+  try {
+    const tracked = await sbSelect(
+      "bi_insights",
+      `select=id,headline,status,generated_at,review_after&entity_key=eq.${entity}&order=generated_at.desc&limit=100`,
+    );
+    const latestByHeadline = new Map();
+    for (const item of tracked) if (!latestByHeadline.has(item.headline)) latestByHeadline.set(item.headline, item);
+    feed = {
+      ...feed,
+      cards: feed.cards.map((c) => ({ ...c, tracking: latestByHeadline.get(c.headline) || null })),
+    };
+  } catch (e) {
+    console.error("BI recommendation tracking unavailable:", e?.message || e);
+  }
+
+  return feed;
+}
