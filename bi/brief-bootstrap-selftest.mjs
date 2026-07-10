@@ -24,12 +24,13 @@ const base = {
   const card = buildProspectSnapshotCard(base);
   assert.ok(card);
   assert.equal(card.type, "fix");
-  assert.match(card.headline, /clearest current audit gap/i);
+  assert.match(card.headline, /current audit priority/i);
+  assert.match(card.headline, /No DMARC record/i);
   assert.match(card.body, /No DMARC record/);
   assert.match(card.evidence.comparison, /Current score 63\/100/);
-  assert.match(card.evidence.comparison, /stored peer average 71\/100/);
-  assert.match(card.evidence.comparison, /rank 4\/6/);
-  assert.match(card.evidence.caveat, /baseline snapshot, not a trend claim/i);
+  assert.doesNotMatch(card.evidence.comparison, /peer average|rank/i);
+  assert.equal(card.confidence, "medium");
+  assert.match(card.evidence.caveat, /baseline snapshot, not a trend or peer-performance claim/i);
 }
 
 {
@@ -39,6 +40,7 @@ const base = {
     top_gap: "Only minor gaps — you're already in strong shape online",
   });
   assert.equal(strong.type, "repeat");
+  assert.equal(strong.confidence, "medium");
   assert.match(strong.headline, /strong at 89\/100/i);
 }
 

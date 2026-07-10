@@ -7,6 +7,7 @@ import { sbSelect, sbUpdate, sbInsert } from "./_lib.js";
 import { auditDomain, normDomain } from "./_audit.js";
 import { scanObservationRows } from "./_intelligence.js";
 import { checkObservationRows } from "./_check_observations.js";
+import { normalizeObservationInsertRows } from "./_observation_rows.js";
 import { assessPeerSet } from "./_peer_quality.js";
 
 const BATCH = 6; // stalest N per run — daily cron cycles the full book in ~1 week
@@ -74,7 +75,7 @@ export default async function handler(req, res) {
       // Preserve immutable score + check history for the prospect and every
       // eligible measured peer. Best-effort: BI storage must not stop refreshes.
       try {
-        const observations = audited.flatMap((a) => {
+        const rawObservations = audited.flatMap((a) => {
           const d = normDomain(a.domain);
           const peer = compByDomain.get(d);
           const opts = {
@@ -88,6 +89,7 @@ export default async function handler(req, res) {
             ...checkObservationRows(a, opts),
           ];
         });
+        const observations = normalizeObservationInsertRows(rawObservations);
         if (observations.length) await sbInsert("bi_observations", observations);
       } catch (e) {
         console.error(`BI observation save failed for ${row.slug}:`, e?.message || e);

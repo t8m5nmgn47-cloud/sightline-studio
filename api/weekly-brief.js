@@ -1,10 +1,10 @@
 // GET /api/weekly-brief?domain=example.com
-// Admin-only. Generates the current decision brief from the same evidence and
-// rules used by the Opportunity Feed.
+// Admin-only. Generates the current decision brief from the same evidence used
+// by the Opportunity Feed, but applies stricter owner-facing evidence gates.
 
 import { normDomain } from "./_audit.js";
 import { loadIntelligenceFeed } from "./_bi_feed.js";
-import { buildWeeklyBrief } from "./_bi_patterns.js";
+import { buildReliableWeeklyBrief } from "./_weekly_brief.js";
 
 const DOMAIN_RE = /^([a-z0-9-]+\.)+[a-z]{2,}$/i;
 
@@ -19,7 +19,7 @@ export default async function handler(req, res) {
 
   try {
     const feed = await loadIntelligenceFeed(domain);
-    const brief = buildWeeklyBrief(feed);
+    const brief = buildReliableWeeklyBrief(feed);
     res.setHeader("Cache-Control", "private, no-store");
     return res.status(200).json({ ok: true, ...brief });
   } catch (e) {
