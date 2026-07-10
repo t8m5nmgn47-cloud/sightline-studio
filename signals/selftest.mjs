@@ -7,6 +7,7 @@ import {
   sourceKey,
   stableHash,
 } from "../api/_signals.js";
+import { classifyPublicContent } from "../api/_social_signals.js";
 import { buildSignalLedger } from "../api/_signal_store.js";
 import { selectSignalRefreshTargets } from "../api/signal-refresh.js";
 
@@ -34,6 +35,8 @@ assert.deepEqual(parseVisibleCounts("12.4K followers · 320 posts · 1.2M views"
   posts: 320,
   views: 1200000,
 });
+assert.deepEqual(classifyPublicContent("5 tax mistakes to avoid — learn what to do before filing"), { purpose: "educational", cta: "none" });
+assert.deepEqual(classifyPublicContent("Book your consultation today and save 20%"), { purpose: "promotional", cta: "book" });
 
 // Website page analysis extracts useful evidence without inventing outcomes.
 const html = `<!doctype html><html><head>
@@ -92,4 +95,4 @@ const targets = selectSignalRefreshTargets([
 ], 2);
 assert.deepEqual(targets.map((row) => row.domain), ["gamma.com", "beta.com"]);
 
-console.log("Signal Network self-test passed: identity, public URL normalization, social discovery, count parsing, page analysis, owned/peer separation, and stale refresh rotation.");
+console.log("Signal Network self-test passed: identity, public URL normalization, social discovery, count parsing, content classification, page analysis, owned/peer separation, and stale refresh rotation.");
