@@ -116,6 +116,26 @@ export default async function handler(req, res) {
           source: "instant-scan",
           user_agent: req.headers["user-agent"] || null,
         });
+
+        // The lead itself is a business outcome. Record it in BI without copying
+        // the email address so future source/channel analysis can use existing traffic.
+        try {
+          await sbInsert("bi_events", {
+            entity_key: domain,
+            event_type: "lead_created",
+            occurred_at: new Date().toISOString(),
+            channel: "website",
+            campaign_id: "instant-scan",
+            metadata: {
+              source: "instant-scan",
+              lead_type: "scan",
+              scan_score: payload.overall,
+            },
+          });
+        } catch (e) {
+          console.error("instant-scan BI lead event save failed:", e?.message || e);
+        }
+
         await notifySlack(`⚡ Instant scan + lead\n*${biz || domain}* — ${domain} — score ${payload.overall}/100\n${email}`);
       } catch (e) {
         console.error("instant-scan lead capture failed:", e);
