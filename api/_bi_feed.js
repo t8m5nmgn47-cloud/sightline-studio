@@ -4,6 +4,7 @@ import { sbSelect } from "./_lib.js";
 import { buildOpportunityFeed } from "./_intelligence.js";
 import { enrichOpportunityFeed } from "./_bi_patterns.js";
 import { normDomain } from "./_audit.js";
+import { assessPeerSet } from "./_peer_quality.js";
 
 export async function loadIntelligenceFeed(domain) {
   const entity = encodeURIComponent(domain);
@@ -19,13 +20,24 @@ export async function loadIntelligenceFeed(domain) {
   ]);
 
   let peerObservations = [];
+  let peerSet = {
+    confidence: "low",
+    average_score: 0,
+    eligible_count: 0,
+    suppressed_count: 0,
+    eligible: [],
+  };
   try {
-    const prospectRows = await sbSelect("prospect_audits", `select=competitors&domain=eq.${entity}&limit=1`);
-    const peers = (prospectRows?.[0]?.competitors || [])
+    const prospectRows = await sbSelect("prospect_audits", `select=vertical,competitors&domain=eq.${entity}&limit=1`);
+    const prospect = prospectRows?.[0] || null;
+    peerSet = assessPeerSet(prospect?.vertical || "", prospect?.competitors || []);
+    const peers = peerSet.eligible
       .map((p) => normDomain(p?.domain || ""))
       .filter(Boolean)
       .slice(0, 8);
-    if (peers.length) {
+
+    // A low-confidence peer set is not allowed to create movement claims.
+    if (peerSet.confidence !== "low" && peers.length) {
       const parts = await Promise.all(peers.map(async (peer) => {
         try {
           return await sbSelect(
@@ -45,6 +57,18 @@ export async function loadIntelligenceFeed(domain) {
   const generatedAt = new Date().toISOString();
   const base = buildOpportunityFeed({ entityKey: domain, observations, events, generatedAt });
   let feed = enrichOpportunityFeed(base, { observations, events, peerObservations, generatedAt });
+  feed = {
+    ...feed,
+    summary: {
+      ...feed.summary,
+      peer_set: {
+        confidence: peerSet.confidence,
+        average_relevance_score: peerSet.average_score,
+        eligible_peers: peerSet.eligible_count,
+        suppressed_peers: peerSet.suppressed_count,
+      },
+    },
+  };
 
   // Attach the latest tracked recommendation state to cards by exact headline.
   // The generated card remains the source of truth; tracking only adds workflow state.
