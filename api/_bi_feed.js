@@ -3,15 +3,29 @@
 import { sbSelect } from "./_lib.js";
 import { buildOpportunityFeed } from "./_intelligence.js";
 import { enrichOpportunityFeed } from "./_bi_patterns.js";
+import { buildCheckChangeCards, countCheckChanges } from "./_change_intelligence.js";
 import { normDomain } from "./_audit.js";
 import { assessPeerSet } from "./_peer_quality.js";
+
+function mergeDecisionCards(primary = [], secondary = [], limit = 9) {
+  const seen = new Set();
+  const cards = [...primary, ...secondary].filter((card) => {
+    const key = `${card.type}|${card.headline}`;
+    if (seen.has(key)) return false;
+    seen.add(key);
+    return true;
+  });
+  const priority = { fix: 1, repeat: 2, test: 3, watch: 4 };
+  cards.sort((a, b) => (priority[a.type] || 9) - (priority[b.type] || 9));
+  return cards.slice(0, limit);
+}
 
 export async function loadIntelligenceFeed(domain) {
   const entity = encodeURIComponent(domain);
   const [observations, events] = await Promise.all([
     sbSelect(
       "bi_observations",
-      `select=metric,value_numeric,value_text,observed_at,source,dimensions&entity_key=eq.${entity}&order=observed_at.asc&limit=2000`,
+      `select=metric,value_numeric,value_text,observed_at,source,dimensions&entity_key=eq.${entity}&order=observed_at.asc&limit=4000`,
     ),
     sbSelect(
       "bi_events",
@@ -57,10 +71,13 @@ export async function loadIntelligenceFeed(domain) {
   const generatedAt = new Date().toISOString();
   const base = buildOpportunityFeed({ entityKey: domain, observations, events, generatedAt });
   let feed = enrichOpportunityFeed(base, { observations, events, peerObservations, generatedAt });
+  const checkChangeCards = buildCheckChangeCards(observations);
   feed = {
     ...feed,
+    cards: mergeDecisionCards(checkChangeCards, feed.cards),
     summary: {
       ...feed.summary,
+      check_changes: countCheckChanges(observations),
       peer_set: {
         confidence: peerSet.confidence,
         average_relevance_score: peerSet.average_score,
