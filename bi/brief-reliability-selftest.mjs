@@ -1,5 +1,7 @@
 import assert from "node:assert/strict";
 import { buildReliableWeeklyBrief, briefCardMaturity } from "../api/_weekly_brief.js";
+import { buildProspectSnapshotCard, snapshotObservationRows } from "../api/_prospect_snapshot.js";
+import { buildOpportunityFeed } from "../api/_intelligence.js";
 
 function card(type, headline, source, sample, confidence = "low", extra = {}) {
   return {
@@ -110,4 +112,40 @@ function card(type, headline, source, sample, confidence = "low", extra = {}) {
   assert.match(brief.status_message, /will not invent recommendations/i);
 }
 
-console.log("Weekly Brief reliability self-test passed: baseline-only suppression, evidence ranking, real patterns, setup suppression, and empty-state honesty.");
+// 6) Real low-data pipeline integration: prospect snapshot -> low-data feed ->
+// reliable brief. This mirrors the production path without touching Supabase.
+{
+  const prospect = {
+    score: 23,
+    field_avg: 58,
+    rank: 6,
+    count: 6,
+    top_gap: "No DMARC record — your email domain can be impersonated",
+    updated_at: "2026-07-10T18:00:00Z",
+  };
+  const observations = snapshotObservationRows(prospect);
+  const base = buildOpportunityFeed({
+    entityKey: "castlerockcpa.com",
+    observations,
+    events: [],
+    generatedAt: "2026-07-10T20:00:00Z",
+  });
+  const feed = {
+    ...base,
+    cards: [buildProspectSnapshotCard(prospect), ...base.cards],
+    summary: {
+      ...base.summary,
+      evidence_mode: "current_snapshot",
+      history_observation_count: 0,
+    },
+  };
+  const brief = buildReliableWeeklyBrief(feed);
+  assert.equal(brief.status, "baseline_only");
+  assert.match(brief.sections.best_opportunity.headline, /Current audit priority: No DMARC record/i);
+  assert.equal(brief.sections.best_opportunity.confidence, "medium");
+  assert.equal(brief.sections.next_experiment, null);
+  assert.equal(brief.sections.what_to_watch, null);
+  assert.doesNotMatch(brief.sections.best_opportunity.evidence.comparison, /peer average|rank/i);
+}
+
+console.log("Weekly Brief reliability self-test passed: baseline-only suppression, evidence ranking, real patterns, setup suppression, empty-state honesty, and low-data pipeline integration.");
