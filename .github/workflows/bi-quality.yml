@@ -2,7 +2,7 @@ name: BI quality
 
 on:
   push:
-    branches: [main, feature/bi-operator-digest-v8]
+    branches: [main, feature/bi-learning-memory-v9]
     paths:
       - 'api/_intelligence.js'
       - 'api/_bi_patterns.js'
@@ -15,9 +15,11 @@ on:
       - 'api/_portfolio_intelligence.js'
       - 'api/_insight_refresh.js'
       - 'api/_operator_digest.js'
+      - 'api/_learning_memory.js'
       - 'api/_lib.js'
       - 'api/audit-refresh.js'
       - 'api/intelligence-refresh.js'
+      - 'api/intelligence-learning.js'
       - 'api/bi-events.js'
       - 'api/contact.js'
       - 'api/scan-live.js'
@@ -43,9 +45,11 @@ on:
       - 'api/_portfolio_intelligence.js'
       - 'api/_insight_refresh.js'
       - 'api/_operator_digest.js'
+      - 'api/_learning_memory.js'
       - 'api/_lib.js'
       - 'api/audit-refresh.js'
       - 'api/intelligence-refresh.js'
+      - 'api/intelligence-learning.js'
       - 'api/bi-events.js'
       - 'api/contact.js'
       - 'api/scan-live.js'

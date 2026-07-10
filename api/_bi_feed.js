@@ -5,6 +5,7 @@ import { buildOpportunityFeed } from "./_intelligence.js";
 import { enrichOpportunityFeed } from "./_bi_patterns.js";
 import { buildCheckChangeCards, countCheckChanges } from "./_change_intelligence.js";
 import { buildEvidenceReadiness } from "./_readiness_intelligence.js";
+import { buildLearningMemory } from "./_learning_memory.js";
 import { normDomain } from "./_audit.js";
 import { assessPeerSet } from "./_peer_quality.js";
 
@@ -71,11 +72,19 @@ export async function loadIntelligenceFeed(domain) {
   }
 
   let tracked = [];
+  let outcomes = [];
   try {
     tracked = await sbSelect(
       "bi_insights",
-      `select=id,headline,status,generated_at,review_after&entity_key=eq.${entity}&order=generated_at.desc&limit=100`,
+      `select=id,entity_key,insight_type,headline,confidence,evidence,status,generated_at,review_after&entity_key=eq.${entity}&order=generated_at.desc&limit=100`,
     );
+    const ids = tracked.map((item) => item.id).filter(Boolean);
+    if (ids.length) {
+      outcomes = await sbSelect(
+        "bi_recommendation_outcomes",
+        `select=insight_id,accepted_at,implemented_at,measurement_start,measurement_end,result,measured_lift,notes&insight_id=in.(${ids.join(",")})&order=measurement_end.desc&limit=200`,
+      );
+    }
   } catch (e) {
     console.error("BI recommendation tracking unavailable:", e?.message || e);
   }
@@ -85,9 +94,10 @@ export async function loadIntelligenceFeed(domain) {
   let feed = enrichOpportunityFeed(base, { observations, events, peerObservations, generatedAt });
   const checkChangeCards = buildCheckChangeCards(observations);
   const readiness = buildEvidenceReadiness({ observations, events, peerSet, peerObservations, insights: tracked });
+  const learningMemory = buildLearningMemory({ insights: tracked, outcomes });
   feed = {
     ...feed,
-    cards: mergeDecisionCards(checkChangeCards, [...feed.cards, readiness.card]),
+    cards: mergeDecisionCards(checkChangeCards, [...feed.cards, readiness.card, learningMemory.card]),
     summary: {
       ...feed.summary,
       check_changes: countCheckChanges(observations),
@@ -97,6 +107,13 @@ export async function loadIntelligenceFeed(domain) {
         next_unlock: readiness.next_unlock,
         ready_for: readiness.ready_for,
       },
+      learning_memory: {
+        measured: learningMemory.summary.measured,
+        decisive: learningMemory.summary.decisive,
+        successful: learningMemory.summary.successful,
+        inconclusive: learningMemory.summary.inconclusive,
+        success_rate: learningMemory.summary.success_rate,
+      },
       peer_set: {
         confidence: peerSet.confidence,
         average_relevance_score: peerSet.average_score,
@@ -105,6 +122,7 @@ export async function loadIntelligenceFeed(domain) {
       },
     },
     readiness,
+    learning_memory: learningMemory,
   };
 
   // Attach the latest tracked recommendation state to cards by exact headline.
