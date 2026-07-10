@@ -2,6 +2,12 @@
 // Set ADMIN_PASS (and optionally ADMIN_USER) in Vercel → Project → Settings → Environment Variables.
 export const config = { matcher: ["/admin/:path*", "/pipeline/:path*", "/intelligence/:path*", "/admin", "/pipeline", "/intelligence", "/engine/:path*", "/api/intake", "/api/intakes", "/api/audit", "/api/discover", "/api/pipeline-audits", "/api/intelligence", "/api/intelligence-portfolio", "/api/intelligence-learning", "/api/experiments", "/api/bi-events", "/api/recommendations", "/api/weekly-brief"] };
 
+export function decodeBasicCredentials(token) {
+  const binary = atob(token);
+  const bytes = Uint8Array.from(binary, (char) => char.charCodeAt(0));
+  return new TextDecoder("utf-8", { fatal: true }).decode(bytes);
+}
+
 export default function middleware(request) {
   const env = (globalThis.process && process.env) || {};
   const USER = env.ADMIN_USER || "admin";
@@ -16,7 +22,7 @@ export default function middleware(request) {
   const header = request.headers.get("authorization") || "";
   if (header.startsWith("Basic ")) {
     try {
-      const decoded = atob(header.slice(6));
+      const decoded = decodeBasicCredentials(header.slice(6));
       const i = decoded.indexOf(":");
       if (i > -1 && decoded.slice(0, i) === USER && decoded.slice(i + 1) === PASS) {
         return; // authorized → continue
