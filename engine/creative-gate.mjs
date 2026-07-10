@@ -21,6 +21,7 @@ export function creativeGate({ profile, recipe, capture, strategy, override, bus
   const gallery = profile?.gallery || [];
   const stock = profile?.stock || [];
   const reviews = profile?.sections?.reviews?.items || [];
+  const sourceServiceDetails = (capture?.copy?.serviceDetails || []).filter(s => wc(s?.p) >= 6);
 
   // Capture richness: a homepage-only snapshot cannot support a bespoke site.
   if (pages.length < 3 && !override) fails.push(`capture too thin: ${pages.length} page${pages.length === 1 ? '' : 's'} (need 3+)`);
@@ -34,10 +35,14 @@ export function creativeGate({ profile, recipe, capture, strategy, override, bus
   if (/welcome to|trusted partner|quality service|excellence|state-of-the-art|one-stop shop/i.test(hero.headline || ''))
     fails.push('hero headline contains generic template language');
 
-  // Grounded service depth: titles alone are not enough for a premium site.
+  // Grounded service depth: visible descriptions alone are not enough because
+  // vertical-content can generate generic keyword copy. Require source-backed
+  // descriptions from extraction, unless a human override explicitly owns them.
   if (services.length < 3) fails.push(`not enough services (${services.length}; need 3+)`);
   const described = services.filter(s => wc(s?.p) >= 6).length;
   if (described < Math.min(3, services.length)) fails.push(`service copy too thin (${described}/${services.length} meaningfully described)`);
+  if (!override && sourceServiceDetails.length < 3)
+    fails.push(`service descriptions are not source-grounded (${sourceServiceDetails.length}; need 3+)`);
   if (unique(services.map(s => s?.h)) !== services.length) fails.push('duplicate service titles');
 
   // Narrative depth and practical answers.
