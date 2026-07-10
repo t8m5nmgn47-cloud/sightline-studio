@@ -6,6 +6,7 @@
 import { sbSelect, sbUpdate, sbInsert } from "./_lib.js";
 import { auditDomain, normDomain } from "./_audit.js";
 import { scanObservationRows } from "./_intelligence.js";
+import { assessPeerSet } from "./_peer_quality.js";
 
 const BATCH = 6; // stalest N per run — daily cron cycles the full book in ~1 week
 
@@ -31,39 +32,50 @@ export default async function handler(req, res) {
   if (!secret) return res.status(503).json({ ok: false, error: "CRON_SECRET not configured" });
   if ((req.headers.authorization || "") !== `Bearer ${secret}`) return res.status(401).json({ ok: false, error: "unauthorized" });
   let rows;
-  try { rows = await sbSelect("prospect_audits", "select=slug,name,domain,competitors&order=updated_at.asc&limit=" + BATCH); }
+  try { rows = await sbSelect("prospect_audits", "select=slug,name,domain,vertical,competitors&order=updated_at.asc&limit=" + BATCH); }
   catch (e) { return res.status(500).json({ ok: false, error: String(e && e.message ? e.message : e) }); }
 
   const results = [];
   for (const row of rows) {
     try {
       const pd = normDomain(row.domain);
-      const comps = row.competitors || [];
-      const domains = [pd, ...comps.map((c) => normDomain(c.domain))];
+      const peerSet = assessPeerSet(row.vertical || "", row.competitors || []);
+      const comps = peerSet.eligible.slice(0, 8);
+      const domains = [pd, ...comps.map((c) => normDomain(c.domain)).filter(Boolean)];
       const audited = await Promise.all(domains.map((d) => auditDomain(d).catch(() => ({ domain: d, ok: false, score: { overall: 0, areas: {}, checks: [] } }))));
       const field = audited.filter((a) => a.ok).sort((a, b) => b.score.overall - a.score.overall);
       const N = field.length;
       const prospect = audited.find((a) => normDomain(a.domain) === pd);
-      const rank = field.findIndex((a) => normDomain(a.domain) === pd) + 1 || null;
+      const reliableRank = peerSet.confidence !== "low" && field.filter((a) => normDomain(a.domain) !== pd).length >= 3;
+      const rankIndex = field.findIndex((a) => normDomain(a.domain) === pd);
+      const rank = reliableRank && rankIndex >= 0 ? rankIndex + 1 : null;
+      const count = reliableRank ? N : null;
       const avg = N ? Math.round(field.reduce((s, a) => s + a.score.overall, 0) / N) : 0;
       const score = prospect && prospect.ok ? prospect.score.overall : 0;
       const dmarc = prospect && prospect.email ? prospect.email.dmarc_policy || "" : "";
       const leads = !!rank && rank <= 2 && score >= 78;
-      const competitors = field.filter((a) => normDomain(a.domain) !== pd).map((a) => ({
-        name: (comps.find((c) => normDomain(c.domain) === normDomain(a.domain)) || {}).name || a.domain,
-        domain: normDomain(a.domain), score: a.score.overall,
-      }));
+      const compByDomain = new Map(comps.map((c) => [normDomain(c.domain), c]));
+      const competitors = field.filter((a) => normDomain(a.domain) !== pd).map((a) => {
+        const stored = compByDomain.get(normDomain(a.domain)) || {};
+        return {
+          name: stored.name || a.domain,
+          domain: normDomain(a.domain),
+          score: a.score.overall,
+          distance_km: stored.distance_km ?? null,
+          peer_quality: stored.peer_quality || null,
+        };
+      });
       const observedAt = new Date().toISOString();
       await sbUpdate("prospect_audits", `slug=eq.${encodeURIComponent(row.slug)}`, {
-        rank, count: N, score, field_avg: avg, leads, top_gap: topGap(prospect), dmarc, competitors, updated_at: observedAt,
+        rank, count, score, field_avg: avg, leads, top_gap: topGap(prospect), dmarc, competitors, updated_at: observedAt,
       });
 
-      // Preserve immutable history for the prospect and every measured peer.
+      // Preserve immutable history for the prospect and every eligible measured peer.
       // Best-effort: a BI storage issue should not stop the existing refresh loop.
       try {
         const observations = audited.flatMap((a) => {
           const d = normDomain(a.domain);
-          const peer = comps.find((c) => normDomain(c.domain) === d);
+          const peer = compByDomain.get(d);
           return scanObservationRows(a, {
             entityKey: d,
             entityName: d === pd ? (row.name || pd) : (peer?.name || d),
@@ -76,7 +88,15 @@ export default async function handler(req, res) {
         console.error(`BI observation save failed for ${row.slug}:`, e?.message || e);
       }
 
-      results.push({ slug: row.slug, rank, count: N, score });
+      results.push({
+        slug: row.slug,
+        rank,
+        count,
+        score,
+        peer_confidence: peerSet.confidence,
+        eligible_peers: peerSet.eligible_count,
+        suppressed_peers: peerSet.suppressed_count,
+      });
     } catch (e) { results.push({ slug: row.slug, error: String(e && e.message ? e.message : e) }); }
   }
   return res.status(200).json({ ok: true, refreshed: results.length, results });
