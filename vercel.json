@@ -32,14 +32,11 @@
       "schedule": "30 9 * * *"
     }
   ],
-  "rewrites": [
+  "redirects": [
     {
-      "source": "/admin",
-      "destination": "/admin/dashboard/index.html"
-    },
-    {
-      "source": "/admin/",
-      "destination": "/admin/dashboard/index.html"
+      "source": "/admin/index.html",
+      "destination": "/admin/workflow.html",
+      "permanent": false
     }
   ],
   "headers": [
