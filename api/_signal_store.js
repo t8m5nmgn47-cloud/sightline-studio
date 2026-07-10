@@ -22,11 +22,13 @@ function inc(map, key) { map[key] = (map[key] || 0) + 1; }
 
 export async function persistSignalBundle(bundle = {}) {
   const entityKey = normDomain(bundle.entity_key || "");
-  if (!entityKey) throw new Error("Signal bundle needs a valid entity_key.");
+  const anchorKey = normDomain(bundle.anchor_entity_key || entityKey);
+  if (!entityKey || !anchorKey) throw new Error("Signal bundle needs valid entity and anchor keys.");
   let runId = null;
   try {
     const runRows = await sbInsertReturning("signal_collection_runs", {
       entity_key: entityKey,
+      anchor_entity_key: anchorKey,
       collector: "deep_public_signals_v1",
       relationship: bundle.relationship || "owned",
       started_at: bundle.collected_at || new Date().toISOString(),
@@ -47,10 +49,11 @@ export async function persistSignalBundle(bundle = {}) {
   try {
     for (const source of asArray(bundle.sources)) {
       const now = bundle.collected_at || new Date().toISOString();
+      const observedEntity = normDomain(source.entity_key || entityKey) || entityKey;
       const row = {
         source_key: source.source_key,
-        entity_key: entityKey,
-        entity_name: source.entity_name || bundle.entity_name || entityKey,
+        entity_key: observedEntity,
+        entity_name: source.entity_name || bundle.entity_name || observedEntity,
         source_type: source.source_type,
         platform: source.platform || "",
         source_url: source.source_url || "",
@@ -69,12 +72,16 @@ export async function persistSignalBundle(bundle = {}) {
       if (!id) { errors.push(`Source persisted but could not be reloaded: ${source.source_url || source.source_key}`); continue; }
       sourceIdByKey.set(source.source_key, id);
       await sbUpsert("signal_entity_links", {
-        entity_key: entityKey,
+        entity_key: anchorKey,
         source_id: id,
         relationship: source.relationship || bundle.relationship || "owned",
         match_confidence: Number.isFinite(Number(source.match_confidence)) ? Number(source.match_confidence) : 1,
-        match_method: source.metadata?.match_method || (source.source_type === "website" ? "domain_identity" : "website_link"),
-        evidence: { source_url: source.source_url || "", discovered_on: source.metadata?.discovered_on || null },
+        match_method: source.metadata?.match_method || (source.source_type === "website" ? (anchorKey === observedEntity ? "domain_identity" : "peer_set") : "website_link"),
+        evidence: {
+          observed_entity_key: observedEntity,
+          source_url: source.source_url || "",
+          discovered_on: source.metadata?.discovered_on || null,
+        },
         updated_at: now,
       }, "entity_key,source_id");
     }
@@ -82,7 +89,7 @@ export async function persistSignalBundle(bundle = {}) {
     const snapshotRows = asArray(bundle.snapshots).map((row) => ({
       snapshot_key: row.snapshot_key,
       source_id: sourceIdByKey.get(row.source_key),
-      entity_key: entityKey,
+      entity_key: normDomain(row.entity_key || entityKey) || entityKey,
       signal_key: row.signal_key,
       value_numeric: row.value_numeric == null ? null : Number(row.value_numeric),
       value_text: row.value_text == null ? null : String(row.value_text),
@@ -99,7 +106,7 @@ export async function persistSignalBundle(bundle = {}) {
     const itemRows = asArray(bundle.items).map((row) => ({
       item_key: row.item_key,
       source_id: sourceIdByKey.get(row.source_key),
-      entity_key: entityKey,
+      entity_key: normDomain(row.entity_key || entityKey) || entityKey,
       item_type: row.item_type,
       external_id: row.external_id,
       item_url: row.item_url || null,
@@ -133,6 +140,8 @@ export async function persistSignalBundle(bundle = {}) {
     return {
       ok: true,
       entity_key: entityKey,
+      anchor_entity_key: anchorKey,
+      relationship: bundle.relationship || "owned",
       status,
       sources_seen: sourceIdByKey.size,
       snapshots_written: snapshotsWritten,
@@ -154,6 +163,12 @@ export function buildSignalLedger({ entityKey, sources = [], runs = [], snapshot
   const platforms = {};
   const statuses = {};
   const relationships = {};
+  const ownedSources = asArray(sources).filter((source) => (source.relationship || "owned") === "owned");
+  const peerSources = asArray(sources).filter((source) => source.relationship === "peer");
+  const ownedIds = new Set(ownedSources.map((source) => source.id).filter(Boolean));
+  const ownedSnapshots = asArray(snapshots).filter((row) => !row.source_id || ownedIds.has(row.source_id));
+  const ownedItems = asArray(items).filter((row) => !row.source_id || ownedIds.has(row.source_id));
+
   for (const source of asArray(sources)) {
     inc(sourceTypes, source.source_type || "unknown");
     if (source.platform) inc(platforms, source.platform);
@@ -163,41 +178,51 @@ export function buildSignalLedger({ entityKey, sources = [], runs = [], snapshot
 
   const itemTypes = {};
   for (const item of asArray(items)) inc(itemTypes, item.item_type || "unknown");
+  const ownedItemTypes = {};
+  for (const item of ownedItems) inc(ownedItemTypes, item.item_type || "unknown");
 
-  const daysWithSnapshots = new Set(asArray(snapshots).map((row) => String(row.observed_at || "").slice(0, 10)).filter(Boolean));
-  const websiteSnapshots = asArray(snapshots).filter((row) => /pages_collected|forms_detected|ctas_detected|technology_stack/.test(row.signal_key || ""));
-  const socialSnapshots = asArray(snapshots).filter((row) => /profile_|visible_(followers|subscribers|posts|videos|views)/.test(row.signal_key || ""));
+  const daysWithSnapshots = new Set(ownedSnapshots.map((row) => String(row.observed_at || "").slice(0, 10)).filter(Boolean));
+  const websiteSnapshots = ownedSnapshots.filter((row) => /pages_collected|forms_detected|ctas_detected|technology_stack/.test(row.signal_key || ""));
+  const socialSnapshots = ownedSnapshots.filter((row) => /profile_|visible_(followers|subscribers|posts|videos|views)/.test(row.signal_key || ""));
   const latestSnapshotAt = asArray(snapshots).map((row) => row.observed_at).filter(Boolean).sort().at(-1) || null;
   const latestRun = asArray(runs).slice().sort((a, b) => new Date(b.started_at || 0) - new Date(a.started_at || 0))[0] || null;
+  const ownedSocialProfiles = ownedSources.filter((source) => source.source_type === "social_profile").length;
 
   const domains = [
     {
       key: "public_web",
       label: "Public web history",
       state: daysWithSnapshots.size >= 3 ? "ready" : daysWithSnapshots.size >= 1 ? "developing" : "not_ready",
-      evidence: `${daysWithSnapshots.size} collection day${daysWithSnapshots.size === 1 ? "" : "s"}`,
+      evidence: `${daysWithSnapshots.size} owned collection day${daysWithSnapshots.size === 1 ? "" : "s"}`,
       next: daysWithSnapshots.size >= 3 ? "Continue collection for change detection." : "Collect comparable website snapshots on additional days.",
     },
     {
       key: "social_identity",
       label: "Social identity",
-      state: (sourceTypes.social_profile || 0) >= 2 ? "ready" : (sourceTypes.social_profile || 0) >= 1 ? "developing" : "not_ready",
-      evidence: `${sourceTypes.social_profile || 0} discovered profile${sourceTypes.social_profile === 1 ? "" : "s"}`,
-      next: (sourceTypes.social_profile || 0) ? "Keep collecting public profile snapshots and post inventory." : "Discover and verify public social profiles.",
+      state: ownedSocialProfiles >= 2 ? "ready" : ownedSocialProfiles >= 1 ? "developing" : "not_ready",
+      evidence: `${ownedSocialProfiles} owned profile${ownedSocialProfiles === 1 ? "" : "s"} discovered`,
+      next: ownedSocialProfiles ? "Keep collecting public profile snapshots and post inventory." : "Discover and verify public social profiles.",
     },
     {
       key: "social_movement",
       label: "Social movement",
       state: socialSnapshots.length >= 6 && daysWithSnapshots.size >= 2 ? "developing" : "not_ready",
-      evidence: `${socialSnapshots.length} public profile measurement${socialSnapshots.length === 1 ? "" : "s"}`,
+      evidence: `${socialSnapshots.length} owned public profile measurement${socialSnapshots.length === 1 ? "" : "s"}`,
       next: "Accumulate repeated public profile measurements and post-level history.",
     },
     {
       key: "content_inventory",
       label: "Content inventory",
-      state: (itemTypes.web_page || 0) >= 5 ? "ready" : (itemTypes.web_page || 0) >= 1 ? "developing" : "not_ready",
-      evidence: `${itemTypes.web_page || 0} web page${itemTypes.web_page === 1 ? "" : "s"} indexed`,
+      state: (ownedItemTypes.web_page || 0) >= 5 ? "ready" : (ownedItemTypes.web_page || 0) >= 1 ? "developing" : "not_ready",
+      evidence: `${ownedItemTypes.web_page || 0} owned web page${ownedItemTypes.web_page === 1 ? "" : "s"} indexed`,
       next: "Expand crawl coverage and compare page fingerprints over time.",
+    },
+    {
+      key: "peer_context",
+      label: "Peer context",
+      state: peerSources.filter((source) => source.source_type === "website").length >= 3 ? "developing" : "not_ready",
+      evidence: `${peerSources.filter((source) => source.source_type === "website").length} peer website${peerSources.filter((source) => source.source_type === "website").length === 1 ? "" : "s"} linked`,
+      next: "Collect the same bounded signals for a quality-approved peer set.",
     },
   ];
 
@@ -206,6 +231,8 @@ export function buildSignalLedger({ entityKey, sources = [], runs = [], snapshot
     generated_at: new Date().toISOString(),
     summary: {
       source_count: asArray(sources).length,
+      owned_source_count: ownedSources.length,
+      peer_source_count: peerSources.length,
       snapshot_count: asArray(snapshots).length,
       item_count: asArray(items).length,
       collection_run_count: asArray(runs).length,
@@ -229,11 +256,18 @@ export async function readSignalLedger(entityKeyInput) {
   const entityKey = normDomain(entityKeyInput || "");
   if (!entityKey) throw new Error("Enter a valid business domain.");
   try {
-    const [sources, runs, snapshots, items] = await Promise.all([
-      sbSelect("signal_sources", `select=*&entity_key=eq.${encodeURIComponent(entityKey)}&order=last_seen_at.desc&limit=200`),
-      sbSelect("signal_collection_runs", `select=*&entity_key=eq.${encodeURIComponent(entityKey)}&order=started_at.desc&limit=50`),
-      sbSelect("signal_snapshots", `select=*&entity_key=eq.${encodeURIComponent(entityKey)}&order=observed_at.desc&limit=1000`),
-      sbSelect("signal_items", `select=*&entity_key=eq.${encodeURIComponent(entityKey)}&order=last_seen_at.desc&limit=1000`),
+    const links = await sbSelect("signal_entity_links", `select=source_id,relationship,match_confidence,match_method,evidence&entity_key=eq.${encodeURIComponent(entityKey)}&limit=1000`);
+    const sourceIds = [...new Set(asArray(links).map((row) => row.source_id).filter(Boolean))];
+    const idFilter = sourceIds.length ? `id=in.(${sourceIds.join(",")})` : `entity_key=eq.${encodeURIComponent(entityKey)}`;
+    const sourcesRaw = await sbSelect("signal_sources", `select=*&${idFilter}&order=last_seen_at.desc&limit=1000`);
+    const linkBySource = new Map(asArray(links).map((row) => [row.source_id, row]));
+    const sources = asArray(sourcesRaw).map((source) => ({ ...source, relationship: linkBySource.get(source.id)?.relationship || source.relationship || "owned" }));
+    const effectiveIds = sources.map((source) => source.id).filter(Boolean);
+    const sourceFilter = effectiveIds.length ? `source_id=in.(${effectiveIds.join(",")})` : `entity_key=eq.${encodeURIComponent(entityKey)}`;
+    const [runs, snapshots, items] = await Promise.all([
+      sbSelect("signal_collection_runs", `select=*&anchor_entity_key=eq.${encodeURIComponent(entityKey)}&order=started_at.desc&limit=100`),
+      sbSelect("signal_snapshots", `select=*&${sourceFilter}&order=observed_at.desc&limit=5000`),
+      sbSelect("signal_items", `select=*&${sourceFilter}&order=last_seen_at.desc&limit=5000`),
     ]);
     return { ok: true, setup_required: false, ledger: buildSignalLedger({ entityKey, sources, runs, snapshots, items }) };
   } catch (error) {
