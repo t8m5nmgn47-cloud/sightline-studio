@@ -1,0 +1,27 @@
+name: Engine quality
+
+on:
+  push:
+    branches: [main, fix/world-class-generator-v7]
+    paths:
+      - 'engine/**'
+      - 'package.json'
+      - '.github/workflows/engine-quality.yml'
+  pull_request:
+    paths:
+      - 'engine/**'
+      - 'package.json'
+  workflow_dispatch:
+
+jobs:
+  engine-check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm run engine:check
