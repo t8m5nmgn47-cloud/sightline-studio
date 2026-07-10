@@ -1,0 +1,30 @@
+name: BI quality
+
+on:
+  push:
+    branches: [main, feature/bi-opportunity-feed-v1]
+    paths:
+      - 'api/_intelligence.js'
+      - 'bi/**'
+      - 'package.json'
+      - '.github/workflows/bi-quality.yml'
+  pull_request:
+    paths:
+      - 'api/_intelligence.js'
+      - 'bi/**'
+      - 'package.json'
+      - '.github/workflows/bi-quality.yml'
+  workflow_dispatch:
+
+jobs:
+  bi-check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm run bi:check
