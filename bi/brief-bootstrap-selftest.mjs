@@ -1,5 +1,6 @@
 import assert from "node:assert/strict";
 import { buildProspectSnapshotCard, snapshotObservationRows } from "../api/_prospect_snapshot.js";
+import { canonicalDomainIdentity, domainAliases, resolveDomainRecord } from "../api/_domain_identity.js";
 
 const base = {
   score: 63,
@@ -45,6 +46,29 @@ const base = {
   assert.deepEqual(snapshotObservationRows({ ...base, score: "not-a-score" }), []);
   assert.deepEqual(snapshotObservationRows({ ...base, updated_at: "not-a-date" }), []);
   assert.equal(buildProspectSnapshotCard(null), null);
+}
+
+// Castle Rock CPA regression: common URL and hostname spellings must resolve to
+// one identity so a tracked audit cannot disappear from the Weekly Brief.
+{
+  assert.equal(
+    canonicalDomainIdentity(" HTTPS://WWW.CastleRockCPA.com:443/services/ "),
+    "castlerockcpa.com",
+  );
+  assert.deepEqual(
+    domainAliases("CastlerockCPA.com"),
+    ["castlerockcpa.com", "www.castlerockcpa.com"],
+  );
+
+  const resolved = resolveDomainRecord([
+    { domain: "unrelated.example", score: 91, updated_at: "2026-07-10T12:00:00Z" },
+    { domain: "https://WWW.CastleRockCPA.com/", score: 68, updated_at: "2026-07-09T12:00:00Z" },
+    { domain: "www.castlerockcpa.com", score: 72, updated_at: "2026-07-10T12:00:00Z" },
+  ], "castlerockcpa.com");
+
+  assert.ok(resolved);
+  assert.equal(resolved.score, 72);
+  assert.equal(canonicalDomainIdentity(resolved.domain), "castlerockcpa.com");
 }
 
 console.log("brief bootstrap self-test passed");
