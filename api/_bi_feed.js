@@ -4,12 +4,14 @@ import { sbSelect } from "./_lib.js";
 import { buildOpportunityFeed } from "./_intelligence.js";
 import { enrichOpportunityFeed } from "./_bi_patterns.js";
 import { buildCheckChangeCards, countCheckChanges } from "./_change_intelligence.js";
+import { buildEvidenceReadiness } from "./_readiness_intelligence.js";
 import { normDomain } from "./_audit.js";
 import { assessPeerSet } from "./_peer_quality.js";
 
-function mergeDecisionCards(primary = [], secondary = [], limit = 9) {
+function mergeDecisionCards(primary = [], secondary = [], limit = 10) {
   const seen = new Set();
   const cards = [...primary, ...secondary].filter((card) => {
+    if (!card) return false;
     const key = `${card.type}|${card.headline}`;
     if (seen.has(key)) return false;
     seen.add(key);
@@ -68,16 +70,33 @@ export async function loadIntelligenceFeed(domain) {
     console.error("BI peer context unavailable:", e?.message || e);
   }
 
+  let tracked = [];
+  try {
+    tracked = await sbSelect(
+      "bi_insights",
+      `select=id,headline,status,generated_at,review_after&entity_key=eq.${entity}&order=generated_at.desc&limit=100`,
+    );
+  } catch (e) {
+    console.error("BI recommendation tracking unavailable:", e?.message || e);
+  }
+
   const generatedAt = new Date().toISOString();
   const base = buildOpportunityFeed({ entityKey: domain, observations, events, generatedAt });
   let feed = enrichOpportunityFeed(base, { observations, events, peerObservations, generatedAt });
   const checkChangeCards = buildCheckChangeCards(observations);
+  const readiness = buildEvidenceReadiness({ observations, events, peerSet, peerObservations, insights: tracked });
   feed = {
     ...feed,
-    cards: mergeDecisionCards(checkChangeCards, feed.cards),
+    cards: mergeDecisionCards(checkChangeCards, [...feed.cards, readiness.card]),
     summary: {
       ...feed.summary,
       check_changes: countCheckChanges(observations),
+      readiness: {
+        score: readiness.score,
+        status: readiness.status,
+        next_unlock: readiness.next_unlock,
+        ready_for: readiness.ready_for,
+      },
       peer_set: {
         confidence: peerSet.confidence,
         average_relevance_score: peerSet.average_score,
@@ -85,24 +104,16 @@ export async function loadIntelligenceFeed(domain) {
         suppressed_peers: peerSet.suppressed_count,
       },
     },
+    readiness,
   };
 
   // Attach the latest tracked recommendation state to cards by exact headline.
-  // The generated card remains the source of truth; tracking only adds workflow state.
-  try {
-    const tracked = await sbSelect(
-      "bi_insights",
-      `select=id,headline,status,generated_at,review_after&entity_key=eq.${entity}&order=generated_at.desc&limit=100`,
-    );
-    const latestByHeadline = new Map();
-    for (const item of tracked) if (!latestByHeadline.has(item.headline)) latestByHeadline.set(item.headline, item);
-    feed = {
-      ...feed,
-      cards: feed.cards.map((c) => ({ ...c, tracking: latestByHeadline.get(c.headline) || null })),
-    };
-  } catch (e) {
-    console.error("BI recommendation tracking unavailable:", e?.message || e);
-  }
+  const latestByHeadline = new Map();
+  for (const item of tracked) if (!latestByHeadline.has(item.headline)) latestByHeadline.set(item.headline, item);
+  feed = {
+    ...feed,
+    cards: feed.cards.map((c) => ({ ...c, tracking: latestByHeadline.get(c.headline) || null })),
+  };
 
   return feed;
 }
