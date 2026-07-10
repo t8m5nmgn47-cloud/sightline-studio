@@ -3,6 +3,7 @@
 // acquisition status without exposing raw credentials or private source data.
 
 import { normDomain } from "./_audit.js";
+import { canonicalDomainIdentity } from "./_domain_identity.js";
 import { readSignalLedger } from "./_signal_store.js";
 
 export default async function handler(req, res) {
@@ -10,7 +11,7 @@ export default async function handler(req, res) {
     res.setHeader("Allow", "GET");
     return res.status(405).json({ ok: false, error: "Method not allowed" });
   }
-  const domain = normDomain(req.query?.domain || "");
+  const domain = canonicalDomainIdentity(req.query?.domain || "") || normDomain(req.query?.domain || "");
   if (!domain || !/^([a-z0-9-]+\.)+[a-z]{2,}$/i.test(domain)) {
     return res.status(400).json({ ok: false, error: "Enter a valid business domain." });
   }
