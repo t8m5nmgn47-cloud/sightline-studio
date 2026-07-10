@@ -1,329 +1,178 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Sightline · Admin</title>
-<meta name="robots" content="noindex,nofollow">
-<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-<style>
-:root{--ink:#16140f;--mut:#6b6660;--line:#e7e2d8;--bg:#f4f1ea;--ac:#1f6f5c;--deep:#11271f;--gold:#c2a04a;--red:#b4453a;--head:'Fraunces',Georgia,serif;--body:'Inter',system-ui,sans-serif;--num:"Helvetica Neue",Helvetica,Arial,sans-serif}
-*{box-sizing:border-box;margin:0}body{background:var(--bg);color:var(--ink);font-family:var(--body);-webkit-font-smoothing:antialiased}
-h1,h2,h3,h4{font-variant-ligatures:none}
-.wrap{max-width:880px;margin:0 auto;padding:0 clamp(18px,4vw,40px)}
-.top{display:flex;align-items:center;justify-content:space-between;padding:16px 0;border-bottom:1px solid var(--line)}
-.lg{display:flex;gap:10px;align-items:center;font-family:var(--head);font-weight:600;font-size:1.2rem}.dot{width:11px;height:11px;border-radius:50%;background:var(--ac)}
-.top a{color:var(--mut);text-decoration:none;font-size:.85rem}
-.hd{padding:30px 0 4px}.hd h1{font-family:var(--head);font-weight:400;font-size:clamp(1.9rem,1.3rem+2vw,2.7rem);letter-spacing:-.02em}
-.hd p{color:var(--mut);margin-top:8px;font-size:1rem;max-width:60ch;line-height:1.55}
-
-/* ── TODAY: the cockpit. Three moves, ranked. ───────────────────────────── */
-.today{background:var(--deep);color:#fff;border-radius:18px;padding:20px 22px 14px;margin-top:24px}
-.today .th{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:10px}
-.today .th b{font-family:var(--head);font-weight:600;font-size:1.2rem}
-.today .th span{color:#9fe3c4;font-size:.78rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase}
-.trow{display:flex;gap:14px;align-items:center;padding:11px 0;border-top:1px solid rgba(255,255,255,.12);font-size:.92rem;line-height:1.45}
-.trow:first-of-type{border-top:0}
-.trow .tm{font-family:var(--num);font-weight:800;font-size:1rem;color:#9fe3c4;min-width:86px;white-space:nowrap}
-.trow .tm.warn{color:#f0b9b2}
-.trow a{color:#fff;font-weight:700;text-decoration:none;white-space:nowrap;margin-left:auto;border:1px solid rgba(255,255,255,.25);border-radius:999px;padding:6px 14px;font-size:.8rem;transition:background .15s}
-.trow a:hover{background:rgba(255,255,255,.1)}
-.trow .muted{color:rgba(255,255,255,.65)}
-
-/* ── THE LINE: one spine, five stations, one primary action each ────────── */
-.journey{position:relative;margin:40px 0 8px}
-.journey::before{content:"";position:absolute;left:23px;top:10px;bottom:26px;width:2px;background:linear-gradient(180deg,var(--ac) 0%,var(--deep) 100%)}
-.station{position:relative;padding:0 0 48px 76px}
-.station:last-child{padding-bottom:8px}
-.node{position:absolute;left:0;top:0;width:48px;height:48px;border-radius:50%;background:#fff;border:2px solid var(--ac);color:var(--ac);display:flex;align-items:center;justify-content:center;z-index:1}
-.node svg{width:21px;height:21px}
-.station.final .node{background:var(--deep);border-color:var(--deep);color:#9fe3c4}
-.sk{font-size:.68rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--ac);padding-top:4px}
-.station h2{font-family:var(--head);font-weight:600;font-size:1.5rem;letter-spacing:-.01em;margin:2px 0 3px}
-.station .lede{color:var(--mut);font-size:.92rem;line-height:1.5;max-width:60ch}
-.donow{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin:16px 0 14px}
-.btnP{display:inline-flex;align-items:center;gap:9px;background:var(--ac);color:#fff;text-decoration:none;font-weight:700;font-size:.95rem;border-radius:11px;padding:13px 22px;transition:transform .15s,box-shadow .15s}
-.btnP:hover{transform:translateY(-2px);box-shadow:0 10px 26px rgba(31,111,92,.35)}
-.btnP svg{width:16px;height:16px}
-.count{font-size:.85rem;color:var(--mut)}
-.count b{font-family:var(--num);font-weight:800;color:var(--ink);font-size:1.05rem}
-.count a{color:var(--ac);font-weight:600;text-decoration:none}
-.toolbox{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
-.toolbox .tl{font-size:.72rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--mut);margin-right:4px}
-.tool{display:inline-flex;align-items:center;gap:6px;background:#fff;border:1px solid var(--line);border-radius:999px;padding:7px 14px;font-size:.84rem;font-weight:600;color:var(--ink);text-decoration:none;transition:border-color .15s,transform .15s}
-.tool:hover{border-color:var(--ac);transform:translateY(-1px)}
-.tool svg{width:12px;height:12px;color:var(--ac)}
-.tool .ch{font-size:.6rem;font-weight:800;letter-spacing:.06em;color:#7a6a35;background:#f1ecdf;border:1px solid #e3d9bd;border-radius:999px;padding:1px 7px;margin-left:2px}
-
-/* ── Subscribers (inside station 5) ─────────────────────────────────────── */
-.gh{font-size:.72rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--mut);margin:20px 0 10px;display:flex;align-items:center;justify-content:space-between}
-.gh .act{color:var(--ac);cursor:pointer;text-transform:none;letter-spacing:0;font-size:.82rem}
-.panel{background:#fff;border:1px solid var(--line);border-radius:16px;padding:6px 0 4px;overflow:hidden}
-.subrow{display:grid;grid-template-columns:1.6fr 1.3fr .8fr auto;gap:10px;align-items:center;padding:14px 20px;border-top:1px solid var(--line)}
-.subrow:first-child{border-top:0}
-.subrow .nm{font-weight:600}.subrow .dm{color:var(--mut);font-size:.8rem}
-.subrow .pl{font-size:.86rem}.subrow .mo{color:var(--mut);font-size:.8rem}
-.badge{font-size:.7rem;font-weight:700;letter-spacing:.04em;text-transform:uppercase;padding:3px 9px;border-radius:999px;display:inline-block}
-.badge.active{background:#eaf7ef;color:#1f8d57;border:1px solid #cdeeda}
-.badge.paused{background:#fdf3e3;color:#9a6b00;border:1px solid #f3dca0}
-.badge.canceled{background:#f6eceb;color:#b4453a;border:1px solid #ecc9c5}
-.subact{display:flex;gap:8px;justify-content:flex-end}
-.subact a,.subact button{font-size:.78rem;font-weight:600;color:var(--ac);background:none;border:0;cursor:pointer;text-decoration:none;padding:4px 6px;border-radius:6px}
-.subact button.x{color:var(--red)}
-.empty{padding:26px 20px;color:var(--mut);text-align:center}.empty b{color:var(--ink)}
-.addbar{padding:14px 20px;border-top:1px solid var(--line);background:#fbfaf6}
-.addform{display:none;grid-template-columns:1.4fr 1.3fr 1fr .9fr auto;gap:10px;align-items:end}.addform.show{display:grid}@media(max-width:760px){.addform.show{grid-template-columns:1fr 1fr}}
-.addform label{display:block;font-size:.72rem;font-weight:600;color:var(--mut);margin-bottom:4px}
-.addform input,.addform select{width:100%;padding:9px 10px;border:1px solid var(--line);border-radius:8px;font:inherit;background:#fff}
-.mini{background:var(--ac);color:#fff;border:0;border-radius:8px;padding:9px 14px;font-weight:700;cursor:pointer;font:inherit}
-.mini.ghost{background:#fff;color:var(--ac);border:1px solid var(--line)}
-
-/* ── reference ──────────────────────────────────────────────────────────── */
-details.howto{background:#fff;border:1px solid var(--line);border-radius:16px;margin-top:40px;overflow:hidden}
-details.howto summary{cursor:pointer;padding:17px 22px;font-family:var(--head);font-weight:600;font-size:1.1rem;list-style:none;display:flex;justify-content:space-between;align-items:center}
-details.howto summary::-webkit-details-marker{display:none}
-details.howto summary:after{content:"+";font-size:1.4rem;color:var(--mut)}
-details.howto[open] summary:after{content:"–"}
-.steps{padding:0 24px 22px}
-.step{display:flex;gap:16px;padding:16px 0;border-top:1px solid var(--line)}
-.step .n{flex:none;width:28px;height:28px;border-radius:50%;background:var(--ac);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:.85rem;margin-top:2px;font-family:var(--num)}
-.step .b{flex:1}.step h4{font-size:.98rem;font-weight:600;margin-bottom:3px}.step p{color:var(--mut);font-size:.88rem;line-height:1.5}
-.step code{background:#f4f1ea;border:1px solid var(--line);border-radius:5px;padding:1px 7px;font-size:.82rem;font-family:ui-monospace,monospace}
-.note{background:#fff7e6;border:1px solid #e8d6a8;color:#5a4a1f;border-radius:12px;padding:13px 16px;margin-top:16px;font-size:.86rem;line-height:1.5}.note b{color:#3d3210}
-.foot{color:var(--mut);font-size:.8rem;padding:26px 0 50px}
-.toast{position:fixed;left:50%;bottom:22px;transform:translateX(-50%);background:#161a1d;color:#fff;padding:10px 16px;border-radius:10px;font-size:.86rem;opacity:0;transition:opacity .25s;pointer-events:none;z-index:50}.toast.show{opacity:1}
-</style></head>
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Sightline · Dashboard</title>
+  <meta name="robots" content="noindex,nofollow">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root{--ink:#16140f;--mut:#6b6660;--line:#e7e2d8;--bg:#f4f1ea;--card:#fff;--ac:#1f6f5c;--deep:#11271f;--mint:#9fe3c4;--gold:#c2a04a;--red:#b4453a;--amber:#9a6b00;--head:'Fraunces',Georgia,serif;--body:'Inter',system-ui,sans-serif;--num:'Helvetica Neue',Helvetica,Arial,sans-serif}
+    *{box-sizing:border-box;margin:0}
+    body{background:var(--bg);color:var(--ink);font-family:var(--body);-webkit-font-smoothing:antialiased}
+    a{color:inherit}
+    .shell{max-width:1180px;margin:0 auto;padding:0 clamp(18px,4vw,44px)}
+    .top{height:66px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--line)}
+    .brand{display:flex;align-items:center;gap:10px;font-family:var(--head);font-size:1.2rem;font-weight:600;text-decoration:none}
+    .dot{width:11px;height:11px;border-radius:50%;background:var(--ac)}
+    .topnav{display:flex;align-items:center;gap:18px}.topnav a{font-size:.83rem;color:var(--mut);text-decoration:none}.topnav a:hover{color:var(--ac)}
+    .hero{display:flex;justify-content:space-between;gap:28px;align-items:flex-end;padding:38px 0 22px}
+    .eyebrow{font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;color:var(--ac);font-weight:800;margin-bottom:7px}
+    h1{font-family:var(--head);font-size:clamp(2.1rem,1.5rem+2.2vw,3.4rem);font-weight:400;letter-spacing:-.03em;line-height:1.03}
+    .hero p{color:var(--mut);max-width:62ch;line-height:1.55;margin-top:10px}
+    .live{display:flex;align-items:center;gap:8px;color:var(--mut);font-size:.78rem;white-space:nowrap}.pulse{width:9px;height:9px;border-radius:50%;background:var(--ac);box-shadow:0 0 0 5px rgba(31,111,92,.12)}
+    .kpis{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:12px;margin-bottom:18px}
+    .kpi{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:17px 16px;min-height:112px;display:flex;flex-direction:column;justify-content:space-between}
+    .kpi .label{font-size:.7rem;color:var(--mut);font-weight:700;letter-spacing:.08em;text-transform:uppercase}
+    .kpi .value{font-family:var(--num);font-size:1.72rem;font-weight:800;letter-spacing:-.04em;margin-top:10px}
+    .kpi .sub{font-size:.73rem;color:var(--mut);margin-top:5px;line-height:1.3}
+    .kpi.alert{border-color:#ecc9c5;background:#fffafa}.kpi.alert .value{color:var(--red)}
+    .grid{display:grid;grid-template-columns:1.4fr .9fr;gap:16px;margin-bottom:16px}
+    .card{background:var(--card);border:1px solid var(--line);border-radius:18px;overflow:hidden}
+    .cardhead{padding:18px 20px 13px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--line)}
+    .cardhead h2{font-family:var(--head);font-size:1.25rem;font-weight:600}.cardhead a{font-size:.78rem;color:var(--ac);font-weight:700;text-decoration:none}
+    .priority{display:grid;grid-template-columns:92px 1fr auto;gap:14px;align-items:center;padding:14px 20px;border-top:1px solid var(--line)}
+    .priority:first-child{border-top:0}.pval{font-family:var(--num);font-size:.9rem;font-weight:800;color:var(--ac)}.priority.danger .pval{color:var(--red)}
+    .ptitle{font-size:.92rem;font-weight:700;line-height:1.35}.pdetail{font-size:.78rem;color:var(--mut);line-height:1.4;margin-top:3px}
+    .pillbtn{display:inline-flex;align-items:center;justify-content:center;border:1px solid var(--line);border-radius:999px;padding:7px 12px;font-size:.75rem;font-weight:700;text-decoration:none;white-space:nowrap;background:#fff}.pillbtn:hover{border-color:var(--ac);color:var(--ac)}
+    .empty{padding:26px 20px;color:var(--mut);font-size:.88rem;line-height:1.5}
+    .pulsebody{padding:18px 20px}.pulsegrid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.mini{border:1px solid var(--line);border-radius:12px;padding:13px;background:#fbfaf6}.mini b{display:block;font-family:var(--num);font-size:1.35rem}.mini span{display:block;color:var(--mut);font-size:.72rem;margin-top:3px;line-height:1.35}.mini.good b{color:var(--ac)}.mini.warn b{color:var(--amber)}.mini.bad b{color:var(--red)}
+    .quick{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;padding:0 0 16px}.quick a{background:var(--deep);color:#fff;text-decoration:none;border-radius:14px;padding:16px;min-height:100px;display:flex;flex-direction:column;justify-content:space-between;transition:transform .15s}.quick a:hover{transform:translateY(-2px)}.quick b{font-family:var(--head);font-size:1.05rem}.quick span{font-size:.72rem;color:rgba(255,255,255,.68);line-height:1.35}
+    .attention{margin-bottom:16px}.attrow{display:grid;grid-template-columns:1.5fr .55fr .55fr .9fr;gap:12px;align-items:center;padding:13px 20px;border-top:1px solid var(--line);font-size:.82rem}.attrow:first-child{border-top:0}.attrow .biz{font-weight:700}.attrow .dom{font-size:.72rem;color:var(--mut);margin-top:2px}.score{font-family:var(--num);font-weight:800}.bucket{display:inline-block;font-size:.66rem;font-weight:800;text-transform:uppercase;letter-spacing:.05em;border-radius:999px;padding:4px 8px;background:#edf4f1;color:var(--ac)}.bucket.attention{background:#f8ecea;color:var(--red)}.bucket.refresh_evidence,.bucket.build_evidence{background:#fbf2df;color:var(--amber)}.reason{color:var(--mut);line-height:1.35}
+    .linebar{background:#fff;border:1px solid var(--line);border-radius:18px;padding:18px 20px;margin:0 0 22px}.linebar h2{font-family:var(--head);font-size:1.25rem;margin-bottom:14px}.stations{display:grid;grid-template-columns:repeat(5,1fr);gap:8px}.stations a{text-decoration:none;border:1px solid var(--line);border-radius:12px;padding:12px;transition:border-color .15s,transform .15s}.stations a:hover{border-color:var(--ac);transform:translateY(-1px)}.stations small{display:block;color:var(--ac);font-weight:800;font-size:.62rem;letter-spacing:.08em;text-transform:uppercase}.stations b{display:block;margin-top:5px;font-size:.83rem}.stations span{display:block;color:var(--mut);font-size:.68rem;margin-top:4px;line-height:1.3}
+    .foot{padding:8px 0 40px;color:var(--mut);font-size:.75rem;display:flex;justify-content:space-between;gap:16px}
+    .loading{animation:pulseFade 1.2s ease-in-out infinite}@keyframes pulseFade{50%{opacity:.45}}
+    @media(max-width:1000px){.kpis{grid-template-columns:repeat(3,1fr)}.quick{grid-template-columns:repeat(2,1fr)}}
+    @media(max-width:760px){.topnav a:not(:last-child){display:none}.hero{align-items:flex-start;flex-direction:column}.kpis{grid-template-columns:repeat(2,1fr)}.grid{grid-template-columns:1fr}.priority{grid-template-columns:74px 1fr}.priority .pillbtn{grid-column:2;justify-self:start}.attrow{grid-template-columns:1fr auto auto}.attrow .reason{grid-column:1/-1}.stations{grid-template-columns:1fr 1fr}.foot{flex-direction:column}}
+  </style>
+</head>
 <body>
-<header class="wrap top"><div class="lg"><span class="dot"></span>Sightline · Admin</div><a href="../gallery/">View public studio →</a></header>
-<div class="wrap">
+  <header class="shell top">
+    <a class="brand" href="/admin/"><span class="dot"></span>Sightline · Admin</a>
+    <nav class="topnav">
+      <a href="/admin/index.html">Five-station workflow</a>
+      <a href="/intelligence/portfolio/">Intelligence portfolio</a>
+      <a href="/gallery/">Public studio →</a>
+    </nav>
+  </header>
 
-<section class="hd">
-  <h1>One line. Five stations.</h1>
-  <p>Every dollar this business earns rides the same line: <b>find → build → send → close → run</b>. Start at Today, then work the line downward.</p>
-</section>
-
-<!-- TODAY: filled from the database when signed in -->
-<section class="today">
-  <div class="th"><b>Today</b><span id="tDate"></span></div>
-  <div id="todayList">
-    <div class="trow"><span class="tm">—</span><span class="muted">Sign in below (Station 5) to load your live numbers: open leads, waiting dollars, churn risks.</span></div>
-    <div class="trow"><span class="tm">10 min</span><span>Generate one new demo with the Site Maker — momentum beats planning.</span><a href="./intake/">Build →</a></div>
-    <div class="trow"><span class="tm">10 min</span><span>Send one funnel link from the pipeline — the funnel starves without sends.</span><a href="../pipeline/">Send →</a></div>
-  </div>
-</section>
-
-<!-- THE LINE -->
-<div class="journey">
-
-  <section class="station" id="find">
-    <div class="node"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/><circle cx="11" cy="11" r="2.5"/></svg></div>
-    <div class="sk">Station 1 · Find</div>
-    <h2>Spot the business losing customers online.</h2>
-    <p class="lede">The Prospector ranks a whole market weakest-first and hands you the pitch line. Everything else here is evidence for the call.</p>
-    <div class="donow">
-      <a class="btnP" href="./prospector/">Open Prospector <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
-      <span class="count"><b>50</b> prospects in the pond</span>
-    </div>
-    <div class="toolbox"><span class="tl">Evidence</span>
-      <a class="tool" href="./audit/">Exposure Audit</a>
-      <a class="tool" href="../teardowns/">Competitor teardowns</a>
-      <a class="tool" href="./churches/">Church Board <span class="ch">CHURCH</span></a>
-      <a class="tool" href="./readiness/">Readiness score <span class="ch">CHURCH</span></a>
-    </div>
-  </section>
-
-  <section class="station" id="build">
-    <div class="node"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a4.5 4.5 0 00-6 6L3 18l3 3 5.7-5.7a4.5 4.5 0 006-6L14 13l-3-3z"/></svg></div>
-    <div class="sk">Station 2 · Build</div>
-    <h2>Make the site they can't unsee.</h2>
-    <p class="lede">Point the engine at their domain. It reads the real business — logo, fonts, colors, services — and builds a bespoke demo in minutes, graded before you ship it.</p>
-    <div class="donow">
-      <a class="btnP" href="./intake/">Start a build <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
-      <span class="count"><b>33</b> demos built · or double-click <b>Site Maker</b> on your Mac</span>
-    </div>
-    <div class="toolbox"><span class="tl">Workshop</span>
-      <a class="tool" href="./studio/">Site Engine</a>
-      <a class="tool" href="../gallery/">Concept gallery</a>
-      <a class="tool" href="../logo/">Logo Studio</a>
-      <a class="tool" href="../generator/">Brand Art</a>
-      <a class="tool" href="../faith/">Faith demo <span class="ch">CHURCH</span></a>
-      <a class="tool" href="../faith/styles/">6 church styles <span class="ch">CHURCH</span></a>
-    </div>
-  </section>
-
-  <section class="station" id="send">
-    <div class="node"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M22 2L11 13"/><path d="M22 2l-7 20-4-9-9-4z"/></svg></div>
-    <div class="sk">Station 3 · Send</div>
-    <h2>Put their new site in their inbox.</h2>
-    <p class="lede">Each prospect has a personal funnel — demo, audit, offer — and a ready-to-send email in the pipeline. Track contacted → opened → booked → won.</p>
-    <div class="donow">
-      <a class="btnP" href="../pipeline/">Open Pipeline <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
-      <span class="count"><b>33</b> funnels live</span>
-    </div>
-    <div class="toolbox"><span class="tl">Ammunition</span>
-      <a class="tool" href="../p/">All funnels</a>
-      <a class="tool" href="../demo/">Sample report</a>
-      <a class="tool" href="./church-playbook/">Growth playbook <span class="ch">CHURCH</span></a>
-    </div>
-  </section>
-
-  <section class="station" id="close">
-    <div class="node"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.1V12a10 10 0 11-5.9-9.1"/><path d="M22 4L12 14l-3-3"/></svg></div>
-    <div class="sk">Station 4 · Close</div>
-    <h2>Answer fast, take payment, onboard.</h2>
-    <p class="lede">Every "Start my site" click and scan request lands in Leads. Speed-to-lead is the whole game — reply the same day, every time.</p>
-    <div class="donow">
-      <a class="btnP" href="../leads/">Open Leads <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
-      <span class="count" id="closeCount"><a href="#run">sign in</a> to see open leads</span>
-    </div>
-    <div class="toolbox"><span class="tl">Paperwork</span>
-      <a class="tool" href="../checkout/">Checkout &amp; add-ons</a>
-      <a class="tool" href="../builder/">Add-on configurator</a>
-      <a class="tool" href="../onboard/">Onboarding checklist</a>
-      <a class="tool" href="../legal/">Legal pages</a>
-    </div>
-  </section>
-
-  <section class="station final" id="run">
-    <div class="node"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 11-2.6-6.4"/><path d="M21 3v6h-6"/></svg></div>
-    <div class="sk">Station 5 · Run</div>
-    <h2>Earn it again every month.</h2>
-    <p class="lede">Your paying clients, and the recurring work that keeps them paying: <span class="count" style="font-size:inherit"><b id="kSubs">—</b> subscribers · <b id="kMrr">—</b>/mo</span></p>
-    <div class="donow">
-      <a class="btnP" href="../marketing/">Open Marketing engine <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
-      <span class="count"><a href="../bi/">Read the BI story →</a></span>
-    </div>
-    <div class="toolbox" style="margin-bottom:6px"><span class="tl">Monthly work</span>
-      <a class="tool" href="../social/">Social Studio</a>
-      <a class="tool" href="../marketing/">Review composer</a>
-      <a class="tool" href="../teardowns/">Reputation defense</a>
-      <a class="tool" href="../crm/">CRM</a>
-      <a class="tool" href="../brand/">Sightline brand</a>
-    </div>
-
-    <div class="gh">Subscribers <span class="act" onclick="toggleAdd()">＋ Add subscriber</span></div>
-    <div class="panel">
-      <div class="addbar" style="display:none" id="addbar">
-        <form class="addform show" id="addform" onsubmit="return addSub(event)">
-          <div><label>Business name</label><input id="fName" required placeholder="The Vaughn Law Offices"></div>
-          <div><label>Domain (optional)</label><input id="fDom" placeholder="vaughn-law.com"></div>
-          <div><label>Plan</label><select id="fPlan" onchange="planChange()">
-            <option value="59.99">$59.99/mo · Site</option>
-            <option value="129.99" selected>$129.99/mo · Front Door</option>
-            <option value="199.99">$199.99/mo · Front Desk</option>
-            <option value="custom">Custom…</option></select></div>
-          <div><label>$/mo</label><input id="fMo" type="number" step="0.01" value="129.99"></div>
-          <div style="display:flex;gap:8px"><button class="mini" type="submit">Save</button><button class="mini ghost" type="button" onclick="toggleAdd()">Cancel</button></div>
-        </form>
+  <main class="shell">
+    <section class="hero">
+      <div>
+        <div class="eyebrow">Operating dashboard</div>
+        <h1>Your business, at a glance.</h1>
+        <p>Revenue, pipeline, campaign follow-through, and intelligence triage in one place. Use the dashboard to decide what matters; use the five-station workflow to do the work.</p>
       </div>
-      <div id="subList"></div>
-    </div>
-  </section>
+      <div class="live"><span class="pulse"></span><span id="updated">Loading live data…</span></div>
+    </section>
 
-</div><!-- /journey -->
+    <section class="kpis" aria-label="Key business metrics">
+      <article class="kpi"><div class="label">Monthly recurring revenue</div><div><div class="value loading" id="mrr">—</div><div class="sub" id="mrrSub">active client revenue</div></div></article>
+      <article class="kpi"><div class="label">Active clients</div><div><div class="value loading" id="clients">—</div><div class="sub" id="clientSub">paying subscribers</div></div></article>
+      <article class="kpi"><div class="label">Open opportunities</div><div><div class="value loading" id="opps">—</div><div class="sub" id="oppSub">pipeline waiting</div></div></article>
+      <article class="kpi"><div class="label">Tracked businesses</div><div><div class="value loading" id="tracked">—</div><div class="sub">with intelligence context</div></div></article>
+      <article class="kpi" id="attentionCard"><div class="label">Needs attention</div><div><div class="value loading" id="attention">—</div><div class="sub">regressions or urgent review</div></div></article>
+      <article class="kpi"><div class="label">Pending results</div><div><div class="value loading" id="pending">—</div><div class="sub">campaigns awaiting finalization</div></div></article>
+    </section>
 
-<details class="howto">
-  <summary>How to launch a new prospect site (start to finish)</summary>
-  <div class="steps">
-    <div class="step"><div class="n">1</div><div class="b"><h4>Generate the demo — no code needed</h4><p>Double-click <code>Sightline Site Maker.command</code> in your sightline-studio folder. Type the prospect's website, click <b>Generate site</b>, check the quality grade, preview, then <b>Publish</b>. Live at <code>/demos/&lt;their-name&gt;/</code> two minutes later.</p></div></div>
-    <div class="step"><div class="n">2</div><div class="b"><h4>Want the full funnel instead? (advanced)</h4><p>Add the business to <code>top30.json</code>, run <code>./release.sh</code> (regenerates demo, teardown, funnel + QA gate), then <code>./deploy.sh "added &lt;business&gt;"</code>. Live at <code>/p/&lt;slug&gt;/</code>.</p></div></div>
-    <div class="step"><div class="n">3</div><div class="b"><h4>Send it</h4><p>Grab their funnel link from the <b>Pipeline</b> (Station 3) — every prospect has a ready-to-send email.</p></div></div>
-    <div class="step"><div class="n">4</div><div class="b"><h4>When they buy</h4><p>Add them under <b>Subscribers</b> (Station 5), run <b>Onboarding</b> (Station 4), switch on their add-ons, point their domain, install legal pages.</p></div></div>
-  </div>
-</details>
+    <section class="grid">
+      <article class="card">
+        <div class="cardhead"><h2>What needs attention now</h2><a href="/intelligence/portfolio/">Open portfolio →</a></div>
+        <div id="priorities"><div class="empty loading">Ranking your current priorities…</div></div>
+      </article>
 
-<div class="note"><b>🔒 Lock this admin.</b> Subscriber data lives in your <b>Supabase database</b> behind a magic-link sign-in. This page is <code>noindex</code> and unlinked but not password-protected; to fully restrict it, enable <b>Vercel → Project → Settings → Deployment Protection (Password)</b>.</div>
+      <article class="card">
+        <div class="cardhead"><h2>Intelligence pulse</h2><a href="/intelligence/">Opportunity Feed →</a></div>
+        <div class="pulsebody">
+          <div class="pulsegrid">
+            <div class="mini bad"><b id="iAttention">—</b><span>businesses needing attention</span></div>
+            <div class="mini warn"><b id="iRefresh">—</b><span>need fresher evidence</span></div>
+            <div class="mini good"><b id="iReady">—</b><span>ready for deeper intelligence</span></div>
+            <div class="mini"><b id="iMeasure">—</b><span>accepted recommendations to measure</span></div>
+          </div>
+        </div>
+      </article>
+    </section>
 
-<footer class="foot">Sightline Admin · internal · not for public distribution.</footer>
-</div>
-<div class="toast" id="toast"></div>
-<script>
-/* Subscribers persist in the shared Supabase database, behind magic-link sign-in. */
-const SUPA_URL="https://vtqmtecoxljduqomtkbw.supabase.co";
-const SUPA_KEY="sb_publishable_tOVldxTzrH4_9U0x-GZGHw_UFM57C2c";
-let subs=[]; let editId=null; let sb=null; let authed=false;
-const money=n=>'$'+(Math.round(n*100)/100).toLocaleString(undefined,{minimumFractionDigits:n%1?2:0,maximumFractionDigits:2});
-const planPrice=s=>{const m=(s||"").match(/\$\s?(\d+(?:\.\d+)?)/);return m?+m[1]:0;};
-function slug(d){return (d||'').replace(/^https?:\/\//,'').replace(/\/.*$/,'').replace(/\./g,'-')}
-function toast(m){const e=document.getElementById('toast');e.textContent=m;e.classList.add('show');setTimeout(()=>e.classList.remove('show'),1800)}
-function planChange(){const v=document.getElementById('fPlan').value;if(v!=='custom')document.getElementById('fMo').value=v}
-function toggleAdd(){if(!authed){toast('Sign in first to manage subscribers');showLogin();return}
-  const b=document.getElementById('addbar');const showing=b.style.display!=='none';b.style.display=showing?'none':'block';if(showing){editId=null;document.getElementById('addform').reset();document.getElementById('fMo').value='129.99'}}
-document.getElementById('tDate').textContent=new Date().toLocaleDateString(undefined,{weekday:'long',month:'long',day:'numeric'});
+    <section class="quick" aria-label="Intelligence workspaces">
+      <a href="/intelligence/outcomes/"><b>Outcome Queue</b><span>Finalize bookings and revenue without confusing pending with zero.</span></a>
+      <a href="/intelligence/economics/"><b>Campaign Economics</b><span>Compare revenue, spend, contribution, and cost per outcome.</span></a>
+      <a href="/intelligence/recommendations/"><b>Recommendation Tracking</b><span>Move accepted ideas through implementation and measurement.</span></a>
+      <a href="/intelligence/brief/"><b>Weekly Brief</b><span>See the best opportunity, what is working, and what to watch.</span></a>
+    </section>
 
-(async function initDB(){
-  try{ const {createClient}=await import("https://esm.sh/@supabase/supabase-js@2"); sb=createClient(SUPA_URL,SUPA_KEY); }
-  catch(e){ document.getElementById('subList').innerHTML='<div class="empty">Couldn’t reach the database. Retry in a moment.</div>'; return; }
-  const {data:{session}}=await sb.auth.getSession(); authed=!!session;
-  if(authed){ await loadSubs(); loadToday(); } else { showLogin(); }
-})();
+    <section class="card attention">
+      <div class="cardhead"><h2>Business attention list</h2><a href="/intelligence/portfolio/">View all →</a></div>
+      <div id="attentionList"><div class="empty loading">Loading business triage…</div></div>
+    </section>
 
-/* TODAY + Station-4 count: live, ranked by dollars. Best-effort per table. */
-async function loadToday(){
-  let openLeads=[], scans=0, churned=[];
-  try{ const r=await sb.from('signups').select('*'); if(r.data) openLeads=r.data.filter(l=>l.status==='new'||l.status==='contacted'); }catch(e){}
-  try{ const r=await sb.from('leads').select('*',{count:'exact',head:true}); if(r.count!=null) scans=r.count; }catch(e){}
-  churned=subs.filter(s=>s.status==='canceled');
-  const openVal=openLeads.reduce((a,l)=>a+planPrice(l.plan),0);
-  const churnVal=churned.reduce((a,s)=>a+(+s.mo||0),0);
-  const cc=document.getElementById('closeCount');
-  if(cc) cc.innerHTML=`<b>${openLeads.length+scans}</b> open lead${openLeads.length+scans===1?'':'s'} waiting`;
-  const rows=[];
-  if(openLeads.length||scans) rows.push({m:openVal?money(openVal)+'/mo':(openLeads.length+scans)+' waiting', t:`Reply to your <b>${openLeads.length+scans} open lead${openLeads.length+scans===1?'':'s'}</b> — speed-to-lead wins deals.`, href:'../leads/', link:'Reply'});
-  if(churned.length) rows.push({m:money(churnVal)+'/mo', warn:true, t:`Send a win-back note to <b>${churned.length} canceled subscriber${churned.length===1?'':'s'}</b>.`, href:'../crm/', link:'Win back'});
-  rows.push({m:'10 min', t:'Generate one new demo — momentum beats planning.', href:'./intake/', link:'Build'});
-  if(rows.length<3) rows.push({m:'10 min', t:'Send one funnel link from the pipeline.', href:'../pipeline/', link:'Send'});
-  document.getElementById('todayList').innerHTML=rows.slice(0,3).map(r=>
-    `<div class="trow"><span class="tm${r.warn?' warn':''}">${r.m}</span><span>${r.t}</span><a href="${r.href}">${r.link} →</a></div>`).join('');
-}
+    <section class="linebar">
+      <h2>The operating line</h2>
+      <div class="stations">
+        <a href="/admin/prospector/"><small>Station 1 · Find</small><b>Prospector</b><span>Find the businesses losing customers online.</span></a>
+        <a href="/admin/intake/"><small>Station 2 · Build</small><b>Site Maker</b><span>Turn a real business into a bespoke demo.</span></a>
+        <a href="/pipeline/"><small>Station 3 · Send</small><b>Pipeline</b><span>Send funnels and move prospects forward.</span></a>
+        <a href="/leads/"><small>Station 4 · Close</small><b>Leads</b><span>Reply fast, take payment, and onboard.</span></a>
+        <a href="/marketing/"><small>Station 5 · Run</small><b>Client Growth</b><span>Deliver recurring work and prove what works.</span></a>
+      </div>
+    </section>
 
-function showLogin(){
-  document.getElementById('kMrr').textContent='—';
-  document.getElementById('kSubs').textContent='—';
-  document.getElementById('subList').innerHTML='<div class="empty" style="text-align:left;padding:22px 20px"><b>Sign in to load your business.</b><br>Subscribers, revenue and today’s priorities are stored privately in your database.<form id="lf" style="margin-top:14px;display:flex;gap:8px;flex-wrap:wrap"><input id="le" type="email" placeholder="you@email.com" required style="padding:9px 11px;border:1px solid var(--line);border-radius:8px;font:inherit;min-width:220px"><button class="mini" type="submit">Email me a login link</button></form><div id="ln" style="color:var(--mut);font-size:.84rem;margin-top:10px"></div></div>';
-  document.getElementById('lf').onsubmit=async e=>{e.preventDefault();const email=document.getElementById('le').value.trim();
-    document.getElementById('ln').textContent='Sending…';
-    const {error}=await sb.auth.signInWithOtp({email,options:{emailRedirectTo:location.href}});
-    document.getElementById('ln').textContent=error?("Couldn't send: "+error.message):("Check "+email+" for your login link.");};
-}
-async function loadSubs(){
-  const {data,error}=await sb.from('subscribers').select('*').order('created_at',{ascending:false});
-  if(error){ document.getElementById('subList').innerHTML='<div class="empty">'+esc(error.message)+'</div>'; return; }
-  subs=data||[]; render();
-}
-async function addSub(e){e.preventDefault();
-  const name=document.getElementById('fName').value.trim();if(!name)return false;
-  const dom=document.getElementById('fDom').value.trim();
-  const mo=parseFloat(document.getElementById('fMo').value)||0;
-  const planSel=document.getElementById('fPlan');const plan=planSel.options[planSel.selectedIndex].text;
-  let error;
-  if(editId){ ({error}=await sb.from('subscribers').update({name,dom,mo,plan}).eq('id',editId)); editId=null; }
-  else { ({error}=await sb.from('subscribers').insert({name,dom,mo,plan,status:'active'})); }
-  if(error){toast(error.message);return false;}
-  await loadSubs(); toggleAdd(); toast('Saved'); return false}
-function edit(id){const s=subs.find(x=>x.id===id);if(!s)return;editId=id;
-  document.getElementById('addbar').style.display='block';
-  document.getElementById('fName').value=s.name;document.getElementById('fDom').value=s.dom||'';
-  document.getElementById('fMo').value=s.mo;
-  window.scrollTo({top:document.querySelector('.panel').offsetTop-80,behavior:'smooth'})}
-async function cycle(id){const s=subs.find(x=>x.id===id);if(!s)return;const o=['active','paused','canceled'];const st=o[(o.indexOf(s.status)+1)%3];
-  const {error}=await sb.from('subscribers').update({status:st}).eq('id',id);
-  if(error){toast(error.message);return;} s.status=st;render()}
-async function del(id){if(!confirm('Remove this subscriber?'))return;
-  const {error}=await sb.from('subscribers').delete().eq('id',id);
-  if(error){toast(error.message);return;} subs=subs.filter(x=>x.id!==id);render()}
-function render(){
-  const active=subs.filter(s=>s.status==='active');
-  const mrr=active.reduce((a,s)=>a+(+s.mo||0),0);
-  document.getElementById('kMrr').textContent=money(mrr);
-  document.getElementById('kSubs').textContent=active.length;
-  const list=document.getElementById('subList');
-  if(!subs.length){list.innerHTML='<div class="empty">No subscribers yet. When a prospect signs up, <b>＋ Add subscriber</b> to track plan, status &amp; MRR here.</div>';return}
-  list.innerHTML=subs.map(s=>{const sl=slug(s.dom);
-    const portal=s.dom?`<a href="../portal/?firm=${sl}&name=${encodeURIComponent(s.name)}&demo=1" target="_blank" rel="noopener">Portal ↗</a>`:'';
-    return `<div class="subrow"><div><div class="nm">${esc(s.name)}</div>${s.dom?`<div class="dm">${esc(s.dom)}</div>`:''}</div>
-    <div><div class="pl">${esc(s.plan||'')}</div><div class="mo">${money(s.mo||0)}/mo</div></div>
-    <div><span class="badge ${s.status}" onclick="cycle('${s.id}')" style="cursor:pointer" title="click to change">${s.status}</span></div>
-    <div class="subact"><a href="../onboard/?biz=${encodeURIComponent(s.name)}" target="_blank" rel="noopener">Onboard ↗</a>${portal}<button onclick="edit('${s.id}')">Edit</button><button class="x" onclick="del('${s.id}')">✕</button></div></div>`}).join('')
-}
-function esc(s){return (s||'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]))}
-render();
-</script>
-</body></html>
+    <footer class="foot"><span>Sightline Admin · private operating system</span><span><a href="/admin/index.html">Open original five-station page →</a></span></footer>
+  </main>
+
+  <script>
+    const money = (n) => '$' + Math.round(Number(n || 0)).toLocaleString();
+    const esc = (s) => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+    const bucketLabel = (b='') => ({attention:'Attention',refresh_evidence:'Refresh evidence',measure_recommendation:'Measure',build_evidence:'Build evidence',intelligence_ready:'Intelligence ready',monitor:'Monitor'}[b] || b.replaceAll('_',' '));
+
+    function setText(id, value){ const el=document.getElementById(id); if(el){ el.textContent=value; el.classList.remove('loading'); } }
+
+    function renderPriorities(rows=[]){
+      const host=document.getElementById('priorities');
+      if(!rows.length){host.innerHTML='<div class="empty">No urgent items. Use the quiet time to build the next qualified opportunity.</div>';return}
+      host.innerHTML=rows.map(p=>`<div class="priority ${p.type==='attention'?'danger':''}"><div class="pval">${esc(p.value)}</div><div><div class="ptitle">${esc(p.label)}</div><div class="pdetail">${esc(p.detail||'')}</div></div><a class="pillbtn" href="${esc(p.href)}">${esc(p.action)} →</a></div>`).join('');
+    }
+
+    function renderAttention(rows=[]){
+      const host=document.getElementById('attentionList');
+      if(!rows.length){host.innerHTML='<div class="empty">No tracked businesses yet. Run audits to start building the intelligence portfolio.</div>';return}
+      host.innerHTML=rows.map(r=>`<div class="attrow"><div><div class="biz">${esc(r.name||r.domain||'Business')}</div><div class="dom">${esc(r.domain||'')}</div></div><div><span class="score">${Math.round(Number(r.score||0))}</span><div class="dom">score</div></div><div><span class="score">${Math.round(Number(r.readiness_score||0))}</span><div class="dom">readiness</div></div><div><span class="bucket ${esc(r.bucket||'')}">${esc(bucketLabel(r.bucket))}</span><div class="reason" style="margin-top:5px">${esc(r.reason||'')}</div></div></div>`).join('');
+    }
+
+    async function loadDashboard(){
+      try{
+        const res=await fetch('/api/admin-dashboard',{cache:'no-store'});
+        const data=await res.json().catch(()=>({}));
+        if(!res.ok||!data.ok) throw new Error(data.error||'Dashboard request failed');
+        const k=data.kpis||{};
+        setText('mrr',money(k.mrr));
+        setText('clients',k.active_subscribers||0);
+        setText('opps',k.open_opportunities||0);
+        setText('tracked',k.tracked_businesses||0);
+        setText('attention',k.attention||0);
+        setText('pending',k.pending_campaign_results||0);
+        document.getElementById('mrrSub').textContent=`${k.active_subscribers||0} active client${k.active_subscribers===1?'':'s'}`;
+        document.getElementById('clientSub').textContent=`${k.paused_subscribers||0} paused · ${k.canceled_subscribers||0} canceled`;
+        document.getElementById('oppSub').textContent=k.pipeline_mrr?`${money(k.pipeline_mrr)}/mo potential`:'pipeline waiting';
+        if((k.attention||0)>0) document.getElementById('attentionCard').classList.add('alert');
+        const s=data.intelligence?.summary||{};
+        setText('iAttention',s.attention||0);
+        setText('iRefresh',s.refresh_evidence||0);
+        setText('iReady',s.intelligence_ready||0);
+        setText('iMeasure',k.accepted_recommendations||0);
+        renderPriorities(data.priorities||[]);
+        renderAttention(data.intelligence?.top_attention||[]);
+        const at=new Date(data.generated_at||Date.now());
+        document.getElementById('updated').textContent=`Live · updated ${at.toLocaleTimeString([], {hour:'numeric',minute:'2-digit'})}`;
+      }catch(error){
+        document.getElementById('updated').textContent='Dashboard data unavailable';
+        document.getElementById('priorities').innerHTML='<div class="empty"><b>Could not load live dashboard data.</b><br>Refresh the page. If the problem continues, check the protected dashboard API and Supabase service connection.</div>';
+        document.getElementById('attentionList').innerHTML='<div class="empty">Business triage is temporarily unavailable.</div>';
+      }
+    }
+    loadDashboard();
+  </script>
+</body>
+</html>
