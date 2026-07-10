@@ -2,7 +2,7 @@ name: BI quality
 
 on:
   push:
-    branches: [main, feature/bi-evidence-readiness-v5]
+    branches: [main, feature/bi-portfolio-triage-v6]
     paths:
       - 'api/_intelligence.js'
       - 'api/_bi_patterns.js'
@@ -12,6 +12,7 @@ on:
       - 'api/_check_observations.js'
       - 'api/_change_intelligence.js'
       - 'api/_readiness_intelligence.js'
+      - 'api/_portfolio_intelligence.js'
       - 'api/_lib.js'
       - 'api/audit-refresh.js'
       - 'api/bi-events.js'
@@ -19,6 +20,7 @@ on:
       - 'api/scan-live.js'
       - 'api/recommendations.js'
       - 'api/weekly-brief.js'
+      - 'api/intelligence-portfolio.js'
       - 'intelligence/**'
       - 'middleware.js'
       - 'bi/**'
@@ -34,6 +36,7 @@ on:
       - 'api/_check_observations.js'
       - 'api/_change_intelligence.js'
       - 'api/_readiness_intelligence.js'
+      - 'api/_portfolio_intelligence.js'
       - 'api/_lib.js'
       - 'api/audit-refresh.js'
       - 'api/bi-events.js'
@@ -41,6 +44,7 @@ on:
       - 'api/scan-live.js'
       - 'api/recommendations.js'
       - 'api/weekly-brief.js'
+      - 'api/intelligence-portfolio.js'
       - 'intelligence/**'
       - 'middleware.js'
       - 'bi/**'
