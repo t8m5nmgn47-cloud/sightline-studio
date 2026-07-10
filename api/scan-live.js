@@ -14,6 +14,7 @@ import { readBody, clean, isEmail, insertLead, notifySlack, methodGuard, sbInser
 import { auditDomain, normDomain } from "./_audit.js";
 import { scanObservationRows } from "./_intelligence.js";
 import { checkObservationRows } from "./_check_observations.js";
+import { normalizeObservationInsertRows } from "./_observation_rows.js";
 
 const RL_WINDOW_MS = 10 * 60 * 1000; // 10 minutes
 const RL_MAX = 12;                    // scans per IP per window
@@ -97,10 +98,10 @@ export default async function handler(req, res) {
           entityName: clean(body.biz, 200) || domain,
           source: "instant_scan",
         };
-        const rows = [
+        const rows = normalizeObservationInsertRows([
           ...scanObservationRows(result, opts),
           ...checkObservationRows(result, opts),
-        ];
+        ]);
         if (rows.length) await sbInsert("bi_observations", rows);
       } catch (e) {
         console.error("instant-scan BI observation save failed:", e?.message || e);
