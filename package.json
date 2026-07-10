@@ -4,6 +4,9 @@
   "engines": {
     "node": ">=18"
   },
+  "scripts": {
+    "engine:check": "node engine/selftest.mjs"
+  },
   "dependencies": {
     "@sparticuz/chromium": "^131.0.0",
     "cheerio": "^1.0.0",
