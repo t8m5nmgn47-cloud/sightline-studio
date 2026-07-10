@@ -6,7 +6,7 @@
   },
   "scripts": {
     "engine:check": "node engine/selftest.mjs",
-    "bi:check": "node bi/selftest.mjs && node bi/peer-selftest.mjs && node bi/change-selftest.mjs && node bi/readiness-selftest.mjs && node bi/portfolio-selftest.mjs && node bi/refresh-selftest.mjs && node bi/digest-selftest.mjs"
+    "bi:check": "node bi/selftest.mjs && node bi/peer-selftest.mjs && node bi/change-selftest.mjs && node bi/readiness-selftest.mjs && node bi/portfolio-selftest.mjs && node bi/refresh-selftest.mjs && node bi/digest-selftest.mjs && node bi/learning-selftest.mjs"
   },
   "dependencies": {
     "@sparticuz/chromium": "^131.0.0",
