@@ -2,7 +2,7 @@ name: BI quality
 
 on:
   push:
-    branches: [main, feature/bi-experiment-planner-v10]
+    branches: [main, feature/bi-campaign-economics-v11-recovery]
     paths:
       - 'api/_intelligence.js'
       - 'api/_bi_patterns.js'
@@ -17,6 +17,7 @@ on:
       - 'api/_operator_digest.js'
       - 'api/_learning_memory.js'
       - 'api/_experiment_planner.js'
+      - 'api/_campaign_economics.js'
       - 'api/_lib.js'
       - 'api/audit-refresh.js'
       - 'api/intelligence-refresh.js'
@@ -49,6 +50,7 @@ on:
       - 'api/_operator_digest.js'
       - 'api/_learning_memory.js'
       - 'api/_experiment_planner.js'
+      - 'api/_campaign_economics.js'
       - 'api/_lib.js'
       - 'api/audit-refresh.js'
       - 'api/intelligence-refresh.js'
