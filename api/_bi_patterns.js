@@ -152,21 +152,21 @@ export function buildCampaignPatternCards(events = []) {
 
   const channel = dimensionCard(rows, {
     dimension: (r) => r.channel,
-    comparisonSet: (r) => r.comparison_group || r.offer,
+    comparisonSet: (r) => `${r.comparison_group || "ungrouped"}|offer:${r.offer}`,
     label: (v) => v.toUpperCase(),
     recommendation: (best, worst) => `Keep the next offer comparable and shift one ${worst} campaign to ${best}. Measure bookings or sales, not clicks alone.`,
   });
 
   const offer = dimensionCard(rows, {
     dimension: (r) => r.offer,
-    comparisonSet: (r) => r.comparison_group || r.channel,
+    comparisonSet: (r) => `${r.comparison_group || "ungrouped"}|channel:${r.channel}`,
     label: (v) => `offer “${v}”`,
     recommendation: (best, worst) => `Repeat ${best} in the next comparable campaign and hold channel and audience steady before reducing use of ${worst}.`,
   });
 
   const creative = dimensionCard(rows, {
     dimension: (r) => r.creative,
-    comparisonSet: (r) => r.comparison_group || `${r.channel}|${r.offer}`,
+    comparisonSet: (r) => `${r.comparison_group || "ungrouped"}|${r.channel}|${r.offer}`,
     label: (v) => `creative “${v}”`,
     recommendation: (best, worst) => `Reuse the winning elements from ${best} in the next comparable campaign, then retest against ${worst} with the same offer and channel.`,
   });
@@ -249,10 +249,12 @@ function overallDelta(rows = []) {
     .filter((r) => r.metric === "overall_score" && Number.isFinite(Number(r.value_numeric)))
     .sort((a, b) => Date.parse(a.observed_at) - Date.parse(b.observed_at));
   if (values.length < 2) return null;
+  const previous = values[values.length - 2];
+  const latest = values[values.length - 1];
   return {
-    delta: num(values[values.length - 1].value_numeric) - num(values[0].value_numeric),
-    first: values[0].observed_at,
-    last: values[values.length - 1].observed_at,
+    delta: num(latest.value_numeric) - num(previous.value_numeric),
+    first: previous.observed_at,
+    last: latest.observed_at,
     count: values.length,
   };
 }
