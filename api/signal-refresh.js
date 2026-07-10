@@ -4,6 +4,7 @@
 
 import { sbSelect } from "./_lib.js";
 import { normDomain } from "./_audit.js";
+import { canonicalDomainIdentity } from "./_domain_identity.js";
 import { collectBusinessSignalNetwork } from "./_signal_orchestrator.js";
 import { signalSchemaMissing } from "./_signal_store.js";
 
@@ -12,13 +13,13 @@ const BATCH = 2;
 export function selectSignalRefreshTargets(prospects = [], runs = [], limit = BATCH) {
   const latestByAnchor = new Map();
   for (const run of Array.isArray(runs) ? runs : []) {
-    const key = normDomain(run?.anchor_entity_key || run?.entity_key || "");
+    const key = canonicalDomainIdentity(run?.anchor_entity_key || run?.entity_key || "") || normDomain(run?.anchor_entity_key || run?.entity_key || "");
     if (!key) continue;
     const t = Date.parse(run?.started_at || 0) || 0;
     if (t > (latestByAnchor.get(key) || 0)) latestByAnchor.set(key, t);
   }
   return (Array.isArray(prospects) ? prospects : [])
-    .map((row) => ({ ...row, domain: normDomain(row?.domain || "") }))
+    .map((row) => ({ ...row, domain: canonicalDomainIdentity(row?.domain || "") || normDomain(row?.domain || "") }))
     .filter((row) => /^([a-z0-9-]+\.)+[a-z]{2,}$/i.test(row.domain))
     .sort((a, b) => (latestByAnchor.get(a.domain) || 0) - (latestByAnchor.get(b.domain) || 0))
     .slice(0, Math.max(0, Number(limit) || BATCH));
