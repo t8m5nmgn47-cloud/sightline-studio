@@ -2,7 +2,7 @@ name: BI quality
 
 on:
   push:
-    branches: [main, feature/bi-portfolio-triage-v6]
+    branches: [main, feature/bi-scheduled-intelligence-v7]
     paths:
       - 'api/_intelligence.js'
       - 'api/_bi_patterns.js'
@@ -13,8 +13,10 @@ on:
       - 'api/_change_intelligence.js'
       - 'api/_readiness_intelligence.js'
       - 'api/_portfolio_intelligence.js'
+      - 'api/_insight_refresh.js'
       - 'api/_lib.js'
       - 'api/audit-refresh.js'
+      - 'api/intelligence-refresh.js'
       - 'api/bi-events.js'
       - 'api/contact.js'
       - 'api/scan-live.js'
@@ -23,6 +25,7 @@ on:
       - 'api/intelligence-portfolio.js'
       - 'intelligence/**'
       - 'middleware.js'
+      - 'vercel.json'
       - 'bi/**'
       - 'package.json'
       - '.github/workflows/bi-quality.yml'
@@ -37,8 +40,10 @@ on:
       - 'api/_change_intelligence.js'
       - 'api/_readiness_intelligence.js'
       - 'api/_portfolio_intelligence.js'
+      - 'api/_insight_refresh.js'
       - 'api/_lib.js'
       - 'api/audit-refresh.js'
+      - 'api/intelligence-refresh.js'
       - 'api/bi-events.js'
       - 'api/contact.js'
       - 'api/scan-live.js'
@@ -47,6 +52,7 @@ on:
       - 'api/intelligence-portfolio.js'
       - 'intelligence/**'
       - 'middleware.js'
+      - 'vercel.json'
       - 'bi/**'
       - 'package.json'
       - '.github/workflows/bi-quality.yml'

@@ -16,12 +16,20 @@
     "api/audit-refresh.js": {
       "memory": 512,
       "maxDuration": 60
+    },
+    "api/intelligence-refresh.js": {
+      "memory": 512,
+      "maxDuration": 60
     }
   },
   "crons": [
     {
       "path": "/api/audit-refresh",
       "schedule": "0 8 * * *"
+    },
+    {
+      "path": "/api/intelligence-refresh",
+      "schedule": "30 9 * * *"
     }
   ],
   "headers": [
