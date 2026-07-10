@@ -1,41 +1,11 @@
 // POST /api/signal-collect
 // Protected by admin middleware. Collects bounded public signals for one business
-// and, optionally, up to three quality-approved peers.
+// and, optionally, a quality-approved peer set.
 
 import { readBody, sbSelect } from "./_lib.js";
 import { normDomain } from "./_audit.js";
-import { canonicalDomainIdentity, domainAliases, resolveDomainRecord } from "./_domain_identity.js";
-import { assessPeerSet } from "./_peer_quality.js";
-import { collectDeepPublicSignals } from "./_signals.js";
-import { persistSignalBundle, signalSchemaMissing } from "./_signal_store.js";
-
-async function resolveAuditContext(domain) {
-  const select = "domain,name,vertical,competitors,updated_at";
-  const aliases = domainAliases(domain);
-  const direct = (await Promise.all(aliases.map((alias) => sbSelect(
-    "prospect_audits",
-    `select=${select}&domain=ilike.${encodeURIComponent(alias)}&order=updated_at.desc&limit=1`,
-  )))).flat();
-  let prospect = resolveDomainRecord(direct, domain);
-  if (!prospect) {
-    const rows = await sbSelect("prospect_audits", `select=${select}&order=updated_at.desc&limit=1000`);
-    prospect = resolveDomainRecord(rows, domain);
-  }
-  return prospect;
-}
-
-async function collectTarget({ domain, name, relationship, anchorEntityKey, maxPages }) {
-  const bundle = await collectDeepPublicSignals(domain, { entityName: name, relationship, maxPages });
-  bundle.anchor_entity_key = anchorEntityKey;
-  const stored = await persistSignalBundle(bundle);
-  return {
-    entity_key: bundle.entity_key,
-    relationship,
-    collection: bundle.summary,
-    storage: stored,
-    errors: bundle.errors || [],
-  };
-}
+import { collectBusinessSignalNetwork } from "./_signal_orchestrator.js";
+import { signalSchemaMissing } from "./_signal_store.js";
 
 export default async function handler(req, res) {
   if (req.method !== "POST") {
@@ -57,48 +27,16 @@ export default async function handler(req, res) {
       throw error;
     }
 
-    let prospect = null;
-    try { prospect = await resolveAuditContext(requested); }
-    catch (error) { console.error("Signal prospect context unavailable:", error?.message || error); }
-
-    const anchorEntityKey = canonicalDomainIdentity(prospect?.domain || requested) || requested;
-    const results = [];
-    results.push(await collectTarget({
-      domain: anchorEntityKey,
-      name: prospect?.name || anchorEntityKey,
-      relationship: "owned",
-      anchorEntityKey,
-      maxPages: Math.max(1, Math.min(20, Number(body.max_pages) || 10)),
-    }));
-
-    if (body.include_peers === true) {
-      const peerSet = assessPeerSet(prospect?.vertical || "", prospect?.competitors || []);
-      const peers = peerSet.eligible.slice(0, 3);
-      for (const peer of peers) {
-        const peerDomain = normDomain(peer?.domain || "");
-        if (!peerDomain) continue;
-        results.push(await collectTarget({
-          domain: peerDomain,
-          name: peer?.name || peerDomain,
-          relationship: "peer",
-          anchorEntityKey,
-          maxPages: Math.max(1, Math.min(8, Number(body.peer_max_pages) || 4)),
-        }));
-      }
-    }
-
-    const setupRequired = results.some((result) => result.storage?.setup_required);
-    const ok = !setupRequired && results.every((result) => result.storage?.ok !== false);
-    res.setHeader("Cache-Control", "private, no-store");
-    return res.status(setupRequired ? 503 : ok ? 200 : 207).json({
-      ok,
-      setup_required: setupRequired,
-      anchor_entity_key: anchorEntityKey,
-      targets_collected: results.length,
-      results,
+    const result = await collectBusinessSignalNetwork(requested, {
+      includePeers: body.include_peers === true,
+      maxPages: body.max_pages,
+      peerMaxPages: body.peer_max_pages,
+      maxPeers: body.max_peers,
     });
+    res.setHeader("Cache-Control", "private, no-store");
+    return res.status(result.setup_required ? 503 : result.ok ? 200 : 207).json(result);
   } catch (error) {
     console.error("Signal collection failed:", error?.message || error);
-    return res.status(500).json({ ok: false, error: "Signal collection failed." });
+    return res.status(500).json({ ok: false, error: String(error?.message || "Signal collection failed.") });
   }
 }
