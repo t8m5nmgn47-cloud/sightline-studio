@@ -19,6 +19,7 @@ const SOURCE_SCORE = {
   prospect_audit_snapshot: 45,
   evidence_readiness: 10,
 };
+const BASELINE_CAVEAT = "This is a current baseline observation, not a trend or peer-performance claim.";
 
 function source(card) {
   return String(card?.evidence?.source || "").toLowerCase();
@@ -86,8 +87,12 @@ function scoreCard(card) {
 
 function decorate(card) {
   if (!card) return null;
+  const maturity = briefCardMaturity(card);
+  const evidence = { ...(card.evidence || {}) };
+  if (maturity === "baseline" && !evidence.caveat) evidence.caveat = BASELINE_CAVEAT;
   return {
     ...card,
+    evidence,
     brief_evidence: evidenceStrength(card),
   };
 }
