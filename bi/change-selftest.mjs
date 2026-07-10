@@ -1,6 +1,7 @@
 import assert from "node:assert/strict";
 import { checkMetric, checkObservationRows } from "../api/_check_observations.js";
 import { buildCheckChangeCards, countCheckChanges } from "../api/_change_intelligence.js";
+import { normalizeInsertRows } from "../api/_lib.js";
 
 function check(metric, value, at, label, area = "quality", points = 2) {
   return {
@@ -105,4 +106,15 @@ function check(metric, value, at, label, area = "quality", points = 2) {
   assert.equal(countCheckChanges(rows), 2);
 }
 
-console.log("Check-change self-test passed: observation normalization, exact transitions, no-change honesty, prioritization, and change counts.");
+// 7) Sparse mixed observation rows are normalized to one PostgREST-safe key set.
+{
+  const rows = normalizeInsertRows([
+    { entity_key: "example.com", metric: "overall_score", value_numeric: 80 },
+    { entity_key: "example.com", metric: "check::security::dmarc", value_numeric: 1, value_text: "pass" },
+  ]);
+  assert.deepEqual(Object.keys(rows[0]).sort(), Object.keys(rows[1]).sort());
+  assert.equal(rows[0].value_text, null);
+  assert.equal(rows[1].value_text, "pass");
+}
+
+console.log("Check-change self-test passed: observation normalization, exact transitions, no-change honesty, prioritization, change counts, and batch insert shape safety.");
