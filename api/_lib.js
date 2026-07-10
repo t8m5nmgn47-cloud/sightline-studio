@@ -28,26 +28,42 @@ export function readBody(req) {
   return {};
 }
 
-// Insert a row into a Supabase table via the REST API (no SDK dependency).
-// Uses the service-role key, so it bypasses RLS — keep this server-side only.
+function sbHeaders(prefer = null) {
+  if (!SUPABASE_URL || !SUPABASE_SERVICE_ROLE_KEY) throw new Error("Supabase env vars are not configured");
+  return {
+    "Content-Type": "application/json",
+    apikey: SUPABASE_SERVICE_ROLE_KEY,
+    Authorization: `Bearer ${SUPABASE_SERVICE_ROLE_KEY}`,
+    ...(prefer ? { Prefer: prefer } : {}),
+  };
+}
+
+// Insert one row or an array of rows via PostgREST.
 export async function sbInsert(table, row) {
-  if (!SUPABASE_URL || !SUPABASE_SERVICE_ROLE_KEY) {
-    throw new Error("Supabase env vars are not configured");
-  }
   const res = await fetch(`${SUPABASE_URL}/rest/v1/${table}`, {
     method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      apikey: SUPABASE_SERVICE_ROLE_KEY,
-      Authorization: `Bearer ${SUPABASE_SERVICE_ROLE_KEY}`,
-      Prefer: "return=minimal",
-    },
+    headers: sbHeaders("return=minimal"),
     body: JSON.stringify(row),
   });
   if (!res.ok) {
     const detail = await res.text().catch(() => "");
     throw new Error(`Supabase insert failed (${res.status}): ${detail}`);
   }
+}
+
+// Insert and return the created representation. Useful when a follow-up workflow
+// needs the generated UUID immediately (for example recommendation tracking).
+export async function sbInsertReturning(table, row) {
+  const res = await fetch(`${SUPABASE_URL}/rest/v1/${table}`, {
+    method: "POST",
+    headers: sbHeaders("return=representation"),
+    body: JSON.stringify(row),
+  });
+  if (!res.ok) {
+    const detail = await res.text().catch(() => "");
+    throw new Error(`Supabase insert failed (${res.status}): ${detail}`);
+  }
+  return res.json();
 }
 
 export const insertLead = (row) => sbInsert("leads", row);
@@ -70,7 +86,7 @@ export async function sbUpsert(table, row, onConflict) {
   if (!SUPABASE_URL || !SUPABASE_SERVICE_ROLE_KEY) throw new Error("Supabase env vars are not configured");
   const res = await fetch(`${SUPABASE_URL}/rest/v1/${table}?on_conflict=${onConflict}`, {
     method: "POST",
-    headers: { "Content-Type": "application/json", apikey: SUPABASE_SERVICE_ROLE_KEY, Authorization: `Bearer ${SUPABASE_SERVICE_ROLE_KEY}`, Prefer: "resolution=merge-duplicates,return=minimal" },
+    headers: sbHeaders("resolution=merge-duplicates,return=minimal"),
     body: JSON.stringify(row),
   });
   if (!res.ok) throw new Error(`Supabase upsert failed (${res.status}): ${await res.text().catch(() => "")}`);
@@ -81,7 +97,7 @@ export async function sbUpdate(table, filter, row) {
   if (!SUPABASE_URL || !SUPABASE_SERVICE_ROLE_KEY) throw new Error("Supabase env vars are not configured");
   const res = await fetch(`${SUPABASE_URL}/rest/v1/${table}?${filter}`, {
     method: "PATCH",
-    headers: { "Content-Type": "application/json", apikey: SUPABASE_SERVICE_ROLE_KEY, Authorization: `Bearer ${SUPABASE_SERVICE_ROLE_KEY}`, Prefer: "return=minimal" },
+    headers: sbHeaders("return=minimal"),
     body: JSON.stringify(row),
   });
   if (!res.ok) throw new Error(`Supabase update failed (${res.status}): ${await res.text().catch(() => "")}`);
