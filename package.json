@@ -1,12 +1,10 @@
 {
   "private": true,
   "type": "module",
-  "engines": {
-    "node": ">=18"
-  },
+  "engines": { "node": ">=18" },
   "scripts": {
     "engine:check": "node engine/selftest.mjs",
-    "bi:check": "node bi/selftest.mjs && node bi/peer-selftest.mjs && node bi/change-selftest.mjs && node bi/readiness-selftest.mjs && node bi/portfolio-selftest.mjs && node bi/refresh-selftest.mjs && node bi/digest-selftest.mjs && node bi/learning-selftest.mjs && node bi/experiment-selftest.mjs"
+    "bi:check": "node bi/selftest.mjs && node bi/peer-selftest.mjs && node bi/change-selftest.mjs && node bi/readiness-selftest.mjs && node bi/portfolio-selftest.mjs && node bi/refresh-selftest.mjs && node bi/digest-selftest.mjs && node bi/learning-selftest.mjs && node bi/experiment-selftest.mjs && node bi/economics-selftest.mjs"
   },
   "dependencies": {
     "@sparticuz/chromium": "^131.0.0",
