@@ -6,7 +6,7 @@
   },
   "scripts": {
     "engine:check": "node engine/selftest.mjs",
-    "bi:check": "node bi/selftest.mjs"
+    "bi:check": "node bi/selftest.mjs && node bi/peer-selftest.mjs"
   },
   "dependencies": {
     "@sparticuz/chromium": "^131.0.0",
