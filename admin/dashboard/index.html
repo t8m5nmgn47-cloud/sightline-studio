@@ -1,0 +1,178 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Sightline · Dashboard</title>
+  <meta name="robots" content="noindex,nofollow">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root{--ink:#16140f;--mut:#6b6660;--line:#e7e2d8;--bg:#f4f1ea;--card:#fff;--ac:#1f6f5c;--deep:#11271f;--mint:#9fe3c4;--gold:#c2a04a;--red:#b4453a;--amber:#9a6b00;--head:'Fraunces',Georgia,serif;--body:'Inter',system-ui,sans-serif;--num:'Helvetica Neue',Helvetica,Arial,sans-serif}
+    *{box-sizing:border-box;margin:0}
+    body{background:var(--bg);color:var(--ink);font-family:var(--body);-webkit-font-smoothing:antialiased}
+    a{color:inherit}
+    .shell{max-width:1180px;margin:0 auto;padding:0 clamp(18px,4vw,44px)}
+    .top{height:66px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--line)}
+    .brand{display:flex;align-items:center;gap:10px;font-family:var(--head);font-size:1.2rem;font-weight:600;text-decoration:none}
+    .dot{width:11px;height:11px;border-radius:50%;background:var(--ac)}
+    .topnav{display:flex;align-items:center;gap:18px}.topnav a{font-size:.83rem;color:var(--mut);text-decoration:none}.topnav a:hover{color:var(--ac)}
+    .hero{display:flex;justify-content:space-between;gap:28px;align-items:flex-end;padding:38px 0 22px}
+    .eyebrow{font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;color:var(--ac);font-weight:800;margin-bottom:7px}
+    h1{font-family:var(--head);font-size:clamp(2.1rem,1.5rem+2.2vw,3.4rem);font-weight:400;letter-spacing:-.03em;line-height:1.03}
+    .hero p{color:var(--mut);max-width:62ch;line-height:1.55;margin-top:10px}
+    .live{display:flex;align-items:center;gap:8px;color:var(--mut);font-size:.78rem;white-space:nowrap}.pulse{width:9px;height:9px;border-radius:50%;background:var(--ac);box-shadow:0 0 0 5px rgba(31,111,92,.12)}
+    .kpis{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:12px;margin-bottom:18px}
+    .kpi{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:17px 16px;min-height:112px;display:flex;flex-direction:column;justify-content:space-between}
+    .kpi .label{font-size:.7rem;color:var(--mut);font-weight:700;letter-spacing:.08em;text-transform:uppercase}
+    .kpi .value{font-family:var(--num);font-size:1.72rem;font-weight:800;letter-spacing:-.04em;margin-top:10px}
+    .kpi .sub{font-size:.73rem;color:var(--mut);margin-top:5px;line-height:1.3}
+    .kpi.alert{border-color:#ecc9c5;background:#fffafa}.kpi.alert .value{color:var(--red)}
+    .grid{display:grid;grid-template-columns:1.4fr .9fr;gap:16px;margin-bottom:16px}
+    .card{background:var(--card);border:1px solid var(--line);border-radius:18px;overflow:hidden}
+    .cardhead{padding:18px 20px 13px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--line)}
+    .cardhead h2{font-family:var(--head);font-size:1.25rem;font-weight:600}.cardhead a{font-size:.78rem;color:var(--ac);font-weight:700;text-decoration:none}
+    .priority{display:grid;grid-template-columns:92px 1fr auto;gap:14px;align-items:center;padding:14px 20px;border-top:1px solid var(--line)}
+    .priority:first-child{border-top:0}.pval{font-family:var(--num);font-size:.9rem;font-weight:800;color:var(--ac)}.priority.danger .pval{color:var(--red)}
+    .ptitle{font-size:.92rem;font-weight:700;line-height:1.35}.pdetail{font-size:.78rem;color:var(--mut);line-height:1.4;margin-top:3px}
+    .pillbtn{display:inline-flex;align-items:center;justify-content:center;border:1px solid var(--line);border-radius:999px;padding:7px 12px;font-size:.75rem;font-weight:700;text-decoration:none;white-space:nowrap;background:#fff}.pillbtn:hover{border-color:var(--ac);color:var(--ac)}
+    .empty{padding:26px 20px;color:var(--mut);font-size:.88rem;line-height:1.5}
+    .pulsebody{padding:18px 20px}.pulsegrid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.mini{border:1px solid var(--line);border-radius:12px;padding:13px;background:#fbfaf6}.mini b{display:block;font-family:var(--num);font-size:1.35rem}.mini span{display:block;color:var(--mut);font-size:.72rem;margin-top:3px;line-height:1.35}.mini.good b{color:var(--ac)}.mini.warn b{color:var(--amber)}.mini.bad b{color:var(--red)}
+    .quick{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;padding:0 0 16px}.quick a{background:var(--deep);color:#fff;text-decoration:none;border-radius:14px;padding:16px;min-height:100px;display:flex;flex-direction:column;justify-content:space-between;transition:transform .15s}.quick a:hover{transform:translateY(-2px)}.quick b{font-family:var(--head);font-size:1.05rem}.quick span{font-size:.72rem;color:rgba(255,255,255,.68);line-height:1.35}
+    .attention{margin-bottom:16px}.attrow{display:grid;grid-template-columns:1.5fr .55fr .55fr .9fr;gap:12px;align-items:center;padding:13px 20px;border-top:1px solid var(--line);font-size:.82rem}.attrow:first-child{border-top:0}.attrow .biz{font-weight:700}.attrow .dom{font-size:.72rem;color:var(--mut);margin-top:2px}.score{font-family:var(--num);font-weight:800}.bucket{display:inline-block;font-size:.66rem;font-weight:800;text-transform:uppercase;letter-spacing:.05em;border-radius:999px;padding:4px 8px;background:#edf4f1;color:var(--ac)}.bucket.attention{background:#f8ecea;color:var(--red)}.bucket.refresh_evidence,.bucket.build_evidence{background:#fbf2df;color:var(--amber)}.reason{color:var(--mut);line-height:1.35}
+    .linebar{background:#fff;border:1px solid var(--line);border-radius:18px;padding:18px 20px;margin:0 0 22px}.linebar h2{font-family:var(--head);font-size:1.25rem;margin-bottom:14px}.stations{display:grid;grid-template-columns:repeat(5,1fr);gap:8px}.stations a{text-decoration:none;border:1px solid var(--line);border-radius:12px;padding:12px;transition:border-color .15s,transform .15s}.stations a:hover{border-color:var(--ac);transform:translateY(-1px)}.stations small{display:block;color:var(--ac);font-weight:800;font-size:.62rem;letter-spacing:.08em;text-transform:uppercase}.stations b{display:block;margin-top:5px;font-size:.83rem}.stations span{display:block;color:var(--mut);font-size:.68rem;margin-top:4px;line-height:1.3}
+    .foot{padding:8px 0 40px;color:var(--mut);font-size:.75rem;display:flex;justify-content:space-between;gap:16px}
+    .loading{animation:pulseFade 1.2s ease-in-out infinite}@keyframes pulseFade{50%{opacity:.45}}
+    @media(max-width:1000px){.kpis{grid-template-columns:repeat(3,1fr)}.quick{grid-template-columns:repeat(2,1fr)}}
+    @media(max-width:760px){.topnav a:not(:last-child){display:none}.hero{align-items:flex-start;flex-direction:column}.kpis{grid-template-columns:repeat(2,1fr)}.grid{grid-template-columns:1fr}.priority{grid-template-columns:74px 1fr}.priority .pillbtn{grid-column:2;justify-self:start}.attrow{grid-template-columns:1fr auto auto}.attrow .reason{grid-column:1/-1}.stations{grid-template-columns:1fr 1fr}.foot{flex-direction:column}}
+  </style>
+</head>
+<body>
+  <header class="shell top">
+    <a class="brand" href="/admin/"><span class="dot"></span>Sightline · Admin</a>
+    <nav class="topnav">
+      <a href="/admin/index.html">Five-station workflow</a>
+      <a href="/intelligence/portfolio/">Intelligence portfolio</a>
+      <a href="/gallery/">Public studio →</a>
+    </nav>
+  </header>
+
+  <main class="shell">
+    <section class="hero">
+      <div>
+        <div class="eyebrow">Operating dashboard</div>
+        <h1>Your business, at a glance.</h1>
+        <p>Revenue, pipeline, campaign follow-through, and intelligence triage in one place. Use the dashboard to decide what matters; use the five-station workflow to do the work.</p>
+      </div>
+      <div class="live"><span class="pulse"></span><span id="updated">Loading live data…</span></div>
+    </section>
+
+    <section class="kpis" aria-label="Key business metrics">
+      <article class="kpi"><div class="label">Monthly recurring revenue</div><div><div class="value loading" id="mrr">—</div><div class="sub" id="mrrSub">active client revenue</div></div></article>
+      <article class="kpi"><div class="label">Active clients</div><div><div class="value loading" id="clients">—</div><div class="sub" id="clientSub">paying subscribers</div></div></article>
+      <article class="kpi"><div class="label">Open opportunities</div><div><div class="value loading" id="opps">—</div><div class="sub" id="oppSub">pipeline waiting</div></div></article>
+      <article class="kpi"><div class="label">Tracked businesses</div><div><div class="value loading" id="tracked">—</div><div class="sub">with intelligence context</div></div></article>
+      <article class="kpi" id="attentionCard"><div class="label">Needs attention</div><div><div class="value loading" id="attention">—</div><div class="sub">regressions or urgent review</div></div></article>
+      <article class="kpi"><div class="label">Pending results</div><div><div class="value loading" id="pending">—</div><div class="sub">campaigns awaiting finalization</div></div></article>
+    </section>
+
+    <section class="grid">
+      <article class="card">
+        <div class="cardhead"><h2>What needs attention now</h2><a href="/intelligence/portfolio/">Open portfolio →</a></div>
+        <div id="priorities"><div class="empty loading">Ranking your current priorities…</div></div>
+      </article>
+
+      <article class="card">
+        <div class="cardhead"><h2>Intelligence pulse</h2><a href="/intelligence/">Opportunity Feed →</a></div>
+        <div class="pulsebody">
+          <div class="pulsegrid">
+            <div class="mini bad"><b id="iAttention">—</b><span>businesses needing attention</span></div>
+            <div class="mini warn"><b id="iRefresh">—</b><span>need fresher evidence</span></div>
+            <div class="mini good"><b id="iReady">—</b><span>ready for deeper intelligence</span></div>
+            <div class="mini"><b id="iMeasure">—</b><span>accepted recommendations to measure</span></div>
+          </div>
+        </div>
+      </article>
+    </section>
+
+    <section class="quick" aria-label="Intelligence workspaces">
+      <a href="/intelligence/outcomes/"><b>Outcome Queue</b><span>Finalize bookings and revenue without confusing pending with zero.</span></a>
+      <a href="/intelligence/economics/"><b>Campaign Economics</b><span>Compare revenue, spend, contribution, and cost per outcome.</span></a>
+      <a href="/intelligence/recommendations/"><b>Recommendation Tracking</b><span>Move accepted ideas through implementation and measurement.</span></a>
+      <a href="/intelligence/brief/"><b>Weekly Brief</b><span>See the best opportunity, what is working, and what to watch.</span></a>
+    </section>
+
+    <section class="card attention">
+      <div class="cardhead"><h2>Business attention list</h2><a href="/intelligence/portfolio/">View all →</a></div>
+      <div id="attentionList"><div class="empty loading">Loading business triage…</div></div>
+    </section>
+
+    <section class="linebar">
+      <h2>The operating line</h2>
+      <div class="stations">
+        <a href="/admin/prospector/"><small>Station 1 · Find</small><b>Prospector</b><span>Find the businesses losing customers online.</span></a>
+        <a href="/admin/intake/"><small>Station 2 · Build</small><b>Site Maker</b><span>Turn a real business into a bespoke demo.</span></a>
+        <a href="/pipeline/"><small>Station 3 · Send</small><b>Pipeline</b><span>Send funnels and move prospects forward.</span></a>
+        <a href="/leads/"><small>Station 4 · Close</small><b>Leads</b><span>Reply fast, take payment, and onboard.</span></a>
+        <a href="/marketing/"><small>Station 5 · Run</small><b>Client Growth</b><span>Deliver recurring work and prove what works.</span></a>
+      </div>
+    </section>
+
+    <footer class="foot"><span>Sightline Admin · private operating system</span><span><a href="/admin/index.html">Open original five-station page →</a></span></footer>
+  </main>
+
+  <script>
+    const money = (n) => '$' + Math.round(Number(n || 0)).toLocaleString();
+    const esc = (s) => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+    const bucketLabel = (b='') => ({attention:'Attention',refresh_evidence:'Refresh evidence',measure_recommendation:'Measure',build_evidence:'Build evidence',intelligence_ready:'Intelligence ready',monitor:'Monitor'}[b] || b.replaceAll('_',' '));
+
+    function setText(id, value){ const el=document.getElementById(id); if(el){ el.textContent=value; el.classList.remove('loading'); } }
+
+    function renderPriorities(rows=[]){
+      const host=document.getElementById('priorities');
+      if(!rows.length){host.innerHTML='<div class="empty">No urgent items. Use the quiet time to build the next qualified opportunity.</div>';return}
+      host.innerHTML=rows.map(p=>`<div class="priority ${p.type==='attention'?'danger':''}"><div class="pval">${esc(p.value)}</div><div><div class="ptitle">${esc(p.label)}</div><div class="pdetail">${esc(p.detail||'')}</div></div><a class="pillbtn" href="${esc(p.href)}">${esc(p.action)} →</a></div>`).join('');
+    }
+
+    function renderAttention(rows=[]){
+      const host=document.getElementById('attentionList');
+      if(!rows.length){host.innerHTML='<div class="empty">No tracked businesses yet. Run audits to start building the intelligence portfolio.</div>';return}
+      host.innerHTML=rows.map(r=>`<div class="attrow"><div><div class="biz">${esc(r.name||r.domain||'Business')}</div><div class="dom">${esc(r.domain||'')}</div></div><div><span class="score">${Math.round(Number(r.score||0))}</span><div class="dom">score</div></div><div><span class="score">${Math.round(Number(r.readiness_score||0))}</span><div class="dom">readiness</div></div><div><span class="bucket ${esc(r.bucket||'')}">${esc(bucketLabel(r.bucket))}</span><div class="reason" style="margin-top:5px">${esc(r.reason||'')}</div></div></div>`).join('');
+    }
+
+    async function loadDashboard(){
+      try{
+        const res=await fetch('/api/admin-dashboard',{cache:'no-store'});
+        const data=await res.json().catch(()=>({}));
+        if(!res.ok||!data.ok) throw new Error(data.error||'Dashboard request failed');
+        const k=data.kpis||{};
+        setText('mrr',money(k.mrr));
+        setText('clients',k.active_subscribers||0);
+        setText('opps',k.open_opportunities||0);
+        setText('tracked',k.tracked_businesses||0);
+        setText('attention',k.attention||0);
+        setText('pending',k.pending_campaign_results||0);
+        document.getElementById('mrrSub').textContent=`${k.active_subscribers||0} active client${k.active_subscribers===1?'':'s'}`;
+        document.getElementById('clientSub').textContent=`${k.paused_subscribers||0} paused · ${k.canceled_subscribers||0} canceled`;
+        document.getElementById('oppSub').textContent=k.pipeline_mrr?`${money(k.pipeline_mrr)}/mo potential`:'pipeline waiting';
+        if((k.attention||0)>0) document.getElementById('attentionCard').classList.add('alert');
+        const s=data.intelligence?.summary||{};
+        setText('iAttention',s.attention||0);
+        setText('iRefresh',s.refresh_evidence||0);
+        setText('iReady',s.intelligence_ready||0);
+        setText('iMeasure',k.accepted_recommendations||0);
+        renderPriorities(data.priorities||[]);
+        renderAttention(data.intelligence?.top_attention||[]);
+        const at=new Date(data.generated_at||Date.now());
+        document.getElementById('updated').textContent=`Live · updated ${at.toLocaleTimeString([], {hour:'numeric',minute:'2-digit'})}`;
+      }catch(error){
+        document.getElementById('updated').textContent='Dashboard data unavailable';
+        document.getElementById('priorities').innerHTML='<div class="empty"><b>Could not load live dashboard data.</b><br>Refresh the page. If the problem continues, check the protected dashboard API and Supabase service connection.</div>';
+        document.getElementById('attentionList').innerHTML='<div class="empty">Business triage is temporarily unavailable.</div>';
+      }
+    }
+    loadDashboard();
+  </script>
+</body>
+</html>

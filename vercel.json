@@ -32,6 +32,16 @@
       "schedule": "30 9 * * *"
     }
   ],
+  "rewrites": [
+    {
+      "source": "/admin",
+      "destination": "/admin/dashboard/index.html"
+    },
+    {
+      "source": "/admin/",
+      "destination": "/admin/dashboard/index.html"
+    }
+  ],
   "headers": [
     {
       "source": "/demos/(.*)",
