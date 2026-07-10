@@ -5,6 +5,7 @@ import { normDomain } from "./_audit.js";
 import { canonicalDomainIdentity, domainAliases, resolveDomainRecord } from "./_domain_identity.js";
 import { assessPeerSet } from "./_peer_quality.js";
 import { collectDeepPublicSignals } from "./_signals.js";
+import { collectYouTubeSignals } from "./_social_signals.js";
 import { persistSignalBundle } from "./_signal_store.js";
 
 export async function resolveSignalAuditContext(domain) {
@@ -25,6 +26,20 @@ export async function resolveSignalAuditContext(domain) {
 async function collectTarget({ domain, name, relationship, anchorEntityKey, maxPages }) {
   const bundle = await collectDeepPublicSignals(domain, { entityName: name, relationship, maxPages });
   bundle.anchor_entity_key = anchorEntityKey;
+
+  // Structured post-level enrichment. V1 uses YouTube Data API when configured;
+  // other platforms remain public profile evidence until a compliant structured
+  // source or an authorized account connection is available.
+  for (const source of (bundle.sources || []).filter((row) => row.platform === "youtube")) {
+    const social = await collectYouTubeSignals(source, bundle.collected_at);
+    bundle.snapshots.push(...(social.snapshots || []));
+    bundle.items.push(...(social.items || []));
+    bundle.errors.push(...(social.errors || []).map((error) => `youtube ${source.source_url}: ${error}`));
+  }
+  bundle.summary.snapshots = bundle.snapshots.length;
+  bundle.summary.items = bundle.items.length;
+  bundle.summary.videos = bundle.items.filter((item) => item.item_type === "video").length;
+
   const storage = await persistSignalBundle(bundle);
   return {
     entity_key: bundle.entity_key,
