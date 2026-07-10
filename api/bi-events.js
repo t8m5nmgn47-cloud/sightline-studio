@@ -1,7 +1,7 @@
 // GET /api/bi-events?domain=example.com
 // POST /api/bi-events with { event } or { events: [...] }
 // Admin-only via middleware. Provides the manual event spine for campaign,
-// conversion, review and operational learning before direct integrations exist.
+// conversion, review, experiment and operational learning before direct integrations exist.
 
 import { clean, readBody, sbInsert, sbSelect } from "./_lib.js";
 import { normDomain } from "./_audit.js";
@@ -18,6 +18,9 @@ const EVENT_TYPES = new Set([
   "conversion",
   "sale_completed",
   "review_received",
+  "experiment_planned",
+  "experiment_running",
+  "experiment_completed",
 ]);
 const DAY_NAMES = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
 
