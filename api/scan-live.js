@@ -10,8 +10,9 @@
 // serverless (each warm instance keeps its own). For durable limits across all
 // instances, put these in Vercel KV / Upstash. Good enough to blunt abuse.
 
-import { readBody, clean, isEmail, insertLead, notifySlack, methodGuard } from "./_lib.js";
+import { readBody, clean, isEmail, insertLead, notifySlack, methodGuard, sbInsert } from "./_lib.js";
 import { auditDomain, normDomain } from "./_audit.js";
+import { scanObservationRows } from "./_intelligence.js";
 
 const RL_WINDOW_MS = 10 * 60 * 1000; // 10 minutes
 const RL_MAX = 12;                    // scans per IP per window
@@ -69,17 +70,37 @@ export default async function handler(req, res) {
   }
 
   try {
-    // Serve a fresh-enough cached result if we have one.
+    // Serve a fresh-enough cached result if we have one. Only fresh measurements
+    // are persisted as BI observations so repeated cached scans do not create
+    // fake time-series movement or inflate sample sizes.
     const cached = cache.get(domain);
     let result;
+    let freshMeasurement = false;
     if (cached && Date.now() - cached.at < CACHE_TTL_MS) {
       result = cached.data;
     } else {
       result = await auditDomain(domain); // includes SSRF/public-host guard
       cache.set(domain, { at: Date.now(), data: result });
+      freshMeasurement = true;
     }
 
     const payload = publicShape(result);
+
+    // Build BI history from data Sightline already measures. Best-effort until
+    // the BI foundation migration is installed; a storage failure never blocks
+    // the public scan response.
+    if (freshMeasurement && result.ok) {
+      try {
+        const rows = scanObservationRows(result, {
+          entityKey: domain,
+          entityName: clean(body.biz, 200) || domain,
+          source: "instant_scan",
+        });
+        if (rows.length) await sbInsert("bi_observations", rows);
+      } catch (e) {
+        console.error("instant-scan BI observation save failed:", e?.message || e);
+      }
+    }
 
     // Optional lead capture — never let it break the scan response.
     const email = clean(body.email, 320);
