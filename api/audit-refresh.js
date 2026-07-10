@@ -6,6 +6,7 @@
 import { sbSelect, sbUpdate, sbInsert } from "./_lib.js";
 import { auditDomain, normDomain } from "./_audit.js";
 import { scanObservationRows } from "./_intelligence.js";
+import { checkObservationRows } from "./_check_observations.js";
 import { assessPeerSet } from "./_peer_quality.js";
 
 const BATCH = 6; // stalest N per run — daily cron cycles the full book in ~1 week
@@ -70,18 +71,22 @@ export default async function handler(req, res) {
         rank, count, score, field_avg: avg, leads, top_gap: topGap(prospect), dmarc, competitors, updated_at: observedAt,
       });
 
-      // Preserve immutable history for the prospect and every eligible measured peer.
-      // Best-effort: a BI storage issue should not stop the existing refresh loop.
+      // Preserve immutable score + check history for the prospect and every
+      // eligible measured peer. Best-effort: BI storage must not stop refreshes.
       try {
         const observations = audited.flatMap((a) => {
           const d = normDomain(a.domain);
           const peer = compByDomain.get(d);
-          return scanObservationRows(a, {
+          const opts = {
             entityKey: d,
             entityName: d === pd ? (row.name || pd) : (peer?.name || d),
             source: "scheduled_audit_refresh",
             observedAt,
-          });
+          };
+          return [
+            ...scanObservationRows(a, opts),
+            ...checkObservationRows(a, opts),
+          ];
         });
         if (observations.length) await sbInsert("bi_observations", observations);
       } catch (e) {
