@@ -49,7 +49,15 @@ const strong = creativeGate({
     },
   },
   recipe:{ structure:'story' },
-  capture:{ pages:[{url:'https://x.com'},{url:'https://x.com/about'},{url:'https://x.com/services'}], jsShell:false, copy:{serviceDetails:[{h:'a',p:'b'},{h:'c',p:'d'},{h:'e',p:'f'}]} },
+  capture:{
+    pages:[{url:'https://x.com'},{url:'https://x.com/about'},{url:'https://x.com/services'}],
+    jsShell:false,
+    copy:{serviceDetails:[
+      {h:'Transaction Counsel',p:'Plan, negotiate, and close business transactions with practical legal guidance.'},
+      {h:'Contract Strategy',p:'Turn commercial terms into agreements that protect the deal and the relationship.'},
+      {h:'Outside General Counsel',p:'Get ongoing legal support for the decisions that do not fit into a single matter.'},
+    ]},
+  },
 });
 if (!strong.pass) {
   failed = true;
