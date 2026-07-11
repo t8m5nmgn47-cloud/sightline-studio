@@ -4,7 +4,7 @@ import { sbSelect } from "./_lib.js";
 import { normDomain } from "./_audit.js";
 import { canonicalDomainIdentity, domainAliases, resolveDomainRecord } from "./_domain_identity.js";
 import { assessPeerSet } from "./_peer_quality.js";
-import { collectDeepPublicSignals } from "./_signals.js";
+import { collectDeepPublicSignals, sourceKey } from "./_signals.js";
 import { collectYouTubeSignals } from "./_social_signals.js";
 import { persistSignalBundle } from "./_signal_store.js";
 
@@ -33,14 +33,57 @@ export function candidateSignalDomains(input) {
   return [...new Set(candidates.filter((value) => /^([a-z0-9-]+\.)+[a-z]{2,}$/i.test(value)))];
 }
 
+export function preserveBlockedWebsiteEvidence(bundle = {}, options = {}) {
+  if (!bundle?.summary?.robots_blocked) return bundle;
+  const sources = Array.isArray(bundle.sources) ? bundle.sources : [];
+  if (sources.some((source) => source?.source_type === "website")) return bundle;
+
+  const entityKey = canonicalDomainIdentity(bundle.entity_key || options.domain || "")
+    || normDomain(bundle.entity_key || options.domain || "");
+  if (!entityKey) return bundle;
+  const relationship = ["owned", "peer", "market"].includes(options.relationship)
+    ? options.relationship
+    : (bundle.relationship || "owned");
+  const source = {
+    entity_key: entityKey,
+    entity_name: options.name || bundle.entity_name || entityKey,
+    source_type: "website",
+    platform: "web",
+    source_url: `https://${entityKey}/`,
+    external_id: entityKey,
+    handle: null,
+    relationship,
+    status: "blocked",
+    match_confidence: 1,
+    metadata: {
+      robots_blocked: true,
+      access_state: "robots_disallowed",
+      match_method: relationship === "owned" ? "domain_identity" : "peer_set",
+      caveat: "robots.txt disallows automated collection of the site root",
+    },
+  };
+  return {
+    ...bundle,
+    entity_key: entityKey,
+    relationship,
+    sources: [{ ...source, source_key: sourceKey(source) }, ...sources],
+  };
+}
+
 export function assessCollectedTarget(bundle = {}) {
   const sources = Array.isArray(bundle.sources) ? bundle.sources : [];
   const items = Array.isArray(bundle.items) ? bundle.items : [];
-  const websiteSources = sources.filter((source) => source?.source_type === "website").length;
+  const websiteSources = sources.filter((source) => source?.source_type === "website");
+  const blockedWebsiteSources = websiteSources.filter((source) => source?.status === "blocked").length;
   const webPages = items.filter((item) => item?.item_type === "web_page").length;
+  const ok = websiteSources.some((source) => source?.status !== "blocked") && webPages > 0;
+  const blocked = !ok && blockedWebsiteSources > 0;
   return {
-    ok: websiteSources > 0 && webPages > 0,
-    website_sources: websiteSources,
+    ok,
+    blocked,
+    observed: ok || blocked,
+    website_sources: websiteSources.length,
+    blocked_website_sources: blockedWebsiteSources,
     web_pages: webPages,
     errors: Array.isArray(bundle.errors) ? bundle.errors : [],
   };
@@ -51,7 +94,8 @@ async function collectTarget({ domain, name, relationship, anchorEntityKey, maxP
   const attempts = [];
 
   for (const candidate of candidateSignalDomains(domain)) {
-    const current = await collectDeepPublicSignals(candidate, { entityName: name, relationship, maxPages });
+    const currentRaw = await collectDeepPublicSignals(candidate, { entityName: name, relationship, maxPages });
+    const current = preserveBlockedWebsiteEvidence(currentRaw, { domain: candidate, name, relationship });
     const assessment = assessCollectedTarget(current);
     attempts.push({ domain: candidate, ...assessment });
     if (!bundle || (current.sources?.length || 0) > (bundle.sources?.length || 0)) bundle = current;
@@ -85,11 +129,14 @@ async function collectTarget({ domain, name, relationship, anchorEntityKey, maxP
 
   const assessment = assessCollectedTarget(bundle);
   const storage = await persistSignalBundle(bundle);
-  const error = assessment.ok ? null : (
+  const accepted = assessment.observed && storage?.ok !== false;
+  const error = assessment.observed ? null : (
     bundle.errors?.[0] || `No owned website pages were collected for ${canonicalDomainIdentity(domain) || normDomain(domain)}.`
   );
   return {
-    ok: assessment.ok && storage?.ok !== false,
+    ok: accepted,
+    usable: assessment.ok,
+    blocked: assessment.blocked,
     error,
     entity_key: bundle.entity_key,
     relationship,
@@ -142,14 +189,22 @@ export async function collectBusinessSignalNetwork(domainInput, options = {}) {
   const setupRequired = results.some((result) => result.storage?.setup_required);
   const failedPeers = results.filter((result) => result.relationship === "peer" && !result.ok);
   const ok = !setupRequired && owned.ok;
+  const ownedWarnings = owned.blocked
+    ? [`${owned.entity_key}: website collection is blocked by robots.txt; external-source collection may continue.`]
+    : [];
   return {
     ok,
-    partial: ok && failedPeers.length > 0,
+    partial: ok && (owned.blocked || failedPeers.length > 0),
+    degraded: owned.blocked,
     setup_required: setupRequired,
     error: ok ? null : (owned.error || "Owned business collection did not produce usable website evidence."),
-    warnings: failedPeers.map((result) => `${result.entity_key}: ${result.error || "peer collection failed"}`),
+    warnings: [
+      ...ownedWarnings,
+      ...failedPeers.map((result) => `${result.entity_key}: ${result.error || "peer collection failed"}`),
+    ],
     anchor_entity_key: anchorEntityKey,
     targets_collected: results.filter((result) => result.ok).length,
+    targets_usable: results.filter((result) => result.usable).length,
     targets_attempted: results.length,
     peer_set: {
       confidence: peerSet.confidence,
