@@ -23,9 +23,52 @@ export async function resolveSignalAuditContext(domain) {
   return prospect;
 }
 
+export function candidateSignalDomains(input) {
+  const normalized = normDomain(input || "");
+  const canonical = canonicalDomainIdentity(normalized) || normalized;
+  if (!canonical) return [];
+  const candidates = normalized.startsWith("www.")
+    ? [normalized, canonical]
+    : [normalized, `www.${canonical}`];
+  return [...new Set(candidates.filter((value) => /^([a-z0-9-]+\.)+[a-z]{2,}$/i.test(value)))];
+}
+
+export function assessCollectedTarget(bundle = {}) {
+  const sources = Array.isArray(bundle.sources) ? bundle.sources : [];
+  const items = Array.isArray(bundle.items) ? bundle.items : [];
+  const websiteSources = sources.filter((source) => source?.source_type === "website").length;
+  const webPages = items.filter((item) => item?.item_type === "web_page").length;
+  return {
+    ok: websiteSources > 0 && webPages > 0,
+    website_sources: websiteSources,
+    web_pages: webPages,
+    errors: Array.isArray(bundle.errors) ? bundle.errors : [],
+  };
+}
+
 async function collectTarget({ domain, name, relationship, anchorEntityKey, maxPages }) {
-  const bundle = await collectDeepPublicSignals(domain, { entityName: name, relationship, maxPages });
+  let bundle = null;
+  const attempts = [];
+
+  for (const candidate of candidateSignalDomains(domain)) {
+    const current = await collectDeepPublicSignals(candidate, { entityName: name, relationship, maxPages });
+    const assessment = assessCollectedTarget(current);
+    attempts.push({ domain: candidate, ...assessment });
+    if (!bundle || (current.sources?.length || 0) > (bundle.sources?.length || 0)) bundle = current;
+    if (assessment.ok) { bundle = current; break; }
+  }
+
+  bundle ||= {
+    entity_key: canonicalDomainIdentity(domain) || normDomain(domain),
+    entity_name: name || domain,
+    relationship,
+    collected_at: new Date().toISOString(),
+    sources: [], snapshots: [], items: [],
+    errors: ["No public collection candidate could be evaluated."],
+    summary: { pages: 0, social_profiles: 0 },
+  };
   bundle.anchor_entity_key = anchorEntityKey;
+  bundle.errors = [...new Set([...(bundle.errors || []), ...attempts.flatMap((attempt) => attempt.errors || [])])];
 
   // Structured post-level enrichment. V1 uses YouTube Data API when configured;
   // other platforms remain public profile evidence until a compliant structured
@@ -40,11 +83,19 @@ async function collectTarget({ domain, name, relationship, anchorEntityKey, maxP
   bundle.summary.items = bundle.items.length;
   bundle.summary.videos = bundle.items.filter((item) => item.item_type === "video").length;
 
+  const assessment = assessCollectedTarget(bundle);
   const storage = await persistSignalBundle(bundle);
+  const error = assessment.ok ? null : (
+    bundle.errors?.[0] || `No owned website pages were collected for ${canonicalDomainIdentity(domain) || normDomain(domain)}.`
+  );
   return {
+    ok: assessment.ok && storage?.ok !== false,
+    error,
     entity_key: bundle.entity_key,
     relationship,
     collection: bundle.summary,
+    assessment,
+    attempts,
     storage,
     errors: bundle.errors || [],
   };
@@ -62,13 +113,14 @@ export async function collectBusinessSignalNetwork(domainInput, options = {}) {
 
   const anchorEntityKey = canonicalDomainIdentity(prospect?.domain || requested) || requested;
   const results = [];
-  results.push(await collectTarget({
+  const owned = await collectTarget({
     domain: anchorEntityKey,
     name: prospect?.name || anchorEntityKey,
     relationship: "owned",
     anchorEntityKey,
     maxPages: Math.max(1, Math.min(20, Number(options.maxPages) || 10)),
-  }));
+  });
+  results.push(owned);
 
   let peerSet = { confidence: "low", eligible_count: 0, suppressed_count: 0, eligible: [] };
   if (options.includePeers === true) {
@@ -88,11 +140,17 @@ export async function collectBusinessSignalNetwork(domainInput, options = {}) {
   }
 
   const setupRequired = results.some((result) => result.storage?.setup_required);
+  const failedPeers = results.filter((result) => result.relationship === "peer" && !result.ok);
+  const ok = !setupRequired && owned.ok;
   return {
-    ok: !setupRequired && results.every((result) => result.storage?.ok !== false),
+    ok,
+    partial: ok && failedPeers.length > 0,
     setup_required: setupRequired,
+    error: ok ? null : (owned.error || "Owned business collection did not produce usable website evidence."),
+    warnings: failedPeers.map((result) => `${result.entity_key}: ${result.error || "peer collection failed"}`),
     anchor_entity_key: anchorEntityKey,
-    targets_collected: results.length,
+    targets_collected: results.filter((result) => result.ok).length,
+    targets_attempted: results.length,
     peer_set: {
       confidence: peerSet.confidence,
       eligible_peers: peerSet.eligible_count,

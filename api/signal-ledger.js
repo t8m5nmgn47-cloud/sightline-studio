@@ -6,6 +6,26 @@ import { normDomain } from "./_audit.js";
 import { canonicalDomainIdentity } from "./_domain_identity.js";
 import { readSignalLedger } from "./_signal_store.js";
 
+export function enforceOwnedLedgerTruth(result = {}) {
+  const ledger = result?.ledger;
+  if (!ledger?.summary) return result;
+  if (Number(ledger.summary.owned_source_count || 0) > 0) return result;
+
+  return {
+    ...result,
+    warning: "Peer evidence exists, but the owned business has not produced a usable website collection yet.",
+    ledger: {
+      ...ledger,
+      summary: {
+        ...ledger.summary,
+        latest_snapshot_at: null,
+        latest_snapshot_age_days: null,
+        freshness: "missing",
+      },
+    },
+  };
+}
+
 export default async function handler(req, res) {
   if (req.method !== "GET") {
     res.setHeader("Allow", "GET");
@@ -16,7 +36,7 @@ export default async function handler(req, res) {
     return res.status(400).json({ ok: false, error: "Enter a valid business domain." });
   }
   try {
-    const result = await readSignalLedger(domain);
+    const result = enforceOwnedLedgerTruth(await readSignalLedger(domain));
     res.setHeader("Cache-Control", "private, no-store");
     return res.status(result.setup_required ? 503 : 200).json(result);
   } catch (error) {
