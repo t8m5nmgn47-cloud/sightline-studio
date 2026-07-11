@@ -1,0 +1,50 @@
+name: Signal quality
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'api/_signals.js'
+      - 'api/_social_signals.js'
+      - 'api/_signal_store.js'
+      - 'api/_signal_orchestrator.js'
+      - 'api/signal-collect.js'
+      - 'api/signal-ledger.js'
+      - 'api/signal-refresh.js'
+      - 'signals/**'
+      - 'intelligence/evidence/**'
+      - 'sql/sightline_signal_network_v1.sql'
+      - 'middleware.js'
+      - 'vercel.json'
+      - 'package.json'
+      - '.github/workflows/signal-quality.yml'
+  pull_request:
+    paths:
+      - 'api/_signals.js'
+      - 'api/_social_signals.js'
+      - 'api/_signal_store.js'
+      - 'api/_signal_orchestrator.js'
+      - 'api/signal-collect.js'
+      - 'api/signal-ledger.js'
+      - 'api/signal-refresh.js'
+      - 'signals/**'
+      - 'intelligence/evidence/**'
+      - 'sql/sightline_signal_network_v1.sql'
+      - 'middleware.js'
+      - 'vercel.json'
+      - 'package.json'
+      - '.github/workflows/signal-quality.yml'
+  workflow_dispatch:
+
+jobs:
+  signal-check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm run signal:check
