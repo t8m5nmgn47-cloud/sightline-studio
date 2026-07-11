@@ -9,6 +9,7 @@ import {
 } from "../api/_signals.js";
 import { classifyPublicContent } from "../api/_social_signals.js";
 import { buildSignalLedger } from "../api/_signal_store.js";
+import { assessCollectedTarget, candidateSignalDomains } from "../api/_signal_orchestrator.js";
 import { selectSignalRefreshTargets } from "../api/signal-refresh.js";
 
 // Deterministic hashing and source identity.
@@ -59,6 +60,13 @@ assert.ok(page.schema_types.includes("AccountingService"));
 assert.ok(page.technologies.includes("google_tag_manager"));
 assert.ok(page.content_hash.length === 64);
 
+// Owned collection must produce an actual website source and at least one page.
+assert.deepEqual(candidateSignalDomains("castlerockcpa.com"), ["castlerockcpa.com", "www.castlerockcpa.com"]);
+assert.deepEqual(candidateSignalDomains("www.castlerockcpa.com"), ["www.castlerockcpa.com", "castlerockcpa.com"]);
+assert.equal(assessCollectedTarget({ sources: [], items: [], errors: ["unreachable"] }).ok, false);
+assert.equal(assessCollectedTarget({ sources: [{ source_type: "website" }], items: [] }).ok, false);
+assert.equal(assessCollectedTarget({ sources: [{ source_type: "website" }], items: [{ item_type: "web_page" }] }).ok, true);
+
 // Ledger readiness uses owned evidence for owned maturity and keeps peers separate.
 const sources = [
   { id: "s1", source_type: "website", platform: "web", relationship: "owned", status: "active", last_seen_at: "2026-07-10T10:00:00Z" },
@@ -95,4 +103,4 @@ const targets = selectSignalRefreshTargets([
 ], 2);
 assert.deepEqual(targets.map((row) => row.domain), ["gamma.com", "beta.com"]);
 
-console.log("Signal Network self-test passed: identity, public URL normalization, social discovery, count parsing, content classification, page analysis, owned/peer separation, and stale refresh rotation.");
+console.log("Signal Network self-test passed: identity, public URL normalization, social discovery, count parsing, content classification, page analysis, owned collection integrity, owned/peer separation, and stale refresh rotation.");
