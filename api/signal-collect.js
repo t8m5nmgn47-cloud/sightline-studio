@@ -7,6 +7,15 @@ import { normDomain } from "./_audit.js";
 import { collectBusinessSignalNetwork } from "./_signal_orchestrator.js";
 import { signalSchemaMissing } from "./_signal_store.js";
 
+export function signalCollectionHttpStatus(result = {}) {
+  if (result.setup_required) return 503;
+  if (result.ok) return 200;
+  // 207 is a successful 2xx response in fetch(). The Evidence Ledger treated
+  // incomplete owned collection as success, reloaded stale data, and hid the
+  // actual collection error. Use a non-2xx status for unusable owned evidence.
+  return 422;
+}
+
 export default async function handler(req, res) {
   if (req.method !== "POST") {
     res.setHeader("Allow", "POST");
@@ -33,8 +42,19 @@ export default async function handler(req, res) {
       peerMaxPages: body.peer_max_pages,
       maxPeers: body.max_peers,
     });
+
+    if (!result.ok) {
+      const owned = (result.results || []).find((row) => row.relationship === "owned");
+      console.warn("Signal owned collection incomplete:", JSON.stringify({
+        domain: requested,
+        error: result.error || null,
+        attempts: owned?.attempts || [],
+        assessment: owned?.assessment || null,
+      }));
+    }
+
     res.setHeader("Cache-Control", "private, no-store");
-    return res.status(result.setup_required ? 503 : result.ok ? 200 : 207).json(result);
+    return res.status(signalCollectionHttpStatus(result)).json(result);
   } catch (error) {
     console.error("Signal collection failed:", error?.message || error);
     return res.status(500).json({ ok: false, error: String(error?.message || "Signal collection failed.") });
