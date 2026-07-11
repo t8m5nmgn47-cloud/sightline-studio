@@ -6,6 +6,7 @@ on:
     paths:
       - 'api/_signals.js'
       - 'api/_social_signals.js'
+      - 'api/_external_signals.js'
       - 'api/_signal_store.js'
       - 'api/_signal_orchestrator.js'
       - 'api/signal-collect.js'
@@ -22,6 +23,7 @@ on:
     paths:
       - 'api/_signals.js'
       - 'api/_social_signals.js'
+      - 'api/_external_signals.js'
       - 'api/_signal_store.js'
       - 'api/_signal_orchestrator.js'
       - 'api/signal-collect.js'
