@@ -47,6 +47,16 @@
       "permanent": false
     }
   ],
+  "rewrites": [
+    {
+      "source": "/tax",
+      "destination": "https://tax-junkie.vercel.app/tax"
+    },
+    {
+      "source": "/tax/:path*",
+      "destination": "https://tax-junkie.vercel.app/tax/:path*"
+    }
+  ],
   "headers": [
     {
       "source": "/demos/(.*)",
