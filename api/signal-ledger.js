@@ -28,6 +28,11 @@ function domainCard(key, label, state, evidence, next) {
   return { key, label, state, evidence, next };
 }
 
+function snapshotValue(rows, key) {
+  const row = rows.find((item) => item.signal_key === key);
+  return row?.value_text ?? row?.value_numeric ?? null;
+}
+
 export function enforceOwnedLedgerTruth(result = {}) {
   const ledger = result?.ledger;
   if (!ledger?.summary) return result;
@@ -45,7 +50,12 @@ export function enforceOwnedLedgerTruth(result = {}) {
   const latestOwnedAge = ageDays(latestOwnedSnapshotAt);
 
   const ownedWebsiteSources = ownedSources.filter((source) => source.source_type === "website");
-  const ownedLocalSources = ownedSources.filter((source) => source.source_type === "review_profile" && source.platform === "google_business_profile");
+  const ownedLocalSources = ownedSources.filter((source) => (
+    source.source_type === "local_profile"
+    || (source.source_type === "review_profile" && source.platform === "google_business_profile")
+  ));
+  const geoapifyLocalSources = ownedLocalSources.filter((source) => source.platform === "geoapify");
+  const legacyGoogleSources = ownedLocalSources.filter((source) => source.platform === "google_business_profile");
   const ownedSocialSources = ownedSources.filter((source) => source.source_type === "social_profile");
   const ownedSearchSources = ownedSources.filter((source) => source.source_type === "search_query");
   const websiteIds = new Set(ownedWebsiteSources.map((source) => source.id).filter(Boolean));
@@ -62,8 +72,10 @@ export function enforceOwnedLedgerTruth(result = {}) {
   ));
   const verifiedSocial = ownedSocialSources.filter((source) => source.status === "active" && Number(source.match_confidence || 0) >= 0.8).length;
   const candidateSocial = ownedSocialSources.filter((source) => source.status === "discovered" && Number(source.match_confidence || 0) >= 0.68).length;
-  const localRating = localSnapshots.find((row) => row.signal_key === "local_rating")?.value_numeric;
-  const localReviewCount = localSnapshots.find((row) => row.signal_key === "local_review_count")?.value_numeric;
+  const localName = snapshotValue(localSnapshots, "local_display_name");
+  const localCategory = snapshotValue(localSnapshots, "local_primary_category");
+  const localRating = snapshotValue(localSnapshots, "local_rating");
+  const localReviewCount = snapshotValue(localSnapshots, "local_review_count");
 
   const existingDomains = new Map((Array.isArray(ledger.domains) ? ledger.domains : []).map((domain) => [domain.key, domain]));
   const publicWeb = blockedWebsite
@@ -75,14 +87,21 @@ export function enforceOwnedLedgerTruth(result = {}) {
       `${websiteDays} owned website collection day${websiteDays === 1 ? "" : "s"}`,
       websiteDays >= 3 ? "Continue collection for change detection." : "Collect comparable website snapshots on additional days.",
     );
+
+  let localEvidence = "No matched local profile yet";
+  if (geoapifyLocalSources.length) {
+    localEvidence = `${geoapifyLocalSources.length} Geoapify local profile${geoapifyLocalSources.length === 1 ? "" : "s"} · ${localName || "identity captured"}${localCategory ? ` · ${localCategory}` : ""}`;
+  } else if (legacyGoogleSources.length) {
+    localEvidence = `${legacyGoogleSources.length} legacy Google profile${legacyGoogleSources.length === 1 ? "" : "s"} · rating ${localRating ?? "—"} · ${localReviewCount ?? "—"} reviews`;
+  }
   const localPresence = domainCard(
     "local_presence",
     "Local presence",
-    localDays >= 2 && localSnapshots.length >= 4 ? "developing" : localDays >= 1 ? "developing" : "not_ready",
-    ownedLocalSources.length
-      ? `${ownedLocalSources.length} Google profile · rating ${localRating ?? "—"} · ${localReviewCount ?? "—"} reviews`
-      : "No matched Google local profile yet",
-    localDays >= 2 ? "Continue snapshots to measure rating and review-count movement." : "Connect Google Places collection and verify the matched local listing.",
+    localDays >= 1 ? "developing" : "not_ready",
+    localEvidence,
+    localDays >= 2
+      ? "Continue snapshots to detect listing identity, address and category changes."
+      : "Configure Geoapify and verify the matched local identity before using it in recommendations.",
   );
   const socialIdentity = domainCard(
     "social_identity",
