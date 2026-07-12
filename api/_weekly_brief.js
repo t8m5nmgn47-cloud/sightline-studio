@@ -118,6 +118,10 @@ function baselinePriority(cards) {
     })[0] || null;
 }
 
+function baselineSectionLabel(card) {
+  return source(card).startsWith("signal_") ? "Current evidence priority" : "Current audit priority";
+}
+
 function statusFor({ measuredPriority, repeat, experiment, watch, baseline, summary }) {
   if (measuredPriority || repeat || experiment || watch) return "decision_ready";
   if (baseline) return "baseline_only";
@@ -168,7 +172,7 @@ export function buildReliableWeeklyBrief(feed = {}) {
     headline,
     status_message: copy?.message || null,
     section_labels: {
-      best_opportunity: baseline && bestOpportunity === baseline ? "Current evidence priority" : "Best opportunity",
+      best_opportunity: baseline && bestOpportunity === baseline ? baselineSectionLabel(baseline) : "Best opportunity",
       what_is_working: "What is working",
       next_experiment: "Next experiment",
       what_to_watch: "What to watch",
