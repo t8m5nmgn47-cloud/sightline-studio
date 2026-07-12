@@ -60,6 +60,42 @@ assert.match(baselineCard.evidence.caveat, /one-day identity baseline/i);
 assert.equal(briefCardMaturity(baselineCard), "baseline");
 assert.equal(baseline.summary.changes_detected, 0);
 
+// The most recently observed local source wins over a higher-confidence legacy
+// source, and its own day count controls baseline/change maturity.
+const currentSource = buildSignalInterpretation({
+  sources: [
+    {
+      id: "legacy-google",
+      source_type: "review_profile",
+      platform: "google_business_profile",
+      relationship: "owned",
+      status: "active",
+      match_confidence: 0.99,
+      last_seen_at: d1,
+      metadata: { display_name: "Legacy Listing" },
+    },
+    {
+      id: "current-geo",
+      source_type: "local_profile",
+      platform: "geoapify",
+      relationship: "owned",
+      status: "active",
+      match_confidence: 0.84,
+      last_seen_at: d2,
+      metadata: { display_name: "Current Geoapify Listing" },
+    },
+  ],
+  recent_snapshots: [
+    { source_id: "legacy-google", signal_key: "local_display_name", value_text: "Legacy Listing", observed_at: d1 },
+    { source_id: "current-geo", signal_key: "local_display_name", value_text: "Current Geoapify Listing", observed_at: d2 },
+  ],
+});
+const currentSourceCard = currentSource.cards.find((card) => card.evidence?.source === "signal_local_identity");
+assert.ok(currentSourceCard);
+assert.match(currentSourceCard.body, /Current Geoapify Listing/);
+assert.equal(currentSource.summary.current_local_observation_days, 1);
+assert.equal(currentSource.summary.changes_detected, 0);
+
 // Multiple values on the same day do not qualify as a change claim.
 const sameDay = buildSignalInterpretation({
   sources: [{
@@ -154,4 +190,4 @@ assert.ok(noMatchCard);
 assert.match(noMatchCard.evidence.caveat, /evidence gap/i);
 assert.doesNotMatch(noMatchCard.body, /no local listing exists/i);
 
-console.log("Signal Interpretation self-test passed: owned-only evidence, cross-day change requirements, baseline honesty, candidate verification, and no-match caveats.");
+console.log("Signal Interpretation self-test passed: owned-only evidence, current-source selection, cross-day change requirements, baseline honesty, candidate verification, and no-match caveats.");
