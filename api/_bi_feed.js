@@ -11,6 +11,8 @@ import { snapshotObservationRows, buildProspectSnapshotCard } from "./_prospect_
 import { canonicalDomainIdentity, domainAliases, resolveDomainRecord } from "./_domain_identity.js";
 import { normDomain } from "./_audit.js";
 import { assessPeerSet } from "./_peer_quality.js";
+import { readSignalLedger } from "./_signal_store.js";
+import { buildSignalInterpretation } from "./_signal_interpretation.js";
 
 function mergeDecisionCards(primary = [], secondary = [], limit = 10) {
   const seen = new Set();
@@ -108,6 +110,19 @@ export async function loadIntelligenceFeed(domain) {
   } catch (e) { console.error("BI recommendation tracking unavailable:", e?.message || e); }
 
   const generatedAt = new Date().toISOString();
+  let signalLedger = null;
+  let signalSetupRequired = false;
+  try {
+    const signalResult = await readSignalLedger(entityKey);
+    signalLedger = signalResult?.ledger || null;
+    signalSetupRequired = signalResult?.setup_required === true;
+  } catch (e) {
+    // Signal evidence is additive. A temporary Signal read failure must not take
+    // down the established BI feed.
+    console.error("Signal interpretation unavailable:", e?.message || e);
+  }
+  const signalInterpretation = buildSignalInterpretation(signalLedger || {}, { generatedAt });
+
   const base = buildOpportunityFeed({ entityKey, observations: effectiveObservations, events, generatedAt });
   let feed = enrichOpportunityFeed(base, { observations: effectiveObservations, events, peerObservations, generatedAt });
   const checkChangeCards = buildCheckChangeCards(effectiveObservations);
@@ -117,7 +132,7 @@ export async function loadIntelligenceFeed(domain) {
   feed = {
     ...feed,
     cards: mergeDecisionCards(
-      [...checkChangeCards, snapshotCard].filter(Boolean),
+      [...checkChangeCards, ...signalInterpretation.cards, snapshotCard].filter(Boolean),
       [...feed.cards, ...campaignEconomics.cards, readiness.card, learningMemory.card],
     ),
     summary: {
@@ -127,6 +142,12 @@ export async function loadIntelligenceFeed(domain) {
       history_observation_count: observations.length,
       snapshot_baseline: !!snapshotCard,
       check_changes: countCheckChanges(effectiveObservations),
+      signal_interpretation: {
+        ...signalInterpretation.summary,
+        state: signalInterpretation.state,
+        setup_required: signalSetupRequired,
+        card_count: signalInterpretation.cards.length,
+      },
       readiness: { score: readiness.score, status: readiness.status, next_unlock: readiness.next_unlock, ready_for: readiness.ready_for },
       learning_memory: {
         measured: learningMemory.summary.measured, decisive: learningMemory.summary.decisive,
@@ -142,6 +163,7 @@ export async function loadIntelligenceFeed(domain) {
     readiness,
     learning_memory: learningMemory,
     campaign_economics: campaignEconomics,
+    signal_interpretation: signalInterpretation,
   };
 
   const latestByHeadline = new Map();
