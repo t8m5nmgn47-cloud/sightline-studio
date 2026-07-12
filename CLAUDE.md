@@ -27,8 +27,8 @@ which named the #1 root cause and sat unfixed through an entire engine overhaul)
 - **Cached capture is single-page** — the #1 quality root cause. Until the v7 capture
   rework lands, cached builds see only the homepage: starved photos, thin content.
   Do not "fix" downstream symptoms of this again; fix or respect the capture layer.
-- `engine/preview/recipes.json` — per-site recipe locks written by heal.mjs;
-  **pipeline.mjs honors them silently**. Stale locks override recipe logic.
+- `engine/preview/recipes.json` is INFORMATIONAL — written by heal.mjs, read by
+  nothing; release re-heals each run.
 - Art critic judges above-the-fold only (known gap). Do not treat a critic pass as
   whole-page approval yet.
 - Playwright: the option is `viewport`, NOT `viewportSize` (silently ignored).

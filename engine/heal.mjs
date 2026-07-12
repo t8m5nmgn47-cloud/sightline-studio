@@ -132,4 +132,4 @@ await Promise.all(Array.from({ length: Math.min(CONC, queue.length) }, async () 
 
 const healed = results.filter(r => r.healed);
 const avg = healed.length ? (healed.reduce((a,r)=>a+r.score,0)/healed.length).toFixed(1) : '—';
-console.log(`\nHEAL COMPLETE: ${healed.length}/${results.length} healed · avg winning score ${avg}/10 · choices locked in engine/preview/recipes.json`);
+console.log(`\nHEAL COMPLETE: ${healed.length}/${results.length} healed · avg winning score ${avg}/10 · winners recorded in engine/preview/recipes.json (INFORMATIONAL ONLY — nothing reads it; release re-heals each run)`);

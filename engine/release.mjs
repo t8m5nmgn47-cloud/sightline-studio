@@ -13,9 +13,11 @@
 //   3. RETRY     failed builds get one serial retry with visible errors
 //   4. QA        full QA (static + rendered when Chrome exists) on every site —
 //                any FAIL aborts the release
-//   5. CRITIC    AI visual scoring — flags are listed; >10% flagged aborts
-//   6. PROMOTE   sync live gallery + thumbnails + showcase anonymization
-//   7. DEPLOY    commit + push (Vercel auto-deploys) — only if all green
+//   5. VARIETY   distinctness gate (variety-check.mjs) — same-vertical recipe
+//                collapse aborts the release
+//   6. CRITIC    AI visual scoring — flags are listed; >10% flagged aborts
+//   7. PROMOTE   sync live gallery + thumbnails + showcase anonymization
+//   8. DEPLOY    commit + push (Vercel auto-deploys) — only if all green
 //
 // Design rule learned the hard way: partial deploys and untested engine edits
 // caused every bad day. This script makes both impossible.
@@ -34,7 +36,7 @@ const SKIP_CRITIC = args.includes('--skip-critic');
 const SMOKE_DOMAIN = flag('smoke') || 'araoent.com';
 
 const t0 = Date.now();
-const step = (n, msg) => console.log(`\n━━ [${n}/7] ${msg} ${'━'.repeat(Math.max(0, 46 - msg.length))} ${((Date.now()-t0)/1000|0)}s`);
+const step = (n, msg) => console.log(`\n━━ [${n}/8] ${msg} ${'━'.repeat(Math.max(0, 46 - msg.length))} ${((Date.now()-t0)/1000|0)}s`);
 const die = (msg) => { console.error(`\n🛑 RELEASE ABORTED — ${msg}\nNothing was deployed. Production is untouched.`); process.exit(1); };
 const run = (cmd, opts = {}) => execSync(cmd, { cwd: ROOT, encoding: 'utf8', stdio: opts.quiet ? ['ignore','pipe','pipe'] : 'inherit', ...opts });
 
@@ -96,8 +98,16 @@ catch (e) {
   die('QA failures — the gate is the gate');
 }
 
-// ── 5. CRITIC: AI eyes on every homepage ─────────────────────────────────────
-step(5, SKIP_CRITIC ? 'CRITIC (skipped)' : 'AI VISUAL CRITIC');
+// ── 5. VARIETY: distinctness gate — same-vertical recipes must not collapse ──
+step(5, 'VARIETY GATE');
+try { run('node engine/variety-check.mjs', { quiet: true }); console.log('✅ variety gate passed — same-vertical fixtures stay distinct'); }
+catch (e) {
+  console.error(String((e.stdout || '') + (e.stderr || '')).split('\n').filter(Boolean).slice(-14).join('\n'));
+  die('variety check failed — same-vertical recipes collapsed; fix the spread, never bypass the gate');
+}
+
+// ── 6. CRITIC: AI eyes on every homepage ─────────────────────────────────────
+step(6, SKIP_CRITIC ? 'CRITIC (skipped)' : 'AI VISUAL CRITIC');
 if (!SKIP_CRITIC) {
   let out = '';
   try { out = run(`node engine/art-critic.mjs ${slugs.join(' ')}`, { quiet: true }); }
@@ -121,14 +131,14 @@ if (!SKIP_CRITIC) {
   }
 }
 
-// ── 6. PROMOTE: live gallery + thumbnails + anonymization ────────────────────
-step(6, 'PROMOTE GALLERY');
+// ── 7. PROMOTE: live gallery + thumbnails + anonymization ────────────────────
+step(7, 'PROMOTE GALLERY');
 run('node engine/promote.mjs --thumbs', { quiet: true });
 run('node engine/showcase.mjs', { quiet: true });
 console.log('✅ gallery, thumbnails, showcase synced');
 
-// ── 7. DEPLOY ─────────────────────────────────────────────────────────────────
-step(7, DRY ? 'DEPLOY (dry run — skipped)' : 'DEPLOY');
+// ── 8. DEPLOY ─────────────────────────────────────────────────────────────────
+step(8, DRY ? 'DEPLOY (dry run — skipped)' : 'DEPLOY');
 if (!DRY) {
   run('git add -A', { quiet: true });
   try { run(`git commit -m "release: ${new Date().toISOString().slice(0,16)} — full portfolio via release.mjs (all gates green)"`, { quiet: true }); }

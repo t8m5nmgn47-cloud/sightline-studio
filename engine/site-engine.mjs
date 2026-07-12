@@ -5,6 +5,8 @@
 // No two recipes render the same site.
 // ─────────────────────────────────────────────────────────────────────────────
 
+import { seedOf, pick, pickFontPack, pickRad } from './variety.mjs';
+
 // ── colour helpers ───────────────────────────────────────────────────────────
 const hex = h => (h || '').trim().toLowerCase();
 function rgb(h){ h=hex(h).replace('#',''); if(h.length===3) h=h.split('').map(c=>c+c).join('');
@@ -140,14 +142,15 @@ export const MOODS = {
 };
 
 // ── the CSS foundation (shared) + theme injection ─────────────────────────────
-function themeVars(profile, theme, useCaptured){
+function themeVars(profile, theme, useCaptured, radOverride){
   const p = profile.palette;
   const t = THEMES[theme] || THEMES.evergreen;
   const brand  = useCaptured ? p.brand  : t.pal.brand;
   const brandD = useCaptured ? p.brandD : t.pal.brandD;
   const accent = useCaptured ? p.accent : t.pal.accent;
+  const rad = Number.isFinite(radOverride) ? radOverride : t.rad;
   return `--ink:${p.ink};--bg:${p.bg};--surf:${p.surf};--mut:${p.mut};--line:${p.line};
-    --brand:${brand};--brand-d:${brandD};--accent:${accent};--brand-rgb:${rgbStr(brand)};--rad:${t.rad}px`;
+    --brand:${brand};--brand-d:${brandD};--accent:${accent};--brand-rgb:${rgbStr(brand)};--rad:${rad}px`;
 }
 
 // ── section renderers ────────────────────────────────────────────────────────
@@ -269,52 +272,122 @@ S.cta = (p) => {
 // live announcement bar — proof the church is current & alive
 S.announce = (p) => p.announce ? `<div class="announce"><span class="adot"></span>${esc(p.announce)}</div>` : '';
 
+// ── church copy variants ─────────────────────────────────────────────────────
+// The church sections used to ship ONE hardcoded string each — every church
+// demo read identically on a side-by-side cold call. Each section now carries
+// 2-3 handwritten variants in the same warm register, chosen by the profile
+// seed (same pattern as vertical-content's vary()). Variant #1 is always the
+// original copy. Precedence unchanged: captured/profile content (s.*) beats
+// tradition-pack copy (tc.*), which beats these seeded defaults.
+const cvar = (p, salt, arr) => arr[pick(seedOf(p), salt, arr.length)];
+const CHURCH_COPY = {
+  nextstepsTitle: [
+    'New here? Start here.',
+    'Your first Sunday, made simple.',
+    'Not sure where to begin? Right here.',
+  ],
+  nextstepsSteps: [
+    [
+      {n:'01',h:'Plan your visit',p:'Tell us you’re coming — we’ll have someone ready to meet you.'},
+      {n:'02',h:'Come as you are',p:'Grab coffee, find a seat, stay as long as you like. No pressure.'},
+      {n:'03',h:'Get connected',p:'A quick connect card is all it takes to hear about what’s next.'},
+      {n:'04',h:'Find your people',p:'A group is where a big church becomes a family.'},
+    ],
+    [
+      {n:'01',h:'Pick a Sunday',p:'Any Sunday works. Let us know you’re coming and we’ll save you a parking spot.'},
+      {n:'02',h:'Walk in, breathe out',p:'No dress code, no expectations — just a warm welcome at the door.'},
+      {n:'03',h:'Say hello',p:'Stop by the welcome table and we’ll answer anything you’re wondering about.'},
+      {n:'04',h:'Take a next step',p:'When you’re ready — a group, a class, a conversation. At your pace.'},
+    ],
+    [
+      {n:'01',h:'Come see for yourself',p:'The best way to know if this is home is one ordinary Sunday.'},
+      {n:'02',h:'Bring the kids',p:'They’re cared for, safe, and honestly — they’ll want to come back.'},
+      {n:'03',h:'Meet a real person',p:'Fill out a simple card and someone will follow up personally, not automatically.'},
+      {n:'04',h:'Settle in',p:'Groups, serving, community — belonging happens a little at a time.'},
+    ],
+  ],
+  groups: [
+    { title:'Find your people.', lead:'A group is where Sunday becomes a family. Tell us your season of life and we’ll match you.' },
+    { title:'Life is better together.', lead:'Nobody was meant to do faith alone. There’s a group that fits your schedule, your stage, and your questions.' },
+    { title:'Get around a table.', lead:'The friendships that carry you through the week start in a living room, not a pew. We’ll help you find yours.' },
+  ],
+  serve: [
+    { title:'There’s a place for you here.', lead:'Kids, worship, hospitality, tech, outreach — serving is how you go from attending to belonging.' },
+    { title:'Put your hands to something that matters.', lead:'Whatever you’re good at — greeting, coffee, sound boards, spreadsheets — there’s a team that needs exactly that.' },
+    { title:'The church runs on volunteers like you.', lead:'An hour a month changes someone’s Sunday. Tell us what you enjoy and we’ll find the fit.' },
+  ],
+  music: [
+    { title:'A tradition of sung faith.', lead:'Choir, organ, and worship arts — music that lifts the whole room, every week.' },
+    { title:'Music that carries the service.', lead:'From the first hymn to the final blessing, our musicians help the whole congregation find its voice.' },
+    { title:'Come sing with us.', lead:'Whether you read music or just love to sing, there’s a place for you in our worship life.' },
+  ],
+  care: [
+    { title:'However you come, you don’t come alone.', lead:'Need prayer, or just want someone to know you’re coming? Send a note — a real person reads every one.' },
+    { title:'We’d love to pray with you.', lead:'Whatever you’re carrying this week, you don’t have to carry it by yourself. Write to us — every note reaches a real person.' },
+    { title:'Tell us how we can help.', lead:'A question, a prayer request, or just “I’m thinking about visiting” — send it over and someone will reply personally.' },
+  ],
+  sermons: [
+    { title:'Can’t make it in person? Worship with us online.', lead:'Every service streams live — and the full message library is a tap away. A great way to sample before you step in.' },
+    { title:'Join us from anywhere.', lead:'Traveling, home sick, or just curious? The whole service streams live, and past messages are always there when you need them.' },
+    { title:'Listen before you visit.', lead:'Not ready to walk in yet? Watch a service online first — same message, same heart, zero pressure.' },
+  ],
+};
+// stable per-section salts (used by the variety-check gate too)
+const CHURCH_SALTS = { nextsteps:41, groups:43, serve:47, music:53, care:59, sermons:61 };
+// fingerprint of which copy variants a profile lands on — one axis of the
+// distinctness gate (engine/variety-check.mjs)
+export function churchCopySignature(profile){
+  const seed = seedOf(profile);
+  return Object.entries(CHURCH_SALTS)
+    .map(([k,salt]) => `${k}:${pick(seed, salt, (k==='nextsteps'?CHURCH_COPY.nextstepsSteps:CHURCH_COPY[k]).length)}`)
+    .join('|');
+}
+
 // the visitor journey — the spine of a congregation-first site
 S.nextsteps = (p) => { const s=p.sections.nextsteps; if(!s) return '';
-  const steps = s.items || [
-    {n:'01',h:'Plan your visit',p:'Tell us you’re coming — we’ll have someone ready to meet you.'},
-    {n:'02',h:'Come as you are',p:'Grab coffee, find a seat, stay as long as you like. No pressure.'},
-    {n:'03',h:'Get connected',p:'A quick connect card is all it takes to hear about what’s next.'},
-    {n:'04',h:'Find your people',p:'A group is where a big church becomes a family.'},
-  ];
+  const steps = s.items || cvar(p, CHURCH_SALTS.nextsteps, CHURCH_COPY.nextstepsSteps);
   return `
 <section class="sec steps" id="next-steps">
-  <div class="wrap"><span class="sec-k">Your next step</span><h2>${esc(s.title||'New here? Start here.')}</h2>
+  <div class="wrap"><span class="sec-k">Your next step</span><h2>${esc(s.title||cvar(p, CHURCH_SALTS.nextsteps, CHURCH_COPY.nextstepsTitle))}</h2>
     <div class="steprail">${steps.map(x=>`<div class="step"><span class="stepn">${esc(x.n)}</span><h3>${esc(x.h)}</h3><p>${esc(x.p)}</p></div>`).join('<span class="steparrow">→</span>')}</div>
     <a class="btn lg" href="#connect">Plan my visit →</a>
   </div></section>`; };
 
 S.groups = (p) => { const s=p.sections.groups; if(!s) return ''; const tc=p._t?.copy?.groups||{};
+  const v = cvar(p, CHURCH_SALTS.groups, CHURCH_COPY.groups);
   const cats = s.cats || tc.cats || ['Life Groups','Men','Women','Young Adults','Students','Families'];
   return `
 <section class="sec groups" id="groups">
-  <div class="wrap"><span class="sec-k">${esc(tc.kicker||'Belong')}</span><h2>${esc(s.title||tc.title||'Find your people.')}</h2>
-    <p class="lead">${esc(s.lead||tc.lead||'A group is where Sunday becomes a family. Tell us your season of life and we’ll match you.')}</p>
+  <div class="wrap"><span class="sec-k">${esc(tc.kicker||'Belong')}</span><h2>${esc(s.title||tc.title||v.title)}</h2>
+    <p class="lead">${esc(s.lead||tc.lead||v.lead)}</p>
     <div class="chips">${cats.map(c=>`<span class="chip">${esc(c)}</span>`).join('')}</div>
     <a class="btn lg" href="#connect">${esc(s.cta||tc.cta||'Find your group →')}</a>
   </div></section>`; };
 
 S.serve = (p) => { const s=p.sections.serve; if(!s) return ''; const tc=p._t?.copy?.serve||{};
+  const v = cvar(p, CHURCH_SALTS.serve, CHURCH_COPY.serve);
   return `
 <section class="sec band alt" id="serve">
   <div class="wrap band-in"><div><span class="sec-k light">${esc(tc.kicker||'Serve')}</span>
-    <h2>${esc(s.title||tc.title||'There’s a place for you here.')}</h2>
-    <p class="lead light">${esc(s.lead||tc.lead||'Kids, worship, hospitality, tech, outreach — serving is how you go from attending to belonging.')}</p></div>
+    <h2>${esc(s.title||tc.title||v.title)}</h2>
+    <p class="lead light">${esc(s.lead||tc.lead||v.lead)}</p></div>
     <a class="btn lg light" href="#connect">${esc(s.cta||tc.cta||'Find where to serve')}</a></div></section>`; };
 
 S.music = (p) => { const s=p.sections.music; if(!s) return ''; const m=s;
+  const v = cvar(p, CHURCH_SALTS.music, CHURCH_COPY.music);
   return `
 <section class="sec music" id="music">
-  <div class="wrap"><span class="sec-k">Worship & music</span><h2>${esc(m.title||'A tradition of sung faith.')}</h2>
-    <p class="lead">${esc(m.lead||'Choir, organ, and worship arts — music that lifts the whole room, every week.')}</p>
+  <div class="wrap"><span class="sec-k">Worship & music</span><h2>${esc(m.title||v.title)}</h2>
+    <p class="lead">${esc(m.lead||v.lead)}</p>
     <a class="btn lg" href="#events">${esc(m.cta||'Our music ministry')}</a></div></section>`; };
 
 S.care = (p) => { const s=p.sections.care; if(!s) return '';
+  const v = cvar(p, CHURCH_SALTS.care, CHURCH_COPY.care);
   return `
 <section class="sec care" id="connect">
   <div class="wrap care-in">
-    <div class="care-copy"><span class="sec-k">Care & prayer</span><h2>${esc(s.title||'However you come, you don’t come alone.')}</h2>
-      <p class="lead">${esc(s.lead||'Need prayer, or just want someone to know you’re coming? Send a note — a real person reads every one.')}</p></div>
+    <div class="care-copy"><span class="sec-k">Care & prayer</span><h2>${esc(s.title||v.title)}</h2>
+      <p class="lead">${esc(s.lead||v.lead)}</p></div>
     <form class="care-form" data-source="demo:${esc(p.slug||p.name||'')}">
       <input type="text" name="cname" placeholder="Your name" aria-label="Your name" required>
       <input type="email" name="cemail" placeholder="Email" aria-label="Email" required>
@@ -326,11 +399,12 @@ S.care = (p) => { const s=p.sections.care; if(!s) return '';
 
 // Watch / Livestream — universal among top churches (7/7); the sample-before-you-come on-ramp
 S.sermons = (p) => { const s=p.sections.sermons; if(!s) return '';
+  const v = cvar(p, CHURCH_SALTS.sermons, CHURCH_COPY.sermons);
   return `
 <section class="sec watch" id="watch">
   <div class="wrap watch-in">
-    <div class="watch-copy"><span class="sec-k">Watch</span><h2>${esc(s.title||'Can’t make it in person? Worship with us online.')}</h2>
-      <p class="lead">${esc(s.lead||'Every service streams live — and the full message library is a tap away. A great way to sample before you step in.')}</p>
+    <div class="watch-copy"><span class="sec-k">Watch</span><h2>${esc(s.title||v.title)}</h2>
+      <p class="lead">${esc(s.lead||v.lead)}</p>
       <div class="cta-row"><a class="btn lg" href="${s.live||'#watch'}">Watch live →</a><a class="btn ghost lg" href="${s.archive||'#watch'}">Past messages</a></div>
     </div>
     <div class="watch-frame"><span class="playbtn">▶</span>${s.latest?`<div class="watch-meta"><b>${esc(s.latest.title)}</b><span>${esc(s.latest.speaker||'')}</span></div>`:''}</div>
@@ -1181,32 +1255,54 @@ const RUNTIME = `<script>
 </script>`;
 
 // ── auto-recommend a recipe from the captured brand ──────────────────────────
+// Hue logic is the POOL CHOOSER; the profile seed spreads within the pool
+// (primary ×2 + 2 mood-adjacent alternates ×1 — the recommendBusinessDesign
+// pattern), so same-hue neighbours no longer collide on one archetype+theme.
+// Alternates respect the hard-won constraints below: captured palettes never
+// get arch-modern's brand poster, greens never flood a hero.
 export function recommendRecipe(profile){
   const p = profile.palette;
   const b = rgb(p.brand); const s = sat(b), l = lum(b);
   const isBlueNavy = b[2] > b[0] && b[2] > b[1] && l < .3;
   const isWarm = b[0] >= b[2] && s > .3;             // red/orange/gold lead
   const isGreen = b[1] >= b[0] && b[1] >= b[2] && s > .25;
-  let theme, archetype, mood;
-  if (isBlueNavy)      { theme='heritage';  archetype='editorial'; }
+  let themePool, archPool;
+  if (isBlueNavy)      { themePool=['heritage','heritage','quiet','sanctuary'];      archPool=['editorial','editorial','minimal','split']; }
   // greens get the editorial frame, never the brand-poster: a green-flooded
   // hero reads like a monochrome wash (murky, unattractive) — as an accent on
   // a light editorial ground the same green reads fresh and professional.
-  else if (isGreen)    { theme='evergreen'; archetype='editorial'; }
+  else if (isGreen)    { themePool=['evergreen','evergreen','quiet','sanctuary'];    archPool=['editorial','editorial','minimal','split']; }
   // arch-modern's brand-tinted poster is reserved for DESIGNED palettes
   // (variants' --theme-palette). Captured brand colors flooding a photo reads
   // as a monochrome wash — the art critic flags it every time. Vivid captured
-  // brands get split (warm) or editorial (cool) instead.
-  else if (s > .6)     { theme = isWarm ? 'community' : 'heritage'; archetype = isWarm ? 'split' : 'editorial'; }
-  else if (isWarm)     { theme='community'; archetype='split'; }
-  else if (s < .2)     { theme='quiet';     archetype='minimal'; }     // muted → quiet/minimal
-  else                 { theme='sanctuary'; archetype='cathedral'; }
+  // brands get split (warm) or editorial (cool) leads instead.
+  else if (s > .6)     { themePool = isWarm ? ['community','community','evergreen','sanctuary'] : ['heritage','heritage','quiet','sanctuary'];
+                         archPool  = isWarm ? ['split','split','editorial','minimal'] : ['editorial','editorial','split','minimal']; }
+  else if (isWarm)     { themePool=['community','community','evergreen','heritage']; archPool=['split','split','editorial','cathedral']; }
+  else if (s < .2)     { themePool=['quiet','quiet','evergreen','heritage'];         archPool=['minimal','minimal','editorial','split']; }  // muted → quiet/minimal lead
+  else                 { themePool=['sanctuary','sanctuary','evergreen','heritage']; archPool=['cathedral','cathedral','editorial','split']; }
+  const seed = seedOf(profile);
+  const archetype = archPool[pick(seed, 5, archPool.length)];
+  const theme = themePool[pick(seed, 7, themePool.length)];
   // auto recipes get subtle Ken-Burns drift ONLY. The godrays/candle glow
   // effects read as a flashing light over real photos — they're opt-in now,
   // never auto-assigned.
-  mood = 'drift';
-  return { archetype, theme, mood, useCapturedPalette:true,
-    why:`brand ${p.brand} — saturation ${(s*100)|0}%, ${isBlueNavy?'navy':isWarm?'warm':isGreen?'green':'neutral'} → ${archetype} + ${theme}` };
+  const mood = 'drift';
+  const recipe = { archetype, theme, mood, useCapturedPalette:true,
+    why:`brand ${p.brand} — saturation ${(s*100)|0}%, ${isBlueNavy?'navy':isWarm?'warm':isGreen?'green':'neutral'} → pools [${archPool[0]}+alts]×[${themePool[0]}+alts], seed-spread → ${archetype} + ${theme}` };
+  return applyRecipeVariety(recipe, profile);
+}
+
+// Seeded font pack + shape jitter for a recipe's FINAL theme. Idempotent and
+// deterministic — the pipeline re-runs it after --theme overrides. A captured
+// brand font (profile.fonts.head) ALWAYS wins: variety fonts apply only when
+// no brand font was captured. Theme default face is kept ~1/3 of the time.
+export function applyRecipeVariety(recipe, profile={}){
+  const seed = seedOf(profile);
+  const t = THEMES[recipe.theme] || THEMES.evergreen;
+  recipe.fontPack = (profile.fonts && profile.fonts.head) ? null : pickFontPack(seed, recipe.theme);
+  recipe.rad = pickRad(seed, t.rad);
+  return recipe;
 }
 
 // ── the guest concierge (the 0/7 white-space) ───────────────────────────────
@@ -1340,9 +1436,12 @@ export function assemble(profile, recipe={}, page=null){
   // Brand-font echo: if capture found a Google Font the prospect already
   // loads, use it as the display face (guaranteed available on Google Fonts).
   // sanitize: captures sometimes carry weight/variant suffixes ("Roboto Condensed:400,700|…")
+  // Captured brand font > seeded variety font pack (recipe.fontPack) > theme default.
   const brandFont = profile.fonts && profile.fonts.head && profile.fonts.head.split(/[:|,]/)[0].trim();
-  const displayFont = brandFont || theme.font;
-  const displayUrl = brandFont ? brandFont.replace(/ /g,'+') + ':wght@400;500;600;700' : theme.fontUrl;
+  const packFont = !brandFont && recipe.fontPack && recipe.fontPack.font ? recipe.fontPack : null;
+  const displayFont = brandFont || (packFont && packFont.font) || theme.font;
+  const displayUrl = brandFont ? brandFont.replace(/ /g,'+') + ':wght@400;500;600;700'
+    : (packFont && packFont.fontUrl) || theme.fontUrl;
   const css = stylesheet().replace(/__DISPLAY__/g, displayFont);
   const p = { ...profile, ...(trad ? { _t:trad } : {}), ...(page ? { _page:page } : {}), _vertical: recipe.vertical || null };
   let order = page?.order || (trad ? trad.order : archetype.order);
@@ -1378,7 +1477,7 @@ export function assemble(profile, recipe={}, page=null){
 ${seoHead(profile, recipe, page)}
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=${displayUrl}&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-<style>:root{${themeVars(profile,recipe.theme,useCaptured)}}
+<style>:root{${themeVars(profile,recipe.theme,useCaptured,recipe.rad)}}
 ${css}</style></head>
 <body class="${bodyClass}">
 ${body}

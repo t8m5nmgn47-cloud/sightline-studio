@@ -10,9 +10,10 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { normalize, assemble, assembleSite, recommendRecipe } from './site-engine.mjs';
+import { normalize, assemble, assembleSite, recommendRecipe, applyRecipeVariety } from './site-engine.mjs';
 import { capture, saveAssets } from './capture.mjs';
 import { detectVertical, buildSections, vary } from './vertical-content.mjs';
+import { seedOf, chooseArchetype, chooseStructure } from './variety.mjs';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const slugify = d => d.replace(/^https?:\/\//,'').replace(/^www\./,'').replace(/\/.*$/,'').replace(/[^a-z0-9]+/gi,'-').toLowerCase();
@@ -76,21 +77,8 @@ function pickName(sig, domain){
   return decap(named[0] || parts.find(p=>!/^(home|welcome|index)$/i.test(p) && p.length>=3) || humanize(domain));
 }
 
-function fallbackArchetype(vertical, { galleryCount=0, hasHero=false } = {}){
-  const visuals = galleryCount + (hasHero ? 1 : 0);
-  if (['construction','trades','retail'].includes(vertical)) return visuals >= 5 ? 'flagship' : 'split';
-  if (['law','accounting','mortgage','title','insurance'].includes(vertical)) return visuals >= 5 ? 'editorial' : 'minimal';
-  if (['dental','medical','optometry','medspa','childcare'].includes(vertical)) return visuals >= 4 ? 'split' : 'editorial';
-  return visuals >= 5 ? 'flagship' : 'editorial';
-}
-
-function fallbackStructure({ reviews=0, gallery=0, hasOffer=false, hasStory=false } = {}){
-  if (reviews >= 3) return 'proof';
-  if (gallery >= 6) return 'showcase';
-  if (hasOffer) return 'offer';
-  if (hasStory) return 'story';
-  return 'flagship';
-}
+// fallbackArchetype/fallbackStructure now live in variety.mjs — they are the
+// POOL PRIMARIES the seed spreads around (shared with the variety-check gate).
 
 const args = process.argv.slice(2);
 const domain = args.find(a => !a.startsWith('--'));
@@ -322,35 +310,46 @@ const profile = normalize(sig, {
   sections,
 });
 
+// Recipe selection — precedence is STRICT and shared with variety-check.mjs:
+//   flags (--archetype/--structure/--theme) > strategy's choice
+//   > seeded variety (variety.mjs) over a pool built around the evidence
+//     fallback (the old single deterministic value is now the pool primary).
+// Strategy structure 'classic'/null = no opinion = variety decides.
 const recipe = recommendRecipe(profile);
+const seed = seedOf(profile);
+let archSrc = 'recommend', structSrc = 'n/a';
 if (isBiz) {
   recipe.vertical = pack.key;
-  recipe.archetype = strategy?.archetype || fallbackArchetype(pack.key, {
-    galleryCount:assets.gallery.length,
-    hasHero:!!profile.heroImage,
+  const arch = chooseArchetype({
+    seed, flagged:flag('archetype'), strategy:strategy?.archetype || null, vertical:pack.key,
+    evidence:{ galleryCount:assets.gallery.length, hasHero:!!profile.heroImage },
   });
-  const structuralChoice = strategy?.structure && strategy.structure !== 'classic'
-    ? strategy.structure
-    : fallbackStructure({
-        reviews:sections.reviews?.items?.length || 0,
-        gallery:assets.gallery.length,
-        hasOffer:!!sections.offer,
-        hasStory:!!sections.about?.body,
-      });
-  recipe.structure = structuralChoice;
+  recipe.archetype = arch.value; archSrc = arch.source;
+  const struct = chooseStructure({
+    seed, flagged:flag('structure'), strategy:strategy?.structure || null,
+    evidence:{
+      reviews:sections.reviews?.items?.length || 0,
+      gallery:assets.gallery.length,
+      hasOffer:!!sections.offer,
+      hasStory:!!sections.about?.body,
+    },
+  });
+  recipe.structure = struct.value; structSrc = struct.source;
   recipe.mood = 'drift';
 } else {
   recipe.tradition = pack.key;
-  recipe.archetype = recipe.archetype || 'journey';
+  const archOverride = flag('archetype');
+  if (archOverride) { recipe.archetype = archOverride; archSrc = 'flag'; }
+  else recipe.archetype = recipe.archetype || 'journey';
+  const structOverride = flag('structure');
+  if (structOverride) { recipe.structure = structOverride; structSrc = 'flag'; }
 }
-
-const archOverride = flag('archetype');
-if (archOverride) recipe.archetype = archOverride;
 const themeOverride = flag('theme');
 if (themeOverride) recipe.theme = themeOverride;
-const structOverride = flag('structure');
-if (structOverride) recipe.structure = structOverride;
 if (args.includes('--theme-palette')) recipe.useCapturedPalette = false;
+// re-seed font pack + rad against the FINAL theme (captured brand font still wins)
+applyRecipeVariety(recipe, profile);
+console.log(`  choice:   archetype=${recipe.archetype} [${archSrc}] · structure=${recipe.structure || 'classic'} [${structSrc}] · theme=${recipe.theme}${themeOverride ? ' [flag]' : ''}${recipe.fontPack ? ` · font=${recipe.fontPack.font}` : ''} · rad=${recipe.rad}`);
 
 // Creative gate runs BEFORE publishing. Technical QA runs after rendering.
 const { creativeGate } = await import('./creative-gate.mjs');
