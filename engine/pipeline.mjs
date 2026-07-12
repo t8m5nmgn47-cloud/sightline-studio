@@ -289,7 +289,13 @@ if (sfx && stock.length > 1) {
   stock.push(...stock.splice(0, rot));
 }
 
-const heroGate = m => m && m.w >= 1400 && (m.bytes / ((m.w * m.h) / 1000)) >= 30;
+// Bytes-per-kilopixel floor: 30 for jpeg/png, but well-compressed formats
+// (webp/avif) carry the same detail in far fewer bytes — 12 for those.
+const heroGate = m => {
+  if (!m || !(m.w >= 1400)) return false;
+  const min = /\.(webp|avif)(\?|$)/i.test(m.path || '') ? 12 : 30;
+  return (m.bytes / ((m.w * m.h) / 1000)) >= min;
+};
 const heroMeta = (assets.photoMeta || []).find(m=>m.path===assets.heroImage);
 let capturedHero = override?.heroImage || ((!isBiz || heroGate(heroMeta)) ? assets.heroImage : null);
 if (isBiz && assets.heroImage && !capturedHero)

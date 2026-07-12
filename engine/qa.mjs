@@ -99,7 +99,7 @@ async function renderedChecks(slug, { shots = false } = {}) {
   let chromium, exe;
   try {
     ({ chromium } = await import('playwright-core'));
-    for (const bin of ['/Applications/Google Chrome.app/Contents/MacOS/Google Chrome', '/usr/bin/google-chrome', '/usr/bin/chromium', '/usr/bin/chromium-browser'])
+    for (const bin of [process.env.CHROME_BIN, '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome', '/usr/bin/google-chrome', '/usr/bin/chromium', '/usr/bin/chromium-browser'].filter(Boolean))
       if (fs.existsSync(bin)) { exe = bin; break; }
     if (!exe) { try { exe = await (await import('@sparticuz/chromium')).default.executablePath(); } catch {} }
     if (!exe) return null;
@@ -115,9 +115,13 @@ async function renderedChecks(slug, { shots = false } = {}) {
     page.on('console', (m) => { if (m.type() === 'error') errors.push(m.text().slice(0, 120)); });
     page.on('pageerror', (e) => errors.push(String(e).slice(0, 120)));
     await page.goto('file://' + path.join(ROOT, 'demos', slug, 'index.html'), { waitUntil: 'load', timeout: 20000 });
-    // console errors (asset 404s under file:// are expected for absolute paths — filter)
+    // console errors (asset 404s under file:// are expected for absolute paths —
+    // excluded from FAILS, but surfaced as warnings so broken external resources
+    // stay visible in the report JSON)
     const real = errors.filter((e) => !/ERR_FILE_NOT_FOUND|net::/.test(e));
+    const netErrs = errors.filter((e) => /ERR_FILE_NOT_FOUND|net::/.test(e));
     if (real.length) fails.push('console errors: ' + real.slice(0, 3).join(' | '));
+    if (netErrs.length) warns.push(`network/resource console errors (${netErrs.length}): ` + netErrs.slice(0, 3).join(' | '));
     // horizontal overflow at three widths
     for (const w of [360, 768, 1440]) {
       await page.setViewportSize({ width: w, height: 900 });

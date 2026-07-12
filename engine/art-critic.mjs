@@ -87,7 +87,7 @@ if (!slugs.length){ console.error('usage: node engine/art-critic.mjs <slug>… |
 let chromium, exe;
 try {
   ({ chromium } = await import('playwright-core'));
-  for (const bin of ['/Applications/Google Chrome.app/Contents/MacOS/Google Chrome', '/usr/bin/google-chrome', '/usr/bin/chromium'])
+  for (const bin of [process.env.CHROME_BIN, '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome', '/usr/bin/google-chrome', '/usr/bin/chromium'].filter(Boolean))
     if (fs.existsSync(bin)) { exe = bin; break; }
 } catch {}
 if (!exe){ console.error('art-critic needs Chrome for screenshots — run on your Mac'); process.exit(1); }

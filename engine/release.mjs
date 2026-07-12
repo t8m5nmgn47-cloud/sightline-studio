@@ -11,7 +11,8 @@
 //                touching the portfolio (kills merge-chimera class bugs)
 //   2. BUILD     parallel regen of every cached prospect (--pages)
 //   3. RETRY     failed builds get one serial retry with visible errors
-//   4. QA        static QA on every site — any FAIL aborts the release
+//   4. QA        full QA (static + rendered when Chrome exists) on every site —
+//                any FAIL aborts the release
 //   5. CRITIC    AI visual scoring — flags are listed; >10% flagged aborts
 //   6. PROMOTE   sync live gallery + thumbnails + showcase anonymization
 //   7. DEPLOY    commit + push (Vercel auto-deploys) — only if all green
@@ -61,10 +62,14 @@ const list = [...domains];
 const slugify = d => d.replace(/[^a-z0-9]+/gi,'-').toLowerCase();
 const slugs = list.map(slugify);
 console.log(`${list.length} prospects`);
-fs.writeFileSync('/tmp/release-domains.txt', list.join('\n'));
-fs.rmSync('/tmp/release-fails.txt', { force: true });
-run(`cat /tmp/release-domains.txt | xargs -P ${PAR} -I{} sh -c 'node engine/pipeline.mjs {} --pages --no-render-qa > /dev/null 2>&1 || echo {} >> /tmp/release-fails.txt'`, { quiet: true });
-let fails = fs.existsSync('/tmp/release-fails.txt') ? fs.readFileSync('/tmp/release-fails.txt','utf8').trim().split('\n').filter(Boolean) : [];
+// pid-namespaced tmp files so two releases (or a stale crash) never share state
+const DOMAINS_TMP = `/tmp/release-${process.pid}-domains.txt`;
+const FAILS_TMP = `/tmp/release-${process.pid}-fails.txt`;
+fs.rmSync(DOMAINS_TMP, { force: true });
+fs.rmSync(FAILS_TMP, { force: true });
+fs.writeFileSync(DOMAINS_TMP, list.join('\n'));
+run(`cat ${DOMAINS_TMP} | xargs -P ${PAR} -I{} sh -c 'node engine/pipeline.mjs {} --pages --no-render-qa > /dev/null 2>&1 || echo {} >> ${FAILS_TMP}'`, { quiet: true });
+let fails = fs.existsSync(FAILS_TMP) ? fs.readFileSync(FAILS_TMP,'utf8').trim().split('\n').filter(Boolean) : [];
 console.log(`✅ ${list.length - fails.length}/${list.length} built${fails.length ? `  (${fails.length} to retry)` : ''}`);
 
 // ── 3. RETRY: one serial retry with errors visible ───────────────────────────
@@ -83,12 +88,12 @@ for (const d of fails) {
 if (stillFailing.length) die(`${stillFailing.length} site(s) will not build: ${stillFailing.join(', ')}`);
 if (!fails.length) console.log('nothing to retry');
 
-// ── 4. QA: static gate on every site ─────────────────────────────────────────
-step(4, 'STATIC QA GATE');
-try { run(`node engine/qa.mjs --static ${slugs.join(' ')}`, { quiet: true }); console.log('✅ all release sites pass static QA'); }
+// ── 4. QA: full gate (static + rendered when Chrome is available) ───────────
+step(4, 'QA GATE');
+try { run(`node engine/qa.mjs ${slugs.join(' ')}`, { quiet: true }); console.log('✅ all release sites pass QA'); }
 catch (e) {
   console.error(String(e.stdout||'').split('\n').filter(l=>/❌|✗/.test(l)).slice(0,20).join('\n'));
-  die('static QA failures — the gate is the gate');
+  die('QA failures — the gate is the gate');
 }
 
 // ── 5. CRITIC: AI eyes on every homepage ─────────────────────────────────────
@@ -130,9 +135,16 @@ if (!DRY) {
   catch { console.log('nothing new to commit'); }
   try { run('git push origin main', { quiet: true }); }
   catch {
-    console.log('push rejected — pulling with ours-preferred merge and retrying once');
-    run('git pull --no-rebase -X ours origin main --no-edit', { quiet: true });
-    run('git push origin main', { quiet: true });
+    console.log('push rejected — pulling (no auto-resolution) and retrying once');
+    // NEVER `-X ours` here: that silently discarded another machine's commits.
+    try { run('git pull --no-rebase origin main --no-edit', { quiet: true }); }
+    catch {
+      die('push rejected and the merge pull hit conflicts — another machine\'s commits diverge from local. Reconcile main MANUALLY (inspect `git status`, resolve or `git merge --abort`), then re-run release. Do not auto-resolve preferring ours.');
+    }
+    try { run('git push origin main', { quiet: true }); }
+    catch {
+      die('re-push failed after a clean pull — remote moved again or is protected. Reconcile main manually and re-run release.');
+    }
   }
   console.log('✅ PUSHED — Vercel is deploying');
 }

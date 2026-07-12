@@ -16,6 +16,12 @@
 // ─────────────────────────────────────────────────────────────────────────────
 import fs from 'node:fs';
 import path from 'node:path';
+import { fileURLToPath } from 'node:url';
+
+// Repo root resolved from THIS module (matches llm-extract.mjs) — resolving
+// .sightline.env from process.cwd() made the vision gates silently no-op
+// whenever the engine ran from another directory.
+const REPO_ROOT = fileURLToPath(new URL('..', import.meta.url));
 
 // vertical → stock file prefix(es). Trades picks a sub-trade by name keywords.
 const STOCK_PREFIX = {
@@ -66,7 +72,7 @@ export function stockFor(vertical, name = '', ROOT = process.cwd()) {
 export async function heroLooksClean(absPath) {
   let key = process.env.ANTHROPIC_API_KEY || process.env.ANTHROPIC_KEY;
   if (!key) {
-    try { key = (fs.readFileSync(path.join(process.cwd(), '.sightline.env'), 'utf8')
+    try { key = (fs.readFileSync(path.join(REPO_ROOT, '.sightline.env'), 'utf8')
       .match(/ANTHROPIC(?:_API)?_KEY\s*=\s*(\S+)/) || [])[1]; } catch {}
   }
   if (!key) return null;
@@ -97,7 +103,7 @@ export async function heroLooksClean(absPath) {
 export async function logoMatchesBusiness(absPath, businessName) {
   let key = process.env.ANTHROPIC_API_KEY || process.env.ANTHROPIC_KEY;
   if (!key) {
-    try { key = (fs.readFileSync(path.join(process.cwd(), '.sightline.env'), 'utf8')
+    try { key = (fs.readFileSync(path.join(REPO_ROOT, '.sightline.env'), 'utf8')
       .match(/ANTHROPIC(?:_API)?_KEY\s*=\s*(\S+)/) || [])[1]; } catch {}
   }
   if (!key) return null;

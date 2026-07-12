@@ -52,7 +52,7 @@ if (doThumbs && done) {
   try {
     const { chromium } = await import('playwright-core');
     let exe = null;
-    for (const bin of ['/Applications/Google Chrome.app/Contents/MacOS/Google Chrome', '/usr/bin/google-chrome', '/usr/bin/chromium'])
+    for (const bin of [process.env.CHROME_BIN, '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome', '/usr/bin/google-chrome', '/usr/bin/chromium'].filter(Boolean))
       if (fs.existsSync(bin)) { exe = bin; break; }
     if (!exe) throw new Error('no Chrome');
     const sharp = (await import('sharp')).default;

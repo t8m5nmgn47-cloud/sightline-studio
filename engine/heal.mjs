@@ -69,7 +69,7 @@ const build = (domain, extra) => new Promise((res) => {
 async function shoot(slug) {
   const { chromium } = await import('playwright-core');
   let exe = null;
-  for (const bin of ['/Applications/Google Chrome.app/Contents/MacOS/Google Chrome','/usr/bin/google-chrome','/usr/bin/chromium'])
+  for (const bin of [process.env.CHROME_BIN, '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome','/usr/bin/google-chrome','/usr/bin/chromium'].filter(Boolean))
     if (fs.existsSync(bin)) { exe = bin; break; }
   const b = await chromium.launch({ executablePath: exe, args: ['--no-sandbox'] });
   try {

@@ -52,7 +52,8 @@ const CHROME_PATHS = [
   '/usr/bin/google-chrome', '/usr/bin/chromium', '/usr/bin/chromium-browser',
 ];
 export function renderWithChrome(url) {
-  for (const bin of CHROME_PATHS) {
+  // CHROME_BIN env override is honored first, then the hardcoded fallbacks
+  for (const bin of [process.env.CHROME_BIN, ...CHROME_PATHS].filter(Boolean)) {
     if (!fs.existsSync(bin)) continue;
     try {
       return execFileSync(bin, ['--headless=new', '--disable-gpu', '--no-sandbox',
@@ -253,13 +254,21 @@ export function rankLogos(candidates = []) {
 // ── photos ───────────────────────────────────────────────────────────────────
 const JUNK_IMG = /logo|icon|sprite|avatar|badge|pixel|tracking|spinner|loader|arrow|bullet|flag|payment|captcha|\.svg(\?|$)|\.gif(\?|$)/i;
 function biggestFromSrcset(srcset) {
-  let best = null, bw = 0;
+  // Prefer the largest `w` width descriptor; else the largest `x` density
+  // descriptor; else keep the FIRST entry. (The old `>=` swap meant a
+  // descriptor-less srcset always returned the LAST url — often the smallest.)
+  let bestW = null, bw = 0, bestX = null, bx = 0, first = null;
   for (const part of srcset.split(',')) {
     const [u, d] = part.trim().split(/\s+/);
-    const w = d && /w$/.test(d) ? parseInt(d) : 0;
-    if (!best || w >= bw) { best = u; bw = w; }
+    if (!u) continue;
+    if (!first) first = u;
+    const w = d && /^[\d.]+w$/i.test(d) ? parseFloat(d) : 0;
+    const x = d && /^[\d.]+x$/i.test(d) ? parseFloat(d) : 0;
+    if (w > bw) { bestW = u; bw = w; }
+    if (x > bx) { bestX = u; bx = x; }
   }
-  return { url: best, w: bw || null };
+  if (bestW) return { url: bestW, w: Math.round(bw) };
+  return { url: bestX || first, w: null };
 }
 export function extractPhotos($pages, baseUrl) {
   const out = new Map();
@@ -301,7 +310,10 @@ export function extractPhotos($pages, baseUrl) {
     // NEUTRAL area instead of zero — punishing them to the bottom is how a
     // contractor's crew photo loses to a smaller image with width attributes.
     .sort((a, b) => (a.promo - b.promo) || (areaOf(b) - areaOf(a)))
-    .slice(0, 24);
+    // pool cap 36 (was 24): this cut happens on DECLARED dims before real
+    // dimensions are probed in saveAssets — a bigger pool keeps more good
+    // unknown-dimension photos in play; real-dim gating downstream still filters.
+    .slice(0, 36);
 }
 const areaOf = (p) => (p.w && p.h) ? p.w * p.h : 420000;
 
