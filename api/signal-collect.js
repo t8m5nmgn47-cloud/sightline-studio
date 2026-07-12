@@ -16,6 +16,12 @@ export function signalCollectionHttpStatus(result = {}) {
   return 422;
 }
 
+export function signalSchemaUpgradeRequired(error) {
+  const message = String(error?.message || error || "");
+  return /signal_sources_source_type_check|violates check constraint[^\n]*source_type/i.test(message)
+    && /local_profile|source_type/i.test(message);
+}
+
 export default async function handler(req, res) {
   if (req.method !== "POST") {
     res.setHeader("Allow", "POST");
@@ -56,6 +62,15 @@ export default async function handler(req, res) {
     res.setHeader("Cache-Control", "private, no-store");
     return res.status(signalCollectionHttpStatus(result)).json(result);
   } catch (error) {
+    if (signalSchemaUpgradeRequired(error)) {
+      console.warn("Signal schema upgrade required:", error?.message || error);
+      return res.status(503).json({
+        ok: false,
+        setup_required: true,
+        schema_upgrade_required: true,
+        error: "Signal Network schema upgrade required. Run sql/sightline_signal_network_v1_1_local_profile.sql in the Sightline Supabase project.",
+      });
+    }
     console.error("Signal collection failed:", error?.message || error);
     return res.status(500).json({ ok: false, error: String(error?.message || "Signal collection failed.") });
   }
