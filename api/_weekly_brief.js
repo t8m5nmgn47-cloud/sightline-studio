@@ -12,10 +12,14 @@ const SOURCE_SCORE = {
   campaign_economics: 90,
   recommendation_outcomes: 88,
   review_events: 85,
+  signal_local_change: 83,
   campaign_events: 82,
   peer_movement: 80,
   exposure_audit: 72,
   instant_scan: 70,
+  signal_social_identity: 68,
+  signal_local_identity: 65,
+  signal_access_state: 60,
   prospect_audit_snapshot: 45,
   evidence_readiness: 10,
 };
@@ -51,6 +55,8 @@ export function briefCardMaturity(card) {
   const n = sample(card);
 
   if (src === "evidence_readiness" || isCampaignSetup(card) || isGenericMeasurementWatch(card)) return "setup";
+  if (["signal_access_state", "signal_local_identity", "signal_social_identity"].includes(src)) return "baseline";
+  if (src === "signal_local_change") return n >= 2 ? "measured" : "baseline";
   if (src === "prospect_audit_snapshot") return "baseline";
   if (isAuditSource(src) && n < 2) return "baseline";
   if (src === "campaign_events" && n < 6) return "limited";
@@ -81,7 +87,7 @@ function scoreCard(card) {
   const confidenceScore = CONFIDENCE_SCORE[String(card?.confidence || "low").toLowerCase()] || 0;
   const sampleScore = Math.min(24, Math.log2(sample(card) + 1) * 6);
   const comparisonScore = card?.evidence?.comparison ? 8 : 0;
-  const caveatPenalty = /baseline snapshot|not a trend claim/i.test(String(card?.evidence?.caveat || "")) ? 8 : 0;
+  const caveatPenalty = /baseline snapshot|not a trend claim|one-day identity baseline|access finding only|not verified ownership/i.test(String(card?.evidence?.caveat || "")) ? 8 : 0;
   return maturityScore + sourceScore + confidenceScore + sampleScore + comparisonScore - caveatPenalty;
 }
 
@@ -123,7 +129,7 @@ function statusCopy(status) {
   if (status === "baseline_only") {
     return {
       headline: "Current baseline established. Measure the next change before drawing a trend.",
-      message: "Sightline has a current point-in-time audit, but not enough repeated history to claim what is improving, what is declining, or which campaign pattern is winning. The brief shows the current audit priority and suppresses unsupported sections.",
+      message: "Sightline has a current point-in-time audit or public-signal baseline, but not enough repeated history to claim what is improving, what is declining, or which campaign pattern is winning. The brief shows the current evidence priority and suppresses unsupported sections.",
     };
   }
   if (status === "building_evidence") {
@@ -162,7 +168,7 @@ export function buildReliableWeeklyBrief(feed = {}) {
     headline,
     status_message: copy?.message || null,
     section_labels: {
-      best_opportunity: baseline && bestOpportunity === baseline ? "Current audit priority" : "Best opportunity",
+      best_opportunity: baseline && bestOpportunity === baseline ? "Current evidence priority" : "Best opportunity",
       what_is_working: "What is working",
       next_experiment: "Next experiment",
       what_to_watch: "What to watch",
