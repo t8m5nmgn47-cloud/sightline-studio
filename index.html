@@ -342,7 +342,7 @@ body.cine .site-header .mobile-nav a{color:#fff}
     <span class="logo-mark" aria-hidden="true"><svg viewBox="0 0 32 32" fill="none"><rect width="32" height="32" rx="8" fill="#0B2447"/><path d="M16 6l8 3.4v5.2c0 5-3.3 8.9-8 10.8-4.7-1.9-8-5.8-8-10.8V9.4z" fill="none" stroke="#10B6A8" stroke-width="2" stroke-linejoin="round"/><path d="M12 16.2l2.6 2.6L21 12.4" stroke="#10B6A8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg></span>
     <span class="logo-word">Sightline Studio</span>
   </a>
-    <nav class="nav" aria-label="Primary"><a href="/gallery">Websites</a><a href="/how-it-works">Monitoring</a><a href="/marketing">Marketing</a><a href="/pricing">Pricing</a></nav>
+    <nav class="nav" aria-label="Primary"><a href="/gallery">Websites</a><a href="/how-it-works">Monitoring</a><a href="/marketing">Marketing</a><a href="#taxjunkie">Tax Junkie</a><a href="/pricing">Pricing</a></nav>
     <div class="header-cta">
       <a class="btn btn-primary" href="#scanlive">Get my free scan</a>
     </div>
@@ -351,7 +351,7 @@ body.cine .site-header .mobile-nav a{color:#fff}
     </button>
   </div>
   <div class="mobile-nav" id="mobile-nav" hidden>
-    <a href="/gallery">Websites</a><a href="/how-it-works">Monitoring</a><a href="/marketing">Marketing</a><a href="/pricing">Pricing</a>
+    <a href="/gallery">Websites</a><a href="/how-it-works">Monitoring</a><a href="/marketing">Marketing</a><a href="#taxjunkie">Tax Junkie</a><a href="/pricing">Pricing</a>
     <a class="btn btn-primary" href="#scanlive">Get my free scan</a>
   </div>
 </header>
@@ -576,6 +576,64 @@ body.cine .site-header .mobile-nav a{color:#fff}
     <div class="reveal d1"><div class="nv"><span data-count data-prefix="$" data-to="0">$0</span></div><span class="nl">down to build your site — you own it</span></div>
     <div class="reveal d2"><div class="nv"><span data-count data-to="30">30</span><em>s</em></div><span class="nl">to run your free presence scan</span></div>
     <div class="reveal d3"><div class="nv"><span data-count data-to="1">1</span></div><span class="nl">clear price for your whole online presence</span></div>
+  </div>
+</section>
+
+
+<!-- ============================ TAX JUNKIE (from the studio) ============================ -->
+<!-- TODO: after deploying the Tax Junkie app, replace both https://tax-junkie.vercel.app hrefs below -->
+<style>
+/* Scoped Tax Junkie promo — reuses the .cine palette vars, cannot bleed out. */
+.tjx{padding:clamp(64px,9vw,120px) 0}
+.tjx .tjx-card{border:1px solid var(--line);background:linear-gradient(140deg,rgba(18,211,192,.07),rgba(90,160,255,.05) 55%,rgba(164,131,240,.06));border-radius:22px;padding:clamp(28px,4.5vw,56px);display:grid;gap:28px;grid-template-columns:1.25fr .75fr;align-items:center}
+.tjx .tjx-badge{display:inline-flex;align-items:center;gap:.5em;color:var(--teal)}
+.tjx h2{margin:.5em 0 .35em}
+.tjx p.lead{color:var(--mid);max-width:56ch;margin:0 0 1.1em;line-height:1.6}
+.tjx ul{list-style:none;margin:0 0 1.6em;padding:0;display:grid;gap:.55em;color:var(--mid)}
+.tjx ul li{display:flex;gap:.6em;align-items:flex-start}
+.tjx ul svg{width:1.05em;height:1.05em;flex:none;margin-top:.22em;stroke:var(--teal)}
+.tjx .tjx-cta{display:flex;gap:12px;flex-wrap:wrap}
+.tjx .tjx-btn{display:inline-block;padding:13px 26px;border-radius:10px;font-weight:600;text-decoration:none}
+.tjx .tjx-btn.solid{background:var(--teal);color:#04221f}
+.tjx .tjx-btn.solid:hover{background:#0fbcab}
+.tjx .tjx-btn.ghost{border:1px solid var(--line);color:var(--hi)}
+.tjx .tjx-btn.ghost:hover{border-color:var(--teal)}
+.tjx .tjx-note{margin-top:14px;color:var(--low);font-size:.8rem}
+.tjx .tjx-ledger{border:1px solid var(--line);border-radius:14px;background:var(--glass);padding:22px;font-family:var(--mono);font-size:.78rem;color:var(--mid)}
+.tjx .tjx-ledger .row{display:flex;justify-content:space-between;padding:.5em 0;border-bottom:1px dashed rgba(255,255,255,.12)}
+.tjx .tjx-ledger .row:last-child{border-bottom:0;color:var(--teal)}
+@media(max-width:860px){.tjx .tjx-card{grid-template-columns:1fr}}
+</style>
+<section class="tjx" id="taxjunkie">
+  <div class="u-wrap">
+    <div class="sec-head reveal">
+      <span class="mono">From the studio · New</span>
+      <h2 class="display">Meet <span class="grad-t">Tax Junkie</span>.</h2>
+      <p>Free business bookkeeping that quietly pre-builds your tax return — made for the same local owners we build websites for.</p>
+    </div>
+    <div class="tjx-card reveal">
+      <div>
+        <span class="mono tjx-badge">Capture once · File later</span>
+        <p class="lead">Track income, expenses, mileage and receipts all year. Tax Junkie maps every dollar to the right Schedule C line and estimates your quarterly taxes — so filing becomes review-and-submit, not re-entry.</p>
+        <ul>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l4.5 4.5L19 7"/></svg>Dashboard, P&amp;L and ledger — always tax-ready</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l4.5 4.5L19 7"/></svg>Receipt scanning with auto-categorization</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l4.5 4.5L19 7"/></svg>Quarterly estimated-tax planner with due dates</li>
+        </ul>
+        <div class="tjx-cta">
+          <a class="tjx-btn solid" href="https://tax-junkie.vercel.app/app/dashboard">Try the live demo</a>
+          <a class="tjx-btn ghost" href="https://tax-junkie.vercel.app/">Learn more</a>
+        </div>
+        <p class="tjx-note">Demo runs entirely in your browser with sample data. Not tax, legal, or financial advice.</p>
+      </div>
+      <div class="tjx-ledger" aria-hidden="true">
+        <div class="row"><span>Design revenue</span><span>+ $4,200.00</span></div>
+        <div class="row"><span>Adobe subscription</span><span>&minus; $59.99</span></div>
+        <div class="row"><span>Mileage · 142 mi</span><span>&minus; $99.40</span></div>
+        <div class="row"><span>Schedule C line 9</span><span>mapped ✓</span></div>
+        <div class="row"><span>Q3 estimate</span><span>$1,240 · Sep 15</span></div>
+      </div>
+    </div>
   </div>
 </section>
 
