@@ -213,16 +213,21 @@ export function buildSignalInterpretation(ledger = {}, options = {}) {
   const searchSources = ownedSources.filter((source) => source.source_type === "search_query");
   const socialCandidates = socialSources.filter((source) => source.status === "discovered" && Number(source.match_confidence || 0) >= 0.68);
   const verifiedSocial = socialSources.filter((source) => source.status === "active" && Number(source.match_confidence || 0) >= 0.8);
-  const localSource = localSources.slice().sort((a, b) => Number(b.match_confidence || 0) - Number(a.match_confidence || 0))[0] || null;
+  const localSource = localSources.slice().sort((a, b) => {
+    const recency = Date.parse(b.last_seen_at || b.first_seen_at || 0) - Date.parse(a.last_seen_at || a.first_seen_at || 0);
+    return recency || Number(b.match_confidence || 0) - Number(a.match_confidence || 0);
+  })[0] || null;
   const localIds = new Set(localSources.map((source) => source.id).filter(Boolean));
   const localSnapshots = ownedSnapshots.filter((row) => localIds.has(row.source_id) && String(row.signal_key || "").startsWith("local_"));
+  const currentLocalSnapshots = localSource ? localSnapshots.filter((row) => row.source_id === localSource.id) : [];
   const localDays = dayCount(localSnapshots);
+  const currentLocalDays = dayCount(currentLocalSnapshots);
   const ownedDays = dayCount(ownedSnapshots);
   const cards = [];
   let changeCount = 0;
 
-  if (localSource && localDays >= 2) {
-    const change = localChange(localSource, localSnapshots.filter((row) => row.source_id === localSource.id));
+  if (localSource && currentLocalDays >= 2) {
+    const change = localChange(localSource, currentLocalSnapshots);
     if (change) {
       cards.push(change);
       changeCount += 1;
@@ -234,7 +239,7 @@ export function buildSignalInterpretation(ledger = {}, options = {}) {
   const providers = ledger?.latest_run?.metadata?.external_providers || {};
   const geoapify = providers.geoapify_local || null;
   if (!localSource && geoapify?.status === "no_match") cards.push(localNoMatchCard(geoapify));
-  else if (localSource && localDays <= 1) cards.push(localBaselineCard(localSource, localSnapshots.filter((row) => row.source_id === localSource.id)));
+  else if (localSource && currentLocalDays <= 1) cards.push(localBaselineCard(localSource, currentLocalSnapshots));
 
   const hasExternalEvidence = localSources.length > 0 || socialSources.length > 0 || searchSources.length > 0 || ownedSnapshots.some((row) => /^(local_|search_|social_)/.test(row.signal_key || ""));
   if (blockedWebsite) cards.push(blockedWebsiteCard(blockedWebsite, hasExternalEvidence));
@@ -252,6 +257,7 @@ export function buildSignalInterpretation(ledger = {}, options = {}) {
       blocked_website: !!blockedWebsite,
       local_profile_count: localSources.length,
       local_observation_days: localDays,
+      current_local_observation_days: currentLocalDays,
       social_candidate_count: socialCandidates.length,
       verified_social_count: verifiedSocial.length,
       independent_search_source_count: searchSources.length,
