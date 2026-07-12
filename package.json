@@ -5,7 +5,8 @@
   "scripts": {
     "engine:check": "node engine/selftest.mjs && node engine/admin-auth-selftest.mjs && node engine/admin-dashboard-selftest.mjs && node engine/portfolio-selftest.mjs",
     "bi:check": "node bi/selftest.mjs && node bi/peer-selftest.mjs && node bi/change-selftest.mjs && node bi/readiness-selftest.mjs && node bi/portfolio-selftest.mjs && node bi/refresh-selftest.mjs && node bi/digest-selftest.mjs && node bi/learning-selftest.mjs && node bi/experiment-selftest.mjs && node bi/economics-selftest.mjs && node bi/brief-bootstrap-selftest.mjs && node bi/brief-reliability-selftest.mjs && node bi/observation-batch-selftest.mjs",
-    "signal:check": "node signals/selftest.mjs && node signals/owned-integrity-selftest.mjs && node signals/collection-response-selftest.mjs && node signals/external-selftest.mjs"
+    "signal:external": "node signals/external-selftest.mjs",
+    "signal:check": "node signals/selftest.mjs && node signals/owned-integrity-selftest.mjs && node signals/collection-response-selftest.mjs && npm run signal:external"
   },
   "dependencies": {
     "@sparticuz/chromium": "^131.0.0",
