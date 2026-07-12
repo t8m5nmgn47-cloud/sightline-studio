@@ -72,6 +72,16 @@ assert.equal(externalAssessment.ok, false);
 assert.equal(externalAssessment.external_observed, true);
 assert.equal(externalAssessment.observed, true);
 
+// A valid local profile is independently usable even if no separate search
+// provenance row is present in a future provider implementation.
+const localOnlyAssessment = assessCollectedTarget({
+  sources: [{ source_type: "local_profile", platform: "geoapify", status: "active" }],
+  snapshots: [{ signal_key: "local_place_present" }],
+  items: [],
+});
+assert.equal(localOnlyAssessment.external_observed, true);
+assert.equal(localOnlyAssessment.observed, true);
+
 // A robots-blocked site plus fresh Geoapify evidence stays blocked for public
 // web, while overall owned-evidence freshness and local presence remain honest.
 const baseLedger = buildSignalLedger({
@@ -139,4 +149,4 @@ assert.match(truthful.ledger.domains.find((domain) => domain.key === "local_pres
 assert.doesNotMatch(truthful.ledger.domains.find((domain) => domain.key === "local_presence").evidence, /reviews/i);
 assert.match(truthful.ledger.domains.find((domain) => domain.key === "social_identity").evidence, /1 discovery candidate/);
 
-console.log("External Signal Acquisition self-test passed: Geoapify match confidence, independent social discovery, external-only observability, and provider-honest evidence maturity.");
+console.log("External Signal Acquisition self-test passed: Geoapify match confidence, independent social discovery, local-profile-only observability, and provider-honest evidence maturity.");

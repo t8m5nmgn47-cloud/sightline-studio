@@ -88,7 +88,7 @@ export function assessCollectedTarget(bundle = {}) {
   const websiteSources = sources.filter((source) => source?.source_type === "website");
   const blockedWebsiteSources = websiteSources.filter((source) => source?.status === "blocked").length;
   const webPages = items.filter((item) => item?.item_type === "web_page").length;
-  const externalSources = sources.filter((source) => ["review_profile", "social_profile", "search_query", "news_feed", "job_feed", "ad_library"].includes(source?.source_type));
+  const externalSources = sources.filter((source) => ["local_profile", "review_profile", "social_profile", "search_query", "news_feed", "job_feed", "ad_library"].includes(source?.source_type));
   const externalSnapshots = snapshots.filter((row) => /^(local_|search_|social_)/.test(row?.signal_key || "")).length;
   const websiteUsable = websiteSources.some((source) => source?.status !== "blocked") && webPages > 0;
   const blocked = !websiteUsable && blockedWebsiteSources > 0;
