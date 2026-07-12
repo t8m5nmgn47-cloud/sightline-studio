@@ -23,6 +23,9 @@ function desat(h, amt){ const [r,g,b]=rgb(h); const grey=Math.round(.299*r+.587*
   const f=v=>Math.round(v+(grey-v)*amt);
   return `#${[f(r),f(g),f(b)].map(v=>v.toString(16).padStart(2,'0')).join('')}`; }
 function tame(h){ const c=rgb(h); const sv=sat(c); return sv>.6 ? desat(h, Math.min(.4, (sv-.55)*1.1)) : h; }
+// escape captured/profile-derived values before they enter HTML text or
+// attributes — never applied to trusted renderer-built markup
+const esc = s => String(s ?? '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
 // display-format a US phone: +13035005783 → (303) 500-5783 (module-scope —
 // used by hero CTAs and normalize alike)
 const fmtPhone = ph => { const d=String(ph||'').replace(/[^0-9]/g,'').replace(/^1(?=\d{10}$)/,'');
@@ -59,13 +62,21 @@ function derivePalette(colors){
     const harmonious = hueDist(accent,brand) <= 70 || (aHue >= 20 && aHue <= 70) || sat(rgb(accent)) < .35;
     if (!harmonious) accent = '#c0914c';
   }
+  // accent-coloured text/UI (stars, dots, checks) sits on the light page
+  // ground — like clampForWhite for brand, darken until it reads (≥3:1)
+  const bgLight = lights[0] || '#faf8f4';
+  if (contrast(accent, bgLight) < 3){
+    accent = tame(accent);
+    let i = 0;
+    while (contrast(accent, bgLight) < 3 && i++ < 12) accent = darken(accent, .12);
+  }
   // buttons and bands put white text on brand — clamp so it always reads;
   // tame() caps saturation so a neon captured brand can't shout down the page
   const safeBrand = clampForWhite(tame(brand), 3);
   return {
     brand: safeBrand, brandD: darken(safeBrand,.18), accent,
     ink: darks[0] || '#1b1b1f',
-    bg: lights[0] || '#faf8f4', surf:'#ffffff',
+    bg: bgLight, surf:'#ffffff',
     mut:'#6a6a72', line:'rgba(0,0,0,.10)',
   };
 }
@@ -145,34 +156,36 @@ const S = {};
 S.nav = (p) => `
 <nav class="nav">
   <a class="brandmark" href="#top">${p.logo
-    ? `<img src="${p.logo}" alt="${p.name}" class="logo" onerror="this.outerHTML='<span class=&quot;wordmark&quot;>${p.name.replace(/'/g,'’')}</span>'">`
-    : `<span class="wordmark">${p.name}</span>`}</a>
-  ${p.nav ? `<div class="navlinks">${p.nav.map(t=>`<a href="${t.href}">${t.label}</a>`).join('')}</div>` : ''}
-  <a class="btn sm" href="#visit">${p._t?.imNew || "I'm New"}</a>
+    ? `<img src="${p.logo}" alt="${esc(p.name)}" class="logo" onerror="this.outerHTML='<span class=&quot;wordmark&quot;>${esc(p.name.replace(/'/g,'’'))}</span>'">`
+    : `<span class="wordmark">${esc(p.name)}</span>`}</a>
+  ${p.nav ? `<div class="navlinks">${p.nav.map(t=>`<a href="${t.href}">${esc(t.label)}</a>`).join('')}</div>` : ''}
+  <a class="btn sm" href="#visit">${esc(p._t?.imNew || "I'm New")}</a>
+  ${p.nav ? `<button class="navburger" type="button" aria-label="Menu" aria-expanded="false" aria-controls="navmenu"><span></span><span></span><span></span></button>
+  <div class="navlinks navlinks-m" id="navmenu">${p.nav.map(t=>`<a href="${t.href}">${esc(t.label)}</a>`).join('')}</div>` : ''}
 </nav>`;
 
 S.hero = (p, {mood, arch}) => {
   const h = p.hero || {};
   // ── FLAGSHIP hero: cinematic, editorial, layered. The signature look. ──────
   if (arch === 'flagship'){
-    const words = (h.headline || p.name).split(' ');
+    const words = esc(h.headline || p.name).split(' ');
     const anim = words.map((w,i)=>`<span class="w" style="--i:${i}">${w}</span>`).join(' ');
     const media = p.heroVideo
       ? `<video autoplay muted loop playsinline preload="metadata" poster="${p.heroImage||''}"><source src="${p.heroVideo}" type="video/mp4"></video>`
-      : p.heroImage ? `<img src="${p.heroImage}" alt="${p.name}" loading="eager">` : '';
+      : p.heroImage ? `<img src="${p.heroImage}" alt="${esc(p.name)}" loading="eager">` : '';
     const trust = (p.sections?.trust?.length ? p.sections.trust : (p._t && p._t.trust) || []).slice(0,3);
     return `
 <header class="fhero" id="top">
   <div class="fhero-media">${media}<div class="fhero-veil"></div></div>
   <div class="wrap fhero-in">
-    ${h.kick?`<span class="fkick"><span class="fkick-dot"></span>${h.kick}</span>`:''}
+    ${h.kick?`<span class="fkick"><span class="fkick-dot"></span>${esc(h.kick)}</span>`:''}
     <h1 class="fhead">${anim}</h1>
-    ${h.sub?`<p class="fsub">${h.sub}</p>`:''}
+    ${h.sub?`<p class="fsub">${esc(h.sub)}</p>`:''}
     <div class="fcta">
-      ${(h.ctas||[{label:'Get started →',href:'#book'}]).map((c,i)=>`<a class="fbtn${i?' ghost':''}" href="${c.href}">${c.label}</a>`).join('')}
-      ${p.phone?`<a class="fbtn ghost" href="tel:${p.phone.replace(/[^0-9]/g,'')}">${fmtPhone(p.phone)}</a>`:''}
+      ${(h.ctas||[{label:'Get started →',href:'#book'}]).map((c,i)=>`<a class="fbtn${i?' ghost':''}" href="${c.href}">${esc(c.label)}</a>`).join('')}
+      ${p.phone?`<a class="fbtn ghost" href="tel:${p.phone.replace(/[^0-9]/g,'')}">${esc(fmtPhone(p.phone))}</a>`:''}
     </div>
-    ${trust.length?`<ul class="ftrust">${trust.map(t=>`<li>${t}</li>`).join('')}</ul>`:''}
+    ${trust.length?`<ul class="ftrust">${trust.map(t=>`<li>${esc(t)}</li>`).join('')}</ul>`:''}
   </div>
   <a class="fscroll" href="#book" aria-label="Scroll"><span></span></a>
 </header>`;
@@ -188,12 +201,12 @@ S.hero = (p, {mood, arch}) => {
 <header class="hero mood-${mood||'none'}${noImg}" id="top">
   ${bg}${glow}<div class="scrim"></div>
   <div class="hero-in">
-    ${h.kick?`<span class="kick">${h.kick}</span>`:''}
-    <h1>${h.headline || p.name}</h1>
-    ${h.sub?`<p class="hero-sub">${h.sub}</p>`:''}
+    ${h.kick?`<span class="kick">${esc(h.kick)}</span>`:''}
+    <h1>${esc(h.headline || p.name)}</h1>
+    ${h.sub?`<p class="hero-sub">${esc(h.sub)}</p>`:''}
     <div class="cta-row">
       ${(h.ctas||[{label:'Plan Your Visit →',href:'#visit'},{label:'Watch Online',href:'#watch',ghost:true}])
-        .map(c=>`<a class="btn lg${c.ghost?' ghost':''}" href="${c.href}">${c.label}</a>`).join('')}
+        .map(c=>`<a class="btn lg${c.ghost?' ghost':''}" href="${c.href}">${esc(c.label)}</a>`).join('')}
     </div>
   </div>
 </header>`;
@@ -208,11 +221,11 @@ S.services = (p) => { const s=p.sections.services; if(!s||!s.items) return ''; c
   return `
 <section class="sec services" id="visit">
   <div class="wrap">
-    <span class="sec-k">${s.kicker||tc.kicker||'New here?'}</span>
-    <h2>${s.title||tc.title||'What to expect'}</h2>
-    ${s.lead?`<p class="lead">${s.lead}</p>`:''}
+    <span class="sec-k">${esc(s.kicker||tc.kicker||'New here?')}</span>
+    <h2>${esc(s.title||tc.title||'What to expect')}</h2>
+    ${s.lead?`<p class="lead">${esc(s.lead)}</p>`:''}
     <div class="cardgrid${compact?' compactgrid':''}">${items.map((it,i)=>`
-      <article class="card${compact?' compact':''}"><span class="cn">${i+1}</span><h3>${it.h}</h3>${!compact&&it.p?`<p>${it.p}</p>`:''}</article>`).join('')}
+      <article class="card${compact?' compact':''}"><span class="cn">${i+1}</span><h3>${esc(it.h)}</h3>${!compact&&it.p?`<p>${esc(it.p)}</p>`:''}</article>`).join('')}
     </div>
   </div>
 </section>`; };
@@ -221,11 +234,11 @@ S.events = (p) => { const s=p.sections.events; if(!s||!s.items) return '';
   return `
 <section class="sec events" id="events">
   <div class="wrap">
-    <span class="sec-k">${s.kicker||'This week'}</span>
-    <h2>${s.title||"What's on"}</h2>
+    <span class="sec-k">${esc(s.kicker||'This week')}</span>
+    <h2>${esc(s.title||"What's on")}</h2>
     <div class="evlist">${s.items.map(e=>`
-      <div class="ev"><div class="ev-when">${e.when||''}</div>
-        <div class="ev-body"><h3>${e.h}</h3><p>${e.p||''}</p></div></div>`).join('')}
+      <div class="ev"><div class="ev-when">${esc(e.when||'')}</div>
+        <div class="ev-body"><h3>${esc(e.h)}</h3><p>${esc(e.p||'')}</p></div></div>`).join('')}
     </div>
   </div>
 </section>`; };
@@ -234,9 +247,9 @@ S.giving = (p) => { const s=p.sections.giving; if(!s) return '';
   return `
 <section class="sec band" id="give">
   <div class="wrap band-in">
-    <div><span class="sec-k light">${s.kicker||'Give'}</span><h2>${s.title||'Generosity, made simple.'}</h2>
-      <p class="lead light">${s.lead||''}</p></div>
-    <a class="btn lg light" href="${s.href||'#give'}">${s.cta||'Give online'}</a>
+    <div><span class="sec-k light">${esc(s.kicker||'Give')}</span><h2>${esc(s.title||'Generosity, made simple.')}</h2>
+      <p class="lead light">${esc(s.lead||'')}</p></div>
+    <a class="btn lg light" href="${s.href||'#give'}">${esc(s.cta||'Give online')}</a>
   </div>
 </section>`; };
 
@@ -247,14 +260,14 @@ S.cta = (p) => {
   return `
 <section class="sec cta${img?' cta-photo':''}" id="join"${img?` style="background-image:linear-gradient(rgba(0,0,0,.55),rgba(0,0,0,.55)),url('${img}')"`:''}>
   <div class="wrap">
-    <h2>${(p.sections.cta&&p.sections.cta.title)||'We saved you a seat.'}</h2>
-    <p class="lead${img?' light':''}">${(p.sections.cta&&p.sections.cta.lead)||'Come as you are — this Sunday.'}</p>
-    <a class="btn lg${img?' light':''}" href="${p._t?.bookCta ? '#book' : '#visit'}">${(p.sections.cta&&p.sections.cta.cta) || p._t?.bookCta || 'Plan Your Visit →'}</a>
+    <h2>${esc((p.sections.cta&&p.sections.cta.title)||'We saved you a seat.')}</h2>
+    <p class="lead${img?' light':''}">${esc((p.sections.cta&&p.sections.cta.lead)||'Come as you are — this Sunday.')}</p>
+    <a class="btn lg${img?' light':''}" href="${p._t?.bookCta ? '#book' : '#visit'}">${esc((p.sections.cta&&p.sections.cta.cta) || p._t?.bookCta || 'Plan Your Visit →')}</a>
   </div>
 </section>`; };
 
 // live announcement bar — proof the church is current & alive
-S.announce = (p) => p.announce ? `<div class="announce"><span class="adot"></span>${p.announce}</div>` : '';
+S.announce = (p) => p.announce ? `<div class="announce"><span class="adot"></span>${esc(p.announce)}</div>` : '';
 
 // the visitor journey — the spine of a congregation-first site
 S.nextsteps = (p) => { const s=p.sections.nextsteps; if(!s) return '';
@@ -266,8 +279,8 @@ S.nextsteps = (p) => { const s=p.sections.nextsteps; if(!s) return '';
   ];
   return `
 <section class="sec steps" id="next-steps">
-  <div class="wrap"><span class="sec-k">Your next step</span><h2>${s.title||'New here? Start here.'}</h2>
-    <div class="steprail">${steps.map(x=>`<div class="step"><span class="stepn">${x.n}</span><h3>${x.h}</h3><p>${x.p}</p></div>`).join('<span class="steparrow">→</span>')}</div>
+  <div class="wrap"><span class="sec-k">Your next step</span><h2>${esc(s.title||'New here? Start here.')}</h2>
+    <div class="steprail">${steps.map(x=>`<div class="step"><span class="stepn">${esc(x.n)}</span><h3>${esc(x.h)}</h3><p>${esc(x.p)}</p></div>`).join('<span class="steparrow">→</span>')}</div>
     <a class="btn lg" href="#connect">Plan my visit →</a>
   </div></section>`; };
 
@@ -275,34 +288,34 @@ S.groups = (p) => { const s=p.sections.groups; if(!s) return ''; const tc=p._t?.
   const cats = s.cats || tc.cats || ['Life Groups','Men','Women','Young Adults','Students','Families'];
   return `
 <section class="sec groups" id="groups">
-  <div class="wrap"><span class="sec-k">${tc.kicker||'Belong'}</span><h2>${s.title||tc.title||'Find your people.'}</h2>
-    <p class="lead">${s.lead||tc.lead||'A group is where Sunday becomes a family. Tell us your season of life and we’ll match you.'}</p>
-    <div class="chips">${cats.map(c=>`<span class="chip">${c}</span>`).join('')}</div>
-    <a class="btn lg" href="#connect">${s.cta||tc.cta||'Find your group →'}</a>
+  <div class="wrap"><span class="sec-k">${esc(tc.kicker||'Belong')}</span><h2>${esc(s.title||tc.title||'Find your people.')}</h2>
+    <p class="lead">${esc(s.lead||tc.lead||'A group is where Sunday becomes a family. Tell us your season of life and we’ll match you.')}</p>
+    <div class="chips">${cats.map(c=>`<span class="chip">${esc(c)}</span>`).join('')}</div>
+    <a class="btn lg" href="#connect">${esc(s.cta||tc.cta||'Find your group →')}</a>
   </div></section>`; };
 
 S.serve = (p) => { const s=p.sections.serve; if(!s) return ''; const tc=p._t?.copy?.serve||{};
   return `
 <section class="sec band alt" id="serve">
-  <div class="wrap band-in"><div><span class="sec-k light">${tc.kicker||'Serve'}</span>
-    <h2>${s.title||tc.title||'There’s a place for you here.'}</h2>
-    <p class="lead light">${s.lead||tc.lead||'Kids, worship, hospitality, tech, outreach — serving is how you go from attending to belonging.'}</p></div>
-    <a class="btn lg light" href="#connect">${s.cta||tc.cta||'Find where to serve'}</a></div></section>`; };
+  <div class="wrap band-in"><div><span class="sec-k light">${esc(tc.kicker||'Serve')}</span>
+    <h2>${esc(s.title||tc.title||'There’s a place for you here.')}</h2>
+    <p class="lead light">${esc(s.lead||tc.lead||'Kids, worship, hospitality, tech, outreach — serving is how you go from attending to belonging.')}</p></div>
+    <a class="btn lg light" href="#connect">${esc(s.cta||tc.cta||'Find where to serve')}</a></div></section>`; };
 
 S.music = (p) => { const s=p.sections.music; if(!s) return ''; const m=s;
   return `
 <section class="sec music" id="music">
-  <div class="wrap"><span class="sec-k">Worship & music</span><h2>${m.title||'A tradition of sung faith.'}</h2>
-    <p class="lead">${m.lead||'Choir, organ, and worship arts — music that lifts the whole room, every week.'}</p>
-    <a class="btn lg" href="#events">${m.cta||'Our music ministry'}</a></div></section>`; };
+  <div class="wrap"><span class="sec-k">Worship & music</span><h2>${esc(m.title||'A tradition of sung faith.')}</h2>
+    <p class="lead">${esc(m.lead||'Choir, organ, and worship arts — music that lifts the whole room, every week.')}</p>
+    <a class="btn lg" href="#events">${esc(m.cta||'Our music ministry')}</a></div></section>`; };
 
 S.care = (p) => { const s=p.sections.care; if(!s) return '';
   return `
 <section class="sec care" id="connect">
   <div class="wrap care-in">
-    <div class="care-copy"><span class="sec-k">Care & prayer</span><h2>${s.title||'However you come, you don’t come alone.'}</h2>
-      <p class="lead">${s.lead||'Need prayer, or just want someone to know you’re coming? Send a note — a real person reads every one.'}</p></div>
-    <form class="care-form" data-source="demo:${p.slug||p.name||''}">
+    <div class="care-copy"><span class="sec-k">Care & prayer</span><h2>${esc(s.title||'However you come, you don’t come alone.')}</h2>
+      <p class="lead">${esc(s.lead||'Need prayer, or just want someone to know you’re coming? Send a note — a real person reads every one.')}</p></div>
+    <form class="care-form" data-source="demo:${esc(p.slug||p.name||'')}">
       <input type="text" name="cname" placeholder="Your name" aria-label="Your name" required>
       <input type="email" name="cemail" placeholder="Email" aria-label="Email" required>
       <textarea rows="3" name="cmsg" placeholder="How can we pray for you, or how can we help?" aria-label="Message" required></textarea>
@@ -316,11 +329,11 @@ S.sermons = (p) => { const s=p.sections.sermons; if(!s) return '';
   return `
 <section class="sec watch" id="watch">
   <div class="wrap watch-in">
-    <div class="watch-copy"><span class="sec-k">Watch</span><h2>${s.title||'Can’t make it in person? Worship with us online.'}</h2>
-      <p class="lead">${s.lead||'Every service streams live — and the full message library is a tap away. A great way to sample before you step in.'}</p>
+    <div class="watch-copy"><span class="sec-k">Watch</span><h2>${esc(s.title||'Can’t make it in person? Worship with us online.')}</h2>
+      <p class="lead">${esc(s.lead||'Every service streams live — and the full message library is a tap away. A great way to sample before you step in.')}</p>
       <div class="cta-row"><a class="btn lg" href="${s.live||'#watch'}">Watch live →</a><a class="btn ghost lg" href="${s.archive||'#watch'}">Past messages</a></div>
     </div>
-    <div class="watch-frame"><span class="playbtn">▶</span>${s.latest?`<div class="watch-meta"><b>${s.latest.title}</b><span>${s.latest.speaker||''}</span></div>`:''}</div>
+    <div class="watch-frame"><span class="playbtn">▶</span>${s.latest?`<div class="watch-meta"><b>${esc(s.latest.title)}</b><span>${esc(s.latest.speaker||'')}</span></div>`:''}</div>
   </div>
 </section>`; };
 
@@ -329,20 +342,24 @@ S.times = (p) => { const t=p.serviceTimes; if(!t||!t.length) return '';
   return `
 <section class="sec times" id="times">
   <div class="wrap times-in">
-    <div class="times-h"><span class="sec-k">Join us</span><h2>${heading}</h2></div>
-    <ul class="times-list">${t.map(x=>`<li><span class="tdot"></span>${x}</li>`).join('')}</ul>
+    <div class="times-h"><span class="sec-k">Join us</span><h2>${esc(heading)}</h2></div>
+    <ul class="times-list">${t.map(x=>`<li><span class="tdot"></span>${esc(x)}</li>`).join('')}</ul>
   </div>
 </section>`; };
 
 // ── Catholic tradition sections ──────────────────────────────────────────────
 S.mass = (p) => { const t=p.serviceTimes||[]; const m=p.sections.mass||{};
+  // grounding rule: never invent a Mass schedule. No captured times → omit the
+  // times markup; nothing captured at all → no section.
+  const devos = (m.confession||m.adoration)?`<div class="wrap devos">${m.confession?`<div class="devo"><b>Reconciliation</b><span>${esc(m.confession)}</span></div>`:''}${m.adoration?`<div class="devo"><b>Eucharistic Adoration</b><span>${esc(m.adoration)}</span></div>`:''}</div>`:'';
+  if(!t.length && !devos) return '';
   return `
 <section class="sec times" id="times">
-  <div class="wrap times-in">
+  ${t.length?`<div class="wrap times-in">
     <div class="times-h"><span class="sec-k">Join us</span><h2>Mass times</h2></div>
-    <ul class="times-list">${t.length?t.map(x=>`<li><span class="tdot"></span>${x}</li>`).join(''):'<li><span class="tdot"></span>Saturday Vigil · Sunday morning</li>'}</ul>
-  </div>
-  ${(m.confession||m.adoration)?`<div class="wrap devos">${m.confession?`<div class="devo"><b>Reconciliation</b><span>${m.confession}</span></div>`:''}${m.adoration?`<div class="devo"><b>Eucharistic Adoration</b><span>${m.adoration}</span></div>`:''}</div>`:''}
+    <ul class="times-list">${t.map(x=>`<li><span class="tdot"></span>${esc(x)}</li>`).join('')}</ul>
+  </div>`:''}
+  ${devos}
 </section>`; };
 
 S.sacraments = (p) => { const s=p.sections.sacraments; if(!s) return '';
@@ -350,10 +367,10 @@ S.sacraments = (p) => { const s=p.sections.sacraments; if(!s) return '';
   return `
 <section class="sec sacr" id="sacraments">
   <div class="wrap">
-    <span class="sec-k">The Sacraments</span><h2>${s.title||'Encounter Christ in the sacraments.'}</h2>
-    <p class="lead">${s.lead||'From Baptism to Marriage, the sacraments mark every season of a Catholic life. Here’s how to receive each one in our parish.'}</p>
-    <div class="sacrgrid">${items.map(x=>`<article class="sacrcard"><span class="sx">✦</span><h3>${x}</h3></article>`).join('')}</div>
-    <a class="btn lg" href="#connect">${s.cta||'New to the faith? Begin OCIA →'}</a>
+    <span class="sec-k">The Sacraments</span><h2>${esc(s.title||'Encounter Christ in the sacraments.')}</h2>
+    <p class="lead">${esc(s.lead||'From Baptism to Marriage, the sacraments mark every season of a Catholic life. Here’s how to receive each one in our parish.')}</p>
+    <div class="sacrgrid">${items.map(x=>`<article class="sacrcard"><span class="sx">✦</span><h3>${esc(x)}</h3></article>`).join('')}</div>
+    <a class="btn lg" href="#connect">${esc(s.cta||'New to the faith? Begin OCIA →')}</a>
   </div>
 </section>`; };
 
@@ -361,11 +378,11 @@ S.team = (p) => { const s=p.sections.team; if(!s||!s.items||!s.items.length) ret
   return `
 <section class="sec team" id="team">
   <div class="wrap">
-    <span class="sec-k">${s.kicker||'Our team'}</span>
-    <h2>${s.title||'People you\'ll meet'}</h2>
+    <span class="sec-k">${esc(s.kicker||'Our team')}</span>
+    <h2>${esc(s.title||'People you\'ll meet')}</h2>
     <div class="teamgrid">${s.items.map(m=>`
-      <article class="tcard">${m.photo?`<img src="${m.photo}" alt="${m.name}" loading="lazy" decoding="async">`:`<div class="tinitial">${(m.name||'?')[0]}</div>`}
-        <h3>${m.name}</h3><span class="trole">${m.role||''}</span></article>`).join('')}
+      <article class="tcard">${m.photo?`<img src="${m.photo}" alt="${esc(m.name)}" loading="lazy" decoding="async">`:`<div class="tinitial">${esc((m.name||'?')[0])}</div>`}
+        <h3>${esc(m.name)}</h3><span class="trole">${esc(m.role||'')}</span></article>`).join('')}
     </div>
   </div>
 </section>`; };
@@ -378,24 +395,24 @@ S.gallerystrip = (p) => {
   if (pics.length < 2) return '';
   return `
 <section class="sec gstrip" id="gallery">
-  <div class="wrap"><span class="sec-k">${p._t?.copy?.gallery?.kicker||'Take a look'}</span><h2>${p._t?.copy?.gallery?.title||'Real photos, not stock.'}</h2></div>
-  <div class="gstrip-row">${pics.map((g,i)=>`<img src="${g}" alt="${p.name} — photo ${i+1}" loading="lazy" decoding="async">`).join('')}</div>
+  <div class="wrap"><span class="sec-k">${esc(p._t?.copy?.gallery?.kicker||'Take a look')}</span><h2>${esc(p._t?.copy?.gallery?.title||'Real photos, not stock.')}</h2></div>
+  <div class="gstrip-row">${pics.map((g,i)=>`<img src="${g}" alt="${esc(p.name)} — photo ${i+1}" loading="lazy" decoding="async">`).join('')}</div>
 </section>`; };
 
 // compact page header for interior pages (multi-page output)
 S.pagehero = (p) => `
 <header class="pagehero">
   <div class="wrap">
-    <span class="sec-k light">${p.name}</span>
-    <h1>${p._page?.title || ''}</h1>
-    ${p._page?.lead ? `<p class="pagehero-lead">${p._page.lead}</p>` : ''}
+    <span class="sec-k light">${esc(p.name)}</span>
+    <h1>${esc(p._page?.title || '')}</h1>
+    ${p._page?.lead ? `<p class="pagehero-lead">${esc(p._page.lead)}</p>` : ''}
   </div>
 </header>`;
 
 S.footer = (p) => `
 <footer class="foot"><div class="wrap">
-  <div class="foot-brand">${p.name}</div>
-  ${p.location?`<div class="foot-loc">${p.location}</div>`:''}
+  <div class="foot-brand">${esc(p.name)}</div>
+  ${p.location?`<div class="foot-loc">${esc(p.location)}</div>`:''}
   <div class="foot-fine">Site by Sightline</div>
 </div></footer>`;
 
@@ -418,8 +435,8 @@ S.bookbar = (p) => { const b=p.sections.book||{};
   return `
 <section class="sec bookbar" id="book">
   <div class="wrap bookbar-in">
-    <div><b>${b.title||'Ready when you are.'}</b><span>${b.sub||'Book online in under a minute — or call and we’ll take care of the rest.'}</span></div>
-    <div class="bookbtns"><a class="btn lg" href="${b.href||'#book'}">${p._t?.bookCta||'Book appointment →'}</a>${p.phone?`<a class="btn ghost lg" href="tel:${p.phone.replace(/[^0-9]/g,'')}">📞 ${fmtPhone(p.phone)}</a>`:''}</div>
+    <div><b>${esc(b.title||'Ready when you are.')}</b><span>${esc(b.sub||'Book online in under a minute — or call and we’ll take care of the rest.')}</span></div>
+    <div class="bookbtns"><a class="btn lg" href="${b.href||'#book'}">${esc(p._t?.bookCta||'Book appointment →')}</a>${p.phone?`<a class="btn ghost lg" href="tel:${p.phone.replace(/[^0-9]/g,'')}">📞 ${esc(fmtPhone(p.phone))}</a>`:''}</div>
   </div>
 </section>`; };
 
@@ -427,7 +444,7 @@ S.bookbar = (p) => { const b=p.sections.book||{};
 S.marquee = (p) => {
   const items = (p._t?.services || p.sections?.services?.items?.map(i=>i.h) || []).filter(Boolean).slice(0,8);
   if (!items.length) return '';
-  const run = items.map(x=>`<span>${x}</span><span class="mstar">✦</span>`).join('');
+  const run = items.map(x=>`<span>${esc(x)}</span><span class="mstar">✦</span>`).join('');
   return `
 <section class="fmarquee" aria-hidden="true"><div class="fmarquee-t">${run}${run}</div></section>`;
 };
@@ -437,10 +454,10 @@ S.reviews = (p) => { const s=p.sections.reviews; if(!s) return '';
   return `
 <section class="sec reviews" id="reviews">
   <div class="wrap">
-    <span class="sec-k">${s.kicker||'What people say'}</span>
-    <h2>${s.title||'Trusted by neighbors like you.'}</h2>
-    ${s.rating?`<div class="rating"><span class="stars">★★★★★</span> <b>${s.rating}</b> from <b>${s.count||'hundreds of'}</b> reviews</div>`:''}
-    <div class="rvgrid">${items.map(r=>`<blockquote class="rv">“${r.q}”<cite>— ${r.name||'Verified patient'}</cite></blockquote>`).join('')}</div>
+    <span class="sec-k">${esc(s.kicker||'What people say')}</span>
+    <h2>${esc(s.title||'Trusted by neighbors like you.')}</h2>
+    ${s.rating?`<div class="rating"><span class="stars">★★★★★</span> <b>${esc(s.rating)}</b> from <b>${esc(s.count||'hundreds of')}</b> reviews</div>`:''}
+    <div class="rvgrid">${items.map(r=>`<blockquote class="rv">“${esc(r.q)}”<cite>— ${esc(r.name||'Verified patient')}</cite></blockquote>`).join('')}</div>
   </div>
 </section>`; };
 
@@ -448,24 +465,24 @@ S.offer = (p) => { const s=p.sections.offer; if(!s) return '';
   return `
 <section class="sec band" id="offer">
   <div class="wrap band-in">
-    <div><span class="sec-k light">${s.kicker||'New here?'}</span><h2>${s.title||'New-patient special.'}</h2>
-      <p class="lead light">${s.lead||''}</p></div>
-    <a class="btn lg light" href="${s.href||'#book'}">${s.cta||'Claim this offer →'}</a>
+    <div><span class="sec-k light">${esc(s.kicker||'New here?')}</span><h2>${esc(s.title||'New-patient special.')}</h2>
+      <p class="lead light">${esc(s.lead||'')}</p></div>
+    <a class="btn lg light" href="${s.href||'#book'}">${esc(s.cta||'Claim this offer →')}</a>
   </div></section>`; };
 
 S.results = (p) => { const s=p.sections.results; if(!s) return '';
   const items = s.items || [];
   return `
 <section class="sec results" id="results">
-  <div class="wrap"><span class="sec-k">${s.kicker||'Results'}</span><h2>${s.title||'Real results, real people.'}</h2>
-    <div class="cardgrid">${items.map(it=>`<article class="card"><h3>${it.h}</h3><p>${it.p||''}</p></article>`).join('')}</div>
+  <div class="wrap"><span class="sec-k">${esc(s.kicker||'Results')}</span><h2>${esc(s.title||'Real results, real people.')}</h2>
+    <div class="cardgrid">${items.map(it=>`<article class="card"><h3>${esc(it.h)}</h3><p>${esc(it.p||'')}</p></article>`).join('')}</div>
   </div></section>`; };
 
 // trust band — the pack's proof points, right under the hero/services
 S.trust = (p) => { const s=p.sections.trust; if(!s||!s.items||!s.items.length) return '';
   return `
 <section class="trustband">
-  <div class="wrap trust-in">${s.items.map(t=>`<div class="trustitem"><span class="tcheck">✓</span>${t}</div>`).join('')}</div>
+  <div class="wrap trust-in">${s.items.map(t=>`<div class="trustitem"><span class="tcheck">✓</span>${esc(t)}</div>`).join('')}</div>
 </section>`; };
 
 S.bizmoney = (p) => { const s=p.sections.money; if(!s) return '';
@@ -474,78 +491,36 @@ S.bizmoney = (p) => { const s=p.sections.money; if(!s) return '';
 <section class="sec money" id="money">
   <div class="wrap money-in${img?'':' noimg'}">
     <div class="money-copy">
-      <span class="sec-k">${s.kicker||'Affordable care'}</span><h2>${s.title||'Insurance & financing, made easy.'}</h2>
-      <p class="lead">${s.lead||'We accept most major insurance and offer flexible financing so cost never stands between you and care.'}</p>
-      ${s.quote?`<blockquote class="money-quote">“${s.quote.q}”<cite>— ${s.quote.name||'Verified patient'}</cite></blockquote>`:''}
-      ${s.logos?`<div class="chips">${s.logos.map(l=>`<span class="chip">${l}</span>`).join('')}</div>`:''}
-      <a class="btn" href="#book" style="margin-top:20px">${s.cta||'Check your coverage →'}</a>
+      <span class="sec-k">${esc(s.kicker||'Affordable care')}</span><h2>${esc(s.title||'Insurance & financing, made easy.')}</h2>
+      <p class="lead">${esc(s.lead||'We accept most major insurance and offer flexible financing so cost never stands between you and care.')}</p>
+      ${s.quote?`<blockquote class="money-quote">“${esc(s.quote.q)}”<cite>— ${esc(s.quote.name||'Verified patient')}</cite></blockquote>`:''}
+      ${s.logos?`<div class="chips">${s.logos.map(l=>`<span class="chip">${esc(l)}</span>`).join('')}</div>`:''}
+      <a class="btn" href="#book" style="margin-top:20px">${esc(s.cta||'Check your coverage →')}</a>
     </div>
-    ${img?`<div class="money-img"><img src="${img}" alt="${p.name}" loading="lazy" decoding="async"></div>`:''}
+    ${img?`<div class="money-img"><img src="${img}" alt="${esc(p.name)}" loading="lazy" decoding="async"></div>`:''}
   </div></section>`; };
-
-// About / story — the section every real $15k site has and thin demos lack.
-// Editorial split: narrative on one side, a real photo (or brand panel) on the other.
-S.about = (p) => { const s=p.sections.about; if(!s||!s.body) return '';
-  const media = s.image
-    ? `<figure class="about-media"><img src="${s.image}" alt="${p.name}" loading="lazy"></figure>`
-    : `<div class="about-media about-panel"><span class="about-mark">${(p.name||'').split(/\s+/).map(w=>w[0]).join('').slice(0,3)}</span></div>`;
-  return `
-<section class="sec about" id="about">
-  <div class="wrap about-in">
-    <div class="about-copy">
-      <span class="sec-k">${s.kicker||'About us'}</span>
-      <h2>${s.title||`The story behind ${p.name}.`}</h2>
-      <p class="about-body">${s.body}</p>
-      ${p.location?`<p class="about-loc">◆ ${p.location}</p>`:''}
-      <a class="btn lg" href="#book">${p._t?.bookCta||'Get in touch →'}</a>
-    </div>
-    ${media}
-  </div>
-</section>`; };
 
 // Why-us pillars — credibility without fabricating reviews.
 S.whyus = (p) => { const s=p.sections.whyus; if(!s||!s.items||!s.items.length) return '';
   return `
 <section class="sec whyus" id="why">
   <div class="wrap">
-    <span class="sec-k">${s.kicker||'Why choose us'}</span>
-    <h2>${s.title||"The difference you'll feel."}</h2>
+    <span class="sec-k">${esc(s.kicker||'Why choose us')}</span>
+    <h2>${esc(s.title||"The difference you'll feel.")}</h2>
     <div class="whygrid">${s.items.map((it,i)=>`
-      <div class="why" style="--n:${i}"><span class="whycheck">✓</span><div><h3>${it.h}</h3><p>${it.p||''}</p></div></div>`).join('')}
-    </div>
-  </div>
-</section>`; };
-
-// Gallery — the real photos the capture already collected, finally on the page.
-S.gallery = (p) => { const s=p.sections.gallery; if(!s||!s.items||s.items.length<3) return '';
-  return `
-<section class="sec gallery" id="gallery">
-  <div class="wrap">
-    <span class="sec-k">${s.kicker||'Take a look'}</span>
-    <h2>${s.title||'A glimpse inside.'}</h2>
-    <div class="galgrid">${s.items.map((src,i)=>`<figure class="gal g${i%5}"><img src="${src}" alt="${p.name} — photo ${i+1}" loading="lazy"></figure>`).join('')}</div>
-  </div>
-</section>`; };
-
-// FAQ — native accordion, zero JS required.
-S.faq = (p) => { const s=p.sections.faq; if(!s||!s.items||!s.items.length) return '';
-  return `
-<section class="sec faq" id="faq">
-  <div class="wrap faq-in">
-    <div class="faq-h"><span class="sec-k">${s.kicker||'Good to know'}</span><h2>${s.title||'Questions, answered.'}</h2>
-      <p class="lead">Don't see yours? ${p.phone?`Call <a href="tel:${p.phone.replace(/[^0-9]/g,'')}">${fmtPhone(p.phone)}</a> — a real person answers.`:'Reach out — a real person answers.'}</p></div>
-    <div class="faqlist">${s.items.map(({q,a},i)=>`
-      <details class="qa"${i===0?' open':''}><summary>${q}<span class="qplus" aria-hidden="true"></span></summary><p>${a}</p></details>`).join('')}
+      <div class="why" style="--n:${i}"><span class="whycheck">✓</span><div><h3>${esc(it.h)}</h3><p>${esc(it.p||'')}</p></div></div>`).join('')}
     </div>
   </div>
 </section>`; };
 
 S.hours = (p) => { const s=p.sections.hours||{};
+  // grounding rule: no captured hours → no section. Empty is better than false.
+  if(!s.items||!s.items.length) return '';
   return `
 <section class="sec times" id="contact">
   <div class="wrap times-in">
-    <div class="times-h"><span class="sec-k">Visit us</span><h2>Hours & location</h2>${p.location?`<p class="lead">${p.location}</p>`:''}</div>
-    <ul class="times-list">${(s.items||['Mon–Fri · 8:00 AM – 5:00 PM','Sat · By appointment']).map(x=>`<li><span class="tdot"></span>${x}</li>`).join('')}</ul>
+    <div class="times-h"><span class="sec-k">Visit us</span><h2>Hours & location</h2>${p.location?`<p class="lead">${esc(p.location)}</p>`:''}</div>
+    <ul class="times-list">${s.items.map(x=>`<li><span class="tdot"></span>${esc(x)}</li>`).join('')}</ul>
   </div></section>`; };
 
 
@@ -576,12 +551,12 @@ S.feature = (p) => { const s=p.sections.feature; if(!s||!s.points||!s.points.len
   return `
 <section class="sec featsplit" id="why">
   <div class="wrap feat-in${img?'':' noimg'}">
-    ${img?`<div class="feat-img"><img src="${img}" alt="${p.name}" loading="lazy" decoding="async"></div>`:''}
+    ${img?`<div class="feat-img"><img src="${img}" alt="${esc(p.name)}" loading="lazy" decoding="async"></div>`:''}
     <div class="feat-copy">
-      <span class="sec-k">${s.kicker||'Why us'}</span>
-      <h2>${s.title||`Why neighbors choose ${p.name}.`}</h2>
-      ${s.lead?`<p class="lead">${s.lead}</p>`:''}
-      <ul class="feat-points">${s.points.map(x=>`<li><span class="tcheck">✓</span><span>${x}</span></li>`).join('')}</ul>
+      <span class="sec-k">${esc(s.kicker||'Why us')}</span>
+      <h2>${esc(s.title||`Why neighbors choose ${p.name}.`)}</h2>
+      ${s.lead?`<p class="lead">${esc(s.lead)}</p>`:''}
+      <ul class="feat-points">${s.points.map(x=>`<li><span class="tcheck">✓</span><span>${esc(x)}</span></li>`).join('')}</ul>
     </div>
   </div>
 </section>`; };
@@ -594,12 +569,12 @@ S.about = (p) => { const s=p.sections.about; if(!s||!s.body) return '';
 <section class="sec aboutband" id="about">
   <div class="wrap about-in${img?'':' noimg'}">
     <div class="about-copy">
-      <span class="sec-k">${s.kicker||'Our story'}</span>
-      <h2>${s.title||`The story behind ${p.name}.`}</h2>
-      <p class="lead">${s.body}</p>
-      ${stats.length?`<div class="about-stats">${stats.map(x=>`<div class="astat"><b>${x.v}</b><span>${x.k}</span></div>`).join('')}</div>`:''}
+      <span class="sec-k">${esc(s.kicker||'Our story')}</span>
+      <h2>${esc(s.title||`The story behind ${p.name}.`)}</h2>
+      <p class="lead">${esc(s.body)}</p>
+      ${stats.length?`<div class="about-stats">${stats.map(x=>`<div class="astat"><b>${esc(x.v)}</b><span>${esc(x.k)}</span></div>`).join('')}</div>`:''}
     </div>
-    ${img?`<div class="about-img"><img src="${img}" alt="${p.name}" loading="lazy" decoding="async"></div>`:''}
+    ${img?`<div class="about-img"><img src="${img}" alt="${esc(p.name)}" loading="lazy" decoding="async"></div>`:''}
   </div>
 </section>`; };
 
@@ -609,8 +584,8 @@ S.gallery = (p) => {
   if (pics.length < 3) return '';
   return `
 <section class="sec bizgallery" id="gallery">
-  <div class="wrap"><span class="sec-k">${p.sections.gallery?.kicker||'Gallery'}</span><h2>${p.sections.gallery?.title||'A closer look.'}</h2>
-    <div class="bgal">${pics.map((g,i)=>`<figure class="bgal-i${i===0?' wide':''}"><img src="${g}" alt="${p.name} — photo ${i+1}" loading="lazy" decoding="async"></figure>`).join('')}</div>
+  <div class="wrap"><span class="sec-k">${esc(p.sections.gallery?.kicker||'Gallery')}</span><h2>${esc(p.sections.gallery?.title||'A closer look.')}</h2>
+    <div class="bgal">${pics.map((g,i)=>`<figure class="bgal-i${i===0?' wide':''}"><img src="${g}" alt="${esc(p.name)} — photo ${i+1}" loading="lazy" decoding="async"></figure>`).join('')}</div>
   </div>
 </section>`; };
 
@@ -622,10 +597,10 @@ S.faq = (p) => { const s=p.sections.faq; if(!s||!s.items||!s.items.length) retur
   return `
 <section class="sec faqsec" id="faq">
   <div class="wrap">
-    <span class="sec-k">${s.kicker||'Good to know'}</span>
-    <h2>${s.title||'Questions, answered.'}</h2>
+    <span class="sec-k">${esc(s.kicker||'Good to know')}</span>
+    <h2>${esc(s.title||'Questions, answered.')}</h2>
     <div class="faqlist">${s.items.map((f,i)=>`
-      <details class="faq-i"${i===0?' open':''}><summary>${f.q}</summary><p>${f.a}</p></details>`).join('')}
+      <details class="faq-i"${i===0?' open':''}><summary>${esc(f.q)}</summary><p>${esc(f.a)}</p></details>`).join('')}
     </div>
   </div>
   <script type="application/ld+json">${JSON.stringify(ld)}</script>
@@ -1139,18 +1114,9 @@ body:not(.arch-split):not(.arch-minimal) .nav.scrolled{background:color-mix(in s
 .arch-flagship .band .sec-k,.arch-flagship .band h2{color:#fff}
 .arch-flagship .band .btn,.arch-flagship .band .fbtn{background:#fff;color:var(--brand)}
 
-/* ── ABOUT: editorial split — narrative beside a framed photo ─────────────── */
+/* ── ABOUT: editorial split ───────────────────────────────────────────────── */
 .about-in{display:grid;grid-template-columns:1.05fr .95fr;gap:clamp(32px,5vw,72px);align-items:center}
-.about-body{font-size:1.08rem;line-height:1.75;color:color-mix(in srgb,var(--ink) 82%,var(--mut));max-width:58ch;margin:1.1em 0 1.4em}
-.about-loc{color:var(--brand);font-weight:600;font-size:.92rem;letter-spacing:.04em;margin:0 0 22px}
-.about-media{position:relative;margin:0;border-radius:calc(var(--rad)*2px);overflow:hidden;aspect-ratio:4/5;max-height:560px;box-shadow:0 30px 70px -30px rgba(0,0,0,.35)}
-.about-media img{width:100%;height:100%;object-fit:cover;transition:transform .6s var(--ease,ease)}
-.about-media:hover img{transform:scale(1.04)}
-.about-media::after{content:"";position:absolute;inset:0;box-shadow:inset 0 0 0 1px rgba(255,255,255,.14);border-radius:inherit;pointer-events:none}
-.about-panel{display:grid;place-items:center;background:linear-gradient(145deg,color-mix(in srgb,var(--brand) 55%,#171a20),color-mix(in srgb,var(--brand) 25%,#0e1014))}
-.about-mark{font-family:'__DISPLAY__',Georgia,serif;font-size:clamp(4rem,9vw,7rem);font-weight:600;color:rgba(255,255,255,.9);letter-spacing:.04em}
-.arch-flagship .about-media{transform:rotate(1.2deg)}
-@media(max-width:820px){.about-in{grid-template-columns:1fr;gap:28px}.about-media{aspect-ratio:16/10;max-height:340px}}
+@media(max-width:820px){.about-in{grid-template-columns:1fr;gap:28px}}
 
 /* ── WHY-US: check pillars ────────────────────────────────────────────────── */
 .whygrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:22px;margin-top:38px}
@@ -1159,36 +1125,39 @@ body:not(.arch-split):not(.arch-minimal) .nav.scrolled{background:color-mix(in s
 .whycheck{flex:none;display:grid;place-items:center;width:34px;height:34px;border-radius:50%;background:color-mix(in srgb,var(--brand) 12%,var(--bg));color:var(--brand);font-weight:800}
 .why h3{font-size:1.06rem;margin:0 0 4px}.why p{color:var(--mut);font-size:.94rem;line-height:1.55;margin:0}
 
-/* ── GALLERY: rhythm-broken grid, not a boring strip ──────────────────────── */
-.galgrid{display:grid;grid-template-columns:repeat(4,1fr);grid-auto-rows:150px;gap:14px;margin-top:36px}
-.gal{margin:0;border-radius:calc(var(--rad)*1.2px);overflow:hidden;position:relative}
-.gal img{width:100%;height:100%;object-fit:cover;transition:transform .6s var(--ease,ease),filter .4s}
-.gal:hover img{transform:scale(1.06)}
-.gal.g0{grid-column:span 2;grid-row:span 2}.gal.g3{grid-row:span 2}
-@media(max-width:760px){.galgrid{grid-template-columns:repeat(2,1fr);grid-auto-rows:130px}.gal.g0{grid-column:span 2}}
-
-/* ── FAQ: native accordion, editorial two-column ──────────────────────────── */
-.faq-in{display:grid;grid-template-columns:.85fr 1.15fr;gap:clamp(28px,5vw,64px);align-items:start}
-.faq-h{position:sticky;top:96px}
-.faq-h .lead a{color:var(--brand);font-weight:600;text-decoration:none}
+/* ── FAQ list (shared by the accordion renderer) ──────────────────────────── */
 .faqlist{display:flex;flex-direction:column}
-.qa{border-bottom:1px solid var(--line)}
-.qa summary{list-style:none;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:18px;
-  padding:20px 2px;font-weight:600;font-size:1.06rem;font-family:'__DISPLAY__',Georgia,serif}
-.qa summary::-webkit-details-marker{display:none}
-.qplus{flex:none;position:relative;width:22px;height:22px}
-.qplus::before,.qplus::after{content:"";position:absolute;background:var(--brand);inset:10px 2px;transition:transform .25s var(--ease,ease)}
-.qplus::after{transform:rotate(90deg)}
-.qa[open] .qplus::after{transform:rotate(0)}
-.qa p{margin:0 0 22px;color:var(--mut);line-height:1.65;max-width:60ch}
-.qa summary:hover{color:var(--brand)}
-@media(max-width:820px){.faq-in{grid-template-columns:1fr}.faq-h{position:static}}
+
+/* ── mobile nav: hamburger + dropdown panel (≤720px only) ─────────────────── */
+.navburger{display:none;flex-direction:column;justify-content:center;gap:5px;width:42px;height:42px;padding:10px;margin-left:auto;background:transparent;border:0;color:inherit;cursor:pointer;border-radius:calc(var(--rad)*.6px)}
+.navburger span{display:block;height:2px;border-radius:2px;background:currentColor;transition:transform .22s var(--ease,ease),opacity .18s}
+.navburger[aria-expanded="true"] span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.navburger[aria-expanded="true"] span:nth-child(2){opacity:0}
+.navburger[aria-expanded="true"] span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+.navlinks-m{display:none}
+@media(max-width:720px){
+.navburger{display:flex}
+.navlinks.navlinks-m.open{display:flex;position:absolute;top:calc(100% + 6px);left:14px;right:14px;z-index:60;flex-direction:column;align-items:stretch;gap:0;margin:0;padding:8px;background:var(--bg);border:1px solid var(--line);border-radius:calc(var(--rad)*1px);box-shadow:0 18px 44px rgba(0,0,0,.2)}
+/* dropdown sits on the light --bg ground on every theme — links must be ink
+   (!important outranks per-archetype .navlinks colour overrides, e.g. flagship's white) */
+.nav .navlinks-m a{color:var(--ink)!important;opacity:1!important;padding:12px 14px;border-radius:calc(var(--rad)*.6px);text-align:left}
+.nav .navlinks-m a::after{display:none}
+.nav .navlinks-m a:hover{background:color-mix(in srgb,var(--brand) 8%,var(--bg));color:var(--brand)!important}
+}
 `; }
 
 // injected at end of <body> — nav-solid-on-scroll + scroll-reveal (a11y-safe)
 const RUNTIME = `<script>
 (function(){var n=document.querySelector('.nav');
  if(n)addEventListener('scroll',function(){n.classList.toggle('scrolled',scrollY>40)},{passive:true});
+ // mobile nav: hamburger toggles the dropdown; closes on link click + Escape
+ var mb=document.querySelector('.navburger'),mm=document.getElementById('navmenu');
+ if(mb&&mm){
+   var setNav=function(open){mb.setAttribute('aria-expanded',open?'true':'false');mm.classList.toggle('open',open)};
+   mb.addEventListener('click',function(){setNav(mb.getAttribute('aria-expanded')!=='true')});
+   mm.addEventListener('click',function(e){if(e.target.closest('a'))setNav(false)});
+   addEventListener('keydown',function(e){if(e.key==='Escape'&&mb.getAttribute('aria-expanded')==='true'){setNav(false);mb.focus()}});
+ }
  var els=document.querySelectorAll('.sec');
  if(!matchMedia('(prefers-reduced-motion:reduce)').matches&&'IntersectionObserver'in window){
    els.forEach(function(e){e.classList.add('reveal')});
@@ -1268,7 +1237,7 @@ function conciergeWidget(profile, opts={}){
   <form class="cx-in" id="cxForm"><input id="cxText" placeholder="${ph}" autocomplete="off"><button type="submit" aria-label="Send">→</button></form>
 </div>
 <script>(function(){
-  var D=${JSON.stringify(data)};
+  var D=${JSON.stringify(data).replace(/</g,'\\u003c')};
   var log=document.getElementById('cxLog'), chips=document.getElementById('cxChips');
   function push(who,html){var d=document.createElement('div');d.className='cx-msg '+who;d.innerHTML=html;log.appendChild(d);log.scrollTop=log.scrollHeight;}
   function callCta(){return D.phone?['Call '+D.phone,'tel:'+D.phone.replace(/[^0-9]/g,'')]:['Send a message','#connect'];}
@@ -1356,7 +1325,7 @@ function seoHead(profile, recipe, page=null){
   const rv = profile.sections?.reviews;
   if (rv?.rating && rv?.count && /^\d+$/.test(String(rv.count)))
     ld.aggregateRating = { '@type':'AggregateRating', ratingValue: String(rv.rating), reviewCount: String(rv.count) };
-  return meta + `\n<script type="application/ld+json">${JSON.stringify(ld)}</script>`;
+  return meta + `\n<script type="application/ld+json">${JSON.stringify(ld).replace(/</g,'\\u003c')}</script>`;
 }
 
 // ── the assembler ─────────────────────────────────────────────────────────────
@@ -1404,7 +1373,7 @@ export function assemble(profile, recipe={}, page=null){
   const body = order.map(name => (S[name] ? S[name](p, {mood, arch: recipe.archetype}) : '')).join('\n');
   return `<!doctype html><html lang="en"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>${page?.title?`${page.title} — ${profile.name}`:`${profile.name}${profile.tagline?` — ${profile.tagline}`:''}`}</title>
+<title>${esc(page?.title?`${page.title} — ${profile.name}`:`${profile.name}${profile.tagline?` — ${profile.tagline}`:''}`)}</title>
 <meta name="description" content="${((profile.description||profile.hero?.sub||`${profile.name}${profile.tagline?` — ${profile.tagline}`:''}`)||'').replace(/"/g,'&quot;').slice(0,300)}">
 ${seoHead(profile, recipe, page)}
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
