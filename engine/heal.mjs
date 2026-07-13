@@ -80,10 +80,13 @@ async function shoot(slug) {
   } finally { await b.close(); }
 }
 
+// Returns 1-10, or null when scoring was UNAVAILABLE (API error after one
+// retry). null must never be treated as a 0/10 verdict — a dead API once made
+// every candidate "score 0" and the bake-off silently picked garbage.
 async function score(png) {
   const sharp = (await import('sharp')).default;
   const buf = await sharp(png).resize({ width: 1024 }).jpeg({ quality: 80 }).toBuffer();
-  const res = await fetch('https://api.anthropic.com/v1/messages', {
+  const call = () => fetch('https://api.anthropic.com/v1/messages', {
     method: 'POST',
     headers: { 'x-api-key': key, 'anthropic-version': '2023-06-01', 'content-type': 'application/json' },
     body: JSON.stringify({ model: 'claude-haiku-4-5', max_tokens: 120, messages: [{ role: 'user', content: [
@@ -91,7 +94,12 @@ async function score(png) {
       { type: 'text', text: 'Score this small-business website hero screenshot 1-10 as a demanding design director (7 = a business would happily pay). Penalize color washes, murky/dim overlays, illegible text, cramped or empty layouts, generic feel. Reply ONLY minified JSON {"score":N}' },
     ]}]}),
   });
-  if (!res.ok) return 0;
+  let res = await call();
+  if (!res.ok) { await new Promise(r => setTimeout(r, 2000)); res = await call(); }
+  if (!res.ok) {
+    console.log(`   ⚠ critic API ${res.status}: ${(await res.text().catch(() => '')).slice(0, 120)}`);
+    return null;
+  }
   const j = await res.json();
   const m = (j.content?.[0]?.text || '').match(/\{.*\}/s);
   try { return m ? (JSON.parse(m[0]).score || 0) : 0; } catch { return 0; }
@@ -100,17 +108,24 @@ async function score(png) {
 async function healOne(slug) {
   const domain = domainOf[slug];
   let best = { id: null, score: 0 };
+  let unavailable = 0;
   for (const c of CANDIDATES) {
     const ok = await build(domain, c.args);
     if (!ok) { console.log(`   ${slug} · ${c.id}: build failed`); continue; }
     try {
       const png = await shoot(slug);
       const s = await score(png);
+      if (s === null) { unavailable++; console.log(`   ${slug} · ${c.id}: candidate scoring unavailable (API error after retry)`); continue; }
       console.log(`   ${slug} · ${c.id}: ${s}/10`);
       if (s > best.score) best = { id: c.id, score: s, args: c.args };
     } catch (e) { console.log(`   ${slug} · ${c.id}: score failed (${String(e.message||e).slice(0,50)})`); }
   }
-  if (!best.id) { console.log(`❌ ${slug}: no candidate succeeded`); return { slug, healed: false }; }
+  if (!best.id) {
+    console.log(unavailable
+      ? `❌ ${slug}: candidate scoring unavailable for ${unavailable} candidate(s) and no winner emerged — NOT a bake-off verdict, fix API access and re-run`
+      : `❌ ${slug}: no candidate succeeded`);
+    return { slug, healed: false };
+  }
   // rebuild with the winner (last built may not be the winner) + lock it in
   if (CANDIDATES[CANDIDATES.length-1].id !== best.id) await build(domain, best.args);
   recipes[slug] = { candidate: best.id, args: best.args, score: best.score, at: new Date().toISOString() };

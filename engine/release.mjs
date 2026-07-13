@@ -15,7 +15,9 @@
 //                any FAIL aborts the release
 //   5. VARIETY   distinctness gate (variety-check.mjs) — same-vertical recipe
 //                collapse aborts the release
-//   6. CRITIC    AI visual scoring — flags are listed; >10% flagged aborts
+//   6. CRITIC    AI visual scoring (full-page desktop + mobile) — counts come
+//                from engine/preview/critic-report.json, never stdout parsing;
+//                flags trigger heal; >15% still flagged after heal aborts
 //   7. PROMOTE   sync live gallery + thumbnails + showcase anonymization
 //   8. DEPLOY    commit + push (Vercel auto-deploys) — only if all green
 //
@@ -106,28 +108,39 @@ catch (e) {
   die('variety check failed — same-vertical recipes collapsed; fix the spread, never bypass the gate');
 }
 
-// ── 6. CRITIC: AI eyes on every homepage ─────────────────────────────────────
+// ── 6. CRITIC: AI eyes on every site (full-page desktop + mobile) ────────────
+// Counts come from the critic's machine-readable report, NOT from parsing
+// emoji off stdout — a garbled pipe once turned "n sites" into "1 site" and
+// corrupted the ≤15% threshold. Missing/unreadable report = hard abort.
+const CRITIC_REPORT = path.join(ROOT, 'engine/preview/critic-report.json');
+const runCritic = (label) => {
+  fs.rmSync(CRITIC_REPORT, { force: true });             // never read a stale report
+  try { run(`node engine/art-critic.mjs ${slugs.join(' ')}`, { quiet: true }); }
+  catch {} // critic exits 1 when anything flags — the report is the verdict
+  let rep;
+  try {
+    rep = JSON.parse(fs.readFileSync(CRITIC_REPORT, 'utf8'));
+    if (!Array.isArray(rep) || !rep.length) throw new Error('report empty or not an array');
+  } catch (e) {
+    die(`critic ${label}: ${CRITIC_REPORT} missing or unreadable after the run (${e.message}) — refusing to guess flag counts`);
+  }
+  const flaggedEntries = rep.filter(r => r.flagged ?? (r.error != null || r.verdict === 'flag'));
+  for (const r of flaggedEntries.slice(0, 12))
+    console.log(`🚩 ${r.slug}  ${r.error ? '— ' + r.error : `${r.score}/10${(r.issues || []).length ? '  — ' + r.issues.slice(0, 2).join(' · ') : ''}`}`);
+  if (!flaggedEntries.length) console.log('(no flags)');
+  return { total: rep.length, flagged: flaggedEntries.length };
+};
 step(6, SKIP_CRITIC ? 'CRITIC (skipped)' : 'AI VISUAL CRITIC');
 if (!SKIP_CRITIC) {
-  let out = '';
-  try { out = run(`node engine/art-critic.mjs ${slugs.join(' ')}`, { quiet: true }); }
-  catch (e) { out = String(e.stdout || ''); }
-  const flagged = (out.match(/🚩/g) || []).length;
-  const total = (out.match(/[🎨🚩]/gu) || []).length || 1;
-  console.log(out.split('\n').filter(l=>l.includes('🚩')).slice(0,12).join('\n') || '(no flags)');
-  console.log(`critic: ${total - flagged}/${total} at or above the bar`);
-  if (flagged) {
-    console.log(`\n⚕ HEALING ${flagged} flagged site(s) — competing recipes, critic picks each winner…`);
+  const r1 = runCritic('first run');
+  console.log(`critic: ${r1.total - r1.flagged}/${r1.total} at or above the bar`);
+  if (r1.flagged) {
+    console.log(`\n⚕ HEALING ${r1.flagged} flagged site(s) — competing recipes, critic picks each winner…`);
     try { run('node engine/heal.mjs'); } catch { console.log('heal exited nonzero — continuing to re-verdict'); }
-    let out2 = '';
-    try { out2 = run(`node engine/art-critic.mjs ${slugs.join(' ')}`, { quiet: true }); }
-    catch (e) { out2 = String(e.stdout || ''); }
-    const f2 = (out2.match(/🚩/g) || []).length;
-    const t2 = (out2.match(/[🎨🚩]/gu) || []).length || 1;
-    console.log(out2.split('\n').filter(l=>l.includes('🚩')).slice(0,10).join('\n') || '(no flags after heal)');
-    console.log(`critic after heal: ${t2 - f2}/${t2} at or above the bar`);
-    if (f2 / t2 > 0.15) die(`${f2} sites still flagged after healing — review critic-report.json`);
-    if (f2) console.log(`⚠ ${f2} residual flags (≤15%) — releasing; they are listed in critic-report.json for manual review`);
+    const r2 = runCritic('post-heal run');
+    console.log(`critic after heal: ${r2.total - r2.flagged}/${r2.total} at or above the bar`);
+    if (r2.flagged / r2.total > 0.15) die(`${r2.flagged} sites still flagged after healing — review critic-report.json`);
+    if (r2.flagged) console.log(`⚠ ${r2.flagged} residual flags (≤15%) — releasing; they are listed in critic-report.json for manual review`);
   }
 }
 
