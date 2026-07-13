@@ -1,19 +1,22 @@
 // ─────────────────────────────────────────────────────────────────────────────
-// Variant chooser — the same site, three visual directions, and a picker page
+// Variant chooser — the same site, six visual directions, and a picker page
 // that turns the prospect's taste into a lead event.
 //
-//   node engine/variants.mjs <domain>            # 3 styled builds + chooser
+//   node engine/variants.mjs <domain>            # 6 styled builds + chooser
 //   node engine/variants.mjs <domain> --pages    # multi-page variants
 //
 // Output:
 //   demos/<slug>--editorial/   clean magazine frame (light, type-led)
 //   demos/<slug>--bold/        deep brand poster (dark, cinematic)
-//   demos/<slug>--warm/        split + community warmth
+//   demos/<slug>--statement/   offer-forward poster, oversized price hero
+//   demos/<slug>--luxe/        fashion-house restraint (didone type, razor edges)
+//   demos/<slug>--showcase/    gallery-led heritage frame
+//   demos/<slug>--flagship/    the signature cinematic look
 //   demos/<slug>--choose/      "pick your favorite" page; each choice POSTs
 //                              to /api/contact tagged {source, style} — the
 //                              prospect selling themselves is a logged lead.
-// Same conversion spine in all three: hero → services → why-us → proof →
-// friction killers → action. Only the dress changes.
+// Same conversion spine in all six: hero → services → why-us → proof →
+// friction killers → action. Only the structure order and the dress change.
 // ─────────────────────────────────────────────────────────────────────────────
 import fs from 'node:fs';
 import path from 'node:path';
@@ -33,10 +36,10 @@ const STYLES = [
     desc:'Classic trust-led flow — magazine typography on a light ground, brand as a crisp accent.' },
   { key:'bold',      label:'The Bold',      structure:'proof',    archetype:'modern',    theme:'modern', themePalette:true,
     desc:'Proof-first — reviews hit right after the hero on a deep cinematic canvas.' },
-  { key:'warm',      label:'The Warm',      structure:'story',    archetype:'split',     theme:'community',
-    desc:'Story-first — your people and philosophy lead, services follow. Feels like a handshake.' },
-  { key:'direct',    label:'The Direct',    structure:'offer',    archetype:'minimal',   theme:'quiet',
-    desc:'Offer-first — the deal and booking bar up top for visitors ready to act now.' },
+  { key:'statement', label:'The Statement', structure:'offer',    archetype:'statement', theme:'modern',
+    desc:'Offer-first at full volume — oversized price hero, marquee, chunky brand blocks. Built to convert.' },
+  { key:'luxe',      label:'The Luxe',      structure:'story',    archetype:'editorial', theme:'luxe',
+    desc:'Quiet money — fashion-house typography, razor edges, restraint that reads expensive.' },
   { key:'showcase',  label:'The Showcase',  structure:'showcase', archetype:'cathedral', theme:'heritage',
     desc:'Work-first — a gallery leads so the results sell before a word is read.' },
   { key:'flagship',  label:'The Flagship',  structure:'flagship', archetype:'flagship',  theme:'modern', themePalette:true,

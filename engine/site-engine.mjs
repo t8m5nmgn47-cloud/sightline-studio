@@ -169,7 +169,7 @@ S.nav = (p) => `
     ? `<img src="${p.logo}" alt="${esc(p.name)}" class="logo" onerror="this.outerHTML='<span class=&quot;wordmark&quot;>${esc(p.name.replace(/'/g,'’'))}</span>'">`
     : `<span class="wordmark">${esc(p.name)}</span>`}</a>
   ${p.nav ? `<div class="navlinks">${p.nav.map(t=>`<a href="${t.href}">${esc(t.label)}</a>`).join('')}</div>` : ''}
-  <a class="btn sm" href="#visit">${esc(p._t?.imNew || "I'm New")}</a>
+  <a class="btn sm" href="#visit">${esc(p._t?.imNew || 'Get in Touch')}</a>
   ${p.nav ? `<button class="navburger" type="button" aria-label="Menu" aria-expanded="false" aria-controls="navmenu"><span></span><span></span><span></span></button>
   <div class="navlinks navlinks-m" id="navmenu">${p.nav.map(t=>`<a href="${t.href}">${esc(t.label)}</a>`).join('')}</div>` : ''}
 </nav>`;
@@ -196,7 +196,9 @@ S.hero = (p, {mood, arch}) => {
     const offer = p.sections?.offer || null;
     const pr = offerPriceParts(offer);
     const media = p.heroImage ? `<div class="st-media" style="background-image:url('${p.heroImage}')"></div>` : '';
-    const ctas = h.ctas || (p._t?.bookCta ? [{label:p._t.bookCta, href:'#book'}] : [{label:'Plan Your Visit →', href:'#visit'}]);
+    const ctas = h.ctas || (p._t?.bookCta ? [{label:p._t.bookCta, href:'#book'}]
+      : p._t?.ctaCta ? [{label:p._t.ctaCta, href:'#visit'}]
+      : [{label:'Get in touch →', href:'#book'}]);
     return `
 <header class="sthero" id="top">
   ${media}
@@ -261,7 +263,9 @@ S.hero = (p, {mood, arch}) => {
     <h1>${esc(h.headline || p.name)}</h1>
     ${h.sub?`<p class="hero-sub">${esc(h.sub)}</p>`:''}
     <div class="cta-row">
-      ${(h.ctas||[{label:'Plan Your Visit →',href:'#visit'},{label:'Watch Online',href:'#watch',ghost:true}])
+      ${(h.ctas || (p._t?.bookCta ? [{label:p._t.bookCta,href:'#book'}]
+          : p._t?.ctaCta ? [{label:p._t.ctaCta,href:'#visit'},{label:'Watch Online',href:'#watch',ghost:true}]
+          : [{label:'Get in touch →',href:'#book'}]))
         .map(c=>`<a class="btn lg${c.ghost?' ghost':''}" href="${c.href}">${esc(c.label)}</a>`).join('')}
     </div>
   </div>
@@ -277,8 +281,8 @@ S.services = (p) => { const s=p.sections.services; if(!s||!s.items) return ''; c
   return `
 <section class="sec services" id="visit">
   <div class="wrap">
-    <span class="sec-k">${esc(s.kicker||tc.kicker||'New here?')}</span>
-    <h2>${esc(s.title||tc.title||'What to expect')}</h2>
+    <span class="sec-k">${esc(s.kicker||tc.kicker||(p._t&&!p._t.bookCta?'New here?':'What we do'))}</span>
+    <h2>${esc(s.title||tc.title||(p._t&&!p._t.bookCta?'What to expect':'How we can help.'))}</h2>
     ${s.lead?`<p class="lead">${esc(s.lead)}</p>`:''}
     <div class="cardgrid${compact?' compactgrid':''}">${items.map((it,i)=>`
       <article class="card${compact?' compact':''}"><span class="cn">${i+1}</span><h3>${esc(it.h)}</h3>${!compact&&it.p?`<p>${esc(it.p)}</p>`:''}</article>`).join('')}
@@ -313,12 +317,17 @@ S.cta = (p) => {
   // photo-backed close when we captured enough imagery (their own photos > flat colour)
   const pics = (p.gallery||[]).filter(g=>g!==p.heroImage);
   const img = pics.length >= 4 ? pics[pics.length-1] : null;
+  // fallback copy comes from the ACTIVE PACK (p._t: vertical or tradition) —
+  // never a hardcoded vertical's voice. Church copy lives in TRADITIONS
+  // (ctaTitle/ctaLead/ctaCta); business copy lives in VERTICALS. No pack at
+  // all → generic-neutral, safe for any direct assemble() caller.
+  const s = p.sections.cta || {};
   return `
 <section class="sec cta${img?' cta-photo':''}" id="join"${img?` style="background-image:linear-gradient(rgba(0,0,0,.55),rgba(0,0,0,.55)),url('${img}')"`:''}>
   <div class="wrap">
-    <h2>${esc((p.sections.cta&&p.sections.cta.title)||'We saved you a seat.')}</h2>
-    <p class="lead${img?' light':''}">${esc((p.sections.cta&&p.sections.cta.lead)||'Come as you are — this Sunday.')}</p>
-    <a class="btn lg${img?' light':''}" href="${p._t?.bookCta ? '#book' : '#visit'}">${esc((p.sections.cta&&p.sections.cta.cta) || p._t?.bookCta || 'Plan Your Visit →')}</a>
+    <h2>${esc(s.title || p._t?.ctaTitle || 'Ready to get started?')}</h2>
+    <p class="lead${img?' light':''}">${esc(s.lead || p._t?.ctaLead || 'Reach out — we’ll take it from there.')}</p>
+    <a class="btn lg${img?' light':''}" href="${p._t?.bookCta ? '#book' : '#visit'}">${esc(s.cta || p._t?.bookCta || p._t?.ctaCta || 'Get in touch →')}</a>
   </div>
 </section>`; };
 
@@ -860,10 +869,13 @@ ${UPSELL_CSS}
 // in sections + language. Covers the sellable market with a few packs, not per-religion.
 export const TRADITIONS = {
   contemporary:{ label:'Contemporary', imNew:"I'm New", timesLabel:'Service times',
+    ctaTitle:'We saved you a seat.', ctaLead:'Come as you are — this Sunday.', ctaCta:'Plan Your Visit →',
     order:['announce','nav','hero','times','nextsteps','services','groups','serve','sermons','events','team','care','giving','cta','footer'] },
   catholic:{ label:'Catholic', imNew:'New to the Parish', timesLabel:'Mass times',
+    ctaTitle:'We saved you a seat.', ctaLead:'Come as you are — this Sunday.', ctaCta:'Plan Your Visit →',
     order:['announce','nav','hero','mass','sacraments','services','serve','sermons','events','team','care','giving','cta','footer'] },
   mainline:{ label:'Mainline / Liturgical', imNew:'Visiting?', timesLabel:'Worship times',
+    ctaTitle:'We saved you a seat.', ctaLead:'Come as you are — this Sunday.', ctaCta:'Plan Your Visit →',
     order:['announce','nav','hero','times','services','sermons','music','groups','serve','events','team','care','giving','cta','footer'],
     copy:{
       services:{ kicker:'Welcome', title:'What a Sunday looks like here.' },
@@ -878,32 +890,46 @@ export const TRADITIONS = {
 // ── business verticals: the profit engine (same architecture as traditions) ──
 export const VERTICALS = {
   dental:{ label:'Dental', imNew:'New Patients', bookCta:'Book appointment →',
+    ctaTitle:'Ready when you are.', ctaLead:'New patients welcome — book a visit that fits your schedule.',
     order:['announce','nav','hero','marquee','bookbar','services','about','whyus','reviews','offer','gallery','team','results','bizmoney','faq','hours','cta','footer'] },
   medical:{ label:'Medical', imNew:'New Patients', bookCta:'Request an appointment →',
+    ctaTitle:'Your health, on your schedule.', ctaLead:'Request an appointment and we’ll take it from there.',
     order:['announce','nav','hero','marquee','bookbar','services','about','whyus','reviews','bizmoney','gallery','team','offer','faq','hours','cta','footer'] },
   optometry:{ label:'Eye Care', imNew:'New Patients', bookCta:'Book an eye exam →',
+    ctaTitle:'See the difference.', ctaLead:'Book an eye exam — most visits take under an hour.',
     order:['announce','nav','hero','marquee','bookbar','services','about','whyus','reviews','offer','gallery','bizmoney','team','faq','hours','cta','footer'] },
   law:{ label:'Law', imNew:'Free Consult', bookCta:'Request a free consult →',
+    ctaTitle:'Let’s talk about your case.', ctaLead:'A consultation costs nothing and clarifies everything.',
     order:['announce','nav','hero','marquee','bookbar','services','about','whyus','reviews','team','offer','faq','hours','cta','footer'] },
   accounting:{ label:'Accounting', imNew:'New Clients', bookCta:'Book a consultation →',
+    ctaTitle:'Take the numbers off your plate.', ctaLead:'Book a consultation and get your year in order.',
     order:['announce','nav','hero','marquee','bookbar','services','about','whyus','reviews','team','offer','faq','hours','cta','footer'] },
   insurance:{ label:'Insurance', imNew:'Free Quote', bookCta:'Get a free quote →',
+    ctaTitle:'Covered, without the runaround.', ctaLead:'Get a free quote in minutes — no obligation.',
     order:['announce','nav','hero','marquee','bookbar','services','about','whyus','offer','reviews','team','faq','hours','cta','footer'] },
   mortgage:{ label:'Mortgage', imNew:'Get Started', bookCta:'Get pre-approved →',
+    ctaTitle:'Ready to make your move?', ctaLead:'Get pre-approved and shop with confidence.',
     order:['announce','nav','hero','marquee','bookbar','services','about','whyus','offer','reviews','team','faq','hours','cta','footer'] },
   title:{ label:'Title & Escrow', imNew:'Start a File', bookCta:'Open an order →',
+    ctaTitle:'Let’s open your file.', ctaLead:'Fast, accurate closings start with one order.',
     order:['announce','nav','hero','marquee','bookbar','services','about','whyus','offer','reviews','team','faq','hours','cta','footer'] },
   medspa:{ label:'Med Spa', imNew:'Book Now', bookCta:'Book your visit →',
+    ctaTitle:'You, refreshed.', ctaLead:'Book your visit — consultations are easy and pressure-free.',
     order:['announce','nav','hero','marquee','bookbar','services','about','whyus','reviews','offer','gallery','results','team','bizmoney','faq','hours','cta','footer'] },
   construction:{ label:'Commercial Construction', imNew:'Work With Us', bookCta:'Discuss your project \u2192',
+    ctaTitle:'Let\u2019s build it right.', ctaLead:'Tell us about your project \u2014 scope, site, and timeline.',
     order:['announce','nav','hero','marquee','bookbar','services','about','whyus','reviews','gallery','results','offer','team','faq','hours','cta','footer'] },
   trades:{ label:'Home Services', imNew:'Free Estimate', bookCta:'Get a free estimate →',
+    ctaTitle:'Fixed right the first time.', ctaLead:'Free estimates — call today, on the schedule this week.',
     order:['announce','nav','hero','marquee','bookbar','services','about','whyus','offer','reviews','gallery','bizmoney','results','faq','hours','cta','footer'] },
   childcare:{ label:'Childcare & Education', imNew:'Schedule a Tour', bookCta:'Schedule a tour →',
+    ctaTitle:'Come see for yourself.', ctaLead:'Schedule a tour and meet the people your child will spend the day with.',
     order:['announce','nav','hero','marquee','bookbar','services','about','whyus','offer','reviews','gallery','team','faq','hours','cta','footer'] },
   retail:{ label:'Shop', imNew:'Shop', bookCta:'Shop now →',
+    ctaTitle:'Find your next favorite.', ctaLead:'Visit the shop or browse what’s new this week.',
     order:['announce','nav','hero','marquee','services','about','whyus','reviews','offer','gallery','faq','bookbar','cta','footer'] },
   business:{ label:'Local Business', imNew:'Get Started', bookCta:'Get in touch →',
+    ctaTitle:'Ready to get started?', ctaLead:'Reach out — we’ll take it from there.',
     order:['announce','nav','hero','marquee','bookbar','services','about','whyus','offer','reviews','gallery','team','faq','hours','cta','footer'] },
 };
 
@@ -1623,8 +1649,12 @@ function conciergeWidget(profile, opts={}){
     biz: business, adv: advice, name: profile.name || (business?'us':'our church'),
     times: profile.serviceTimes || [], location: profile.location || '', phone: profile.phone || '',
     services: svc,
-    kids: (profile.sections?.services?.items||[]).some(i=>/kid|child/i.test(i.h)) ? 'Yes — safe, secure check-in for kids at every service.' : 'Yes — kids are welcome and cared for at every service.',
-    giving: !!profile.sections?.giving, watch: !!profile.sections?.sermons,
+    // church-only fields stay out of business page source — no church copy
+    // (kids check-in, giving, watch) may appear in a business render, even unused
+    ...(business ? {} : {
+      kids: (profile.sections?.services?.items||[]).some(i=>/kid|child/i.test(i.h)) ? 'Yes — safe, secure check-in for kids at every service.' : 'Yes — kids are welcome and cared for at every service.',
+      giving: !!profile.sections?.giving, watch: !!profile.sections?.sermons,
+    }),
     money: !!profile.sections?.money, book: business,
   };
   const head = business ? ['Front desk','Quick answers — hours, booking, insurance'] : ['Welcome desk','Quick answers for your first visit'];
@@ -1642,7 +1672,7 @@ function conciergeWidget(profile, opts={}){
   var log=document.getElementById('cxLog'), chips=document.getElementById('cxChips');
   function push(who,html){var d=document.createElement('div');d.className='cx-msg '+who;d.innerHTML=html;log.appendChild(d);log.scrollTop=log.scrollHeight;}
   function callCta(){return D.phone?['Call '+D.phone,'tel:'+D.phone.replace(/[^0-9]/g,'')]:['Send a message','#connect'];}
-  function bizAnswer(q){
+${business ? `  function answer(q){q=q.toLowerCase();
     // GUARDRAIL: never give medical or legal advice — route to a booked professional
     if(D.adv==='legal' && /should i (sue|settle|sign|plead)|is (it|this) legal|can i sue|lawsuit|will i win|charged with|my (case|charges)|legal advice|do i have a case/.test(q))
       return {t:"I can’t give legal advice — but our attorneys can, in a consultation. Want me to point you to booking one?",cta:['Request a consult','#book']};
@@ -1657,7 +1687,11 @@ function conciergeWidget(profile, opts={}){
     if(/new|first (time|visit)/.test(q)) return {t:"Welcome! New patients &amp; clients are what we love. Book your first visit and we’ll take great care of you.",cta:['Book your first visit','#book']};
     return {t:"Happy to help — the fastest way is to book online or give us a call.",cta:['Book now','#book']};
   }
-  function churchAnswer(q){
+  var seeds=['Hours','Book an appointment','Services','Insurance &amp; pricing'];
+  var greet='👋 Hi! I’m the front desk for '+D.name+'. I can help with hours, booking, services, and insurance. What do you need?';`
+  // church branch is emitted ONLY for tradition renders — church copy must
+  // never ship in a business page, not even inside unreachable script branches
+  : `  function answer(q){q=q.toLowerCase();
     if(/pray|prayer|grie|griev|hurt|struggl|depress|anxious|suicid|crisis|died|death|sick|hospital|counsel|marriage|divorce/.test(q))
       return {t:"I'm just the welcome desk, so I'm not the right one for that — but a real person on our care team is. If you share a note below, someone will reach out personally.",cta:['Reach our care team','#connect']};
     if(/time|when|service|mass|worship|sunday|saturday|hour/.test(q))
@@ -1670,15 +1704,13 @@ function conciergeWidget(profile, opts={}){
     if(/visit|new|first|expect|come|attend/.test(q)) return {t:"So glad you’re thinking of coming! Come as you are — walk in, grab coffee, and stay as long as you like. Want to let us know you’re coming?",cta:['Plan your visit','#visit']};
     return {t:"Great question — the best person to answer that is our team. Leave a note and we’ll get right back to you.",cta:['Message us','#connect']};
   }
-  function answer(q){ q=q.toLowerCase(); return D.biz? bizAnswer(q) : churchAnswer(q); }
+  var seeds=['Service times','Where do I park?','Are kids welcome?','Watch online'];
+  var greet='👋 Welcome to '+D.name+'! I can help with service times, parking, kids, and planning your first visit. What can I help you find?';`}
   function ask(q){push('me',q);var a=answer(q);setTimeout(function(){push('bot',a.t+(a.cta?'<br><a class="cx-cta" href="'+a.cta[1]+'">'+a.cta[0]+' →</a>':''));},260);}
-  var seeds= D.biz? ['Hours','Book an appointment','Services','Insurance &amp; pricing'] : ['Service times','Where do I park?','Are kids welcome?','Watch online'];
   chips.innerHTML=seeds.map(function(s){return '<button class="cx-chip" type="button">'+s+'</button>'}).join('');
   chips.onclick=function(e){var b=e.target.closest('.cx-chip');if(b)ask(b.textContent.replace('&amp;','&'));};
   document.getElementById('cxForm').onsubmit=function(e){e.preventDefault();var t=document.getElementById('cxText');if(t.value.trim()){ask(t.value.trim());t.value='';}};
   var panel=document.getElementById('cxPanel'), first=true;
-  var greet= D.biz? '👋 Hi! I’m the front desk for '+D.name+'. I can help with hours, booking, services, and insurance. What do you need?'
-                  : '👋 Welcome to '+D.name+'! I can help with service times, parking, kids, and planning your first visit. What can I help you find?';
   document.getElementById('cxOpen').onclick=function(){panel.hidden=false;this.style.display='none';if(first){first=false;push('bot',greet);}};
   document.getElementById('cxClose').onclick=function(){panel.hidden=true;document.getElementById('cxOpen').style.display='';};
 })();</script>`;
@@ -1799,7 +1831,7 @@ ${seoHead(profile, recipe, page)}
 ${css}</style></head>
 <body class="${bodyClass}">
 ${body}
-${recipe.concierge === false ? '' : conciergeWidget(p, {business:!!recipe.vertical, vertical:recipe.vertical})}
+${recipe.concierge === false ? '' : conciergeWidget(p, {business:!recipe.tradition, vertical:recipe.vertical})}
 ${RUNTIME}
 </body></html>`;
 }

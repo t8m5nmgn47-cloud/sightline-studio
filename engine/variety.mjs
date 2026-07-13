@@ -1,6 +1,7 @@
 // ─────────────────────────────────────────────────────────────────────────────
 // Variety layer for the SITE ENGINE — deterministic spread at the RECIPE level.
-// Ported from engine/business-designs/variety.mjs (FNV-1a seed + salted pick),
+// Ported from the retired business-designs variety module (FNV-1a seed + salted
+// pick; now archive/design-modules/business-designs/variety.mjs),
 // but applied to recipe decisions (archetype / structure / font pack / --rad)
 // BEFORE rendering — never as HTML post-processing.
 //
@@ -30,7 +31,7 @@ export function pickStructure(seed, availableStructures = []) {
 
 // ── font packs ───────────────────────────────────────────────────────────────
 // Each site-engine THEME carries two mood-matched alternate Google display
-// faces (adapted from business-designs/variety.mjs FONT packs — serif stays
+// faces (adapted from the archived business-designs FONT packs — serif stays
 // serif, friendly stays friendly). Entries match THEMES' {font, fontUrl}
 // shape so assemble() can drop them straight into the css2 URL.
 export const FONT_ALTS = {

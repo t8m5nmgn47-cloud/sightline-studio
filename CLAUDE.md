@@ -41,15 +41,19 @@ which named the #1 root cause and sat unfixed through an entire engine overhaul)
 - `content-overrides.json` is hand-verified truth — it must beat all extraction.
 - Public gallery = root `/slug/` folders synced by `engine/promote.mjs` from `demos/`;
   homepage thumbs live in `/thumbs/`. Regens do NOT update the gallery by themselves.
+- Old design modules archived in `archive/design-modules/` (2026-07-13) — do not
+  resurrect; their looks live in site-engine as statement/hearth/luxe.
 
 ## The toolbox (all in engine/)
 
 `release.mjs` one-button gated deploy · `pipeline.mjs` one prospect → demo ·
 `regen.mjs` serial rebuild (release does it parallel) · `qa.mjs` structural gate ·
 `art-critic.mjs` AI visual judge · `heal.mjs` recipe bake-off for flagged sites ·
-`promote.mjs` demos→live gallery+thumbs · `variants.mjs` 6-style chooser (sales) ·
-`photo-engine.mjs` stock tiers + vision gates · `fetch-stock.mjs` Pexels/Unsplash ·
-`outreach.mjs` one-pagers · `showcase.mjs` name anonymization · `crm.mjs` status.
+`variety-check.mjs` same-vertical distinctness gate · `promote.mjs` demos→live
+gallery+thumbs · `variants.mjs` 6-style chooser (sales: editorial/bold/statement/
+luxe/showcase/flagship) · `photo-engine.mjs` stock tiers + vision gates ·
+`fetch-stock.mjs` Pexels/Unsplash · `outreach.mjs` one-pagers · `showcase.mjs`
+name anonymization · `crm.mjs` status.
 
 ## Quality bar
 
