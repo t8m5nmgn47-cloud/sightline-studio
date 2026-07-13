@@ -29,9 +29,9 @@ export function pickStructure(seed, availableStructures = []) {
 }
 
 // ── font packs ───────────────────────────────────────────────────────────────
-// Each of the six site-engine THEMES carries two mood-matched alternate Google
-// display faces (adapted from business-designs/variety.mjs FONT packs — serif
-// stays serif, friendly stays friendly). Entries match THEMES' {font, fontUrl}
+// Each site-engine THEME carries two mood-matched alternate Google display
+// faces (adapted from business-designs/variety.mjs FONT packs — serif stays
+// serif, friendly stays friendly). Entries match THEMES' {font, fontUrl}
 // shape so assemble() can drop them straight into the css2 URL.
 export const FONT_ALTS = {
   sanctuary: [ // elegant liturgical serif (default: Cormorant Garamond)
@@ -57,6 +57,10 @@ export const FONT_ALTS = {
   evergreen: [ // warm dependable serif (default: Lora)
     { font: 'Bitter',   fontUrl: 'Bitter:wght@400;500;600;700' },
     { font: 'Spectral', fontUrl: 'Spectral:wght@400;500;600' },
+  ],
+  luxe: [ // fashion-house didone / high-contrast serif (default: Bodoni Moda)
+    { font: 'Prata',     fontUrl: 'Prata' },
+    { font: 'Cormorant', fontUrl: 'Cormorant:wght@500;600;700' },
   ],
 };
 
@@ -98,13 +102,20 @@ export function fallbackStructure({ reviews = 0, gallery = 0, hasOffer = false, 
 // Alternates stay on light-ground archetypes for captured palettes — never
 // arch-modern's brand poster (the art critic flags color washes every time).
 const ARCH_ALTS = {
-  flagship:  ['split', 'editorial'],
-  split:     ['editorial', 'flagship'],
+  // statement (high-energy split-price offer look) rides as an alternate on the
+  // high-energy primaries only — never behind the muted/professional leads.
+  flagship:  ['split', 'editorial', 'statement'],
+  split:     ['editorial', 'flagship', 'statement'],
   editorial: ['minimal', 'split'],
   minimal:   ['editorial', 'split'],
   cathedral: ['editorial', 'split'],
   modern:    ['flagship', 'split'],
-  journey:   ['cathedral', 'editorial'],
+  // church-side looks alternate between each other only — chooseArchetype is
+  // the BUSINESS path, so these keys matter just when a church look is ever
+  // handed in as a primary; hearth/journey must never lead a business pool.
+  journey:   ['cathedral', 'hearth'],
+  statement: ['flagship', 'split'],
+  hearth:    ['journey', 'cathedral'],
 };
 const STRUCT_ALTS = {
   proof:    ['story', 'flagship'],

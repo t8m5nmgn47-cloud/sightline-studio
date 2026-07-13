@@ -134,6 +134,13 @@ export const THEMES = {
              pal:{brand:'#1e2a4a',brandD:'#141d36',accent:'#c2a04a'} },
   evergreen:{ font:'Lora', fontUrl:'Lora:wght@400;500;600;700', rad:14,
               pal:{brand:'#2f6f4f',brandD:'#245740',accent:'#c0914c'} },
+  // luxe (ported from the old business luxe template): fashion-house didone
+  // display + tone restraint. Near-black ink brand, muted champagne accent,
+  // razor corners (rad 0). pal is the FALLBACK only — with useCapturedPalette
+  // (the default) the captured brand still drives colour and luxe contributes
+  // the type + shape restraint.
+  luxe:{ font:'Bodoni Moda', fontUrl:'Bodoni+Moda:opsz,wght@6..96,400;6..96,500;6..96,600', rad:0,
+         pal:{brand:'#16151a',brandD:'#0b0b0d',accent:'#a88b47'} },
 };
 
 // motion moods (Living Light) reused from the church hero work
@@ -167,8 +174,54 @@ S.nav = (p) => `
   <div class="navlinks navlinks-m" id="navmenu">${p.nav.map(t=>`<a href="${t.href}">${esc(t.label)}</a>`).join('')}</div>` : ''}
 </nav>`;
 
+// pull a REAL price out of a grounded offer — an explicit {price} field first,
+// else the first $/€/£ amount already present in the offer's own copy. Returns
+// null when the offer carries no price; callers must then render type-only.
+// This is the ONLY source of the statement hero's giant numerals — never invents.
+function offerPriceParts(s){
+  if (!s) return null;
+  const src = [s.price, s.title, s.lead].filter(Boolean).join(' ');
+  const m = String(src).match(/([$€£])\s?(\d[\d,]*(?:\.\d{2})?)/);
+  return m ? { symbol: m[1], num: m[2] } : null;
+}
+
 S.hero = (p, {mood, arch}) => {
   const h = p.hero || {};
+  // ── STATEMENT hero: high-energy split-price offer poster (ported from the
+  // old bold template). The oversized price numerals render ONLY when a real
+  // grounded offer (p.sections.offer) carries a real price; an offer without a
+  // price gets the card sans numerals; no offer at all falls back to the
+  // statement-weight type treatment. Never a fabricated price. ────────────────
+  if (arch === 'statement'){
+    const offer = p.sections?.offer || null;
+    const pr = offerPriceParts(offer);
+    const media = p.heroImage ? `<div class="st-media" style="background-image:url('${p.heroImage}')"></div>` : '';
+    const ctas = h.ctas || (p._t?.bookCta ? [{label:p._t.bookCta, href:'#book'}] : [{label:'Plan Your Visit →', href:'#visit'}]);
+    return `
+<header class="sthero" id="top">
+  ${media}
+  ${pr?`<span class="st-big" aria-hidden="true">${esc(pr.num)}</span>`:''}
+  <div class="wrap st-grid${offer?'':' solo'}">
+    <div class="st-main">
+      ${h.kick?`<span class="kick">${esc(h.kick)}</span>`:''}
+      <h1 class="st-head">${esc(h.headline || p.name)}</h1>
+      ${h.sub?`<p class="st-sub">${esc(h.sub)}</p>`:''}
+      <div class="cta-row">
+        ${ctas.map((c,i)=>`<a class="btn lg${i?' ghost':''}" href="${c.href}">${esc(c.label)}</a>`).join('')}
+        ${p.phone?`<a class="btn lg ghost" href="tel:${p.phone.replace(/[^0-9]/g,'')}">${esc(fmtPhone(p.phone))}</a>`:''}
+      </div>
+    </div>
+    ${offer?`<aside class="st-aside" aria-label="Current offer">
+      <div class="st-card">
+        ${offer.kicker?`<p class="st-tag">${esc(offer.kicker)}</p>`:''}
+        ${pr?`<p class="st-price"><sup>${esc(pr.symbol)}</sup>${esc(pr.num)}</p>`:''}
+        ${(offer.title||offer.lead)?`<p class="st-desc">${offer.title?`<b>${esc(offer.title)}</b> `:''}${offer.lead?esc(offer.lead):''}</p>`:''}
+        <a class="btn" href="${offer.href||'#book'}">${esc(offer.cta||p._t?.bookCta||'Book now →')}</a>
+      </div>
+    </aside>`:''}
+  </div>
+</header>`;
+  }
   // ── FLAGSHIP hero: cinematic, editorial, layered. The signature look. ──────
   if (arch === 'flagship'){
     const words = esc(h.headline || p.name).split(' ');
@@ -493,7 +546,10 @@ S.footer = (p) => `
 // ── archetypes: section order + body class (drives layout treatment) ─────────
 export const ARCHETYPES = {
   cathedral:{ order:['nav','hero','times','services','events','team','giving','cta','footer'], body:'arch-cathedral' },
-  editorial:{ order:['nav','hero','services','times','giving','events','team','cta','footer'], body:'arch-editorial' },
+  // editorial carries the serif-led split treatments ported from the old
+  // editorial template: about_split + faq_columns instead of the plain
+  // about/faq renderers (both no-op without content, as always).
+  editorial:{ order:['nav','hero','services','about_split','times','giving','events','team','faq_columns','cta','footer'], body:'arch-editorial' },
   modern:{    order:['nav','hero','events','times','services','team','giving','cta','footer'], body:'arch-modern' },
   split:{     order:['nav','hero','times','services','events','team','giving','cta','footer'], body:'arch-split' },
   minimal:{   order:['nav','hero','services','times','events','giving','cta','footer'], body:'arch-minimal' },
@@ -502,6 +558,16 @@ export const ARCHETYPES = {
   // FLAGSHIP: the $15k look. Cinematic hero, editorial type, layered depth,
   // staggered reveals. The one we show on every call.
   flagship:{  order:['nav','hero','marquee','services','about','whyus','reviews','offer','gallery','faq','hours','cta','footer'], body:'arch-flagship' },
+  // STATEMENT: the high-energy offer-forward look (ported from the old bold
+  // template). Oversized split-price hero when a real offer exists, marquee
+  // early, offer prominent, proof after. Chunky type, strong brand blocks.
+  statement:{ order:['announce','nav','hero','marquee','offer','services','whyus','reviews','about_split','gallery','team','faq_columns','hours','cta','footer'], body:'arch-statement' },
+  // HEARTH: warm, homey, gathered — ported from the old hearth church template
+  // (cream ground, pill buttons, tilted number chips, curved hero edge, paper
+  // grain). CHURCH archetype: a gathered visitor-journey order built from the
+  // existing church renderers only (every one no-ops without content). Times
+  // sit late as a warm dark band, the way the old template closed its page.
+  hearth:{ order:['announce','nav','hero','services','nextsteps','sermons','groups','serve','music','giving','events','times','care','cta','footer'], body:'arch-hearth' },
 };
 
 // ── business sections (local high-value verticals: dental / law / medspa) ────
@@ -663,11 +729,18 @@ S.gallery = (p) => {
   </div>
 </section>`; };
 
+// FAQPage structured data (rich-result eligible) — ONE builder shared by every
+// FAQ renderer (S.faq accordion + S.faq_columns two-column) so the schema never
+// drifts between treatments.
+function faqLd(items){
+  const strip = (t)=>String(t||'').replace(/<[^>]+>/g,'');
+  return { '@context':'https://schema.org','@type':'FAQPage',
+    mainEntity: items.map(f=>({'@type':'Question',name:strip(f.q),acceptedAnswer:{'@type':'Answer',text:strip(f.a)}})) };
+}
+
 // FAQ accordion + FAQPage structured data (rich-result eligible)
 S.faq = (p) => { const s=p.sections.faq; if(!s||!s.items||!s.items.length) return '';
-  const strip = (t)=>String(t||'').replace(/<[^>]+>/g,'');
-  const ld = { '@context':'https://schema.org','@type':'FAQPage',
-    mainEntity: s.items.map(f=>({'@type':'Question',name:strip(f.q),acceptedAnswer:{'@type':'Answer',text:strip(f.a)}})) };
+  const ld = faqLd(s.items);
   return `
 <section class="sec faqsec" id="faq">
   <div class="wrap">
@@ -675,6 +748,49 @@ S.faq = (p) => { const s=p.sections.faq; if(!s||!s.items||!s.items.length) retur
     <h2>${esc(s.title||'Questions, answered.')}</h2>
     <div class="faqlist">${s.items.map((f,i)=>`
       <details class="faq-i"${i===0?' open':''}><summary>${esc(f.q)}</summary><p>${esc(f.a)}</p></details>`).join('')}
+    </div>
+  </div>
+  <script type="application/ld+json">${JSON.stringify(ld)}</script>
+</section>`; };
+
+// ── editorial split treatments (ported from the old editorial template) ──────
+// About as a serif-led split: narrative beside a framed portrait photo. Image
+// comes from the SAME photoPlan slot as S.about (captured-first, curated stock
+// fallback) — no new image path. With no photo at all, a brand monogram panel
+// stands in (initials derived from the real name; a graphic, not a claim).
+S.about_split = (p) => { const s=p.sections.about; if(!s||!s.body) return '';
+  const img = photoPlan(p).about;
+  const media = img
+    ? `<figure class="abs-media"><img src="${img}" alt="${esc(p.name)}" loading="lazy" decoding="async"></figure>`
+    : `<div class="abs-media abs-panel"><span class="abs-mark">${esc((p.name||'').split(/\s+/).map(w=>w[0]).join('').slice(0,3))}</span></div>`;
+  const stats = (s.stats||[]).filter(x=>x&&x.v);
+  return `
+<section class="sec aboutsplit" id="about">
+  <div class="wrap abs-in">
+    <div class="abs-copy">
+      <span class="sec-k">${esc(s.kicker||'Our story')}</span>
+      <h2>${esc(s.title||`The story behind ${p.name}.`)}</h2>
+      <p class="abs-body">${esc(s.body)}</p>
+      ${p.location?`<p class="abs-loc">◆ ${esc(p.location)}</p>`:''}
+      ${stats.length?`<div class="about-stats">${stats.map(x=>`<div class="astat"><b>${esc(x.v)}</b><span>${esc(x.k)}</span></div>`).join('')}</div>`:''}
+    </div>
+    ${media}
+  </div>
+</section>`; };
+
+// FAQ as an editorial two-column layout: sticky heading rail beside the
+// accordion. Same grounding + the SAME FAQPage JSON-LD builder as S.faq.
+S.faq_columns = (p) => { const s=p.sections.faq; if(!s||!s.items||!s.items.length) return '';
+  const ld = faqLd(s.items);
+  const tel = p.phone ? p.phone.replace(/[^0-9]/g,'') : '';
+  return `
+<section class="sec faqcols" id="faq">
+  <div class="wrap faqcols-in">
+    <div class="faqcols-h"><span class="sec-k">${esc(s.kicker||'Good to know')}</span>
+      <h2>${esc(s.title||'Questions, answered.')}</h2>
+      <p class="lead">Don't see yours? ${tel?`Call <a href="tel:${tel}">${esc(p.phone)}</a> — a real person answers.`:'Reach out — a real person answers.'}</p></div>
+    <div class="faqlist">${s.items.map((f,i)=>`
+      <details class="qa"${i===0?' open':''}><summary>${esc(f.q)}<span class="qplus" aria-hidden="true"></span></summary><p>${esc(f.a)}</p></details>`).join('')}
     </div>
   </div>
   <script type="application/ld+json">${JSON.stringify(ld)}</script>
@@ -876,6 +992,10 @@ h1,h2,h3{font-family:'__DISPLAY__',Georgia,serif;font-weight:600;line-height:1.0
 .bookbar-in{display:flex;justify-content:space-between;align-items:center;gap:24px;flex-wrap:wrap}
 .bookbar b{font-family:'__DISPLAY__',serif;font-size:1.3rem;display:block}.bookbar span{color:var(--mut);font-size:.92rem}
 .bookbtns{display:flex;gap:10px;flex-wrap:wrap}
+/* the ghost button sits on the LIGHT book-bar ground here — white border/text
+   (built for photo heroes) was invisible on every theme; flip it to ink */
+.bookbar .btn.ghost{color:var(--brand-d);border-color:color-mix(in srgb,var(--brand) 35%,var(--line))}
+.bookbar .btn.ghost:hover{background:color-mix(in srgb,var(--brand) 8%,var(--bg));color:var(--brand-d)}
 .rating{display:flex;align-items:center;gap:8px;margin:14px 0 0;font-size:1.05rem}
 .rating .stars{color:var(--accent);letter-spacing:2px}
 .rvgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:18px;margin-top:26px}
@@ -974,8 +1094,11 @@ h1,h2,h3{font-family:'__DISPLAY__',Georgia,serif;font-weight:600;line-height:1.0
 .faq-i[open] summary::after{content:'–'}
 .faq-i p{color:var(--mut);margin:0 0 18px;max-width:70ch}
 @media(max-width:760px){.feat-in,.about-in{grid-template-columns:1fr}.bgal{grid-template-columns:1fr 1fr}}
-/* no-photo hero: a designed brand poster, never a bare text block */
-.hero.no-img{background:
+/* no-photo hero: a designed brand poster, never a bare text block.
+   (body prefix lifts specificity above the light-archetype hero grounds
+   declared later — without it, editorial/split/minimal override the poster
+   background while the white-h1 rules below still apply → white-on-white) */
+body .hero.no-img{background:
   radial-gradient(90% 70% at 85% 10%,color-mix(in srgb,var(--accent) 22%,transparent),transparent 60%),
   radial-gradient(70% 90% at 5% 95%,color-mix(in srgb,var(--brand) 30%,transparent),transparent 65%),
   linear-gradient(135deg,color-mix(in srgb,var(--brand) 55%,#14161a),color-mix(in srgb,var(--brand-d) 45%,#0e1013));
@@ -1061,8 +1184,11 @@ h1,h2,h3{font-family:'__DISPLAY__',Georgia,serif;font-weight:600;line-height:1.0
 @media(max-width:720px){.navlinks{display:none}.ev{flex-direction:column;gap:4px}.ev-when{min-width:0}}
 
 /* ── PHASE 4 · craft polish ─────────────────────────────────────────────── */
-/* rhythm: alternate section grounds so the page breathes */
-.sec:nth-of-type(even):not(.band):not(.cta){background:color-mix(in srgb,var(--ink) 3%,var(--bg))}
+/* rhythm: alternate section grounds so the page breathes.
+   :not(.upgrade) — the demo upgrade band is a brand gradient with white text;
+   this tint outranked its (later, lower-specificity) UPSELL_CSS rule whenever
+   the band landed on an even index → white-on-light. Never tint it. */
+.sec:nth-of-type(even):not(.band):not(.cta):not(.upgrade){background:color-mix(in srgb,var(--ink) 3%,var(--bg))}
 .sec-k{margin-bottom:6px}.sec h2{font-size:clamp(1.7rem,3.2vw,2.5rem)}
 /* micro-interactions */
 .btn{transition:transform .18s var(--ease,ease),background .18s,box-shadow .18s;will-change:transform}
@@ -1188,9 +1314,178 @@ body:not(.arch-split):not(.arch-minimal) .nav.scrolled{background:color-mix(in s
 .arch-flagship .band .sec-k,.arch-flagship .band h2{color:#fff}
 .arch-flagship .band .btn,.arch-flagship .band .fbtn{background:#fff;color:var(--brand)}
 
+/* ═══════════════════════════════════════════════════════════════════════════
+   STATEMENT — high-energy split-price offer hero (ported from the old bold
+   template; its plum/vermilion palette maps onto var(--brand)/var(--accent)).
+   ═══════════════════════════════════════════════════════════════════════════ */
+.sthero{position:relative;background:linear-gradient(160deg,color-mix(in srgb,var(--brand) 36%,#131118),color-mix(in srgb,var(--brand-d) 26%,#0d0c11));color:#fff;
+  padding:clamp(7.5rem,15vh,10rem) 0 clamp(3.5rem,6vw,5.5rem);overflow:hidden;isolation:isolate}
+.sthero::before{content:"";position:absolute;z-index:-2;width:70vw;height:70vw;max-width:900px;max-height:900px;top:-24%;right:-14%;border-radius:50%;
+  background:radial-gradient(circle at center,color-mix(in srgb,var(--accent) 48%,transparent),transparent 62%);filter:blur(6px);pointer-events:none}
+.sthero::after{content:"";position:absolute;z-index:-2;width:60vw;height:60vw;max-width:760px;max-height:760px;bottom:-30%;left:-18%;border-radius:50%;
+  background:radial-gradient(circle at center,color-mix(in srgb,var(--brand) 55%,transparent),transparent 60%);pointer-events:none}
+.st-media{position:absolute;inset:0;z-index:-3;background-size:cover;background-position:center;opacity:.2;mix-blend-mode:luminosity}
+/* the giant price numerals — a graphic watermark, real offers only */
+.st-big{position:absolute;z-index:-1;right:-2%;top:-6%;font-family:'__DISPLAY__',Georgia,serif;font-weight:800;font-size:min(38vw,30rem);line-height:.7;
+  color:rgba(255,255,255,.08);letter-spacing:-.05em;pointer-events:none;user-select:none;font-variant-numeric:tabular-nums}
+.st-grid{display:grid;grid-template-columns:1.25fr .75fr;gap:clamp(2rem,5vw,4rem);align-items:center}
+.st-grid.solo{grid-template-columns:1fr;max-width:920px}
+.sthero .kick{font-size:.78rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.85)}
+.st-head{font-size:clamp(2.6rem,7.5vw,5.2rem);line-height:.98;letter-spacing:-.03em;font-weight:700;margin:.28em 0 .22em;text-wrap:balance;max-width:16ch}
+.st-sub{max-width:48ch;font-size:clamp(1rem,1.7vw,1.2rem);color:rgba(255,255,255,.88);margin:0 0 26px}
+/* chunky white primary CTA so it never blends into the brand-tinted ground */
+.sthero .cta-row .btn:not(.ghost){background:#fff;color:var(--brand-d)}
+.sthero .cta-row .btn:not(.ghost):hover{background:#fff;box-shadow:0 14px 34px -10px rgba(0,0,0,.5)}
+.st-card{background:var(--surf);color:var(--ink);border-radius:calc(var(--rad)*1.4px);padding:26px 24px;max-width:360px;margin-left:auto;
+  box-shadow:0 40px 80px -30px rgba(0,0,0,.6)}
+.st-tag{font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;color:var(--brand);font-weight:700;margin:0}
+.st-price{font-family:'__DISPLAY__',Georgia,serif;font-weight:800;font-size:clamp(3.2rem,7vw,4.6rem);line-height:.9;letter-spacing:-.04em;margin:.22em 0 .12em;font-variant-numeric:tabular-nums}
+.st-price sup{font-size:.42em;vertical-align:.7em;color:var(--accent);font-weight:700}
+.st-desc{color:var(--mut);font-size:.95rem;line-height:1.5;margin:.4em 0 0}.st-desc b{color:var(--ink);font-weight:600}
+.st-card .btn{display:block;text-align:center;margin-top:16px}
+@media(max-width:860px){.st-grid{grid-template-columns:1fr;gap:2.2rem}.st-card{margin-left:0;max-width:none}.st-big{font-size:52vw;top:1.5%;right:-8%}}
+/* chunky type + strong brand blocks across statement sections */
+.arch-statement .sec h2{font-weight:700;letter-spacing:-.025em;font-size:clamp(1.9rem,3.8vw,2.9rem)}
+.arch-statement .band{background:linear-gradient(120deg,var(--brand),var(--brand-d))}
+.arch-statement .fmarquee{background:linear-gradient(100deg,var(--brand),var(--brand-d));padding:22px 0}
+.arch-statement .fmarquee-t{font-size:1.65rem;font-weight:700;letter-spacing:-.02em}
+.arch-statement .card .cn{border-radius:12px}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   HEARTH — warm, homey, gathered (ported from the old hearth church template).
+   Cream ground, pill buttons + chips, tilted squircle number tiles, an organic
+   curved hero edge, warm radial "glow blobs" on the dark bands, paper grain.
+   All colour derives from engine props (brand/accent/bg mixed with neutrals) —
+   the old template's terracotta/cream/forest arrive via theme or captured
+   palette, never hardcoded here.
+   ═══════════════════════════════════════════════════════════════════════════ */
+.arch-hearth{--ease:cubic-bezier(.34,1.4,.44,1);background:color-mix(in srgb,var(--accent) 7%,var(--bg))}
+/* warm paper grain (pointer-transparent, sits under the concierge) */
+.arch-hearth::after{content:"";position:fixed;inset:0;z-index:45;pointer-events:none;opacity:.04;mix-blend-mode:multiply;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+/* pill everything */
+.arch-hearth .btn{border-radius:100px;box-shadow:0 12px 30px -8px rgba(var(--brand-rgb),.45)}
+.arch-hearth .btn.lg{padding:16px 30px}
+.arch-hearth .btn:hover{transform:translateY(-3px) scale(1.02);box-shadow:0 20px 40px -8px rgba(var(--brand-rgb),.5)}
+.arch-hearth .btn.ghost{border:2px solid rgba(255,255,255,.55);box-shadow:none}
+.arch-hearth .btn.ghost:hover{border-color:#fff;background:rgba(255,255,255,.12)}
+/* ghost on light grounds (watch section) flips to a warm outline */
+.arch-hearth .watch .btn.ghost{color:var(--brand-d);border-color:color-mix(in srgb,var(--accent) 45%,var(--line))}
+.arch-hearth .watch .btn.ghost:hover{border-color:var(--brand);background:transparent;color:var(--brand)}
+/* nav: transparent brandmark over the photo, white pill CTA */
+.arch-hearth .nav .brandmark{background:transparent;box-shadow:none;padding:0;color:#fff}
+.arch-hearth .navlinks a{text-transform:none;font-size:.92rem;font-weight:500}
+.arch-hearth .nav .btn.sm{background:#fff;color:var(--brand-d);box-shadow:none}
+.arch-hearth .nav .btn.sm:hover{background:#fff;color:var(--brand-d)}
+.arch-hearth .announce{background:color-mix(in srgb,var(--brand) 55%,#160f0a)}
+/* hero: warm gathered gradient + pill eyebrow + big friendly type */
+.arch-hearth .scrim{background:
+  radial-gradient(110% 80% at 12% 108%,color-mix(in srgb,var(--brand) 62%,transparent),transparent 58%),
+  radial-gradient(90% 70% at 92% -10%,color-mix(in srgb,var(--accent) 34%,transparent),transparent 55%),
+  linear-gradient(178deg,rgba(24,16,10,.42) 0%,rgba(24,16,10,.08) 34%,rgba(24,16,10,.28) 66%,rgba(20,13,8,.84) 100%)}
+.arch-hearth .hero-in{padding-bottom:clamp(96px,12vw,150px)}
+.arch-hearth .hero .kick{display:inline-flex;align-items:center;gap:10px;background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.28);
+  backdrop-filter:blur(6px);padding:9px 18px;border-radius:100px;letter-spacing:.02em;text-transform:none;font-size:.85rem}
+.arch-hearth .hero .kick::before{content:"";width:9px;height:9px;border-radius:50%;background:var(--accent)}
+.arch-hearth .hero h1{font-weight:700;letter-spacing:-.035em;line-height:.97;font-size:clamp(2.7rem,7.5vw,5.6rem);text-shadow:0 6px 50px rgba(0,0,0,.35)}
+/* organic curved edge from photo into the cream ground */
+.arch-hearth .hero::after{content:"";position:absolute;left:-8%;right:-8%;bottom:-2px;height:clamp(26px,6vw,70px);z-index:2;pointer-events:none;
+  background:color-mix(in srgb,var(--accent) 7%,var(--bg));border-radius:50% 50% 0 0/100% 100% 0 0}
+/* kicker with a little warm rule; heavier friendlier headings */
+.arch-hearth .sec-k{display:inline-flex;align-items:center;gap:9px;text-transform:none;letter-spacing:.03em;font-size:.85rem;color:var(--brand-d)}
+.arch-hearth .sec-k::before{content:"";width:24px;height:2px;border-radius:2px;background:var(--brand)}
+.arch-hearth .sec-k.light{color:rgba(255,255,255,.92)}.arch-hearth .sec-k.light::before{background:var(--accent)}
+.arch-hearth .sec h2{font-weight:700;letter-spacing:-.025em;font-size:clamp(2rem,4.6vw,3.4rem)}
+/* alternate ground = lighter warm paper, not grey (.times excluded — it is
+   hearth's dark closing band and must never pick up the light tint) */
+.arch-hearth .sec:nth-of-type(even):not(.band):not(.cta):not(.upgrade):not(.times){background:color-mix(in srgb,#fff 55%,color-mix(in srgb,var(--accent) 8%,var(--bg)))}
+/* rounded homey cards + tilted squircle number tiles */
+.arch-hearth .card,.arch-hearth .step{border-radius:24px;padding:30px 26px;border:1px solid color-mix(in srgb,var(--accent) 24%,var(--line));background:var(--surf)}
+.arch-hearth .card:hover,.arch-hearth .step:hover{transform:translateY(-6px);box-shadow:0 26px 46px -24px rgba(var(--brand-rgb),.5);border-color:color-mix(in srgb,var(--accent) 40%,var(--line))}
+.arch-hearth .step{transition:transform .3s var(--ease),box-shadow .3s}
+.arch-hearth .card .cn{width:52px;height:52px;border-radius:16px;background:color-mix(in srgb,var(--accent) 20%,var(--surf));color:var(--brand-d);transform:rotate(-4deg);margin-bottom:16px}
+.arch-hearth .step .stepn{display:grid;place-items:center;width:52px;height:52px;border-radius:16px;background:color-mix(in srgb,var(--accent) 20%,var(--surf));
+  color:var(--brand-d);font-family:inherit;font-size:1.1rem;font-weight:700;transform:rotate(-4deg);margin-bottom:14px}
+.arch-hearth .steparrow{color:var(--accent);font-weight:700}
+/* chips as warm outlined pills */
+.arch-hearth .chip{border:2px solid color-mix(in srgb,var(--accent) 40%,var(--line));padding:10px 20px}
+.arch-hearth .chip:hover{border-color:var(--brand);color:var(--brand-d);transform:translateY(-2px)}
+/* bands (serve/giving) = rounded inset warm-dark blocks with glow blobs */
+.arch-hearth .band{position:relative;overflow:hidden;border-radius:28px;margin:clamp(10px,2vw,22px) clamp(14px,3vw,36px);
+  background:linear-gradient(135deg,color-mix(in srgb,var(--brand) 88%,#100b07),color-mix(in srgb,var(--brand) 66%,#100b07))}
+.arch-hearth .band::before{content:"";position:absolute;width:520px;height:520px;border-radius:50%;top:-200px;right:-140px;
+  background:radial-gradient(circle,color-mix(in srgb,var(--accent) 30%,transparent),transparent 68%)}
+.arch-hearth .band::after{content:"";position:absolute;width:440px;height:440px;border-radius:50%;bottom:-190px;left:-120px;
+  background:radial-gradient(circle,color-mix(in srgb,var(--accent) 22%,transparent),transparent 70%)}
+.arch-hearth .band-in{position:relative;z-index:1}
+.arch-hearth .band.alt{background:linear-gradient(135deg,color-mix(in srgb,var(--brand) 52%,#12100c),color-mix(in srgb,var(--brand) 32%,#0d0b08))}
+.arch-hearth .band .btn.light{background:var(--surf);color:var(--brand-d)}
+/* times = the warm dark closing band. Selector stacked to (0,5,1) so it beats
+   the base even-section tint (0,5,0) at ANY section parity — never rely on the
+   band landing at an odd index. */
+body.arch-hearth .sec.times.times.times{position:relative;overflow:hidden;color:#fff;
+  background:linear-gradient(160deg,color-mix(in srgb,var(--brand) 42%,#14100b),color-mix(in srgb,var(--brand) 24%,#0e0b08))}
+.arch-hearth .times::before{content:"";position:absolute;width:560px;height:560px;border-radius:50%;top:-200px;right:-120px;
+  background:radial-gradient(circle,color-mix(in srgb,var(--accent) 26%,transparent),transparent 68%)}
+.arch-hearth .times .wrap{position:relative;z-index:1}
+.arch-hearth .times .sec-k{color:rgba(255,255,255,.9)}.arch-hearth .times .sec-k::before{background:var(--accent)}
+.arch-hearth .times .times-list li{border-bottom:1px solid rgba(255,255,255,.16)}
+.arch-hearth .times .lead{color:rgba(255,255,255,.85)}
+/* events: brand date pills + soft hover slide */
+.arch-hearth .ev{border-top:2px solid color-mix(in srgb,var(--accent) 22%,var(--line));border-radius:16px;align-items:center;
+  transition:padding-left .3s var(--ease),background .25s}
+.arch-hearth .ev:hover{padding-left:20px;background:var(--surf)}
+.arch-hearth .ev-when{background:var(--brand);color:#fff;border-radius:14px;padding:10px 16px;min-width:110px;text-align:center;font-size:.95rem;line-height:1.25}
+/* care form: rounded warm fields */
+.arch-hearth .care-form input,.arch-hearth .care-form textarea{border:2px solid color-mix(in srgb,var(--accent) 35%,var(--line));background:var(--surf)}
+.arch-hearth .care-form input{border-radius:100px}
+.arch-hearth .care-form textarea{border-radius:22px}
+.arch-hearth .care-form input:focus,.arch-hearth .care-form textarea:focus{outline:none;border-color:var(--brand)}
+/* watch frame like a framed family photo */
+.arch-hearth .watch-frame{border-radius:28px;border:4px solid var(--surf);outline:1px solid color-mix(in srgb,var(--accent) 30%,var(--line));
+  box-shadow:0 34px 60px -28px rgba(var(--brand-rgb),.6)}
+/* closing CTA: big friendly type over a soft accent glow */
+.arch-hearth .cta{position:relative;overflow:hidden}
+.arch-hearth .cta::before{content:"";position:absolute;width:640px;height:640px;border-radius:50%;top:50%;left:50%;transform:translate(-50%,-50%);
+  background:radial-gradient(circle,color-mix(in srgb,var(--accent) 16%,transparent),transparent 70%);pointer-events:none}
+.arch-hearth .cta .wrap{position:relative}
+.arch-hearth .cta h2{font-size:clamp(2.4rem,6vw,4.4rem);font-weight:700;letter-spacing:-.03em}
+/* warm-dark footer */
+.arch-hearth .foot{background:color-mix(in srgb,var(--brand) 32%,#120d09)}
+@media(prefers-reduced-motion:reduce){.arch-hearth .btn:hover,.arch-hearth .card:hover,.arch-hearth .step:hover,.arch-hearth .ev:hover{transform:none}}
+
 /* ── ABOUT: editorial split ───────────────────────────────────────────────── */
 .about-in{display:grid;grid-template-columns:1.05fr .95fr;gap:clamp(32px,5vw,72px);align-items:center}
 @media(max-width:820px){.about-in{grid-template-columns:1fr;gap:28px}}
+
+/* ── ABOUT SPLIT variant: serif narrative beside a framed portrait photo
+     (ported from the old editorial template's about band) ──────────────────── */
+.abs-in{display:grid;grid-template-columns:1.05fr .95fr;gap:clamp(32px,5vw,72px);align-items:center}
+.abs-body{font-size:1.08rem;line-height:1.75;color:color-mix(in srgb,var(--ink) 82%,var(--mut));max-width:58ch;margin:1.1em 0 1.4em}
+.abs-loc{color:var(--brand);font-weight:600;font-size:.92rem;letter-spacing:.04em;margin:0 0 22px}
+.abs-media{position:relative;margin:0;border-radius:calc(var(--rad)*2px);overflow:hidden;aspect-ratio:4/5;max-height:560px;box-shadow:0 30px 70px -30px rgba(0,0,0,.35)}
+.abs-media img{width:100%;height:100%;object-fit:cover;transition:transform .6s var(--ease,ease)}
+.abs-media:hover img{transform:scale(1.04)}
+.abs-media::after{content:"";position:absolute;inset:0;box-shadow:inset 0 0 0 1px rgba(255,255,255,.14);border-radius:inherit;pointer-events:none}
+.abs-panel{display:grid;place-items:center;background:linear-gradient(145deg,color-mix(in srgb,var(--brand) 55%,#171a20),color-mix(in srgb,var(--brand) 25%,#0e1014))}
+.abs-mark{font-family:'__DISPLAY__',Georgia,serif;font-size:clamp(4rem,9vw,7rem);font-weight:600;color:rgba(255,255,255,.9);letter-spacing:.04em}
+@media(max-width:820px){.abs-in{grid-template-columns:1fr;gap:28px}.abs-media{aspect-ratio:16/10;max-height:340px}}
+
+/* ── FAQ COLUMNS variant: editorial two-column, sticky heading rail ────────── */
+.faqcols-in{display:grid;grid-template-columns:.85fr 1.15fr;gap:clamp(28px,5vw,64px);align-items:start}
+.faqcols-h{position:sticky;top:96px}
+.faqcols-h .lead a{color:var(--brand);font-weight:600;text-decoration:none}
+.qa{border-bottom:1px solid var(--line)}
+.qa summary{list-style:none;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:18px;
+  padding:20px 2px;font-weight:600;font-size:1.06rem;font-family:'__DISPLAY__',Georgia,serif}
+.qa summary::-webkit-details-marker{display:none}
+.qplus{flex:none;position:relative;width:22px;height:22px}
+.qplus::before,.qplus::after{content:"";position:absolute;background:var(--brand);inset:10px 2px;transition:transform .25s var(--ease,ease)}
+.qplus::after{transform:rotate(90deg)}
+.qa[open] .qplus::after{transform:rotate(0)}
+.qa p{margin:0 0 22px;color:var(--mut);line-height:1.65;max-width:60ch}
+.qa summary:hover{color:var(--brand)}
+@media(max-width:820px){.faqcols-in{grid-template-columns:1fr}.faqcols-h{position:static}}
 
 /* ── WHY-US: check pillars ────────────────────────────────────────────────── */
 .whygrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:22px;margin-top:38px}
@@ -1267,7 +1562,14 @@ export function recommendRecipe(profile){
   const isWarm = b[0] >= b[2] && s > .3;             // red/orange/gold lead
   const isGreen = b[1] >= b[0] && b[1] >= b[2] && s > .25;
   let themePool, archPool;
-  if (isBlueNavy)      { themePool=['heritage','heritage','quiet','sanctuary'];      archPool=['editorial','editorial','minimal','split']; }
+  // luxe rides only in the muted/neutral-hue theme pools below (navy + low-sat):
+  // its whole signature is tone restraint — dropping a didone champagne theme
+  // on a hot vivid brand reads costume, not luxury.
+  // hearth rides only in the warm/neutral CHURCH-side archetype pools: business
+  // renders always overwrite recipe.archetype via variety.chooseArchetype
+  // (pipeline isBiz path), so archPool additions here reach church/tradition
+  // profiles only.
+  if (isBlueNavy)      { themePool=['heritage','heritage','quiet','sanctuary','luxe']; archPool=['editorial','editorial','minimal','split']; }
   // greens get the editorial frame, never the brand-poster: a green-flooded
   // hero reads like a monochrome wash (murky, unattractive) — as an accent on
   // a light editorial ground the same green reads fresh and professional.
@@ -1276,11 +1578,14 @@ export function recommendRecipe(profile){
   // (variants' --theme-palette). Captured brand colors flooding a photo reads
   // as a monochrome wash — the art critic flags it every time. Vivid captured
   // brands get split (warm) or editorial (cool) leads instead.
+  // statement (the high-energy split-price look) lives in the warm/vivid pools
+  // only — its brand-saturated hero and marquee fit hot brands, never the
+  // muted/professional (navy, green, low-sat) pools.
   else if (s > .6)     { themePool = isWarm ? ['community','community','evergreen','sanctuary'] : ['heritage','heritage','quiet','sanctuary'];
-                         archPool  = isWarm ? ['split','split','editorial','minimal'] : ['editorial','editorial','split','minimal']; }
-  else if (isWarm)     { themePool=['community','community','evergreen','heritage']; archPool=['split','split','editorial','cathedral']; }
-  else if (s < .2)     { themePool=['quiet','quiet','evergreen','heritage'];         archPool=['minimal','minimal','editorial','split']; }  // muted → quiet/minimal lead
-  else                 { themePool=['sanctuary','sanctuary','evergreen','heritage']; archPool=['cathedral','cathedral','editorial','split']; }
+                         archPool  = isWarm ? ['split','split','statement','editorial','hearth'] : ['editorial','editorial','split','minimal']; }
+  else if (isWarm)     { themePool=['community','community','evergreen','heritage']; archPool=['split','split','statement','editorial','hearth']; }
+  else if (s < .2)     { themePool=['quiet','quiet','evergreen','heritage','luxe'];  archPool=['minimal','minimal','editorial','split']; }  // muted → quiet/minimal lead
+  else                 { themePool=['sanctuary','sanctuary','evergreen','heritage']; archPool=['cathedral','cathedral','editorial','split','hearth']; }
   const seed = seedOf(profile);
   const archetype = archPool[pick(seed, 5, archPool.length)];
   const theme = themePool[pick(seed, 7, themePool.length)];
@@ -1447,6 +1752,19 @@ export function assemble(profile, recipe={}, page=null){
   let order = page?.order || (trad ? trad.order : archetype.order);
   if (!page && recipe.vertical && recipe.structure && STRUCTURES[recipe.structure])
     order = STRUCTURES[recipe.structure];
+  // statement is offer-forward BY ORDER too (marquee early, offer prominent,
+  // proof after) — business renders honor its punchy arc unless an explicit
+  // structure was chosen. New-archetype rule only; others behave as before,
+  // and church traditions keep their own content order (statement then styles
+  // the hero/type only).
+  else if (!page && !recipe.tradition && recipe.archetype === 'statement')
+    order = ARCHETYPES.statement.order;
+  // hearth is a CHURCH archetype with its own gathered order. It replaces the
+  // generic contemporary spine only — catholic/mainline keep their tradition
+  // orders (mass/sacraments/music must never be dropped) and hearth then
+  // styles surfaces/type alone, the same rule statement follows for business.
+  else if (!page && recipe.tradition === 'contemporary' && recipe.archetype === 'hearth')
+    order = ARCHETYPES.hearth.order;
   // Demo-only upsell layer (business demos): teaser grid on the homepage,
   // upgrade band above the footer on EVERY page. Never on delivered sites
   // (recipe.indexable) and removable with recipe.upsells=false.
