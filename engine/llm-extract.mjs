@@ -12,6 +12,7 @@ import * as cheerio from 'cheerio';
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { callAnthropic } from './anthropic.mjs';
 const ROOT = fileURLToPath(new URL('..', import.meta.url));
 
 // Key resolution (matches ai-content.mjs): either env var name, or the
@@ -109,25 +110,23 @@ Return ONLY a JSON object (no markdown fence, no commentary) with exactly these 
 
 ${docs.join('\n\n')}`;
 
-  const ac = new AbortController();
-  const t = setTimeout(() => ac.abort(), timeoutMs);
+  // Resilient call: retries 429/5xx/timeouts with backoff, detects truncation,
+  // records persistent failures as INFRA (see anthropic.mjs). temperature:0
+  // pins extraction — the same site must not flip pass/fail run to run.
+  const r = await callAnthropic(
+    { model: MODEL, max_tokens: 2000, temperature: 0, messages: [{ role: 'user', content: prompt }] },
+    { key, timeoutMs, label: 'llm-extract' },
+  );
+  if (!r.ok) return null;
   try {
-    const res = await fetch('https://api.anthropic.com/v1/messages', {
-      method: 'POST',
-      signal: ac.signal,
-      headers: { 'x-api-key': key, 'anthropic-version': '2023-06-01', 'content-type': 'application/json' },
-      body: JSON.stringify({ model: MODEL, max_tokens: 2000, messages: [{ role: 'user', content: prompt }] }),
-    });
-    if (!res.ok) { console.error('llm-extract: API ' + res.status); return null; }
-    const data = await res.json();
-    let text = (data.content || []).map((c) => c.text || '').join('');
+    let text = (r.data.content || []).map((c) => c.text || '').join('');
     const m = text.match(/\{[\s\S]*\}/);        // tolerate stray prose/fences
     if (!m) return null;
     return sanitize(JSON.parse(m[0]));
   } catch (e) {
-    console.error('llm-extract failed:', e.message || e);
+    console.error('llm-extract parse failed:', e.message || e);
     return null;
-  } finally { clearTimeout(t); }
+  }
 }
 
 export default { llmExtract };

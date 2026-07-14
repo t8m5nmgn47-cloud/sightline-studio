@@ -155,7 +155,8 @@ try {
   const { createSiteStrategy } = await import('./site-strategy.mjs');
   strategy = await createSiteStrategy({
     domain, name, vertical:pack.key,
-    pageUrls:(cap.pages || []).map(p=>p.url),
+    pages:cap.docs || [],                      // reuse captured HTML — never re-crawl the prospect
+    pageUrls:(cap.pages || []).map(p=>p.url),  // fetch fallback only for pages capture didn't hand over
     extracted:{
       services:cap.copy?.serviceDetails || cap.services || [],
       staff:cap.staff || [],
@@ -358,6 +359,20 @@ if (!creative.pass && !args.includes('--allow-weak')) {
   console.error(`\n❌ Creative gate blocked ${name} (score ${creative.score}/100)`);
   for (const f of creative.fails) console.error('   ✗ ' + f);
   for (const w of creative.warns) console.error('   ⚠ ' + w);
+  // Classify before blaming the content: if this run suffered API failures,
+  // a degraded crawl, or a cache fallback, the gate verdict is a symptom of
+  // INFRA, not proof of thin content. Exit 4 tells release.mjs "retry me";
+  // exit 3 stays the honest "this prospect's content really is weak".
+  const { infraFailures } = await import('./anthropic.mjs');
+  const infra = [...infraFailures];
+  if (src.startsWith('cache-fallback')) infra.push('live crawl failed — built from cached homepage only');
+  if (cap.crawl?.failed?.length) infra.push(`crawl degraded: ${cap.crawl.failed.length}/${cap.crawl.attempted} subpages unreachable`);
+  if (infra.length) {
+    console.error('   ── INFRA DEGRADATION detected this run — the block above is likely transient:');
+    for (const i of infra) console.error('      · ' + i);
+    console.error('   Exiting 4 (infra). A later retry may succeed without any content change.\n');
+    process.exit(4);
+  }
   console.error('   Fix the capture/content or use --allow-weak for debugging only.\n');
   process.exit(3);
 }

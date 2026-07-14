@@ -79,17 +79,14 @@ export async function heroLooksClean(absPath) {
   try {
     const sharp = (await import('sharp')).default;
     const buf = await sharp(absPath).resize({ width: 768 }).jpeg({ quality: 75 }).toBuffer();
-    const res = await fetch('https://api.anthropic.com/v1/messages', {
-      method: 'POST',
-      headers: { 'x-api-key': key.trim(), 'anthropic-version': '2023-06-01', 'content-type': 'application/json' },
-      body: JSON.stringify({ model: 'claude-haiku-4-5', max_tokens: 100, messages: [{ role: 'user', content: [
+    const { callAnthropic } = await import('./anthropic.mjs');
+    const r = await callAnthropic({ model: 'claude-haiku-4-5', max_tokens: 100, temperature: 0, messages: [{ role: 'user', content: [
         { type: 'image', source: { type: 'base64', media_type: 'image/jpeg', data: buf.toString('base64') } },
         { type: 'text', text: 'Is this image suitable as a full-bleed website hero BACKGROUND photo? Answer ONLY minified JSON {"ok":true|false,"why":"..."}. ok=false if it contains baked-in text/headlines/prices/logos/watermarks, is a promo banner/flyer/collage/screenshot, is an extreme face close-up, or is too blurry/low-quality. ok=true for clean photographic scenes (interiors, exteriors, people at a natural distance, landscapes).' },
-      ]}]}),
-    });
-    if (!res.ok) return null;
-    const j = await res.json();
-    const m = (j.content?.[0]?.text || '').match(/\{.*\}/s);
+      ]}] },
+      { key, timeoutMs: 30000, label: 'vision-hero', maxAttempts: 2, recordInfra: false });
+    if (!r.ok) return null;
+    const m = (r.data.content?.[0]?.text || '').match(/\{.*\}/s);
     return m ? !!JSON.parse(m[0]).ok : null;
   } catch { return null; }
 }
@@ -110,17 +107,14 @@ export async function logoMatchesBusiness(absPath, businessName) {
   try {
     const sharp = (await import('sharp')).default;
     const buf = await sharp(absPath).resize({ width: 400, withoutEnlargement: true }).flatten({ background: '#ffffff' }).jpeg({ quality: 85 }).toBuffer();
-    const res = await fetch('https://api.anthropic.com/v1/messages', {
-      method: 'POST',
-      headers: { 'x-api-key': key.trim(), 'anthropic-version': '2023-06-01', 'content-type': 'application/json' },
-      body: JSON.stringify({ model: 'claude-haiku-4-5', max_tokens: 100, messages: [{ role: 'user', content: [
+    const { callAnthropic } = await import('./anthropic.mjs');
+    const r = await callAnthropic({ model: 'claude-haiku-4-5', max_tokens: 100, temperature: 0, messages: [{ role: 'user', content: [
         { type: 'image', source: { type: 'base64', media_type: 'image/jpeg', data: buf.toString('base64') } },
         { type: 'text', text: `This should be the logo of a business named "${businessName}". Answer ONLY minified JSON {"ok":true|false,"seen":"text visible in image"}. ok=false ONLY if the image clearly shows a DIFFERENT company/product name. ok=true if it shows this business's name/initials/monogram, or is a purely graphical mark with no conflicting text.` },
-      ]}]}),
-    });
-    if (!res.ok) return null;
-    const j = await res.json();
-    const m = (j.content?.[0]?.text || '').match(/\{.*\}/s);
+      ]}] },
+      { key, timeoutMs: 30000, label: 'vision-logo', maxAttempts: 2, recordInfra: false });
+    if (!r.ok) return null;
+    const m = (r.data.content?.[0]?.text || '').match(/\{.*\}/s);
     return m ? !!JSON.parse(m[0]).ok : null;
   } catch { return null; }
 }

@@ -71,17 +71,20 @@ async function renderWithPlaywright(url) {
   try { const exe = await (await import('@sparticuz/chromium')).default.executablePath();
         attempts.push({ executablePath: exe, args: ['--no-sandbox'] }); } catch {}
   for (const opts of attempts) {
+    // browser.close() lives in finally — the old catch-and-continue leaked a
+    // headless Chromium on every failed attempt, and under a parallel release
+    // those leaks compounded into memory pressure for the whole run.
+    let browser = null;
     try {
-      const browser = await chromium.launch({ headless: true, ...opts });
+      browser = await chromium.launch({ headless: true, ...opts });
       const page = await browser.newPage();
       await page.goto(url, { waitUntil: 'domcontentloaded', timeout: 12000 }).catch(() => {});
       await page.waitForTimeout(1200);
       // nudge lazy-loaders: most stores only hydrate product tiles in-view
       for (let i = 0; i < 3; i++) { await page.evaluate(() => scrollBy(0, 1000)).catch(()=>{}); await page.waitForTimeout(350); }
-      const html = await page.content();
-      await browser.close();
-      return html;
+      return await page.content();
     } catch { /* try next */ }
+    finally { if (browser) await browser.close().catch(() => {}); }
   }
   return null;
 }
@@ -487,15 +490,28 @@ export async function capture(domain, { render = 'auto', maxPages = 5, htmlOverr
 
   const $home = cheerio.load(home.html);
   const pages = [home];
+  const crawl = { attempted: 0, fetched: 0, failed: [] };
   if (!htmlOverride) {
     // If the homepage needed a headless render (JS-built site), subpages will
     // too — 'auto' renders only when the raw fetch yields thin text, so this
     // costs nothing on server-rendered sites but rescues Wix/Squarespace/etc.
     const subRender = home.rendered ? 'auto' : 'never';
     for (const url of pickSubpages($home, home.url, maxPages)) {
+      crawl.attempted++;
       await sleep(250);                                   // be polite
-      const p = await getPage(url, { render: subRender });
-      if (p) pages.push(p);
+      let p = await getPage(url, { render: subRender });
+      if (!p) {
+        // A dropped subpage is usually a transient timeout/throttle, and it
+        // silently starves extraction downstream. One patient retry, with the
+        // render fallback allowed, rescues most of them.
+        await sleep(2500);
+        p = await getPage(url, { render: 'auto' });
+      }
+      if (p) { pages.push(p); crawl.fetched++; }
+      else {
+        crawl.failed.push(url);
+        console.error(`  ! capture: subpage unreachable after retry — ${url}`);
+      }
     }
   }
 
@@ -544,6 +560,11 @@ export async function capture(domain, { render = 'auto', maxPages = 5, htmlOverr
 
   return {
     domain, pages: pages.map((p) => ({ url: p.url, rendered: p.rendered })),
+    // full HTML for downstream passes (site-strategy) so nothing re-crawls the
+    // prospect; crawl records attempted-vs-fetched so a degraded capture is
+    // classifiable as infra instead of masquerading as thin content.
+    docs: pages.map((p) => ({ url: p.url, html: p.html })),
+    crawl,
     sig, fonts, colors,
     logos: rankLogos(sig.logo_candidates),
     photos: extractPhotos($pages, home.url),

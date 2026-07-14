@@ -13,6 +13,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import * as cheerio from 'cheerio';
 import { fileURLToPath } from 'node:url';
+import { callAnthropic } from './anthropic.mjs';
 
 const ROOT = fileURLToPath(new URL('..', import.meta.url));
 const ALLOWED_ARCHETYPES = new Set(['flagship', 'editorial', 'split', 'minimal', 'modern']);
@@ -94,15 +95,20 @@ async function fetchPage(url, timeoutMs=14000){
 }
 
 export async function createSiteStrategy({
-  domain = '', name = '', vertical = 'business', pageUrls = [], extracted = {}, timeoutMs = 60000,
+  domain = '', name = '', vertical = 'business', pageUrls = [], pages = [], extracted = {}, timeoutMs = 60000,
 } = {}) {
   const key = resolveKey();
   if (!key) return null;
 
+  // Prefer the HTML capture already fetched (pages: [{url, html}]) — the old
+  // behavior re-crawled the prospect's site a second time per build, doubling
+  // load and inviting WAF throttling under parallel releases. Fetching is now
+  // only a fallback for URLs the capture didn't hand us.
+  const byUrl = new Map(pages.filter(p => p?.html).map(p => [p.url, p.html]));
   const docs = [];
   let total = 0;
-  for (const url of [...new Set(pageUrls)].slice(0, 7)) {
-    const html = await fetchPage(url);
+  for (const url of [...new Set([...byUrl.keys(), ...pageUrls])].slice(0, 7)) {
+    const html = byUrl.get(url) || await fetchPage(url);
     if (!html) continue;
     const text = pageText(html).slice(0, MAX_PER_PAGE);
     if (text.length < 120 || total + text.length > MAX_TOTAL) continue;
@@ -158,37 +164,21 @@ ${JSON.stringify(extracted, null, 2)}
 SOURCE PAGES:
 ${docs.join('\n\n')}`;
 
-  const ac = new AbortController();
-  const timer = setTimeout(() => ac.abort(), timeoutMs);
+  // Resilient call with backoff + truncation detection; temperature:0 keeps
+  // the strategy stable so borderline sites can't flip pass/fail on sampling.
+  const r = await callAnthropic(
+    { model: strategyModel(), max_tokens: 2400, temperature: 0, messages: [{ role: 'user', content: prompt }] },
+    { key, timeoutMs, label: 'site-strategy' },
+  );
+  if (!r.ok) return null;
   try {
-    const res = await fetch('https://api.anthropic.com/v1/messages', {
-      method: 'POST',
-      signal: ac.signal,
-      headers: {
-        'x-api-key': key,
-        'anthropic-version': '2023-06-01',
-        'content-type': 'application/json',
-      },
-      body: JSON.stringify({
-        model: strategyModel(),
-        max_tokens: 2400,
-        messages: [{ role: 'user', content: prompt }],
-      }),
-    });
-    if (!res.ok) {
-      console.error(`site-strategy: API ${res.status}`);
-      return null;
-    }
-    const data = await res.json();
-    const raw = (data.content || []).map(c => c.text || '').join('');
+    const raw = (r.data.content || []).map(c => c.text || '').join('');
     const match = raw.match(/\{[\s\S]*\}/);
     if (!match) return null;
     return sanitize(JSON.parse(match[0]));
   } catch (e) {
-    console.error('site-strategy failed:', e.message || e);
+    console.error('site-strategy parse failed:', e.message || e);
     return null;
-  } finally {
-    clearTimeout(timer);
   }
 }
 

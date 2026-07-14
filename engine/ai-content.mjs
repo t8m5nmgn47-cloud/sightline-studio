@@ -16,6 +16,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { callAnthropic } from './anthropic.mjs';
 
 const ROOT = fileURLToPath(new URL('..', import.meta.url));
 
@@ -67,23 +68,13 @@ Return ONLY valid JSON, no prose, in exactly this shape:
 THEIR WEBSITE TEXT:
 """${text}"""`;
 
+  const r = await callAnthropic(
+    { model: aiModel(), max_tokens: 700, temperature: 0, messages: [{ role: 'user', content: prompt }] },
+    { key: KEY, timeoutMs: 45000, label: 'ai-content' },
+  );
+  if (!r.ok){ if (/401/.test(r.reason || '')) console.error('  ⚠ AI content: key rejected (check ANTHROPIC_KEY)'); return null; }
   try {
-    const res = await fetch('https://api.anthropic.com/v1/messages', {
-      method: 'POST',
-      headers: {
-        'x-api-key': KEY,
-        'anthropic-version': '2023-06-01',
-        'content-type': 'application/json',
-      },
-      body: JSON.stringify({
-        model: aiModel(),
-        max_tokens: 700,
-        messages: [{ role: 'user', content: prompt }],
-      }),
-    });
-    if (!res.ok){ if (res.status === 401) console.error('  ⚠ AI content: key rejected (check ANTHROPIC_KEY)'); return null; }
-    const data = await res.json();
-    const raw = data?.content?.[0]?.text || '';
+    const raw = r.data?.content?.[0]?.text || '';
     const json = raw.slice(raw.indexOf('{'), raw.lastIndexOf('}') + 1);
     const out = JSON.parse(json);
     // sanity-filter services

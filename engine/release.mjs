@@ -10,7 +10,9 @@
 //   1. SMOKE     build one known-good site; any engine crash aborts before
 //                touching the portfolio (kills merge-chimera class bugs)
 //   2. BUILD     parallel regen of every cached prospect (--pages)
-//   3. RETRY     failed builds get one serial retry with visible errors
+//   3. RETRY     60s cooldown, then serial retries with full error output —
+//                exit 4 (infra/transient) gets 2 attempts, exit 3 (content) 1;
+//                per-site build logs live in /tmp/release-<pid>-logs/
 //   4. QA        full QA (static + rendered when Chrome exists) on every site —
 //                any FAIL aborts the release
 //   5. VARIETY   distinctness gate (variety-check.mjs) — same-vertical recipe
@@ -38,6 +40,7 @@ const SKIP_CRITIC = args.includes('--skip-critic');
 const SMOKE_DOMAIN = flag('smoke') || 'araoent.com';
 
 const t0 = Date.now();
+const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 const step = (n, msg) => console.log(`\n━━ [${n}/8] ${msg} ${'━'.repeat(Math.max(0, 46 - msg.length))} ${((Date.now()-t0)/1000|0)}s`);
 const die = (msg) => { console.error(`\n🛑 RELEASE ABORTED — ${msg}\nNothing was deployed. Production is untouched.`); process.exit(1); };
 const run = (cmd, opts = {}) => execSync(cmd, { cwd: ROOT, encoding: 'utf8', stdio: opts.quiet ? ['ignore','pipe','pipe'] : 'inherit', ...opts });
@@ -69,27 +72,57 @@ console.log(`${list.length} prospects`);
 // pid-namespaced tmp files so two releases (or a stale crash) never share state
 const DOMAINS_TMP = `/tmp/release-${process.pid}-domains.txt`;
 const FAILS_TMP = `/tmp/release-${process.pid}-fails.txt`;
+const LOG_DIR = `/tmp/release-${process.pid}-logs`;      // per-site build logs — never /dev/null again
 fs.rmSync(DOMAINS_TMP, { force: true });
 fs.rmSync(FAILS_TMP, { force: true });
+fs.rmSync(LOG_DIR, { recursive: true, force: true });
+fs.mkdirSync(LOG_DIR, { recursive: true });
 fs.writeFileSync(DOMAINS_TMP, list.join('\n'));
-run(`cat ${DOMAINS_TMP} | xargs -P ${PAR} -I{} sh -c 'node engine/pipeline.mjs {} --pages --no-render-qa > /dev/null 2>&1 || echo {} >> ${FAILS_TMP}'`, { quiet: true });
-let fails = fs.existsSync(FAILS_TMP) ? fs.readFileSync(FAILS_TMP,'utf8').trim().split('\n').filter(Boolean) : [];
-console.log(`✅ ${list.length - fails.length}/${list.length} built${fails.length ? `  (${fails.length} to retry)` : ''}`);
+// each failure records "domain exitcode" — pipeline exits 3 = content gate,
+// 4 = infra degradation (API/crawl transient), anything else = crash.
+run(`cat ${DOMAINS_TMP} | xargs -P ${PAR} -I{} sh -c 'node engine/pipeline.mjs {} --pages --no-render-qa > ${LOG_DIR}/{}.log 2>&1 || echo "{} $?" >> ${FAILS_TMP}'`, { quiet: true });
+let fails = fs.existsSync(FAILS_TMP)
+  ? fs.readFileSync(FAILS_TMP,'utf8').trim().split('\n').filter(Boolean)
+      .map(l => { const [d, c] = l.split(/\s+/); return { d, code: Number(c) || 0 }; })
+  : [];
+console.log(`✅ ${list.length - fails.length}/${list.length} built${fails.length ? `  (${fails.length} to retry — logs in ${LOG_DIR})` : ''}`);
 
-// ── 3. RETRY: one serial retry with errors visible ───────────────────────────
+// ── 3. RETRY: serial retries with backoff, classified errors, full reasons ───
+// Lessons paid for with four days of aborted releases: (a) an immediate retry
+// re-runs inside the same rate-limit/WAF window the parallel burst just
+// created — cool down first; (b) exit 4 (infra) deserves a second retry, exit
+// 3 (content) is deterministic and gets exactly one; (c) show the gate's ✗
+// lines, never just the last line — every gate block ends with the same
+// boilerplate string, which is how failures stayed undiagnosable.
 step(3, 'RETRY FAILURES');
+const classOf = (code) => code === 3 ? 'CONTENT — gate verdict' : code === 4 ? 'INFRA — transient degradation' : `crash/exit ${code}`;
 const stillFailing = [];
-for (const d of fails) {
-  try {
-    execFileSync('node', [path.join(ROOT,'engine/pipeline.mjs'), d, '--pages', '--no-render-qa'],
-      { cwd: ROOT, encoding: 'utf8', timeout: 300000, stdio: ['ignore','pipe','pipe'] });
-    console.log(`✅ ${d} (retry)`);
-  } catch (e) {
-    console.error(`❌ ${d}: ${String((e.stdout||'')+(e.stderr||'')).trim().split('\n').pop()?.slice(0,110)}`);
-    stillFailing.push(d);
-  }
+if (fails.length) {
+  console.log('cooling down 60s so rate-limit / throttle windows drain…');
+  await sleep(60000);
 }
-if (stillFailing.length) die(`${stillFailing.length} site(s) will not build: ${stillFailing.join(', ')}`);
+for (const f of fails) {
+  console.log(`↻ ${f.d}  (parallel build failed: ${classOf(f.code)})`);
+  const maxAttempts = f.code === 3 ? 1 : 2;
+  let ok = false, lastCode = f.code;
+  for (let attempt = 1; attempt <= maxAttempts && !ok; attempt++) {
+    if (attempt > 1) { console.log('   waiting 45s before the next attempt…'); await sleep(45000); }
+    try {
+      execFileSync('node', [path.join(ROOT,'engine/pipeline.mjs'), f.d, '--pages', '--no-render-qa'],
+        { cwd: ROOT, encoding: 'utf8', timeout: 300000, stdio: ['ignore','pipe','pipe'] });
+      ok = true;
+      console.log(`✅ ${f.d} (retry${maxAttempts > 1 ? ` ${attempt}/${maxAttempts}` : ''})`);
+    } catch (e) {
+      lastCode = e.status ?? 1;
+      const out = String((e.stdout||'') + (e.stderr||''));
+      console.error(`❌ ${f.d} retry ${attempt}/${maxAttempts}: ${classOf(lastCode)}`);
+      for (const line of out.split('\n').filter(l => /✗|·|— INFRA|!/.test(l)).slice(0, 10))
+        console.error('   ' + line.trim());
+    }
+  }
+  if (!ok) stillFailing.push(`${f.d} [${classOf(lastCode)}]`);
+}
+if (stillFailing.length) die(`${stillFailing.length} site(s) will not build:\n   ${stillFailing.join('\n   ')}\nContent failures: fix the capture or park the harvest. Infra failures: check ${LOG_DIR}/<domain>.log and re-run.`);
 if (!fails.length) console.log('nothing to retry');
 
 // ── 4. QA: full gate (static + rendered when Chrome is available) ───────────
