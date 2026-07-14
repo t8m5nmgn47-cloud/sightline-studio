@@ -95,12 +95,29 @@ async function getRendered(url) {
 // text yield check — mirrors extractSignals' js_shell heuristic
 const textLen = (html) => { const $ = cheerio.load(html); $('script,style,noscript,svg').remove(); return $('body').text().replace(/\s+/g, ' ').trim().length; };
 
+// ── error/challenge interstitials are NOT content ────────────────────────────
+// A Chrome SSL interstitial ("Privacy error") once became a live demo's
+// business name and hero headline. Gate at the entrance (law #4): any page
+// that is a browser error, CDN challenge, or 404 must never enter the pool.
+const INTERSTITIAL_TITLE = /^\s*(privacy error|just a moment|access denied|attention required|page not found|not found|forbidden|untitled)\b|^\s*error\s*$|^\s*(404|403|500|502|503)\b/i;
+const INTERSTITIAL_BODY = /your connection is not private|net::err_cert|cf-browser-verification|checking your browser|verify you are a human|enable javascript and cookies to continue|ddos protection by/i;
+export function looksInterstitial(html) {
+  if (!html) return false;
+  const head = html.slice(0, 8000);
+  const title = (head.match(/<title[^>]*>([^<]*)/i) || [])[1] || '';
+  return INTERSTITIAL_TITLE.test(title) || INTERSTITIAL_BODY.test(head);
+}
+
 async function getPage(url, { render = 'auto' } = {}) {
   const r = await fetchText(url);
   let html = r?.text || null, finalUrl = r?.finalUrl || url, rendered = false;
   if (render === 'always' || (render === 'auto' && (!html || textLen(html) < 400))) {
     const dom = await getRendered(url);
     if (dom && textLen(dom) > (html ? textLen(html) : 0)) { html = dom; rendered = true; }
+  }
+  if (html && looksInterstitial(html)) {
+    console.error(`  ! interstitial/error page rejected as content: ${url}`);
+    return null;
   }
   return html ? { url: finalUrl, html, rendered } : null;
 }

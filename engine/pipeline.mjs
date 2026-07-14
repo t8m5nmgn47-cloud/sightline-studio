@@ -29,7 +29,7 @@ function findCapture(slug, domain){
 
 function looksShell(html){
   if (!html) return true;
-  if (/checking your browser|just a moment|cf-browser-verification|attention required|access denied|enable javascript and cookies/i.test(html.slice(0, 6000))) return true;
+  if (/checking your browser|just a moment|cf-browser-verification|attention required|access denied|enable javascript and cookies|privacy error|your connection is not private|net::err_cert|page not found/i.test(html.slice(0, 6000))) return true;
   const text = html.replace(/<script[\s\S]*?<\/script>|<style[\s\S]*?<\/style>|<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim();
   return text.length < 800;
 }
