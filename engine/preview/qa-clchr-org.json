@@ -5,10 +5,9 @@
     "no canonical",
     "no og:title",
     "no JSON-LD",
-    "care form present but not wired to /api/contact",
-    "horizontal overflow at 768px (+148px)"
+    "care form present but not wired to /api/contact"
   ],
   "warns": [],
-  "rendered": true,
-  "at": "2026-07-09T07:18:07.557Z"
+  "rendered": false,
+  "at": "2026-07-09T23:23:30.229Z"
 }

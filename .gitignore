@@ -26,3 +26,5 @@ engine/merge-national.mjs
 
 # local secrets (API keys) — never commit
 .sightline.env
+.vercel
+.env*

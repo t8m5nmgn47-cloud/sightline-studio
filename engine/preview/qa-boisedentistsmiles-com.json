@@ -5,14 +5,13 @@
     "no canonical",
     "no og:title",
     "no JSON-LD",
-    "white-on-brand contrast 2.89 < 3.0 (#ff6900)",
-    "horizontal overflow at 768px (+81px)"
+    "white-on-brand contrast 2.89 < 3.0 (#ff6900)"
   ],
   "warns": [
     "no FAQ section (business page)",
     "no about/story section (business page)",
     "template-scent headline: \"How we can help.\" (regenerate with current engine)"
   ],
-  "rendered": true,
-  "at": "2026-07-09T07:17:55.328Z"
+  "rendered": false,
+  "at": "2026-07-09T23:23:29.656Z"
 }

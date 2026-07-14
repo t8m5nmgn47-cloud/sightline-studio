@@ -1,0 +1,13 @@
+{
+  "slug": "acaciadentalgroup-com--choose",
+  "pass": false,
+  "fails": [
+    "no meta description",
+    "no canonical",
+    "no og:title",
+    "no JSON-LD"
+  ],
+  "warns": [],
+  "rendered": false,
+  "at": "2026-07-09T23:23:28.959Z"
+}

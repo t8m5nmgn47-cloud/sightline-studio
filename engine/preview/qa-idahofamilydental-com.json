@@ -4,14 +4,13 @@
   "fails": [
     "no canonical",
     "no og:title",
-    "no JSON-LD",
-    "horizontal overflow at 768px (+16px)"
+    "no JSON-LD"
   ],
   "warns": [
     "no FAQ section (business page)",
     "no about/story section (business page)",
     "template-scent headline: \"How we can help.\" (regenerate with current engine)"
   ],
-  "rendered": true,
-  "at": "2026-07-09T07:18:43.707Z"
+  "rendered": false,
+  "at": "2026-07-09T23:23:31.318Z"
 }

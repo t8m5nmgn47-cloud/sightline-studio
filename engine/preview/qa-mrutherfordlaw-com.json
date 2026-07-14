@@ -6,8 +6,7 @@
     "no canonical",
     "no og:title",
     "no JSON-LD",
-    "white-on-brand contrast 2.89 < 3.0 (#ff6900)",
-    "horizontal overflow at 768px (+49px)"
+    "white-on-brand contrast 2.89 < 3.0 (#ff6900)"
   ],
   "warns": [
     "no FAQ section (business page)",
@@ -15,6 +14,6 @@
     "thin page: only 5 sections",
     "template-scent headline: \"How we can help.\" (regenerate with current engine)"
   ],
-  "rendered": true,
-  "at": "2026-07-09T07:18:59.573Z"
+  "rendered": false,
+  "at": "2026-07-09T23:23:31.809Z"
 }
