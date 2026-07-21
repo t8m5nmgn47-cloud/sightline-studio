@@ -45,6 +45,26 @@
       "source": "/admin/index.html",
       "destination": "/admin/workflow.html",
       "permanent": false
+    },
+    {
+      "source": "/pricing",
+      "destination": "/",
+      "permanent": false
+    },
+    {
+      "source": "/start",
+      "destination": "/free-scan",
+      "permanent": false
+    },
+    {
+      "source": "/builder",
+      "destination": "/contact",
+      "permanent": false
+    },
+    {
+      "source": "/checkout",
+      "destination": "/contact",
+      "permanent": false
     }
   ],
   "rewrites": [
@@ -61,13 +81,19 @@
     {
       "source": "/demos/(.*)",
       "headers": [
-        { "key": "X-Robots-Tag", "value": "noindex, nofollow" }
+        {
+          "key": "X-Robots-Tag",
+          "value": "noindex, nofollow"
+        }
       ]
     },
     {
       "source": "/:path(.*--.*)",
       "headers": [
-        { "key": "X-Robots-Tag", "value": "noindex, nofollow" }
+        {
+          "key": "X-Robots-Tag",
+          "value": "noindex, nofollow"
+        }
       ]
     },
     {
