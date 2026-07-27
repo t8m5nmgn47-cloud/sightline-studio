@@ -851,7 +851,7 @@ S.hours = (p) => { const s=p.sections.hours||{};
 <section class="sec contactband" id="contact">
   <div class="wrap">
     <div class="cb-head"><span class="sec-k">${esc(s.kicker||'Visit us')}</span><h2>${esc(s.title||'Hours & location')}</h2></div>
-    <div class="cb-in${rows.length<=4?' few':''}">
+    <div class="cb-in cols-${p.location?3:2}${rows.length<=4?' few':''}">
       <div class="cb-col">
         <h3 class="cb-lbl">Hours</h3>
         <ul class="cb-hours">${rows.map(x=>`<li><span class="tdot"></span>${esc(x)}</li>`).join('')}</ul>
@@ -1448,17 +1448,16 @@ h1,h2,h3{font-family:'__DISPLAY__',Georgia,serif;font-weight:600;line-height:1.0
 /* Media columns FILL their column: the copy side decides the height and the
    photo matches it. A fixed 4/3 aspect used to leave a dead band of whitespace
    beside any paragraph longer than the picture. */
-.feat-in,.about-in,.money-in,.abs-in{align-items:stretch}
+.feat-in,.money-in,.abs-in{align-items:stretch}
 .feat-in{display:grid;grid-template-columns:1fr 1fr;gap:clamp(28px,5vw,64px)}
-.feat-in.noimg,.about-in.noimg,.money-in.noimg{grid-template-columns:1fr}
-.feat-copy,.about-copy,.money-copy,.abs-copy{align-self:center}
-.mediacol,.feat-img,.about-img,.money-img{align-self:stretch;min-height:clamp(380px,46vh,620px);
+.feat-in.noimg,.money-in.noimg{grid-template-columns:1fr}
+.feat-copy,.money-copy,.abs-copy{align-self:center}
+.mediacol,.feat-img,.money-img{align-self:stretch;min-height:clamp(380px,46vh,620px);
   overflow:hidden;margin:0;border-radius:calc(var(--rad)*1px);box-shadow:0 24px 60px rgba(0,0,0,.14)}
-.mediacol img,.feat-img img,.about-img img,.money-img img{width:100%;height:100%;object-fit:cover;display:block}
+.mediacol img,.feat-img img,.money-img img{width:100%;height:100%;object-fit:cover;display:block}
 .feat-in.noimg .mediacol,.money-in.noimg .mediacol{display:none}
 .feat-points{list-style:none;margin:26px 0 0;padding:0;display:flex;flex-direction:column;gap:12px}
 .feat-points li{display:flex;gap:12px;align-items:baseline;font-weight:600}
-.aboutband{background:color-mix(in srgb,var(--brand) 5%,var(--bg))}
 .about-stats{display:flex;gap:34px;margin-top:28px;flex-wrap:wrap}
 .astat b{font-family:'__DISPLAY__',serif;font-size:1.9rem;color:var(--brand);display:block;line-height:1.1}
 .astat span{color:var(--mut);font-size:.9rem}
@@ -1483,8 +1482,16 @@ h1,h2,h3{font-family:'__DISPLAY__',Georgia,serif;font-weight:600;line-height:1.0
 .faq-i summary::after{content:'+';color:var(--brand);font-weight:700;font-size:1.3rem}
 .faq-i[open] summary::after{content:'–'}
 .faq-i p{color:var(--mut);margin:0 0 18px;max-width:70ch}
+/* The "last row is always full" rule has to survive the breakpoint too, or the
+   orphan it was written to kill simply reappears on a phone. At two columns:
+   g5 (one wide + four) and g6 (always exactly six — the plan caps the grid at
+   eight photos, and g6 floors to a multiple of three) both come out even. g3
+   does NOT — three tiles in two columns is 2 + 1, an orphan on every mobile
+   view of every three-photo gallery — so it drops to a single column, where a
+   full row is guaranteed by construction. */
 @media(max-width:760px){.feat-in,.money-in{grid-template-columns:1fr}
-.bgal.g3,.bgal.g5,.bgal.g6{grid-template-columns:1fr 1fr}.bgal.g5 .bgal-i.wide{grid-column:span 2;aspect-ratio:3/2}}
+.bgal.g5,.bgal.g6{grid-template-columns:1fr 1fr}.bgal.g5 .bgal-i.wide{grid-column:span 2;aspect-ratio:3/2}
+.bgal.g3{grid-template-columns:1fr}.bgal.g3 .bgal-i{aspect-ratio:3/2}}
 /* no-photo hero: a designed brand poster, never a bare text block.
    (body prefix lifts specificity above the light-archetype hero grounds
    declared later — without it, editorial/split/minimal override the poster
@@ -1869,7 +1876,7 @@ body.arch-hearth .sec.times.times.times{position:relative;overflow:hidden;color:
   display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:clamp(16px,2.5vw,34px)}
 .astat b{margin-bottom:6px}
 @media(max-width:820px){.abs-in{grid-template-columns:1fr;gap:28px}.abs-media{min-height:clamp(260px,40vh,360px)}
-  .mediacol,.feat-img,.about-img,.money-img,.tsolo-media{min-height:clamp(260px,40vh,380px)}}
+  .mediacol,.feat-img,.money-img,.tsolo-media{min-height:clamp(260px,40vh,380px)}}
 
 /* ── FAQ COLUMNS variant: editorial two-column, sticky heading rail ────────── */
 .faqcols-in{display:grid;grid-template-columns:.85fr 1.15fr;gap:clamp(28px,5vw,64px);align-items:start}
@@ -1926,6 +1933,20 @@ body.arch-hearth .sec.times.times.times{position:relative;overflow:hidden;color:
    ═══════════════════════════════════════════════════════════════════════════ */
 .sec.tone-paper{background:var(--bg)}
 .sec.tone-tint{background:color-mix(in srgb,var(--ink) 4%,var(--bg))}
+/* --mut is derived against the page ground (--bg). The tint band is 4% ink
+   DARKER than that ground, so every muted line on it loses contrast it did not
+   have to spare — measured at 3.89:1, under AA, on a colour the palette signs
+   off as fine on paper. Pull the muted colour toward ink on tint only: this is
+   the same text, one step more legible, and it stays a derived colour rather
+   than a hard-coded grey. Cheap enough to apply broadly; QA asserts the
+   result (tone-tint check in qa.mjs). */
+.sec.tone-tint .lead,.sec.tone-tint .card p,.sec.tone-tint .why p,.sec.tone-tint .qa p,
+.sec.tone-tint .faq-i p,.sec.tone-tint .rv cite,.sec.tone-tint .trole,.sec.tone-tint .rost-r,
+.sec.tone-tint .astat span,.sec.tone-tint .sb span,.sec.tone-tint .st-desc,.sec.tone-tint .step p,
+.sec.tone-tint .ev-body p,.sec.tone-tint .svc-more,.sec.tone-tint .cb-lbl,.sec.tone-tint .upcard p,
+.sec.tone-tint .pq figcaption,.sec.tone-tint .money-quote cite,.sec.tone-tint .bookbar span,
+.sec.tone-tint .devo span,.sec.tone-tint .steparrow,.sec.tone-tint .svc-row .si{
+  color:color-mix(in srgb,var(--mut) 62%,var(--ink))}
 /* brand band — unified with .band, which stays load-bearing for the church
    giving/serve sections and hearth's inset treatment. Same gradient, so a
    section carrying both classes renders identically either way. */
@@ -2015,8 +2036,14 @@ body.arch-hearth .sec.times.times.times{position:relative;overflow:hidden;color:
 
 /* ── CONTACT BAND (hours) ─────────────────────────────────────────────────── */
 .cb-head{margin-bottom:clamp(28px,4vw,48px)}
+/* Columns follow the CHILDREN the renderer actually emitted (.cols-2 when the
+   capture had no address, .cols-3 otherwise). The .few class is about ROW
+   count — a short hours list — and only tightens the band; it must never
+   change the column count, which is how a 3-child band in a 2-column grid
+   orphaned its last column onto a row of its own on every single build. */
 .cb-in{display:grid;grid-template-columns:1.1fr 1fr 1fr;gap:clamp(26px,4vw,60px);align-items:start}
-.cb-in.few{grid-template-columns:1fr 1fr}
+.cb-in.cols-2{grid-template-columns:1.1fr 1fr;max-width:76ch}
+.cb-in.few{gap:clamp(22px,3vw,44px)}
 .cb-lbl{font-family:inherit;font-size:.76rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;
   color:var(--mut);margin:0 0 14px}
 .cb-hours{list-style:none;margin:0;padding:0}
@@ -2026,7 +2053,7 @@ body.arch-hearth .sec.times.times.times{position:relative;overflow:hidden;color:
 .cb-phone{display:block;font-family:'__DISPLAY__',Georgia,serif;font-size:clamp(1.35rem,1rem + 1vw,1.9rem);
   font-weight:600;letter-spacing:-.02em;text-decoration:none;color:var(--ink);margin-bottom:20px}
 .cb-btn{display:inline-block}
-@media(max-width:860px){.cb-in,.cb-in.few{grid-template-columns:1fr;gap:30px}}
+@media(max-width:860px){.cb-in,.cb-in.few,.cb-in.cols-2{grid-template-columns:1fr;gap:30px}}
 
 /* ── ARCHETYPE PERSONALITY TOKENS ─────────────────────────────────────────────
    Each archetype sets its own below-fold shape/voice tokens on the body, so the
@@ -2306,7 +2333,7 @@ const TONE_BY_SECTION = {
   pullquote:'dark',  gallery:'paper',    feature:'paper',    featureband:'photo',
   gallerystrip:'paper',
   offer:'brand',     faq:'tint',         faq_columns:'tint', hours:'paper',
-  contactband:'paper', team:'paper',     bizmoney:'tint',    whyus:'tint',
+  team:'paper',      bizmoney:'tint',    whyus:'tint',
   trust:'paper',     cta:'photo',        statsband:'tint',   results:'paper',
 };
 const HEAVY = new Set(['dark','brand','photo']);
@@ -2331,41 +2358,61 @@ function applyTones(rendered){
   // the cadence sequence: real bands only, in page order, each with the tone it
   // actually presents (stamped, or the fixed one it brought with it)
   const seq = items.filter(x => !TONE_CHROME.has(x.name) && (x.tone || TONE_IMPLICIT[x.name]));
-  const toneOf  = x => x.tone || TONE_IMPLICIT[x.name];
-  const mutable = x => !!x.tone;          // never restyle a fixed-ground section
+  // A subpage opens under the pagehero, which is a full-width BRAND gradient
+  // with white type on it — chrome, so it is not in `seq`, but it is very much
+  // a heavy band as far as the eye is concerned. Without it the cadence happily
+  // promoted the first content section to dark and shipped two heavy bands
+  // stacked straight under each other. Stand it in front of the sequence as an
+  // immutable heavy neighbour and every rule below sees the page as it reads.
+  const chromeHead = items.some(x => x.name === 'pagehero')
+    ? [{ name:'__pagehero', tone:null, html:'', fixed:'brand' }] : [];
+  const seqAll = [...chromeHead, ...seq];
+  const toneOf  = x => x.tone || x.fixed || TONE_IMPLICIT[x.name];
+  // A section is mutable only when re-stamping its class actually re-paints it.
+  // 'photo' sections (S.featureband, S.cta with an image) paint their ground
+  // with an INLINE background-image; a tone class loses to that, so demoting
+  // one changed the class and nothing else — the band still shipped as a photo
+  // right next to its heavy neighbour. Photo ground is FIXED; the cadence
+  // demotes the non-photo section beside it instead.
+  const mutable = x => !!x.tone && x.tone !== 'photo';
 
-  // never two consecutive heavy bands — the second demotes to tint. 'brand' is
-  // exempt: S.offer also carries .band, whose gradient would still win over a
-  // tint background and strand white text on it.
+  // never two consecutive heavy bands. Prefer demoting the SECOND, but when the
+  // second carries a ground that cannot be restyled — 'brand' (S.offer also
+  // carries .band, whose gradient outranks a tint background and would strand
+  // white text on it) or a photo band — demote the FIRST instead. Demotion is
+  // always to a light tone, so walking forward can never create a new pair
+  // behind us.
   const noDoubleHeavy = () => {
-    for (let i = 1; i < seq.length; i++){
-      const a = toneOf(seq[i-1]), b = toneOf(seq[i]);
-      if (HEAVY.has(a) && HEAVY.has(b) && b !== 'brand' && mutable(seq[i])) seq[i].tone = 'tint';
+    for (let i = 1; i < seqAll.length; i++){
+      const a = toneOf(seqAll[i-1]), b = toneOf(seqAll[i]);
+      if (!(HEAVY.has(a) && HEAVY.has(b))) continue;
+      if (b !== 'brand' && mutable(seqAll[i]))   { seqAll[i].tone   = 'tint'; continue; }
+      if (a !== 'brand' && mutable(seqAll[i-1])) { seqAll[i-1].tone = 'tint'; continue; }
     }
   };
   // at least one dark band per page — a page of tints reads flat. The closing
   // CTA is the last resort and carries it well.
   const ensureDark = () => {
-    if (seq.some(x => toneOf(x) === 'dark')) return;
+    if (seqAll.some(x => toneOf(x) === 'dark')) return;
     const pref = ['pullquote','about_split','about','reviews','statsband','whyus','services','cta'];
     for (const n of pref){
-      const i = seq.findIndex(x => x.name === n && mutable(x) && !HEAVY.has(toneOf(x)));
+      const i = seqAll.findIndex(x => x.name === n && mutable(x) && !HEAVY.has(toneOf(x)));
       if (i < 0) continue;
-      if (HEAVY.has(toneOf(seq[i-1]||{})) || HEAVY.has(toneOf(seq[i+1]||{}))) continue;
-      seq[i].tone = 'dark'; return;
+      if (HEAVY.has(toneOf(seqAll[i-1]||{})) || HEAVY.has(toneOf(seqAll[i+1]||{}))) continue;
+      seqAll[i].tone = 'dark'; return;
     }
   };
   // never more than three light bands in a row
   const breakLightRun = () => {
     let run = 0;
-    for (let i = 0; i < seq.length; i++){
-      if (!LIGHT.has(toneOf(seq[i]))) { run = 0; continue; }
+    for (let i = 0; i < seqAll.length; i++){
+      if (!LIGHT.has(toneOf(seqAll[i]))) { run = 0; continue; }
       if (++run <= 3) continue;
       // promote this one, or the one before it when a heavy band follows
       // immediately (promoting here would put two heavy bands side by side)
       for (const j of [i, i-1]){
-        const it = seq[j];
-        if (!it || !mutable(it) || HEAVY.has(toneOf(seq[j-1]||{})) || HEAVY.has(toneOf(seq[j+1]||{}))) continue;
+        const it = seqAll[j];
+        if (!it || !mutable(it) || HEAVY.has(toneOf(seqAll[j-1]||{})) || HEAVY.has(toneOf(seqAll[j+1]||{}))) continue;
         it.tone = 'dark'; run = 0; break;
       }
     }
@@ -2373,14 +2420,14 @@ function applyTones(rendered){
   // two light bands of the SAME tone touching read as one very tall empty
   // block — alternate paper/tint so every boundary is visible
   const alternateLight = () => {
-    for (let i = 1; i < seq.length; i++){
-      const a = toneOf(seq[i-1]), b = toneOf(seq[i]);
+    for (let i = 1; i < seqAll.length; i++){
+      const a = toneOf(seqAll[i-1]), b = toneOf(seqAll[i]);
       if (!LIGHT.has(a) || a !== b) continue;
       const flip = t => t === 'tint' ? 'paper' : 'tint';
-      if (mutable(seq[i])) seq[i].tone = flip(b);                 // flip the second
+      if (mutable(seqAll[i])) seqAll[i].tone = flip(b);           // flip the second
       // the second is a fixed ground (bookbar) — flip the first instead, but
       // only when that doesn't just move the collision one section up
-      else if (mutable(seq[i-1]) && toneOf(seq[i-2]||{}) !== flip(a)) seq[i-1].tone = flip(a);
+      else if (mutable(seqAll[i-1]) && toneOf(seqAll[i-2]||{}) !== flip(a)) seqAll[i-1].tone = flip(a);
     }
   };
   noDoubleHeavy(); ensureDark(); breakLightRun(); noDoubleHeavy(); ensureDark(); alternateLight();

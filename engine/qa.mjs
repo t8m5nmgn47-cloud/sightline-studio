@@ -32,6 +32,12 @@ const rgb = (h) => { h = h.replace('#',''); if (h.length===3) h = [...h].map(c=>
 const lum = ([r,g,b]) => { const f=(v)=>{v/=255; return v<=.03928?v/12.92:((v+.055)/1.055)**2.4};
   return .2126*f(r)+.7152*f(g)+.0722*f(b); };
 const contrast = (a,b) => { const [x,y]=[lum(rgb(a)),lum(rgb(b))].sort((p,q)=>q-p); return (x+.05)/(y+.05); };
+const hex = ([r,g,b]) => '#' + [r,g,b].map(v=>Math.round(Math.max(0,Math.min(255,v))).toString(16).padStart(2,'0')).join('');
+// `color-mix(in srgb, A p%, B)` — the engine's own tint/shade primitive.
+const mix = (a, b, p) => hex(rgb(a).map((v,i)=>v*(p/100) + rgb(b)[i]*(1-p/100)));
+// a translucent text colour composited over the ground it is declared on: the
+// colour a reader's eye actually receives, which is what AA is about.
+const over = (fg, alpha, bg) => hex(rgb(fg).map((v,i)=>v*alpha + rgb(bg)[i]*(1-alpha)));
 
 function staticChecks(slug) {
   const fails = [], warns = [];
@@ -69,7 +75,7 @@ function staticChecks(slug) {
   if (imgCount < 2) warns.push(`image-poor page (${imgCount} image${imgCount===1?'':'s'}) — capture found no usable photos?`);
   if (isBiz) {
     if (!$('#faq').length) warns.push('no FAQ section (business page)');
-    if (!$('#about').length && !$('.aboutband').length) warns.push('no about/story section (business page)');
+    if (!$('#about').length) warns.push('no about/story section (business page)');
     if ($('section').length < 6) warns.push(`thin page: only ${$('section').length} sections`);
     // template-scent: the retired generic defaults should never ship again
     const scent = ['How we can help.', 'What we do.', 'Care, tailored to you.'].filter(t => html.includes('<h2>'+t+'</h2>'));
@@ -81,36 +87,88 @@ function staticChecks(slug) {
   if (vars.brand && contrast(vars.brand, '#ffffff') < 3) fails.push(`white-on-brand contrast ${contrast(vars.brand,'#ffffff').toFixed(2)} < 3.0 (${vars.brand})`);
   if (vars.ink && vars.bg && contrast(vars.ink, vars.bg) < 4.5) fails.push(`ink-on-bg contrast ${contrast(vars.ink,vars.bg).toFixed(2)} < 4.5`);
 
-  // 3b. TONE BANDS (design-v8 semantic rhythm). Each tone declares its own
-  // colours; these assert the declared pairs actually read. Static, CSS-var
-  // based — the same approximation the two checks above use.
-  const usesTone = (t) => new RegExp(`class="tone-${t}[\\s"]`).test(html) || html.includes(`tone-${t} `);
-  if (usesTone('dark')) {
-    // .tone-dark puts #ffffff (and .84 white) on var(--ink)
-    if (vars.ink && contrast(vars.ink, '#ffffff') < 4.5)
-      fails.push(`tone-dark: white-on-ink contrast ${contrast(vars.ink,'#ffffff').toFixed(2)} < 4.5 (${vars.ink})`);
+  // 3b. TONE BANDS (design-v8 semantic rhythm). Each tone paints its own ground
+  // and declares its own text colours. These checks resolve BOTH sides from the
+  // page's real CSS custom properties and the tone rules as written — the
+  // ground the band actually paints, against the colours actually set on it.
+  // Class order is not guaranteed (the stamper prepends, other passes append),
+  // so match the class as a word anywhere in a class attribute.
+  const usesTone = (t) => new RegExp(`class="[^"]*\\btone-${t}\\b`).test(html);
+  // every declaration block that targets .sec.tone-<t>, concatenated
+  const rulesFor = (t) =>
+    [...html.matchAll(new RegExp(`\\.sec\\.tone-${t}\\b[^{}]*\\{([^}]*)\\}`, 'g'))].map(m => m[1]).join(';');
+  // The alpha of every white the band declares as TEXT — `color:`, not
+  // `background:` or `border-color:`, which also take translucent whites and
+  // are not read. The white the band really puts down, not the one we assume.
+  const whiteAlphas = (t) => {
+    const a = [...rulesFor(t).matchAll(/(?:^|[;{])\s*color:\s*rgba\(255,\s*255,\s*255,\s*([\d.]+)\)/g)].map(m => +m[1]);
+    return [...new Set([1, ...a.filter(x => x > 0 && x <= 1)])].sort((x, y) => x - y);
+  };
+
+  if (usesTone('dark') && vars.ink) {
+    // GROUND: var(--ink). TEXT: #ffffff for headings, plus every translucent
+    // white the .tone-dark rules declare (.84 for body, .78 inside cards…).
+    // The old check only ever looked at pure white, which is the easiest case
+    // on the page and the one that never fails.
+    for (const a of whiteAlphas('dark')) {
+      const c = contrast(over('#ffffff', a, vars.ink), vars.ink);
+      if (c < 4.5) fails.push(`tone-dark: white@${a} on --ink contrast ${c.toFixed(2)} < 4.5 (${vars.ink})`);
+    }
     // and it must never fall back to --mut/--accent, both of which are derived
     // against the LIGHT ground and can be invisible on ink
-    const darkRules = [...html.matchAll(/\.sec\.tone-dark[^{}]*\{([^}]*)\}/g)].map(m => m[1]).join(';');
+    const darkRules = rulesFor('dark');
     for (const bad of ['var(--mut)', 'color:var(--accent)'])
       if (darkRules.includes(bad)) fails.push(`tone-dark declares ${bad} — light-ground colour on a dark band`);
   }
-  if (usesTone('brand')) {
-    // .tone-brand is the .band gradient (brand mixed toward near-black) with
-    // white type — the brand end of that mix is the worst case.
-    if (vars.brand && contrast(vars.brand, '#ffffff') < 3)
-      fails.push(`tone-brand: white-on-brand contrast ${contrast(vars.brand,'#ffffff').toFixed(2)} < 3.0 (${vars.brand})`);
+  if (usesTone('brand') && vars.brand) {
+    // GROUND: the .tone-brand gradient — --brand mixed toward near-black, whose
+    // LIGHT end is the worst case for white type. Read the mix out of the CSS
+    // rather than restating it here, so retuning the gradient retunes the
+    // check with it. This is a different colour from --brand itself, which is
+    // why the palette check above is not simply repeated.
+    const bg = rulesFor('brand')
+      .match(/background:linear-gradient\([^;]*?color-mix\(in srgb,\s*var\(--brand\)\s*([\d.]+)%,\s*(#[0-9a-fA-F]{6})\)/);
+    const ground = bg ? mix(vars.brand, bg[2], +bg[1]) : mix(vars.brand, '#14161b', 48);
+    for (const a of whiteAlphas('brand')) {
+      const c = contrast(over('#ffffff', a, ground), ground);
+      if (c < 4.5) fails.push(`tone-brand: white@${a} on the band gradient contrast ${c.toFixed(2)} < 4.5 (${ground})`);
+    }
   }
-  if (usesTone('tint')) {
-    // tint is ink 4% over bg — effectively the body pair, but check the mix's
-    // worst case against ink explicitly rather than assuming.
-    if (vars.ink && vars.bg && contrast(vars.ink, vars.bg) < 4.5)
-      fails.push(`tone-tint: ink-on-tint contrast below 4.5`);
+  if (usesTone('tint') && vars.ink && vars.bg) {
+    // GROUND: color-mix(in srgb, --ink 4%, --bg) — DARKER than the page ground,
+    // so a colour that clears AA on paper can miss it here. Check the body pair
+    // and, crucially, the muted pair: --mut on tint measured 3.89 before the
+    // .tone-tint override existed, and no check on this page could see it.
+    const ground = mix(vars.ink, vars.bg, 4);
+    const ci = contrast(vars.ink, ground);
+    if (ci < 4.5) fails.push(`tone-tint: --ink on tint contrast ${ci.toFixed(2)} < 4.5 (${ground})`);
+    if (vars.mut) {
+      // the muted colour AS THE TINT BAND DECLARES IT: read the override's own
+      // color-mix out of the CSS rather than assuming a ratio here, so this
+      // check keeps measuring the truth if that ratio is ever retuned.
+      const m = rulesFor('tint').match(/color:color-mix\(in srgb,\s*var\(--mut\)\s*([\d.]+)%,\s*var\(--ink\)\)/);
+      const muted = m ? mix(vars.mut, vars.ink, +m[1]) : vars.mut;
+      const cm = contrast(muted, ground);
+      if (cm < 4.5) fails.push(`tone-tint: muted text on tint contrast ${cm.toFixed(2)} < 4.5 (${muted} on ${ground})`);
+    }
   }
-  if (usesTone('photo')) {
-    // photo bands scrim their own image; assert the scrim is actually declared
-    if (!/linear-gradient\(rgba\(/.test(html) && !/cta-scrim|fband/.test(html))
-      warns.push('tone-photo section without a declared scrim gradient');
+  // PHOTO — per section, not per page. A section that paints its own ground
+  // with an inline background-image must scrim it, or white type lands on
+  // whatever the photograph happens to be. The old guard asked whether the
+  // PAGE contained a scrim anywhere, which any page with a feature band
+  // satisfies for free — so it could never fire. Check each match.
+  for (const m of html.matchAll(/<section\b[^>]*\bstyle="([^"]*background-image:[^"]*)"[^>]*>/g)) {
+    const style = m[1];
+    const cls = (m[0].match(/class="([^"]*)"/) || [, ''])[1];
+    // A scrim is a gradient layered ON TOP of the photo — in `background-image`
+    // shorthand that means it appears BEFORE the url(). Positional rather than
+    // a single regex, because the gradients here nest rgba(...) inside
+    // gradient(...) and a flat pattern can't bracket-match that.
+    const bg = style.slice(style.indexOf('background-image:'));
+    const u = bg.indexOf('url(');
+    const g = bg.search(/(?:linear|radial)-gradient\(\s*(?:rgba?\(|to |\d)/);
+    if (u > -1 && !(g > -1 && g < u))
+      fails.push(`photo section paints a background-image with no scrim over it: .${cls.trim().split(/\s+/).filter(c=>c!=='sec'&&!c.startsWith('tone-'))[0] || 'section'}`);
   }
 
   // 4. template artifacts — but only in rendered text/attrs, not inline JS
