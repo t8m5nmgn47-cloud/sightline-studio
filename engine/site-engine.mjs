@@ -599,7 +599,7 @@ S.team = (p) => { const s=p.sections.team; if(!s||!s.items||!s.items.length) ret
 S.gallerystrip = (p) => {
   const hero = p.heroImage;
   const pics = (p.gallery||[]).filter(g=>g!==hero).slice(0,6);
-  if (pics.length < 2) return '';
+  if (pics.length < 3) return '';   // 2 photos in a full-bleed strip reads unfinished
   return `
 <section class="sec gstrip" id="gallery">
   <div class="wrap"><span class="sec-k">${esc(p._t?.copy?.gallery?.kicker||'Take a look')}</span><h2>${esc(p._t?.copy?.gallery?.title||'Real photos, not stock.')}</h2></div>
@@ -650,6 +650,17 @@ export const ARCHETYPES = {
   hearth:{ order:['announce','nav','hero','services','nextsteps','sermons','groups','serve','music','giving','events','times','care','cta','footer'], body:'arch-hearth' },
 };
 
+// Churches get the full-bleed band too (this is what profile.stock was
+// populated FOR — until now no church section consumed it). It sits right
+// after the welcome/next-steps block, keeps church copy tone, and no-ops when
+// no ambience photo is available.
+for (const a of Object.values(ARCHETYPES)) {
+  if (!/cathedral|journey|hearth|modern|split|minimal|editorial/.test(a.body.replace('arch-',''))) continue;
+  if (a.order.includes('featureband') || !a.order.includes('times')) continue;   // church orders only
+  const at = a.order.indexOf('nextsteps') > -1 ? a.order.indexOf('nextsteps') : a.order.indexOf('services');
+  if (at > -1) a.order.splice(at + 1, 0, 'featureband');
+}
+
 // ── business sections (local high-value verticals: dental / law / medspa) ────
 S.bookbar = (p) => { const b=p.sections.book||{};
   return `
@@ -677,7 +688,7 @@ S.reviews = (p) => { const s=p.sections.reviews; if(!s) return '';
     <span class="sec-k">${esc(s.kicker||'What people say')}</span>
     <h2>${esc(s.title||'Trusted by neighbors like you.')}</h2>
     ${s.rating?`<div class="rating"><span class="stars">★★★★★</span> <b>${esc(s.rating)}</b> from <b>${esc(s.count||'hundreds of')}</b> reviews</div>`:''}
-    <div class="rvgrid">${items.map(r=>`<blockquote class="rv">“${esc(r.q)}”<cite>— ${esc(r.name||'Verified patient')}</cite></blockquote>`).join('')}</div>
+    <div class="rvgrid r${Math.min(items.length,6)}">${items.slice(0,6).map(r=>`<blockquote class="rv${items.length===5&&items.indexOf(r)===0?' wide':''}">“${esc(r.q)}”<cite>— ${esc(r.name||'Verified patient')}</cite></blockquote>`).join('')}</div>
   </div>
 </section>`; };
 
@@ -745,15 +756,100 @@ S.whyus = (p) => { const s=p.sections.whyus; if(!s||!s.items||!s.items.length) r
   </div>
 </section>`; };
 
+// Hours → a three-column CONTACT band: when · where · how. Everything here is
+// captured (hours, address, phone) — nothing is invented, and each column drops
+// out on its own when its data is missing. Scoped to .cb-* so the church
+// .times-* renderers (S.times / S.mass) are untouched.
 S.hours = (p) => { const s=p.sections.hours||{};
   // grounding rule: no captured hours → no section. Empty is better than false.
   if(!s.items||!s.items.length) return '';
+  const rows = s.items;
+  const tel  = p.phone ? p.phone.replace(/[^0-9]/g,'') : '';
+  const maps = p.location ? `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(p.location)}` : '';
+  const cta  = p._t?.bookCta || p._t?.ctaCta || 'Get in touch →';
   return `
-<section class="sec times" id="contact">
-  <div class="wrap times-in">
-    <div class="times-h"><span class="sec-k">Visit us</span><h2>Hours & location</h2>${p.location?`<p class="lead">${esc(p.location)}</p>`:''}</div>
-    <ul class="times-list">${s.items.map(x=>`<li><span class="tdot"></span>${esc(x)}</li>`).join('')}</ul>
+<section class="sec contactband" id="contact">
+  <div class="wrap">
+    <div class="cb-head"><span class="sec-k">${esc(s.kicker||'Visit us')}</span><h2>${esc(s.title||'Hours & location')}</h2></div>
+    <div class="cb-in${rows.length<=4?' few':''}">
+      <div class="cb-col">
+        <h3 class="cb-lbl">Hours</h3>
+        <ul class="cb-hours">${rows.map(x=>`<li><span class="tdot"></span>${esc(x)}</li>`).join('')}</ul>
+      </div>
+      ${p.location?`<div class="cb-col">
+        <h3 class="cb-lbl">Where to find us</h3>
+        <p class="cb-addr">${esc(p.location)}</p>
+        <a class="cb-link" href="${maps}" target="_blank" rel="noopener">Get directions →</a>
+      </div>`:''}
+      <div class="cb-col">
+        <h3 class="cb-lbl">Get in touch</h3>
+        ${tel?`<a class="cb-phone" href="tel:${tel}">${esc(fmtPhone(p.phone))}</a>`:''}
+        <a class="btn lg cb-btn" href="${p._t?.bookCta?'#book':'#visit'}">${esc(cta)}</a>
+      </div>
+    </div>
   </div></section>`; };
+
+// ── design-v8 below-fold sections ────────────────────────────────────────────
+// A promoted pull-quote: the single strongest captured review, set as full-width
+// display type. Spliced OUT of sections.reviews upstream so it never doubles.
+S.pullquote = (p) => { const q=p.sections.pullquote; if(!q||!q.q) return '';
+  return `
+<section class="sec pullq" id="pullquote">
+  <div class="wrap"><figure class="pq">
+    <span class="pq-mark" aria-hidden="true">&ldquo;</span>
+    <blockquote>${esc(q.q)}</blockquote>
+    <figcaption>&mdash; ${esc(q.name||'Verified customer')}</figcaption>
+  </figure></div>
+</section>`; };
+
+// Numeric proof band. CAPTURED FIGURES ONLY — rating, review count, and any
+// stat already grounded on the about section. Under three real numbers there is
+// no band, because three-quarters of a band reads worse than none.
+S.statsband = (p) => {
+  const rv = p.sections.reviews || {};
+  const out = [];
+  if (rv.rating) out.push({ v:`${rv.rating}★`, k:'average rating' });
+  if (rv.count && /^[\d,]+$/.test(String(rv.count))) out.push({ v:String(rv.count), k:'reviews' });
+  for (const st of (p.sections.about?.stats||[]).filter(x=>x&&x.v))
+    if (!out.some(o=>o.v===st.v)) out.push({ v:String(st.v), k:String(st.k||'') });
+  if (out.length < 3) return '';
+  return `
+<section class="sec statsband" id="stats">
+  <div class="wrap sb-in">${out.slice(0,4).map(x=>`
+    <div class="sb"><b>${esc(x.v)}</b><span>${esc(x.k)}</span></div>`).join('')}
+  </div>
+</section>`; };
+
+// Full-bleed photo band — the page's visual exhale between two type-heavy
+// sections. Skips itself entirely when the pool has no suitable photo left.
+const BAND_COPY_CHURCH = [
+  { title:'There’s a place for you here.', kicker:'Come as you are' },
+  { title:'Come see for yourself, this Sunday.', kicker:'You’re welcome here' },
+  { title:'You don’t have to have it figured out.', kicker:'Come as you are' },
+];
+S.featureband = (p) => {
+  const img = photoPlan(p).band;
+  if (!img) return '';
+  const s = p.sections.featureband || {};
+  const church = !p._t?.bookCta;
+  const cv = cvar(p, 67, BAND_COPY_CHURCH);
+  // town, not street: drop the street line, the state and the ZIP
+  const town = (p.location||'').split(',').map(x=>x.trim())
+    .filter((x,i)=> i>0 && x && !/^\d{5}(-\d{4})?$/.test(x) && !/^[A-Z]{2}$/.test(x))[0] || '';
+  const kicker = s.kicker || (church ? cv.kicker : town || 'Why us');
+  // the business name is deliberately NOT in this headline — captured names run
+  // to 50+ characters and blew the line out to four wraps
+  const title  = s.title  || (church ? cv.title  : 'See why they keep coming back.');
+  const cta    = s.cta    || p._t?.bookCta || p._t?.ctaCta || 'Get in touch →';
+  return `
+<section class="sec fband" id="featureband" style="background-image:linear-gradient(rgba(12,12,14,.58),rgba(12,12,14,.62)),url('${img}')">
+  <div class="wrap fband-in">
+    ${kicker?`<span class="sec-k light">${esc(kicker)}</span>`:''}
+    <h2>${esc(title)}</h2>
+    ${s.lead?`<p class="lead light">${esc(s.lead)}</p>`:''}
+    <a class="btn lg light" href="${p._t?.bookCta?'#book':'#visit'}">${esc(cta)}</a>
+  </div>
+</section>`; };
 
 
 // ── narrative-arc sections (the compfm bar): feature split, about story, ─────
@@ -769,11 +865,17 @@ function photoPlan(p){
   // captured photos first; curated stock fills the ambience slots (feature,
   // about) when capture ran thin. The gallery grid stays captured-only —
   // stock is never presented as "their photos".
+  const gallery = pics.slice(3, Math.min(11, galEnd));
+  // full-bleed feature band: an AMBIENCE slot, so it draws from curated stock
+  // and can never steal a captured photo out of the gallery grid.
+  const taken = new Set([pics[0], pics[1], pics[2], ...gallery].filter(Boolean));
+  const band = [stock[3], stock[2], stock[1], stock[0]].find(g => g && !taken.has(g)) || null;
   return p._photoPlan = {
     feature: pics[0] || stock[0] || null,
     about:   pics[1] || (pics[0] ? stock[0] : stock[1]) || null,
     money:   pics[2] || stock[2] || stock[1] || null,
-    gallery: pics.slice(3, Math.min(11, galEnd)),
+    gallery,
+    band,
   };
 }
 
@@ -796,14 +898,22 @@ S.feature = (p) => { const s=p.sections.feature; if(!s||!s.points||!s.points.len
 // S.about is an ALIAS of S.about_split (assigned below its definition) — one
 // about treatment for the whole engine instead of two that drifted apart.
 
-// business gallery grid ("A closer look") — needs 3+ photos beyond hero/feature/about
+// business gallery grid ("A closer look") — needs 3+ photos beyond hero/feature/about.
+// COUNT-ADAPTIVE: the layout is chosen so the last row is always FULL. The old
+// fixed 3-column mosaic orphaned a lone tile at 4, 7, 8… photos, which is the
+// loudest "this was generated" tell on the page.
 S.gallery = (p) => {
-  const pics = photoPlan(p).gallery;
+  let pics = photoPlan(p).gallery;
   if (pics.length < 3) return '';
+  let mode;
+  if (pics.length === 3)      mode = 'g3';              // 3-up, uniform 4/5
+  else if (pics.length === 4) mode = 'g4';              // 2×2, uniform 3/2
+  else if (pics.length === 5) mode = 'g5';              // wide lead + 4 = two full rows
+  else { mode = 'g6'; pics = pics.slice(0, Math.floor(pics.length / 3) * 3); }
   return `
 <section class="sec bizgallery" id="gallery">
   <div class="wrap"><span class="sec-k">${esc(p.sections.gallery?.kicker||'Gallery')}</span><h2>${esc(p.sections.gallery?.title||'A closer look.')}</h2>
-    <div class="bgal">${pics.map((g,i)=>`<figure class="bgal-i${i===0?' wide':''}"><img src="${g}" alt="${esc(p.name)} — photo ${i+1}" loading="lazy" decoding="async"></figure>`).join('')}</div>
+    <div class="bgal ${mode}">${pics.map((g,i)=>`<figure class="bgal-i${mode==='g5'&&i===0?' wide':''}"><img src="${g}" alt="${esc(p.name)} — photo ${i+1}" loading="lazy" decoding="async"></figure>`).join('')}</div>
   </div>
 </section>`; };
 
@@ -957,6 +1067,15 @@ export const TRADITIONS = {
     } },
 };
 
+// Tradition orders get the same full-bleed band, after the welcome block.
+for (const t of Object.values(TRADITIONS)) {
+  if (t.order.includes('featureband')) continue;
+  const at = t.order.indexOf('nextsteps') > -1 ? t.order.indexOf('nextsteps')
+    : t.order.indexOf('sacraments') > -1 ? t.order.indexOf('sacraments')
+    : t.order.indexOf('services');
+  if (at > -1) t.order.splice(at + 1, 0, 'featureband');
+}
+
 // ── business verticals: the profit engine (same architecture as traditions) ──
 export const VERTICALS = {
   dental:{ label:'Dental', imNew:'New Patients', bookCta:'Book appointment →',
@@ -1016,8 +1135,20 @@ for (const v of Object.values(VERTICALS)) {
   insAfter('feature', 'services');
   insAfter('about', 'reviews', 'feature');
   insAfter('gallery', 'team', 'about');
-  insAfter('faq', 'gallery');
+  insAfter('faq_columns', 'gallery');
+  // design-v8 rhythm sections. Each no-ops without content, so a thin capture
+  // simply doesn't get them.
+  insAfter('statsband', 'reviews', 'about');       // proof, in numbers
+  insAfter('pullquote', 'about', 'feature');       // the strongest review, promoted
+  insAfter('featureband', 'gallery', 'reviews');   // the full-bleed exhale
 }
+// The two-column FAQ is the DEFAULT business treatment now — the accordion
+// stack left a tall dead column beside it at desktop widths. S.faq survives
+// for church/interior use and shares faqLd(), so the schema can't drift.
+const faqCols = (order) => order.map(n => n === 'faq' ? 'faq_columns' : n)
+  .filter((n,i,a) => n !== 'faq_columns' || a.indexOf(n) === i);
+for (const v of Object.values(VERTICALS)) v.order = faqCols(v.order);
+ARCHETYPES.flagship.order = faqCols(ARCHETYPES.flagship.order);
 
 
 
@@ -1032,6 +1163,17 @@ export const STRUCTURES = {
   showcase: ['announce','nav','hero','gallery','feature','services','reviews','about','trust','offer','team','faq','bizmoney','hours','cta','footer'],
   flagship: ['nav','hero','marquee','services','feature','reviews','about','offer','gallery','faq','bizmoney','hours','cta','footer'],
 };
+for (const k of Object.keys(STRUCTURES)) {
+  const o = faqCols(STRUCTURES[k]);
+  const ins = (name, ...anchors) => {
+    if (o.includes(name)) return;
+    for (const a of anchors) { const i = o.indexOf(a); if (i > -1) { o.splice(i+1, 0, name); return; } }
+  };
+  ins('statsband', 'reviews', 'about');
+  ins('pullquote', 'about', 'feature');
+  ins('featureband', 'gallery', 'reviews');
+  STRUCTURES[k] = o;
+}
 
 // ── the stylesheet (structure + archetype/mood variations) ───────────────────
 function stylesheet(){ return `
@@ -1216,19 +1358,25 @@ h1,h2,h3{font-family:'__DISPLAY__',Georgia,serif;font-weight:600;line-height:1.0
 .money-quote{margin:22px 0 0;padding:18px 22px;background:var(--surf);border-left:4px solid var(--accent);border-radius:0 calc(var(--rad)*1px) calc(var(--rad)*1px) 0;font-style:italic;font-size:1.04rem}
 .money-quote cite{display:block;margin-top:10px;font-style:normal;font-weight:600;font-size:.88rem;color:var(--mut)}
 @media(max-width:760px){.money-in{grid-template-columns:1fr}}
-.bgal{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:30px}
+/* gallery — aspect lives on the CELL, never a min-height on the image, so a
+   short photo can't shrink its row out of alignment */
+.bgal{display:grid;gap:14px;margin-top:clamp(28px,4vw,44px)}
 .bgal-i{margin:0;overflow:hidden;border-radius:calc(var(--rad)*1px)}
-.bgal-i.wide{grid-column:span 2}
-.bgal-i img{width:100%;height:100%;min-height:220px;object-fit:cover;display:block;transition:transform .35s}
+.bgal-i img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .35s}
 .bgal-i:hover img{transform:scale(1.04)}
-.faqlist{margin-top:30px;max-width:820px}
+.bgal.g3{grid-template-columns:repeat(3,1fr)}.bgal.g3 .bgal-i{aspect-ratio:4/5}
+.bgal.g4{grid-template-columns:repeat(2,1fr)}.bgal.g4 .bgal-i{aspect-ratio:3/2}
+.bgal.g5{grid-template-columns:repeat(3,1fr)}.bgal.g5 .bgal-i{aspect-ratio:4/5}
+.bgal.g5 .bgal-i.wide{grid-column:span 2;aspect-ratio:8/5}
+.bgal.g6{grid-template-columns:repeat(3,1fr)}.bgal.g6 .bgal-i{aspect-ratio:4/5}
 .faq-i{border-top:1px solid var(--line);padding:4px 0}
 .faq-i summary{cursor:pointer;font-weight:600;font-size:1.08rem;padding:16px 0;list-style:none;display:flex;justify-content:space-between;gap:16px}
 .faq-i summary::-webkit-details-marker{display:none}
 .faq-i summary::after{content:'+';color:var(--brand);font-weight:700;font-size:1.3rem}
 .faq-i[open] summary::after{content:'–'}
 .faq-i p{color:var(--mut);margin:0 0 18px;max-width:70ch}
-@media(max-width:760px){.feat-in,.about-in{grid-template-columns:1fr}.bgal{grid-template-columns:1fr 1fr}}
+@media(max-width:760px){.feat-in,.money-in{grid-template-columns:1fr}
+.bgal.g3,.bgal.g5,.bgal.g6{grid-template-columns:1fr 1fr}.bgal.g5 .bgal-i.wide{grid-column:span 2;aspect-ratio:3/2}}
 /* no-photo hero: a designed brand poster, never a bare text block.
    (body prefix lifts specificity above the light-archetype hero grounds
    declared later — without it, editorial/split/minimal override the poster
@@ -1323,8 +1471,14 @@ body .hero.no-img{background:
    :not(.upgrade) — the demo upgrade band is a brand gradient with white text;
    this tint outranked its (later, lower-specificity) UPSELL_CSS rule whenever
    the band landed on an even index → white-on-light. Never tint it. */
-.sec:nth-of-type(even):not(.band):not(.cta):not(.upgrade){background:color-mix(in srgb,var(--ink) 3%,var(--bg))}
+/* Parity tint survives for CHURCH pages only (body.toned = the semantic tone
+   cadence is driving that page instead — see applyTones). */
+body:not(.toned) .sec:nth-of-type(even):not(.band):not(.cta):not(.upgrade){background:color-mix(in srgb,var(--ink) 3%,var(--bg))}
 .sec-k{margin-bottom:6px}.sec h2{font-size:clamp(1.7rem,3.2vw,2.5rem)}
+/* editorial scale + breathing room on toned (business) pages */
+body.toned .sec{padding:clamp(72px,9vw,132px) 0}
+body.toned .sec h2{font-size:clamp(2rem,1rem + 3vw,3.6rem);letter-spacing:-.022em;line-height:1.04;max-width:20ch;text-wrap:balance}
+body.toned .sec-k[data-ord]::before{content:"(" attr(data-ord) ") — ";opacity:.72}
 /* micro-interactions */
 .btn{transition:transform .18s var(--ease,ease),background .18s,box-shadow .18s;will-change:transform}
 .btn:hover{transform:translateY(-2px);box-shadow:0 10px 26px rgba(var(--brand-rgb),.28)}
@@ -1611,7 +1765,7 @@ body.arch-hearth .sec.times.times.times{position:relative;overflow:hidden;color:
 
 /* ── FAQ COLUMNS variant: editorial two-column, sticky heading rail ────────── */
 .faqcols-in{display:grid;grid-template-columns:.85fr 1.15fr;gap:clamp(28px,5vw,64px);align-items:start}
-.faqcols-h{position:sticky;top:96px}
+.faqcols-h{position:sticky;top:clamp(24px,8vh,96px)}
 .faqcols-h .lead a{color:var(--brand);font-weight:600;text-decoration:none}
 .qa{border-bottom:1px solid var(--line)}
 .qa summary{list-style:none;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:18px;
@@ -1652,8 +1806,138 @@ body.arch-hearth .sec.times.times.times{position:relative;overflow:hidden;color:
 .whycheck{flex:none;display:grid;place-items:center;width:34px;height:34px;border-radius:50%;background:color-mix(in srgb,var(--brand) 12%,var(--bg));color:var(--brand);font-weight:800}
 .why h3{font-size:1.06rem;margin:0 0 4px}.why p{color:var(--mut);font-size:.94rem;line-height:1.55;margin:0}
 
-/* ── FAQ list (shared by the accordion renderer) ──────────────────────────── */
-.faqlist{display:flex;flex-direction:column}
+/* ── FAQ list — ONE declaration, shared by both FAQ renderers (it used to be
+     declared twice, ~400 lines apart, with the second silently winning) ───── */
+.faqlist{display:flex;flex-direction:column;margin-top:clamp(22px,3vw,32px)}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   TONES — the semantic section rhythm (see applyTones). Declared LAST so a
+   tone always wins over a base or archetype colour rule, and every colour on a
+   dark ground is EXPLICIT: var(--mut) and var(--accent) are both derived
+   against the LIGHT page ground and can be near-invisible on ink.
+   ═══════════════════════════════════════════════════════════════════════════ */
+.sec.tone-paper{background:var(--bg)}
+.sec.tone-tint{background:color-mix(in srgb,var(--ink) 4%,var(--bg))}
+/* brand band — unified with .band, which stays load-bearing for the church
+   giving/serve sections and hearth's inset treatment. Same gradient, so a
+   section carrying both classes renders identically either way. */
+.sec.tone-brand{background:linear-gradient(120deg,color-mix(in srgb,var(--brand) 48%,#14161b),color-mix(in srgb,var(--brand) 22%,#0e1014));color:#fff}
+.sec.tone-brand h2,.sec.tone-brand h3,.sec.tone-brand b{color:#fff}
+.sec.tone-brand p,.sec.tone-brand .lead,.sec.tone-brand li,.sec.tone-brand span,.sec.tone-brand cite{color:rgba(255,255,255,.88)}
+.sec.tone-brand .sec-k{color:rgba(255,255,255,.9)}
+.sec.tone-brand .btn:not(.ghost){background:#fff;color:var(--brand-d)}
+.sec.tone-brand .btn:not(.ghost):hover{background:#fff;color:var(--brand-d)}
+
+/* DARK */
+.sec.tone-dark{background:var(--ink);color:#ffffff}
+.sec.tone-dark h1,.sec.tone-dark h2,.sec.tone-dark h3,.sec.tone-dark h4,.sec.tone-dark b,.sec.tone-dark strong{color:#ffffff}
+.sec.tone-dark p,.sec.tone-dark li,.sec.tone-dark span,.sec.tone-dark cite,.sec.tone-dark figcaption,
+.sec.tone-dark .lead,.sec.tone-dark .abs-body,.sec.tone-dark .svc-body p,.sec.tone-dark .trole,
+.sec.tone-dark .rost-r,.sec.tone-dark .astat span,.sec.tone-dark .sb span,.sec.tone-dark blockquote{color:rgba(255,255,255,.84)}
+/* the accent is contrast-clamped against the LIGHT ground, so it is mixed
+   toward white here rather than used raw */
+.sec.tone-dark .sec-k{color:color-mix(in srgb,var(--accent) 42%,#ffffff)}
+.sec.tone-dark .astat b,.sec.tone-dark .sb b,.sec.tone-dark .svc-row .si,
+.sec.tone-dark .pq-mark,.sec.tone-dark .tcheck,.sec.tone-dark .tdot{color:color-mix(in srgb,var(--accent) 42%,#ffffff)}
+.sec.tone-dark .tdot{background:color-mix(in srgb,var(--accent) 42%,#ffffff)}
+.sec.tone-dark a{color:#ffffff}
+.sec.tone-dark .svc-cta,.sec.tone-dark .cb-link,.sec.tone-dark .cb-phone{color:#ffffff;border-bottom-color:color-mix(in srgb,var(--accent) 42%,#ffffff)}
+/* hairlines, rules and every light surface that would otherwise strand ink
+   text (or ink-on-ink) inside a dark band */
+.sec.tone-dark .svc-row,.sec.tone-dark .rost,.sec.tone-dark .qa,.sec.tone-dark .ev,
+.sec.tone-dark .about-stats,.sec.tone-dark .faq-i,.sec.tone-dark .cb-hours li{border-color:rgba(255,255,255,.18)}
+.sec.tone-dark .card,.sec.tone-dark .rv,.sec.tone-dark .why,.sec.tone-dark .money-quote,
+.sec.tone-dark .chip,.sec.tone-dark .step,.sec.tone-dark .upcard,.sec.tone-dark .tmono{
+  background:rgba(255,255,255,.06);border-color:rgba(255,255,255,.18);color:#ffffff}
+.sec.tone-dark .card p,.sec.tone-dark .rv cite,.sec.tone-dark .why p{color:rgba(255,255,255,.78)}
+.sec.tone-dark .whycheck{background:rgba(255,255,255,.12);color:#ffffff}
+.sec.tone-dark .card .cn{background:color-mix(in srgb,var(--accent) 42%,#ffffff);color:var(--ink)}
+.sec.tone-dark .btn:not(.ghost){background:#ffffff;color:var(--ink);border-color:#ffffff}
+.sec.tone-dark .btn:not(.ghost):hover{background:#ffffff;color:var(--ink)}
+.sec.tone-dark .btn.ghost{background:transparent;border-color:rgba(255,255,255,.5);color:#ffffff}
+.sec.tone-dark .btn.ghost:hover{background:rgba(255,255,255,.12);color:#ffffff}
+.sec.tone-dark .qplus::before,.sec.tone-dark .qplus::after{background:#ffffff}
+.sec.tone-dark .abs-media,.sec.tone-dark .mediacol{box-shadow:0 30px 70px -30px rgba(0,0,0,.6)}
+
+/* PHOTO — the generalisation of .cta-photo: any full-bleed section that puts
+   type over its own background-image. */
+.sec.tone-photo{background-size:cover;background-position:center;color:#ffffff}
+.sec.tone-photo h1,.sec.tone-photo h2,.sec.tone-photo h3{color:#ffffff;text-shadow:0 2px 24px rgba(0,0,0,.45)}
+.sec.tone-photo p,.sec.tone-photo .lead,.sec.tone-photo li,.sec.tone-photo span{color:rgba(255,255,255,.92)}
+.sec.tone-photo .sec-k{color:rgba(255,255,255,.9)}
+.sec.tone-photo .btn:not(.ghost){background:#ffffff;color:var(--ink)}
+.sec.tone-photo .btn:not(.ghost):hover{background:#ffffff;color:var(--ink)}
+
+/* Backstop for the cadence: when two light bands of the same tone still end up
+   adjacent (a fixed-ground section can't be flipped), a hairline keeps the
+   boundary legible instead of one very tall empty block. */
+.sec.tone-paper + .sec.tone-paper,.sec.tone-tint + .sec.tone-tint{border-top:1px solid var(--line)}
+
+/* ── REVIEWS: count-adaptive, same rule as the gallery — the last row is always
+     full. auto-fit stranded a lone 4th quote on its own row on every page that
+     captured four reviews, which is the most common count of all. ─────────── */
+.rvgrid.r1{grid-template-columns:1fr;max-width:46rem}
+.rvgrid.r2,.rvgrid.r4{grid-template-columns:repeat(2,1fr)}
+.rvgrid.r3,.rvgrid.r5,.rvgrid.r6{grid-template-columns:repeat(3,1fr)}
+.rvgrid.r5 .rv.wide{grid-column:span 2}
+@media(max-width:820px){.rvgrid.r3,.rvgrid.r5,.rvgrid.r6{grid-template-columns:repeat(2,1fr)}.rvgrid.r5 .rv.wide{grid-column:span 2}}
+@media(max-width:560px){.rvgrid,.rvgrid.r2,.rvgrid.r3,.rvgrid.r4,.rvgrid.r5,.rvgrid.r6{grid-template-columns:1fr}.rvgrid.r5 .rv.wide{grid-column:auto}}
+
+/* ── PULL-QUOTE ───────────────────────────────────────────────────────────── */
+.pq{margin:0 auto;max-width:44rem;text-align:center}
+.pq-mark{display:block;font-family:'__DISPLAY__',Georgia,serif;font-size:clamp(4rem,10vw,7.5rem);line-height:.55;
+  color:var(--accent);opacity:.5;margin-bottom:14px}
+.pq blockquote{margin:0;font-family:'__DISPLAY__',Georgia,serif;font-weight:500;
+  font-size:clamp(1.5rem,1rem + 1.9vw,2.6rem);line-height:1.3;letter-spacing:-.012em;text-wrap:balance}
+.pq figcaption{margin-top:26px;font-size:1rem;color:var(--mut)}
+
+/* ── STATS BAND ───────────────────────────────────────────────────────────── */
+.sb-in{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:clamp(20px,3vw,44px)}
+.sb{padding-top:clamp(14px,2vw,22px);border-top:1px solid var(--line)}
+.sb b{display:block;font-family:'__DISPLAY__',Georgia,serif;font-weight:600;line-height:1;
+  font-size:clamp(2.1rem,1rem + 3vw,3.6rem);letter-spacing:-.03em;color:var(--brand);font-variant-numeric:tabular-nums}
+.sb span{display:block;margin-top:10px;color:var(--mut);font-size:.95rem}
+.sec.tone-dark .sb{border-top-color:rgba(255,255,255,.2)}
+
+/* ── FULL-BLEED FEATURE BAND ──────────────────────────────────────────────── */
+.fband{background-size:cover;background-position:center;color:#fff;padding:clamp(96px,14vw,180px) 0}
+.fband h2{color:#fff;max-width:15ch;text-shadow:0 2px 30px rgba(0,0,0,.45);margin-top:12px}
+.fband .btn{margin-top:28px}
+.fband .lead{max-width:46ch}
+
+/* ── CONTACT BAND (hours) ─────────────────────────────────────────────────── */
+.cb-head{margin-bottom:clamp(28px,4vw,48px)}
+.cb-in{display:grid;grid-template-columns:1.1fr 1fr 1fr;gap:clamp(26px,4vw,60px);align-items:start}
+.cb-in.few{grid-template-columns:1fr 1fr}
+.cb-lbl{font-family:inherit;font-size:.76rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--mut);margin:0 0 14px}
+.cb-hours{list-style:none;margin:0;padding:0}
+.cb-hours li{display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid var(--line);font-size:1.02rem}
+.cb-addr{margin:0 0 14px;font-size:1.05rem;line-height:1.55;max-width:26ch}
+.cb-link{display:inline-block;font-weight:600;color:var(--brand);text-decoration:none;border-bottom:2px solid var(--accent);padding-bottom:4px}
+.cb-phone{display:block;font-family:'__DISPLAY__',Georgia,serif;font-size:clamp(1.35rem,1rem + 1vw,1.9rem);
+  font-weight:600;letter-spacing:-.02em;text-decoration:none;color:var(--ink);margin-bottom:20px}
+.cb-btn{display:inline-block}
+@media(max-width:860px){.cb-in,.cb-in.few{grid-template-columns:1fr;gap:30px}}
+
+/* ── ARCHETYPE PERSONALITY TOKENS ─────────────────────────────────────────────
+   Each archetype sets its own below-fold shape/voice tokens on the body, so the
+   new sections inherit the same character as the (untouched) hero. */
+.arch-flagship{--sec-rad:20px}
+.arch-hearth{--sec-rad:24px}
+.arch-statement{--sec-rad:14px}
+.arch-modern{--sec-rad:22px}
+.arch-editorial,.arch-split,.arch-minimal{--sec-rad:calc(var(--rad)*1px)}
+.bgal-i,.mediacol,.abs-media,.tsolo-media{border-radius:var(--sec-rad,calc(var(--rad)*1px))}
+.arch-flagship .pq blockquote,.arch-statement .pq blockquote{letter-spacing:-.025em}
+.arch-statement .sb b,.arch-statement .pq blockquote{font-weight:700}
+.arch-hearth .sb{border-top:2px solid color-mix(in srgb,var(--accent) 26%,var(--line))}
+.arch-minimal .sb b{font-weight:500}
+.arch-flagship .fband h2,.arch-statement .fband h2{letter-spacing:-.03em}
+
+/* ── FOOTER wordmark: the name, set like a name ───────────────────────────── */
+.foot-brand{flex:1 1 100%;font-size:clamp(2.2rem,7vw,7rem);line-height:.9;letter-spacing:-.03em}
+.foot-loc{flex:1 1 100%;margin-top:14px}
 
 /* ── mobile nav: hamburger + dropdown panel (≤720px only) ─────────────────── */
 .navburger{display:none;flex-direction:column;justify-content:center;gap:5px;width:42px;height:42px;padding:10px;margin-left:auto;background:transparent;border:0;color:inherit;cursor:pointer;border-radius:calc(var(--rad)*.6px)}
@@ -1893,6 +2177,119 @@ function seoHead(profile, recipe, page=null){
   return meta + `\n<script type="application/ld+json">${JSON.stringify(ld).replace(/</g,'\\u003c')}</script>`;
 }
 
+// ── semantic section rhythm ───────────────────────────────────────────────────
+// The old rhythm was a :nth-of-type(even) tint: a parity accident. Whether a
+// section read light or dark depended on how many sections happened to render
+// above it, which is why one thin capture could flip an entire page's contrast
+// and why two separate specificity hacks existed to fight it.
+//
+// Tone is a property of a section's ROLE now. Each section gets a tone by name,
+// a cadence pass fixes the sequence (no two heavy bands touching, at least one
+// dark band per page, never more than three light ones in a row), and the tone
+// is stamped onto the section's own class list. Renderer signatures unchanged —
+// this is a post-process on the rendered markup, which is what makes it cheap.
+const TONE_BY_SECTION = {
+  services:'paper',  about:'dark',       about_split:'dark', reviews:'paper',
+  pullquote:'dark',  gallery:'paper',    feature:'paper',    featureband:'photo',
+  gallerystrip:'paper',
+  offer:'brand',     faq:'tint',         faq_columns:'tint', hours:'paper',
+  contactband:'paper', team:'paper',     bizmoney:'tint',    whyus:'tint',
+  trust:'paper',     cta:'photo',        statsband:'tint',   results:'paper',
+};
+const HEAVY = new Set(['dark','brand','photo']);
+const LIGHT = new Set(['paper','tint']);
+// Page chrome sits outside the rhythm entirely: the nav and hero are their own
+// composition (and NAILED — untouched by this pass), the marquee is a thin rule
+// rather than a band, and the footer closes the page on its own ground.
+const TONE_CHROME = new Set(['nav','hero','pagehero','announce','footer','marquee']);
+// Sections that carry a fixed ground of their own. They are never re-styled,
+// but they DO occupy the page, so the cadence has to see them.
+const TONE_IMPLICIT = { bookbar:'tint', upsell:'paper', upgradecta:'brand' };
+
+function applyTones(rendered){
+  // 1. assign
+  const items = rendered.map(x => {
+    let tone = TONE_BY_SECTION[x.name] || null;
+    // a "photo" tone with no photo behind it would be white type on the page
+    // ground — read the markup rather than trusting the section name
+    if (tone === 'photo' && !/background-image:/.test(x.html)) tone = x.name === 'cta' ? 'dark' : 'paper';
+    return { ...x, tone };
+  });
+  // the cadence sequence: real bands only, in page order, each with the tone it
+  // actually presents (stamped, or the fixed one it brought with it)
+  const seq = items.filter(x => !TONE_CHROME.has(x.name) && (x.tone || TONE_IMPLICIT[x.name]));
+  const toneOf  = x => x.tone || TONE_IMPLICIT[x.name];
+  const mutable = x => !!x.tone;          // never restyle a fixed-ground section
+
+  // never two consecutive heavy bands — the second demotes to tint. 'brand' is
+  // exempt: S.offer also carries .band, whose gradient would still win over a
+  // tint background and strand white text on it.
+  const noDoubleHeavy = () => {
+    for (let i = 1; i < seq.length; i++){
+      const a = toneOf(seq[i-1]), b = toneOf(seq[i]);
+      if (HEAVY.has(a) && HEAVY.has(b) && b !== 'brand' && mutable(seq[i])) seq[i].tone = 'tint';
+    }
+  };
+  // at least one dark band per page — a page of tints reads flat. The closing
+  // CTA is the last resort and carries it well.
+  const ensureDark = () => {
+    if (seq.some(x => toneOf(x) === 'dark')) return;
+    const pref = ['pullquote','about_split','about','reviews','statsband','whyus','services','cta'];
+    for (const n of pref){
+      const i = seq.findIndex(x => x.name === n && mutable(x) && !HEAVY.has(toneOf(x)));
+      if (i < 0) continue;
+      if (HEAVY.has(toneOf(seq[i-1]||{})) || HEAVY.has(toneOf(seq[i+1]||{}))) continue;
+      seq[i].tone = 'dark'; return;
+    }
+  };
+  // never more than three light bands in a row
+  const breakLightRun = () => {
+    let run = 0;
+    for (let i = 0; i < seq.length; i++){
+      if (!LIGHT.has(toneOf(seq[i]))) { run = 0; continue; }
+      if (++run <= 3) continue;
+      // promote this one, or the one before it when a heavy band follows
+      // immediately (promoting here would put two heavy bands side by side)
+      for (const j of [i, i-1]){
+        const it = seq[j];
+        if (!it || !mutable(it) || HEAVY.has(toneOf(seq[j-1]||{})) || HEAVY.has(toneOf(seq[j+1]||{}))) continue;
+        it.tone = 'dark'; run = 0; break;
+      }
+    }
+  };
+  // two light bands of the SAME tone touching read as one very tall empty
+  // block — alternate paper/tint so every boundary is visible
+  const alternateLight = () => {
+    for (let i = 1; i < seq.length; i++){
+      const a = toneOf(seq[i-1]), b = toneOf(seq[i]);
+      if (!LIGHT.has(a) || a !== b) continue;
+      const flip = t => t === 'tint' ? 'paper' : 'tint';
+      if (mutable(seq[i])) seq[i].tone = flip(b);                 // flip the second
+      // the second is a fixed ground (bookbar) — flip the first instead, but
+      // only when that doesn't just move the collision one section up
+      else if (mutable(seq[i-1]) && toneOf(seq[i-2]||{}) !== flip(a)) seq[i-1].tone = flip(a);
+    }
+  };
+  noDoubleHeavy(); ensureDark(); breakLightRun(); noDoubleHeavy(); ensureDark(); alternateLight();
+
+  // 2. stamp — tone class, plus an ordinal on the section's own kicker so the
+  //    numbered "(01) — Services" rail counts RENDERED sections.
+  let ord = 0;
+  return items.map(x => {
+    let h = x.html;
+    // bookbar/upsell carry a fixed light ground; stamping their tone changes
+    // nothing visually (it is the ground they already had) but lets the
+    // same-tone hairline rule see every section boundary on the page
+    const cls = x.tone || (LIGHT.has(TONE_IMPLICIT[x.name]) ? TONE_IMPLICIT[x.name] : null);
+    if (cls) h = h.replace(/<section class="/, `<section class="tone-${cls} `);
+    if (x.tone && /class="sec-k/.test(h)){
+      const n = String(++ord).padStart(2,'0');
+      h = h.replace(/<span class="sec-k([^"]*)"/, `<span class="sec-k$1" data-ord="${n}"`);
+    }
+    return h;
+  });
+}
+
 // ── the assembler ─────────────────────────────────────────────────────────────
 // page (optional): {order, title, lead} renders an interior page — compact
 // pagehero instead of the full hero, solid nav, no auto gallery weave.
@@ -1950,8 +2347,15 @@ export function assemble(profile, recipe={}, page=null){
     const at = order.indexOf('cta');
     order.splice(at > 0 ? at : order.length - 1, 0, 'gallerystrip');
   }
-  const bodyClass = archetype.body + (recipe.tradition ? ` trad-${recipe.tradition}` : '') + (recipe.vertical ? ` vert-${recipe.vertical}` : '') + (page ? ' subpage' : '');
-  const body = order.map(name => (S[name] ? S[name](p, {mood, arch: recipe.archetype}) : '')).join('\n');
+  // Tone cadence runs on BUSINESS renders. Churches keep their own band
+  // choreography (giving/serve bands, hearth's dark closing times block) and
+  // the parity tint, which is still scoped to :not(.toned).
+  const toned = !!recipe.vertical;
+  const bodyClass = archetype.body + (recipe.tradition ? ` trad-${recipe.tradition}` : '') + (recipe.vertical ? ` vert-${recipe.vertical}` : '') + (page ? ' subpage' : '') + (toned ? ' toned' : '');
+  const rendered = order
+    .map(name => ({ name, html: S[name] ? S[name](p, {mood, arch: recipe.archetype}) : '' }))
+    .filter(x => x.html && x.html.trim());
+  const body = (toned ? applyTones(rendered) : rendered.map(x => x.html)).join('\n');
   return `<!doctype html><html lang="en"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>${esc(page?.title?`${page.title} — ${profile.name}`:`${profile.name}${profile.tagline?` — ${profile.tagline}`:''}`)}</title>

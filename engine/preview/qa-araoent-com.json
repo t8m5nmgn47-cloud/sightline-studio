@@ -3,8 +3,12 @@
   "pass": true,
   "fails": [],
   "warns": [
+    "image-poor page (1 image) — capture found no usable photos?",
+    "no FAQ section (business page)",
+    "no about/story section (business page)",
+    "thin page: only 5 sections",
     "network/resource console errors (1): Failed to load resource: net::ERR_CONNECTION_RESET"
   ],
   "rendered": true,
-  "at": "2026-07-27T19:25:43.990Z"
+  "at": "2026-07-27T19:53:16.952Z"
 }

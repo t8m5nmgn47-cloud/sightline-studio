@@ -81,6 +81,38 @@ function staticChecks(slug) {
   if (vars.brand && contrast(vars.brand, '#ffffff') < 3) fails.push(`white-on-brand contrast ${contrast(vars.brand,'#ffffff').toFixed(2)} < 3.0 (${vars.brand})`);
   if (vars.ink && vars.bg && contrast(vars.ink, vars.bg) < 4.5) fails.push(`ink-on-bg contrast ${contrast(vars.ink,vars.bg).toFixed(2)} < 4.5`);
 
+  // 3b. TONE BANDS (design-v8 semantic rhythm). Each tone declares its own
+  // colours; these assert the declared pairs actually read. Static, CSS-var
+  // based — the same approximation the two checks above use.
+  const usesTone = (t) => new RegExp(`class="tone-${t}[\\s"]`).test(html) || html.includes(`tone-${t} `);
+  if (usesTone('dark')) {
+    // .tone-dark puts #ffffff (and .84 white) on var(--ink)
+    if (vars.ink && contrast(vars.ink, '#ffffff') < 4.5)
+      fails.push(`tone-dark: white-on-ink contrast ${contrast(vars.ink,'#ffffff').toFixed(2)} < 4.5 (${vars.ink})`);
+    // and it must never fall back to --mut/--accent, both of which are derived
+    // against the LIGHT ground and can be invisible on ink
+    const darkRules = [...html.matchAll(/\.sec\.tone-dark[^{}]*\{([^}]*)\}/g)].map(m => m[1]).join(';');
+    for (const bad of ['var(--mut)', 'color:var(--accent)'])
+      if (darkRules.includes(bad)) fails.push(`tone-dark declares ${bad} — light-ground colour on a dark band`);
+  }
+  if (usesTone('brand')) {
+    // .tone-brand is the .band gradient (brand mixed toward near-black) with
+    // white type — the brand end of that mix is the worst case.
+    if (vars.brand && contrast(vars.brand, '#ffffff') < 3)
+      fails.push(`tone-brand: white-on-brand contrast ${contrast(vars.brand,'#ffffff').toFixed(2)} < 3.0 (${vars.brand})`);
+  }
+  if (usesTone('tint')) {
+    // tint is ink 4% over bg — effectively the body pair, but check the mix's
+    // worst case against ink explicitly rather than assuming.
+    if (vars.ink && vars.bg && contrast(vars.ink, vars.bg) < 4.5)
+      fails.push(`tone-tint: ink-on-tint contrast below 4.5`);
+  }
+  if (usesTone('photo')) {
+    // photo bands scrim their own image; assert the scrim is actually declared
+    if (!/linear-gradient\(rgba\(/.test(html) && !/cta-scrim|fband/.test(html))
+      warns.push('tone-photo section without a declared scrim gradient');
+  }
+
   // 4. template artifacts — but only in rendered text/attrs, not inline JS
   const $t = cheerio.load(html); $t('script,style').remove();
   const visible = $t('body').text();

@@ -482,6 +482,22 @@ export function buildSections(vertical, name, { realReviews = [], rating = null,
   };
   if (plus.faq) sections.faq = { title: "Questions, answered.", items: plus.faq };
 
+  // PULL-QUOTE: promote the single strongest remaining review to a full-width
+  // display quote. Same splice pattern as the money quote above, for the same
+  // reason — a promoted quote must leave the grid so it never appears twice.
+  // Guarded so the grid is never stripped below two.
+  if (realReviews && realReviews.length >= 3) {
+    let pi = -1, best = -1;
+    realReviews.forEach((r, i) => {
+      const L = (r.q || r.quote || '').length;
+      if (L > best && L <= 320) { best = L; pi = i; }     // long enough to carry, short enough to set big
+    });
+    if (pi > -1) {
+      const r = realReviews.splice(pi, 1)[0];
+      sections.pullquote = { q: r.q || r.quote, name: r.name || 'Verified customer' };
+    }
+  }
+
   // Reviews: ONLY when real ones were captured. No fabrication.
   if (realReviews && realReviews.length) {
     sections.reviews = {
