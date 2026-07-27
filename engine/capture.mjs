@@ -674,6 +674,69 @@ export function imageDims(buf) {
 }
 export const imageSize = imageDims;   // back-compat alias
 
+// ── perceptual hashing + graphic detection (sharp, keyless) ─────────────────
+// Byte-identical dedupe misses the case that actually starves a gallery: the
+// SAME photograph served at four sizes, or re-encoded by a CDN. A 64-bit dHash
+// compares what the image LOOKS like, so those collapse to one pool entry.
+// sharp is lazy-loaded and every failure is soft — a host without sharp simply
+// falls back to the byte-level dedupe it had before.
+let _sharpPromise = null;
+const loadSharp = () => (_sharpPromise ||= import('sharp').then((m) => m.default).catch(() => null));
+
+export async function dHash(bufOrPath) {
+  const sharp = await loadSharp();
+  if (!sharp) return null;
+  try {
+    const raw = await sharp(bufOrPath, { failOn: 'none' })
+      .greyscale().resize(9, 8, { fit: 'fill' }).raw().toBuffer();
+    if (raw.length < 72) return null;
+    let h = 0n;
+    for (let y = 0; y < 8; y++)
+      for (let x = 0; x < 8; x++)
+        h = (h << 1n) | (raw[y * 9 + x] > raw[y * 9 + x + 1] ? 1n : 0n);
+    return h;
+  } catch { return null; }
+}
+
+// Hamming distance between two dHashes. Unknown hashes report "maximally
+// different" so a hash failure can never silently delete a photo.
+export function hamming(a, b) {
+  if (a == null || b == null) return 64;
+  let x = BigInt(a) ^ BigInt(b), n = 0;
+  while (x) { n += Number(x & 1n); x >>= 1n; }
+  return n;
+}
+
+// Logos-as-photos, screenshots, flat illustrations and text cards read as
+// "graphics": few distinct colours, low entropy, one colour dominating. Any
+// two of those three is enough. This DEMOTES, never rejects — a business whose
+// only imagery is graphics still gets a gallery, just not a graphic hero-slot.
+export async function looksGraphic(bufOrPath) {
+  const sharp = await loadSharp();
+  if (!sharp) return false;
+  try {
+    const pipe = sharp(bufOrPath, { failOn: 'none' }).resize(64, 64, { fit: 'fill' });
+    const [{ data, info }, stats] = await Promise.all([
+      pipe.clone().removeAlpha().toColourspace('srgb').raw().toBuffer({ resolveWithObject: true }),
+      pipe.clone().stats(),
+    ]);
+    const ch = info.channels || 3;
+    const px = Math.floor(data.length / ch);
+    if (!px) return false;
+    const counts = new Map();
+    for (let i = 0; i < px * ch; i += ch) {
+      const r = data[i], g = ch > 1 ? data[i + 1] : r, b = ch > 2 ? data[i + 2] : r;
+      const k = ((r >> 3) << 10) | ((g >> 3) << 5) | (b >> 3);   // 5 bits per channel
+      counts.set(k, (counts.get(k) || 0) + 1);
+    }
+    let modal = 0;
+    for (const v of counts.values()) if (v > modal) modal = v;
+    const entropy = typeof stats.entropy === 'number' ? stats.entropy : 8;
+    const votes = (counts.size < 1500 ? 1 : 0) + (entropy < 4.2 ? 1 : 0) + (modal / px > 0.25 ? 1 : 0);
+    return votes >= 2;
+  } catch { return false; }
+}
+
 // True image extension from magic bytes — never trust the URL's "extension"
 // (an extensionless URL once produced "logo.com", which browsers can't render).
 export function sniffExt(buf, fallback = 'jpg') {
@@ -704,7 +767,10 @@ export function looksLikeLogo(buf, ext) {
 }
 
 // ── asset download (logo + photos) ───────────────────────────────────────────
-async function download(url, dest, { min = 500, max = 4 * 1024 * 1024, minW = 0, validate = null } = {}) {
+// Fetch + gate an image WITHOUT writing it. The photo pool now decides which
+// candidates survive dedupe before anything hits disk, so numbering stays
+// contiguous and we never unlink a file we just wrote.
+async function fetchImage(url, { min = 500, max = 4 * 1024 * 1024, minW = 0, validate = null, extFallback = 'jpg' } = {}) {
   try {
     const res = await fetch(url, UA);
     if (!res.ok || !/image\//.test(res.headers.get('content-type') || '')) return null;
@@ -713,12 +779,17 @@ async function download(url, dest, { min = 500, max = 4 * 1024 * 1024, minW = 0,
     if (validate && !validate(buf)) return null;          // e.g. logo shape check
     const dims = imageDims(buf);
     if (minW && dims && dims.w < minW) return null;       // too small to use
-    // correct the extension from the actual bytes before writing
-    const realExt = sniffExt(buf, (dest.split('.').pop() || 'jpg'));
-    const fixedDest = dest.replace(/\.[a-z0-9]+$/i, '.' + realExt);
-    fs.writeFileSync(fixedDest, buf);
-    return { bytes: buf.length, w: dims?.w || null, h: dims?.h || null, ext: realExt, path: fixedDest };
+    // extension comes from the actual bytes — never from the URL (sniffExt)
+    return { buf, bytes: buf.length, w: dims?.w || null, h: dims?.h || null, ext: sniffExt(buf, extFallback), url };
   } catch { return null; }
+}
+
+async function download(url, dest, opts = {}) {
+  const got = await fetchImage(url, { ...opts, extFallback: opts.extFallback || (dest.split('.').pop() || 'jpg') });
+  if (!got) return null;
+  const fixedDest = dest.replace(/\.[a-z0-9]+$/i, '.' + got.ext);
+  fs.writeFileSync(fixedDest, got.buf);
+  return { bytes: got.bytes, w: got.w, h: got.h, ext: got.ext, path: fixedDest };
 }
 
 export async function saveAssets(slug, cap, ROOT, { maxPhotos = 8 } = {}) {
@@ -741,24 +812,87 @@ export async function saveAssets(slug, cap, ROOT, { maxPhotos = 8 } = {}) {
     if (gotLogo) { logo = rel('logo.' + (gotLogo.ext || ext)); break; }
   }
 
-  // photos: probe REAL dimensions from bytes (declared width/height are absent
-  // on most <img> tags), gate quality, dedupe near-identical files, then pick
-  // the hero from measured size + aspect instead of byte-count guessing.
-  const saved = [];
-  const seen = new Set();                                  // dedupe by bytes+dims
+  // ── photo pool ────────────────────────────────────────────────────────────
+  // Gates live HERE, at the pool entrance, not at each slot that consumes a
+  // photo. Candidates are fetched into memory, gated (aspect), classified
+  // (photo vs graphic), deduped (URL variant → bytes → perceptual), and only
+  // the survivors are written — so file numbering is contiguous by
+  // construction and no file is ever written then unlinked.
+  //
+  // Cheapest pre-pass first: a CDN's resolution variants of one photo
+  // (`hero-1024x576.jpg`, `hero-scaled.jpg`, `hero.jpg`) are the same picture
+  // and are recognisable from the URL alone, before spending a request.
+  const urlKey = (u) => {
+    let s;
+    try { const x = new URL(u); s = x.origin + x.pathname; } catch { s = String(u).split('?')[0]; }
+    return s.toLowerCase()
+      .replace(/[-_]\d{2,5}x\d{2,5}(?=\.[a-z0-9]+$|$)/, '')     // -1024x576
+      .replace(/[-_]scaled(?=\.[a-z0-9]+$|$)/, '')              // WordPress -scaled
+      .replace(/[-_](?:thumb|thumbnail|small|medium|large)(?=\.[a-z0-9]+$|$)/, '');
+  };
+
+  const cands = [];
+  const urlSeen = new Set();
+  const byteSeen = new Set();
+  const budget = maxPhotos * 3;         // fetch deeper than we keep; dedupe eats some
   for (const ph of cap.photos) {
-    if (saved.length >= maxPhotos) break;
-    if (ph.promo && saved.length >= 3) continue;   // award/promo slides: last resort only
-    const ext = ((ph.url.match(/\.([a-z0-9]{2,4})(?=$|[?\/:#])/i) || [,'jpg'])[1]).toLowerCase();
-    const file = `photos/${saved.length + 1}.${ext}`;
-    const got = await download(ph.url, path.join(dir, file), { min: 12000, minW: 480 });   // real photo, usable width
+    if (cands.length >= budget) break;
+    const uk = urlKey(ph.url);
+    if (urlSeen.has(uk)) continue;
+    urlSeen.add(uk);
+    const got = await fetchImage(ph.url, { min: 12000, minW: 480 });   // real photo, usable width
     if (!got) continue;
-    const realFile = got.ext ? file.replace(/\.[a-z0-9]+$/i, '.' + got.ext) : file;
-    const key = `${got.bytes}:${got.w}x${got.h}`;
-    if (seen.has(key)) { try { fs.unlinkSync(got.path || path.join(dir, realFile)); } catch {} continue; }
-    seen.add(key);
-    saved.push({ path: rel(realFile), bytes: got.bytes, w: got.w, h: got.h });
+    // Aspect gate: letterbox strips and skyscraper banners are decoration, not
+    // photography — they crop to mush in every slot the engine has.
+    const ar = (got.w && got.h) ? got.w / got.h : 1;
+    if (ar < 0.45 || ar > 3.2) continue;
+    const bkey = `${got.bytes}:${got.w}x${got.h}`;
+    if (byteSeen.has(bkey)) continue;
+    byteSeen.add(bkey);
+    got.promo = !!ph.promo;
+    got.hash = await dHash(got.buf);
+    got.graphic = await looksGraphic(got.buf);
+    cands.push(got);
   }
+
+  // Perceptual dedupe. On a collision the HIGHER-resolution member wins, so a
+  // thumbnail encountered first never squats the slot its full-size twin wants.
+  const accepted = [];
+  let dupDropped = 0;
+  const area = (c) => (c.w || 0) * (c.h || 0);
+  for (const c of cands) {
+    const dup = c.hash == null ? -1
+      : accepted.findIndex((a) => a.hash != null && hamming(a.hash, c.hash) <= 10);
+    if (dup > -1) {
+      dupDropped++;
+      if (area(c) > area(accepted[dup])) accepted[dup] = c;
+      continue;
+    }
+    if (accepted.length >= maxPhotos) continue;
+    if (c.promo && accepted.length >= 3) continue;   // award/promo slides: last resort only
+    accepted.push(c);
+  }
+
+  // Graphics sort to the END of the pool so they fall out of the primary slots
+  // (feature/about/money read pics[0..2]) without being censored from the site.
+  const ordered = [...accepted.filter((c) => !c.graphic), ...accepted.filter((c) => c.graphic)];
+
+  const saved = [];
+  for (const c of ordered) {
+    const file = `photos/${saved.length + 1}.${c.ext}`;
+    try { fs.writeFileSync(path.join(dir, file), c.buf); } catch { continue; }
+    saved.push({
+      path: rel(file), bytes: c.bytes, w: c.w, h: c.h,
+      hash: c.hash == null ? null : c.hash.toString(16).padStart(16, '0'),
+      graphic: !!c.graphic,
+    });
+    c.buf = null;                                    // release the pool's memory
+  }
+  const nGraphic = saved.filter((s) => s.graphic).length;
+  if (dupDropped || nGraphic)
+    console.log(`  photos:   ${saved.length} kept from ${cands.length} candidates`
+      + (dupDropped ? ` · ${dupDropped} near-duplicate${dupDropped === 1 ? '' : 's'} dropped` : '')
+      + (nGraphic ? ` · ${nGraphic} graphic${nGraphic === 1 ? '' : 's'} demoted` : ''));
   const gallery = saved.map((s) => s.path);
   // hero: widest landscape photo ≥800px; fall back to the largest file
   const landscape = saved.filter((s) => s.w >= 800 && (!s.h || s.w >= s.h)).sort((a, b) => b.w - a.w);
