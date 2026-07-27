@@ -259,14 +259,53 @@ export function extractColors({ html = '', css = '', themeColor = '', svgLogo = 
   return [...counts.entries()].sort((a, b) => b[1] - a[1]).slice(0, 10).map(([h]) => h);
 }
 
+// ── registrable domain ───────────────────────────────────────────────────────
+// "Is this page / this asset the SAME BUSINESS we asked for?" is now asked in
+// several places (wrong-site capture guard in pipeline.mjs, logo host penalty
+// below), so the answer lives in one helper. No PSL dependency — a short list
+// of the two-level suffixes small US/UK/AU businesses actually use is enough,
+// and a miss degrades to "compared one label too few", never to a crash.
+const TWO_LEVEL_TLD = new Set([
+  'co.uk', 'org.uk', 'me.uk', 'ltd.uk', 'plc.uk', 'net.uk', 'sch.uk', 'ac.uk', 'gov.uk',
+  'com.au', 'net.au', 'org.au', 'edu.au', 'gov.au',
+  'co.nz', 'net.nz', 'org.nz', 'co.za', 'co.in', 'net.in', 'org.in',
+  'com.br', 'com.mx', 'com.ar', 'com.sg', 'com.hk', 'com.tw',
+  'co.jp', 'ne.jp', 'or.jp', 'co.kr',
+]);
+export function registrableDomain(input) {
+  if (!input) return '';
+  let host = String(input).trim().toLowerCase();
+  if (/^[a-z][a-z0-9+.-]*:\/\//.test(host)) {
+    try { host = new URL(host).hostname; } catch { return ''; }
+  } else {
+    host = host.replace(/^\/\//, '').replace(/[/?#].*$/, '').split('@').pop();
+  }
+  host = host.replace(/:\d+$/, '').replace(/\.$/, '').replace(/^www\./, '');
+  if (!host || /^[\d.]+$/.test(host)) return host;          // bare IP: compare as-is
+  const labels = host.split('.').filter(Boolean);
+  if (labels.length <= 2) return labels.join('.');
+  return TWO_LEVEL_TLD.has(labels.slice(-2).join('.'))
+    ? labels.slice(-3).join('.')
+    : labels.slice(-2).join('.');
+}
+
 // ── logo scoring ─────────────────────────────────────────────────────────────
 const WHY_SCORE = { 'json-ld': 50, 'img-logo': 40, 'apple-touch-icon': 20, 'og-image': 10, favicon: 5 };
-export function rankLogos(candidates = []) {
+export function rankLogos(candidates = [], domain = null) {
+  // A logo served from a DIFFERENT registrable domain is usually a partner
+  // badge, a marketing-network mark, or — the case that motivated this — the
+  // wrong company's brand entirely. Penalise hard rather than reject outright,
+  // so a legitimate asset CDN still wins when nothing same-host exists.
+  const want = domain ? registrableDomain(domain) : '';
   return [...candidates].map((c) => {
     let s = WHY_SCORE[c.why] || 0;
     if (/\.svg(\?|$)/i.test(c.url)) s += 15;
     else if (/\.png(\?|$)/i.test(c.url)) s += 5;
     if (/sprite|placeholder|blank/i.test(c.url)) s -= 30;
+    if (want) {
+      const host = registrableDomain(c.url);
+      if (host && host !== want) s -= 60;
+    }
     return { ...c, score: s };
   }).sort((a, b) => b.score - a.score);
 }
@@ -534,6 +573,15 @@ export async function capture(domain, { render = 'auto', maxPages = 5, htmlOverr
 
   const $pages = pages.map((p) => cheerio.load(p.html));
   const sig = extractSignals(home.html, home.url);        // homepage signals (nav, logo cands, name…)
+  // Self-declared identity. finalUrl only tells the truth on a LIVE fetch — in
+  // htmlOverride/cache mode it is the URL we asked for, so a cached page that
+  // actually belongs to someone else looks fine. The page's own canonical link
+  // and og:url do not lie about that, so expose them for the wrong-site guard.
+  sig.canonical_url = ($home('link[rel="canonical"]').attr('href') || '').trim();
+  sig.og_url = ($home('meta[property="og:url"]').attr('content')
+             || $home('meta[name="og:url"]').attr('content') || '').trim();
+  try { if (sig.canonical_url) sig.canonical_url = new URL(sig.canonical_url, home.url).href; } catch {}
+  try { if (sig.og_url) sig.og_url = new URL(sig.og_url, home.url).href; } catch {}
   // merge nav tabs found on subpages (some sites only render full nav inside)
   for (const p of pages.slice(1)) {
     const s2 = extractSignals(p.html, p.url);
@@ -583,7 +631,7 @@ export async function capture(domain, { render = 'auto', maxPages = 5, htmlOverr
     docs: pages.map((p) => ({ url: p.url, html: p.html })),
     crawl,
     sig, fonts, colors,
-    logos: rankLogos(sig.logo_candidates),
+    logos: rankLogos(sig.logo_candidates, domain),
     photos: extractPhotos($pages, home.url),
     products: extractProducts($pages),
     services,

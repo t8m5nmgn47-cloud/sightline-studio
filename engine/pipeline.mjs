@@ -11,7 +11,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { normalize, assemble, assembleSite, recommendRecipe, applyRecipeVariety } from './site-engine.mjs';
-import { capture, saveAssets } from './capture.mjs';
+import { capture, saveAssets, registrableDomain } from './capture.mjs';
 import { detectVertical, buildSections, vary } from './vertical-content.mjs';
 import { seedOf, chooseArchetype, chooseStructure } from './variety.mjs';
 
@@ -60,6 +60,27 @@ function defaultSections(pack){
   };
 }
 
+// ── name↔domain matching (G2) ───────────────────────────────────────────────
+// "Does this name belong to this domain?" used to be answered by ANY token of
+// >3 chars appearing in the domain string. On wamboltwealth.com that made
+// "Carson Wealth" — a completely different firm, served from a mis-filed cache
+// — look like a match, because "wealth" is in the domain. Industry words carry
+// no identity, so they are filtered out before matching, and what remains must
+// clear a real bar: two shared tokens, or one distinctive (>=6-char) one.
+const GENERIC_TOKENS = new Set([
+  'wealth','health','dental','legal','group','associates','partners','financial',
+  'advisor','advisors','service','services','solution','solutions','care','clinic',
+  'center','centre','company','insurance','title','law','home','first','american',
+  'national','family','management','capital','church','medical','denver','colorado',
+]);
+const identityTokens = (t) => (t || '').toLowerCase().split(/[^a-z0-9]+/)
+  .filter((w) => w.length > 3 && !GENERIC_TOKENS.has(w));
+function nameMatchesDomain(name, domain){
+  const d = (domain || '').toLowerCase();
+  const hits = identityTokens(name).filter((w) => d.includes(w));
+  return hits.length >= 2 || hits.some((w) => w.length >= 6);
+}
+
 function pickName(sig, domain){
   const clean = s => (s || '').replace(/\s+/g, ' ').trim();
   const humanize = d => d.replace(/^www\./,'').replace(/\.[a-z]+$/,'').replace(/[-_.]+/g,' ').replace(/\b\w/g,c=>c.toUpperCase());
@@ -71,7 +92,7 @@ function pickName(sig, domain){
     ? p.toLowerCase().replace(/\b\w/g,c=>c.toUpperCase()).replace(/\b(Of|The|And|In|At)\b/g,m=>m.toLowerCase()).replace(/^./,c=>c.toUpperCase())
     : p;
   if (parts.length === 1 && parts[0].length >= 3 && !/^(home|welcome|index)$/i.test(parts[0])) return decap(parts[0]);
-  const domMatch = parts.find(p => p.toLowerCase().split(/\s+/).some(w => w.length > 3 && domain.toLowerCase().includes(w.toLowerCase())));
+  const domMatch = parts.find(p => nameMatchesDomain(p, domain));
   if (domMatch && !/^(home|welcome|index)$/i.test(domMatch)) return decap(domMatch);
   const named = parts.filter(p=>!/,/.test(p) && /[A-Z][a-z]+ [A-Z]/.test(p)).sort((a,b)=>a.length-b.length);
   return decap(named[0] || parts.find(p=>!/^(home|welcome|index)$/i.test(p) && p.length>=3) || humanize(domain));
@@ -115,6 +136,34 @@ if (explicitHtml) {
 }
 
 const sig = cap.sig;
+
+// ── G1: wrong-site guard ────────────────────────────────────────────────────
+// Everything downstream assumes the HTML we hold belongs to the domain we were
+// asked about. A redirect to an acquirer, a parked domain, or a mis-filed
+// cache entry breaks that assumption silently, and the pipeline happily ships
+// another company's brand, photos and copy under this prospect's name — the
+// worst possible failure for an outreach demo. So we check the page's own
+// three statements of identity and stop if ANY of them names someone else.
+// finalUrl is authoritative on a live crawl but synthesised in cache mode;
+// canonical and og:url tell the truth in both.
+{
+  const want = registrableDomain(domain);
+  const claims = [
+    ['final URL', sig.finalUrl],
+    ['canonical link', sig.canonical_url],
+    ['og:url', sig.og_url],
+  ].map(([label, url]) => [label, url, registrableDomain(url)]).filter(([, , host]) => host);
+  const foreign = claims.filter(([, , host]) => host !== want);
+  if (want && foreign.length) {
+    console.error(`\n❌ Wrong-site capture for ${domain} — this page is not ${want}.`);
+    for (const [label, url, host] of foreign)
+      console.error(`   ${label}: ${url}  → ${host}`);
+    console.error('   Building on it would publish another business\'s brand, photos and copy');
+    console.error('   under this prospect\'s name. Fix the cache entry or the domain, then re-run.\n');
+    process.exit(3);
+  }
+}
+
 const navText = ((sig.nav_tabs || []).map(t=>t.label).join(' ') + ' ').repeat(3);
 let name = pickName(sig, domain);
 const pack = detectPack((name + ' ').repeat(5) + (sig.title || '') + ' ' + navText + (sig.visible_text || '').slice(0, 5000), {
@@ -123,10 +172,10 @@ const pack = detectPack((name + ' ').repeat(5) + (sig.title || '') + ' ' + navTe
 if (pack.kind === 'vertical' && pack.key === 'mortgage' && /\btitle\b|\bescrow\b/i.test(name)) pack.key = 'title';
 
 if (cap.copy?.businessName && cap.copy.businessName.length >= 3) {
-  const tokensOf = t => t.toLowerCase().split(/[^a-z0-9]+/).filter(w=>w.length>3);
-  const nameMatchesDomain = tokensOf(name).some(w=>domain.toLowerCase().includes(w));
-  const llmMatchesDomain = tokensOf(cap.copy.businessName).some(w=>domain.toLowerCase().includes(w));
-  if (!nameMatchesDomain && llmMatchesDomain) name = cap.copy.businessName;
+  // Same G2 bar as pickName: the LLM's name only displaces the heuristic one
+  // when it is the one with real identity evidence for THIS domain.
+  if (!nameMatchesDomain(name, domain) && nameMatchesDomain(cap.copy.businessName, domain))
+    name = cap.copy.businessName;
 }
 
 const { rankPhotosForVertical } = await import('./capture.mjs');
