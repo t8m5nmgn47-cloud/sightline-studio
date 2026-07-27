@@ -109,6 +109,14 @@ if (!domain) {
   process.exit(1);
 }
 
+// AI availability is a property of the RUN, and it changes what this build is
+// worth. Say so once, up front, instead of letting a keyless run look identical
+// to a fully-gated one in the logs. (Key resolution matches llm-extract.mjs.)
+const hasAiKey = !!(process.env.ANTHROPIC_API_KEY || process.env.ANTHROPIC_KEY
+  || (() => { try { return /ANTHROPIC(?:_API)?_KEY\s*=\s*\S+/.test(fs.readFileSync(path.join(ROOT, '.sightline.env'), 'utf8')); } catch { return false; } })());
+if (!hasAiKey)
+  console.log('  ! no ANTHROPIC_API_KEY — LLM extraction, site strategy and the vision gates (logo/hero) are SKIPPED this run; structural + perceptual gates still run.');
+
 const slug = slugify(domain);
 const explicitHtml = flag('html');
 const cachedPath = explicitHtml || findCapture(slug, domain);
@@ -461,6 +469,7 @@ console.log(`✓ ${name}
   pack:     ${pack.kind}=${pack.key}${logo?' · logo':''}${assets.gallery.length?` · ${assets.gallery.length} photos`:''}${cap.services?.length?` · ${cap.services.length} real services`:''}${cap.reviews?.length?` · ${cap.reviews.length} real reviews`:''}${cap.staff?.length?` · ${cap.staff.length} staff`:''}${cap.llm?' · extraction-llm':' · heuristics'}${strategy?' · strategy-director':''}
   strategy: ${strategy?.rationale || 'evidence-based fallback routing'}
   recipe:   ${recipe.archetype} · ${recipe.theme} · ${recipe.mood || 'none'} · ${recipe.structure || 'classic'}
+  gates:    structural QA ✓ · creative ✓ · photo dedupe/aspect/graphic ✓ · vision (logo+hero) ${hasAiKey?'✓':'SKIPPED (no key)'} · strategy ${strategy?'✓':'skipped'}
   creative: ${creative.pass?'✅':'⚠ debug override'} ${creative.score}/100${creative.warns.map(w=>'\n            ⚠ '+w).join('')}
   published: demos/${outSlug}/index.html
   qa:       ${qr.pass?'✅ pass':'❌ FAIL'}${qr.rendered?'':' (static only)'}${qr.fails.map(f=>'\n            ✗ '+f).join('')}${qr.warns.map(w=>'\n            ⚠ '+w).join('')}`);
