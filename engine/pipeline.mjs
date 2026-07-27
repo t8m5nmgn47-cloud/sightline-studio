@@ -215,8 +215,12 @@ if (isBiz) {
     bizSections.offer = { kicker:'Current offer', title:'A good time to get started.', lead, cta:'Ask about this offer →' };
   } else delete bizSections.offer;
 
-  if (strategy?.moneyLead) bizSections.money = { ...(bizSections.money || {}), lead:strategy.moneyLead };
-  else delete bizSections.money;
+  // A vertical pack that sets money:null has DECIDED this industry has no
+  // insurance/financing story (law, accounting, insurance, mortgage, title).
+  // The strategist's moneyLead may enrich an existing money section; it must
+  // never resurrect one the pack deliberately switched off.
+  if (strategy?.moneyLead && bizSections.money) bizSections.money = { ...bizSections.money, lead:strategy.moneyLead };
+  else if (!strategy?.moneyLead) delete bizSections.money;
 
   const groundedPoints = strategy?.featurePoints?.length >= 3
     ? strategy.featurePoints

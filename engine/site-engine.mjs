@@ -634,17 +634,29 @@ S.trust = (p) => { const s=p.sections.trust; if(!s||!s.items||!s.items.length) r
   <div class="wrap trust-in">${s.items.map(t=>`<div class="trustitem"><span class="tcheck">✓</span>${esc(t)}</div>`).join('')}</div>
 </section>`; };
 
+// Cost/coverage band. The old fallbacks were dental-voiced ("Affordable care",
+// "Insurance & financing, made easy.", "Verified patient") and fired for ANY
+// vertical that reached this renderer without copy — so a construction firm or
+// a title company could be made to talk about dental insurance. Fallback copy
+// now comes from the ACTIVE PACK (p._t, same source S.cta uses), and when
+// neither the section nor the pack has anything real to say, the band renders
+// nothing. Empty beats invented.
 S.bizmoney = (p) => { const s=p.sections.money; if(!s) return '';
+  const tc = p._t?.copy?.money || {};
+  const kicker = s.kicker || tc.kicker || '';
+  const title  = s.title  || tc.title  || '';
+  const lead   = s.lead   || tc.lead   || '';
+  if (!kicker && !title) return '';        // no headline of its own = no section
   const img = photoPlan(p).money;
   return `
 <section class="sec money" id="money">
   <div class="wrap money-in${img?'':' noimg'}">
     <div class="money-copy">
-      <span class="sec-k">${esc(s.kicker||'Affordable care')}</span><h2>${esc(s.title||'Insurance & financing, made easy.')}</h2>
-      <p class="lead">${esc(s.lead||'We accept most major insurance and offer flexible financing so cost never stands between you and care.')}</p>
-      ${s.quote?`<blockquote class="money-quote">“${esc(s.quote.q)}”<cite>— ${esc(s.quote.name||'Verified patient')}</cite></blockquote>`:''}
+      ${kicker?`<span class="sec-k">${esc(kicker)}</span>`:''}${title?`<h2>${esc(title)}</h2>`:''}
+      ${lead?`<p class="lead">${esc(lead)}</p>`:''}
+      ${s.quote?`<blockquote class="money-quote">“${esc(s.quote.q)}”<cite>— ${esc(s.quote.name||'Verified review')}</cite></blockquote>`:''}
       ${s.logos?`<div class="chips">${s.logos.map(l=>`<span class="chip">${esc(l)}</span>`).join('')}</div>`:''}
-      <a class="btn" href="#book" style="margin-top:20px">${esc(s.cta||'Check your coverage →')}</a>
+      <a class="btn" href="#book" style="margin-top:20px">${esc(s.cta||tc.cta||p._t?.bookCta||'Get in touch →')}</a>
     </div>
     ${img?`<div class="money-img"><img src="${img}" alt="${esc(p.name)}" loading="lazy" decoding="async"></div>`:''}
   </div></section>`; };
