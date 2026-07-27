@@ -272,20 +272,48 @@ S.hero = (p, {mood, arch}) => {
 </header>`;
 };
 
-S.services = (p) => { const s=p.sections.services; if(!s||!s.items) return ''; const tc=p._t?.copy?.services||{};
-  // grid evenness: described items lead; when under 60% carry descriptions the
-  // whole grid renders compact (title-led) so no card looks accidentally empty
+S.services = (p) => { const s=p.sections.services; if(!s||!s.items||!s.items.length) return ''; const tc=p._t?.copy?.services||{};
+  // described items lead — a service that carries real copy earns the top of
+  // the list; the compact/pill treatment is gone (a title-only pill grid
+  // orphaned its last row on every odd count and read like a nav menu).
   const items = [...s.items].sort((a,b)=>((b.p?1:0)-(a.p?1:0)));
-  const described = items.filter(i=>i.p && i.p.trim()).length;
-  const compact = described / items.length < .6;
+  const kicker = s.kicker||tc.kicker||(p._t&&!p._t.bookCta?'New here?':'What we do');
+  const title  = s.title ||tc.title ||(p._t&&!p._t.bookCta?'What to expect':`What ${p.name} does.`);
+  // BUSINESS: a compfm-style editorial list — an intro rail beside hairline-
+  // ruled rows. A vertical list cannot orphan at any count.
+  // CHURCH: the card grid stays (archetypes style .card/.cardgrid heavily).
+  const biz = !!(p._vertical || p._t?.bookCta);
+  if (biz){
+    const shown = items.slice(0,8);
+    const rest  = items.length - shown.length;
+    const cta   = s.cta || p._t?.bookCta || 'Get in touch →';
+    return `
+<section class="sec services" id="visit">
+  <div class="wrap">
+    <div class="svc-grid">
+      <div class="svc-intro">
+        <span class="sec-k">${esc(kicker)}</span>
+        <h2>${esc(title)}</h2>
+        ${s.lead?`<p class="svc-lead">${esc(s.lead)}</p>`:''}
+        <a class="svc-cta" href="#book">${esc(cta)}</a>
+      </div>
+      <div class="svc-list">${shown.map((it,i)=>`
+        <div class="svc-row"><span class="si">${String(i+1).padStart(2,'0')}</span>
+          <div class="svc-body"><h3>${esc(it.h)}</h3>${it.p?`<p>${esc(it.p)}</p>`:''}</div></div>`).join('')}
+        ${rest>0?`<p class="svc-more">…and ${rest} more — ask us what you need.</p>`:''}
+      </div>
+    </div>
+  </div>
+</section>`;
+  }
   return `
 <section class="sec services" id="visit">
   <div class="wrap">
-    <span class="sec-k">${esc(s.kicker||tc.kicker||(p._t&&!p._t.bookCta?'New here?':'What we do'))}</span>
-    <h2>${esc(s.title||tc.title||(p._t&&!p._t.bookCta?'What to expect':'How we can help.'))}</h2>
+    <span class="sec-k">${esc(kicker)}</span>
+    <h2>${esc(title)}</h2>
     ${s.lead?`<p class="lead">${esc(s.lead)}</p>`:''}
-    <div class="cardgrid${compact?' compactgrid':''}">${items.map((it,i)=>`
-      <article class="card${compact?' compact':''}"><span class="cn">${i+1}</span><h3>${esc(it.h)}</h3>${!compact&&it.p?`<p>${esc(it.p)}</p>`:''}</article>`).join('')}
+    <div class="cardgrid">${items.map((it,i)=>`
+      <article class="card"><span class="cn">${i+1}</span><h3>${esc(it.h)}</h3>${it.p?`<p>${esc(it.p)}</p>`:''}</article>`).join('')}
     </div>
   </div>
 </section>`; };
@@ -1017,9 +1045,27 @@ h1,h2,h3{font-family:'__DISPLAY__',Georgia,serif;font-weight:600;line-height:1.0
 .card{background:var(--surf);border:1px solid var(--line);border-radius:calc(var(--rad)*1px);padding:26px}
 .card .cn{display:inline-grid;place-items:center;width:34px;height:34px;border-radius:50%;background:var(--brand);color:#fff;font-weight:700;margin-bottom:12px}
 .card h3{font-size:1.16rem}.card p{color:var(--mut);margin:.4em 0 0}
-.compactgrid{grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:14px}
-.card.compact{display:flex;align-items:center;gap:14px;padding:18px 20px}
-.card.compact .cn{margin:0;flex:none}.card.compact h3{font-size:1.02rem}
+/* services — editorial two-column list (business). Intro rail + hairline rows;
+   a vertical list has no trailing gap to orphan, at any item count. */
+.svc-grid{display:grid;grid-template-columns:.82fr 1.18fr;gap:clamp(30px,6vw,88px);align-items:start}
+.svc-intro{position:sticky;top:clamp(24px,9vh,108px)}
+.svc-intro h2{margin:14px 0 20px;max-width:14ch}
+.svc-lead{font-family:'__DISPLAY__',Georgia,serif;font-weight:400;font-size:clamp(1.08rem,1rem + .5vw,1.42rem);
+  line-height:1.44;color:color-mix(in srgb,var(--ink) 80%,var(--mut));max-width:34ch;margin:0 0 28px}
+.svc-cta{display:inline-block;font-weight:600;font-size:1rem;color:var(--ink);text-decoration:none;
+  border-bottom:2px solid var(--accent);padding-bottom:5px;transition:color .25s}
+.svc-cta:hover{color:var(--brand)}
+.svc-list{display:flex;flex-direction:column}
+.svc-row{display:grid;grid-template-columns:auto 1fr;gap:clamp(18px,3vw,46px);padding:clamp(22px,3vw,38px) 0;
+  border-top:1px solid var(--line);align-items:baseline;transition:padding-left .3s var(--ease,ease)}
+.svc-row:last-of-type{border-bottom:1px solid var(--line)}
+.svc-row:hover{padding-left:8px}
+.svc-row .si{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.9rem;font-weight:700;
+  letter-spacing:.04em;color:var(--brand);font-variant-numeric:tabular-nums}
+.svc-body h3{font-size:clamp(1.4rem,1rem + 1.25vw,2.05rem);line-height:1.06;margin:0 0 10px}
+.svc-body p{color:color-mix(in srgb,var(--ink) 74%,var(--mut));font-size:1.08rem;line-height:1.56;max-width:50ch;margin:0}
+.svc-more{margin:24px 0 0;color:var(--mut);font-size:.95rem}
+@media(max-width:860px){.svc-grid{grid-template-columns:1fr;gap:26px}.svc-intro{position:static}}
 /* events */
 .evlist{margin-top:30px;display:flex;flex-direction:column;gap:2px}
 .ev{display:flex;gap:22px;padding:20px 0;border-top:1px solid var(--line);align-items:baseline}
@@ -1524,6 +1570,26 @@ body.arch-hearth .sec.times.times.times{position:relative;overflow:hidden;color:
 .qa p{margin:0 0 22px;color:var(--mut);line-height:1.65;max-width:60ch}
 .qa summary:hover{color:var(--brand)}
 @media(max-width:820px){.faqcols-in{grid-template-columns:1fr}.faqcols-h{position:static}}
+
+/* ── SERVICES rail: per-archetype personality ─────────────────────────────────
+   Each archetype's below-fold inherits its hero character through the numeral
+   and the row rule — modest, non-breaking, no layout change. */
+.arch-flagship .svc-row{border-top-color:transparent;background-image:linear-gradient(90deg,color-mix(in srgb,var(--brand) 55%,transparent),transparent 70%);
+  background-repeat:no-repeat;background-size:100% 1px;background-position:0 0}
+.arch-flagship .svc-row:last-of-type{border-bottom-color:var(--line)}
+.arch-flagship .svc-row .si{color:var(--accent);font-size:.82rem;letter-spacing:.14em}
+.arch-flagship .svc-body h3{letter-spacing:-.02em}
+.arch-statement .svc-row .si{font-family:'__DISPLAY__',Georgia,serif;font-size:1.35rem;font-weight:800;letter-spacing:-.03em;color:var(--brand)}
+.arch-statement .svc-body h3{font-weight:700;letter-spacing:-.025em}
+.arch-hearth .svc-row .si{display:grid;place-items:center;width:46px;height:46px;border-radius:14px;
+  background:color-mix(in srgb,var(--accent) 20%,var(--surf));color:var(--brand-d);font-family:inherit;font-size:.95rem;transform:rotate(-4deg)}
+.arch-hearth .svc-row{border-top:2px solid color-mix(in srgb,var(--accent) 22%,var(--line));align-items:center}
+.arch-hearth .svc-row:last-of-type{border-bottom:2px solid color-mix(in srgb,var(--accent) 22%,var(--line))}
+.arch-editorial .svc-row .si{color:var(--mut)}
+.arch-editorial .svc-body h3{font-style:italic}
+.arch-minimal .svc-row .si{color:var(--mut);font-weight:500}
+.arch-minimal .svc-row{border-top-color:color-mix(in srgb,var(--ink) 8%,transparent)}
+.arch-split .svc-row .si{color:var(--brand-d)}
 
 /* ── WHY-US: check pillars ────────────────────────────────────────────────── */
 .whygrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:22px;margin-top:38px}

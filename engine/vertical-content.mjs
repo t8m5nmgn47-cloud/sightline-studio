@@ -388,6 +388,27 @@ const CONTENT_PLUS = {
   },
 };
 
+// Editorial services rail: the serif lead that sits under the section headline
+// in the two-column services layout. Honest, benefit-led, no invented facts —
+// and per-vertical so a title company doesn't read like a dentist. Captured or
+// LLM copy (sections.services.lead) still wins.
+const SVC_LEADS = {
+  dental:    ["Preventive, restorative and cosmetic care for every age — handled in one office, at a pace that never feels rushed.", "From the six-month checkup to the work you've been putting off, it's all here — explained plainly before anything begins."],
+  medical:   ["Primary care for well and sick patients of every age, with the visits, labs and follow-up handled under one roof.", "The everyday care your family actually needs — unhurried visits, real answers, and coordination with everyone else you see."],
+  optometry: ["Full eye-health exams, contact fittings and eyewear you'll actually want to wear — in a single unhurried visit.", "More than a prescription check: the health of your eyes, the right lenses, and frames chosen without pressure."],
+  law:       ["Straight assessments, careful preparation, and representation that holds up whether a matter settles or goes to trial.", "From the first conversation to the final resolution — clear counsel, honest odds, and steady advocacy throughout."],
+  accounting:["Tax work, clean books and year-round planning — so the numbers stop being the thing you worry about at night.", "Compliance handled and opportunities flagged before deadlines pass, not after the return is already filed."],
+  insurance: ["Independent coverage across auto, home, life and business — shopped across carriers, explained without the jargon.", "The right policy for how you actually live, reviewed as your life changes, with a real person at claim time."],
+  mortgage:  ["Purchase, refinance and first-time programs — with the rate, the fees and the timeline explained before you commit.", "From pre-approval strong enough to win the house through to the wire at closing, handled by people who answer the phone."],
+  title:     ["Title search, escrow and settlement handled with the diligence a closing date depends on.", "Residential, refinance and commercial files — clean title, verified wires, and a closing team that communicates early."],
+  medspa:    ["Injectables, lasers and medical-grade skin care, delivered with clinical rigor and a natural-first philosophy.", "Treatments planned around your face and your goals — with an honest recommendation, even when it's 'not yet'."],
+  trades:    ["Repairs, installs and maintenance — quoted straight, scheduled honestly, and guaranteed in writing.", "Whether it's an emergency at 6am or a project you've been planning for months, it's the same crew and the same standard."],
+  construction:["Preconstruction through closeout — budgets shaped early, schedules held, and self-perform capability where it counts.", "Design-build, CM and general contracting delivered by a team that shows up in preconstruction, not just at the groundbreaking."],
+  childcare: ["Infant care through pre-K readiness, with low ratios, warm teachers and days built around curiosity.", "Programs for every age and schedule — play-based, purposeful, and staffed by teachers who stay."],
+  retail:    ["Products we've tested ourselves, shipped fast, and backed by people who actually know the gear.", "Careful sourcing, honest descriptions and support that fixes things quickly on the rare occasion something goes wrong."],
+  business:  ["Everything we do, handled by people who know your name — with clear pricing agreed before any work starts.", "A short list of things done properly, for neighbors who'd rather deal with someone local than a call center."],
+};
+
 // Build the site-engine `sections` object for a business vertical.
 // realReviews: array of {q, name} captured from the prospect (optional). When
 // absent, the reviews section is OMITTED entirely — we never invent reviews.
@@ -398,7 +419,7 @@ export function buildSections(vertical, name, { realReviews = [], rating = null,
   // captured service names (each given keyword-matched copy - never blank),
   // vertical pack defaults (which ship {h,p}).
   const detailed = (serviceDetails || []).filter((s) => s && s.h);
-  const items = detailed.length >= 3 ? detailed.map((s) => svc(s.h, s.p || ""))
+  const items = detailed.length >= 3 ? detailed.map((s, i) => svc(s.h, s.p || describeService(s.h, i, vertical)))
     : (realServices && realServices.length >= 3) ? realServices.map((s, i) => svc(s, describeService(s, i, vertical)))
     : pk.services.map((s, i) => (typeof s === "string" ? svc(s, describeService(s, i, vertical)) : s));
   const sections = {
@@ -414,6 +435,7 @@ export function buildSections(vertical, name, { realReviews = [], rating = null,
     },
     services: { kicker: "Our services",
       title: v((CONTENT_PLUS[vertical] || CONTENT_PLUS.business).svcTitles || ["How we can help.", "What we do.", "Care, tailored to you."]),
+      lead: v(SVC_LEADS[vertical] || SVC_LEADS.business),
       items },
     offer: pk.offer || undefined,
     hours: {},
