@@ -31,6 +31,7 @@ import { execFileSync } from 'node:child_process';
 import * as cheerio from 'cheerio';
 import { extractSignals } from '../api/_intake.js';
 import { llmExtract } from './llm-extract.mjs';
+import { isPhotoMeta } from './site-engine.mjs';   // one predicate for "is this a photograph?"
 
 const UA = { headers: { 'user-agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126 Safari/537.36' }, redirect: 'follow' };
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
@@ -356,15 +357,44 @@ export function extractPhotos($pages, baseUrl) {
       const m = ((el.attribs || {}).style || '').match(/background-image\s*:\s*url\(['"]?([^'")]+)/i);
       if (m) add(m[1], {});
     });
-    $('meta[property="og:image"]').each((_, el) => add((el.attribs || {}).content, {}));
+    // og:image is a SHARE CARD, not photography. It is authored for link
+    // previews, which is why it so often carries the business name, a tagline
+    // and a web address composited over a picture ("CALVARY LONGVIEW / WELCOME
+    // HOME / WWW.CCLONGVIEW.COM" laid over a photo of the building). Nothing in
+    // the filename, the alt or the pixels marks that image as promotional — the
+    // SOURCE SLOT does, and that is a general structural signal rather than
+    // scar tissue for one prospect. Flagged `social` here, folded into `promo`
+    // below, so it lands where promo material lands: last resort only, and
+    // never inside "Real photos, not stock."
+    // Recorded only when the URL is NEW: when the same file is also a real
+    // <img> on the page, that stronger evidence already stands.
+    $('meta[property="og:image"]').each((_, el) => {
+      const u = (el.attribs || {}).content;
+      if (!u) return;
+      let abs; try { abs = new URL(u, baseUrl).href; } catch { return; }
+      if (!out.has(abs)) add(u, { social: true });
+    });
   }
   // Promo/seasonal graphics (raffle banners, holiday popups, coupons) are real
   // <img>s and often huge — but they make a terrible hero and a worse gallery.
   // Detectable from URL + alt text; rank them dead last instead of first.
   const PROMO = /raffle|contest|giveaway|holiday|christmas|santa|xmas|halloween|easter|black.?friday|coupon|special.?offer|promo|sale.?banner|popup|pop-up|flyer|announcement|gift.?card|certificate|award|associat|chapter|accredit|sponsor|member.?of|project.?of.?the.?year/i;
-  const isPromo = (p) => PROMO.test(p.url) || PROMO.test(p.alt || '');
+  // …and the filenames a CMS gives the same class of authored marketing art.
+  const PROMO_URL = /(?:^|[\/\-_])(?:og[-_]?image|opengraph|social[-_](?:card|share|image)|share[-_](?:card|image)|twitter[-_]card)(?:[\/\-_.]|$)/i;
+  // Stock the PROSPECT used. Stock libraries name their downloads after
+  // themselves ("parker-byrd-gxD8hCmi0IQ-unsplash.jpg", "Shutterstock_2140229137.jpg")
+  // and that name survives the upload, so the evidence is right there in the
+  // markup. This is NOT a reason to demote the image: it is what the business
+  // chose to show, it is often the best picture they have, and for some
+  // prospects it is the ENTIRE library — demoting it strips a site down to two
+  // photographs and makes the page worse, not more honest. It is recorded and
+  // carried into photoMeta so the one place that makes a CLAIM about it can
+  // tell the truth: the gallery strip's "Real photos, not stock." heading.
+  const STOCK_URL = /(?:^|[\/\-_])(?:unsplash|pexels|shutterstock|istockphoto|istock|gettyimages|adobe[-_]?stock|freepik|pixabay|depositphotos|dreamstime)(?:[\/\-_.]|$)/i;
+  const isPromo = (p) => !!p.social || PROMO.test(p.url) || PROMO.test(p.alt || '')
+    || PROMO_URL.test(p.url);
   return [...out.values()]
-    .map((p) => ({ ...p, promo: isPromo(p) }))
+    .map((p) => ({ ...p, promo: isPromo(p), stockNamed: STOCK_URL.test(p.url) }))
     // unknown-size images (slider/background photos rarely declare w/h) get a
     // NEUTRAL area instead of zero — punishing them to the bottom is how a
     // contractor's crew photo loses to a smaller image with width attributes.
@@ -903,6 +933,7 @@ export async function saveAssets(slug, cap, ROOT, { maxPhotos = 8 } = {}) {
     if (byteSeen.has(bkey)) continue;
     byteSeen.add(bkey);
     got.promo = !!ph.promo;
+    got.stockNamed = !!ph.stockNamed;    // the file's own name says which library it came from
     got.hash = await dHash(got.buf);
     const sig = await imageSignals(got.buf);
     got.graphic = sig.graphic;
@@ -941,6 +972,7 @@ export async function saveAssets(slug, cap, ROOT, { maxPhotos = 8 } = {}) {
       path: rel(file), bytes: c.bytes, w: c.w, h: c.h,
       hash: c.hash == null ? null : c.hash.toString(16).padStart(16, '0'),
       graphic: !!c.graphic,
+      stock: !!c.stockNamed,         // provably a stock library's file, by its own filename
       skin: c.skin ?? null,          // fraction of skin-tone pixels (people/warm places)
       entropy: c.entropy ?? null,
     });
@@ -951,11 +983,20 @@ export async function saveAssets(slug, cap, ROOT, { maxPhotos = 8 } = {}) {
     console.log(`  photos:   ${saved.length} kept from ${cands.length} candidates`
       + (dupDropped ? ` · ${dupDropped} near-duplicate${dupDropped === 1 ? '' : 's'} dropped` : '')
       + (nGraphic ? ` · ${nGraphic} graphic${nGraphic === 1 ? '' : 's'} demoted` : ''));
-  const gallery = saved.map((s) => s.path);
-  // hero: widest landscape photo ≥800px; fall back to the largest file
-  const landscape = saved.filter((s) => s.w >= 800 && (!s.h || s.w >= s.h)).sort((a, b) => b.w - a.w);
+  // GATE AT THE POOL ENTRANCE. `gallery` is the list every profile and every
+  // renderer treats as "their photographs", so a graphic must not be on it —
+  // filtering downstream at each slot is how one slot gets missed. The graphics
+  // are still written to disk and still described in photoMeta, so a later
+  // vision pass can arbitrate and put a good one back; they are simply not
+  // handed out as photography by default. Renderers keep photosOnly() as
+  // belt-and-braces for profiles built without a capture.
+  const photos = saved.filter(isPhotoMeta);
+  const gallery = (photos.length ? photos : saved).map((s) => s.path);
+  // hero: widest landscape photograph ≥800px; fall back to the largest file
+  const heroPool = photos.length ? photos : saved;
+  const landscape = heroPool.filter((s) => s.w >= 800 && (!s.h || s.w >= s.h)).sort((a, b) => b.w - a.w);
   const heroImage = landscape[0]?.path
-    || saved.slice().sort((a, b) => (b.w || 0) - (a.w || 0) || b.bytes - a.bytes)[0]?.path
+    || heroPool.slice().sort((a, b) => (b.w || 0) - (a.w || 0) || b.bytes - a.bytes)[0]?.path
     || null;
   return { logo, gallery, heroImage, photoMeta: saved };
 }

@@ -619,9 +619,18 @@ S.gallerystrip = (p) => {
   // proving the site is really theirs.
   const pics = photosOnly(p, (p.gallery||[]).filter(g=>g!==hero)).slice(0,6);
   if (pics.length < 3) return '';   // 2 photos in a full-bleed strip reads unfinished
+  // …and the HEADING is part of the promise. Some prospects illustrate their
+  // own site with stock, and their files say so ("…-unsplash.jpg",
+  // "Shutterstock_2140229137.jpg"). When any picture in this strip is one of
+  // those, the strip still earns its place — it is what the business chose to
+  // show — but it must not claim to be proof of the opposite. The neutral
+  // heading is the honest one; the claim is only made when it is true.
+  const meta = new Map((p.photoMeta||[]).filter(m=>m&&m.path).map(m=>[m.path,m]));
+  const allOwn = pics.every(g => !meta.get(g)?.stock);
+  const title = p._t?.copy?.gallery?.title || (allOwn ? 'Real photos, not stock.' : 'A closer look.');
   return `
 <section class="sec gstrip" id="gallery">
-  <div class="wrap"><span class="sec-k">${esc(p._t?.copy?.gallery?.kicker||'Take a look')}</span><h2>${esc(p._t?.copy?.gallery?.title||'Real photos, not stock.')}</h2></div>
+  <div class="wrap"><span class="sec-k">${esc(p._t?.copy?.gallery?.kicker||'Take a look')}</span><h2>${esc(title)}</h2></div>
   <div class="gstrip-row">${pics.map((g,i)=>`<img src="${g}" alt="${esc(p.name)} — photo ${i+1}" loading="lazy" decoding="async">`).join('')}</div>
 </section>`; };
 
@@ -932,10 +941,15 @@ S.featureband = (p) => {
 // a graphic (logo tile, sermon banner, plan card, duotone promo). Missing meta
 // means an older profile or a hand-built one — treat it as a photograph, which
 // is exactly the behaviour every caller had before the flag existed.
+// THE predicate. Capture gates the pool with it (saveAssets), the pipeline
+// plans slots with it (planPhotoSlots) and the renderers below re-apply it as
+// belt-and-braces. One declaration: three copies of "is this a photograph?" is
+// how one of them ends up disagreeing with the other two.
+export const isPhotoMeta = (m) => !(m && m.graphic);
 function photosOnly(p, list){
   const meta = p.photoMeta;
   if (!Array.isArray(meta) || !meta.length) return list;
-  const graphic = new Set(meta.filter(m=>m && m.graphic).map(m=>m.path));
+  const graphic = new Set(meta.filter(m=>!isPhotoMeta(m)).map(m=>m.path));
   return list.filter(g=>!graphic.has(g));
 }
 
