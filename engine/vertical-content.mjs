@@ -494,6 +494,14 @@ export function sameCopy(a, b) {
 export function buildSections(vertical, name, { realReviews = [], rating = null, reviewCount = null, realServices = [], serviceDetails = [], slug = "", mission = "", town = "" } = {}) {
   const pk = PACKS[vertical] || PACKS.business;
   const v = (arr) => vary(slug || name, arr);
+  // Section headings use the SHORT display name: interpolating a captured
+  // long-form legal name ("Town & Town LLC - the Attorneys of Highlands
+  // Ranch") into "The people behind X." reads as a mail-merge accident.
+  // Same separator rule as the footer wordmark; full name stays in copy/footer.
+  {
+    const head = String(name).split(/\s+(?:[-–—|:•·]|\/\/)\s+/)[0].trim();
+    if (head.length >= 3) name = head;
+  }
   // Best -> worst: captured services WITH their own descriptions (LLM pass),
   // captured service names (each given keyword-matched copy - never blank),
   // vertical pack defaults (which ship {h,p}).
