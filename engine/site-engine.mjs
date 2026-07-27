@@ -538,15 +538,58 @@ S.sacraments = (p) => { const s=p.sections.sacraments; if(!s) return '';
   </div>
 </section>`; };
 
+// Team. The photo coverage decides the FORM — a grid of mostly-missing photos
+// reads broken (letter squares), and one lone centred square reads like an
+// error state. Three treatments, all of which look deliberate:
+//   photos for ≥60% → grid, the few without get a quiet typographic monogram
+//   otherwise        → a hairline-ruled roster (names + roles, no squares)
+//   exactly one, with a photo → an editorial split
 S.team = (p) => { const s=p.sections.team; if(!s||!s.items||!s.items.length) return '';
-  return `
+  const items = s.items.filter(m => m && m.name);
+  if (!items.length) return '';
+  const n = items.length;
+  const withPhoto = items.filter(m=>m.photo).length;
+  const head = `<span class="sec-k">${esc(s.kicker||'Our team')}</span>
+    <h2>${esc(s.title||'People you\'ll meet')}</h2>`;
+  const mono = m => esc((m.name||'?').split(/\s+/).map(w=>w[0]).join('').slice(0,2).toUpperCase());
+
+  if (n === 1 && withPhoto === 1){
+    const m = items[0];
+    return `
+<section class="sec team team-1" id="team">
+  <div class="wrap tsolo">
+    <div class="tsolo-copy">${head}
+      <p class="tsolo-name">${esc(m.name)}</p>
+      ${m.role?`<span class="trole">${esc(m.role)}</span>`:''}
+      ${m.bio?`<p class="lead">${esc(m.bio)}</p>`:''}
+    </div>
+    <figure class="mediacol tsolo-media"><img src="${m.photo}" alt="${esc(m.name)}" loading="lazy" decoding="async"></figure>
+  </div>
+</section>`;
+  }
+
+  if (withPhoto / n >= .6){
+    return `
 <section class="sec team" id="team">
   <div class="wrap">
-    <span class="sec-k">${esc(s.kicker||'Our team')}</span>
-    <h2>${esc(s.title||'People you\'ll meet')}</h2>
-    <div class="teamgrid">${s.items.map(m=>`
-      <article class="tcard">${m.photo?`<img src="${m.photo}" alt="${esc(m.name)}" loading="lazy" decoding="async">`:`<div class="tinitial">${esc((m.name||'?')[0])}</div>`}
+    ${head}
+    <div class="teamgrid">${items.map(m=>`
+      <article class="tcard">${m.photo
+        ? `<img src="${m.photo}" alt="${esc(m.name)}" loading="lazy" decoding="async">`
+        : `<div class="tmono" aria-hidden="true">${mono(m)}</div>`}
         <h3>${esc(m.name)}</h3><span class="trole">${esc(m.role||'')}</span></article>`).join('')}
+    </div>
+  </div>
+</section>`;
+  }
+
+  // roster: scales cleanly from 1 to 12+ people and never shows an empty square
+  return `
+<section class="sec team team-roster" id="team">
+  <div class="wrap">
+    ${head}
+    <div class="roster">${items.map(m=>`
+      <div class="rost"><span class="rost-n">${esc(m.name)}</span><span class="rost-r">${esc(m.role||'')}</span></div>`).join('')}
     </div>
   </div>
 </section>`; };
@@ -686,7 +729,7 @@ S.bizmoney = (p) => { const s=p.sections.money; if(!s) return '';
       ${s.logos?`<div class="chips">${s.logos.map(l=>`<span class="chip">${esc(l)}</span>`).join('')}</div>`:''}
       <a class="btn" href="#book" style="margin-top:20px">${esc(s.cta||tc.cta||p._t?.bookCta||'Get in touch →')}</a>
     </div>
-    ${img?`<div class="money-img"><img src="${img}" alt="${esc(p.name)}" loading="lazy" decoding="async"></div>`:''}
+    ${img?`<div class="mediacol money-img"><img src="${img}" alt="${esc(p.name)}" loading="lazy" decoding="async"></div>`:''}
   </div></section>`; };
 
 // Why-us pillars — credibility without fabricating reviews.
@@ -740,7 +783,7 @@ S.feature = (p) => { const s=p.sections.feature; if(!s||!s.points||!s.points.len
   return `
 <section class="sec featsplit" id="why">
   <div class="wrap feat-in${img?'':' noimg'}">
-    ${img?`<div class="feat-img"><img src="${img}" alt="${esc(p.name)}" loading="lazy" decoding="async"></div>`:''}
+    ${img?`<div class="mediacol feat-img"><img src="${img}" alt="${esc(p.name)}" loading="lazy" decoding="async"></div>`:''}
     <div class="feat-copy">
       <span class="sec-k">${esc(s.kicker||'Why us')}</span>
       <h2>${esc(s.title||`Why neighbors choose ${p.name}.`)}</h2>
@@ -750,22 +793,8 @@ S.feature = (p) => { const s=p.sections.feature; if(!s||!s.points||!s.points.len
   </div>
 </section>`; };
 
-// about/story band — mission narrative + stat chips, photo when captured
-S.about = (p) => { const s=p.sections.about; if(!s||!s.body) return '';
-  const img = photoPlan(p).about;
-  const stats = (s.stats||[]).filter(x=>x&&x.v);
-  return `
-<section class="sec aboutband" id="about">
-  <div class="wrap about-in${img?'':' noimg'}">
-    <div class="about-copy">
-      <span class="sec-k">${esc(s.kicker||'Our story')}</span>
-      <h2>${esc(s.title||`The story behind ${p.name}.`)}</h2>
-      <p class="lead">${esc(s.body)}</p>
-      ${stats.length?`<div class="about-stats">${stats.map(x=>`<div class="astat"><b>${esc(x.v)}</b><span>${esc(x.k)}</span></div>`).join('')}</div>`:''}
-    </div>
-    ${img?`<div class="about-img"><img src="${img}" alt="${esc(p.name)}" loading="lazy" decoding="async"></div>`:''}
-  </div>
-</section>`; };
+// S.about is an ALIAS of S.about_split (assigned below its definition) — one
+// about treatment for the whole engine instead of two that drifted apart.
 
 // business gallery grid ("A closer look") — needs 3+ photos beyond hero/feature/about
 S.gallery = (p) => {
@@ -810,8 +839,8 @@ S.faq = (p) => { const s=p.sections.faq; if(!s||!s.items||!s.items.length) retur
 S.about_split = (p) => { const s=p.sections.about; if(!s||!s.body) return '';
   const img = photoPlan(p).about;
   const media = img
-    ? `<figure class="abs-media"><img src="${img}" alt="${esc(p.name)}" loading="lazy" decoding="async"></figure>`
-    : `<div class="abs-media abs-panel"><span class="abs-mark">${esc((p.name||'').split(/\s+/).map(w=>w[0]).join('').slice(0,3))}</span></div>`;
+    ? `<figure class="mediacol abs-media"><img src="${img}" alt="${esc(p.name)}" loading="lazy" decoding="async"></figure>`
+    : `<div class="mediacol abs-media abs-panel"><span class="abs-mark">${esc((p.name||'').split(/\s+/).map(w=>w[0]).join('').slice(0,3))}</span></div>`;
   const stats = (s.stats||[]).filter(x=>x&&x.v);
   return `
 <section class="sec aboutsplit" id="about">
@@ -826,6 +855,7 @@ S.about_split = (p) => { const s=p.sections.about; if(!s||!s.body) return '';
     ${media}
   </div>
 </section>`; };
+S.about = S.about_split;   // retired the second about band — see note above
 
 // FAQ as an editorial two-column layout: sticky heading rail beside the
 // accordion. Same grounding + the SAME FAQPage JSON-LD builder as S.faq.
@@ -1131,11 +1161,26 @@ h1,h2,h3{font-family:'__DISPLAY__',Georgia,serif;font-weight:600;line-height:1.0
 .times-list{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px 30px;flex:1}
 .times-list li{display:flex;align-items:center;gap:12px;font-size:1.05rem;padding:10px 0;border-bottom:1px solid var(--line)}
 .tdot{width:9px;height:9px;border-radius:50%;background:var(--accent);flex:none}
-/* team */
+/* team — grid (photo-rich) */
 .teamgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,210px));gap:24px;margin-top:32px;justify-content:center}
-.tcard{text-align:center;max-width:210px}.tcard img,.tinitial{width:100%;aspect-ratio:1;object-fit:cover;border-radius:calc(var(--rad)*1px)}
-.tinitial{display:grid;place-items:center;background:var(--brand);color:#fff;font-family:'__DISPLAY__',serif;font-size:2.4rem;font-weight:600}
-.tcard h3{font-size:1.1rem;margin-top:14px}.trole{color:var(--mut);font-size:.92rem}
+.tcard{text-align:center;max-width:210px}.tcard img,.tmono{width:100%;aspect-ratio:1;object-fit:cover;border-radius:calc(var(--rad)*1px)}
+/* a member without a photo gets a QUIET monogram — typography on the page
+   ground, not a saturated brand square shouting "missing image" */
+.tmono{display:grid;place-items:center;background:transparent;border:1px solid var(--line);
+  color:var(--mut);font-family:'__DISPLAY__',serif;font-size:1.6rem;font-weight:500;letter-spacing:.06em}
+.tcard h3{font-size:1.1rem;margin-top:14px}.trole{color:var(--mut);font-size:.92rem;display:block}
+/* team — roster (no photos, or a mix too thin to look intentional) */
+.roster{margin-top:34px;display:flex;flex-direction:column}
+.rost{display:flex;justify-content:space-between;align-items:baseline;gap:20px;padding:clamp(16px,2vw,24px) 0;border-top:1px solid var(--line)}
+.rost:last-child{border-bottom:1px solid var(--line)}
+.rost-n{font-family:'__DISPLAY__',Georgia,serif;font-size:clamp(1.15rem,1rem + .5vw,1.42rem);font-weight:600;letter-spacing:-.01em}
+.rost-r{color:var(--mut);font-size:.95rem;text-align:right}
+@media(max-width:520px){.rost{flex-direction:column;gap:2px}.rost-r{text-align:left}}
+/* team — single member with a photo: an editorial split, never a lone square */
+.tsolo{display:grid;grid-template-columns:1fr 1fr;gap:clamp(28px,5vw,64px);align-items:stretch}
+.tsolo-copy{align-self:center}
+.tsolo-name{font-family:'__DISPLAY__',Georgia,serif;font-size:clamp(1.5rem,1rem + 1.4vw,2.2rem);font-weight:600;margin:26px 0 4px;line-height:1.1}
+@media(max-width:760px){.tsolo{grid-template-columns:1fr;gap:26px}}
 /* band */
 .band{background:linear-gradient(120deg,color-mix(in srgb,var(--brand) 48%,#14161b),color-mix(in srgb,var(--brand) 22%,#0e1014));color:#fff}
 .band-in{display:flex;gap:30px;align-items:center;justify-content:space-between;flex-wrap:wrap}
@@ -1150,18 +1195,24 @@ h1,h2,h3{font-family:'__DISPLAY__',Georgia,serif;font-weight:600;line-height:1.0
 .trustitem{font-weight:600;font-size:.92rem;display:flex;align-items:center;gap:8px}
 .tcheck{color:var(--accent);font-weight:800}
 /* feature split / about band / gallery grid / FAQ (narrative-arc sections) */
-.feat-in,.about-in{display:grid;grid-template-columns:1fr 1fr;gap:clamp(28px,5vw,64px);align-items:center}
-.feat-in.noimg,.about-in.noimg{grid-template-columns:1fr}
-.feat-img img,.about-img img{width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:calc(var(--rad)*1px);box-shadow:0 24px 60px rgba(0,0,0,.14)}
+/* Media columns FILL their column: the copy side decides the height and the
+   photo matches it. A fixed 4/3 aspect used to leave a dead band of whitespace
+   beside any paragraph longer than the picture. */
+.feat-in,.about-in,.money-in,.abs-in{align-items:stretch}
+.feat-in{display:grid;grid-template-columns:1fr 1fr;gap:clamp(28px,5vw,64px)}
+.feat-in.noimg,.about-in.noimg,.money-in.noimg{grid-template-columns:1fr}
+.feat-copy,.about-copy,.money-copy,.abs-copy{align-self:center}
+.mediacol,.feat-img,.about-img,.money-img{align-self:stretch;min-height:clamp(380px,46vh,620px);
+  overflow:hidden;margin:0;border-radius:calc(var(--rad)*1px);box-shadow:0 24px 60px rgba(0,0,0,.14)}
+.mediacol img,.feat-img img,.about-img img,.money-img img{width:100%;height:100%;object-fit:cover;display:block}
+.feat-in.noimg .mediacol,.money-in.noimg .mediacol{display:none}
 .feat-points{list-style:none;margin:26px 0 0;padding:0;display:flex;flex-direction:column;gap:12px}
 .feat-points li{display:flex;gap:12px;align-items:baseline;font-weight:600}
 .aboutband{background:color-mix(in srgb,var(--brand) 5%,var(--bg))}
 .about-stats{display:flex;gap:34px;margin-top:28px;flex-wrap:wrap}
 .astat b{font-family:'__DISPLAY__',serif;font-size:1.9rem;color:var(--brand);display:block;line-height:1.1}
 .astat span{color:var(--mut);font-size:.9rem}
-.money-in{display:grid;grid-template-columns:1.15fr 1fr;gap:clamp(28px,5vw,60px);align-items:center}
-.money-in.noimg{grid-template-columns:1fr}
-.money-img img{width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:calc(var(--rad)*1px);box-shadow:0 24px 60px rgba(0,0,0,.14)}
+.money-in{display:grid;grid-template-columns:1.15fr 1fr;gap:clamp(28px,5vw,60px)}
 .money-quote{margin:22px 0 0;padding:18px 22px;background:var(--surf);border-left:4px solid var(--accent);border-radius:0 calc(var(--rad)*1px) calc(var(--rad)*1px) 0;font-style:italic;font-size:1.04rem}
 .money-quote cite{display:block;margin-top:10px;font-style:normal;font-weight:600;font-size:.88rem;color:var(--mut)}
 @media(max-width:760px){.money-in{grid-template-columns:1fr}}
@@ -1284,7 +1335,7 @@ body .hero.no-img{background:
 .navlinks a::after{content:"";position:absolute;left:0;right:100%;bottom:-5px;height:2px;background:currentColor;opacity:.7;transition:right .22s var(--ease,ease)}
 .navlinks a:hover::after{right:0}
 .ev{transition:padding-left .2s}.ev:hover{padding-left:8px}
-.tcard img,.tinitial{transition:transform .25s}.tcard:hover img,.tcard:hover .tinitial{transform:scale(1.03)}
+.tcard img{transition:transform .25s}.tcard:hover img{transform:scale(1.03)}
 a:focus-visible,.btn:focus-visible,button:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:4px}
 /* nav turns solid on scroll (overlay-nav archetypes only) */
 body:not(.arch-split):not(.arch-minimal) .nav{transition:background .3s,padding .3s,box-shadow .3s}
@@ -1538,22 +1589,25 @@ body.arch-hearth .sec.times.times.times{position:relative;overflow:hidden;color:
 .arch-hearth .foot{background:color-mix(in srgb,var(--brand) 32%,#120d09)}
 @media(prefers-reduced-motion:reduce){.arch-hearth .btn:hover,.arch-hearth .card:hover,.arch-hearth .step:hover,.arch-hearth .ev:hover{transform:none}}
 
-/* ── ABOUT: editorial split ───────────────────────────────────────────────── */
-.about-in{display:grid;grid-template-columns:1.05fr .95fr;gap:clamp(32px,5vw,72px);align-items:center}
-@media(max-width:820px){.about-in{grid-template-columns:1fr;gap:28px}}
-
-/* ── ABOUT SPLIT variant: serif narrative beside a framed portrait photo
-     (ported from the old editorial template's about band) ──────────────────── */
-.abs-in{display:grid;grid-template-columns:1.05fr .95fr;gap:clamp(32px,5vw,72px);align-items:center}
+/* ── ABOUT SPLIT: serif narrative beside a framed portrait photo. S.about is
+     an ALIAS of this renderer now — one about treatment, one .about-in
+     declaration (the old duplicate here fought the one in the base sheet). ─── */
+.abs-in{display:grid;grid-template-columns:1.05fr .95fr;gap:clamp(32px,5vw,72px)}
 .abs-body{font-size:1.08rem;line-height:1.75;color:color-mix(in srgb,var(--ink) 82%,var(--mut));max-width:58ch;margin:1.1em 0 1.4em}
 .abs-loc{color:var(--brand);font-weight:600;font-size:.92rem;letter-spacing:.04em;margin:0 0 22px}
-.abs-media{position:relative;margin:0;border-radius:calc(var(--rad)*2px);overflow:hidden;aspect-ratio:4/5;max-height:560px;box-shadow:0 30px 70px -30px rgba(0,0,0,.35)}
-.abs-media img{width:100%;height:100%;object-fit:cover;transition:transform .6s var(--ease,ease)}
+.abs-media{position:relative;margin:0;align-self:stretch;min-height:clamp(380px,46vh,620px);
+  border-radius:calc(var(--rad)*2px);overflow:hidden;box-shadow:0 30px 70px -30px rgba(0,0,0,.35)}
+.abs-media img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .6s var(--ease,ease)}
 .abs-media:hover img{transform:scale(1.04)}
 .abs-media::after{content:"";position:absolute;inset:0;box-shadow:inset 0 0 0 1px rgba(255,255,255,.14);border-radius:inherit;pointer-events:none}
 .abs-panel{display:grid;place-items:center;background:linear-gradient(145deg,color-mix(in srgb,var(--brand) 55%,#171a20),color-mix(in srgb,var(--brand) 25%,#0e1014))}
 .abs-mark{font-family:'__DISPLAY__',Georgia,serif;font-size:clamp(4rem,9vw,7rem);font-weight:600;color:rgba(255,255,255,.9);letter-spacing:.04em}
-@media(max-width:820px){.abs-in{grid-template-columns:1fr;gap:28px}.abs-media{aspect-ratio:16/10;max-height:340px}}
+/* about stats become a hairline-topped value row (compfm .about-vals) */
+.about-stats{border-top:1px solid var(--line);padding-top:clamp(22px,3vw,34px);margin-top:clamp(26px,4vw,42px);
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:clamp(16px,2.5vw,34px)}
+.astat b{margin-bottom:6px}
+@media(max-width:820px){.abs-in{grid-template-columns:1fr;gap:28px}.abs-media{min-height:clamp(260px,40vh,360px)}
+  .mediacol,.feat-img,.about-img,.money-img,.tsolo-media{min-height:clamp(260px,40vh,380px)}}
 
 /* ── FAQ COLUMNS variant: editorial two-column, sticky heading rail ────────── */
 .faqcols-in{display:grid;grid-template-columns:.85fr 1.15fr;gap:clamp(28px,5vw,64px);align-items:start}
