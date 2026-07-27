@@ -23,7 +23,8 @@ import { fileURLToPath } from 'node:url';
 // whenever the engine ran from another directory.
 const REPO_ROOT = fileURLToPath(new URL('..', import.meta.url));
 
-// vertical → stock file prefix(es). Trades picks a sub-trade by name keywords.
+// pack key → stock file prefix(es). Keys cover BOTH kinds of pack: verticals
+// (business) and traditions (congregations). Trades picks a sub-trade by name.
 const STOCK_PREFIX = {
   dental: ['dental'],
   medical: ['medical'],
@@ -36,6 +37,11 @@ const STOCK_PREFIX = {
   title: ['insurance-title'],
   childcare: ['childcare'],
   trades: ['hvac-home-services'],          // overridden by sub-trade detection
+  // congregation traditions — one honest sanctuary/gathering library serves all
+  church: ['church'],
+  catholic: ['church'],
+  mainline: ['church'],
+  contemporary: ['church'],
   // retail/business: too heterogeneous for honest stock — gradient poster instead
 };
 

@@ -323,8 +323,13 @@ const heroSub = override?.subhead
   || trimWords(sig.description)
   || (isBiz ? 'Tell us what you need — we’ll make the next step clear.' : 'Come as you are.');
 
+// Churches were the only pack getting NO ambience stock, which left the
+// feature/about bands imageless whenever their capture ran thin. stockFor is
+// keyed by pack key for both kinds now; the honesty rule is unchanged, because
+// it lives in site-engine's photoPlan — stock fills ambience slots only and
+// never enters the gallery grid presented as "their photos".
 const { stockFor } = await import('./photo-engine.mjs');
-const stock = isBiz ? stockFor(pack.key, name + ' ' + slug, ROOT) : [];
+const stock = stockFor(pack.key, name + ' ' + slug, ROOT);
 const sfx = flag('suffix');
 if (sfx && stock.length > 1) {
   const rot = [...sfx].reduce((a,c)=>a+c.charCodeAt(0),0) % stock.length;
