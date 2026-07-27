@@ -350,12 +350,17 @@ S.giving = (p) => { const s=p.sections.giving; if(!s) return '';
 </section>`; };
 
 S.cta = (p) => {
-  // photo-backed close when we captured enough imagery (their own photos > flat colour).
-  // The pool sorts graphics LAST, and this slot takes the last picture — so
-  // without the filter the closing band lands on a logo tile every time a
-  // prospect ships one. The CTA is an ambience slot: photographs only.
-  const pics = photosOnly(p, (p.gallery||[]).filter(g=>g!==p.heroImage));
-  const img = pics.length >= 4 ? pics[pics.length-1] : null;
+  // photo-backed close when we captured enough imagery (their own photos > flat
+  // colour). The CTA is an ambience slot: photographs only, never a logo tile —
+  // and the photograph it gets is the one the PLAN reserved for it, so it can
+  // never re-run an image the story or why-us band already used. Older profiles
+  // carry a plan without a cta key; they keep the previous positional pick.
+  const plan = photoPlan(p);
+  let img = plan.cta ?? null;
+  if (!('cta' in plan)) {
+    const pics = photosOnly(p, (p.gallery||[]).filter(g=>g!==p.heroImage));
+    img = pics.length >= 4 ? pics[pics.length-1] : null;
+  }
   // fallback copy comes from the ACTIVE PACK (p._t: vertical or tradition) —
   // never a hardcoded vertical's voice. Church copy lives in TRADITIONS
   // (ctaTitle/ctaLead/ctaCta); business copy lives in VERTICALS. No pack at
@@ -630,12 +635,41 @@ S.pagehero = (p) => `
   </div>
 </header>`;
 
-S.footer = (p) => `
+// The footer sets the business name as a WORDMARK — display size, tight
+// tracking, its own line. That treatment assumes a name, and captured names are
+// often not names: "Town & Town LLC - the Attorneys of Highlands Ranch" is 52
+// characters and lands as three lines of 7vw type that shout over the whole
+// page. Two general rules, both deterministic, no per-prospect exceptions:
+//
+//   1. SHORTEN. A name carrying a tagline after a separator (" - ", " — ",
+//      " | ", " : ") is a name plus marketing; the wordmark is the first
+//      segment. The full legal name never disappears — it moves to the fine row.
+//   2. SCALE. Whatever survives, size it by length: a short name earns the full
+//      display clamp, a medium one a smaller clamp, a long one sits near body
+//      scale with normal tracking (tight tracking on long strings reads as a
+//      typo, not as design).
+const WORDMARK_SEP = /\s+(?:[-–—|:•·]|\/\/)\s+/;
+export function wordmark(name = '') {
+  const full = String(name).trim().replace(/\s+/g, ' ');
+  const head = full.split(WORDMARK_SEP)[0].trim();
+  // only accept the shortened head if it's a plausible name on its own — a
+  // 2-character fragment is a capture artefact, not a wordmark
+  const mark = head.length >= 3 ? head : full;
+  const size = mark.length <= 14 ? 'lg' : mark.length <= 28 ? 'md' : 'sm';
+  return { mark, size, full, shortened: mark !== full };
+}
+
+S.footer = (p) => {
+  const w = wordmark(p.name);
+  // the fine row carries the full legal name whenever the wordmark dropped
+  // something — the page must still say who this legally is
+  const fine = w.shortened ? `${esc(w.full)} · Site by Sightline` : 'Site by Sightline';
+  return `
 <footer class="foot"><div class="wrap">
-  <div class="foot-brand">${esc(p.name)}</div>
+  <div class="foot-brand fb-${w.size}">${esc(w.mark)}</div>
   ${p.location?`<div class="foot-loc">${esc(p.location)}</div>`:''}
-  <div class="foot-fine">Site by Sightline</div>
-</div></footer>`;
+  <div class="foot-fine">${fine}</div>
+</div></footer>`; };
 
 // ── archetypes: section order + body class (drives layout treatment) ─────────
 export const ARCHETYPES = {
@@ -686,12 +720,35 @@ S.bookbar = (p) => { const b=p.sections.book||{};
 </section>`; };
 
 // FLAGSHIP marquee — a slow scrolling band of what they do / who they serve.
+//
+// Two repetition rules, because a marquee makes both kinds visible at once:
+//   SOURCE. Dedupe the labels the way a reader compares them (case and
+//     punctuation blind). A captured list that says "Escrow" and "escrow" ships
+//     the same word twice in the band.
+//   SEAM. The strip is one run rendered twice and translated -50% — that is what
+//     makes the loop seamless, and it means every label recurs exactly one RUN
+//     WIDTH apart. If a run is narrower than the viewport, the same word is on
+//     screen twice at once ("Consumers … Consumers"), which reads as a bug.
+//     So widen the run until it exceeds a wide desktop: the item spacing grows
+//     (capped, so it stays a band and not a gap field) and short lists breathe
+//     instead of stuttering.
 S.marquee = (p) => {
-  const items = (p._t?.services || p.sections?.services?.items?.map(i=>i.h) || []).filter(Boolean).slice(0,8);
+  const raw = (p._t?.services || p.sections?.services?.items?.map(i=>i.h) || []).filter(Boolean);
+  const seen = new Set();
+  const items = raw.filter(x => {
+    const k = String(x).toLowerCase().replace(/[^a-z0-9]+/g,' ').trim();
+    if (!k || seen.has(k)) return false;
+    seen.add(k); return true;
+  }).slice(0,8);
   if (!items.length) return '';
+  // width estimate at the band's 1.5rem display size: ~13px per character,
+  // plus the ✦ separator. Padding is per-side, so it counts twice per item.
+  const TARGET = 1800;                                  // wider than a 1440 desktop, with headroom
+  const glyphs = items.reduce((n,x)=>n + String(x).length*13, 0) + items.length*(13+52);
+  const pad = Math.max(26, Math.min(110, Math.round((TARGET - glyphs) / (items.length*2))));
   const run = items.map(x=>`<span>${esc(x)}</span><span class="mstar">✦</span>`).join('');
   return `
-<section class="fmarquee" aria-hidden="true"><div class="fmarquee-t">${run}${run}</div></section>`;
+<section class="fmarquee" aria-hidden="true" style="--mq-pad:${pad}px"><div class="fmarquee-t">${run}${run}</div></section>`;
 };
 
 S.reviews = (p) => { const s=p.sections.reviews; if(!s) return '';
@@ -906,6 +963,13 @@ function photoPlan(p){
     money:   pics[2] || stock[2] || stock[1] || null,
     gallery,
     band,
+    // the reserved closing photograph, named here rather than re-derived in
+    // S.cta — one place decides, so the reservation can't drift from the use.
+    // Ambience slot like `band`: curated stock is an honest fallback when no
+    // captured photograph is spare, and repeating one is not.
+    cta: (pics.length >= 4 ? pics[pics.length - 1] : null)
+         || [stock[3], stock[2], stock[1], stock[0]].find(g => g && g !== band && !taken.has(g))
+         || null,
   };
 }
 
@@ -1606,7 +1670,7 @@ body:not(.arch-split):not(.arch-minimal) .nav.scrolled{background:color-mix(in s
 /* scrolling marquee band */
 .fmarquee{overflow:hidden;background:linear-gradient(100deg,color-mix(in srgb,var(--brand) 32%,#14161b),color-mix(in srgb,var(--brand) 14%,#0e1014));color:#fff;padding:20px 0;white-space:nowrap;user-select:none}
 .fmarquee-t{display:inline-block;animation:fmarq 32s linear infinite;font-family:'__DISPLAY__',Georgia,serif;font-weight:600;font-size:1.5rem;letter-spacing:-.01em}
-.fmarquee-t span{padding:0 26px;opacity:.96}.fmarquee-t .mstar{opacity:.5}
+.fmarquee-t span{padding:0 var(--mq-pad,26px);opacity:.96}.fmarquee-t .mstar{opacity:.5}
 @keyframes fmarq{to{transform:translateX(-50%)}}
 @media(prefers-reduced-motion:reduce){.fmarquee-t{animation:none}}
 
@@ -1966,7 +2030,12 @@ body.arch-hearth .sec.times.times.times{position:relative;overflow:hidden;color:
 .arch-flagship .fband h2,.arch-statement .fband h2{letter-spacing:-.03em}
 
 /* ── FOOTER wordmark: the name, set like a name ───────────────────────────── */
-.foot-brand{flex:1 1 100%;font-size:clamp(2.2rem,7vw,7rem);line-height:.9;letter-spacing:-.03em}
+/* Length-scaled: fb-lg is a name set as a wordmark; fb-sm is a long captured
+   string set so it still reads as a footer, not as a billboard. See wordmark(). */
+.foot-brand{flex:1 1 100%;line-height:.9;letter-spacing:-.03em}
+.foot-brand.fb-lg{font-size:clamp(2.2rem,7vw,7rem)}
+.foot-brand.fb-md{font-size:clamp(1.8rem,4.5vw,4.2rem);line-height:.95}
+.foot-brand.fb-sm{font-size:clamp(1.4rem,3vw,2.6rem);line-height:1.1;letter-spacing:normal}
 .foot-loc{flex:1 1 100%;margin-top:14px}
 
 /* ── mobile nav: hamburger + dropdown panel (≤720px only) ─────────────────── */

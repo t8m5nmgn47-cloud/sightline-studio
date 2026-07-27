@@ -12,7 +12,7 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { normalize, assemble, assembleSite, recommendRecipe, applyRecipeVariety } from './site-engine.mjs';
 import { capture, saveAssets, registrableDomain } from './capture.mjs';
-import { detectVertical, buildSections, vary } from './vertical-content.mjs';
+import { detectVertical, buildSections, vary, storyBody, sameCopy } from './vertical-content.mjs';
 import { seedOf, chooseArchetype, chooseStructure } from './variety.mjs';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
@@ -102,8 +102,16 @@ export function planPhotoSlots({ gallery = [], heroImage = null, stock = [], pho
   const galEnd = pool.length >= 4 ? pool.length - 1 : pool.length;
   const galleryPics = pool.slice(0, Math.min(8, galEnd));
   const band = nextStock();
+  // …and the slot that RESERVES it also NAMES it. The closing band used to
+  // re-derive "the last picture" from the raw gallery, which is a different
+  // photograph the moment the story/why-us slots have lifted one out of the
+  // middle — so the CTA re-ran a photo already shown above it (on a 6-photo
+  // capture it landed on the last gallery tile every time). The CTA is an
+  // AMBIENCE slot like the feature band, so when no captured photograph is
+  // spare it takes curated stock rather than repeating one or going flat.
+  const cta = (pool.length >= 4 ? pool[pool.length - 1] : null) || nextStock();
 
-  return { feature, about, money, gallery: galleryPics, band };
+  return { feature, about, money, gallery: galleryPics, band, cta };
 }
 
 function defaultSections(pack){
@@ -392,6 +400,15 @@ const heroSub = tidyPunct(override?.subhead
   || trimWords(cap.copy?.mission)
   || trimWords(sig.description)
   || (isBiz ? 'Tell us what you need — we’ll make the next step clear.' : 'Come as you are.'));
+
+// One sentence, one place on the page. The hero sub and the story band draw
+// from the SAME captured pool (tagline → mission → meta description), so a thin
+// capture printed the identical line twice — once as the promise above the fold
+// and once as the whole company history. The hero keeps it (it earned the
+// position); the story band falls back to our own copy for the vertical.
+if (bizSections?.about && sameCopy(bizSections.about.body, heroSub)) {
+  bizSections.about.body = storyBody(pack.key, name, slug);
+}
 
 // Churches were the only pack getting NO ambience stock, which left the
 // feature/about bands imageless whenever their capture ran thin. stockFor is

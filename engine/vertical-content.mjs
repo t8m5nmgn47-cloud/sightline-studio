@@ -67,6 +67,23 @@ export function detectVertical(text = "") {
 
 const svc = (h, p) => ({ h, p });
 
+// Keep the first of each distinct key, comparing the way a READER would —
+// case, punctuation and whitespace don't make two list items different.
+// Used wherever a captured list becomes visible copy (service cards, marquee
+// labels): a site that lists "Escrow" and "escrow services." twice reads as
+// broken no matter how faithfully it mirrors the capture.
+export const normLabel = (s) => String(s ?? "").toLowerCase().replace(/[^a-z0-9]+/g, " ").trim();
+export function uniqBy(list, keyOf = (x) => x) {
+  const seen = new Set(); const out = [];
+  for (const item of list || []) {
+    const k = normLabel(keyOf(item));
+    if (k && seen.has(k)) continue;      // a duplicate the reader would notice
+    if (k) seen.add(k);                  // keyless items pass through untouched
+    out.push(item);
+  }
+  return out;
+}
+
 // One honest line of copy for a captured service NAME (no LLM description
 // available). Keyword-matched where possible, benefit-generic otherwise —
 // a card should never ship blank. (Restores the merged session's intent.)
@@ -82,15 +99,57 @@ const SVC_HINTS = [
   [/refinanc|escrow|closing|title|settlement/i, "Handled accurately and on schedule, with clear communication at every step."],
   [/kids?|child|pediatric|family/i, "Gentle, patient care that puts the youngest members of the family at ease."],
 ];
+// Neutral lines that fit ANY service in ANY vertical. The pool is deliberately
+// larger than the longest services list we render (8 cards) so a single page can
+// always hand every card a line of its own — see makeDescriber.
 const SVC_GENERIC = [
   "Handled by experienced hands, with clear communication throughout.",
   "Tailored to your situation — never one-size-fits-all.",
   "Straightforward pricing and honest recommendations, every time.",
   "Quality work, delivered when we say it will be.",
+  "You'll know what happens next, and who to call if it doesn't.",
+  "The details checked twice, so nothing lands on you at the last minute.",
+  "Scheduled around your life, not around ours.",
+  "The same standard whether it's a simple job or a complicated one.",
+  "Questions answered in plain language, before you decide anything.",
+  "Local people, accountable to the neighbors they work for.",
 ];
-function describeService(name, i = 0, vertical = "") {
-  const hit = SVC_HINTS.find(([re]) => re.test(String(name)));
-  return hit ? hit[1] : SVC_GENERIC[i % SVC_GENERIC.length];
+
+// Copy for a service NAME when the extraction pass gave us no description of
+// its own. Keyword-matched where possible, benefit-generic otherwise.
+//
+// This is a PER-PAGE ALLOCATOR, not a pure function. A services list where two
+// names hit the same keyword rule (a title company's "Escrow" and "Closing
+// Services" both match /escrow|closing|title/) or where several names hit no
+// rule at all used to print the identical sentence twice on one page — one of
+// the loudest "this was generated" tells we ship. The describer therefore
+// remembers what it has already spent and never repeats a fallback line within
+// a page. The generic pool is walked WITHOUT REPLACEMENT from a slug-seeded
+// offset, so neighbouring prospects in the same vertical don't all open with
+// the same sentence either. Real captured descriptions never reach here.
+function makeDescriber(slug = "", vertical = "") {
+  const used = new Set();
+  const seed = [...String(slug || vertical || "")].reduce((s, c) => s + c.charCodeAt(0), 0);
+  let cursor = seed % SVC_GENERIC.length;
+  const nextGeneric = () => {
+    for (let k = 0; k < SVC_GENERIC.length; k++) {
+      const line = SVC_GENERIC[(cursor + k) % SVC_GENERIC.length];
+      if (!used.has(line)) { cursor = (cursor + k + 1) % SVC_GENERIC.length; return line; }
+    }
+    // more cards than lines — can't happen with the pool above, but never
+    // return undefined and leave a card blank
+    const line = SVC_GENERIC[cursor];
+    cursor = (cursor + 1) % SVC_GENERIC.length;
+    return line;
+  };
+  return (name) => {
+    const hit = SVC_HINTS.find(([re]) => re.test(String(name)));
+    // the keyword line is better copy — but only the first card that earns it
+    // gets it; a second card that would collide falls through to the pool.
+    const line = (hit && !used.has(hit[1])) ? hit[1] : nextGeneric();
+    used.add(line);
+    return line;
+  };
 }
 
 // Deterministic per-prospect variant picker: same slug always renders the same
@@ -409,6 +468,26 @@ const SVC_LEADS = {
   business:  ["Everything we do, handled by people who know your name — with clear pricing agreed before any work starts.", "A short list of things done properly, for neighbors who'd rather deal with someone local than a call center."],
 };
 
+// Our own story copy for a vertical — the line the about band uses when the
+// prospect's own words aren't available. Exported because the hero and the
+// story band draw from the SAME captured pool (tagline → mission → meta
+// description): when a thin capture hands both of them the identical sentence,
+// the caller needs a way to give one of them different copy instead of printing
+// the line twice on one page. See sameCopy().
+export function storyBody(vertical, name, slug = "") {
+  const plus = CONTENT_PLUS[vertical] || CONTENT_PLUS.business;
+  return vary(slug || name, plus.about)(name);
+}
+
+// "Would a reader see these as the same sentence?" — trailing punctuation, case
+// and an ellipsis from trimWords must not hide a duplicate.
+export function sameCopy(a, b) {
+  const n = (s) => String(s ?? "").toLowerCase().replace(/[…]/g, "").replace(/[^a-z0-9]+/g, " ").trim();
+  const x = n(a), y = n(b);
+  if (!x || !y) return false;
+  return x === y || x.startsWith(y) || y.startsWith(x);   // trimWords shortens, it doesn't rewrite
+}
+
 // Build the site-engine `sections` object for a business vertical.
 // realReviews: array of {q, name} captured from the prospect (optional). When
 // absent, the reviews section is OMITTED entirely — we never invent reviews.
@@ -418,10 +497,14 @@ export function buildSections(vertical, name, { realReviews = [], rating = null,
   // Best -> worst: captured services WITH their own descriptions (LLM pass),
   // captured service names (each given keyword-matched copy - never blank),
   // vertical pack defaults (which ship {h,p}).
-  const detailed = (serviceDetails || []).filter((s) => s && s.h);
-  const items = detailed.length >= 3 ? detailed.map((s, i) => svc(s.h, s.p || describeService(s.h, i, vertical)))
-    : (realServices && realServices.length >= 3) ? realServices.map((s, i) => svc(s, describeService(s, i, vertical)))
-    : pk.services.map((s, i) => (typeof s === "string" ? svc(s, describeService(s, i, vertical)) : s));
+  // One describer per page: fallback lines are handed out without replacement,
+  // so no two cards on this page can carry the same sentence.
+  const describe = makeDescriber(slug || name, vertical);
+  const detailed = uniqBy(serviceDetails || [], (s) => s && s.h).filter((s) => s && s.h);
+  const named = uniqBy(realServices || [], (s) => s).filter(Boolean);
+  const items = detailed.length >= 3 ? detailed.map((s) => svc(s.h, s.p || describe(s.h)))
+    : (named.length >= 3) ? named.map((s) => svc(s, describe(s)))
+    : pk.services.map((s) => (typeof s === "string" ? svc(s, describe(s)) : s));
   const sections = {
     // packs may override the "book" band (retail says "questions before you
     // order?", not "book online")
@@ -470,7 +553,7 @@ export function buildSections(vertical, name, { realReviews = [], rating = null,
     points: plus.diff,
   };
   // captured mission (their own words) beats our default story copy
-  const aboutBody = (mission && mission.length > 80) ? mission : v(plus.about)(name);
+  const aboutBody = (mission && mission.length > 80) ? mission : storyBody(vertical, name, slug || name);
   sections.about = {
     kicker: "Our story",
     title: v([`The people behind ${name}.`, `Get to know ${name}.`, town ? `Proudly serving ${town}.` : `Built on trust, kept by service.`]),
