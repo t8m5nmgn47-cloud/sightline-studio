@@ -10,7 +10,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { normalize, assemble, assembleSite, recommendRecipe, applyRecipeVariety } from './site-engine.mjs';
+import { normalize, assemble, assembleSite, recommendRecipe, applyRecipeVariety, shortName, isPhotoMeta } from './site-engine.mjs';
 import { capture, saveAssets, registrableDomain } from './capture.mjs';
 import { detectVertical, buildSections, vary, storyBody, sameCopy } from './vertical-content.mjs';
 import { seedOf, chooseArchetype, chooseStructure } from './variety.mjs';
@@ -78,8 +78,9 @@ const SKIN_MIN = 0.06;      // below this there is no person and no warm room in
 
 export function planPhotoSlots({ gallery = [], heroImage = null, stock = [], photoMeta = [] } = {}){
   const meta = new Map((photoMeta || []).filter(m => m && m.path).map(m => [m.path, m]));
-  const isPhoto = (g) => !(meta.get(g)?.graphic);          // no meta ⇒ treat as photograph
+  const isPhoto = (g) => isPhotoMeta(meta.get(g));         // no meta ⇒ treat as photograph
   const skinOf = (g) => { const s = meta.get(g)?.skin; return typeof s === 'number' ? s : 0; };
+  const areaOf = (g) => { const m = meta.get(g); return (m?.w || 0) * (m?.h || 0); };
 
   const pics = (gallery || []).filter(g => g && g !== heroImage);
   const pool = pics.filter(isPhoto);                        // photographs, capture order
@@ -88,8 +89,21 @@ export function planPhotoSlots({ gallery = [], heroImage = null, stock = [], pho
   const nextStock = () => stockPool[si++] || null;
   const take = (g) => { if (g) pool.splice(pool.indexOf(g), 1); return g; };
 
-  // story band: the most human photograph, or honest ambience stock
-  const human = pool.filter(g => skinOf(g) >= SKIN_MIN).sort((a, b) => skinOf(b) - skinOf(a))[0];
+  // Story band: PEOPLE IN A SCENE. Skin fraction is only a proxy for that, and
+  // "most skin wins" is the wrong reading of it — the maximum is not a warm
+  // room full of patients, it is a tight crop of one forearm or one face
+  // filling the frame, which is exactly the picture the story band should not
+  // open on. The signal reads people-in-scene in a BAND: enough skin that
+  // someone is present, little enough that they are in a room rather than
+  // pressed against the lens. Inside the band, resolution breaks the tie —
+  // among equally suitable frames the sharpest one wins. Only if nothing lands
+  // in the band does the old maximum stand in, so a thin capture still gets
+  // the most human frame it has.
+  const SKIN_MAX = 0.45;
+  const inBand = pool.filter(g => skinOf(g) >= SKIN_MIN && skinOf(g) <= SKIN_MAX)
+    .sort((a, b) => areaOf(b) - areaOf(a));
+  const human = inBand[0]
+    || pool.filter(g => skinOf(g) >= SKIN_MIN).sort((a, b) => skinOf(b) - skinOf(a))[0];
   const about = take(human) || nextStock();
   // why-us band: work over faces — the lowest-skin photograph left
   const work = pool.slice().sort((a, b) => skinOf(a) - skinOf(b))[0];
@@ -141,7 +155,7 @@ const GENERIC_TOKENS = new Set([
   'wealth','health','dental','legal','group','associates','partners','financial',
   'advisor','advisors','service','services','solution','solutions','care','clinic',
   'center','centre','company','insurance','title','law','home','first','american',
-  'national','family','management','capital','church','medical','denver','colorado',
+  'national','family','management','capital','church','medical',
 ]);
 const identityTokens = (t) => (t || '').toLowerCase().split(/[^a-z0-9]+/)
   .filter((w) => w.length > 3 && !GENERIC_TOKENS.has(w));
@@ -256,6 +270,14 @@ if (cap.copy?.businessName && cap.copy.businessName.length >= 3) {
     name = cap.copy.businessName;
 }
 
+// `name` is final from here on. Two names, one derivation: `name` is the legal
+// identity — it goes to the <title>, the JSON-LD, the hero and the footer's
+// fine row. `displayName` is what BELOW-FOLD COPY says out loud: headings, the
+// story band, every sentence with the name inside it. The rule that separates
+// them (site-engine's shortName) is declared once and every consumer is handed
+// the result rather than re-deriving it.
+const displayName = shortName(name);
+
 const { rankPhotosForVertical } = await import('./capture.mjs');
 if (pack.kind === 'vertical') cap.photos = rankPhotosForVertical(cap.photos, pack.key);
 const assets = await saveAssets(slug, cap, ROOT);
@@ -328,6 +350,7 @@ if (isBiz) {
     rating:cap.rating, reviewCount:cap.reviewCount,
     realServices, serviceDetails:cap.copy?.serviceDetails || [], slug,
     mission:groundedAbout, town:/^[A-Za-z .'-]{3,25}$/.test(town) ? town : '',
+    displayName,
   });
   bizSections = built.sections;
   bizPack = built.pack;
@@ -407,7 +430,7 @@ const heroSub = tidyPunct(override?.subhead
 // and once as the whole company history. The hero keeps it (it earned the
 // position); the story band falls back to our own copy for the vertical.
 if (bizSections?.about && sameCopy(bizSections.about.body, heroSub)) {
-  bizSections.about.body = storyBody(pack.key, name, slug);
+  bizSections.about.body = storyBody(pack.key, displayName, slug);
 }
 
 // Churches were the only pack getting NO ambience stock, which left the

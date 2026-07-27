@@ -286,7 +286,7 @@ S.services = (p) => { const s=p.sections.services; if(!s||!s.items||!s.items.len
   // orphaned its last row on every odd count and read like a nav menu).
   const items = [...s.items].sort((a,b)=>((b.p?1:0)-(a.p?1:0)));
   const kicker = s.kicker||tc.kicker||(p._t&&!p._t.bookCta?'New here?':'What we do');
-  const title  = s.title ||tc.title ||(p._t&&!p._t.bookCta?'What to expect':`What ${p.name} does.`);
+  const title  = s.title ||tc.title ||(p._t&&!p._t.bookCta?'What to expect':`What ${p._display||p.name} does.`);
   // BUSINESS: a compfm-style editorial list — an intro rail beside hairline-
   // ruled rows. A vertical list cannot orphan at any count.
   // CHURCH: the card grid stays (archetypes style .card/.cardgrid heavily).
@@ -658,12 +658,21 @@ S.pagehero = (p) => `
 //      scale with normal tracking (tight tracking on long strings reads as a
 //      typo, not as design).
 const WORDMARK_SEP = /\s+(?:[-–—|:•·]|\/\/)\s+/;
-export function wordmark(name = '') {
+// Rule 1 on its own, exported. The wordmark, the section headings and the story
+// copy all want the SAME short name, and each one growing its own copy of this
+// regex is how two of them drift apart. One rule, one place: callers that build
+// display copy take `shortName(name)`; the title, the JSON-LD and the hero keep
+// the full captured string, which is the legal identity of the business.
+export function shortName(name = '') {
   const full = String(name).trim().replace(/\s+/g, ' ');
   const head = full.split(WORDMARK_SEP)[0].trim();
   // only accept the shortened head if it's a plausible name on its own — a
-  // 2-character fragment is a capture artefact, not a wordmark
-  const mark = head.length >= 3 ? head : full;
+  // 2-character fragment is a capture artefact, not a name
+  return head.length >= 3 ? head : full;
+}
+export function wordmark(name = '') {
+  const full = String(name).trim().replace(/\s+/g, ' ');
+  const mark = shortName(full);
   const size = mark.length <= 14 ? 'lg' : mark.length <= 28 ? 'md' : 'sm';
   return { mark, size, full, shortened: mark !== full };
 }
@@ -907,6 +916,20 @@ const BAND_COPY_CHURCH = [
   { title:'Come see for yourself, this Sunday.', kicker:'You’re welcome here' },
   { title:'You don’t have to have it figured out.', kicker:'Come as you are' },
 ];
+// The business band shipped ONE headline. Every business demo in the portfolio
+// carried the identical sentence in the identical full-bleed slot, which is the
+// single loudest "these came off the same line" tell a prospect can see when
+// they look at two of our sites side by side. Seeded on the slug like every
+// other varied line, so a given business always gets the same one.
+const BAND_COPY_BIZ = [
+  'See why they keep coming back.',
+  'The work speaks for itself.',
+  'Built on people who come back.',
+  'Come see the difference in person.',
+  'Good work, done right, close to home.',
+  'This is what care looks like up close.',
+  'Neighbors first. Everything else follows.',
+];
 S.featureband = (p) => {
   const img = photoPlan(p).band;
   if (!img) return '';
@@ -919,11 +942,11 @@ S.featureband = (p) => {
   const kicker = s.kicker || (church ? cv.kicker : town || 'Why us');
   // the business name is deliberately NOT in this headline — captured names run
   // to 50+ characters and blew the line out to four wraps
-  const title  = s.title  || (church ? cv.title  : 'See why they keep coming back.');
+  const title  = s.title  || (church ? cv.title  : cvar(p, 91, BAND_COPY_BIZ));
   const cta    = s.cta    || p._t?.bookCta || p._t?.ctaCta || 'Get in touch →';
   return `
 <section class="sec fband" id="featureband" style="background-image:linear-gradient(rgba(12,12,14,.58),rgba(12,12,14,.62)),url('${img}')">
-  <div class="wrap fband-in">
+  <div class="wrap">
     ${kicker?`<span class="sec-k light">${esc(kicker)}</span>`:''}
     <h2>${esc(title)}</h2>
     ${s.lead?`<p class="lead light">${esc(s.lead)}</p>`:''}
@@ -996,7 +1019,7 @@ S.feature = (p) => { const s=p.sections.feature; if(!s||!s.points||!s.points.len
     ${img?`<div class="mediacol feat-img"><img src="${img}" alt="${esc(p.name)}" loading="lazy" decoding="async"></div>`:''}
     <div class="feat-copy">
       <span class="sec-k">${esc(s.kicker||'Why us')}</span>
-      <h2>${esc(s.title||`Why neighbors choose ${p.name}.`)}</h2>
+      <h2>${esc(s.title||`Why neighbors choose ${p._display||p.name}.`)}</h2>
       ${s.lead?`<p class="lead">${esc(s.lead)}</p>`:''}
       <ul class="feat-points">${s.points.map(x=>`<li><span class="tcheck">✓</span><span>${esc(x)}</span></li>`).join('')}</ul>
     </div>
@@ -1065,7 +1088,7 @@ S.about_split = (p) => { const s=p.sections.about; if(!s||!s.body) return '';
   <div class="wrap abs-in">
     <div class="abs-copy">
       <span class="sec-k">${esc(s.kicker||'Our story')}</span>
-      <h2>${esc(s.title||`The story behind ${p.name}.`)}</h2>
+      <h2>${esc(s.title||`The story behind ${p._display||p.name}.`)}</h2>
       <p class="abs-body">${esc(s.body)}</p>
       ${p.location?`<p class="abs-loc">◆ ${esc(p.location)}</p>`:''}
       ${stats.length?`<div class="about-stats">${stats.map(x=>`<div class="astat"><b>${esc(x.v)}</b><span>${esc(x.k)}</span></div>`).join('')}</div>`:''}
@@ -2469,7 +2492,12 @@ export function assemble(profile, recipe={}, page=null){
   const displayUrl = brandFont ? brandFont.replace(/ /g,'+') + ':wght@400;500;600;700'
     : (packFont && packFont.fontUrl) || theme.fontUrl;
   const css = stylesheet().replace(/__DISPLAY__/g, displayFont);
-  const p = { ...profile, ...(trad ? { _t:trad } : {}), ...(page ? { _page:page } : {}), _vertical: recipe.vertical || null };
+  // _display: the short name for BELOW-FOLD COPY (see shortName). profile.name
+  // stays the legal identity for the title, the JSON-LD, the hero and the
+  // footer's fine row. Computed here so a caller that never went through the
+  // pipeline (variety-check, heal, greenfield) gets the same behaviour.
+  const p = { ...profile, _display: shortName(profile.name || ''),
+    ...(trad ? { _t:trad } : {}), ...(page ? { _page:page } : {}), _vertical: recipe.vertical || null };
   let order = page?.order || (trad ? trad.order : archetype.order);
   if (!page && recipe.vertical && recipe.structure && STRUCTURES[recipe.structure])
     order = STRUCTURES[recipe.structure];
@@ -2538,21 +2566,29 @@ ${RUNTIME}
 export function assembleSite(profile, recipe={}){
   const isBiz = !!recipe.vertical;
   const hasReviews = !!(profile.sections?.reviews?.items?.length);
+  const disp = shortName(profile.name || '');
   const manifests = isBiz ? [
     { file:'services.html', title:'Services', lead:'Everything we do, and how to get started.',
       order:['nav','pagehero','services','trust','results','offer','bizmoney','bookbar','cta','footer'] },
-    { file:'about.html', title:'About us', lead:`Get to know ${profile.name}.`,
-      order:['nav','pagehero','team','gallerystrip','trust',...(hasReviews?[]:['reviews']),'bizmoney','bookbar','cta','footer'] },
+    // The About page opens with the STORY. It used to open with the team grid,
+    // so the one page named after the business never said anything about the
+    // business — the about band existed and simply was not on the manifest.
+    { file:'about.html', title:'About us', lead:`Get to know ${disp}.`,
+      order:['nav','pagehero','about_split','team','gallerystrip','trust',...(hasReviews?[]:['reviews']),'bizmoney','bookbar','cta','footer'] },
     // Reviews gets its own tab only when REAL reviews were captured — the
     // engine never fabricates social proof.
     ...(hasReviews ? [{ file:'reviews.html', title:'Reviews', lead:'What our patients and clients actually say.',
       order:['nav','pagehero','reviews','results','trust','bookbar','cta','footer'] }] : []),
+    // 'care' was on this manifest and never rendered a thing: it is the CHURCH
+    // prayer-request form and business packs have no sections.care, so the
+    // business contact page closed on the book bar with nothing after it. The
+    // closing CTA is what belongs — it is the ask every other page ends on.
     { file:'contact.html', title:'Contact', lead:'Hours, location, and the fastest ways to reach us.',
-      order:['nav','pagehero','hours','bookbar','care','footer'] },
+      order:['nav','pagehero','hours','trust','bookbar','cta','footer'] },
   ] : [
     { file:'visit.html', title:'Plan your visit', lead:'Everything you need to know before your first Sunday.',
       order:['nav','pagehero','times','nextsteps','services','cta','footer'] },
-    { file:'about.html', title:'About us', lead:`The people and story of ${profile.name}.`,
+    { file:'about.html', title:'About us', lead:`The people and story of ${disp}.`,
       order:['nav','pagehero','team','gallerystrip','serve','groups','cta','footer'] },
     { file:'contact.html', title:'Contact', lead:'We\'d love to hear from you.',
       order:['nav','pagehero','times','care','footer'] },

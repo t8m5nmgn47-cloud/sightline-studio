@@ -10,6 +10,7 @@
 // empty). The old generic pack invented "4.9 from hundreds" and "Verified
 // client" quotes; that is gone.
 // ─────────────────────────────────────────────────────────────────────────────
+import { shortName } from './site-engine.mjs';
 
 // Map many real-world category words → a canonical vertical key.
 // Detection is SCORED, not first-match-wins: every matcher counts its hits
@@ -99,9 +100,19 @@ const SVC_HINTS = [
   [/refinanc|escrow|closing|title|settlement/i, "Handled accurately and on schedule, with clear communication at every step."],
   [/kids?|child|pediatric|family/i, "Gentle, patient care that puts the youngest members of the family at ease."],
 ];
-// Neutral lines that fit ANY service in ANY vertical. The pool is deliberately
-// larger than the longest services list we render (8 cards) so a single page can
-// always hand every card a line of its own — see makeDescriber.
+// Neutral lines that fit ANY service in ANY vertical. Two separate jobs here,
+// and the pool has to be sized for the harder one:
+//
+//   WITHIN a page — every card needs a line of its own. Ten lines cleared that
+//     bar for one page and that is all the pool was ever sized for.
+//   ACROSS the portfolio — two demos shown side by side must not read as one
+//     template. Ten lines could not clear that bar even in principle: at 6–8
+//     cards a page, any two pages have to share several lines by pigeonhole,
+//     and they did (five sentences were shared across the five demos).
+//
+// So: a much bigger pool, and a seeded SHUFFLE instead of a rotating window —
+// a window only shifts where a page starts reading, so two nearby seeds still
+// walk the same run of lines. A shuffle gives each page its own SUBSET.
 const SVC_GENERIC = [
   "Handled by experienced hands, with clear communication throughout.",
   "Tailored to your situation — never one-size-fits-all.",
@@ -113,6 +124,22 @@ const SVC_GENERIC = [
   "The same standard whether it's a simple job or a complicated one.",
   "Questions answered in plain language, before you decide anything.",
   "Local people, accountable to the neighbors they work for.",
+  "Explained before it starts, so there are no surprises at the end.",
+  "Done once, done properly — we would rather take the time than come back.",
+  "A single point of contact who actually knows your file.",
+  "We'll tell you when something isn't worth doing, too.",
+  "Careful work, and a straight answer about what it will take.",
+  "You get our recommendation, not a menu of upsells.",
+  "Small enough to know your name, equipped to handle the hard ones.",
+  "Timelines we can keep, and a call the moment one slips.",
+  "The unglamorous parts handled properly, because that's where things go wrong.",
+  "Built around what you actually need, not the biggest package.",
+  "Follow-through after the job is finished, not just before it starts.",
+  "Experience that shows up in the details you never have to think about.",
+  "No jargon, no runaround — just what we found and what we'd do.",
+  "The kind of work we'd want done for our own family.",
+  "Prepared thoroughly, so the day itself is uneventful.",
+  "Consistent people, consistent standards, visit after visit.",
 ];
 
 // Copy for a service NAME when the extraction pass gave us no description of
@@ -130,16 +157,27 @@ const SVC_GENERIC = [
 function makeDescriber(slug = "", vertical = "") {
   const used = new Set();
   const seed = [...String(slug || vertical || "")].reduce((s, c) => s + c.charCodeAt(0), 0);
-  let cursor = seed % SVC_GENERIC.length;
+  // Deterministic per-slug shuffle (xorshift Fisher–Yates). Same slug always
+  // gets the same order — the demo is stable across rebuilds — but two
+  // different slugs get genuinely different SUBSETS rather than two windows
+  // onto the same list, which is what let five demos share five sentences.
+  const order = SVC_GENERIC.slice();
+  let r = (seed * 2654435761) >>> 0 || 1;
+  const rnd = () => { r ^= r << 13; r >>>= 0; r ^= r >> 17; r ^= r << 5; r >>>= 0; return r / 4294967296; };
+  for (let i = order.length - 1; i > 0; i--) {
+    const j = Math.floor(rnd() * (i + 1));
+    [order[i], order[j]] = [order[j], order[i]];
+  }
+  let cursor = 0;
   const nextGeneric = () => {
-    for (let k = 0; k < SVC_GENERIC.length; k++) {
-      const line = SVC_GENERIC[(cursor + k) % SVC_GENERIC.length];
-      if (!used.has(line)) { cursor = (cursor + k + 1) % SVC_GENERIC.length; return line; }
+    for (let k = 0; k < order.length; k++) {
+      const line = order[(cursor + k) % order.length];
+      if (!used.has(line)) { cursor = (cursor + k + 1) % order.length; return line; }
     }
     // more cards than lines — can't happen with the pool above, but never
     // return undefined and leave a card blank
-    const line = SVC_GENERIC[cursor];
-    cursor = (cursor + 1) % SVC_GENERIC.length;
+    const line = order[cursor];
+    cursor = (cursor + 1) % order.length;
     return line;
   };
   return (name) => {
@@ -474,9 +512,11 @@ const SVC_LEADS = {
 // description): when a thin capture hands both of them the identical sentence,
 // the caller needs a way to give one of them different copy instead of printing
 // the line twice on one page. See sameCopy().
+// The story band is below-fold display copy, so it takes the SHORT name for the
+// same reason the headings do — one rule, imported, never re-declared here.
 export function storyBody(vertical, name, slug = "") {
   const plus = CONTENT_PLUS[vertical] || CONTENT_PLUS.business;
-  return vary(slug || name, plus.about)(name);
+  return vary(slug || name, plus.about)(shortName(name));
 }
 
 // "Would a reader see these as the same sentence?" — trailing punctuation, case
@@ -491,17 +531,17 @@ export function sameCopy(a, b) {
 // Build the site-engine `sections` object for a business vertical.
 // realReviews: array of {q, name} captured from the prospect (optional). When
 // absent, the reviews section is OMITTED entirely — we never invent reviews.
-export function buildSections(vertical, name, { realReviews = [], rating = null, reviewCount = null, realServices = [], serviceDetails = [], slug = "", mission = "", town = "" } = {}) {
+export function buildSections(vertical, name, { realReviews = [], rating = null, reviewCount = null, realServices = [], serviceDetails = [], slug = "", mission = "", town = "", displayName = "" } = {}) {
   const pk = PACKS[vertical] || PACKS.business;
   const v = (arr) => vary(slug || name, arr);
   // Section headings use the SHORT display name: interpolating a captured
   // long-form legal name ("Town & Town LLC - the Attorneys of Highlands
-  // Ranch") into "The people behind X." reads as a mail-merge accident.
-  // Same separator rule as the footer wordmark; full name stays in copy/footer.
-  {
-    const head = String(name).split(/\s+(?:[-–—|:•·]|\/\/)\s+/)[0].trim();
-    if (head.length >= 3) name = head;
-  }
+  // Ranch") into "The people behind X." reads as a mail-merge accident. The
+  // separator rule itself lives in ONE place (site-engine's shortName, shared
+  // with the footer wordmark) — this module used to carry a second copy, and
+  // two copies of a rule is one copy too many. Callers that already shortened
+  // pass `displayName` and nothing is re-derived.
+  name = displayName || shortName(name);
   // Best -> worst: captured services WITH their own descriptions (LLM pass),
   // captured service names (each given keyword-matched copy - never blank),
   // vertical pack defaults (which ship {h,p}).
