@@ -1,19 +1,10 @@
 {
   "slug": "mrutherfordlaw-com",
-  "pass": false,
-  "fails": [
-    "no meta description",
-    "no canonical",
-    "no og:title",
-    "no JSON-LD",
-    "white-on-brand contrast 2.89 < 3.0 (#ff6900)"
-  ],
+  "pass": true,
+  "fails": [],
   "warns": [
-    "no FAQ section (business page)",
-    "no about/story section (business page)",
-    "thin page: only 5 sections",
-    "template-scent headline: \"How we can help.\" (regenerate with current engine)"
+    "network/resource console errors (1): Failed to load resource: net::ERR_CONNECTION_RESET"
   ],
-  "rendered": false,
-  "at": "2026-07-09T23:23:31.809Z"
+  "rendered": true,
+  "at": "2026-07-27T20:48:48.212Z"
 }

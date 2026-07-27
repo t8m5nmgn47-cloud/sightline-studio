@@ -18,6 +18,19 @@ import { seedOf, chooseArchetype, chooseStructure } from './variety.mjs';
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const slugify = d => d.replace(/^https?:\/\//,'').replace(/^www\./,'').replace(/\/.*$/,'').replace(/[^a-z0-9]+/gi,'-').toLowerCase();
 
+// Captured copy is COMPOSED — a site description that already ends in '.' meets
+// a generated call-to-action and ships "…as wise as 96.. Call today!". The same
+// string reaches the hero subhead, the story body, the meta description and the
+// JSON-LD, so it is cleaned once, wherever captured prose enters the profile.
+// A real ellipsis is '…' (what trimWords emits) and survives untouched.
+const tidyPunct = (s) => (s || '')
+  .replace(/\s+([.,!?;:])/g, '$1')          // " ." left by a joined fragment
+  .replace(/([.!?])\1+/g, '$1')             // ".." "!!" "??"
+  .replace(/\.{2,}/g, '.')                  // "..", "..." → '.'
+  .replace(/([.!?])\s*([.,!?;:])/g, '$1')   // ". ," ". !" — keep the first mark
+  .replace(/\s{2,}/g, ' ')
+  .trim();
+
 function findCapture(slug, domain){
   const cands = [
     `assets/harvest/business/${domain}.html`, `assets/harvest/fc/${domain}.html`,
@@ -42,6 +55,55 @@ function detectPack(text, over){
   if (/\b(elca|lcms|umc|presbyterian|lutheran|methodist|episcopal)\b/.test(t)) return {kind:'tradition', key:'mainline'};
   if (/\b(church|worship|sermon|ministr|gospel|congregation)\b/.test(t)) return {kind:'tradition', key:'contemporary'};
   return { kind:'vertical', key:detectVertical(t) };
+}
+
+// ── slot semantics ───────────────────────────────────────────────────────────
+// Positional allocation ("the 2nd captured photo goes in the story band") has
+// no idea what it is looking at, which is how a law firm's story band ended up
+// showing a bird in the sky. The pool now carries per-photo signals, so slots
+// can ask for what they MEAN instead of for an index:
+//
+//   about / story  → the most human frame we captured (highest skin fraction)
+//   feature / why-us → work, room, equipment: a photograph with LOW skin
+//   money          → whatever honest photograph is left
+//   gallery        → photographs only, never stock (it claims to be theirs)
+//   band           → pure ambience, so curated stock is the right answer
+//
+// Graphics (logo tiles, sermon banners, plan cards) are never eligible for any
+// of these; they stay in the pool for anything that wants them, but nothing
+// that reads as photography will pick one up. When no captured photograph
+// qualifies for an ambience slot, curated stock fills it — stock is honest in
+// ambience and dishonest in the gallery, and that asymmetry is deliberate.
+const SKIN_MIN = 0.06;      // below this there is no person and no warm room in frame
+
+export function planPhotoSlots({ gallery = [], heroImage = null, stock = [], photoMeta = [] } = {}){
+  const meta = new Map((photoMeta || []).filter(m => m && m.path).map(m => [m.path, m]));
+  const isPhoto = (g) => !(meta.get(g)?.graphic);          // no meta ⇒ treat as photograph
+  const skinOf = (g) => { const s = meta.get(g)?.skin; return typeof s === 'number' ? s : 0; };
+
+  const pics = (gallery || []).filter(g => g && g !== heroImage);
+  const pool = pics.filter(isPhoto);                        // photographs, capture order
+  const stockPool = (stock || []).filter(g => g && g !== heroImage);
+  let si = 0;
+  const nextStock = () => stockPool[si++] || null;
+  const take = (g) => { if (g) pool.splice(pool.indexOf(g), 1); return g; };
+
+  // story band: the most human photograph, or honest ambience stock
+  const human = pool.filter(g => skinOf(g) >= SKIN_MIN).sort((a, b) => skinOf(b) - skinOf(a))[0];
+  const about = take(human) || nextStock();
+  // why-us band: work over faces — the lowest-skin photograph left
+  const work = pool.slice().sort((a, b) => skinOf(a) - skinOf(b))[0];
+  const feature = take(work) || nextStock();
+  // money band: any honest photograph still standing
+  const money = take(pool[0]) || nextStock();
+
+  // gallery grid / strip: captured photographs only, and the last one is left
+  // for the CTA background when there are enough to spare.
+  const galEnd = pool.length >= 4 ? pool.length - 1 : pool.length;
+  const galleryPics = pool.slice(0, Math.min(8, galEnd));
+  const band = nextStock();
+
+  return { feature, about, money, gallery: galleryPics, band };
 }
 
 function defaultSections(pack){
@@ -252,7 +314,7 @@ if (isBiz) {
     : (aiServices || []);
   const addrParts = (cap.facts?.address || '').split(',').map(x=>x.trim());
   const town = addrParts.length >= 3 ? addrParts[addrParts.length - 2].replace(/\s+[A-Z]{2}\s*\d*$/,'').trim() : '';
-  const groundedAbout = strategy?.aboutBody || cap.copy?.mission || sig.description || '';
+  const groundedAbout = tidyPunct(strategy?.aboutBody || cap.copy?.mission || sig.description || '');
   const built = buildSections(pack.key, name, {
     realReviews:[...(cap.reviews || sig.reviews || [])],
     rating:cap.rating, reviewCount:cap.reviewCount,
@@ -323,13 +385,13 @@ const trimWords = (s, max=160) => {
   const cut = s.slice(0, max);
   return cut.slice(0, cut.lastIndexOf(' ')).replace(/[,;:.]$/,'') + '…';
 };
-const heroSub = override?.subhead
+const heroSub = tidyPunct(override?.subhead
   || strategy?.heroSubhead
   || ai?.subhead
   || cap.copy?.tagline
   || trimWords(cap.copy?.mission)
   || trimWords(sig.description)
-  || (isBiz ? 'Tell us what you need — we’ll make the next step clear.' : 'Come as you are.');
+  || (isBiz ? 'Tell us what you need — we’ll make the next step clear.' : 'Come as you are.'));
 
 // Churches were the only pack getting NO ambience stock, which left the
 // feature/about bands imageless whenever their capture ran thin. stockFor is
@@ -364,15 +426,26 @@ if (isBiz && capturedHero && !override?.heroImage) {
   }
 }
 
-const profile = normalize(sig, {
+const profileHero = capturedHero || (isBiz ? (stock[0] || null) : '/assets/stock/church-2.webp');
+const profileStock = stock.slice(capturedHero ? 0 : 1);
+const photoPlan = planPhotoSlots({
+  gallery: assets.gallery, heroImage: profileHero,
+  stock: profileStock, photoMeta: assets.photoMeta || [],
+});
+
+// the same double-punctuation lands in the meta description and the JSON-LD,
+// because both read the captured description — clean it once, at the boundary.
+const profile = normalize({ ...sig, description: tidyPunct(sig.description) }, {
   slug, name, logo,
   fonts:cap.fonts.head ? cap.fonts : null,
   phone:cap.facts?.phone || '',
   location:cap.facts?.address || '',
   serviceTimes:(!isBiz && cap.copy?.serviceTimes?.length) ? cap.copy.serviceTimes : [],
   gallery:assets.gallery,
-  heroImage:capturedHero || (isBiz ? (stock[0] || null) : '/assets/stock/church-2.webp'),
-  stock:stock.slice(capturedHero ? 0 : 1),
+  photoMeta:assets.photoMeta || [],
+  photoPlan,
+  heroImage:profileHero,
+  stock:profileStock,
   hero:{ headline:heroHeadline, sub:heroSub, ctas:[{label:bookCta, href:isBiz?'#book':'#visit'}] },
   sections,
 });

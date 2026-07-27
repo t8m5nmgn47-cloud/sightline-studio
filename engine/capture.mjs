@@ -711,9 +711,15 @@ export function hamming(a, b) {
 // "graphics": few distinct colours, low entropy, one colour dominating. Any
 // two of those three is enough. This DEMOTES, never rejects — a business whose
 // only imagery is graphics still gets a gallery, just not a graphic hero-slot.
-export async function looksGraphic(bufOrPath) {
+//
+// The SAME 64×64 downsample also answers "does this picture contain people or
+// warm interior/exterior surfaces?" — the skin-tone fraction. Slot semantics
+// need that signal (a story band wants a face, a why-us band wants work), and
+// the downsample is already paid for, so both signals come back from one pass.
+// Keyless and cheap by design: no model call, no key, no network.
+export async function imageSignals(bufOrPath) {
   const sharp = await loadSharp();
-  if (!sharp) return false;
+  if (!sharp) return { graphic: false, skin: null, entropy: null };
   try {
     const pipe = sharp(bufOrPath, { failOn: 'none' }).resize(64, 64, { fit: 'fill' });
     const [{ data, info }, stats] = await Promise.all([
@@ -722,19 +728,66 @@ export async function looksGraphic(bufOrPath) {
     ]);
     const ch = info.channels || 3;
     const px = Math.floor(data.length / ch);
-    if (!px) return false;
+    if (!px) return { graphic: false, skin: null, entropy: null };
     const counts = new Map();
+    const hueBins = new Array(18).fill(0);      // 20° each
+    let satPx = 0;
+    let skinPx = 0;
     for (let i = 0; i < px * ch; i += ch) {
       const r = data[i], g = ch > 1 ? data[i + 1] : r, b = ch > 2 ? data[i + 2] : r;
       const k = ((r >> 3) << 10) | ((g >> 3) << 5) | (b >> 3);   // 5 bits per channel
       counts.set(k, (counts.get(k) || 0) + 1);
+      // HSV, computed inline (one pass, no allocation per pixel)
+      const mx = r > g ? (r > b ? r : b) : (g > b ? g : b);
+      const mn = r < g ? (r < b ? r : b) : (g < b ? g : b);
+      const d = mx - mn;
+      if (!d || !mx) continue;                       // pure grey/black carries no hue
+      const sat = d / mx, v = mx / 255;
+      if (sat < 0.15 || v < 0.15) continue;          // unsaturated or crushed → no hue
+      let hue;
+      if (mx === r) hue = 60 * (((g - b) / d) % 6);
+      else if (mx === g) hue = 60 * (((b - r) / d) + 2);
+      else hue = 60 * (((r - g) / d) + 4);
+      if (hue < 0) hue += 360;
+      // hue histogram: EVERY coloured pixel, so the duotone test below sees the
+      // whole frame (the skin band's tighter cutoffs would hide a blown-out sky)
+      satPx++;
+      hueBins[Math.floor(hue / 20) % 18]++;
+      // skin band is narrower: mid saturation, mid brightness, warm hue
+      if (sat <= 0.7 && v >= 0.2 && v <= 0.97 && hue >= 5 && hue <= 50) skinPx++;
     }
     let modal = 0;
     for (const v of counts.values()) if (v > modal) modal = v;
     const entropy = typeof stats.entropy === 'number' ? stats.entropy : 8;
     const votes = (counts.size < 1500 ? 1 : 0) + (entropy < 4.2 ? 1 : 0) + (modal / px > 0.25 ? 1 : 0);
-    return votes >= 2;
-  } catch { return false; }
+
+    // Duotone/flat-field test. The vote heuristic above catches solid-colour
+    // tiles but MISSES the commonest graphic a church or dental site ships: a
+    // sermon banner or plan card that is one hue washed over everything, plus
+    // baked-in text. Those images put nearly every saturated pixel in ONE 20°
+    // hue bin and still carry only a couple hundred distinct colours. Real
+    // photographs — even a green lawn or a warm interior — spread wider or
+    // carry far more colour detail, so the colour-count arm is what keeps
+    // lawns, pools and sunsets out. Measured over the whole captured corpus
+    // (698 images): 14 newly demoted, 13 of them unambiguous banners.
+    // It also catches the near-empty frame (a bird in a plain sky), which is
+    // ambience nobody would choose on purpose.
+    const satFrac = satPx / px;
+    const hueConc = satPx ? Math.max(...hueBins) / satPx : 0;
+    const duotone = satFrac >= 0.5 && hueConc >= 0.9 && counts.size < 260;
+
+    return {
+      graphic: votes >= 2 || duotone,
+      skin: Math.round((skinPx / px) * 1000) / 1000,
+      entropy: Math.round(entropy * 100) / 100,
+      duotone,
+    };
+  } catch { return { graphic: false, skin: null, entropy: null }; }
+}
+
+// Back-compat: the boolean form other callers still import.
+export async function looksGraphic(bufOrPath) {
+  return (await imageSignals(bufOrPath)).graphic;
 }
 
 // True image extension from magic bytes — never trust the URL's "extension"
@@ -851,7 +904,10 @@ export async function saveAssets(slug, cap, ROOT, { maxPhotos = 8 } = {}) {
     byteSeen.add(bkey);
     got.promo = !!ph.promo;
     got.hash = await dHash(got.buf);
-    got.graphic = await looksGraphic(got.buf);
+    const sig = await imageSignals(got.buf);
+    got.graphic = sig.graphic;
+    got.skin = sig.skin;
+    got.entropy = sig.entropy;
     cands.push(got);
   }
 
@@ -885,6 +941,8 @@ export async function saveAssets(slug, cap, ROOT, { maxPhotos = 8 } = {}) {
       path: rel(file), bytes: c.bytes, w: c.w, h: c.h,
       hash: c.hash == null ? null : c.hash.toString(16).padStart(16, '0'),
       graphic: !!c.graphic,
+      skin: c.skin ?? null,          // fraction of skin-tone pixels (people/warm places)
+      entropy: c.entropy ?? null,
     });
     c.buf = null;                                    // release the pool's memory
   }

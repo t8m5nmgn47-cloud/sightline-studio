@@ -112,6 +112,14 @@ export function normalize(sig, over={}){
     phone: fmtPhone(over.phone),           // for click-to-call in the book bar
     serviceTimes: over.serviceTimes || [], // real captured service times
     gallery: over.gallery || [],           // real captured photo URLs
+    // per-photo signals from the capture pool (path, w/h/bytes/hash, graphic,
+    // skin, entropy). Renderers need the graphic flag to keep sermon banners
+    // and logo tiles out of "Real photos, not stock." Callers that build a
+    // profile without a capture (variety-check, heal) simply get [].
+    photoMeta: over.photoMeta || [],
+    // slot assignment computed by the caller from those signals; null means
+    // "no opinion", and photoPlan() falls back to its positional logic.
+    photoPlan: over.photoPlan || null,
     sections: over.sections || {},         // {services, events, giving, team, ...}
     heroImage: over.heroImage || null,     // data URI or path
     stock: over.stock || [],               // curated vertical stock (ambience slots only)
@@ -342,8 +350,11 @@ S.giving = (p) => { const s=p.sections.giving; if(!s) return '';
 </section>`; };
 
 S.cta = (p) => {
-  // photo-backed close when we captured enough imagery (their own photos > flat colour)
-  const pics = (p.gallery||[]).filter(g=>g!==p.heroImage);
+  // photo-backed close when we captured enough imagery (their own photos > flat colour).
+  // The pool sorts graphics LAST, and this slot takes the last picture — so
+  // without the filter the closing band lands on a logo tile every time a
+  // prospect ships one. The CTA is an ambience slot: photographs only.
+  const pics = photosOnly(p, (p.gallery||[]).filter(g=>g!==p.heroImage));
   const img = pics.length >= 4 ? pics[pics.length-1] : null;
   // fallback copy comes from the ACTIVE PACK (p._t: vertical or tradition) —
   // never a hardcoded vertical's voice. Church copy lives in TRADITIONS
@@ -598,7 +609,10 @@ S.team = (p) => { const s=p.sections.team; if(!s||!s.items||!s.items.length) ret
 // Renders only with 3+ captured photos beyond the hero; all lazy-loaded.
 S.gallerystrip = (p) => {
   const hero = p.heroImage;
-  const pics = (p.gallery||[]).filter(g=>g!==hero).slice(0,6);
+  // "Real photos, not stock." is a promise about PHOTOGRAPHS — a sermon banner
+  // or a logo tile in this strip breaks the one section whose whole job is
+  // proving the site is really theirs.
+  const pics = photosOnly(p, (p.gallery||[]).filter(g=>g!==hero)).slice(0,6);
   if (pics.length < 3) return '';   // 2 photos in a full-bleed strip reads unfinished
   return `
 <section class="sec gstrip" id="gallery">
@@ -857,9 +871,25 @@ S.featureband = (p) => {
 // degrades gracefully instead of rendering an empty frame.
 // Photo allocation: one plan per page so feature/about/gallery/CTA never
 // repeat the same image.
+// A captured asset is only usable as PHOTOGRAPHY if the pool didn't flag it as
+// a graphic (logo tile, sermon banner, plan card, duotone promo). Missing meta
+// means an older profile or a hand-built one — treat it as a photograph, which
+// is exactly the behaviour every caller had before the flag existed.
+function photosOnly(p, list){
+  const meta = p.photoMeta;
+  if (!Array.isArray(meta) || !meta.length) return list;
+  const graphic = new Set(meta.filter(m=>m && m.graphic).map(m=>m.path));
+  return list.filter(g=>!graphic.has(g));
+}
+
 function photoPlan(p){
   if (p._photoPlan) return p._photoPlan;
-  const pics = (p.gallery||[]).filter(g=>g && g!==p.heroImage);
+  // A plan computed upstream (pipeline.mjs, which can see the pool's per-photo
+  // signals) wins: it knows which picture has faces in it and which is a
+  // graphic. Everything below is the positional fallback for callers that
+  // build a profile without a capture.
+  if (p.photoPlan) return p._photoPlan = p.photoPlan;
+  const pics = photosOnly(p, (p.gallery||[]).filter(g=>g && g!==p.heroImage));
   const stock = (p.stock||[]).filter(g=>g && g!==p.heroImage);
   const galEnd = pics.length >= 4 ? pics.length - 1 : pics.length;   // reserve the last pic for the CTA background
   // captured photos first; curated stock fills the ambience slots (feature,
@@ -903,7 +933,7 @@ S.feature = (p) => { const s=p.sections.feature; if(!s||!s.points||!s.points.len
 // fixed 3-column mosaic orphaned a lone tile at 4, 7, 8… photos, which is the
 // loudest "this was generated" tell on the page.
 S.gallery = (p) => {
-  let pics = photoPlan(p).gallery;
+  let pics = photosOnly(p, photoPlan(p).gallery || []);
   if (pics.length < 3) return '';
   let mode;
   if (pics.length === 3)      mode = 'g3';              // 3-up, uniform 4/5
