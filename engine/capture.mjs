@@ -378,7 +378,13 @@ export function extractPhotos($pages, baseUrl) {
   // Promo/seasonal graphics (raffle banners, holiday popups, coupons) are real
   // <img>s and often huge — but they make a terrible hero and a worse gallery.
   // Detectable from URL + alt text; rank them dead last instead of first.
-  const PROMO = /raffle|contest|giveaway|holiday|christmas|santa|xmas|halloween|easter|black.?friday|coupon|special.?offer|promo|sale.?banner|popup|pop-up|flyer|announcement|gift.?card|certificate|award|associat|chapter|accredit|sponsor|member.?of|project.?of.?the.?year/i;
+  // `graphic` is the general one worth calling out: a CMS names a file what it
+  // is, and nothing anyone photographed is called a graphic. It is how authored
+  // text-over-image art ("2026-Genesis-Sermon-Graphic-2.jpeg" — a verse set over
+  // a texture) gets named, and that art is precisely what the byte heuristics
+  // cannot see, because it IS a photograph underneath the type. Token, not
+  // prospect: no site-specific strings here.
+  const PROMO = /raffle|contest|giveaway|holiday|christmas|santa|xmas|halloween|easter|black.?friday|coupon|special.?offer|promo|sale.?banner|popup|pop-up|flyer|announcement|gift.?card|certificate|award|associat|chapter|accredit|sponsor|member.?of|project.?of.?the.?year|graphics?\b/i;
   // …and the filenames a CMS gives the same class of authored marketing art.
   const PROMO_URL = /(?:^|[\/\-_])(?:og[-_]?image|opengraph|social[-_](?:card|share|image)|share[-_](?:card|image)|twitter[-_]card)(?:[\/\-_.]|$)/i;
   // Stock the PROSPECT used. Stock libraries name their downloads after
@@ -972,6 +978,11 @@ export async function saveAssets(slug, cap, ROOT, { maxPhotos = 8 } = {}) {
       path: rel(file), bytes: c.bytes, w: c.w, h: c.h,
       hash: c.hash == null ? null : c.hash.toString(16).padStart(16, '0'),
       graphic: !!c.graphic,
+      // Authored marketing art, by its SLOT (og:image), its filename or its
+      // alt. Carried onto the meta rather than only used to sort the pool: the
+      // verdict has to survive out of capture, because isPhotoMeta reads it and
+      // that is what keeps a promo banner out of the gallery and the strip.
+      promo: !!c.promo,
       stock: !!c.stockNamed,         // provably a stock library's file, by its own filename
       skin: c.skin ?? null,          // fraction of skin-tone pixels (people/warm places)
       entropy: c.entropy ?? null,
@@ -979,16 +990,18 @@ export async function saveAssets(slug, cap, ROOT, { maxPhotos = 8 } = {}) {
     c.buf = null;                                    // release the pool's memory
   }
   const nGraphic = saved.filter((s) => s.graphic).length;
-  if (dupDropped || nGraphic)
+  const nPromo = saved.filter((s) => s.promo && !s.graphic).length;
+  if (dupDropped || nGraphic || nPromo)
     console.log(`  photos:   ${saved.length} kept from ${cands.length} candidates`
       + (dupDropped ? ` · ${dupDropped} near-duplicate${dupDropped === 1 ? '' : 's'} dropped` : '')
-      + (nGraphic ? ` · ${nGraphic} graphic${nGraphic === 1 ? '' : 's'} demoted` : ''));
+      + (nGraphic ? ` · ${nGraphic} graphic${nGraphic === 1 ? '' : 's'} demoted` : '')
+      + (nPromo ? ` · ${nPromo} promo${nPromo === 1 ? '' : 's'} demoted` : ''));
   // GATE AT THE POOL ENTRANCE. `gallery` is the list every profile and every
-  // renderer treats as "their photographs", so a graphic must not be on it —
-  // filtering downstream at each slot is how one slot gets missed. The graphics
-  // are still written to disk and still described in photoMeta, so a later
-  // vision pass can arbitrate and put a good one back; they are simply not
-  // handed out as photography by default. Renderers keep photosOnly() as
+  // renderer treats as "their photographs", so a graphic — or a promo banner —
+  // must not be on it; filtering downstream at each slot is how one slot gets
+  // missed. Both are still written to disk and still described in photoMeta, so
+  // a later vision pass can arbitrate and put a good one back; they are simply
+  // not handed out as photography by default. Renderers keep photosOnly() as
   // belt-and-braces for profiles built without a capture.
   const photos = saved.filter(isPhotoMeta);
   const gallery = (photos.length ? photos : saved).map((s) => s.path);
