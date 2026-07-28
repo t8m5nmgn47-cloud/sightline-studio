@@ -270,12 +270,14 @@ if (cap.copy?.businessName && cap.copy.businessName.length >= 3) {
     name = cap.copy.businessName;
 }
 
-// `name` is final from here on. Two names, one derivation: `name` is the legal
-// identity — it goes to the <title>, the JSON-LD, the hero and the footer's
-// fine row. `displayName` is what BELOW-FOLD COPY says out loud: headings, the
-// story band, every sentence with the name inside it. The rule that separates
-// them (site-engine's shortName) is declared once and every consumer is handed
-// the result rather than re-deriving it.
+// `name` is final from here on. Two names, one derivation. `name` is the LEGAL
+// identity and is carried onto the profile as `legalName`: the <title>,
+// og:title, the JSON-LD and the footer's fine row, i.e. the slots that answer
+// "who is this business, legally". `displayName` is what the PAGE SAYS out
+// loud — headings, the story band, the hero headline, every sentence with the
+// name inside it — and it is what lands on profile.name. The rule that
+// separates them (site-engine's shortName) is declared once and every consumer
+// is handed the result rather than re-deriving it.
 const displayName = shortName(name);
 
 const { rankPhotosForVertical } = await import('./capture.mjs');
@@ -407,7 +409,7 @@ if (cap.staff?.length) sections.team = { items:cap.staff };
 const heroHeadline = override?.headline
   || strategy?.heroHeadline
   || ai?.headline
-  || (isBiz ? vary(slug, bizPack.heroes || [bizPack.hero])(name)
+  || (isBiz ? vary(slug, bizPack.heroes || [bizPack.hero])(displayName)
             : vary(slug, ['You’re welcome here.','Come as you are.','Find your place here.','A church that feels like family.']));
 const bookCta = strategy?.primaryCta || (isBiz ? bizPack.bookCta : 'Plan your visit →');
 const trimWords = (s, max=160) => {
@@ -476,7 +478,10 @@ const photoPlan = planPhotoSlots({
 // the same double-punctuation lands in the meta description and the JSON-LD,
 // because both read the captured description — clean it once, at the boundary.
 const profile = normalize({ ...sig, description: tidyPunct(sig.description) }, {
-  slug, name, logo,
+  // DISPLAY name into `name` — it is what every heading, the story body and the
+  // hero headline say out loud. The full captured string rides along as
+  // `legalName` for the <title>, og:title, the JSON-LD and the footer fine row.
+  slug, name: displayName, legalName: name, logo,
   fonts:cap.fonts.head ? cap.fonts : null,
   phone:cap.facts?.phone || '',
   location:cap.facts?.address || '',
@@ -484,6 +489,11 @@ const profile = normalize({ ...sig, description: tidyPunct(sig.description) }, {
   gallery:assets.gallery,
   photoMeta:assets.photoMeta || [],
   photoPlan,
+  // Which optional gates this RUN could actually apply. The vision passes are
+  // the only thing that reads a picture semantically, and they need a key — so
+  // copy that makes a claim about what is IN the photographs has to know
+  // whether anything looked at them. See S.gallerystrip's heading.
+  gatesRan:{ vision: hasAiKey },
   heroImage:profileHero,
   stock:profileStock,
   hero:{ headline:heroHeadline, sub:heroSub, ctas:[{label:bookCta, href:isBiz?'#book':'#visit'}] },
