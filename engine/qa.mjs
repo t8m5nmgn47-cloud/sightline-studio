@@ -104,6 +104,70 @@ function staticChecks(slug) {
     const a = [...rulesFor(t).matchAll(/(?:^|[;{])\s*color:\s*rgba\(255,\s*255,\s*255,\s*([\d.]+)\)/g)].map(m => +m[1]);
     return [...new Set([1, ...a.filter(x => x > 0 && x <= 1)])].sort((x, y) => x - y);
   };
+  // EVERY `color:` a tone declares, resolved to a hex the eye receives, over the
+  // ground that tone paints. The white-alpha reader above only sees translucent
+  // whites; a tone also sets derived colours — `color:color-mix(in srgb,
+  // var(--accent) 42%,#ffffff)` on .tone-dark's kickers, for one — and those
+  // were never measured by anything on this page. Resolve the small grammar the
+  // engine actually emits (hex · var(--x) · rgb/rgba · color-mix of the two)
+  // and skip what we cannot resolve rather than guessing at it.
+  const resolveColor = (raw, ground) => {
+    const v = String(raw).trim();
+    let m;
+    if (/^#[0-9a-fA-F]{3}([0-9a-fA-F]{3})?$/.test(v)) return v.length === 4
+      ? '#' + [...v.slice(1)].map(c => c + c).join('') : v;
+    if ((m = v.match(/^var\(--([\w-]+)\)$/))) return vars[m[1]] || null;
+    if ((m = v.match(/^rgba?\(\s*(\d+),\s*(\d+),\s*(\d+)\s*(?:,\s*([\d.]+)\s*)?\)$/))) {
+      const base = hex([+m[1], +m[2], +m[3]]);
+      const a = m[4] === undefined ? 1 : +m[4];
+      return a >= 1 ? base : (ground ? over(base, a, ground) : null);
+    }
+    if ((m = v.match(/^color-mix\(in srgb,\s*(.+?)\s+([\d.]+)%,\s*(.+)\)$/))) {
+      const a = resolveColor(m[1], ground), b = resolveColor(m[3], ground);
+      return (a && b) ? mix(a, b, +m[2]) : null;
+    }
+    return null;
+  };
+  // Heading selectors get the 3.0 large-text floor; everything else 4.5.
+  const isHeadingRule = (sel) => /(^|[\s,>])\.sec\.tone-[\w-]+\s+h[1-4]\b/.test(sel)
+    || /(^|[\s,>])h[1-4]\b/.test(sel);
+  // Every [selector, declarations] pair in the page's CSS, parsed ONCE.
+  // Scoped to the <style> blocks on purpose: run over the whole document and
+  // this walks megabytes of inlined base64 image data, where a brace-free run
+  // that long makes `[^{}]+` backtrack catastrophically — the gate hangs
+  // instead of failing, which is strictly worse than not checking. Two rules
+  // learned here: anchor on a literal, and never scan the data URIs.
+  const styleText = [...html.matchAll(/<style\b[^>]*>([\s\S]*?)<\/style>/g)].map(m => m[1]).join('\n');
+  const cssRules = [...styleText.matchAll(/([^{}]+)\{([^{}]*)\}/g)].map(m => [m[1], m[2]]);
+  // [selector, declarations] for every rule targeting this tone
+  const blocksFor = (t) => cssRules.filter(([sel]) => sel.includes(`.sec.tone-${t}`));
+  // The general tone-vs-ground assertion, shared by every tone below: each tone
+  // states its own ground and its own text colours, and this measures the pair
+  // the tone itself declares rather than restating either side here.
+  const checkToneText = (t, ground, label) => {
+    for (const [sel, decls] of blocksFor(t)) {
+      // A rule that paints its OWN background — the white button, the translucent
+      // card — puts its text on that surface, not on the band. Measure against
+      // whatever the rule itself lays down, and skip the block entirely when
+      // that surface can't be resolved (a gradient, an image) rather than
+      // measuring against a ground the text demonstrably does not sit on.
+      let bg = ground, bgLabel = label;
+      const b = decls.match(/(?:^|;)\s*background(?:-color)?:\s*([^;]+)/);
+      if (b) {
+        const local = resolveColor(b[1], ground);
+        if (!local) continue;
+        bg = local; bgLabel = `its own background ${b[1].trim()}`;
+      }
+      for (const d of decls.matchAll(/(?:^|;)\s*color:\s*([^;]+)/g)) {
+        const fg = resolveColor(d[1], bg);
+        if (!fg) continue;                       // unresolvable → not guessed at
+        const floor = isHeadingRule(sel) ? 3.0 : 4.5;
+        const c = contrast(fg, bg);
+        if (c < floor) fails.push(
+          `tone-${t}: declared text ${d[1].trim()} → ${fg} on ${bgLabel} (${bg}) contrast ${c.toFixed(2)} < ${floor.toFixed(1)}`);
+      }
+    }
+  };
 
   if (usesTone('dark') && vars.ink) {
     // GROUND: var(--ink). TEXT: #ffffff for headings, plus every translucent
@@ -119,6 +183,9 @@ function staticChecks(slug) {
     const darkRules = rulesFor('dark');
     for (const bad of ['var(--mut)', 'color:var(--accent)'])
       if (darkRules.includes(bad)) fails.push(`tone-dark declares ${bad} — light-ground colour on a dark band`);
+    // …and every OTHER colour the band declares, including the derived ones the
+    // white-alpha reader above is blind to (the accent mixed toward white).
+    checkToneText('dark', vars.ink, '--ink');
   }
   if (usesTone('brand') && vars.brand) {
     // GROUND: the .tone-brand gradient — --brand mixed toward near-black, whose
@@ -133,6 +200,7 @@ function staticChecks(slug) {
       const c = contrast(over('#ffffff', a, ground), ground);
       if (c < 4.5) fails.push(`tone-brand: white@${a} on the band gradient contrast ${c.toFixed(2)} < 4.5 (${ground})`);
     }
+    checkToneText('brand', ground, 'the band gradient');
   }
   if (usesTone('tint') && vars.ink && vars.bg) {
     // GROUND: color-mix(in srgb, --ink 4%, --bg) — DARKER than the page ground,
@@ -150,7 +218,13 @@ function staticChecks(slug) {
       const muted = m ? mix(vars.mut, vars.ink, +m[1]) : vars.mut;
       const cm = contrast(muted, ground);
       if (cm < 4.5) fails.push(`tone-tint: muted text on tint contrast ${cm.toFixed(2)} < 4.5 (${muted} on ${ground})`);
+      // --mut is derived against the PAPER ground and reused on it directly by
+      // every label the tint override doesn't name. Measure that pair too, so
+      // the paper side of the same colour can't rot unnoticed.
+      const cp = contrast(vars.mut, vars.bg);
+      if (cp < 4.5) fails.push(`--mut on paper contrast ${cp.toFixed(2)} < 4.5 (${vars.mut} on ${vars.bg})`);
     }
+    checkToneText('tint', ground, 'the tint ground');
   }
   // PHOTO — per section, not per page. A section that paints its own ground
   // with an inline background-image must scrim it, or white type lands on
@@ -169,6 +243,45 @@ function staticChecks(slug) {
     const g = bg.search(/(?:linear|radial)-gradient\(\s*(?:rgba?\(|to |\d)/);
     if (u > -1 && !(g > -1 && g < u))
       fails.push(`photo section paints a background-image with no scrim over it: .${cls.trim().split(/\s+/).filter(c=>c!=='sec'&&!c.startsWith('tone-'))[0] || 'section'}`);
+    // A photo section is photo GROUND, and the inline background-image beats any
+    // tone class on it. So the class stamped there must be tone-photo: a section
+    // wearing tone-tint while painting a photograph is a band that ships heavy
+    // and gets audited light, which is precisely how a cadence "fix" that only
+    // changed classes passed this gate while the page still stacked two photos.
+    if (/\btone-/.test(cls) && !/\btone-photo\b/.test(cls))
+      fails.push(`photo-ground section stamped ${(cls.match(/\btone-[\w-]+/)||[])[0]} instead of tone-photo (class="${cls.trim()}")`);
+  }
+
+  // 3c. GROUND CADENCE — the composition assertion, read off the built page in
+  // page order rather than off the cadence's own bookkeeping. Two heavy grounds
+  // touching is a wall of image/ink with the argument buried between them.
+  // Ground is taken from what the section PAINTS: an inline background-image is
+  // photo ground whatever its class says, then the tone class, then the legacy
+  // band classes that untoned (church) pages still use — those pages get no
+  // cadence pass at all, which is exactly where an unnoticed pair shipped.
+  {
+    const HEAVY_GROUND = new Set(['dark', 'brand', 'photo']);
+    const bands = [];
+    for (const m of html.matchAll(/<(section|header)\b([^>]*)>/g)) {
+      const attrs = m[2], cls = (attrs.match(/class="([^"]*)"/) || [, ''])[1];
+      // the subpage pagehero is a full-width brand gradient: heavy chrome, and
+      // a dark band slammed directly beneath it reads as one tall black box
+      if (m[1] === 'header') { if (/\bpagehero\b/.test(cls)) bands.push(['pagehero', 'brand']); continue; }
+      // .upgrade is SIGHTLINE's demo-only sales band, appended after the
+      // prospect's page has ended and never present on a delivered site. It is
+      // chrome in the cadence for that reason (see TONE_CHROME), and it has to
+      // be chrome here too — a check and the pass it audits disagreeing about
+      // what counts as a band is how the last tone bug hid.
+      if (/\bupgrade\b/.test(cls)) continue;
+      let ground = /background-image:[^"]*url\(/.test(attrs) ? 'photo'
+        : (cls.match(/\btone-(\w+)/) || [, null])[1];
+      if (!ground) ground = /\bcta-photo\b/.test(cls) ? 'photo'
+        : /\bband\b/.test(cls) ? 'brand' : 'light';
+      bands.push([cls.trim().split(/\s+/).filter(c => c !== 'sec')[0] || 'section', ground]);
+    }
+    for (let i = 1; i < bands.length; i++)
+      if (HEAVY_GROUND.has(bands[i - 1][1]) && HEAVY_GROUND.has(bands[i][1]))
+        fails.push(`two heavy grounds adjacent: .${bands[i-1][0]} (${bands[i-1][1]}) then .${bands[i][0]} (${bands[i][1]})`);
   }
 
   // 4. template artifacts — but only in rendered text/attrs, not inline JS
