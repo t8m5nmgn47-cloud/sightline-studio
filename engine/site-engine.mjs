@@ -19,6 +19,20 @@ const rgbStr = h => rgb(h).join(',');
 function contrast(a,b){ const [x,y]=[lum(rgb(a)),lum(rgb(b))].sort((p,q)=>q-p); return (x+.05)/(y+.05); }
 // darken a colour until white text/buttons on it hit the target ratio
 function clampForWhite(h, target=3){ let c=h, i=0; while(contrast(c,'#ffffff')<target && i++<12) c=darken(c,.12); return c; }
+// blend toward white
+function toWhite(h, amt){ const [r,g,b]=rgb(h); const f=v=>Math.round(v+(255-v)*amt); return `#${[f(r),f(g),f(b)].map(v=>v.toString(16).padStart(2,'0')).join('')}`; }
+// The accent as it must read ON THE DARK BAND. --accent is clamped against the
+// LIGHT page ground, which says nothing about how it reads on --ink — and --ink
+// is itself a captured colour that can be a mid blue rather than a near-black.
+// A fixed "mix 42% toward white" was the old rule and it measured 3.61:1 on a
+// captured #005a87: a ratio hard-coded against a ground that varies. Lighten
+// until it actually clears the target against the ink it will sit on, and fall
+// back to plain white when even that can't (an --ink too light to be a band).
+function accentOnDark(accent, ink, target=4.5){
+  let c = toWhite(accent, .58), i = 0;
+  while (contrast(c, ink) < target && i++ < 14) c = toWhite(c, .12);
+  return contrast(c, ink) >= target ? c : '#ffffff';
+}
 // pull an over-saturated colour toward its own grey — neon captured brands
 // (pure reds/oranges) become rich instead of overwhelming
 function desat(h, amt){ const [r,g,b]=rgb(h); const grey=Math.round(.299*r+.587*g+.114*b);
@@ -98,7 +112,14 @@ export function normalize(sig, over={}){
   const mission = phrases.find(p=>/\b(exist|mission|help you|we are|our vision)\b/i.test(p));
   return {
     slug: over.slug,
+    // TWO NAMES, one derivation (see shortName). `name` is the DISPLAY name —
+    // what the page says out loud: headings, story copy, the hero headline,
+    // image alts. `legalName` is the full captured string and is what the
+    // legal-identity slots use: <title>, og:title, the JSON-LD and the footer's
+    // fine row. Callers that only set `name` get legalName === name, which is
+    // the behaviour every hand-built profile had before the split.
     name,
+    legalName: clean(over.legalName || '') || name,
     tagline: clean(over.tagline || sig.og_title_tag || ''),
     mission: mission ? titleCase(mission) : '',
     description: clean(sig.description||''),
@@ -111,7 +132,12 @@ export function normalize(sig, over={}){
     location: over.location || '',
     phone: fmtPhone(over.phone),           // for click-to-call in the book bar
     serviceTimes: over.serviceTimes || [], // real captured service times
-    gallery: over.gallery || [],           // real captured photo URLs
+    // POOL EXIT. `gallery` is the list every renderer treats as "their
+    // photographs", so it is narrowed to photographs HERE, once, rather than at
+    // each slot that reads it — a per-use filter is how one use gets missed.
+    // photoMeta below stays complete, so a later keyed/vision pass can still
+    // arbitrate and put a demoted image back.
+    gallery: photosOnlyList(over.gallery || [], over.photoMeta || []),
     // per-photo signals from the capture pool (path, w/h/bytes/hash, graphic,
     // skin, entropy). Renderers need the graphic flag to keep sermon banners
     // and logo tiles out of "Real photos, not stock." Callers that build a
@@ -120,6 +146,11 @@ export function normalize(sig, over={}){
     // slot assignment computed by the caller from those signals; null means
     // "no opinion", and photoPlan() falls back to its positional logic.
     photoPlan: over.photoPlan || null,
+    // Which OPTIONAL gates actually ran for this build. Keyless runs skip the
+    // vision passes, so anything the page says that only a semantic gate can
+    // back has to read this and stay quiet. {vision:false} for every caller
+    // that doesn't set it, which is the honest default.
+    gatesRan: { vision: false, ...(over.gatesRan || {}) },
     sections: over.sections || {},         // {services, events, giving, team, ...}
     heroImage: over.heroImage || null,     // data URI or path
     stock: over.stock || [],               // curated vertical stock (ambience slots only)
@@ -165,7 +196,7 @@ function themeVars(profile, theme, useCaptured, radOverride){
   const accent = useCaptured ? p.accent : t.pal.accent;
   const rad = Number.isFinite(radOverride) ? radOverride : t.rad;
   return `--ink:${p.ink};--bg:${p.bg};--surf:${p.surf};--mut:${p.mut};--line:${p.line};
-    --brand:${brand};--brand-d:${brandD};--accent:${accent};--brand-rgb:${rgbStr(brand)};--rad:${rad}px`;
+    --brand:${brand};--brand-d:${brandD};--accent:${accent};--accent-dark:${accentOnDark(accent, p.ink)};--brand-rgb:${rgbStr(brand)};--rad:${rad}px`;
 }
 
 // ── section renderers ────────────────────────────────────────────────────────
@@ -627,7 +658,14 @@ S.gallerystrip = (p) => {
   // heading is the honest one; the claim is only made when it is true.
   const meta = new Map((p.photoMeta||[]).filter(m=>m&&m.path).map(m=>[m.path,m]));
   const allOwn = pics.every(g => !meta.get(g)?.stock);
-  const title = p._t?.copy?.gallery?.title || (allOwn ? 'Real photos, not stock.' : 'A closer look.');
+  // …and the claim is only as good as the gates that can back it. Filename and
+  // byte heuristics cannot see a promo banner composited over a real building
+  // photo; only the vision pass can, and it needs a key. On a keyless build the
+  // strip still renders — these are the prospect's own files — but it makes the
+  // neutral claim used everywhere else instead of one the build cannot support.
+  const vetted = !!p.gatesRan?.vision;
+  const title = p._t?.copy?.gallery?.title
+    || ((allOwn && vetted) ? 'Real photos, not stock.' : 'A closer look.');
   return `
 <section class="sec gstrip" id="gallery">
   <div class="wrap"><span class="sec-k">${esc(p._t?.copy?.gallery?.kicker||'Take a look')}</span><h2>${esc(title)}</h2></div>
@@ -678,7 +716,10 @@ export function wordmark(name = '') {
 }
 
 S.footer = (p) => {
-  const w = wordmark(p.name);
+  // legalName is the full captured string; p.name is already the display name
+  // when the pipeline built this profile. wordmark() still shortens, so a
+  // hand-built profile that only ever set `name` behaves exactly as before.
+  const w = wordmark(p.legalName || p.name);
   // the fine row carries the full legal name whenever the wordmark dropped
   // something — the page must still say who this legally is
   const fine = w.shortened ? `${esc(w.full)} · Site by Sightline` : 'Site by Sightline';
@@ -921,6 +962,12 @@ const BAND_COPY_CHURCH = [
 // single loudest "these came off the same line" tell a prospect can see when
 // they look at two of our sites side by side. Seeded on the slug like every
 // other varied line, so a given business always gets the same one.
+//
+// POOL SIZE IS THE LEVER. A seeded picker over a finite pool can always collide,
+// and at seven lines it did — two of five demos drew the same sentence. The
+// floor here is the same as the service-filler pool's (14): wide enough that a
+// portfolio shown side by side doesn't repeat itself, and every line stays
+// vertical-neutral so any business can wear it.
 const BAND_COPY_BIZ = [
   'See why they keep coming back.',
   'The work speaks for itself.',
@@ -929,6 +976,13 @@ const BAND_COPY_BIZ = [
   'Good work, done right, close to home.',
   'This is what care looks like up close.',
   'Neighbors first. Everything else follows.',
+  'The standard we set for ourselves.',
+  'Careful work, and people who stand behind it.',
+  'Done properly, the first time.',
+  'The difference is in the details.',
+  'Here for the long run, not the quick job.',
+  'A straight answer and a job done right.',
+  'Where the work gets its reputation.',
 ];
 S.featureband = (p) => {
   const img = photoPlan(p).band;
@@ -968,13 +1022,23 @@ S.featureband = (p) => {
 // plans slots with it (planPhotoSlots) and the renderers below re-apply it as
 // belt-and-braces. One declaration: three copies of "is this a photograph?" is
 // how one of them ends up disagreeing with the other two.
-export const isPhotoMeta = (m) => !(m && m.graphic);
-function photosOnly(p, list){
-  const meta = p.photoMeta;
+// `promo` joins `graphic` here. Byte heuristics cannot see that a photograph
+// of a building has a marketing banner composited onto it — the og:image slot,
+// the filename and the alt text can, and the pool records that verdict. An
+// image the pool called promotional is authored marketing art whatever its
+// pixels look like, so it is not photography for the purposes of any slot.
+export const isPhotoMeta = (m) => !(m && (m.graphic || m.promo));
+// THE filter, over a bare list + meta. Exported so the pool exit (capture),
+// the profile boundary (normalize) and the renderers all narrow the same way.
+export function photosOnlyList(list = [], meta = []){
   if (!Array.isArray(meta) || !meta.length) return list;
-  const graphic = new Set(meta.filter(m=>!isPhotoMeta(m)).map(m=>m.path));
-  return list.filter(g=>!graphic.has(g));
+  const reject = new Set(meta.filter(m => m && m.path && !isPhotoMeta(m)).map(m => m.path));
+  return list.filter(g => !reject.has(g));
 }
+// Renderer-side shim. profile.gallery is already narrowed at the boundary
+// (see normalize), so this is a no-op for pipeline-built profiles; it still
+// earns its place for hand-built ones and for lists that are not the gallery.
+function photosOnly(p, list){ return photosOnlyList(list, p.photoMeta); }
 
 function photoPlan(p){
   if (p._photoPlan) return p._photoPlan;
@@ -1986,14 +2050,17 @@ body.arch-hearth .sec.times.times.times{position:relative;overflow:hidden;color:
 .sec.tone-dark p,.sec.tone-dark li,.sec.tone-dark span,.sec.tone-dark cite,.sec.tone-dark figcaption,
 .sec.tone-dark .lead,.sec.tone-dark .abs-body,.sec.tone-dark .svc-body p,.sec.tone-dark .trole,
 .sec.tone-dark .rost-r,.sec.tone-dark .astat span,.sec.tone-dark .sb span,.sec.tone-dark blockquote{color:rgba(255,255,255,.84)}
-/* the accent is contrast-clamped against the LIGHT ground, so it is mixed
-   toward white here rather than used raw */
-.sec.tone-dark .sec-k{color:color-mix(in srgb,var(--accent) 42%,#ffffff)}
+/* --accent is contrast-clamped against the LIGHT page ground, which says
+   nothing about how it reads on --ink. --accent-dark is the same hue lightened
+   until it MEASURES >=4.5:1 against this band's real ground (accentOnDark) — a
+   fixed mix toward white was a ratio hard-coded against a ground that varies,
+   and it shipped 3.61:1 on a captured mid-blue --ink. */
+.sec.tone-dark .sec-k{color:var(--accent-dark)}
 .sec.tone-dark .astat b,.sec.tone-dark .sb b,.sec.tone-dark .svc-row .si,
-.sec.tone-dark .pq-mark,.sec.tone-dark .tcheck,.sec.tone-dark .tdot{color:color-mix(in srgb,var(--accent) 42%,#ffffff)}
-.sec.tone-dark .tdot{background:color-mix(in srgb,var(--accent) 42%,#ffffff)}
+.sec.tone-dark .pq-mark,.sec.tone-dark .tcheck,.sec.tone-dark .tdot{color:var(--accent-dark)}
+.sec.tone-dark .tdot{background:var(--accent-dark)}
 .sec.tone-dark a{color:#ffffff}
-.sec.tone-dark .svc-cta,.sec.tone-dark .cb-link,.sec.tone-dark .cb-phone{color:#ffffff;border-bottom-color:color-mix(in srgb,var(--accent) 42%,#ffffff)}
+.sec.tone-dark .svc-cta,.sec.tone-dark .cb-link,.sec.tone-dark .cb-phone{color:#ffffff;border-bottom-color:var(--accent-dark)}
 /* hairlines, rules and every light surface that would otherwise strand ink
    text (or ink-on-ink) inside a dark band */
 .sec.tone-dark .svc-row,.sec.tone-dark .rost,.sec.tone-dark .qa,.sec.tone-dark .ev,
@@ -2003,7 +2070,7 @@ body.arch-hearth .sec.times.times.times{position:relative;overflow:hidden;color:
   background:rgba(255,255,255,.06);border-color:rgba(255,255,255,.18);color:#ffffff}
 .sec.tone-dark .card p,.sec.tone-dark .rv cite,.sec.tone-dark .why p{color:rgba(255,255,255,.78)}
 .sec.tone-dark .whycheck{background:rgba(255,255,255,.12);color:#ffffff}
-.sec.tone-dark .card .cn{background:color-mix(in srgb,var(--accent) 42%,#ffffff);color:var(--ink)}
+.sec.tone-dark .card .cn{background:var(--accent-dark);color:var(--ink)}
 .sec.tone-dark .btn:not(.ghost){background:#ffffff;color:var(--ink);border-color:#ffffff}
 .sec.tone-dark .btn:not(.ghost):hover{background:#ffffff;color:var(--ink)}
 .sec.tone-dark .btn.ghost{background:transparent;border-color:rgba(255,255,255,.5);color:#ffffff}
@@ -2318,7 +2385,7 @@ function seoHead(profile, recipe, page=null){
     canonical && `<link rel="canonical" href="${canonical}">`,
     profile.logo && `<link rel="icon" href="${escAttr(profile.logo)}">`,
     `<meta property="og:type" content="website">`,
-    `<meta property="og:title" content="${escAttr(profile.name)}${profile.tagline?` — ${escAttr(profile.tagline)}`:''}">`,
+    `<meta property="og:title" content="${escAttr(profile.legalName||profile.name)}${profile.tagline?` — ${escAttr(profile.tagline)}`:''}">`,
     desc && `<meta property="og:description" content="${escAttr(desc)}">`,
     canonical && `<meta property="og:url" content="${canonical}">`,
     img && `<meta property="og:image" content="${escAttr(img)}">`,
@@ -2327,7 +2394,9 @@ function seoHead(profile, recipe, page=null){
   // structured data — only fields we actually captured; nothing invented
   const type = recipe.vertical ? (SCHEMA_TYPE[recipe.vertical]||'LocalBusiness') : recipe.tradition ? 'Church' : null;
   if (!type) return meta;
-  const ld = { '@context':'https://schema.org', '@type':type, name: profile.name };
+  // the LEGAL identity — structured data is the machine-readable claim about
+  // who this business is, not display copy
+  const ld = { '@context':'https://schema.org', '@type':type, name: profile.legalName || profile.name };
   if (canonical) ld.url = canonical;
   if (desc) ld.description = desc;
   if (profile.phone) ld.telephone = profile.phone;
@@ -2364,10 +2433,48 @@ const LIGHT = new Set(['paper','tint']);
 // Page chrome sits outside the rhythm entirely: the nav and hero are their own
 // composition (and NAILED — untouched by this pass), the marquee is a thin rule
 // rather than a band, and the footer closes the page on its own ground.
-const TONE_CHROME = new Set(['nav','hero','pagehero','announce','footer','marquee']);
+// `upgradecta` belongs here for the same reason the footer does, and it is
+// worth spelling out because it is the one entry that looks like content. It is
+// SIGHTLINE's band, not the prospect's: demo-only (never on a delivered site),
+// appended immediately before the footer on every page, in our voice and our
+// blue. The prospect's page has already ended above it. Counting it in the
+// cadence would mean the closing CTA could never be a photograph on any demo —
+// letting a piece of our own sales chrome dictate the customer's page rhythm.
+const TONE_CHROME = new Set(['nav','hero','pagehero','announce','footer','marquee','upgradecta']);
 // Sections that carry a fixed ground of their own. They are never re-styled,
 // but they DO occupy the page, so the cadence has to see them.
-const TONE_IMPLICIT = { bookbar:'tint', upsell:'paper', upgradecta:'brand' };
+const TONE_IMPLICIT = { bookbar:'tint', upsell:'paper' };
+
+// Photo ground is IMMOVABLE — a section that paints its own background-image
+// inline cannot be re-toned, because a tone class loses to the inline style
+// (that was the whole bug: the cadence demoted the class and the heavy band
+// shipped anyway). The cadence resolves photo/heavy adjacency by moving the
+// OTHER, class-toned neighbour. When BOTH neighbours are photo ground there is
+// no class to move, and two full-bleed photographs stack back to back — a wall
+// of image with the page's argument buried between them.
+//
+// So resolve it in composition instead: drop the DISCRETIONARY band. The
+// feature band exists to be a visual exhale between two type-heavy sections;
+// next to another photograph it is not an exhale, it is the second half of a
+// wall. The closing CTA is load-bearing and stays. This runs on every render,
+// toned or not — church pages have no cadence pass at all, which is exactly
+// where a featureband/cta-photo pair shipped unnoticed.
+const PHOTO_GROUND = /<section\b[^>]*style="[^"]*background-image:[^"]*url\(/;
+const DISCRETIONARY_BAND = new Set(['featureband']);
+function dropAdjacentPhotoGround(rendered){
+  const out = [];
+  for (const x of rendered){
+    const prev = out[out.length - 1];
+    if (prev && PHOTO_GROUND.test(prev.html) && PHOTO_GROUND.test(x.html)){
+      if (DISCRETIONARY_BAND.has(x.name)) continue;                 // drop this one
+      if (DISCRETIONARY_BAND.has(prev.name)) { out.pop(); out.push(x); continue; }
+      // neither is discretionary: keep both rather than delete load-bearing
+      // content, and let the cadence/hairline backstop do what it can.
+    }
+    out.push(x);
+  }
+  return out;
+}
 
 function applyTones(rendered){
   // 1. assign
@@ -2376,6 +2483,12 @@ function applyTones(rendered){
     // a "photo" tone with no photo behind it would be white type on the page
     // ground — read the markup rather than trusting the section name
     if (tone === 'photo' && !/background-image:/.test(x.html)) tone = x.name === 'cta' ? 'dark' : 'paper';
+    // …and the converse, which is the load-bearing half: a section that DOES
+    // paint its own ground inline is photo ground whatever the table says its
+    // role is. The inline style beats the tone class, so any other tone here
+    // would be a class that changes nothing except what QA thinks it audited.
+    // Read the markup, not the name.
+    else if (tone && tone !== 'photo' && PHOTO_GROUND.test(x.html)) tone = 'photo';
     return { ...x, tone };
   });
   // the cadence sequence: real bands only, in page order, each with the tone it
@@ -2492,10 +2605,14 @@ export function assemble(profile, recipe={}, page=null){
   const displayUrl = brandFont ? brandFont.replace(/ /g,'+') + ':wght@400;500;600;700'
     : (packFont && packFont.fontUrl) || theme.fontUrl;
   const css = stylesheet().replace(/__DISPLAY__/g, displayFont);
-  // _display: the short name for BELOW-FOLD COPY (see shortName). profile.name
-  // stays the legal identity for the title, the JSON-LD, the hero and the
-  // footer's fine row. Computed here so a caller that never went through the
-  // pipeline (variety-check, heal, greenfield) gets the same behaviour.
+  // The legal-identity slots — <title>, og:title, the JSON-LD and the footer's
+  // fine row — take the full captured string. Everything the page SAYS takes
+  // profile.name, which the pipeline has already shortened. A profile that
+  // never set legalName falls back to name, so callers that predate the split
+  // (variety-check, heal, greenfield) behave exactly as before.
+  const legal = profile.legalName || profile.name;
+  // _display: the short name for BELOW-FOLD COPY (see shortName). Recomputed
+  // here rather than assumed, for the same non-pipeline callers.
   const p = { ...profile, _display: shortName(profile.name || ''),
     ...(trad ? { _t:trad } : {}), ...(page ? { _page:page } : {}), _vertical: recipe.vertical || null };
   let order = page?.order || (trad ? trad.order : archetype.order);
@@ -2540,13 +2657,13 @@ export function assemble(profile, recipe={}, page=null){
   // the parity tint, which is still scoped to :not(.toned).
   const toned = !!recipe.vertical;
   const bodyClass = archetype.body + (recipe.tradition ? ` trad-${recipe.tradition}` : '') + (recipe.vertical ? ` vert-${recipe.vertical}` : '') + (page ? ' subpage' : '') + (toned ? ' toned' : '');
-  const rendered = order
+  const rendered = dropAdjacentPhotoGround(order
     .map(name => ({ name, html: S[name] ? S[name](p, {mood, arch: recipe.archetype}) : '' }))
-    .filter(x => x.html && x.html.trim());
+    .filter(x => x.html && x.html.trim()));
   const body = (toned ? applyTones(rendered) : rendered.map(x => x.html)).join('\n');
   return `<!doctype html><html lang="en"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>${esc(page?.title?`${page.title} — ${profile.name}`:`${profile.name}${profile.tagline?` — ${profile.tagline}`:''}`)}</title>
+<title>${esc(page?.title?`${page.title} — ${legal}`:`${legal}${profile.tagline?` — ${profile.tagline}`:''}`)}</title>
 <meta name="description" content="${((profile.description||profile.hero?.sub||`${profile.name}${profile.tagline?` — ${profile.tagline}`:''}`)||'').replace(/"/g,'&quot;').slice(0,300)}">
 ${seoHead(profile, recipe, page)}
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
