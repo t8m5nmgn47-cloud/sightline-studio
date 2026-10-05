@@ -4,944 +4,948 @@
     "score": 7,
     "verdict": "pass",
     "issues": [
-      "Services section (dark background, numbered list) uses no photography — only text blocks. For an ENT practice, visual hierarchy of conditions could benefit from subtle imagery or icons, not bare text.",
-      "Testimonials section lacks consistent visual weight — two short quotes in plain text with minimal visual separation. Could use headshots or stronger visual framing.",
-      "Footer credentials/certifications section is text-only with checkmarks. On a medical practice site, this reads sparse and could use subtle iconography or better visual grouping.",
-      "Color palette is safe (red accent, charcoal, teal waiting room photo) but the dark services section feels visually detached from the lighter hero/testimonial zones — creates slight rhythm break."
+      "Services section (lower half) uses numbered list layout on dark background—lacks visual hierarchy and becomes monotonous; no photos or illustrations to break rhythm",
+      "Credentials/trust section (checkmarks) uses tiny text on light gray, reducing legibility and visual weight",
+      "Patient testimonials section has only 2 visible quotes; feels sparse and could benefit from more social proof or a carousel",
+      "Footer section is abrupt; 'Why patients choose South Denver ENT' teaser at bottom feels disconnected and lacks clear CTA",
+      "Color palette: coral/red (#C64545) is tasteful as accent, but inconsistently applied across CTAs and secondary elements—some sections feel orphaned from brand identity",
+      "Spacing between major sections varies; some have generous breathing room, others feel compressed (e.g., credentials to services transition)"
     ],
     "mobileIssues": [
-      "Mobile nav button (hamburger) is present but small and right-aligned — tap target appears adequate but could be larger for confident interaction.",
-      "Hero headline 'Nasal surgery that changes how you breathe' is legible but tightly wrapped on 390px — no readability crisis, acceptable.",
-      "CTA button 'Request appointment' is full-width and appropriately sized for mobile.",
-      "Waiting room image cropped to portrait on mobile — appears natural, no overflow issues."
+      "Mobile nav hamburger menu button is present but small; unclear if it's adequately touch-friendly at 390px",
+      "Hero headline 'Nasal surgery that changes how you breathe' is legible but text size should be stress-tested on iPhone SE (375px) for reflow",
+      "CTA button 'Schedule consultation' is adequate width but could be larger for mobile thumb comfort",
+      "Services list (numbered 01–08) will likely stack poorly on mobile; may create excessive vertical scroll fatigue"
     ],
-    "best": "Clean, professional medical practice layout with strong call-to-action placement. Real clinical photography (waiting room) is appropriate and well-lit. Navigation and button hierarchy are sound. Brand identity (logo, red accent, professional typography) is cohesive and trustworthy. Copy directly matches the service (ENT surgery, allergies, breathing issues). No broken elements, template bloat, or embarrassing mismatches.",
+    "best": "Hero section is clean and compelling—clear headline, uncluttered layout, real clinical waiting-room photography (appropriate and trustworthy), and strong CTA placement. Credentials section (Named Top Doctor, board-certified, affiliations) builds immediate trust. Mobile navigation exists and layout doesn't horizontally overflow.",
     "flagged": false,
-    "at": "2026-10-05T03:16:24.804Z"
+    "at": "2026-10-05T03:55:31.750Z"
   },
   {
     "slug": "aspenfallslandscaping-com",
     "score": 8,
     "verdict": "pass",
     "issues": [
-      "Services section (01 — OUR SERVICES) uses numbered list styling with minimal visual hierarchy; could benefit from icon or card treatment to match premium positioning",
-      "Why design-build matters section image (left side) is somewhat dark/moody and doesn't feel as inviting as the hero landscape photo—tone shift is subtle but noticeable",
-      "Testimonials section ('What people say') has three quote blocks that are text-heavy and slightly cramped; could use breathing room or card styling to lift them visually",
-      "Footer area is abrupt; no CTA or 'next steps' messaging before the final section fades out"
+      "Services section (01) uses a serif italic font for service titles that, while stylish, reduces scanability slightly—could benefit from bolder or non-italic treatment for quick parsing.",
+      "Color palette is restrained and harmonious (navy, cream, green accents), but the navy footer feels slightly disconnected from the warm landscape imagery above it—minor rhythm break.",
+      "The 'Why design-build matters' section (03) has a checklist with checkmarks that, while functional, are small icon elements rather than full visual support—could use a subtle background or card treatment for better hierarchy.",
+      "Testimonials section (04) uses three short quotes in a row, but the third quote appears truncated or compressed compared to the first two—inconsistent card heights."
     ],
     "mobileIssues": [
-      "Navigation hamburger menu is present (confirmed in top-right), but visual prominence could be clearer—icon is small relative to 'Free Estimate' button",
-      "Hero headline is legible but quite long on one line break; line-length is acceptable but near edge of comfort at 390px",
-      "Services section numbering (01–08) stacks vertically; on mobile this becomes a very long single-column list with no visual break—could feel like a wall of text"
+      "Navigation hamburger menu is present (good), but the 'Free Estimate' button in the top bar is quite prominent on mobile and may overshadow the core 'Start your project' CTA below the hero.",
+      "Hero headline is large and legible at 390px, and the hero image scales responsively without distortion.",
+      "All tap targets appear adequately sized for mobile (buttons at least 44px tall, spacing is reasonable).",
+      "No horizontal overflow detected; layout is clean and single-column."
     ],
-    "best": "Exceptional hero image quality and composition; professional photography throughout; clear brand voice and messaging; color palette (navy + light bg) is elegant and restrained; CTA buttons are prominent and well-placed; services are comprehensive and well-organized; testimonials feel authentic; mobile navigation is functional.",
+    "best": "Strong brand consistency (logo, color palette, typography). Hero imagery is gorgeous, natural, and perfectly on-brand for outdoor landscaping. Layout rhythm is logical: hero → services → proof (why it matters) → testimonials → CTA. Trust signals are present (licensed contractor, warranty, client testimonials). No template smell—feels custom and professional.",
     "flagged": false,
-    "at": "2026-10-05T03:16:35.700Z"
+    "at": "2026-10-05T03:55:42.918Z"
   },
   {
     "slug": "attorneysofhighlandsranch-com",
     "score": 7,
     "verdict": "pass",
     "issues": [
-      "Color palette leans heavily on dark teal/blue throughout multiple sections—risks monotone wash, though not severe enough to drop below 7",
-      "Section 4 (Services list) uses only text + italicized headings; no visual break or supporting imagery to differentiate from dense legal-services template aesthetic",
-      "Footer area cut off in provided desktop image—cannot fully assess layout rhythm and trust signals at page bottom",
-      "Stacked rock image in hero is conceptual/metaphorical rather than lawyer/courtroom specific; works but slightly generic for legal services",
-      "Gavel photo in middle section is stock-photo standard; serviceable but unremarkable"
+      "Color palette relies heavily on teal/blue — while not a monochrome wash, the repetition across sections (hero background, buttons, footer) feels somewhat monotonous and lacks visual accent variety",
+      "Stacked rocks image in hero is evocative but somewhat generic for a legal practice — doesn't immediately signal 'law firm' or trustworthiness; a more contextual image (office, courtroom, professional setting) would strengthen messaging",
+      "Service section (bottom half) uses icon-style labels (01, 02, 03, etc.) instead of photographs where visual differentiation might otherwise be needed; this is acceptable but minimal",
+      "Footer section appears cut off in desktop view — unclear if full contact/social info is present below the fold",
+      "Typography hierarchy is solid but the 'OUR STORY' and 'OUR SERVICES' labels are small gray text that could be missed on first scan"
     ],
     "mobileIssues": [
-      "Hamburger menu button present and positioned correctly (top right), but no visual feedback shown in screenshot",
-      "Hero headline is legible at 390px, but sits very close to image—minimal breathing room on small screens",
-      "Call-to-action button (720-344-5168) is appropriately sized for touch targets",
-      "No horizontal overflow or crushing observed in above-the-fold mobile view"
+      "Hamburger menu button present and visible, but no explicit verification of full navigation drawer functionality from static image",
+      "Hero headline is legible but sits on top of the stacked rocks image which may reduce contrast in certain viewports; acceptable but not optimal",
+      "Call-to-action button (Call 720-344-5168) is appropriately sized and spaced for mobile tap targets"
     ],
-    "best": "Headline copy is clear and specific to the service area (divorce, criminal defense, family law + Front Range geography). CTA phone button is prominent and clickable on both desktop and mobile. Layout does not feel cramped; sections have distinct visual blocks. Attorneys' credentials (20 years combined) builds trust early.",
+    "best": "Clean, professional layout with strong typography and clear hierarchy. Headline immediately communicates services (divorce, criminal defense, mediation). Call-to-action is prominent. Service list is scannable and well-organized. Mobile navigation is present. Color scheme is harmonious (teal + white + gray) even if somewhat conservative.",
     "flagged": false,
-    "at": "2026-10-05T03:16:46.588Z"
+    "at": "2026-10-05T03:55:53.793Z"
   },
   {
     "slug": "buildabath-net",
     "score": 8,
     "verdict": "pass",
     "issues": [
-      "Testimonial section uses four quote blocks in a 2×2 grid — typography and whitespace are balanced, but no actual customer headshots/photos shown (text-only testimonials reduce credibility vs. including client faces)",
-      "Footer services list (#01–#07) relies entirely on text descriptions with italic subheadings — no visual break or icon system; feels text-heavy for a design-forward remodel company",
-      "Bottom 'Why homeowners choose us' section headline is cut off mid-page in desktop view — implies incomplete below-the-fold content or poor scrolling rhythm"
+      "Testimonials section uses generic left-aligned text blocks without visual hierarchy or card structure—feels flat and undifferentiated",
+      "Services list (items #1–7) is text-heavy with italic descriptions; no visual icons or imagery to break monotony in dark section",
+      "Footer services description text is small and low-contrast against dark background—readability concern for older users",
+      "Minor: 'Our services' section heading could benefit from a horizontal divider or visual punctuation above it"
     ],
     "mobileIssues": [
-      "Hamburger menu button is present but no explicit call-to-action prominence test shown — cannot verify tap-target sizes on actual nav items",
-      "Hero headline legibility is strong (large, black sans-serif), but image aspect ratio shift from desktop to mobile not fully verifiable; assume acceptable if responsive"
+      "Hero image appears to crop awkwardly at 390px; composition unclear—verify it doesn't lose critical visual focus on mobile",
+      "Hamburger menu button present and properly sized, but navigation items not visible in viewport—ensure menu expands fully without overflow"
     ],
-    "best": "Strong hero value prop ('No overlays, no shortcuts. Design team, not sales team. Built to last.') instantly communicates craftsmanship. Brand blue (#4A90E2) used as disciplined accent (buttons, highlights) without overwhelming neutral palette. Bathroom imagery is authentic, well-lit, and shows actual finished work. CTA placement and copy are confident ('Book free consultation', 'Get a free estimate'). Trust signals present (5-star Google reviews callout, 25+ years experience, family-owned). Layout spacing is generous and professional throughout.",
+    "best": "Strong, confident typography hierarchy; hero headline instantly legible and on-brand; CTA buttons clearly styled and prominent; color palette (blue accent + neutral) clean and professional; testimonials authentic and prominent; layout avoids clutter; mobile nav present and functional; brand identity (logo + name + tagline) cohesive throughout.",
     "flagged": false,
-    "at": "2026-10-05T03:16:57.944Z"
+    "at": "2026-10-05T03:56:03.877Z"
   },
   {
     "slug": "cherryhillsdentist-com",
-    "score": 7,
+    "score": 8,
     "verdict": "pass",
     "issues": [
-      "Services section (Dentistry, Dental Implants, etc.) uses text labels over dark background instead of supporting imagery—feels template-heavy and reduces visual interest",
-      "Doctor profile section lacks consistent photography treatment; the 'Why patients choose Cherry Hills' section has good headshot but 'Trusted by Englewood' section image is cropped/orange-tinted in a way that feels inconsistent with the professional tone elsewhere",
-      "Footer area is abruptly empty—no visible content in last 100px; rhythm breaks",
-      "Red accent color (#C1464D or similar) is used judiciously and tastefully—good restraint. However, the section dividers between services and testimonials could be crisper (horizontal rule/spacing is subtle to the point of being invisible)",
-      "Call-to-action buttons are consistent in style but the 'Book an appointment' button in hero and subsequent sections could use more visual hierarchy differentiation"
+      "Services section uses numbered badges (01–06) instead of consistent icon/photo treatment; visual rhythm breaks slightly from photographic authenticity",
+      "Doctor portrait in 'Why patients choose' section is well-placed but lower sections lack equal visual weight—layout feels slightly front-loaded",
+      "Footer area not fully visible in desktop image, cannot assess complete trust signals or mobile footer behavior"
     ],
     "mobileIssues": [
-      "Mobile hero image appears to show an X-ray or dental scan instead of a clear patient-dentist interaction shot—less reassuring than the desktop photo",
-      "Hamburger menu is present (good) but button size/tap target on 'New Patients' is marginal for reliable touch interaction",
-      "Services section will stack vertically; need to verify that text + icon layout doesn't become cramped or hard to scan on narrow viewport"
+      "Navigation hamburger present and properly positioned—no critical mobile nav issues detected",
+      "Hero headline ('Expert dental care, personalized to your smile') stacks legibly at 390px; no overflow or cut-off",
+      "CTA button ('Book an appointment') is appropriately sized for touch; adequate spacing maintained",
+      "Image below hero appears properly responsive; no horizontal overflow or distortion visible"
     ],
-    "best": "Clean, professional typography hierarchy; restrained use of brand red for emotional warmth without overwhelming; doctor credentials and testimonials prominently featured; clear appointment CTA above the fold; no egregious template artifacts or misalignment",
+    "best": "Strong color discipline: burgundy/red brand color used as accent (buttons, nav highlight, icons) without tinting backgrounds. Hero image is natural, professional, and contextually appropriate (dentist examining patient). Typography hierarchy is clear and legible. Services section is well-structured despite badge styling. Doctor credibility immediately evident. Mobile layout is clean, readable, and tap-friendly. Brand consistency (name, logo, copy) is solid throughout.",
     "flagged": false,
-    "at": "2026-10-05T03:17:09.143Z"
+    "at": "2026-10-05T03:56:14.079Z"
   },
   {
     "slug": "clchr-org",
     "score": 8,
     "verdict": "pass",
     "issues": [
-      "Color palette leans heavily on dark navy/teal across multiple sections (header, buttons, 'Come as you are' section, footer); while tasteful, it risks monotony and could benefit from warmer accent relief in mid-page sections",
-      "'What your first visit looks like' section uses numbered circles (1, 2, 3, 4) with minimal visual hierarchy—icons or small illustrations would strengthen this section's visual interest",
-      "'People you'll meet' section lists team members but lacks photos/headshots; text-only leader bios feel incomplete for a welcoming congregation site that emphasizes community",
-      "Watch/video section has a play-button overlay but no visible thumbnail or still image—appears as blank dark rectangle; unclear if this is intentional or a missing asset"
+      "Worship times section uses minimal visual hierarchy—could benefit from subtle background or card treatment to break monotony",
+      "The 'Come as you are' section (4 numbered boxes) feels slightly compressed horizontally; numbers don't add enough visual weight to anchor the layout",
+      "Footer 'People you'll meet' team list is text-only with no headshots; every team member deserves a portrait photo for trust-building",
+      "Mission section background image is dark and hard to read white text overlay—contrast could be stronger for accessibility"
     ],
     "mobileIssues": [
-      "Navigation: hamburger menu button present and correct (top right), good responsive behavior",
-      "Hero headline 'Gathering, Gifting, and Sending Followers of Jesus' is legible but quite long for 390px—line wrapping acceptable but dense",
-      "Tap targets appear adequately sized; 'Join Us for Worship' button is prominent and tappable",
-      "No horizontal overflow detected; mobile layout respects viewport"
+      "Hamburger menu button present and functional (good), but in above-the-fold screenshot there's no visible nav indicator until scroll—could be clearer on first impression"
     ],
-    "best": "Strong hero hierarchy with genuine church interior photography; clear value proposition ('genuinely welcome—no matter where you are'); well-organized worship times and ministries sections; responsive navigation; consistent brand voice throughout; 'Come as you are' messaging is authentic and compelling for the ELCA demographic.",
+    "best": "Strong hero section with authentic church interior photography, clear primary CTA, warm and welcoming copy that matches the faith-community brand. Section rhythm is well-paced. Blue accent color (navy/teal) is used consistently and tastefully without tinting the entire page. Mobile layout is responsive and readable. Sections clearly explain what new visitors should expect (parking, check-in, kids' care, etc.)—excellent UX for the use case. No template artifacts or mismatched branding detected.",
     "flagged": false,
-    "at": "2026-10-05T03:17:21.217Z"
+    "at": "2026-10-05T03:56:23.842Z"
   },
   {
     "slug": "coloradodermatology-com",
-    "score": 7,
+    "score": 8,
     "verdict": "pass",
     "issues": [
-      "Color palette is quite monochromatic in dark sections (01–08 service listings); teal/blue CTA buttons are the only real accent, leading to visual monotony in the middle third",
-      "The 'Why Colorado Dermatology' section uses a generic blue geometric pattern as background image instead of a cohesive photographic element—feels stock and disconnected",
-      "Service descriptions (Skin Cancer, Medical Dermatology, etc.) are text-only with numbered bullets; no supporting imagery breaks up the wall of dark copy",
-      "Footer is cut off in image 1; cannot fully assess spacing/alignment at page bottom",
-      "The patient testimonial section ('Leaders in Dermatology') shows a partial team photo but is truncated; unclear if full section is properly composed below"
+      "The 'Why Colorado Dermatology' section uses a generic blue abstract image (stock photo) instead of a photograph of the practice, staff, or actual clinical environment — weak trust signal for a medical practice",
+      "Services section (items 01–08) relies entirely on text descriptions without supporting imagery — each service deserves a small clinical or lifestyle photo to break monotony and aid scanning",
+      "The bottom 'Surgical precision meets personalized care' section is cropped in the full-page image — cannot evaluate layout completeness or whether it includes a real team/staff photo"
     ],
     "mobileIssues": [
-      "Hamburger menu button present and correctly positioned—good",
-      "Hero headline 'Fellowship-trained Mohs surgeons. Over 20,000 cases.' is legible but split awkwardly across multiple lines at 390px",
-      "'Book appointment' CTA button is appropriately sized and tappable",
-      "No horizontal overflow detected; layout adapts reasonably to narrow viewport"
+      "Hamburger menu button is present and positioned correctly (top right), but difficult to confirm touch target size from screenshot alone — should be ≥44px × 44px minimum",
+      "Hero headline and subheader are legible and stack properly at 390px width",
+      "Call-to-action button ('Book appointment') is appropriately sized and tappable"
     ],
-    "best": "Clear, confident headline copy ('Over 20,000 cases') immediately establishes credibility. Teal CTA buttons are visually distinct and properly sized for mobile. Navigation is present on mobile. Logo and site name ('Colorado Dermatology Mohs Surgery') are aligned and professional. Waiting room imagery feels authentic and relevant to the practice.",
+    "best": "Strong, clean typography hierarchy. Teal/turquoise accent color is used judiciously (buttons, nav underlines, section numbers) without washing out the page. Hero section is clear, professional, and directly communicates expertise ('Fellowship-trained,' 20,000+ cases). Credibility checklist (checkmarks, expert credentials) is well-formatted. Mobile nav is present. Layout is spacious and not cramped. The practice name, logo, and services align with 'dermatology mohs surgery' positioning.",
     "flagged": false,
-    "at": "2026-10-05T03:17:33.402Z"
+    "at": "2026-10-05T03:56:34.639Z"
   },
   {
     "slug": "denverfamilylawmatters-com",
     "score": 8,
     "verdict": "pass",
     "issues": [
-      "Pink/magenta CTA buttons are tasteful accent, not overwhelming—well-used. However, the dark background section with services list (Divorce, Mediation, etc.) shifts tone abruptly; while intentional, the contrast is stark and slightly breaks rhythm.",
-      "The testimonials section uses generic serif text quotes rather than customer headshots or names—missed trust-building opportunity, though acceptable for a professional law firm.",
-      "Hero building image is appropriate and not stretched; however, the page lacks variety—only one building photo repeated. A courtroom, office team, or client-facing space would strengthen credibility.",
-      "Section spacing is good overall, but the dark services section (items 01–08) feels isolated; minimal visual breathing room between list items."
+      "Brand pink/magenta is used consistently and tastefully as accent (CTA buttons, chat icon), not as a wash—good restraint",
+      "Hero headline is large, bold, serif, and instantly legible; imagery (modern building) is crisp, well-lit, and professional—appropriate for law firm gravitas",
+      "Testimonials section uses real quoted text, not placeholder; customer names provided (Katie, Casey)",
+      "Services section (Divorce, Mediation, Custody, Estate Planning, etc.) is text-based with clean typography—no icon-only nonsense",
+      "Footer is dark, balanced, and not cramped",
+      "One minor: the 'Ready When You Are' CTA section background is plain gray—not a photo slot issue, just neutral filler; acceptable for a divider"
     ],
     "mobileIssues": [
-      "Mobile nav hamburger menu is present (visible in image 2), good.",
-      "Hero headline 'FAMILY LAW AND ESTATE PLANNING FOR ALL GENERATIONS' is legible on 390px but text is very large and stack-heavy; acceptable but could be tighter.",
-      "CTA button 'Call 303-500-7706' is appropriately sized and tappable.",
-      "No horizontal overflow detected; layout appears to reflow correctly."
+      "Navigation hamburger menu is present and visible (three-line icon, top right)",
+      "Hero headline stacks and remains legible at 390px",
+      "CTA button 'Call 303-500-7706' is large and tappable",
+      "No horizontal overflow detected",
+      "Chat bubble icon in bottom right is a reasonable floating element, not obstructive"
     ],
-    "best": "Strong brand consistency, professional serif typography, pink CTA color is memorable without dominating, clear hierarchy, testimonials build trust, mobile nav present and functional, appropriate imagery for law firm, clear call-to-action on both desktop and mobile.",
+    "best": "Professional restraint with brand color; legible serif headlines; real customer testimonials; clear service taxonomy; strong mobile nav; appropriate imagery and no logo-as-photo sins. This looks like a real law firm website, not a template.",
     "flagged": false,
-    "at": "2026-10-05T03:17:45.124Z"
+    "at": "2026-10-05T03:56:45.482Z"
   },
   {
     "slug": "equippedchurch-net",
     "score": 8,
     "verdict": "pass",
     "issues": [
-      "Service times section uses a light gray background that blends too close to page background—minimal contrast and visual separation",
-      "The 'LIFE GROUPS' section has a repeated/identical blue button at bottom that feels redundant with other CTAs",
-      "Stained-glass church image in dark section is atmospheric but slightly underexposed—legibility of 'There's a place for you here' text competes with image weight"
+      "Service times section heading ('SERVICE TIMES') is small and could be more prominent",
+      "The four-step 'Your first Sunday' boxes use numbered circles (01–04) that are visually subtle; could benefit from stronger visual hierarchy",
+      "Stained-glass window image in 'There's a place for you here' section is dark/moody — works thematically but reduces legibility of white text overlay",
+      "Life Groups filter tabs (Men, Women, Young Adults, etc.) lack visual feedback state indicator on desktop — unclear which tab is active"
     ],
     "mobileIssues": [
-      "Mobile navigation hamburger menu is present and functional, but relegated to far right—standard pattern, acceptable",
-      "Hero headline 'Know Jesus. Find Family. Live Your Purpose.' wraps across 4 lines at 390px; legible but dense—consider tighter line-height or shorter hero variant for mobile"
+      "Hamburger menu button present and properly positioned ✓",
+      "Hero headline 'Know Jesus. Find Family. Live Your Purpose.' is legible and stacked well",
+      "All tap targets appear appropriately sized (buttons, links)",
+      "No horizontal overflow detected",
+      "Footer and all sections scale correctly to 390px width"
     ],
-    "best": "Consistent blue accent color (#4A90E2 range) applied as button highlights and section dividers without flooding the page; strong typographic hierarchy throughout; every photograph is real, contextually appropriate, and properly exposed (prayer group, church interior, diverse community shots); clear 4-step onboarding flow ('Your first Sunday, made simple') is intuitive and well-spaced; messaging aligns perfectly with church/faith brand; no template artifacts or broken layouts; footer call-to-action 'Join us from anywhere' is concise and actionable.",
+    "best": "Strong hero with clear value proposition and authentic congregation photo; well-organized 'Your first Sunday' onboarding flow; consistent blue accent color used purposefully (buttons, accents) without flooding page; good whitespace rhythm throughout; authentic photos in every major section; mobile navigation present and functional; typography hierarchy is clear and readable across all viewports.",
     "flagged": false,
-    "at": "2026-10-05T03:17:55.704Z"
+    "at": "2026-10-05T03:56:55.444Z"
   },
   {
     "slug": "firmmedspa-com",
-    "score": 8,
+    "score": 7,
     "verdict": "pass",
     "issues": [
-      "Founder photo (section 2) is a portrait headshot, not a clinical/professional environment shot — slightly mismatched for a medical aesthetics practice, though acceptable for trust-building",
-      "Treatment section (03) uses numbered list styling instead of card-based layout — functional but visually less polished than desktop deserves; descriptions are italicized and cramped, reducing scannability",
-      "Color palette (tan/brown/dark gray) is harmonious but somewhat muted — brand accent could be slightly bolder in CTA buttons to improve conversion visibility",
-      "Section 02 ('Our Story') has uneven text-to-image balance — text block is dense; could benefit from breathing room or pull-quote styling"
+      "Color palette is heavily muted/monochromatic (brown, beige, dark gray) across all sections—brand accent (tan/gold button) is tasteful but underutilized; creates a somewhat flat, corporate feel rather than dynamic visual hierarchy",
+      "Founder story section has asymmetrical image placement (photo on right) with large text block on left—works but feels slightly cramped; the 2-column layout shifts abruptly from other single-column sections",
+      "Services section (treatments list) lacks visual variety—all text descriptions with numbered badges; no photo or visual break between items 1–8 creates visual fatigue on long scroll",
+      "Treatments section should anchor with a high-quality close-up photograph (before/after, treatment room, or patient result) but shows only text descriptions—reduces credibility and engagement for aesthetic medical practice",
+      "Footer is minimal and cut off in image; unclear if full contact info, hours, or trust signals (licenses, certifications) are present below the fold"
     ],
     "mobileIssues": [
-      "Navigation hamburger menu is present and correctly positioned, but icon is small (≤24px) — acceptable but could be slightly larger for thumb-friendliness",
-      "Hero headline is legible at 390px, but line length is very long on some breakpoints — should verify leading/line-height on mobile doesn't compress",
-      "Treatment list (03 section) on mobile: numbered items stack vertically with long descriptions — may require horizontal scroll or collapse/accordion pattern on smaller devices to avoid excessive vertical scroll"
+      "Hamburger menu button is present (✓) but navigation items are not visible in above-the-fold section",
+      "Headline 'Advanced aesthetics designed for your goals' is legible but runs to 3 lines at 390px—acceptable but could be tighter",
+      "Image carousel/gallery from desktop is reduced to single tall image on mobile—no indication of left/right navigation arrows visible in viewport",
+      "All buttons ('Book Now', 'Book consultation') are appropriately sized and spaced for touch targets (✓)"
     ],
-    "best": "Sophisticated color harmony (warm neutrals, restrained brown accent); confident typography hierarchy; founder story section builds genuine trust; treatment menu is comprehensive and well-organized; 'Why choose us' section uses checkmarks effectively for scannability; overall layout rhythm is clean and professional-looking.",
+    "best": "Professional, luxury aesthetic; warm tan/brown palette reads as premium and appropriate for medspa; clear, modular section structure; strong call-to-action placement; founder credibility section with photo builds trust; services organized logically.",
     "flagged": false,
-    "at": "2026-10-05T03:18:08.731Z"
+    "at": "2026-10-05T03:57:06.712Z"
   },
   {
     "slug": "heidiosterobgyn-com",
     "score": 7,
     "verdict": "pass",
     "issues": [
-      "Testimonial section uses small, low-contrast gray text on light background—harder to read than it should be for such prominent placement",
-      "Dark section (#2) with service list has inconsistent visual hierarchy; numbered bullets are small and the italic service names could be bolder for scannability",
-      "The 'Why Dr. Oster's practice stands apart' section heading appears cut off or incomplete in the full-page view—no clear visual closure or supporting image",
-      "Spacing around the CTA 'Request an appointment' button in the dark services section feels slightly cramped relative to the breathing room in hero and testimonial areas"
+      "Section 4 (dark background services list) uses numbered circles as decorative pseudo-elements rather than authentic photographs—acceptable as icons, but the section lacks visual breathing room and feels text-heavy",
+      "Client testimonials section (middle) shows only text quotes with attribution; no client photos or visual variety to humanize the testimonials",
+      "Footer 'Why Dr. Oster's practice stands apart' section is cut off in the full-page view—unclear if a full section below exists or if layout ends abruptly",
+      "Repeated use of the same pregnant belly photograph across hero and potentially other sections (only one full image provided, but risk of repetition in real page)",
+      "Minor: The 'What our clients actually say' section heading lacks visual separation from the testimonial block below"
     ],
     "mobileIssues": [
-      "Hamburger menu is present but small—verify tap target is ≥44px",
-      "Hero headline is legible but long line-length at 390px could wrap awkwardly; confirm line-height/spacing is ample",
-      "Image of pregnant woman may scale unevenly at mobile—confirm no letterboxing or distortion"
+      "Mobile menu button (hamburger) is present and appropriately positioned in top-right, ✓ confirmed",
+      "Hero headline 'OB-GYN care from puberty through menopause' is clearly legible and well-sized at 390px, ✓ confirmed",
+      "Call-to-action buttons ('Schedule appointment', 'Request an appointment') are adequately sized for touch targets, ✓ confirmed",
+      "No horizontal overflow detected; layout stacks vertically as expected",
+      "Navigation and button hierarchy remain intact on mobile viewport"
     ],
-    "best": "Hero section is clean, headline is urgent and clear, and brand color (blue) is used as tasteful accent, not overwhelming. Pregnancy image is relevant and natural. Navigation menu is present on mobile. Overall layout has good rhythm and the OB-GYN/pregnancy focus aligns perfectly with business name and copy.",
+    "best": "Strong medical credibility: genuine patient testimonials, clear service taxonomy (Annual Exams, Birth Control, Pregnancy, Menopause, etc.), board certification callouts, and explicit credentials build trust. Typography is elegant and readable. Hero copy is mission-aligned and concise. The blue accent color is restrained and used purposefully for CTAs. Mobile navigation is intuitive. Overall professional tone matches OB-GYN specialty perfectly.",
     "flagged": false,
-    "at": "2026-10-05T03:18:19.959Z"
+    "at": "2026-10-05T03:57:18.321Z"
   },
   {
     "slug": "homesteadtc-com",
     "score": 8,
     "verdict": "pass",
     "issues": [
-      "Testimonial section uses generic gray backgrounds instead of distinct photo portraits—text-only blocks reduce visual credibility for a title/escrow business where trust is paramount",
-      "Services section (bottom half) relies heavily on icon + text lists rather than photographed scenarios; feels slightly template-like compared to hero's strong visual anchoring",
-      "Color rhythm: blue CTA buttons are consistent and tasteful, but the page could benefit from one more accent moment in mid-page to break gray monotony"
+      "Testimonials section uses repeated generic placeholder-style quote formatting (no headshots/professional photos to anchor credibility)",
+      "Services section (#1–#8 list) is text-only dark background — relies on typography alone; could benefit from subtle icons or visual differentiation per service",
+      "Footer 'OUR SERVICES' heading and service list feel dense and under-breathing compared to other sections",
+      "No clear visual hierarchy break between testimonials and services sections — abrupt tonal shift"
     ],
     "mobileIssues": [
-      "Mobile nav hamburger menu is present (good), but positioned top-right and could be larger for easier thumb access on 390px viewport"
+      "Hamburger menu button present and correctly positioned",
+      "Hero headline is legible at 390px (stacked well)",
+      "Hero image appears intact and proportional",
+      "'Order Title' button is appropriately sized for tap target",
+      "No horizontal overflow detected",
+      "No layout breaking or text overflow observed above the fold"
     ],
-    "best": "Hero section is outstanding—clean typography, natural street-level architectural photography (not tinted/stretched), headline instantly conveys expertise, and CTA button placement is confident. Desktop layout is spacious and rhythmic throughout; testimonials feel authentic despite lack of photo. Brand consistency between logo, site name, and messaging is tight. Mobile above-fold is legible and uncluttered.",
+    "best": "Strong hero with crisp photography, legible typography hierarchy, tasteful use of brand blue (accent, not wash), authentic local trust-building testimonials, and clear call-to-action buttons. Mobile nav and responsive stacking are solid. Messaging aligns tightly with business type (Colorado title/escrow). No template smell or industry mismatch.",
     "flagged": false,
-    "at": "2026-10-05T03:18:30.440Z"
+    "at": "2026-10-05T03:57:28.624Z"
   },
   {
     "slug": "hrcoc-org",
     "score": 8,
     "verdict": "pass",
     "issues": [
-      "Color application is safe but somewhat monotonous—blue CTA buttons are consistent but rarely used as accent; most sections rely on white/gray backgrounds with black text. Works well for a church but lacks visual warmth.",
-      "The 'Get around a table' section uses a table/comparison layout with category tabs (Life Groups, Men, Women, etc.) but no actual photo or visual asset fills that space—feels bare compared to richer sections above.",
-      "Final 'Listen before you visit' section shows only a blue placeholder box with a play icon; no actual sermon/video thumbnail or relevant imagery is visible, reducing credibility.",
-      "Minor: Interior church photo is repeated (hero and 'place for you' section) which is acceptable but slightly limiting for visual variety across a longer page."
+      "The 'RELIGION' section uses a decorative text-overlay on a church interior photo rather than clean typography—works thematically but slightly template-y",
+      "The 'Listen before you visit' section at the bottom is cut off in the desktop screenshot; unclear if content is complete or if footer exists",
+      "The blue accent color (#2563EB) is heavy throughout (buttons, headings, numbered circles)—leans slightly monochromatic in places, though tasteful overall"
     ],
     "mobileIssues": [
-      "Hero headline 'First-century faith for today's world' is legible but set in a large serif font that may wrap awkwardly on narrower phones; no obvious issues at 390px but monitor at smaller devices.",
-      "Hamburger menu button is present (top right), good.",
-      "CTA buttons ('Join us Sunday', 'I'm New', 'Find your group') are appropriately sized for touch.",
-      "No horizontal overflow detected; mobile layout appears to stack cleanly."
+      "The mobile hero image (church interior) appears correctly displayed and legible",
+      "Hamburger menu button is present and properly positioned in top-right",
+      "All text is legible at 390px width",
+      "No horizontal overflow detected",
+      "Tap targets (buttons) are appropriately sized for mobile"
     ],
-    "best": "Clear hierarchy, appropriate tone for a church website, strong CTAs positioned logically throughout, genuine interior photography that conveys warmth and authenticity, legible typography, and a logical flow from 'why visit' → 'how to visit' → 'get involved' → 'serve.' Mobile nav is present and layout stacks well. Brand identity is consistent (name, logo, tagline alignment).",
+    "best": "Strong visual hierarchy; church interior photography is authentic and high-quality; clear, purposeful messaging ('First-century faith for today's world') matches the business type perfectly; desktop layout has excellent breathing room and section rhythm; mobile navigation is present and functional; brand identity (name, tagline, color) is cohesive and professional; call-to-action buttons are prominent and well-placed throughout",
     "flagged": false,
-    "at": "2026-10-05T03:18:42.638Z"
+    "at": "2026-10-05T03:57:37.637Z"
   },
   {
     "slug": "missionhills-org",
     "score": 7,
     "verdict": "pass",
     "issues": [
-      "Service times section uses plain text/bullet list instead of a real photograph or visually engaging component—feels sparse and template-like",
-      "The 'Made for More' hero image is stylized/illustrative art rather than a natural photograph; appropriate for tone but borders on generic stock-art feel",
-      "Stained glass section (lower page) is a real photo, good—but the 'Come see for yourself' overlay text is dark on dark; contrast is weak",
-      "Four-column 'What your first visit looks like' section (numbered 1–4) relies entirely on text + icon badges; no photograph or visual anchor—feels procedural rather than welcoming",
-      "Spacing in the groups section (Life Groups: Mon, Women, Young Adults, etc.) is minimal and list-like; lacks visual hierarchy or card structure",
-      "Footer 'church runs on volunteers' section is a dark overlay photo with white text—readable but no human faces or action imagery; feels generic inspirational rather than authentic"
+      "Service times section uses a generic blue box/card layout instead of a photograph or visual asset—feels template-y and lacks local character",
+      "Hero image is a stylized graphic/texture (blue abstract with web and natural pattern) rather than a real photograph of the church, community, or worship environment—conflicts with 'photography expected for trust'",
+      "The interior church photograph in the 'Come see for yourself' section is strong, but the hero should lead with a similar real asset, not an illustration",
+      "Slight tonal inconsistency: teal/turquoise CTA buttons work well, but color accent is not present uniformly across all sections—some sections feel neutral/plain"
     ],
     "mobileIssues": [
-      "Hamburger menu button is present and visible—good",
-      "Hero headline 'Life is messy. You don't have to navigate it alone.' is legible and well-sized at 390px",
-      "CTA button 'Join us this weekend' is appropriately sized for touch",
-      "No horizontal overflow detected",
-      "All tap targets appear adequate"
+      "Hamburger menu button is present and accessible (good), but not clearly visible in the above-the-fold screenshot—verify tap target size meets 44px minimum"
     ],
-    "best": "Clear messaging hierarchy; appropriate use of teal accent color as button/highlight only (not a color wash); logo + site name match (Mission Hills Church); desktop layout rhythm is smooth and well-paced; mobile nav and buttons are friendly and accessible; tone aligns with faith community positioning",
+    "best": "Clear hierarchy, honest copy tone ('no pressure'), genuine welcome messaging, strong community focus, excellent use of real photography in lower sections (church interior, step-by-step visuals), accessible CTAs, and mobile navigation present. Layout rhythm is calm and well-spaced throughout.",
     "flagged": false,
-    "at": "2026-10-05T03:18:53.994Z"
+    "at": "2026-10-05T03:57:46.955Z"
   },
   {
     "slug": "myrkmhome-com",
     "score": 8,
     "verdict": "pass",
     "issues": [
-      "Blue CTA button color is used consistently and tastefully (not a monochrome wash); accent is well-balanced across sections.",
-      "Hero headline is large, legible serif typography; image of completed home is natural, well-lit, and contextually perfect for a custom home builder.",
-      "All imagery slots contain real photographs: finished homes, construction sites, architectural details. No logos, icons, or text banners substituting for photos.",
-      "Layout rhythm is consistent: hero → case study + image → service differentiation section → service list. Spacing is balanced; no cramping or orphaned sections.",
-      "Trust signals present: family-owned since 1987, named designer Kerry Moore, testimonial with star rating (4.9★), specific location (Elbert Ave, CO). Logo and site name 'Build Home on Your Lot' are aligned.",
-      "Minor: service list (items 1–7) uses text-only enumeration; visual hierarchy is clear but could benefit from subtle icons or imagery breaks to prevent wall-of-text feel on desktop."
+      "Services section (dark background) lists 8 service titles in italic serif, but no accompanying photography or visual breaks—purely text-heavy, reduces visual interest and scannability",
+      "Testimonials section uses only quoted text with client names; no client photos or avatars present, which would strengthen trust and personalization",
+      "Footer section is minimal and sparse—lacks secondary navigation, social links, or contact details that are typical for a builder/contractor site"
     ],
     "mobileIssues": [
-      "Mobile hero headline 'Custom homes built on your lot, your way' is legible at 390px; wraps appropriately.",
-      "Hamburger menu button is present in top-right corner on mobile viewport.",
-      "CTA buttons ('Start your home', 'Free Estimate') are large and well-spaced for touch targets.",
-      "No horizontal overflow, overlapping, or cut-off elements detected in mobile viewport.",
-      "Image is properly scaled and centered; no distortion or stretching."
+      "Hamburger menu button is present but small; tap target size acceptable but could be larger for fat-finger UX on mobile"
     ],
-    "best": "Consistent, professional use of brand blue as accent (not dominating); genuine photography throughout; clear value proposition matched to business type; trust-building copy (family-owned, designer name, testimonials); solid mobile navigation and touch targets.",
+    "best": "Strong hero with crystal-clear headline, authentic photograph of completed home, honest tagline matching business model (family-owned since 1987, fixed pricing, owner on site). Brand color (blue) used as tasteful accent in CTAs and navigation—not a monochrome wash. Copy matches the custom home-building business perfectly. Layout is clean and rhythmic across desktop sections. Mobile layout is responsive and readable above the fold.",
     "flagged": false,
-    "at": "2026-10-05T03:19:05.770Z"
+    "at": "2026-10-05T03:57:56.827Z"
   },
   {
     "slug": "paramounttitle-com",
     "score": 8,
     "verdict": "pass",
     "issues": [
-      "Services section (lower dark area) uses italic serif font for service titles—elegant but slightly harder to scan quickly than a cleaner sans-serif at that size",
-      "Testimonials lack author photos or credentials beyond names—minor trust signal weakness for a professional services firm",
-      "Call-to-action density could be refined: multiple 'Open an order' buttons across the page (hero, mid-page, services) without subtle visual hierarchy distinction"
+      "Services section (bottom) uses dark gray/charcoal background with white text—legible but visually heavy; could benefit from lighter accent or tinted background to match brand color hierarchy",
+      "Testimonials section uses small serif italics that feel disconnected from the bold sans-serif headline voice; attribution lines are cramped",
+      "Footer and lower sections lack visual breathing room—dense text blocks without much whitespace or secondary imagery"
     ],
     "mobileIssues": [
-      "None detected—hamburger menu present, headline legible at 390px, tap targets appropriately sized, no horizontal overflow"
+      "Mobile nav hamburger menu is present and appropriately positioned (top right), good",
+      "Hero headline wraps well and remains legible at 390px",
+      "CTA buttons ('Order Title', 'Start a File') are sufficiently large for touch targets",
+      "No horizontal overflow detected; layout adapts cleanly to mobile viewport"
     ],
-    "best": "Hero image (Union Station) is stunning, properly proportioned, and reinforces professionalism; color palette (navy + cream) is cohesive and applied as tasteful accent, never a tint wash; testimonials section feels genuine and community-focused; layout rhythm is clean and predictable from desktop to mobile; brand identity (Paramount) is consistent and trustworthy throughout; copy is specific to title/closing services and avoids generic template language.",
+    "best": "Clear, confident headline with strong visual hierarchy; hero image (Union Station) is authentic, well-lit, and on-brand for a professional services firm; brand color (navy blue) used as accent in buttons and accents, not flooding the page; testimonials section builds trust credibly; CTA placement is logical and accessible; mobile navigation is present and functional; no logo-as-photo or template artifacts; layout feels intentional and ownership-proud.",
     "flagged": false,
-    "at": "2026-10-05T03:19:16.107Z"
+    "at": "2026-10-05T03:58:07.337Z"
   },
   {
     "slug": "paxchristi-org",
     "score": 8,
     "verdict": "pass",
     "issues": [
-      "Mass times section uses a bullet-list format that feels slightly plain compared to the polished visual hierarchy elsewhere",
-      "The 'People you'll meet' section shows only one staff member (Fr. Andrzej Szczesnowicz) — very thin social proof; would benefit from 2–3 more clergy/lay leaders to build trust",
-      "The gold/tan accent color is well-balanced overall, but the 'GIVE' section at footer feels visually lighter and less anchored than earlier sections",
-      "Minor: 'Prayer & Worship' carousel imagery on mobile may not clearly indicate it's swipeable (no visible indicator dots on desktop version)"
+      "Mass times section uses a bullet-point list instead of a clean table or card layout—feels less polished than the rest",
+      "The 'People you'll meet' section shows only one pastor; should display multiple team members or feel incomplete/empty",
+      "Stained-glass imagery is repeated across multiple sections (hero carousel, middle section)—risks visual monotony, though contextually appropriate for a church"
     ],
-    "mobileIssues": [
-      "Hamburger menu button is present and correctly positioned, good",
-      "Hero headline 'A faith community where all are welcome' is legible and properly sized at 390px",
-      "All tap targets appear adequate (Join us button, navigation items)",
-      "No horizontal overflow detected",
-      "Layout stacks logically on mobile; responsive design holds up well"
-    ],
-    "best": "Authentic photography throughout (church interiors, stained glass, altar details); strong typography hierarchy; warm, inviting color palette (gold/tan + dark charcoal) feels appropriate to Catholic tradition without being heavy; copy is genuine and welcoming ('There's a place for you here'); clear CTA buttons; mobile navigation and layout are solid; overall design feels intentional and trustworthy rather than template-y.",
+    "mobileIssues": [],
+    "best": "Warm, harmonious color palette (tan/gold/charcoal) used as tasteful accent, never dominating. Hero headline is bold and instantly legible at mobile widths. Navigation hamburger menu present and properly positioned. All real photography is relevant and high-quality (interior, stained glass, architectural). Strong trust signals: pastor name, mass times, clear CTA buttons, form for inquiries. Spacing and rhythm consistent throughout. Copy matches business type (Catholic parish) perfectly. No template artifacts, no brand mismatches, no broken elements.",
     "flagged": false,
-    "at": "2026-10-05T03:19:26.145Z"
+    "at": "2026-10-05T03:58:16.137Z"
   },
   {
     "slug": "smokyhillumc-org",
     "score": 8,
     "verdict": "pass",
     "issues": [
-      "Video/media placeholder in 'Join us from anywhere' section appears to be a generic play-button overlay rather than an embedded video thumbnail — lacks visual context of actual content",
-      "Ministry category tabs (Adult Formation, Children, Youth, Women, Men, Seniors) are text-only without visual distinction or hover states — feels slightly underdesigned for a call-to-action section",
-      "Footer 'People you'll meet' section shows only one person (Rev. Dr. Patti Agnew) — suggests incomplete roster or lazy-loaded content; title promises plural"
+      "The 'What your first visit looks like' section uses numbered circles (1–4) with icons rather than photographs; while functional, this is borderline template-y for a church site that should emphasize community warmth and human presence.",
+      "The 'This week's message' video placeholder (gold/tan box with play button) is a bare component—no actual thumbnail image shown; looks unfinished or auto-generated.",
+      "The 'People you'll meet' section heading is visible but no content/photos are shown in the desktop image (cut off or missing)—unclear if this is layout failure or intentional truncation before footer."
     ],
     "mobileIssues": [
-      "Mobile viewport shows hamburger menu present (good), but no visible 'Visiting?' button in header — desktop has it prominently; may be buried in menu or absent",
-      "Hero headline 'Follow Jesus together. All are welcome here.' breaks across 4 lines on 390px — still readable but aggressive line-stacking; could tighten font size or spacing"
+      "The 'Visit us Sunday' button is relatively small (~120px wide) for a primary CTA on mobile; could be full-width for better thumb-friendliness.",
+      "Hamburger menu button is present (✓), but no visual indicator (e.g., color highlight) shows it's tappable—minor affordance gap."
     ],
-    "best": "Strong brand identity with tasteful rust/gold accent color used as highlight, not flood. Church building photography is excellent (professional drone shot, well-lit, authentic). Clear hierarchy: headline → image → worship times → first-visit walkthrough → ministries. Copy is warm and inclusive ('All are welcome'). Navigation clean. Spacing consistent throughout. Logo + site name cohesive. 'What your first visit looks like' section with numbered steps is well-structured UX. No color tinting, no stretched/blurry images, no template rot.",
+    "best": "Hero headline and church photography are excellent—crisp, legible, emotionally resonant. Color palette (burnt orange/gold accents on neutral background) is warm and cohesive throughout without oversaturation. Navigation and 'Visit us Sunday' CTA are clear. Worship times and ministry sections are well-organized and trust-building. Mobile viewport preserves hierarchy and readability. Overall professional, welcoming, and on-brand for a faith community.",
     "flagged": false,
-    "at": "2026-10-05T03:19:37.294Z"
+    "at": "2026-10-05T03:58:26.178Z"
   },
   {
     "slug": "southdenverobgyn-com",
     "score": 7,
     "verdict": "pass",
     "issues": [
-      "Color: The royal blue CTA button is well-accented but the primary brand blue is not heavily threaded throughout, which is appropriate; however, the gray/tan background in lower sections feels slightly disconnected from the teal/blue clinic imagery at top.",
-      "Imagery: The 'OnPoint Urgent Care' image in the mid-page section appears to be a stock/generic urgent care facility photo, not specific to South Denver OB/GYN—mismatched context. The lower 'OnPoint Urgent Care' signage photo is also generic and does not represent the OB/GYN practice.",
-      "Layout: The 'Our Services' section (items 1–7) uses a single-column list with heavy typography but minimal visual hierarchy; the numbered badges (01, 02, etc.) help but the section feels text-heavy and slightly monotonous.",
-      "Trust: The practice name and tagline are clear, but the Urgent Care imagery breaks trust slightly—it suggests a different service line and dilutes OB/GYN focus.",
-      "Hero copy is strong and matches the service (comprehensive OB/GYN care), but the teal waiting-room photo, while professional, is generic and could belong to any clinic."
+      "Color flood: royal blue (#4A5FD8) dominates nav, CTAs, and accent bars—borders on monochrome wash; white/gray copy sections feel safe but lack cohesion with brand intensity",
+      "Hero image (waiting room): professionally shot but somewhat clinical/sterile; doesn't convey warmth or patient care emotion as strongly as a candid clinical or provider moment would",
+      "Service cards (Pregnancy, Midwifery, etc.): presented as numbered text blocks on dark background with no visual differentiation—feels template-y; icons or subtle imagery would add hierarchy",
+      "Section rhythm: long text-heavy block under 'The care you need' followed by dense service list; no visual break or infographic to refresh pace",
+      "Provider/team section: single male provider photo shown; no visual representation of the 'eight physicians, six nurse-midwives, four nurse practitioners' promised in headline—trust gap",
+      "Footer area: abrupt transition; no clear CTA or contact reinforcement before page end"
     ],
     "mobileIssues": [
-      "Navigation: Hamburger menu button is present (visible in Image 2), which is correct.",
-      "Hero headline 'Eight physicians, six midwives, two locations' is fully legible and stacked appropriately on mobile.",
-      "CTA button 'Schedule Your Exam' is large and tap-friendly.",
-      "No horizontal overflow or cramped content detected.",
-      "Tap targets appear appropriately sized for mobile interaction."
+      "Hero headline ('OB/GYN and midwifery care across South Denver') breaks across 4 lines at 390px; legible but text-heavy for small screens",
+      "Hamburger menu present (✓), but button styling (three horizontal lines) blends into dark nav bar—subtle contrast issue",
+      "Service list (numbered 01–08) will stack vertically and extend page length significantly; consider collapsible accordion",
+      "CTA buttons ('Schedule an exam', 'New Patients') are appropriately sized but only one visible above fold; second fold shows image cut awkwardly"
     ],
-    "best": "Clear, confident headline; strong CTA placement above the fold; responsive mobile layout with proper navigation; professional clinic photography; well-structured service list with numbered badges; appropriate use of brand blue as accent without color-wash; honest, industry-specific copy.",
+    "best": "Strong value proposition in headline; professional waiting-room imagery sets calm tone; clear service taxonomy with numbered system; trust markers (credential counts) present; mobile nav structure sound; consistent button styling.",
     "flagged": false,
-    "at": "2026-10-05T03:19:49.743Z"
+    "at": "2026-10-05T03:58:38.567Z"
   },
   {
     "slug": "southwestheating-com",
-    "score": 8,
+    "score": 7,
     "verdict": "pass",
     "issues": [
-      "Services section (dark navy background with 8 numbered items) uses icon bullets instead of photographs—acceptable for a service list, but the section feels text-heavy and could benefit from subtle background imagery or lighter accent colors to break visual monotony.",
-      "Testimonials section lacks individual headshots or visual distinction between quote blocks—all four testimonial cards are text-only with names, which reduces personality and trust signals.",
-      "Footer/bottom section cut off in desktop image, so full layout rhythm cannot be fully assessed."
+      "Testimonials section uses generic beige/cream placeholder styling rather than distinct visual hierarchy between quotes",
+      "Services section (dark navy background with numbered list) feels template-heavy; numbered badges (#1–#8) lack visual distinction or iconography",
+      "Footer section is cut off in the provided full-page image; cannot fully assess layout closure",
+      "Hero image is a generic luxury living room, not HVAC-specific; no visible thermostat, ductwork, or heating equipment to reinforce the business category",
+      "Color palette relies heavily on blue (#4A5FC1) throughout navigation, buttons, and accents; while harmonious, it risks a slight monochrome wash in the services section"
     ],
     "mobileIssues": [
-      "Hamburger menu button is present and positioned correctly (top right), satisfying mobile navigation requirement.",
-      "Hero headline ('50 years of honest HVAC service in Littleton') is legible and well-stacked at 390px.",
-      "Call button is prominent and tap-friendly.",
-      "No overflow, overlap, or micro-text detected in mobile viewport above the fold."
+      "Mobile hero headline is legible but very cramped with 21px+ line-height needed; text reflow may cause awkward breaks",
+      "Hamburger menu is present (good), but only a blue 'Free Estimate' button and menu icon shown; navigation links not visible in above-the-fold"
     ],
-    "best": "Strong hero with clear value proposition and direct CTA; brand colors (blue accent) used tastefully without washing the design; 50-year heritage claim is credible trust signal; layout is clean and professional throughout; mobile layout is responsive and functional; imagery (interior/living room) is high-quality and relevant to comfort/home theme; testimonials with 5-star rating add social proof; no mismatches between 'Southwest Heating' name and HVAC service offering.",
+    "best": "Strong trust signals: 50-year history prominently displayed, 100% satisfaction guarantee, real client testimonials with attribution, local phone number (303-791-2679) featured consistently. Hero copy is clear and on-brand. Desktop layout is spacious and professional. Mobile navigation is functional. Color use is restrained and intentional.",
     "flagged": false,
-    "at": "2026-10-05T03:20:00.541Z"
+    "at": "2026-10-05T03:58:51.569Z"
   },
   {
     "slug": "summitchurch-online",
     "score": 8,
     "verdict": "pass",
     "issues": [
-      "Service times section uses a minimal layout with only text—could benefit from a subtle background or card container to break visual monotony",
-      "The stained-glass church image in 'There's a place for you here' section is striking but slightly dark; ensure it doesn't reduce text legibility on smaller displays",
-      "Group category tags (Men, Women, Young Adults, etc.) under 'Life is better together' are left-aligned text pills rather than proper button/card treatment—minor polish issue"
+      "Hero background image appears slightly washed/tinted with a semi-transparent overlay—legible but reduces photo impact",
+      "The 'What your first visit looks like' section uses icon badges (numbered circles) instead of photos for those 4 steps—acceptable for process flow, but section title says 'looks like' which implies visual narrative; minor copy-to-format mismatch",
+      "Stained-glass window image in 'There's a place for you here' section is atmospheric but somewhat dark and cropped—serviceable, not distracting"
     ],
     "mobileIssues": [
-      "Hamburger menu button exists and is properly positioned, but confirm tap target size meets 48px minimum (appears ~44px)",
-      "Hero headline wraps to 4 lines at 390px—legible but pushing margin of comfort; minor spacing issue only"
+      "Hamburger menu icon present and functional (good)",
+      "Hero headline is legible at 390px; text remains bold and centered",
+      "All tap targets (buttons, 'I'm New' link) appear adequately sized and spaced",
+      "No horizontal overflow observed",
+      "Navigation and layout stack cleanly on mobile viewport"
     ],
-    "best": "Strong theological messaging aligned with church mission; genuine photography throughout (no stock-template feel); harmonious teal accent color used tastefully without overwhelming; clear CTA hierarchy (Join Us This Sunday, Plan Your Visit, Find Your Group); mobile navigation present and responsive; spacing and section rhythm feel intentional and professional throughout; trust-building elements (service times, newcomer onboarding steps, group categories, online option) all present and well-organized",
+    "best": "Clear hierarchy, consistent teal accent used as tasteful button/highlight color rather than monochrome wash. Genuine photography in hero and throughout (stained glass, community imagery). Well-structured onboarding flow ('New here?' steps). Mobile navigation is present and functional. Spacing and rhythm are calm and intentional. Brand identity (church community) is immediately clear and copy matches purpose throughout.",
     "flagged": false,
-    "at": "2026-10-05T03:20:10.216Z"
+    "at": "2026-10-05T03:59:01.634Z"
   },
   {
     "slug": "thrivechurch-com",
-    "score": 7,
-    "verdict": "pass",
-    "issues": [
-      "IMAGERY: Section 'What your first visit looks like' uses numbered circles (01, 02, 03, 04) as icon placeholders instead of actual photographs or contextual imagery—feels template-y and weakens trust",
-      "IMAGERY: 'Get around a table' section shows only category labels (Life Groups, Men, Women, etc.) with no actual photo of people around a table or group activity—contradicts the headline",
-      "IMAGERY: 'Join us from anywhere' section has a large orange/tan box labeled 'This week's message' with a play button but no actual video thumbnail or preview image—looks like a placeholder",
-      "COLOR: Orange/rust accent color is used heavily across buttons and sections; while tasteful, it borders on becoming a secondary dominant hue rather than pure accent—acceptable but watch saturation",
-      "LAYOUT: 'What your first visit looks like' has 4 cards that may compress awkwardly at mid-breakpoints before mobile—spacing and card width need validation at 768–1024px"
-    ],
-    "mobileIssues": [
-      "Hero headline 'Church that feels like family, not a building' is legible but quite long; line breaks may be awkward at 390px depending on font-size—appears acceptable in image 2",
-      "Mobile navigation: hamburger menu is present and visible (top-right)—good",
-      "CTA buttons ('Plan Your Visit') are appropriately sized for touch at 390px width",
-      "No horizontal overflow observed in image 2; layout stacks cleanly"
-    ],
-    "best": "Clear, welcoming copy that matches the church brand promise; consistent color system (rust/orange as warm accent); strong CTA hierarchy; mobile navigation present and accessible; heading typography is confident and readable; 'Your Next Step' sections provide genuine on-ramp for new visitors",
-    "flagged": false,
-    "at": "2026-10-05T03:20:21.002Z"
-  },
-  {
-    "slug": "truebeautymedspa-com",
     "score": 8,
     "verdict": "pass",
     "issues": [
-      "Services section (01 — OUR SERVICES) uses text-only list with italic descriptions instead of visual cards or imagery—feels sparse and template-like for a luxury medical aesthetics brand",
-      "No hero image on desktop initially visible—large empty beige space before the carousel/gallery appears, reduces immediate visual impact",
-      "Footer section truncated in provided image; cannot fully assess layout rhythm to page end",
-      "Service descriptions (Opus Plasma, Microneedling, etc.) are very short and lack persuasive detail—copy could be richer"
+      "Color saturation: The burnt orange/rust brand color dominates multiple sections (hero background tint, buttons, accents), creating a warm but slightly monochromatic feel. Not severe, but borders on tint-heavy.",
+      "Imagery in 'What your first visit looks like' section: Four cards with numbered circles (1,2,3,4) have no supporting photographs—just text on white/light background. These slots should contain relevant photos (parking, interior, children's area, sanctuary).",
+      "Imagery in 'Get around a table' section: No photograph showing small groups or community gathering. Badge/button labels (Life Groups, Men, Women, etc.) are shown without supporting imagery.",
+      "Imagery in 'Put your hands to something' section: Described as 'Serve' but no photo of actual service/volunteering activities shown. Missed opportunity to show real community impact.",
+      "The 'This week's message' orange box (bottom right of desktop): Appears to be a video placeholder or mock-up, not a real embedded or functional element. Lacks credibility.",
+      "Footer area: Abruptly transitions to prayer request form; no closure or secondary navigation. Feels cut off rather than intentionally designed."
     ],
     "mobileIssues": [
-      "Mobile hamburger menu button present and properly sized—good",
-      "Hero headline 'Advanced laser and injectables in Littleton' is legible but quite large and could break awkwardly on very small phones",
-      "CTA button 'Book Online' is properly sized and visible above the fold",
-      "No horizontal overflow detected",
-      "Navigation and layout responsive and functional"
+      "Hero headline is legible but tightly fitted to 390px viewport—acceptable but no breathing room.",
+      "Hamburger menu button is present (top right), good.",
+      "Tap targets on 'Plan Your Visit' and other buttons appear appropriately sized.",
+      "No horizontal overflow detected.",
+      "Mobile layout appears responsive and clean; navigation collapsible."
     ],
-    "best": "Strong luxury brand positioning with sophisticated color palette (black, warm browns, cream); high-quality interior photography conveys premium clinic environment; clear hierarchy and call-to-action placement; mobile navigation and tap targets are well-executed; professional typography and brand consistency throughout; services carousel and detailed section (What Sets True Beauty Apart) add credibility and depth.",
+    "best": "Strong messaging and clear call-to-action hierarchy. Copy authentically matches church mission ('Church that feels like family, not a building'). Logo and site name are unified. Typography is legible and well-weighted. Button colors and CTAs are prominent. Mobile navigation is properly implemented. Overall structure guides visitors through a logical 'first-time visitor' journey.",
     "flagged": false,
-    "at": "2026-10-05T03:20:31.685Z"
+    "at": "2026-10-05T03:59:13.984Z"
+  },
+  {
+    "slug": "truebeautymedspa-com",
+    "score": 7,
+    "verdict": "pass",
+    "issues": [
+      "Color palette is heavily weighted to neutrals (black, white, grey, brown) with minimal brand accent—works but feels corporate-safe rather than distinctive",
+      "Service section (#3) uses numbered list items (01–08) with minimal visual hierarchy; text-heavy and could benefit from icon or visual breaks",
+      "Image in 'What Sets Us Apart' section (woman's face) is high-quality but slightly overexposed/bright compared to warm moody aesthetic of hero imagery—tonal inconsistency",
+      "Footer area cut off in image 1, unable to fully verify layout closure and rhythm",
+      "No obvious brand color accent throughout—relying entirely on black/white/neutrals; weakens brand identity memorability"
+    ],
+    "mobileIssues": [
+      "Mobile navigation hamburger menu button present but small and could be larger for thumb-friendly tap",
+      "Hero headline wraps to 3 lines on 390px—legible but tight; could risk readability on smaller phones (<360px)",
+      "No horizontal overflow detected; responsive appears sound"
+    ],
+    "best": "Strong professional photography throughout (hero interior, treatment room, client portraits). Clean typography hierarchy. Copy is on-brand and medically credible. Layout is uncluttered and calm—appropriate for medical aesthetics. 'Book Online' CTA consistently placed and prominent. Mobile nav present and functional.",
+    "flagged": false,
+    "at": "2026-10-05T03:59:24.574Z"
   },
   {
     "slug": "vaughn-law-com",
     "score": 8,
     "verdict": "pass",
     "issues": [
-      "Hero image appears slightly desaturated/tinted blue—while intentional, it softens the professional impact slightly",
-      "Service cards (6 items) use italic serif labels but lack accompanying icons or visual differentiation; relies heavily on text",
-      "Bottom 'Built on Litigation' section uses a dark/moody office photo that doesn't convey 'counsel' or 'advisor' warmth as strongly as the skyline does",
-      "Checkmark bullets in 'Why Owners Choose' section are functional but generic; no custom visual system"
+      "Color palette is safe but slightly monotone—gray/charcoal dominates sections 3–6; blue hero image is the only visual relief. Could benefit from subtle accent color in CTAs or section headers beyond the existing dark gray.",
+      "Section 4 ('Why Owners Choose Vaughn') uses a modern building photograph that, while professional, feels generic corporate rather than tied to the firm's litigation/exit-value narrative—a team photo or office shot would reinforce trust.",
+      "Section 6 ('Built on Litigation Discipline') pairs an architect's geometric building image with legal counsel services—thematic mismatch; should show team, office, or case work.",
+      "Horizontal rhythm is clean but somewhat rigid; each numbered service (1–6) uses identical card format with no visual variation or hierarchy to signal which services are flagship."
     ],
     "mobileIssues": [
-      "Mobile nav hamburger menu present and positioned correctly",
-      "Hero headline is legible and stacked well at 390px",
-      "All tap targets appear adequately spaced",
-      "No horizontal overflow detected"
+      "Hero headline is legible but lengthy; 'Fractional counsel and M&A advisors for closely held businesses' may wrap awkwardly on very small portrait phones (< 360px).",
+      "Hamburger menu is present and correctly positioned (top-right), good practice.",
+      "CTA buttons ('Schedule Consultation') are appropriately sized for touch targets.",
+      "No horizontal overflow detected; spacing collapses gracefully to mobile."
     ],
-    "best": "Strong professional identity: cohesive dark-gray + blue + white palette used consistently; skyline hero is sharp, relevant, and emotionally appropriate for a business advisory firm; typography hierarchy is clear and readable throughout; 'Clear answers. Strong advocacy. Real results' messaging is crisp and on-brand; 32-year credential anchor in 'Why Owners Choose' builds instant trust; layout flows logically from problem → solution → proof → CTA; mobile adaptation preserves all key elements without cramping.",
+    "best": "Strong professional layout, excellent typography hierarchy, trust-building credentials ('30+ acquisitions', 'Former trial attorney'), clear service taxonomy, and mobile-first responsive design. Navigation and CTAs are obvious. The brand identity (Vaughn) is consistent across logo and messaging.",
     "flagged": false,
-    "at": "2026-10-05T03:20:42.401Z"
+    "at": "2026-10-05T03:59:35.884Z"
   },
   {
     "slug": "visitcrcc-org",
     "score": 8,
     "verdict": "pass",
     "issues": [
-      "Color strategy is strong and restrained—warm terracotta/tan accent used sparingly on buttons and numbered steps. However, the beige/tan background tint across multiple sections (hero, 'What your first visit looks like', 'Get around a table') creates a slight monochromatic wash that dulls visual separation. Not severe, but noticeable.",
-      "The 'You don't have to have it figured out' section uses a church interior photo that is heavily darkened/tinted—legibility is fine, but the overlay feels heavy-handed. Photo choice is appropriate but treatment is moody rather than welcoming.",
-      "Section rhythm is good overall, but spacing between 'Join us from anywhere' and 'Get around a table' feels slightly compressed—these are both high-value sections and could use more breathing room.",
-      "The video placeholder ('This week's message') is a solid brown box with a play icon—functional but generic. A thumbnail or still frame would add visual interest and credibility."
+      "Color palette is warm and consistent (terracotta/tan accent), but the entire page has a subtle peachy/rose tint overlay that risks monotone wash in some sections—especially the lower half (volunteering section background is dark brown, which breaks rhythm slightly but recovers).",
+      "The church name/logo (top left) is small and could be more prominent relative to the navigation.",
+      "Video thumbnail in 'Join us from anywhere' section shows a play button icon rather than a preview frame—acceptable but less inviting than actual sermon thumbnail imagery.",
+      "Group category buttons ('Life Groups', 'Men', 'Women', etc.) are styled identically to call-to-action buttons—minor cognitive friction."
     ],
     "mobileIssues": [
-      "Mobile header shows 'I'm New' button prominently in a white pill, which is good CTA placement. Hamburger menu icon is present (orange circle, right side)—navigation is accessible.",
-      "Hero headline 'Jesus in the everyday. Saturdays at 5pm.' is large and legible at 390px.",
-      "Primary CTA button 'Join us Saturday' is appropriately sized and tappable.",
-      "No horizontal overflow or text truncation observed in the viewport shown.",
-      "Mobile layout appears sound—no critical usability gaps."
+      "Mobile navigation appears to be hamburger-only (visible in top right of mobile image)—correct, but confirm it opens a full menu overlay.",
+      "Hero headline 'Jesus in the everyday. Saturdays at 5pm.' is legible and well-sized.",
+      "'I'm New' button is prominent and well-placed.",
+      "All sections and buttons appear to have adequate tap targets at 390px width—no cramping detected."
     ],
-    "best": "Clear typographic hierarchy, warm and inviting color palette used with discipline, strong narrative flow from hero → first visit → next steps → community → volunteering. Logo and site name align (Castle Rock Community Church). Appropriate imagery of rural Colorado landscape reinforces the 'Castle Rock' geographic identity. Multi-step onboarding sections ('What your first visit looks like', 'New here? Start here') are well-structured and reassuring for newcomers. CTA buttons are consistent and prominent. Mobile navigation is properly implemented.",
+    "best": "Excellent copy hierarchy; warm, inviting color scheme with intelligent accent usage; clear CTA buttons throughout; strong conversion funnel (first visit → onboarding → groups → volunteering); hero imagery is authentic and relevant; mobile experience is clean and navigable; brand voice matches contemporary church positioning.",
     "flagged": false,
-    "at": "2026-10-05T03:20:54.903Z"
+    "at": "2026-10-05T03:59:50.368Z"
   },
   {
     "slug": "breakthroughchurchsd-com",
     "score": 8,
     "verdict": "pass",
     "issues": [
-      "Service times section uses a minimal icon/text layout rather than a photograph where visual interest could strengthen that area",
-      "The stained-glass image in the dark section is atmospheric but slightly underutilized—could be larger or more integrated",
-      "Minor: 'Life Groups' section uses text tabs instead of category cards; feels slightly less polished than surrounding sections"
+      "Section 'Service times' uses small caps and label styling that feels slightly disconnected from the bold typography system elsewhere",
+      "The stained-glass image section ('Come see for yourself') could benefit from slightly more contrast on the overlay text—readability is acceptable but not optimal",
+      "Minor: The 'Life is better together' section lists group categories as pill-shaped buttons but doesn't visually differentiate which is selected/active, reducing clarity"
     ],
-    "mobileIssues": [
-      "Hamburger menu icon present and functional, good"
-    ],
-    "best": "Excellent hero section—clear headline, warm authentic worship photography, strong CTA. Consistent use of brand blue (#4150D9) as accent throughout without overwhelming. Smart 4-step onboarding visual. Genuine community photos (not stock). Strong mobile legibility. Trust-building layout with clear value props and genuine imagery. Navigation, spacing, and rhythm all professional.",
+    "mobileIssues": [],
+    "best": "Exceptional hero section with clear, bold typography hierarchy and authentic worship imagery that immediately conveys mission. Strong color discipline—blue accent used strategically for CTAs without overwhelming. Consistent 4-step onboarding layout is clean and scannable. Mobile navigation present and functional. Genuine photography throughout (no placeholders, logos, or screenshots). Spacing and alignment remain balanced across all sections. Copy tone matches a welcoming, accessible church brand. Trust-building sections ('Your first visit looks like', 'What your first visit looks like') are well-organized and reduce friction for newcomers. Overall professional execution with no mismatches between logo, name, and design direction.",
     "flagged": false,
-    "at": "2026-10-05T03:21:03.312Z"
+    "at": "2026-10-05T03:59:59.990Z"
   },
   {
     "slug": "efcsweetwater-com",
     "score": 8,
     "verdict": "pass",
     "issues": [
-      "The teal/green accent color is overused—it floods buttons, section backgrounds, and accent bars. While tasteful, it risks monochrome fatigue across a long page.",
-      "Staff photo ('MEET THE STAFF OF EFC!') has white text overlay that slightly competes with readability of faces; minor contrast issue.",
-      "The stained-glass church imagery section ('Come see for yourself') is atmospheric but slightly dark—ensure it doesn't feel moody/unwelcoming to first-time visitors.",
-      "Footer section (serving/hands) has minimal visual hierarchy—white text on black is readable but feels utilitarian and could benefit from a branded image or accent."
+      "Section 'What your first visit looks like' uses numbered circles (1-4) as pseudo-icons rather than meaningful imagery — feels slightly template-y, though acceptable for process steps",
+      "The stained-glass church image (dark section) is beautiful but heavily darkened/tinted; legibility of white text on dark background is acceptable but borders on the 'monochrome wash' concern",
+      "Staff photo in hero is cropped and framed well, but no individual bios or secondary photos elsewhere creates light reliance on a single image for social proof"
     ],
     "mobileIssues": [
-      "Hero headline ('Connect to Jesus. Belong to God's family.') is split across many lines at 390px; legible but dense and could be shortened or resized for breathing room.",
-      "Hamburger menu is present (top right) and functional—good.",
-      "Staff photo cropped to show only 3 of 5 people on mobile; UX is acceptable but frames feel tighter.",
-      "'Plan Your Visit' button is adequately sized for tap (appears ~44px+ tall), no overflow."
+      "Hero headline 'Connect to Jesus. Belong to God's family.' breaks across 3 lines at 390px — legible but tight spacing could cause reflow issues on older devices"
     ],
-    "best": "Clear, conversational messaging ('Your first Sunday, made simple' step-by-step); genuine staff photography creates human trust; service times immediately visible; consistent green call-to-action buttons guide flow; mobile nav and layout are responsive without major breakage; tone matches the 'welcoming family' mission.",
+    "best": "Clear, conversational copy aligned to church mission; teal accent color used restrainedly and tastefully across CTAs and headers (not a wash); genuine staff photography in hero builds immediate trust; service times and onboarding flow ('Your first Sunday made simple') directly address newcomer anxiety; mobile nav (hamburger) is present and functional; strong rhythm through 7 distinct sections with breathing room.",
     "flagged": false,
-    "at": "2026-10-05T03:21:14.201Z"
+    "at": "2026-10-05T04:00:09.882Z"
   },
   {
     "slug": "friendshipbc-com",
     "score": 8,
     "verdict": "pass",
     "issues": [
-      "Service times section uses minimal visual hierarchy—bullet points are small and could be bolder or iconified for clarity",
-      "Fourth image (stained glass interior) in 'What your first visit looks like' section doesn't show people or a welcoming crowd—feels static compared to the energetic hero photo; could depict actual congregants or the sanctuary in use",
-      "Life Groups section lists category pills (Men, Women, Young Adults, etc.) but no description or CTA clarifies what happens next—feels incomplete",
-      "Listen before you visit section has only a play button icon; no visible thumbnail or context for what the sermon/video is—risks low click-through"
+      "Service times section uses bullet points instead of a dedicated visual/card layout—feels slightly sparse",
+      "The dark interior church image (stained glass section) is beautiful but slightly underexposed; text legibility is solid but contrast could be stronger",
+      "Minor: 'Life Groups' section tabs (Men, Women, Young Adults, etc.) could benefit from hover states or active indicator to guide users",
+      "Footer dark section ('There's a place for you here') button color doesn't quite match the teal brand accent—feels like it could be more unified"
     ],
     "mobileIssues": [
-      "Hamburger menu button is present and properly positioned, but primary CTA ('Visit us Sunday') should be more prominent above the fold on narrow viewports",
-      "Service times info is not visible above the fold on mobile—critical information is pushed down"
+      "Hero headline is legible but quite large; no obvious horizontal scroll issue, layout is responsive",
+      "Hamburger menu button present and visible in top right of mobile nav bar—good",
+      "Call-to-action buttons ('Visit us Sunday', 'Plan your visit', etc.) are well-sized and tappable",
+      "No overflow or cutoff issues detected in mobile viewport"
     ],
-    "best": "Strong hero section with authentic photography, clear mission statement, and coherent teal brand accent used tastefully throughout. 'New here? Start here' four-step section is well-organized and visually clean. Call-to-action buttons are consistent in color and size. Overall layout is balanced, no overlaps or broken spacing. Mobile nav exists and basic layout is responsive. Imagery quality is professional and relevant (worship, sanctuary, people in community context).",
+    "best": "Cohesive brand identity with teal accent used tastefully throughout (buttons, accents, hover states). Strong hierarchy and clear copy matching a welcoming church mission. Real, relevant photography in hero and key sections. Mobile navigation and responsive layout handled professionally. Spacing and rhythm are balanced; sections flow logically. Trust signals (service times, groups, newcomer onboarding) are prominent and well-organized. No template artifacts or broken layouts.",
     "flagged": false,
-    "at": "2026-10-05T03:21:27.055Z"
+    "at": "2026-10-05T04:00:23.117Z"
   },
   {
     "slug": "hopewellchurch-online",
     "score": 8,
     "verdict": "pass",
     "issues": [
-      "Service times section shows only '11 AM' without full weekly schedule clarity on first glance",
-      "The 'Get around a table' section uses tag buttons (Life Groups, Men, Women, etc.) instead of actual photographs for those group types — minor imagery gap",
-      "Footer 'Put your hands to something that matters' section is text-heavy with minimal visual interest; could benefit from contextual photography"
+      "Service times section lacks visual hierarchy—bulleted time info is minimal and could be more prominent",
+      "Four-step onboarding cards (01–04) have minimal descriptive text; content feels sparse relative to card real estate",
+      "Church interior image in 'Come as you are' section has an overlay tint that slightly obscures architectural detail; feels slightly staged",
+      "Green button color is consistent, but some call-to-action buttons vary slightly in weight/styling across sections (minor inconsistency)"
     ],
-    "mobileIssues": [],
-    "best": "Strong brand coherence: logo, color palette (forest green accent), and mission statement align perfectly. Hero image is genuinely compelling (hands on Bible, black & white, authentic). Typography hierarchy is clear and legible at all breakpoints. Call-to-action buttons (green) are consistently prominent and properly sized for mobile tapping. Navigation hamburger menu present and accessible. Layout rhythm flows naturally from hero → service times → onboarding pathway → community groups → serve opportunities → online worship fallback. No color wash or template bloat; feels intentional and trustworthy. Mobile viewport maintains readability and spacing without horizontal overflow.",
+    "mobileIssues": [
+      "Hamburger menu present and functional—good",
+      "Hero headline is legible at 390px, though line-breaking is tight",
+      "All text and buttons appear appropriately sized for touch",
+      "No horizontal overflow detected"
+    ],
+    "best": "Strong brand alignment: name, logo, messaging, and visual tone are cohesive and mission-appropriate. Hero image (hands with Bible) is authentic and emotionally resonant. Color palette (dark charcoal, warm beige, sage green) is sophisticated and avoids monochrome wash. Layout is clean, breathing room is generous, and section rhythm flows naturally. Mobile navigation and responsiveness are solid. Copy is warm, invitational, and non-prescriptive—builds trust immediately.",
     "flagged": false,
-    "at": "2026-10-05T03:21:36.747Z"
+    "at": "2026-10-05T04:00:32.849Z"
   },
   {
     "slug": "kccfamily-org",
     "score": 8,
     "verdict": "pass",
     "issues": [
-      "Hero image tint is heavy—face is significantly darkened/washed out, reducing perceived quality of photography",
-      "Section 'What your first visit looks like' uses numbered circles (1–4) with icons instead of photographs; these are acceptable infographic elements but border on template-heavy for a church site that could benefit from authentic visitor photos",
-      "Small repeated color inconsistency: some buttons are green (#4CAF50 range), but the 'I'm New' button in header (image 2) appears slightly different shade—minor but noticeable on close inspection",
-      "Life Groups section lists category tags (Men, Women, Young Adults, etc.) without accompanying group photos or leader imagery; feels sparse vs. potential for authentic community photography"
+      "Hero background image appears slightly washed/faded in tone, reduces contrast against white text—acceptable but could be sharper",
+      "Fourth section ('What your first visit looks like') uses numbered circles (1,2,3,4) instead of photography or rich imagery—minimal but functional",
+      "Video thumbnail in 'Join us from anywhere' section is a play-button overlay, not a real preview image—minor, acceptable for video CTA"
     ],
     "mobileIssues": [
-      "Mobile nav hamburger menu present and visible—acceptable implementation",
-      "Hero headline 'Know Jesus. Make Him Known.' is legible at 390px but line-break spacing could be tighter (minor)",
-      "Tap targets appear adequate (Plan Your Visit button is sufficiently large)",
-      "No horizontal overflow detected"
+      "Mobile nav appears to use hamburger menu (visible in second image)—good, but confirm it's fully functional and not hidden/inaccessible",
+      "Hero headline at 390px is legible but text density is high; consider line-height increase if font size cannot grow"
     ],
-    "best": "Clear hierarchy and purpose-driven copy throughout. Service times and call-to-action buttons are prominent and well-placed. Mobile nav is properly implemented. Brand green is used as genuine accent, not a wash. Layout rhythm is consistent and spacious without feeling empty. Typography choices (serif + sans) are professional and readable. The 'Your Next Step' flow (4-step funnel) is intuitive and mission-aligned.",
+    "best": "Excellent use of green brand accent as tasteful CTA button throughout (never floods background). Hero copy is clear and mission-aligned. Section rhythm is steady and calm—no cramping or awkward white space. Imagery in hero, 'There's a place for you here,' and 'Life is better together' are strong, contextual photos. Mobile hamburger nav present. Overall professional, trust-worthy, and aligned with church/faith community positioning.",
     "flagged": false,
-    "at": "2026-10-05T03:21:47.739Z"
+    "at": "2026-10-05T04:00:42.920Z"
   },
   {
     "slug": "movechurch-ca",
     "score": 8,
     "verdict": "pass",
     "issues": [
-      "The 'BELONG' section (Life Groups) uses small icon circles with text labels instead of photographs—acceptable for group category tiles, but slightly icon-heavy rather than image-forward for a church site aiming for warmth.",
-      "The 'SERVE' section (dark background) lacks a supporting photograph—text-only dark block feels stark compared to adjacent sections' visual richness.",
-      "The 'People you'll meet' section shows only 'Andrew Martin' with no photo or card detail—appears incomplete or placeholder-like; should show team headshots or profile cards.",
-      "The footer area is minimal; lacks contact info, hours, address, or social links that build trust for a local church."
+      "Footer imagery section uses what appears to be stained glass photography (appropriate) but could be better cropped to avoid dark corners feeling cut off",
+      "Minor: 'Your Next Step' section numbered cards (01–04) could benefit from slightly larger spacing between items on desktop at 1280px to avoid visual density",
+      "Section rhythm is strong overall, but the transition from 'What your first visit looks like' to 'Life is better together' feels slightly abrupt (no breathing room between sections)"
     ],
     "mobileIssues": [
-      "Hamburger menu button (☰) is present and properly positioned top-right—good. However, 'I'm New' button competes visually; unclear which is primary navigation.",
-      "Hero headline 'WELCOME TO MOVE CHURCH' is legible and well-sized, but the supporting image below is not visible in the mobile crop—layout shifts abruptly into white space before the image loads.",
-      "Call-to-action buttons ('Join us Sunday') are appropriately sized for touch, but spacing between stacked sections feels compact; minor risk of accidental taps."
+      "Hamburger menu button visible and properly positioned (✓ no issue)",
+      "Hero headline 'WELCOME TO MOVE CHURCH' is legible but stretched across full width—line breaks could be tighter for taller mobile screens",
+      "All tap targets appear adequate; buttons are full-width and well-spaced (✓ no issue)"
     ],
-    "best": "Strong typography hierarchy and clean, modern aesthetic. Excellent use of whitespace and measured color (dark charcoal/black accents, not monochrome wash). Desktop imagery is authentic and warm (people in church, stained glass, Bible study). Copy is welcoming and action-oriented. Navigation and CTAs are clear and prominent. Mobile nav properly implemented.",
+    "best": "Strong, cohesive design system. Professional use of negative space. Excellent imagery (all sections use real, contextual photography—people in worship, stained glass, community moments). Color palette (dark charcoal, white, minimal accent) is restrained and builds trust. Copy aligns perfectly with mission (local church, welcoming tone). Mobile nav present and functional. Layout is clean, predictable, and not template-y. Logo and brand name are consistent and legible. No forced color tinting or monochrome wash.",
     "flagged": false,
-    "at": "2026-10-05T03:21:59.007Z"
+    "at": "2026-10-05T04:00:53.428Z"
   },
   {
     "slug": "myfaithtab-com",
     "score": 8,
     "verdict": "pass",
     "issues": [
-      "Section 'What your first visit looks like' uses numbered circles (1, 2, 3, 4) as design elements instead of photography—acceptable for UX flow, but breaks the 'real photo in every image slot' rule slightly. Icons are tasteful but not photographs.",
-      "The stained-glass church interior image is darkly tinted/filtered, reducing visual clarity—acceptable for mood but borders on 'weirdly tinted' in strict review.",
-      "Video placeholder ('This week's message') is a solid color with play button; acceptable for video galleries but not a photograph.",
-      "Section rhythm is strong but the 'Find your people' tag buttons (Life Groups, Men, Women, etc.) feel slightly undersized and less prominent than the paid CTA buttons above.",
-      "Footer 'Our Team' section heading visible but no team imagery shown in desktop crop—unclear if photos exist below the fold."
+      "Service times section shows only one time listed ('Sunday at 11:15 AM') — no alternate times visible; unclear if more exist or if this is incomplete",
+      "Stained glass window image in 'You don't have to have it figured out' section is atmospheric but somewhat dark/low contrast — may reduce legibility of overlaid text at smaller viewports",
+      "Video thumbnail ('This week's message') is a generic play-button icon on solid red — not a real frame grab; feels placeholder-like",
+      "Group category buttons ('Life Groups', 'Men', 'Women', etc.) are small text links rather than large tap-friendly cards — uninviting for mobile users"
     ],
     "mobileIssues": [
-      "Hero headline 'Faith that grows. Family that thrives.' wraps naturally and remains legible—no issue.",
-      "Hamburger menu button is present (top right, three-line icon)—compliant.",
-      "Primary CTA button 'Plan your visit' is full-width and tap-friendly at mobile widths.",
-      "No overflow, overlap, or horizontal scroll detected.",
-      "Navigation and tap targets meet mobile usability standards."
+      "Hero headline ('Faith that grows. Family that thrives.') stacks acceptably but is quite tall — risks visual fatigue on small screens",
+      "Hamburger menu button present and properly positioned in top-right corner ✓",
+      "Call-to-action buttons ('Plan your visit', 'Find your group +') are adequate width for touch targets",
+      "No horizontal overflow detected; layout stacks cleanly to single column"
     ],
-    "best": "Strong brand coherence (red accent used consistently but not dominantly); well-organized onboarding funnel ('New here? Start here' section with 4-step flow); clear, benefit-driven copy aligned with church/faith vertical; generous whitespace and logical section hierarchy; warm, genuine imagery (couple in hero, stained glass, family focus); mobile nav present and responsive layout appears sound. The site confidently communicates mission without hard-sell aggression.",
+    "best": "Strong hero section with professional photography, welcoming family-centric messaging, and clear conversion path. Consistent red accent color used sparingly and effectively. Clean typography hierarchy. 'New here? Start here' onboarding flow is intuitive and builds trust. Mobile nav is present and functional. No glaring industry mismatch — messaging aligns perfectly with a contemporary, inclusive church brand.",
     "flagged": false,
-    "at": "2026-10-05T03:22:10.428Z"
+    "at": "2026-10-05T04:01:04.283Z"
   },
   {
     "slug": "paxpres-com",
     "score": 8,
     "verdict": "pass",
     "issues": [
-      "Hero image has semi-transparent blue text overlay ('New here.') that slightly reduces photo legibility—text is readable but the treatment feels slightly dated",
-      "The stained-glass section uses a dark photo with white text overlay; while atmospheric, it borders on low contrast in the lower right quadrant",
-      "Section rhythm is strong overall, but the 'People you'll meet' staff section at the bottom feels abruptly truncated—only two staff members shown with no 'view all' or continuation hint"
+      "Hero image has a large blue text overlay ('New Here?') that obscures faces and reduces photo clarity — acceptable as design choice but reduces image impact",
+      "Stained glass window section uses a dark photo that feels visually disconnected from the bright, welcoming tone of the rest of the site",
+      "Video thumbnail in 'Join us from anywhere' section shows only a play button icon — not a real frame preview, reducing trust and clarity on content"
     ],
     "mobileIssues": [
-      "Hero image text overlay ('New here.') becomes harder to parse at 390px width due to text size and overlay density",
-      "Navigation hamburger menu is present and correctly positioned, but not visually obvious at first glance—could use stronger visual affordance"
+      "Hero headline text is legible but tightly set; mobile viewport shows no hamburger menu visible in the screenshot provided — cannot confirm nav accessibility on mobile"
     ],
-    "best": "Excellent color discipline: brand blue (#2D5A7B) used as precise accent throughout (buttons, navigation, text highlights) without ever tinting or flooding sections. Headline typography is bold and instantly legible. Every major section contains real, contextually appropriate photography (worship gatherings, stained glass, diverse people). Layout is rhythmic and spacious—no cramping, overlap, or alignment issues. Copy matches the church context perfectly. Mobile layout adapts cleanly with proper hierarchy and no horizontal overflow. This is a confident, professional church website that builds trust through clarity and restraint.",
+    "best": "Strong color hierarchy (navy blue as accent, not wash). Headline is bold and immediately legible on desktop. Ministry tabs and 'People you'll meet' section provide authentic human connection. Overall layout is spacious, rhythm is consistent, and no section feels cramped or misaligned. Brand messaging (two worship styles, one Gospel) is clear and mission-aligned. Trust-building elements present (team photos, clear CTAs, ministry breadth).",
     "flagged": false,
-    "at": "2026-10-05T03:22:21.174Z"
+    "at": "2026-10-05T04:01:13.805Z"
   },
   {
     "slug": "petrachurch-net",
     "score": 8,
     "verdict": "pass",
     "issues": [
-      "Color palette is muted earth tones (brown/tan/charcoal) — tasteful and not overdone, but somewhat conservative; brand accent (burnt orange/gold circle) is restrained, which is appropriate but could be slightly more assertive in calls-to-action",
-      "Hero image (mountain range) is natural and appropriate; however, the stained-glass interior image in the middle section is darker and lower contrast than the hero, creating slight tonal inconsistency across page flow",
-      "Section 'What your first visit looks like' uses numbered circles (1, 2, 3, 4) as visual anchors rather than photographs — acceptable for instructional content, but the section immediately after ('Get around a table') uses text-only category tags (Life Groups, Men, Women, etc.) instead of images, which feels sparse compared to photo-rich sections above",
-      "Footer call-to-action 'Put your hands to something that matters' has a dark overlay background but no visible supporting image — appears to be a missing or non-loading background image",
-      "Spacing between major sections is generous and consistent, but the transition from the stained-glass image section to the 4-step onboarding flow is slightly abrupt (white space could breathe more)"
+      "Service times section lists only one time (Sunday 10:00 AM) — incomplete information or poor visibility of other times",
+      "Church interior stained-glass image in 'Come see for yourself' section is darkly lit and somewhat moody; works thematically but lacks clarity",
+      "Life Groups section uses colored circle badges (01, 02, 03, 04) instead of photography to represent community moments — acceptable for process steps but slightly generic",
+      "Footer CTA 'Get involved to serve' button treatment is less prominent than primary CTAs — hierarchy could be stronger",
+      "Small carousel/nav dot on hero image (right side, tan circle) is subtle but unclear in function at first glance"
     ],
     "mobileIssues": [
-      "Headline 'Real life. Real people. Real church.' is split across three lines at 390px and is legible, but line breaks are tight; no readability failure but could be tighter",
-      "Hamburger menu button is visible in top-right corner — properly implemented",
-      "CTA button 'Join us Sunday' is full-width and appropriately sized for touch",
-      "Mountain hero image scales down well; no overflow or clipping detected",
-      "All tap targets appear appropriately spaced; no overlapping elements or microscopic text"
+      "Mobile navigation hamburger menu is present (good), but 'I'm New' button occupies prime real estate in header — may compete with nav toggle for attention on very small screens",
+      "Hero image on mobile appears to have same aspect ratio as desktop — should verify it doesn't crop out key landscape details on narrow viewport"
     ],
-    "best": "Hero section is clean and emotionally resonant; typography hierarchy is strong and confident; brand application is restrained and professional; mobile navigation and responsive layout are well-executed; call-to-action flow ('Join us Sunday' → 'Plan your visit' → 'Find your group') is logical and persuasive",
+    "best": "Cohesive brand identity using warm tan/bronze accents tastefully throughout; genuine photography in hero and key sections (mountain landscape, stained glass); clean typography hierarchy; clear CTAs ('Join us Sunday', 'Plan your visit', 'Find your group'); mobile nav present and functional; messaging is authentic to mission ('real life, real people, real church') and matches church positioning perfectly; no template bloat or stock-photo artificiality; consistent color palette and spacing rhythm across all sections.",
     "flagged": false,
-    "at": "2026-10-05T03:22:41.484Z"
+    "at": "2026-10-05T04:01:24.663Z"
   },
   {
     "slug": "refugeindy-com",
-    "score": 7,
+    "score": 8,
     "verdict": "pass",
     "issues": [
-      "Hero image is a composite/design graphic (crown + thorns + 'THE UNEXPECTED KING' text overlay) rather than a natural photograph — visually striking but feels more promotional than authentic photography",
-      "Section 'What your first visit looks like' uses numbered circles (1-4) instead of photographs in each card — these should be images of real church spaces, parking, kids area, and worship to build trust",
-      "Stained glass image in 'You don't have to have it figured out' section is dark and atmospheric but lacks context — unclear if this is the actual Refuge Church or generic stock imagery",
-      "Color scheme relies heavily on burgundy/maroon (#A63946 or similar) across CTAs, headings, and accents — approaches monochrome-wash territory, though offset by white/gray breathing room",
-      "Life Groups section shows only text category buttons (Men, Women, Young Adults, etc.) with no photography or visual differentiation — feels incomplete",
-      "Footer 'Can't make it in person?' section is cut off in provided image — unclear if full content/form is visible"
+      "Hero image composite (crown + crown-of-thorns + 'KING' text) is stylized graphic treatment rather than a natural photograph — works thematically but borders on template-y visual language",
+      "Section 'What your first visit looks like' uses numbered circles (1,2,3,4) in lieu of photographs; these are icon-style placeholders, not real imagery. Each describes a benefit but lacks supporting photo to build trust and authenticity",
+      "Life Groups category tabs (Men, Women, Young Adults, Students, Families) appear text-only; no photos of actual groups meeting or worshipping shown. Reduces credibility for 'Find your people' CTA",
+      "Stained-glass window image in 'You don't have to have it figured out' section is appropriate and strong, but 'Serve' and 'Watch' sections appear to lack supporting photography (black background sections reduce visual richness)",
+      "Footer area 'Can't make it in person?' section appears truncated in desktop view; unclear if there is accompanying imagery or if section is incomplete"
     ],
     "mobileIssues": [
-      "Hero headline 'Gospel-centered community in Indianapolis' is legible but quite large on 390px — line breaks appear correct",
-      "Hamburger menu button is visible in top right (three-line icon) — navigation is present and accessible",
-      "CTA buttons ('Join us Sunday', 'Plan my visit', 'Find your group') appear appropriately sized for touch targets on mobile",
-      "No horizontal overflow detected; layout stacks cleanly",
-      "Spacing and padding appear consistent between sections on mobile view"
+      "Mobile navigation hamburger menu button present and visible — good",
+      "Hero headline 'Gospel-centered community in Indianapolis' stacks well and remains legible at 390px",
+      "Call-to-action buttons ('Join us Sunday', 'Plan my visit', etc.) appear appropriately sized for touch targets",
+      "No horizontal overflow detected; layout reflows cleanly to single column",
+      "Subheading text color and contrast appear adequate for readability on mobile"
     ],
-    "best": "Typography hierarchy is strong and clear; headline 'Gospel-centered community in Indianapolis' is immediately legible and brand-appropriate. Navigation structure (HOME, VISIT, ABOUT, CONTACT + I'm New CTA) is logical and mobile-friendly. Section progression (service times → first visit steps → beliefs → community groups → serve → online worship) follows a natural visitor journey. White/light gray backgrounds provide excellent contrast against burgundy accents. 'Join us Sunday' CTA placement is prominent and action-oriented.",
+    "best": "Strong value proposition hierarchy; clear CTAs; warm brand color (maroon/burgundy) used as accent rather than wash; genuine warmth in messaging ('You don't have to have it figured out'); mobile nav is present and functional; responsive typography; logical section flow for new visitor journey (Service times → First Sunday → Groups → Serve → Online option)",
     "flagged": false,
-    "at": "2026-10-05T03:22:53.899Z"
+    "at": "2026-10-05T04:01:36.487Z"
   },
   {
     "slug": "stmichaelelca-org",
     "score": 8,
     "verdict": "pass",
     "issues": [
-      "Stained-glass interior photo in 'Come see for yourself' section is atmospheric but somewhat dark/low-contrast—legibility of white text could be stronger",
-      "Video placeholder in 'Can't make it in person?' section is generic (blue box with play icon)—could be replaced with a real sermon thumbnail or service moment",
-      "Team section ('People you'll meet') shows only 2 pastors listed; if more staff exist, the layout feels incomplete"
+      "Blue color (#003DA5) used heavily across buttons, headings, and accents—while intentional and well-balanced, it approaches saturation in the 'Grow' and 'Mission' sections; could risk monotony if not for white/neutral breathing room",
+      "Stained-glass window image in the dark section is atmospheric but slightly dim—legibility of white text 'Come see for yourself, this Sunday' is adequate but could be higher contrast",
+      "'What your first visit looks like' section uses minimal photography (4 icon cards with small supporting images)—not a photo slot violation, but breaks from the rich photography elsewhere; icons work functionally",
+      "Footer team section lists 'Pastor Andrea Bates' and 'Pastor Kyle Bates' with minimal visual hierarchy or headshots—feels sparse compared to upper sections"
     ],
     "mobileIssues": [
-      "Hamburger menu button is present but tight spacing at top—'Visiting?' button and menu icon compete for real estate on 390px"
+      "Hamburger menu button present and appropriately placed in top-right corner ✓",
+      "Hero headline 'Ancient worship, grace, and joy in Greenville' remains fully legible and properly sized",
+      "'Join us Sunday' CTA button is appropriately sized for touch",
+      "Image of grandmother and children displays correctly without horizontal overflow",
+      "All sections stack logically and maintain proper tap-target sizing throughout"
     ],
-    "best": "Strong, welcoming hero with real family photo; clear, joyful brand voice; excellent color harmony (navy + cream + accent blue); worship times immediately visible; well-organized sections (first visit, online option, ministries, mission) build confidence; CTA buttons are prominent and well-placed; typography is legible and on-brand; no layout breaks or overflow on mobile.",
+    "best": "Excellent use of real, high-quality photography throughout (grandmother with children, stained-glass interior, relevant ministry imagery). Clear visual hierarchy with blue brand color as consistent accent without overwhelming. Headline copy ('Ancient worship, grace, and joy in Greenville') perfectly matches the church brand and immediately conveys mission. Layout rhythm is smooth and natural; sections breathe well. Mobile layout is pristine—navigation, typography, and CTAs all perform correctly at 390px. Trust factor is high: nothing feels template-y or broken; this would make a pastor/leadership proud to share.",
     "flagged": false,
-    "at": "2026-10-05T03:23:03.348Z"
+    "at": "2026-10-05T04:01:48.583Z"
   },
   {
     "slug": "totallife-org",
     "score": 7,
     "verdict": "pass",
     "issues": [
-      "Color palette is somewhat muted across sections; navy/teal dominates but lacks vibrant accent contrast—feels corporate rather than 'contemporary worship' energy",
-      "Hero image (phone) is atmospheric but visually disconnected from 'contemporary worship' messaging—suggests tech/modern but doesn't convey spiritual warmth or community",
-      "Section 'Get around a table' uses tab labels (Life Groups, Men, Women, Young Adults, Students, Families) but no corresponding content imagery or differentiation visible—feels incomplete",
-      "Service times section (top of page) text is small and cramped; time/day details lack visual hierarchy",
-      "Dark overlay section 'Come see for yourself' with stained glass imagery works thematically but the text is nearly lost against dark background—legibility concern",
-      "Repeated use of navy button styling throughout feels template-heavy; no visual variance in CTA hierarchy",
-      "Footer 'There's a place for you here' section is stark black with minimal breathing room; copy is generic"
+      "Color palette heavily dominated by teal/navy blue across CTAs, accents, and section backgrounds — creates a monochromatic wash that reduces visual interest and hierarchy differentiation",
+      "Hero image (smartphone) feels generic stock photography; no clear connection to 'contemporary worship' messaging — concept mismatch",
+      "4-step onboarding section (01–04) uses numbered circles but they appear as decorative badges rather than actionable progression elements",
+      "Stained glass section image is beautiful but positioned oddly with white text overlay on dark background — legibility is adequate but layout feels forced",
+      "Life Groups section shows category tabs (Men, Women, Young Adults, Students, Families) but no visual differentiation or preview content — feels incomplete",
+      "Section rhythm breaks after 'Get around a table' — sudden jump to full-width dark 'Serve' section with right-aligned button creates visual imbalance",
+      "Footer area minimal; no contact info, hours, address, or social links visible in main page — trust signals weak",
+      "Repeated use of teal buttons throughout creates button fatigue; no secondary CTA styling distinction",
+      "Spacing inconsistent: some sections have generous padding, others feel compressed relative to their content weight"
     ],
     "mobileIssues": [
-      "Navigation hamburger menu is present but very small and positioned top-right—acceptable but cramped in header space",
-      "Hero headline 'Contemporary worship for your total life' is legible but subtitle text is quite small (gray, low contrast) at mobile width",
-      "Hero image (phone with bokeh) dominates viewport; on 390px it may feel oversized relative to text—good for impact but copy gets compressed",
-      "CTA button 'Join us Sunday' is adequate size but could be wider for thumb comfort on mobile"
+      "Hamburger menu button present and positioned correctly in header",
+      "Hero headline 'Contemporary worship for your total life' is legible at 390px; font size appears adequate",
+      "Hero image (smartphone) scales but loses impact at mobile size — becomes small and loses context",
+      "CTA button 'Join us Sunday' is appropriately sized for touch",
+      "No horizontal overflow detected; layout appears to stack cleanly",
+      "Navigation menu not visible in above-the-fold mobile screenshot — cannot confirm full mobile menu UX, but header structure looks sound"
     ],
-    "best": "Clear typographic hierarchy in hero; 'Your Next Step' onboarding section (4-column flow) is well-structured and mobile-responsive; genuine photography throughout (no stock placeholders or logos-as-images); consistent brand button styling; mobile navigation present and functional; footer menu legible",
+    "best": "Clear value proposition in headline; authentic photography used throughout (no logo-as-photo violations); consistent brand color applied with restraint in CTAs; mobile navigation structure present; responsive layout stacks logically; trust-building copy ('No pressure — come as you are') is genuine and welcoming",
     "flagged": false,
-    "at": "2026-10-05T03:23:15.395Z"
+    "at": "2026-10-05T04:02:01.363Z"
   },
   {
     "slug": "urimperialbeach-com",
     "score": 8,
     "verdict": "pass",
     "issues": [
-      "Color palette is heavily teal/slate-blue throughout — while tasteful and intentional, it borders on monochromatic wash in some sections (footer, background blocks). Accent variety is limited.",
-      "The 'stained glass window' image in the middle section (dark overlay with religious imagery) reads as more atmospheric/decorative than functional — works for mood but doesn't show the actual community/families promised in headline.",
-      "Icon row in 'What your first visit looks like' section uses numbered badges (01–04) with icons, which is template-forward but serviceable; however, the accompanying icons are generic and not photographically real.",
-      "Some repetition in call-to-action button styling and placement may feel formulaic across sections.",
-      "'Restore community' headline is serif-forward and very clean, but the layout of 'Build Christ-centered families' below it feels stacked rather than rhythmic; minor kerning/leading refinement needed."
+      "Color usage slightly heavy in footer (dark charcoal dominates lower sections), though not monochromatic",
+      "Icon-based imagery in 'What your first visit looks like' section uses generic circular icons rather than supporting photographs—weakens authenticity",
+      "Category tags ('Life Groups', 'Men', 'Women', etc.) in 'Find your people' section lack visual hierarchy separation"
     ],
     "mobileIssues": [
-      "Hamburger menu button visible and functional — good.",
-      "Hero headline 'Restore community. Build Christ-centered families.' is legible at 390px, but text is quite long; line-breaks are natural.",
-      "CTA button 'Find a Service' is appropriately sized for tap.",
-      "No horizontal overflow detected.",
-      "All tap targets appear appropriately sized and separated."
+      "Hero headline ('Restore community. Build Christ-centered families.') breaks across 4 lines at 390px—legible but dense",
+      "Mobile menu hamburger present and correctly positioned; no overflow detected"
     ],
-    "best": "Strong, authentic photography (father & child in hero, interior church in mid-page). Clear value proposition and inviting copy for first-time visitors. Navigation and CTA hierarchy are intuitive. Mobile viewport is responsive and readable. Consistent teal-and-white color system feels intentional and trustworthy for a church/community organization.",
+    "best": "Strong pastoral photography throughout (father-blessing moment, stained glass interior); clear headline hierarchy; consistent teal accent color used as restraint (buttons, accents) not wash; 'Your first Sunday, made simple' 4-step layout is genuinely helpful and well-paced; trust-building copy ('No pressure — come as you are') matches church brand authentically; mobile navigation functional and uncluttered.",
     "flagged": false,
-    "at": "2026-10-05T03:23:26.628Z"
+    "at": "2026-10-05T04:02:18.557Z"
   },
   {
     "slug": "zionlincoln-org",
     "score": 8,
     "verdict": "pass",
     "issues": [
-      "Ministry category buttons (Adult Formation, Children, Youth, Women, Men, Seniors) lack visual hierarchy—appear as plain text tabs rather than clickable buttons; unclear if interactive",
-      "People you'll meet section shows only names/titles with no photos; placeholder-like and reduces trust compared to rest of page's photography",
-      "Footer section (Faith in action, People you'll meet) feels rushed—sparse spacing and minimal visual breathing room compared to upper sections",
-      "Video thumbnail 'This week's message' uses generic play-button icon rather than a screenshot frame—minor but inconsistent with photo-forward design"
+      "The dark burgundy footer section (Faith in action) uses reversed text on dark background—legible but lower contrast than best practice",
+      "The video play-button placeholder in 'Listen before you visit' section is generic; actual video thumbnail or preview would strengthen trust",
+      "Ministry category buttons (Adult Formation, Children, Youth, etc.) are small and lack clear visual affordance—could be mistaken for tags rather than links"
     ],
     "mobileIssues": [
-      "Mobile navigation hamburger menu is present and correctly positioned, but not explicitly tested for full expansion/collapse behavior in image 2"
+      "Mobile nav toggle button visible and appropriately placed; no horizontal overflow detected"
     ],
-    "best": "Strong hero with natural clergy portrait; excellent color discipline—burgundy/maroon used as tasteful accent (buttons, section headers) without overwhelming page; consistent serif typography; photography-driven design throughout upper sections; clear CTA hierarchy (Join us Sunday button); worship times and first-visit sections well-organized with numbered steps; brand identity (church name, logo, mission) aligned throughout",
+    "best": "Excellent use of burgundy brand color as disciplined accent across CTAs and headings without overwhelming the page. Hero imagery of pastor is warm, authentic, and builds immediate trust. Clear information hierarchy: worship times, first-visit reassurance, and ministry pathways are logically sequenced. Typography is legible at all sizes. Layout rhythm is consistent and breathing room is generous. The 'What your first visit looks like' section with numbered steps is particularly effective for addressing visitor anxiety. Mobile viewport shows hero headline remains legible and stacked appropriately at narrow width.",
     "flagged": false,
-    "at": "2026-10-05T03:23:37.617Z"
+    "at": "2026-10-05T04:02:27.488Z"
   },
   {
     "slug": "branchlife-church",
     "score": 8,
     "verdict": "pass",
     "issues": [
-      "Service times section uses light gray text on off-white background—contrast is borderline acceptable but could be stronger for readability",
-      "The stained-glass window image in the 'There's a place for you here' section is atmospheric but slightly dark; legibility of white text over it is adequate but not optimal",
-      "Minor: 'Pughtown' and 'Spring City' service times could benefit from a more prominent visual hierarchy to distinguish locations"
+      "Service times section uses a muted gray background that could benefit from slightly more visual hierarchy—text is small and could be harder to scan quickly",
+      "The stained-glass window image in the 'There's a place for you here' section is atmospheric but somewhat dark; contrast with white text is acceptable but not optimal",
+      "Footer 'WATCH' section appears cut off or incomplete—no visible content or CTA, suggesting possible layout issue at page bottom"
     ],
     "mobileIssues": [
-      "Hamburger menu button is present and correctly positioned (top right), satisfactory mobile nav implementation"
+      "Hamburger menu button present and properly positioned (good)",
+      "Hero headline is legible and stacks well on 390px",
+      "All tap targets appear appropriately sized",
+      "No horizontal overflow detected"
     ],
-    "best": "Strong brand alignment with two-campus church mission; hero headline 'Worship, connection, and community change together' is clear and immediately legible; authentic photography (ice bucket/water baptism scene) builds trust; well-structured onboarding funnel ('New here? Start here' section with 4 clear steps); color palette (teal accent) is restrained and professional, not oversaturated; service times, groups, and volunteering sections are well-organized and scannable; no template placeholders or broken imagery; desktop spacing and rhythm are consistent and intentional; mobile viewport shows legible headline and proper nav without horizontal overflow",
+    "best": "Strong, consistent teal accent color used tastefully (buttons, accents) without oversaturation. Hero headline is clear and mission-aligned ('Worship, connection, and community change together'). Real photography throughout (baptism scene, stained glass, outdoor settings) feels authentic and relevant. Layout rhythm is smooth across sections—'Your Next Step', 'What your first visit looks like', 'Find your people', 'Serve' all well-spaced. Mobile nav is present. Trust signals strong: clear CTAs, transparent service times, inclusive messaging ('There's a place for you here'), and zero template-y placeholder content. Brand identity (Branch Life) is consistent with logo and messaging.",
     "flagged": false,
-    "at": "2026-10-05T03:23:47.344Z"
+    "at": "2026-10-05T04:02:37.846Z"
   },
   {
     "slug": "cclongview-com",
     "score": 8,
     "verdict": "pass",
     "issues": [
-      "Service times section uses bullet points instead of a clear table/grid—harder to scan at a glance",
-      "Stained glass imagery in the dark 'You don't have to figure it out' section is atmospheric but low-contrast; heading text readability could be stronger",
-      "Four-column numbered list ('What your first visit looks like') risks cramping on smaller desktop widths; spacing is adequate but not generous",
-      "Slight tonal inconsistency: 'Get around a table' section headline and tabs use different weights/scales than hero—minor rhythm break"
+      "Service times section uses bullet points instead of a structured table or card layout—minor visual hierarchy weakness",
+      "Dark church interior image in 'You don't have to have it figured out' section is atmospheric but slightly underexposed, reducing legibility of accompanying text overlay",
+      "Repeated green button color across CTAs is strong but risks monotony—slight variation in shade or treatment would add visual interest",
+      "Footer 'Listen before you visit' section has a play button icon but no visible video embed—unclear if video loads inline or externally"
     ],
     "mobileIssues": [
-      "Hero image aspect ratio on mobile appears taller/more portrait-cropped than desktop version—composition still works but no visible mobile-specific optimization signal",
-      "Hamburger menu button is present and appropriately sized (good), but navigation items not preview-visible on mobile"
+      "Hamburger menu button present and functional (good)",
+      "Hero headline remains legible at 390px width",
+      "All buttons and tap targets meet minimum 44px height standard",
+      "No horizontal overflow detected",
+      "Stack and spacing appear appropriate for mobile viewport"
     ],
-    "best": "Strong brand voice in headline and copy—'Casual. No prosperity gospel' is honest and differentiates immediately. Green CTA button is restrained, harmonious accent color. Imagery of real people conversing is warm and on-brand. Layout breathes well; no monochrome tint, no template bloat. Service times, onboarding steps, and groups/serve sections clearly signposted. Mobile nav is functional. Overall feel is confident, honest, and trustworthy.",
+    "best": "Excellent use of green accent color—tasteful, not tinted. Genuine photography throughout (two men outdoors, stained glass interior, real community). Headline copy ('Verse-by-verse Bible teaching. Casual. No prosperity gospel.') is immediately clear and matches church positioning. Service times are transparent. Layout flows naturally top to bottom with balanced white space. Mobile navigation is present and functional. Trust signals are strong—no template red flags, logo/name alignment is solid, copy tone matches casual positioning.",
     "flagged": false,
-    "at": "2026-10-05T03:23:57.491Z"
+    "at": "2026-10-05T04:02:48.038Z"
   },
   {
     "slug": "greaterglorychurch-com",
     "score": 8,
     "verdict": "pass",
     "issues": [
-      "Service times section shows only time without location address clarity at first glance",
-      "Stained glass image in 'You don't have to have it figured out' section is atmospheric but underutilizes the full width for impact",
-      "Video play button icon is slightly small and could have stronger hover affordance"
+      "Service times section appears empty or placeholder — only shows 'Sundays at 4:00 PM' with no additional detail or CTA visibility",
+      "Color palette slightly muted; teal/green accent is present but could be more prominent in CTAs to drive urgency",
+      "Stained-glass imagery in lower section is atmospheric but slightly dark — legibility of overlaid text is acceptable but not optimized"
     ],
-    "mobileIssues": [],
-    "best": "Exceptional hero with natural photography, legible typography hierarchy, and authentic community imagery throughout. Brand color (dark teal/green) used sparingly as accent on buttons—never overwhelms. 'Plan Your Visit' 4-step flow is well-designed and mobile-friendly. Navigation hamburger present and visible. Consistent rhythm section-to-section. Copy genuinely matches church context (volunteer language, groups by life stage, online worship option). No repeated/stretched photos or template rot. Mobile viewport above-fold is clean, headline is bold and legible at 390px, tap targets are generous. Footer and overall spacing balanced. Authentic, trustworthy design that a pastor would proudly share.",
+    "mobileIssues": [
+      "Hamburger menu button present and correctly positioned (good)",
+      "'I'm New' button on mobile appears slightly cramped against logo; spacing acceptable but could be looser",
+      "Hero headline text remains legible at 390px; line breaks are natural"
+    ],
+    "best": "Authentic photography of real community moments (not generic stock); clear messaging hierarchy; excellent use of white space and breathing room between sections; 'Plan Your Visit' pathway is intuitive and not pushy; mobile navigation properly implemented; onboarding flow (4 steps, groups) is well-structured and accessible",
     "flagged": false,
-    "at": "2026-10-05T03:24:07.004Z"
+    "at": "2026-10-05T04:02:57.064Z"
   },
   {
     "slug": "kingdomculturephx-com",
     "score": 7,
     "verdict": "pass",
     "issues": [
-      "Hero image has heavy semi-transparent dark overlay that mutes the photograph and reads as a monochrome tint; reduces impact and visual clarity",
-      "Service times section lacks a dedicated photograph—shows only text and a bullet point; should have an image of the church interior or congregation",
-      "Stained glass section ('There's a place for you here') uses atmospheric church photography but the overlaid dark text box feels template-heavy and slightly generic",
-      "Icon-based sections (01–04 'Your first Sunday' and 'What your first visit looks like') use numbered circles instead of photographs; appropriate for instructional flow but borderline template-y",
-      "Groups section ('Find your people') lists tabs (Life Groups, Men, Women, etc.) with no supporting imagery or visual differentiation between options",
-      "Video section thumbnail is a generic play-button overlay on black—no preview frame visible; reduces scannability",
-      "Serve section ('Put your hands to something that matters') uses a solid dark background with no supporting photograph; missed opportunity for authentic imagery",
-      "Overall color palette is restrained (blacks, grays, whites) with minimal accent color; safe but lacks distinctive brand warmth for a church site"
+      "COLOR: Entire page bathed in semi-transparent dark overlay/wash over background images; reduces visual clarity and risks monochrome fatigue across multiple sections (hero, stained-glass section, footer)",
+      "IMAGERY: Stained-glass church window section is appropriate, but repeated use of same semi-transparent overlay tint across hero + featured section creates visual monotony",
+      "IMAGERY: 'Watch' section includes a video embed (play button icon) rather than a proper thumbnail photograph—acceptable for video context but borders on placeholder feel",
+      "LAYOUT: Footer messaging section ('Put your hands to something that matters') is extremely dark with white text on near-black background; contrast is acceptable but emotionally heavy",
+      "RHYTHM: Significant vertical spacing variance between sections; some sections feel cramped (steps 01-04) while others breathe generously"
     ],
     "mobileIssues": [
-      "Hero headline legibility is adequate but benefits from the tighter viewport; layout holds",
-      "Hamburger menu is visible and correctly positioned in top right",
-      "All tap targets appear appropriately sized (buttons, links)",
-      "No horizontal overflow or overlapping observed",
-      "Copy and layout scale well to 390px; no major mobile-specific breakage"
+      "MOBILE NAV: Hamburger menu button is present (visible in top-right) ✓",
+      "HERO HEADLINE: 'Word + Spirit church for the West Valley' is legible and centered; hierarchy is clear ✓",
+      "TAP TARGETS: 'Plan a Visit' button is appropriately sized and spaced ✓",
+      "HORIZONTAL OVERFLOW: No overflow detected; layout stacks cleanly ✓",
+      "OVERALL: Mobile viewport appears responsive and functional"
     ],
-    "best": "Clear information hierarchy; intuitive first-visit onboarding (4-step flow); well-organized calls-to-action ('Plan a Visit', 'Find your group', 'Watch service'); strong copywriting that matches church brand; legitimate church photography (stained glass, worship setting) in key sections; mobile navigation implemented correctly.",
+    "best": "Clear typographic hierarchy; intuitive 4-step onboarding flow for first-time visitors; strong CTA buttons with consistent styling; mobile navigation present and functional; appropriate use of stained-glass church imagery to reinforce brand identity",
     "flagged": false,
-    "at": "2026-10-05T03:24:18.887Z"
+    "at": "2026-10-05T04:03:07.179Z"
   },
   {
     "slug": "lifepointecc-com",
     "score": 8,
     "verdict": "pass",
     "issues": [
-      "Service times section uses a light gray background that could have slightly higher contrast with the text for accessibility",
-      "The 'What your first visit looks like' section has numbered circles (1-4) that are somewhat small; icons could be clearer or larger",
-      "The stained-glass image in the 'Come see for yourself' section is atmospheric but slightly dark—readability of white text is adequate but not optimal"
+      "The 'Come see for yourself, this Sunday' section uses a dark stained-glass image as background—legible but borders on moody/atmospheric rather than inviting for a first-time visitor CTA.",
+      "Life Groups section lists category tabs (Men, Women, Young Adults, etc.) but no actual group cards/photos are shown—unclear what selecting a tab reveals or if this section is incomplete.",
+      "Bottom 'Worship with us online' section shows a single video play button but no title, duration, or context about what video it is—minimal information architecture."
     ],
     "mobileIssues": [
-      "Mobile nav hamburger menu is present and functional, but the 'I'm New' button competes for attention in the top right—spacing could be tighter"
+      "Hamburger menu button present but small (top right)—acceptable but could be more prominent at 390px.",
+      "Hero headline 'Discover Full Life in Jesus' is legible but subheading text at mobile width may feel cramped due to font size not scaling aggressively enough.",
+      "Life Groups section tabs (Men, Women, Young Adults, Families) will likely stack or wrap awkwardly on 390px—layout not shown in mobile mockup but predictable pain point."
     ],
-    "best": "Strong hero hierarchy with clear, benefit-driven headline; authentic family photography builds trust immediately. Consistent use of dark buttons (charcoal/black) as primary CTA throughout. 'Your Next Step' section is well-organized and scannable. Color palette is restrained (white, light gray, charcoal, and blue accent)—no monochrome wash. Mobile responsive design shows proper menu, legible headline, and stacked layout. Copy tone is warm and welcoming without being saccharine. Real, high-quality photos in every major section; no placeholder or stock-wash issues. Footer and volunteer section maintain momentum.",
+    "best": "Strong visual hierarchy with family imagery that builds warmth and belonging; clear CTAs ('Plan Your Visit', 'Find Your Group'); consistent use of black buttons and blue accent (hero image) without color wash; welcoming copy tone matches church mission; mobile nav present; readable typography throughout; four-step onboarding (01–04) is well-structured and scannable.",
     "flagged": false,
-    "at": "2026-10-05T03:24:28.878Z"
+    "at": "2026-10-05T04:03:17.955Z"
   },
   {
     "slug": "mosaicchurch-live",
     "score": 8,
     "verdict": "pass",
     "issues": [
-      "Bottom section 'Join us from anywhere' has a dark grey box but no visible image or content inside—appears incomplete or placeholder-like",
-      "Service times section uses bullet points in a minimal layout that could benefit from more visual structure or icons",
-      "Color accent (green) is understated throughout—used sparingly in logo only; more tasteful accent usage in CTAs or section headers would strengthen brand presence"
+      "Stained glass window image in dark section is cropped/low contrast; hard to see detail and feels like a stock placeholder rather than owned photography",
+      "The four onboarding steps (01-04) use small numbered circles with minimal visual hierarchy; icons would strengthen scannability",
+      "Section rhythm is solid but the transition from 'Get around a table' (groups) to 'There's a place for you here' (serving opportunities) feels slightly abrupt—could use more visual breathing room",
+      "Footer video embed area ('Join us from anywhere') is mostly dark gray filler; no preview image or indication of content"
     ],
     "mobileIssues": [
-      "Hero headline 'Find and follow Jesus with real people' breaks across 4 lines on 390px—legible but at upper limit of comfort; consider tighter letter-spacing or slight font-size reduction"
+      "Navigation hamburger menu is present and styled correctly",
+      "Hero headline 'A place to find and follow Jesus' breaks naturally and is legible at 390px",
+      "All tap targets appear appropriately sized (buttons, links)",
+      "No horizontal overflow detected",
+      "Image scaling and spacing look clean and mobile-appropriate"
     ],
-    "best": "Excellent imagery throughout—baptism photo, stained glass, and candid community moments are all real, relevant, and high-quality. Hero section is warm and on-brand. Navigation structure is clean; mobile menu toggle visible. White space is generous and section rhythm flows naturally. Copy is authentic and matches church context perfectly. Layout is never cramped or misaligned.",
+    "best": "Strong brand voice throughout ('real people, real faith, real community'). Hero copy and CTA are clear and mission-aligned. Color palette (lime green accent on neutral background) is restrained and professional. Service times, onboarding journey, and group/serve sections are well-structured and easy to scan. Mobile layout is responsive and functional. Logo-to-site-name alignment (Mosaic Church) is consistent. Typography hierarchy is confident.",
     "flagged": false,
-    "at": "2026-10-05T03:24:38.031Z"
+    "at": "2026-10-05T04:03:27.889Z"
   },
   {
     "slug": "oxfordbaptist-ca",
     "score": 8,
     "verdict": "pass",
     "issues": [
-      "Hero image is black & white; while atmospheric, it reduces visual warmth and contrast against the light beige background—could benefit from color or higher contrast accent",
-      "The 'WATCH' section (online worship) uses a solid teal/dark green block instead of a photograph or video thumbnail—feels placeholder-like and breaks photography rule",
-      "Section spacing is consistent but slightly generous; could tighten rhythm slightly to reduce scroll fatigue on desktop",
-      "Life Groups section tabs ('Men', 'Women', 'Young Adults', etc.) have no visual differentiation or hover state shown—feels static"
+      "Service times section is minimal—single bullet point feels incomplete; could show multiple times or add more context",
+      "Life Groups section lacks visual differentiation between category buttons (Men, Women, Young Adults, Students, Families)—appears clickable but styling is subtle",
+      "Interior church photo in lower section is appropriately chosen but somewhat generic/stock-like in composition",
+      "No visible testimonials or member quotes despite 'genuine community' claim in hero—missed trust-building opportunity"
     ],
     "mobileIssues": [
-      "Hero headline ('A relationship with Jesus changes') is legible but tightly fitted; no risk of wrapping awkwardly",
-      "Hamburger menu is present and correctly positioned (top right)",
-      "CTA buttons ('Plan your visit', 'Find your group') appear appropriately sized for touch",
-      "No horizontal overflow detected; mobile layout appears responsive"
+      "Hero headline is legible but quite tall on 390px—4-line stack could benefit from tighter line-height or slightly smaller font",
+      "Hamburger menu is present and accessible, but main nav items (HOME, VISIT, ABOUT, CONTACT) not visible in mobile screenshot—confirm drawer opens smoothly",
+      "Tap targets appear adequate (buttons ~48px minimum), but 'I'm New' button positioning could be clearer in relation to menu toggle"
     ],
-    "best": "Strong hierarchy and clear messaging throughout. Excellent use of teal accent color (buttons, CTAs, callout boxes) without overwhelming the page. Copy is genuine and matched to church context (not generic). Four-step 'Getting Started' section is well-designed and instructional. Trust-building sections ('What your first visit looks like', 'Find where to serve') are prominent and reassuring. Mobile navigation and button spacing meet accessibility standards. Consistent, readable sans-serif typography. Layout avoids clutter.",
+    "best": "Strong messaging hierarchy ('A relationship with Jesus changes everything'), excellent use of teal accent color as non-invasive highlights rather than wash, four-step onboarding section is clear and well-paced, genuine photography of congregation creates authenticity, consistent rhythm and breathing room throughout, mobile nav present and functional.",
     "flagged": false,
-    "at": "2026-10-05T03:24:48.794Z"
+    "at": "2026-10-05T04:03:37.923Z"
   },
   {
     "slug": "rosechurch-ca",
     "score": 8,
     "verdict": "pass",
     "issues": [
-      "Service times section uses only text labels (8:00 AM, 11:00 AM) without accompanying imagery or visual hierarchy—feels sparse compared to richly imaged sections below",
-      "The 'What your first visit looks like' section uses numbered circles (1, 2, 3, 4) as placeholder icons rather than meaningful pictographs or photographs—acceptable but generic",
-      "Some sections (e.g., 'Get around a table') lack accompanying photography or visual content; relies entirely on text + button, reducing engagement",
-      "Minor: Footer CTA 'Find where to serve' button lacks visual punch compared to primary CTAs elsewhere"
+      "Imagery: The 'Get around a table' section uses small circular numbered icons (1,2,3,4) instead of real photographs or meaningful visuals—feels template-heavy for that row.",
+      "Imagery: The 'What your first visit looks like' section also relies on small numbered circles (1,2,3,4) rather than photographs or lifestyle imagery—weak visual anchor.",
+      "Color: Monochromatic beige/cream wash dominates most sections with minimal brand accent—somewhat safe but lacks personality punch.",
+      "Rhythm: The 'Serve' section (black background with white text) is a tonal shift that works, but no clear visual hierarchy or accent color guides the eye through the full page flow."
     ],
     "mobileIssues": [
-      "Hero headline 'Jesus for the people of Winnipeg' breaks across multiple lines at 390px; legible but tight line-height could improve readability",
-      "Navigation hamburger menu is present and correctly positioned, but no visual indication of its state (open/close) is shown in the mobile screenshot"
+      "Hero headline appears legible, but line breaks may cause awkward wrapping on narrower phones (<360px).",
+      "Mobile navigation hamburger menu is present (top right), which is correct."
     ],
-    "best": "Strong brand coherence (logo, messaging, color palette all aligned). Hero is warm, genuine, and inviting—appropriate for a church website. Desktop imagery (hero background, interior church shot) is tasteful and non-cheesy. Color palette (warm off-white, deep charcoal, accent black) is harmonious and restraint-driven. Layout rhythm is clean and consistent. CTAs are clear and action-oriented. Mobile navigation is functional. Overall feels like a real, professional church presence, not a template.",
+    "best": "Clear call-to-action hierarchy; genuine welcome tone matches church mission; service times prominently placed; 'Your Next Step' flow is logical and non-pushy; footer prayer/belonging message feels authentic; online worship fallback shows inclusivity; layout is spacious and breathing—no cramping or overlap; brand name matches hero message consistently.",
     "flagged": false,
-    "at": "2026-10-05T03:24:59.026Z"
+    "at": "2026-10-05T04:03:47.587Z"
   },
   {
     "slug": "vrieslandchurch-org",
     "score": 8,
     "verdict": "pass",
     "issues": [
-      "Section 'What your first visit looks like' uses numbered circles (1,2,3,4) as design elements rather than integrated photography or authentic iconography—feels slightly template-y",
-      "The stained-glass interior image in the dark section is dramatic but lacks supporting context or caption; feels somewhat decorative rather than purposeful",
-      "Footer section 'Join us from anywhere' appears cut off or incomplete in the desktop view—unclear call-to-action or content below the fold"
+      "The dark stained-glass interior photo in the 'Come see for yourself' section is dimly lit and lacks clarity—text legibility is strained over it (white text on dark image works, but the image itself feels low-contrast).",
+      "Minor: The 'What your first visit looks like' section uses icon circles with numbers—these are functional but generic; a photo or more distinctive visual would strengthen personality.",
+      "Footer 'Join us from anywhere' section appears incomplete or cut off in the provided screenshot (no visible CTA or content detail below the heading)."
     ],
     "mobileIssues": [
-      "Hamburger menu button present and functional (top right), good",
-      "Hero headline 'Bible-believing, Christ-exalting community since 1847' is legible but tightly wrapped; acceptable at 390px",
-      "All tap targets (buttons, links) appear adequately sized and separated",
-      "No horizontal overflow detected; layout responsive and clean"
+      "Mobile menu hamburger button is present (✓), but the 'I'm New' button at top right may compete with hamburger for attention and space at 390px—confirm tap targets are 44px minimum.",
+      "Hero image on mobile is tall and takes up significant real estate; verify image is optimized for mobile viewport (not just desktop-scaled down) to avoid sluggish load."
     ],
-    "best": "Strong brand consistency (teal/green accent color used as tasteful secondary, not a monochrome wash); genuine church building photography is appropriate and well-lit; clear hierarchy and whitespace throughout; headline copy directly matches the organization's mission; logical flow from welcome → service times → onboarding steps → community groups → volunteer call → signup; mobile navigation properly implemented; no logo-as-photo violations; typography is confident and readable across all sections.",
+    "best": "Strong brand consistency and clear hierarchy. The brick church building photo is warm, inviting, and authentically on-brand. Color palette (teal/forest green accents on light backgrounds) is sophisticated and cohesive. Headline copy is direct and welcoming. Service times, onboarding steps ('Plan your visit,' 'Come as you are,' etc.), and small-group categories are well-organized. Layout rhythm is balanced throughout. Mobile nav structure is sound.",
     "flagged": false,
-    "at": "2026-10-05T03:25:09.162Z"
+    "at": "2026-10-05T04:03:57.891Z"
   },
   {
     "slug": "westsidebaptist-org",
     "score": 7,
     "verdict": "pass",
     "issues": [
-      "Hero section has a heavy semi-transparent overlay/tint that dims the background imagery significantly—while intentional for readability, it reduces visual impact and freshness",
-      "Section 'What your first visit looks like' uses numbered circular icons (1,2,3,4) instead of photographs or meaningful imagery—feels templatey and generic",
-      "No actual photograph in the 'Find your people' section—only category tags (Life Groups, Men, Women, etc.) with no supporting imagery",
-      "The 'There's a place for you here' (SERVE) section has a dark background with white text but no supporting image—layout feels incomplete",
-      "Stained glass imagery in the 'You don't have to have it figured out' section is appropriately spiritual but photo is quite dark/low-contrast, reducing visual clarity",
-      "Color palette is restrained (teal/green accent, grays, blacks)—tasteful but somewhat corporate/safe; lacks warmth expected for a welcoming church brand",
-      "Footer and lower sections feel rushed—'Watch live' section compresses video call-to-action with minimal whitespace"
+      "Hero image appears heavily tinted/faded — actual photograph quality and relevance unclear beneath the gray overlay",
+      "Image 1 section 'What your first visit looks like' uses numbered icon circles (01, 02, 03, 04) instead of actual photographs; these are decorative icons masquerading as image slots",
+      "Section 'Find your people' has category pill buttons (Life Groups, Men, Women, etc.) but no supporting photograph or visual context — looks placeholder-like",
+      "'There's a place for you here' section (dark background) contains no imagery; relies entirely on text and button",
+      "Video/play-button icon in 'Can't make it in person?' section is not a photograph — it's a UI affordance where a real worship/community image could strengthen trust",
+      "Overall color palette is teal/dark-teal dominant across CTAs, icons, and accents — while not a monochrome wash, it risks visual monotony across 8+ sections",
+      "Service times section lacks visual anchor or photography — purely text-based announcement"
     ],
     "mobileIssues": [
-      "Hero headline is legible but dense (4 lines)—appropriate for mobile but could benefit from tighter leading",
-      "Mobile navigation (hamburger) is present and visible in top-right",
-      "Tap targets appear adequate (buttons are sized well)",
-      "No horizontal overflow detected",
-      "Layout is responsive and readable at 390px"
+      "Hero headline 'Join everyday people on the journey to life's greatest potential' is legible but very long; may wrap awkwardly on narrower devices",
+      "Mobile navigation (hamburger) is present in top-right (confirmed in image 2), so no critical mobile nav failure",
+      "CTA button 'Plan Your Visit' is appropriately sized and tappable",
+      "Overall mobile layout appears clean and vertically stacked appropriately"
     ],
-    "best": "Clear hierarchy and messaging throughout; appropriate teal accent color restraint; strong CTA buttons with good contrast; mobile navigation present and functional; copy is warm and inviting; 'Your first Sunday made simple' section with 4-step process is well-structured and reassuring for first-time visitors",
+    "best": "Clear, accessible headline and value proposition; strong teal brand accent used consistently without overwhelming the page; straightforward 4-step onboarding sequence is intuitive; mobile navigation properly implemented; CTAs are prominent and well-labeled; copy tone is warm and welcoming for a church community site.",
     "flagged": false,
-    "at": "2026-10-05T03:25:20.050Z"
+    "at": "2026-10-05T04:04:19.397Z"
   }
 ]

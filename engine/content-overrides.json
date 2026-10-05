@@ -1,5 +1,5 @@
 {
-  "_comment": "Per-prospect hand-verified content. Highest priority — beats capture, AI, and pack defaults. Keyed by slug. Use to correct any demo whose real services didn't extract cleanly. Fields: name (business name, used when the site title is a placeholder), services[], headline, subhead, about, specialty.",
+  "_comment": "Per-prospect hand-verified content. Highest priority — beats capture, AI, and pack defaults. Keyed by slug. Use to correct any demo whose real services didn't extract cleanly. Fields: name (business name, used when the site title is a placeholder), services[], serviceDetails[] ({h,p}: hand-written from the source site; replaces extracted service copy), headline, subhead, about, specialty.",
   "vaughn-law-com": {
     "headline": "Fractional counsel and M&A advisors for closely held businesses.",
     "subhead": "We serve as fractional general counsel and sell-side M&A advisors, guiding owners of $5M–$100M companies from strategy to a profitable exit.",
@@ -18,5 +18,41 @@
   "movechurch-ca": {
     "headline": "WELCOME TO MOVE CHURCH",
     "subhead": "Move Church is a local church serving the Franktown, Carleton Place, Smiths Falls area by calling higher, engaging deeper and impacting greater for the glory of God."
+  },
+  "southdenverobgyn-com": {
+    "serviceDetails": [
+      {
+        "h": "Annual Exam",
+        "p": "A yearly well-woman check-up and its lab work — most insurance covers the wellness exam in full each year."
+      },
+      {
+        "h": "Pregnancy",
+        "p": "Physicians and nurse-midwives care for you as one team, with hospital birth at Littleton and Castle Rock Adventist Hospitals."
+      },
+      {
+        "h": "Midwifery",
+        "p": "Certified Nurse-Midwives provide full-scope care: pregnancy, well-woman physicals and gynecology."
+      },
+      {
+        "h": "Birth Control",
+        "p": "Birth control counseling and in-office procedures, including IUDs and Nexplanon, done by our physicians."
+      },
+      {
+        "h": "Gynecologic Surgery",
+        "p": "Our physicians are trained in surgical procedures for a wide range of women's health issues, many done as outpatient care."
+      },
+      {
+        "h": "Uro-Gynecology",
+        "p": "Expert evaluation of urinary and pelvic problems such as incontinence, with surgical and non-surgical options."
+      },
+      {
+        "h": "Hormone Therapy",
+        "p": "Bio-identical hormone replacement using the pellet method, for symptoms of perimenopause and menopause."
+      },
+      {
+        "h": "Virtual Care",
+        "p": "Telemedicine visits by phone or computer for hormone consults, weight-loss follow-ups, lab results and more."
+      }
+    ]
   }
 }

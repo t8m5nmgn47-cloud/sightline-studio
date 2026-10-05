@@ -2379,6 +2379,25 @@ const SCHEMA_TYPE = {
   childcare:'ChildCare', business:'LocalBusiness',
 };
 const escAttr = s => (s||'').replace(/"/g,'&quot;');
+// Home <title>: the name alone ("Southwest Heating") tells a search result
+// nothing — what they do and where is the whole job of that line. Tagline when
+// we have one; otherwise the top services and the town from the address,
+// dropped piece by piece until it fits a results-page width.
+function homeTitle(profile, legal) {
+  const fit = (t) => t.length <= 85;
+  if (profile.tagline && fit(`${legal} — ${profile.tagline}`)) return `${legal} — ${profile.tagline}`;
+  const svc = (profile.sections?.services?.items || []).map(i => String(i.h || '').trim()).filter(t => t && t.length <= 40);
+  const city = (String(profile.location || '').match(/,\s*([A-Za-z][A-Za-z .'-]{1,30}?),\s*[A-Z]{2}\b/) || [])[1] || '';
+  const where = city ? ` in ${city}` : '';
+  for (const t of [
+    svc.length >= 2 && `${legal} — ${svc[0]} & ${svc[1]}${where}`,
+    svc.length >= 1 && `${legal} — ${svc[0]}${where}`,
+    svc.length >= 1 && `${legal} — ${svc[0]}`,
+    city && `${legal} — ${city}, ${(String(profile.location).match(/,\s*([A-Z]{2})\b/) || [])[1] || ''}`.replace(/, $/, ''),
+  ]) if (t && fit(t)) return t;
+  return profile.tagline ? `${legal} — ${profile.tagline}` : legal;
+}
+
 function seoHead(profile, recipe, page=null){
   const origin = (recipe.origin || process.env.SITE_ORIGIN || 'https://sightline-studio.vercel.app').replace(/\/$/,'');
   const abs = u => !u ? null : /^https?:/i.test(u) ? u : origin + (u.startsWith('/')?'':'/') + u;
@@ -2707,7 +2726,7 @@ export function assemble(profile, recipe={}, page=null){
   const body = (toned ? dropDiscretionaryBesideHeavy(applyTones(rendered)) : rendered.map(x => x.html)).join('\n');
   return `<!doctype html><html lang="en"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>${esc(page?.title?`${page.title} — ${legal}`:`${legal}${profile.tagline?` — ${profile.tagline}`:''}`)}</title>
+<title>${esc(page?.title?`${page.title} — ${legal}`:homeTitle(profile, legal))}</title>
 <meta name="description" content="${clampWords((profile.description||profile.hero?.sub||`${profile.name}${profile.tagline?` — ${profile.tagline}`:''}`)||'', 300).replace(/"/g,'&quot;')}">
 ${seoHead(profile, recipe, page)}
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>

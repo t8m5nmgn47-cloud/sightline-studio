@@ -81,5 +81,26 @@ check(nameMatchesDomain('Highlands Ranch Church of Christ', 'hrcoc.org'), 'initi
 check(!nameMatchesDomain('Carson Wealth', 'wamboltwealth.com'), 'industry word alone still is not identity (G2)');
 check(nameMatchesDomain('Castle Rock CPA', 'castlerockcpa.com'), 'Castle Rock CPA matches castlerockcpa.com');
 
+// Captioned link tiles are graphics, not photography (capture.imageSignals).
+{
+  const { imageSignals } = await import('./capture.mjs');
+  let sharp = null; try { sharp = (await import('sharp')).default; } catch {}
+  if (sharp) {
+    const W = 400, H = 300, px = Buffer.alloc(W * H * 3);
+    for (let y = 0; y < H; y++) for (let x = 0; x < W; x++) {
+      const i = (y * W + x) * 3;
+      if (y < 225) { px[i] = 60 + (x * 7 + y * 3) % 160; px[i + 1] = 90 + (x * 3 + y * 11) % 120; px[i + 2] = 140 + (x + y * 5) % 100; }
+      else { const ink = y > 250 && y < 275 && (x % 14) < 8 && x > 40 && x < 360; px[i] = px[i + 1] = px[i + 2] = ink ? 250 : 44; }
+    }
+    const tile = await sharp(px, { raw: { width: W, height: H, channels: 3 } }).jpeg().toBuffer();
+    const plain = await sharp(px.subarray(0, W * 225 * 3), { raw: { width: W, height: 225, channels: 3 } }).jpeg().toBuffer();
+    const a = await imageSignals(tile), b = await imageSignals(plain);
+    if (a.captioned && a.graphic) console.log('✓ capture: photo with a baked-in caption strip is a graphic');
+    else { failed = true; console.error('✗ capture: captioned tile not flagged ' + JSON.stringify(a)); }
+    if (!b.captioned) console.log('✓ capture: the same photo without the strip is not captioned');
+    else { failed = true; console.error('✗ capture: plain photo flagged as captioned'); }
+  }
+}
+
 if (failed) process.exit(1);
 console.log('\nEngine v7 self-test passed.');

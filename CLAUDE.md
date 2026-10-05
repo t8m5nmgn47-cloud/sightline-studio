@@ -42,6 +42,12 @@ which named the #1 root cause and sat unfixed through an entire engine overhaul)
   goes in `content-overrides.json` as `name`.
 - Display text is clamped with `clampWords` (`engine/text.mjs`); QA fails prose
   cut mid-word and any button whose text is under 3:1 on its ground.
+- Card images on index/gallery must be root-absolute (`/thumbs/<slug>.jpg`);
+  relative paths 404 at `/gallery/` (release step 0 checks).
+- Photos with a baked-in caption strip (link tiles like "OnPoint Urgent Care:
+  Aurora") are `graphic` (`captionBand` in capture.mjs) and stay out of the
+  gallery. Lazy-slider images: every lazy attribute is read, not `src || …` —
+  a dummy.png `src` used to hide all the real slide photos.
 - Playwright: the option is `viewport`, NOT `viewportSize` (silently ignored).
 - Never derive file extensions from URLs — sniff magic bytes (`sniffExt` in capture.mjs).
 - Never hard-`slice()` display text — trim at word boundaries (`clampWords` in text.mjs, `trimWords` in pipeline).

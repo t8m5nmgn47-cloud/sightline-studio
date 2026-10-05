@@ -313,7 +313,7 @@ export function rankLogos(candidates = [], domain = null) {
 }
 
 // ── photos ───────────────────────────────────────────────────────────────────
-const JUNK_IMG = /logo|icon|sprite|avatar|badge|pixel|tracking|spinner|loader|arrow|bullet|flag|payment|captcha|\.svg(\?|$)|\.gif(\?|$)/i;
+const JUNK_IMG = /logo|icon|sprite|avatar|badge|pixel|tracking|spinner|loader|arrow|bullet|flag|payment|captcha|dummy\.|spacer\.|blank\.(png|gif)|\.svg(\?|$)|\.gif(\?|$)/i;
 function biggestFromSrcset(srcset) {
   // Prefer the largest `w` width descriptor; else the largest `x` density
   // descriptor; else keep the FIRST entry. (The old `>=` swap meant a
@@ -349,7 +349,11 @@ export function extractPhotos($pages, baseUrl) {
       // lazy-loader attribute zoo: Slider Revolution (data-lazyload), generic
       // lazyload libs (data-original, data-bg) — sliders hold the photos the
       // business chose to LEAD with, so missing these misses the best shots.
-      add(a.src || a['data-src'] || a['data-lazy-src'] || a['data-lazyload'] || a['data-original'] || a['data-bg'], { w, h, alt: a.alt || '' });
+      // Every attribute, not the first truthy one: a lazy slider's `src` is a
+      // dummy.png placeholder, and `src || data-lazyload` stopped right there —
+      // the real slide photos never became candidates.
+      for (const k of ['src', 'data-src', 'data-lazy-src', 'data-lazyload', 'data-original', 'data-bg', 'data-reference', 'data-orig-src'])
+        add(a[k], { w, h, alt: a.alt || '' });
     });
     // photos referenced from <style> blocks / inline CSS url(...) — WP themes
     // put section backgrounds (team, projects, values) here.
@@ -754,6 +758,51 @@ export function hamming(a, b) {
 // need that signal (a story band wants a face, a why-us band wants work), and
 // the downsample is already paid for, so both signals come back from one pass.
 // Keyless and cheap by design: no model call, no key, no network.
+// Captioned card: a photo with a dark caption strip baked across its top or
+// bottom edge and words set in it ("OnPoint Urgent Care: Aurora" over a
+// building). It is a link tile, not photography — and once the renderer crops
+// it, the words get cut mid-name. Signature, measured on a 128x96 thumbnail:
+// a run of near-colourless dark rows at an edge, 10-40% of the height, with
+// bright text pixels inside, sitting on a surface visibly different from the
+// photo next to it. Over the 698-image captured corpus it flags 9, all text art.
+async function captionBand(sharp, file) {
+  const W = 128, H = 96;
+  const { data, info } = await sharp(file, { failOn: 'none' }).resize(W, H, { fit: 'fill' }).removeAlpha().toColourspace('srgb').raw().toBuffer({ resolveWithObject: true });
+  const ch = info.channels;
+  const rows = [];
+  for (let y = 0; y < H; y++) {
+    let unsat = 0, bright = 0, sl = 0, ss = 0;
+    for (let x = 0; x < W; x++) {
+      const i = (y * W + x) * ch, r = data[i], g = data[i + 1], b = data[i + 2];
+      const mx = Math.max(r, g, b), mn = Math.min(r, g, b), l = 0.299 * r + 0.587 * g + 0.114 * b;
+      const s = mx ? (mx - mn) / mx : 0;
+      ss += s; sl += l;
+      if (s < 0.15) unsat++;
+      if (l > 200 && s < 0.15) bright++;
+    }
+    rows.push({ band: unsat / W >= 0.85 && sl / W < 165, l: sl / W, sat: ss / W, text: bright / W >= 0.04 });
+  }
+  // a 1-2 row break (a stroke of text crossing the threshold) doesn't end the strip
+  for (let y = 1; y < H - 1; y++) if (!rows[y].band && rows[y - 1].band && (rows[y + 1].band || (y + 2 < H && rows[y + 2].band))) rows[y].bridge = true;
+  let best = 0, bestStart = 0, run = 0;
+  for (let y = 0; y < H; y++) { if (rows[y].band || rows[y].bridge) { run++; if (run > best) { best = run; bestStart = y - run + 1; } } else run = 0; }
+  const end = bestStart + best;
+  const atEdge = end >= H - 3 || bestStart <= 2;
+  let textRows = 0, restSat = 0, restN = 0;
+  for (let y = 0; y < H; y++) {
+    if (y >= bestStart && y < end) { if (rows[y].text) textRows++; }
+    else { restSat += rows[y].sat; restN++; }
+  }
+  restSat = restN ? restSat / restN : 0;
+  const frac = best / H;
+  let bandL = 0; for (let y = bestStart; y < end; y++) bandL += rows[y].l; bandL /= Math.max(1, best);
+  // the strip must be a different surface from the photo it sits on
+  const nb = end >= H - 3 ? rows.slice(Math.max(0, bestStart - 5), bestStart) : rows.slice(end, end + 5);
+  const nbL = nb.reduce((a, r) => a + r.l, 0) / Math.max(1, nb.length), nbS = nb.reduce((a, r) => a + r.sat, 0) / Math.max(1, nb.length);
+  const step = Math.abs(nbL - bandL) >= 35 || nbS - 0.08 >= 0.1;
+  return { frac: +frac.toFixed(3), start: bestStart, textRows, bandL: bandL | 0, nbL: nbL | 0, nbS: +nbS.toFixed(2), caption: frac >= 0.1 && frac <= 0.4 && atEdge && textRows >= 2 && bandL < 110 && step };
+}
+
 export async function imageSignals(bufOrPath) {
   const sharp = await loadSharp();
   if (!sharp) return { graphic: false, skin: null, entropy: null };
@@ -820,8 +869,12 @@ export async function imageSignals(bufOrPath) {
     const hueConc = satPx ? Math.max(...hueBins) / satPx : 0;
     const duotone = satFrac >= 0.5 && hueConc >= 0.9 && counts.size < 260;
 
+    let captioned = false;
+    try { captioned = (await captionBand(sharp, bufOrPath)).caption; } catch {}
+
     return {
-      graphic: votes >= 2 || duotone || seeThrough > 0.2,
+      graphic: votes >= 2 || duotone || seeThrough > 0.2 || captioned,
+      captioned,
       seeThrough: Math.round(seeThrough * 1000) / 1000,
       skin: Math.round((skinPx / px) * 1000) / 1000,
       entropy: Math.round(entropy * 100) / 100,

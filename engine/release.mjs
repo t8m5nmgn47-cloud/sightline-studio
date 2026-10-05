@@ -69,6 +69,19 @@ const run = (cmd, opts = {}) => execSync(cmd, { cwd: ROOT, encoding: 'utf8', std
   }
   const stale = [...cards].filter(c => !harvestSlugs.has(c) && !handbuilt.includes(c));
   if (stale.length) die(`${stale.length} gallery card(s) link sites this release does not rebuild:\n   ${stale.join('\n   ')}\nAdd each one's harvest (assets/harvest/business/<domain>.html) so the current engine and every gate cover it, or take it out of the gallery.`);
+  // Card images must resolve from the URL the page is actually served at.
+  // A relative url(thumbs/x.jpg) works at /gallery but 404s at /gallery/ —
+  // every card went blank on one spelling of the link. Root-absolute only.
+  const badImg = [];
+  for (const f of ['index.html', 'gallery/index.html']) {
+    let h = ''; try { h = fs.readFileSync(path.join(ROOT, f), 'utf8'); } catch { continue; }
+    for (const m of h.matchAll(/(?:url\(\s*['"]?|<img[^>]+src=")((?:\.{0,2}\/)?thumbs\/[^'")\s]+)/g)) {
+      const u = m[1];
+      if (!u.startsWith('/')) badImg.push(`${f}: relative ${u}`);
+      else if (!fs.existsSync(path.join(ROOT, u))) badImg.push(`${f}: missing ${u}`);
+    }
+  }
+  if (badImg.length) die(`${badImg.length} card image(s) won't load:\n   ${badImg.slice(0, 12).join('\n   ')}\nUse root-absolute /thumbs/<slug>.jpg and make sure the file exists (node engine/promote.mjs --thumbs).`);
   console.log(`✅ gallery roster: ${cards.size} cards, all rebuilt by this release${handbuilt.length ? ` (${handbuilt.length} hand-built exempt)` : ''}`);
 }
 

@@ -311,6 +311,9 @@ try {
   const ov = JSON.parse(fs.readFileSync(path.join(ROOT, 'engine/content-overrides.json'), 'utf8'));
   if (ov[slug]) override = ov[slug];
 } catch {}
+// Hand-verified service descriptions replace extraction's: when the LLM pass
+// returns names without copy for a site, a human wrote these from the source.
+if (override?.serviceDetails?.length) cap.copy = { ...(cap.copy || {}), serviceDetails: override.serviceDetails };
 
 // One strategic pass sees the real page set and decides the argument + composition.
 let strategy = null;
