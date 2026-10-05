@@ -16,6 +16,7 @@
 // ─────────────────────────────────────────────────────────────────────────────
 import fs from 'node:fs';
 import path from 'node:path';
+import http from 'node:http';
 import { fileURLToPath } from 'node:url';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
@@ -58,15 +59,29 @@ if (doThumbs && done) {
     const sharp = (await import('sharp')).default;
     const b = await chromium.launch({ executablePath: exe, args: ['--no-sandbox'] });
     const pg = await b.newPage({ viewport: { width: 1200, height: 1500 } });   // 4:5 like the cards
+    // Serve the repo over http, not file://: pages reference root-absolute
+    // assets (/assets/stock/…, /slug/hero.jpg) that file:// resolves to the
+    // filesystem root — compfm's card rendered as an empty grey hero.
+    const TYPES = { '.html':'text/html', '.css':'text/css', '.js':'text/javascript', '.png':'image/png', '.jpg':'image/jpeg', '.jpeg':'image/jpeg', '.webp':'image/webp', '.svg':'image/svg+xml', '.mp4':'video/mp4', '.woff2':'font/woff2' };
+    const srv = http.createServer((q, r) => {
+      let f = path.join(ROOT, decodeURIComponent(q.url.split('?')[0]));
+      if (!f.startsWith(ROOT)) { r.writeHead(403); return r.end(); }
+      if (fs.existsSync(f) && fs.statSync(f).isDirectory()) f = path.join(f, 'index.html');
+      if (!fs.existsSync(f)) { r.writeHead(404); return r.end(); }
+      r.writeHead(200, { 'content-type': TYPES[path.extname(f).toLowerCase()] || 'application/octet-stream' });
+      fs.createReadStream(f).pipe(r);
+    });
+    await new Promise((ok) => srv.listen(0, '127.0.0.1', ok));
+    const origin = `http://127.0.0.1:${srv.address().port}`;
     fs.mkdirSync(path.join(ROOT, 'thumbs'), { recursive: true });
     for (const slug of new Set(targets)) {
       if (!fs.existsSync(path.join(ROOT, slug, 'index.html'))) continue;
-      await pg.goto('file://' + path.join(ROOT, slug, 'index.html'), { waitUntil: 'load', timeout: 20000 });
-      await pg.waitForTimeout(900);
+      await pg.goto(`${origin}/${slug}/`, { waitUntil: 'networkidle', timeout: 30000 }).catch(() => {});
+      await pg.waitForTimeout(1200);
       const png = await pg.screenshot();
       await sharp(png).resize({ width: 640 }).jpeg({ quality: 78 }).toFile(path.join(ROOT, 'thumbs', slug + '.jpg'));
       console.log(`  📷 thumbs/${slug}.jpg`);
     }
-    await b.close();
+    await b.close(); srv.close();
   } catch (e) { console.log('thumbs skipped: ' + (e.message || e)); }
 }
