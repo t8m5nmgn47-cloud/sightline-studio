@@ -1,0 +1,367 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow">
+<title>Fire Department Outreach · Sightline Admin</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Source+Sans+3:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: operator console. Count strip, tabs + filters, then list and detail side by side (stacked on phones). */
+:root{
+  --bg:#f6f5f2; --panel:#ffffff; --ink:#1d2430; --muted:#5d6675; --line:#dfdcd5; --soft:#efede8;
+  --accent:#b3261e; --accent-ink:#ffffff; --sel:#fbeceb;
+  --p1:#b3261e; --p1-bg:#fbe6e4; --p2:#9a5b00; --p2-bg:#fdf0db; --p3:#2f5b8a; --p3-bg:#e5eef8;
+  --ok:#2d6a3e; --ok-bg:#e3f1e6;
+  --f-display:"Barlow Condensed","Arial Narrow",Arial,sans-serif;
+  --f-body:"Source Sans 3","Segoe UI",system-ui,sans-serif;
+  --f-mono:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;
+  color-scheme:light;
+}
+@media (prefers-color-scheme: dark){:root{
+  --bg:#14171c; --panel:#1c2027; --ink:#e7e9ee; --muted:#9aa3b2; --line:#2e333d; --soft:#232832;
+  --accent:#ef6b5f; --accent-ink:#1a0d0b; --sel:#2c1f20;
+  --p1:#ff8f84; --p1-bg:#3a2120; --p2:#f0b35a; --p2-bg:#35291a; --p3:#8fb7e6; --p3-bg:#1d2a3a;
+  --ok:#86cf98; --ok-bg:#1c2f22; color-scheme:dark}}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+html{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.45 var(--f-body);padding-inline:16px;padding-block:14px 32px}
+.wrap{max-width:1280px;margin:0 auto;display:grid;gap:14px}
+header{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:12px}
+h1{font:700 30px/1 var(--f-display);letter-spacing:.02em;text-transform:uppercase;margin:0}
+h1 span{color:var(--accent)}
+.sub{color:var(--muted);font-size:13px;margin-top:4px}
+.crumb{display:inline-block;color:var(--muted);font-size:13px;text-decoration:none;margin-bottom:6px}
+.crumb:hover{color:var(--accent)}
+a.btn{text-decoration:none;display:inline-block}
+.hdr-actions{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.btn{font:600 14px var(--f-body);border:1px solid var(--line);background:var(--panel);color:var(--ink);border-radius:6px;padding:7px 12px;cursor:pointer}
+.btn:hover{border-color:var(--muted)}
+.btn.primary{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+.btn:disabled{opacity:.55;cursor:default}
+.btn:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible,.row:focus-visible,.tab:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.counts{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:8px}
+.count{background:var(--panel);border:1px solid var(--line);border-radius:6px;padding:8px 12px}
+.count b{display:block;font:600 26px/1 var(--f-display);font-variant-numeric:tabular-nums}
+.count small{color:var(--muted);font-size:12px;text-transform:uppercase;letter-spacing:.06em}
+.banner{border:1px solid var(--line);border-left:4px solid var(--p1);background:var(--panel);border-radius:6px;padding:10px 14px}
+.tabs{display:flex;gap:4px;border-bottom:1px solid var(--line);overflow-x:auto}
+.tab{font:600 17px var(--f-display);text-transform:uppercase;letter-spacing:.04em;background:none;border:0;border-bottom:3px solid transparent;color:var(--muted);padding:6px 12px;cursor:pointer;white-space:nowrap}
+.tab[aria-selected="true"]{color:var(--ink);border-bottom-color:var(--accent)}
+.filters{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.filters input,.filters select{font:14px var(--f-body);background:var(--panel);color:var(--ink);border:1px solid var(--line);border-radius:6px;padding:7px 10px}
+.filters input[type=search]{flex:1 1 220px;min-width:0}
+.main{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);gap:14px;align-items:start}
+@media (max-width:860px){.main{grid-template-columns:1fr}}
+.list{background:var(--panel);border:1px solid var(--line);border-radius:8px;overflow:hidden}
+.list-head{display:flex;justify-content:space-between;gap:8px;padding:8px 12px;border-bottom:1px solid var(--line);color:var(--muted);font-size:13px}
+.rows{max-height:72vh;overflow:auto}
+.row{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:10px;align-items:center;padding:10px 12px;border:0;border-bottom:1px solid var(--soft);cursor:pointer;background:none;width:100%;text-align:left;color:inherit;font:inherit}
+.row:hover{background:var(--soft)}
+.row[aria-current="true"]{background:var(--sel)}
+.row .nm{font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.row .meta{color:var(--muted);font-size:13px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.row .num{font:500 13px var(--f-mono);color:var(--muted);text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+.pri{display:inline-block;font:700 12px/1 var(--f-mono);border-radius:4px;padding:5px 7px;min-width:30px;text-align:center}
+.pri.p1{color:var(--p1);background:var(--p1-bg)} .pri.p2{color:var(--p2);background:var(--p2-bg)} .pri.p3{color:var(--p3);background:var(--p3-bg)} .pri.q{color:var(--muted);background:var(--soft)}
+.chip{display:inline-block;font-size:12px;font-weight:600;border-radius:999px;padding:1px 8px;background:var(--soft);color:var(--muted)}
+.chip.on{background:var(--ok-bg);color:var(--ok)}
+.detail{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:16px;display:grid;gap:14px;position:sticky;top:8px;max-height:calc(100vh - 16px);overflow:auto}
+@media (max-width:860px){.detail{position:static;max-height:none}}
+.detail h2{font:700 24px/1.1 var(--f-display);text-transform:uppercase;letter-spacing:.02em;margin:0;text-wrap:balance}
+.facts{display:grid;grid-template-columns:repeat(auto-fit,minmax(110px,1fr));gap:8px}
+.fact{background:var(--soft);border-radius:6px;padding:7px 9px;min-width:0}
+.fact small{display:block;color:var(--muted);font-size:11px;text-transform:uppercase;letter-spacing:.06em}
+.fact span{font:500 14px var(--f-mono);overflow-wrap:anywhere}
+.finding{border-left:3px solid var(--line);padding-left:10px;display:grid;gap:4px}
+.finding a{color:var(--accent);overflow-wrap:anywhere}
+.lbl{font:600 13px var(--f-display);text-transform:uppercase;letter-spacing:.08em;color:var(--muted)}
+form{display:grid;gap:10px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+@media (max-width:480px){.grid2{grid-template-columns:1fr}}
+label{display:grid;gap:3px;font-size:13px;color:var(--muted);min-width:0}
+form input,form select,form textarea{font:15px var(--f-body);color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:6px;padding:7px 9px;width:100%}
+textarea{resize:vertical;min-height:70px}
+.save-row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.status-msg{font-size:13px;color:var(--muted)}
+.status-msg.ok{color:var(--ok)} .status-msg.bad{color:var(--p1)}
+.empty{color:var(--muted);padding:28px 16px;text-align:center}
+.hint{color:var(--muted);font-size:13px}
+code{font:13px var(--f-mono);background:var(--soft);padding:1px 5px;border-radius:4px}
+@media (prefers-reduced-motion:no-preference){.row{transition:background .12s}}
+</style>
+</head>
+<body>
+
+
+<div class="wrap" id="app">
+  <header>
+    <div>
+      <a class="crumb" href="/admin/">Sightline · Admin</a>
+      <h1>Fire Department <span>Outreach</span></h1>
+      <div class="sub">Free websites for volunteer fire departments · live from the <code>fire_sites</code> database</div>
+    </div>
+    <div class="hdr-actions">
+      <span class="status-msg" id="fresh"></span>
+      <button class="btn" id="reload" type="button">Refresh</button>
+      <a class="btn" href="/admin/">Back to admin</a>
+    </div>
+  </header>
+
+  <div class="counts" aria-live="polite">
+    <div class="count"><b id="c-targets">–</b><small>Targets</small></div>
+    <div class="count"><b id="c-p1">–</b><small>No website</small></div>
+    <div class="count"><b id="c-p2">–</b><small>Weak site</small></div>
+    <div class="count"><b id="c-p3">–</b><small>Town page only</small></div>
+    <div class="count"><b id="c-contacted">–</b><small>Contacted</small></div>
+    <div class="count"><b id="c-launched">–</b><small>Launched</small></div>
+    <div class="count"><b id="c-checked">–</b><small>Checked online</small></div>
+    <div class="count"><b id="c-all">–</b><small>In database</small></div>
+  </div>
+
+  <div class="banner" id="banner" hidden></div>
+
+  <div class="tabs" role="tablist">
+    <button class="tab" role="tab" id="tab-targets" data-tab="targets" aria-selected="true" type="button">Targets</button>
+    <button class="tab" role="tab" id="tab-queue" data-tab="queue" aria-selected="false" type="button">Not yet checked</button>
+    <button class="tab" role="tab" id="tab-search" data-tab="search" aria-selected="false" type="button">Search all</button>
+  </div>
+
+  <div class="filters">
+    <input type="search" id="q" placeholder="Search name, city or county" aria-label="Search">
+    <select id="f-state" aria-label="State"><option value="">All states</option></select>
+    <select id="f-pri" aria-label="Priority">
+      <option value="">All priorities</option>
+      <option value="1">1 · No website</option>
+      <option value="2">2 · Weak site</option>
+      <option value="3">3 · Town page only</option>
+    </select>
+    <select id="f-out" aria-label="Outreach status"><option value="">Any outreach status</option></select>
+    <button class="btn" id="go" type="button" hidden>Search</button>
+  </div>
+
+  <div class="main">
+    <section class="list" aria-label="Departments">
+      <div class="list-head"><span id="list-count">Loading…</span><span>Stations · Firefighters</span></div>
+      <div class="rows" id="rows"><div class="empty">Loading departments…</div></div>
+    </section>
+    <section class="detail" id="detail" aria-live="polite">
+      <div class="empty">Pick a department to see what we found and log your outreach.</div>
+    </section>
+  </div>
+  <p class="hint">Firefighter counts are self-reported to the USFA registry and are often out of date. Phone numbers come from the registry; "What we found" may list newer ones.</p>
+</div>
+
+<script>
+const STATUSES = [
+  ["not_contacted","Not contacted"],["left_message","Left message"],["talked_interested","Talked – interested"],
+  ["talked_not_now","Talked – not now"],["chief_approved","Chief approved"],["building","Building"],
+  ["launched","Launched"],["declined","Declined"]];
+const STATUS_LABEL = Object.fromEntries(STATUSES);
+const CHECK_LABEL = {OWN_SITE_GOOD:"Has a good site",OWN_SITE_WEAK:"Weak own site",CITY_COUNTY_PAGE:"Town/county page only",SOCIAL_ONLY:"No website (Facebook only)",NONE_FOUND:"No website (nothing online)",MERGED_OR_GONE:"Merged or closed",NOT_A_DEPARTMENT:"Not a single department"};
+const STATES = ["AL","AK","AZ","AR","CA","CO","CT","DE","DC","FL","GA","HI","ID","IL","IN","IA","KS","KY","LA","ME","MD","MA","MI","MN","MS","MO","MT","NE","NV","NH","NJ","NM","NY","NC","ND","OH","OK","OR","PA","PR","RI","SC","SD","TN","TX","UT","VT","VA","WA","WV","WI","WY"];
+const $ = id => document.getElementById(id);
+let tab = "targets", targets = [], queue = [], results = [], selected = null, queueState = null, lastSearch = "";
+
+function esc(s){ const d = document.createElement("div"); d.textContent = s == null ? "" : String(s); return d.innerHTML; }
+const sameId = (a, b) => String(a) === String(b);
+
+/* ---------- API ---------- */
+class SignedOut extends Error {}
+async function api(action, params = {}){
+  let r;
+  try{
+    r = await fetch("/api/fire-sites", {method:"POST", headers:{"Content-Type":"application/json"}, credentials:"same-origin", body: JSON.stringify({action, ...params})});
+  }catch(e){ throw new Error("Can't reach the site. Check your internet connection and try again."); }
+  if (r.status === 401){ banner("Your admin sign-in has expired. Reload the page to sign in again."); throw new SignedOut(); }
+  let data = {};
+  try{ data = await r.json(); }catch(e){}
+  if (!r.ok || data.error) throw new Error(data.error === "database error" ? "The database had a problem with that request. Try again." : (data.error || ("Request failed (" + r.status + ")")));
+  return data;
+}
+function banner(msg){ const b = $("banner"); b.textContent = msg || ""; b.hidden = !msg; }
+
+/* Access is handled by the Sightline admin login (Basic Auth). */
+function showApp(){}
+
+/* ---------- loading ---------- */
+async function refresh(){
+  $("reload").disabled = true; $("fresh").textContent = "Loading…";
+  try{
+    const [t, s] = await Promise.all([api("targets"), api("stats")]);
+    targets = t.rows || [];
+    renderStats(s.stats || {});
+    if (tab === "queue") queue = (await api("queue", {state: queueState})).rows || [];
+    if (tab === "search" && lastSearch) await runSearch(true);
+    banner(""); showApp();
+    $("fresh").textContent = "Updated " + new Date().toLocaleTimeString([], {hour:"numeric", minute:"2-digit"});
+    fillStateFilter(); renderList();
+  }catch(e){
+    if (e instanceof SignedOut) return;
+    banner(e.message); $("fresh").textContent = "";
+  }finally{ $("reload").disabled = false; }
+}
+function renderStats(s){
+  const n = p => targets.filter(t => t.priority === p).length;
+  $("c-targets").textContent = targets.length;
+  $("c-p1").textContent = n(1); $("c-p2").textContent = n(2); $("c-p3").textContent = n(3);
+  $("c-contacted").textContent = s.contacted ?? "–"; $("c-launched").textContent = s.launched ?? "–";
+  $("c-checked").textContent = (s.checked ?? 0).toLocaleString(); $("c-all").textContent = (s.departments ?? 0).toLocaleString();
+}
+function fillStateFilter(){
+  const sel = $("f-state"), cur = sel.value;
+  const states = tab === "targets" ? [...new Set(targets.map(t => t.state))].sort() : STATES;
+  sel.innerHTML = '<option value="">All states</option>' + states.map(s => `<option>${s}</option>`).join("");
+  sel.value = states.includes(cur) ? cur : "";
+}
+
+/* ---------- list ---------- */
+function currentList(){ return tab === "targets" ? targets : tab === "queue" ? queue : results; }
+function filtered(){
+  const q = $("q").value.trim().toLowerCase(), st = $("f-state").value, pr = $("f-pri").value, out = $("f-out").value;
+  if (tab === "search") return results;
+  return currentList().filter(r =>
+    (!q || [r.name, r.hq_city, r.county].join(" ").toLowerCase().includes(q)) &&
+    (tab === "queue" || !st || r.state === st) &&
+    (tab === "queue" || !pr || String(r.priority) === pr) &&
+    (tab === "queue" || !out || (r.outreach_status || "not_contacted") === out));
+}
+function renderList(){
+  const list = filtered(), box = $("rows");
+  const head = {
+    targets: `${list.length} of ${targets.length} targets`,
+    queue: `${list.length} largest unchecked${queueState ? " in " + queueState : ""}`,
+    search: lastSearch ? `${results.length}${results.length === 200 ? "+" : ""} matches` : "Search all 17,666 departments"
+  }[tab];
+  $("list-count").textContent = head;
+  if (!list.length){
+    const msg = tab === "search" && !lastSearch ? "Type a name, city or county, or pick a state, then press Search." : currentList().length ? "No departments match these filters." : "Nothing to show yet.";
+    box.innerHTML = `<div class="empty">${msg}</div>`; return;
+  }
+  box.innerHTML = list.map(r => {
+    let badge;
+    if (tab === "targets") badge = `<span class="pri p${r.priority}" title="${esc(r.finding)}">P${r.priority}</span>`;
+    else if (r.check_status && CHECK_LABEL[r.check_status]) badge = `<span class="pri q" title="${esc(CHECK_LABEL[r.check_status])}">✓</span>`;
+    else badge = `<span class="pri q" title="Not checked online yet">—</span>`;
+    const os = r.outreach_status && r.outreach_status !== "not_contacted" ? ` · <span class="chip on">${esc(STATUS_LABEL[r.outreach_status])}</span>` : "";
+    const chk = tab === "search" && r.check_status ? ` · ${esc(CHECK_LABEL[r.check_status])}` : "";
+    return `<button class="row" type="button" data-id="${esc(r.department_id)}" ${sameId(r.department_id, selected) ? 'aria-current="true"' : ""}>
+      ${badge}
+      <span style="min-width:0"><div class="nm">${esc(r.name)}</div><div class="meta">${esc(r.hq_city)}, ${esc(r.state)} · ${esc(r.dept_type || "")}${chk}${os}</div></span>
+      <span class="num">${r.stations ?? "–"} st · ${r.ff_total ?? "–"} ff</span></button>`;
+  }).join("");
+}
+
+/* ---------- detail ---------- */
+function clearDetail(){ selected = null; $("detail").innerHTML = '<div class="empty">Pick a department to see what we found and log your outreach.</div>'; }
+function fact(k, v){ return `<div class="fact"><small>${k}</small><span>${esc(v == null || v === "" ? "–" : v)}</span></div>`; }
+function link(u){ if (!u) return ""; const href = /^https?:\/\//i.test(u) ? u : "https://" + u; return `<a href="${esc(href)}" target="_blank" rel="noopener noreferrer">${esc(u)}</a>`; }
+const fmtDate = v => v ? String(v).slice(0, 10) : "";
+
+async function openDetail(id){
+  selected = id; renderList();
+  const d = $("detail");
+  d.innerHTML = '<div class="empty">Loading…</div>';
+  let data;
+  try{ data = await api("department", {id: Number(id)}); }
+  catch(e){ if (!(e instanceof SignedOut)) d.innerHTML = `<div class="empty">${esc(e.message)}</div>`; return; }
+  if (!sameId(selected, id)) return;
+  const dep = data.department, checks = data.checks || [], o = data.outreach || {};
+  const t = targets.find(x => sameId(x.department_id, id));
+  const c = checks[0];
+  const addr = [dep.hq_address, dep.hq_city && (dep.hq_city + ", " + dep.state), dep.hq_zip].filter(Boolean).join(" · ");
+  const facts = fact("Phone", dep.phone) + fact("Stations", dep.stations) + fact("Firefighters", dep.ff_total) + fact("Type", dep.dept_type) + fact("County", dep.county) + fact("FDID", dep.registry_fdid);
+  const top = t ? `<span class="pri p${t.priority}">P${t.priority}</span> ${esc(t.finding)}` : c ? esc(CHECK_LABEL[c.status] || c.status) : "Not checked online yet";
+  const found = c ? `<div class="finding"><div class="lbl">What we found · ${esc(fmtDate(c.checked_on))}</div>
+      <div>${esc(c.notes || "")}</div>
+      ${c.url ? `<div>Current page: ${link(c.url)}</div>` : ""}
+      ${c.facebook ? `<div>Facebook: ${link(c.facebook)}</div>` : ""}
+      <div class="hint">Join / recruiting page: ${c.has_join_page === true ? "yes" : c.has_join_page === false ? "no" : "unknown"}</div></div>`
+    : `<div class="finding"><div class="lbl">Not checked yet</div><div>The registry lists no website, but that's often out of date. Ask Claude to check this department online; if it needs a site it will show up under Targets.</div></div>`;
+  const opt = STATUSES.map(([v,l]) => `<option value="${v}" ${v === (o.status || "not_contacted") ? "selected" : ""}>${l}</option>`).join("");
+  d.innerHTML = `<div><div class="lbl">${top}</div><h2>${esc(dep.name)}</h2><div class="hint">${esc(addr)}${dep.mailing ? " · Mail: " + esc(dep.mailing) : ""}</div></div>
+    <div class="facts">${facts}</div>
+    ${found}
+    <form id="of" novalidate>
+      <div class="lbl">Outreach</div>
+      <div class="grid2">
+        <label for="o-status">Status<select id="o-status">${opt}</select></label>
+        <label for="o-date">Last contact<input id="o-date" type="date" value="${esc(fmtDate(o.last_contact_on))}"></label>
+        <label for="o-name">Contact name<input id="o-name" value="${esc(o.contact_name || "")}" autocomplete="off"></label>
+        <label for="o-role">Role<input id="o-role" value="${esc(o.contact_role || "")}" placeholder="Chief, PIO, board…" autocomplete="off"></label>
+        <label for="o-phone">Contact phone<input id="o-phone" value="${esc(o.contact_phone || "")}" autocomplete="off"></label>
+        <label for="o-email">Contact email<input id="o-email" type="email" value="${esc(o.contact_email || "")}" autocomplete="off"></label>
+      </div>
+      <label for="o-next">Next step<input id="o-next" value="${esc(o.next_step || "")}" autocomplete="off"></label>
+      <label for="o-notes">Notes<textarea id="o-notes">${esc(o.notes || "")}</textarea></label>
+      <div class="save-row"><button class="btn primary" id="o-save" type="submit">Save outreach</button><span class="status-msg" id="o-msg">${o.updated_at ? "Last saved " + esc(new Date(o.updated_at).toLocaleString()) : "Not logged yet"}</span></div>
+    </form>`;
+  $("of").addEventListener("submit", ev => { ev.preventDefault(); save(id); });
+}
+
+async function save(id){
+  const btn = $("o-save"), msg = $("o-msg");
+  const body = {id: Number(id), status: $("o-status").value, last_contact_on: $("o-date").value, contact_name: $("o-name").value,
+    contact_role: $("o-role").value, contact_phone: $("o-phone").value, contact_email: $("o-email").value, next_step: $("o-next").value, notes: $("o-notes").value};
+  btn.disabled = true; msg.className = "status-msg"; msg.textContent = "Saving…";
+  try{
+    const r = await api("save_outreach", body);
+    const o = r.outreach || {};
+    for (const list of [targets, queue, results]){ const x = list.find(v => sameId(v.department_id, id)); if (x) Object.assign(x, {outreach_status: o.status, contact_name: o.contact_name, next_step: o.next_step, last_contact_on: o.last_contact_on}); }
+    msg.className = "status-msg ok"; msg.textContent = "Saved " + new Date().toLocaleTimeString([], {hour:"numeric", minute:"2-digit"});
+    renderList();
+    api("stats").then(s => renderStats(s.stats || {})).catch(() => {});
+  }catch(e){
+    if (e instanceof SignedOut) return;
+    msg.className = "status-msg bad"; msg.textContent = e.message + " Your typing is still here; press Save again.";
+  }finally{ btn.disabled = false; }
+}
+
+/* ---------- tabs, filters ---------- */
+async function runSearch(quiet){
+  const q = $("q").value.trim(), st = $("f-state").value || null;
+  lastSearch = q || st || "";
+  if (!lastSearch){ results = []; renderList(); return; }
+  if (!quiet) $("list-count").textContent = "Searching…";
+  try{ results = (await api("search", {q, state: st})).rows || []; banner(""); }
+  catch(e){ if (!(e instanceof SignedOut)) banner(e.message); }
+  renderList();
+}
+function setTab(t){
+  tab = t;
+  document.querySelectorAll(".tab").forEach(b => b.setAttribute("aria-selected", b.dataset.tab === t));
+  $("f-pri").hidden = $("f-out").hidden = t !== "targets";
+  $("go").hidden = t !== "search";
+  $("q").placeholder = t === "search" ? "Search all departments by name, city or county" : "Search name, city or county";
+  clearDetail(); fillStateFilter();
+  if (t === "queue"){
+    $("f-state").value = queueState || "";
+    if (!queue.length){ $("rows").innerHTML = '<div class="empty">Loading the largest unchecked departments…</div>';
+      api("queue", {state: queueState}).then(r => { queue = r.rows || []; banner(""); renderList(); }).catch(e => { if (!(e instanceof SignedOut)) banner(e.message); }); return; }
+  }
+  renderList();
+}
+document.querySelectorAll(".tab").forEach(b => b.addEventListener("click", () => setTab(b.dataset.tab)));
+$("f-out").innerHTML = '<option value="">Any outreach status</option>' + STATUSES.map(([v,l]) => `<option value="${v}">${l}</option>`).join("");
+$("q").addEventListener("input", () => { if (tab !== "search") renderList(); });
+$("q").addEventListener("keydown", ev => { if (ev.key === "Enter" && tab === "search") runSearch(); });
+$("go").addEventListener("click", () => runSearch());
+["f-pri","f-out"].forEach(id => $(id).addEventListener("change", renderList));
+$("f-state").addEventListener("change", async () => {
+  if (tab === "queue"){
+    queueState = $("f-state").value || null; $("list-count").textContent = "Loading…";
+    try{ queue = (await api("queue", {state: queueState})).rows || []; banner(""); }catch(e){ if (!(e instanceof SignedOut)) banner(e.message); }
+  }
+  if (tab === "search") return runSearch();
+  renderList();
+});
+$("rows").addEventListener("click", ev => { const b = ev.target.closest(".row"); if (b) openDetail(b.dataset.id); });
+$("reload").addEventListener("click", refresh);
+
+refresh();
+</script>
+</body>
+</html>
