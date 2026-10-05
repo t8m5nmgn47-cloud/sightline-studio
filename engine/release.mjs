@@ -223,13 +223,30 @@ run('node engine/promote.mjs --thumbs', { quiet: true });
 run('node engine/showcase.mjs', { quiet: true });
 console.log('✅ gallery, thumbnails, showcase synced');
 
+// A release push is ~100MB of inlined pages. On this Mac's LibreSSL git the
+// upload dies mid-stream ("bad record mac", "remote end hung up") far more
+// often than the remote ever moves — retry transport failures before treating
+// it as a rejection. A real rejection (non-fast-forward) throws straight on.
+const pushMain = () => {
+  let last;
+  for (let i = 1; i <= 5; i++) {
+    try { run('git -c http.postBuffer=524288000 push origin main', { quiet: true }); return; }
+    catch (e) {
+      last = e;
+      const msg = String((e.stderr || '') + (e.stdout || '') + (e.message || ''));
+      if (/\[rejected\]|non-fast-forward|fetch first/i.test(msg)) throw e;
+      if (i < 5) { console.log(`push transport error — retry ${i}/4 in 20s`); execSync('sleep 20'); }
+    }
+  }
+  throw last;
+};
 // ── 8. DEPLOY ─────────────────────────────────────────────────────────────────
 step(8, DRY ? 'DEPLOY (dry run — skipped)' : 'DEPLOY');
 if (!DRY) {
   run('git add -A', { quiet: true });
   try { run(`git commit -m "release: ${new Date().toISOString().slice(0,16)} — full portfolio via release.mjs (all gates green)"`, { quiet: true }); }
   catch { console.log('nothing new to commit'); }
-  try { run('git push origin main', { quiet: true }); }
+  try { pushMain(); }
   catch {
     console.log('push rejected — pulling (no auto-resolution) and retrying once');
     // NEVER `-X ours` here: that silently discarded another machine's commits.
@@ -237,7 +254,7 @@ if (!DRY) {
     catch {
       die('push rejected and the merge pull hit conflicts — another machine\'s commits diverge from local. Reconcile main MANUALLY (inspect `git status`, resolve or `git merge --abort`), then re-run release. Do not auto-resolve preferring ours.');
     }
-    try { run('git push origin main', { quiet: true }); }
+    try { pushMain(); }
     catch {
       die('re-push failed after a clean pull — remote moved again or is protected. Reconcile main manually and re-run release.');
     }
