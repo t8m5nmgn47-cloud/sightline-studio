@@ -2,9 +2,7 @@
   "slug": "araoent-com",
   "pass": true,
   "fails": [],
-  "warns": [
-    "network/resource console errors (1): Failed to load resource: net::ERR_CONNECTION_RESET"
-  ],
+  "warns": [],
   "rendered": true,
-  "at": "2026-07-27T23:01:51.941Z"
+  "at": "2026-10-05T03:15:14.851Z"
 }

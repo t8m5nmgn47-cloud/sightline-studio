@@ -1,0 +1,12 @@
+{
+  "slug": "milehighsmilesandesthetics-com",
+  "pass": false,
+  "fails": [
+    "demo not found: /Users/kristianemery/sightline-studio/demos/milehighsmilesandesthetics-com/index.html"
+  ],
+  "warns": [
+    "rendered checks aborted: page.goto: net::ERR_FILE_NOT_FOUND at file:///Users/kristianemery/sightline-studio/demos/milehighsmi"
+  ],
+  "rendered": true,
+  "at": "2026-10-05T02:38:03.496Z"
+}

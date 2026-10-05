@@ -2,9 +2,10 @@ import { spawnSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
 import path from 'node:path';
 import { creativeGate } from './creative-gate.mjs';
+import { isPlaceholderName, looksPlaceholderPage, nameMatchesDomain } from './identity.mjs';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
-const files = ['engine/pipeline.mjs', 'engine/site-strategy.mjs', 'engine/creative-gate.mjs'];
+const files = ['engine/pipeline.mjs', 'engine/site-strategy.mjs', 'engine/creative-gate.mjs', 'engine/identity.mjs'];
 let failed = false;
 
 for (const file of files) {
@@ -64,6 +65,21 @@ if (!strong.pass) {
   console.error('✗ policy: strong fixture should pass');
   strong.fails.forEach(x=>console.error('  - '+x));
 } else console.log(`✓ policy: strong fixture passed (${strong.score}/100)`);
+
+// G0 identity fixtures — placeholder names/pages must never pass as the business
+// (castlerockcpa shipped as "Default Web Site Page", hrcoc as "Mysite").
+const check = (ok, label) => { if (ok) console.log('✓ identity: ' + label); else { failed = true; console.error('✗ identity: ' + label); } };
+for (const n of ['Default Web Site Page', 'Mysite', 'My Site', 'HOME', 'My WordPress Blog', 'Just another WordPress site', 'Untitled Page', 'Site Title', 'IIS Windows Server', 'Welcome to nginx!', 'Coming Soon', ''])
+  check(isPlaceholderName(n), `"${n}" is a placeholder name`);
+for (const n of ['Castle Rock CPA', 'Highlands Ranch Church of Christ', 'South Denver ENT', 'Mission Hills Church', 'Acacia Dental Group', 'Home Depot Pro', 'Welcome Home Realty'])
+  check(!isPlaceholderName(n), `"${n}" is a real name`);
+check(looksPlaceholderPage('Default Web Site Page', 'SORRY! If you are the owner of this website, please contact your hosting provider'), 'cPanel default page is a placeholder page');
+check(looksPlaceholderPage('Welcome to nginx!', ''), 'nginx welcome page is a placeholder page');
+check(looksPlaceholderPage('example.com', 'This domain is for sale. Buy this domain today.'), 'parked domain is a placeholder page');
+check(!looksPlaceholderPage('Castle Rock CPA | Tax & Accounting', 'We are coming soon to a new office in Castle Rock. Call us today.'), 'real page mentioning "coming soon" is not a placeholder');
+check(nameMatchesDomain('Highlands Ranch Church of Christ', 'hrcoc.org'), 'initialism hrcoc matches Highlands Ranch Church of Christ');
+check(!nameMatchesDomain('Carson Wealth', 'wamboltwealth.com'), 'industry word alone still is not identity (G2)');
+check(nameMatchesDomain('Castle Rock CPA', 'castlerockcpa.com'), 'Castle Rock CPA matches castlerockcpa.com');
 
 if (failed) process.exit(1);
 console.log('\nEngine v7 self-test passed.');

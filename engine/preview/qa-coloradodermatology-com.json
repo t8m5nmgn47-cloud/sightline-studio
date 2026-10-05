@@ -2,7 +2,9 @@
   "slug": "coloradodermatology-com",
   "pass": true,
   "fails": [],
-  "warns": [],
-  "rendered": false,
-  "at": "2026-07-09T23:57:38.044Z"
+  "warns": [
+    "long text ends without punctuation (1): \"… S. Balsam Way #120, Littleton, CO 80123\""
+  ],
+  "rendered": true,
+  "at": "2026-10-05T03:15:22.628Z"
 }

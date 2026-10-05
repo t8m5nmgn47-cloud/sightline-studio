@@ -1,14 +1,8 @@
 {
   "slug": "missionhills-org",
-  "pass": false,
-  "fails": [
-    "no canonical",
-    "no og:title",
-    "no JSON-LD",
-    "white-on-brand contrast 2.59 < 3.0 (#00afd7)",
-    "care form present but not wired to /api/contact"
-  ],
+  "pass": true,
+  "fails": [],
   "warns": [],
-  "rendered": false,
-  "at": "2026-07-09T23:23:31.626Z"
+  "rendered": true,
+  "at": "2026-10-05T03:15:31.647Z"
 }

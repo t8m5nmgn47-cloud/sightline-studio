@@ -5,6 +5,7 @@
 // nothing, so the engine simply omits sections it has no real data for.
 // ─────────────────────────────────────────────────────────────────────────────
 import * as cheerio from 'cheerio';
+import { clampWords } from './text.mjs';
 
 const clean = s => (s || '').replace(/&#8211;/g,'–').replace(/&#8217;/g,'’').replace(/\s+/g,' ').trim();
 const uniq = a => [...new Set(a)];
@@ -48,9 +49,9 @@ export function events($){
     const card = $(el).closest('article, li, [class*="event"]');
     let when = card.find('time[datetime]').first().attr('datetime')
             || clean(card.find('[class*="event-date"], [class*="date"]').first().text());
-    when = (when||'').slice(0, 40);
+    when = clampWords(when||'', 72);
     // campus/location tag if present
-    const loc = clean(card.find('[class*="venue"], [class*="location"], [class*="campus"]').first().text()).slice(0,40);
+    const loc = clampWords(clean(card.find('[class*="venue"], [class*="location"], [class*="campus"]').first().text()), 40);
     out.push({ title, when, loc });
   });
   // dedupe by title, keep first (upcoming), drop obvious dupes

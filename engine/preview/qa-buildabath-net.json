@@ -1,17 +1,8 @@
 {
   "slug": "buildabath-net",
-  "pass": false,
-  "fails": [
-    "no canonical",
-    "no og:title",
-    "no JSON-LD",
-    "white-on-brand contrast 2.41 < 3.0 (#32b4dd)"
-  ],
-  "warns": [
-    "no FAQ section (business page)",
-    "no about/story section (business page)",
-    "template-scent headline: \"How we can help.\" (regenerate with current engine)"
-  ],
-  "rendered": false,
-  "at": "2026-07-09T23:23:29.862Z"
+  "pass": true,
+  "fails": [],
+  "warns": [],
+  "rendered": true,
+  "at": "2026-10-05T03:15:17.932Z"
 }

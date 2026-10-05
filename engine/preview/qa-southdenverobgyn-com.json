@@ -2,7 +2,9 @@
   "slug": "southdenverobgyn-com",
   "pass": true,
   "fails": [],
-  "warns": [],
+  "warns": [
+    "long text ends without punctuation (2): \"…ilding, Suite 255, Castle Rock, CO 80109\""
+  ],
   "rendered": true,
-  "at": "2026-07-14T19:19:25.542Z"
+  "at": "2026-10-05T03:15:37.000Z"
 }

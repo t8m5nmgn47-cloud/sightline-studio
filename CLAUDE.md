@@ -29,11 +29,22 @@ which named the #1 root cause and sat unfixed through an entire engine overhaul)
   Do not "fix" downstream symptoms of this again; fix or respect the capture layer.
 - `engine/preview/recipes.json` is INFORMATIONAL — written by heal.mjs, read by
   nothing; release re-heals each run.
-- Art critic judges above-the-fold only (known gap). Do not treat a critic pass as
-  whole-page approval yet.
+- The art critic scores the full page plus a 390px mobile shot (Critic v2), but it
+  is a lenient AI judge: it gave every site 7-8 while its own notes flagged
+  placeholder blocks on most. Pixels (law 1) still decide.
+- **Gallery = release roster.** Every gallery/homepage card must have a harvest
+  entry (`assets/harvest/business/<domain>.html`) or be listed in
+  `engine/handbuilt.json`; release step 0 aborts otherwise. On 2026-10-04, 32 of
+  41 gallery sites were stale July-5 builds no gate had seen since.
+- Placeholder names and pages ("Default Web Site Page", "Mysite", parked or
+  suspended domains) are rejected at the entrance — `engine/identity.mjs`, with
+  fixtures in `selftest.mjs`. A real name for a site whose title is a placeholder
+  goes in `content-overrides.json` as `name`.
+- Display text is clamped with `clampWords` (`engine/text.mjs`); QA fails prose
+  cut mid-word and any button whose text is under 3:1 on its ground.
 - Playwright: the option is `viewport`, NOT `viewportSize` (silently ignored).
 - Never derive file extensions from URLs — sniff magic bytes (`sniffExt` in capture.mjs).
-- Never hard-`slice()` display text — trim at word boundaries (`trimWords`).
+- Never hard-`slice()` display text — trim at word boundaries (`clampWords` in text.mjs, `trimWords` in pipeline).
 - Long background jobs on the Mac need `caffeinate -i` and `disown`, and status checks
   must `pgrep` the real process — a dead-looking chain once spawned a duplicate regen.
 - Keys in `.sightline.env` (gitignored): ANTHROPIC_API_KEY (both AI passes), PEXELS_KEY.

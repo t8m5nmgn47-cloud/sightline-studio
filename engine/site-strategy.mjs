@@ -10,6 +10,7 @@
 // page text. Strategy may reorganize and sharpen; it may not invent claims.
 // ─────────────────────────────────────────────────────────────────────────────
 import fs from 'node:fs';
+import { clampWords } from './text.mjs';
 import path from 'node:path';
 import * as cheerio from 'cheerio';
 import { fileURLToPath } from 'node:url';
@@ -41,9 +42,8 @@ function strategyModel(){
   return process.env.EXTRACT_MODEL || 'claude-haiku-4-5';
 }
 
-const str = (v, max=240) => typeof v === 'string'
-  ? v.replace(/\s+/g, ' ').trim().slice(0, max)
-  : '';
+// word-boundary clamp — a hard slice shipped "…defend you, or compen" in an FAQ
+const str = (v, max=240) => clampWords(v, max);
 const arr = v => Array.isArray(v) ? v : [];
 
 function sanitize(j){
@@ -51,7 +51,7 @@ function sanitize(j){
   const hero = j.hero && typeof j.hero === 'object' ? j.hero : {};
   const about = j.about && typeof j.about === 'object' ? j.about : {};
   const feature = j.feature && typeof j.feature === 'object' ? j.feature : {};
-  const faq = arr(j.faq).map(x => ({ q: str(x?.q, 140), a: str(x?.a, 360) }))
+  const faq = arr(j.faq).map(x => ({ q: str(x?.q, 140), a: str(x?.a, 480) }))
     .filter(x => x.q.length >= 8 && x.a.length >= 20).slice(0, 6);
   const archetype = ALLOWED_ARCHETYPES.has(j.archetype) ? j.archetype : '';
   const structure = ALLOWED_STRUCTURES.has(j.structure) ? j.structure : '';

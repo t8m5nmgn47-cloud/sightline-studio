@@ -2,12 +2,12 @@ import assert from "node:assert/strict";
 import { readFile } from "node:fs/promises";
 import * as cheerio from "cheerio";
 
-const showcases = [
-  "vaughn-law-com/index.html",
-  "cotitleescrow-com/index.html",
-  "aspenfallslandscaping-com/index.html",
-  "castlerockcpa-com/index.html",
-];
+// The flagship showcases are whatever the homepage features ("work-grid" cards),
+// read from the page itself so a removed demo can't leave this test pointing at
+// a folder that no longer exists.
+const home = await readFile(new URL("../index.html", import.meta.url), "utf8");
+const showcases = [...new Set([...home.matchAll(/<a class="wcard[^"]*" href="\/([a-z0-9-]+)\/"/g)].map((m) => `${m[1]}/index.html`))];
+assert.ok(showcases.length >= 3, "homepage should feature at least three showcase sites");
 
 const forbidden = [
   /default web site page/i,

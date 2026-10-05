@@ -1,17 +1,8 @@
 {
   "slug": "vaughn-law-com",
-  "pass": false,
-  "fails": [
-    "no canonical",
-    "no og:title",
-    "no JSON-LD"
-  ],
-  "warns": [
-    "no FAQ section (business page)",
-    "no about/story section (business page)",
-    "thin page: only 5 sections",
-    "template-scent headline: \"How we can help.\" (regenerate with current engine)"
-  ],
-  "rendered": false,
-  "at": "2026-07-09T23:23:33.204Z"
+  "pass": true,
+  "fails": [],
+  "warns": [],
+  "rendered": true,
+  "at": "2026-10-05T03:15:43.358Z"
 }

@@ -6,6 +6,7 @@
 // ─────────────────────────────────────────────────────────────────────────────
 
 import { seedOf, pick, pickFontPack, pickRad } from './variety.mjs';
+import { clampWords } from './text.mjs';
 
 // ── colour helpers ───────────────────────────────────────────────────────────
 const hex = h => (h || '').trim().toLowerCase();
@@ -91,7 +92,10 @@ function derivePalette(colors){
   const safeBrand = clampForWhite(tame(brand), 3);
   return {
     brand: safeBrand, brandD: darken(safeBrand,.18), accent,
-    ink: darks[0] || '#1b1b1f',
+    // --ink is body text AND the dark band ground, where type is white at
+    // .78 alpha — a captured mid-grey (#61696e, vaughn-law) measured 4.14:1
+    // there. Darken until white clears 7:1, so .78-alpha white clears 4.5.
+    ink: clampForWhite(darks[0] || '#1b1b1f', 7),
     bg: bgLight, surf:'#ffffff',
     mut:'#6a6a72', line:'rgba(0,0,0,.10)',
   };
@@ -380,7 +384,7 @@ S.giving = (p) => { const s=p.sections.giving; if(!s) return '';
   </div>
 </section>`; };
 
-S.cta = (p) => {
+S.cta = (p, opts = {}) => {
   // photo-backed close when we captured enough imagery (their own photos > flat
   // colour). The CTA is an ambience slot: photographs only, never a logo tile —
   // and the photograph it gets is the one the PLAN reserved for it, so it can
@@ -392,6 +396,7 @@ S.cta = (p) => {
     const pics = photosOnly(p, (p.gallery||[]).filter(g=>g!==p.heroImage));
     img = pics.length >= 4 ? pics[pics.length-1] : null;
   }
+  if (opts.noPhoto) img = null;     // separateHeavyGrounds: the photo is optional, the CTA is not
   // fallback copy comes from the ACTIVE PACK (p._t: vertical or tradition) —
   // never a hardcoded vertical's voice. Church copy lives in TRADITIONS
   // (ctaTitle/ctaLead/ctaCta); business copy lives in VERTICALS. No pack at
@@ -1381,6 +1386,9 @@ h1,h2,h3{font-family:'__DISPLAY__',Georgia,serif;font-weight:600;line-height:1.0
 .btn.lg{padding:15px 28px;font-size:1.02rem}.btn.sm{padding:9px 16px;font-size:.9rem}
 .btn.ghost{background:transparent;border-color:rgba(255,255,255,.5);color:#fff}
 .btn.light{background:#fff;color:var(--brand)}
+/* the Watch band is a light section in every archetype: a white ghost button there was invisible (1.07:1, "Past messages") */
+.sec.watch .btn.ghost{background:transparent;color:var(--brand-d);border-color:color-mix(in srgb,var(--brand) 35%,var(--line))}
+.sec.watch .btn.ghost:hover{background:transparent;border-color:var(--brand);color:var(--brand)}
 .btn:hover{background:var(--brand-d)}
 .sec-k{display:block;font-size:.76rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--brand)}
 .sec-k.light{color:rgba(255,255,255,.85)}
@@ -2375,7 +2383,7 @@ function seoHead(profile, recipe, page=null){
   const origin = (recipe.origin || process.env.SITE_ORIGIN || 'https://sightline-studio.vercel.app').replace(/\/$/,'');
   const abs = u => !u ? null : /^https?:/i.test(u) ? u : origin + (u.startsWith('/')?'':'/') + u;
   const canonical = profile.slug ? `${origin}/demos/${profile.slug}/${page?.file||''}` : null;
-  const desc = (profile.description||'').slice(0,300);
+  const desc = clampWords(profile.description||'', 300);
   const img = abs(profile.heroImage) || abs(profile.logo);
   const meta = [
     // demos are sales assets, not the client's real site — never let them
@@ -2474,6 +2482,40 @@ function dropAdjacentPhotoGround(rendered){
     out.push(x);
   }
   return out;
+}
+
+// Church pages get no tone cadence, so two heavy grounds could still touch —
+// the giving band (brand gradient) straight into a photo-backed closing CTA
+// (hrcoc, clchr: "two heavy grounds adjacent: .band then .cta"). The CTA is
+// load-bearing; its photograph is not. Drop the photo and the CTA reads light.
+const groundOf = (html) => { const tag = (String(html).match(/<section\b[^>]*>/) || [''])[0];
+  if (/background-image:[^"]*url\(/.test(tag) || /\bcta-photo\b/.test(tag)) return 'photo';
+  if (/class="[^"]*\bband\b/.test(tag)) return 'brand';
+  return 'light'; };
+function separateHeavyGrounds(rendered, ctaWithoutPhoto){
+  const heavy = (x) => x && groundOf(x.html) !== 'light';
+  // 1. two bands in a row (visitcrcc: serve band, then give band): lift the next
+  //    light section up between them — content stays, only the order moves.
+  const out = [...rendered];
+  for (let i = 1; i < out.length; i++) {
+    if (!(heavy(out[i-1]) && heavy(out[i])) || out[i].name === 'cta') continue;
+    const j = out.findIndex((x, k) => k > i && !heavy(x) && x.name !== 'footer');
+    if (j > i) { const [light] = out.splice(j, 1); out.splice(i, 0, light); }
+  }
+  // 2. a photo-backed closing CTA next to a band: the photo goes, the CTA stays.
+  return out.map((x, i) => (x.name === 'cta' && groundOf(x.html) === 'photo' && (heavy(out[i-1]) || heavy(out[i+1])))
+    ? { ...x, html: ctaWithoutPhoto() } : x);
+}
+// Toned (business) pages: the cadence assigns grounds, but a fixed-tone pair can
+// still land together — the offer band (brand) straight into the feature band
+// (photo) on southwestheating. The feature band is discretionary (an exhale
+// between type-heavy sections); beside another heavy ground it is not an
+// exhale, so it goes. Reads the tone classes the cadence actually stamped.
+const TONED_HEAVY = /\btone-(dark|brand|photo)\b/;
+function dropDiscretionaryBesideHeavy(htmls){
+  const isHeavy = (h) => h && TONED_HEAVY.test((String(h).match(/<section\b[^>]*>/) || [''])[0]);
+  const isFeature = (h) => /<section\b[^>]*id="featureband"/.test(String(h));
+  return htmls.filter((h, i) => !(isFeature(h) && (isHeavy(htmls[i-1]) || isHeavy(htmls[i+1]))));
 }
 
 function applyTones(rendered){
@@ -2657,14 +2699,16 @@ export function assemble(profile, recipe={}, page=null){
   // the parity tint, which is still scoped to :not(.toned).
   const toned = !!recipe.vertical;
   const bodyClass = archetype.body + (recipe.tradition ? ` trad-${recipe.tradition}` : '') + (recipe.vertical ? ` vert-${recipe.vertical}` : '') + (page ? ' subpage' : '') + (toned ? ' toned' : '');
-  const rendered = dropAdjacentPhotoGround(order
+  const placed = dropAdjacentPhotoGround(order
     .map(name => ({ name, html: S[name] ? S[name](p, {mood, arch: recipe.archetype}) : '' }))
     .filter(x => x.html && x.html.trim()));
-  const body = (toned ? applyTones(rendered) : rendered.map(x => x.html)).join('\n');
+  const rendered = toned ? placed
+    : separateHeavyGrounds(placed, () => S.cta(p, {mood, arch: recipe.archetype, noPhoto: true}));
+  const body = (toned ? dropDiscretionaryBesideHeavy(applyTones(rendered)) : rendered.map(x => x.html)).join('\n');
   return `<!doctype html><html lang="en"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>${esc(page?.title?`${page.title} — ${legal}`:`${legal}${profile.tagline?` — ${profile.tagline}`:''}`)}</title>
-<meta name="description" content="${((profile.description||profile.hero?.sub||`${profile.name}${profile.tagline?` — ${profile.tagline}`:''}`)||'').replace(/"/g,'&quot;').slice(0,300)}">
+<meta name="description" content="${clampWords((profile.description||profile.hero?.sub||`${profile.name}${profile.tagline?` — ${profile.tagline}`:''}`)||'', 300).replace(/"/g,'&quot;')}">
 ${seoHead(profile, recipe, page)}
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=${displayUrl}&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">

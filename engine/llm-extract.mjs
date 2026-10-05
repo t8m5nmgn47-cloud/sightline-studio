@@ -66,7 +66,7 @@ function sanitize(j) {
     reviews: arr(j.testimonials).map((r) => ({ q: str(r.quote || r.q, 300), name: str(r.author || r.name, 60) }))
       .filter((r) => r.q && r.q.length >= 20).slice(0, 6),
     hours: arr(j.hours).map((h) => str(h, 60)).filter(Boolean).slice(0, 7),
-    serviceTimes: arr(j.service_times).map((t) => str(t, 60)).filter(Boolean).slice(0, 5),
+    serviceTimes: arr(j.service_times).map((t) => str(t, 110)).filter(Boolean).slice(0, 5),
     address: str(j.address, 160),
     tagline: str(j.tagline, 120),
     mission: str(j.mission, 240),

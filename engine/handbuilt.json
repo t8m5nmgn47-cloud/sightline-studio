@@ -1,0 +1,4 @@
+{
+  "_comment": "Gallery sites built by hand, not by the engine. release.mjs exempts them from the gallery-roster gate; nothing regenerates or overwrites them.",
+  "slugs": ["compfm-com"]
+}

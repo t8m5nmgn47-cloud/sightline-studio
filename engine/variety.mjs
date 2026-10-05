@@ -138,13 +138,29 @@ export function chooseArchetype({ seed, flagged = null, strategy = null, vertica
   return { value: pool[pick(seed, 5, pool.length)], source: `variety(pool:${primary})` };
 }
 
+// A structure argues from material the site must actually have. The creative
+// gate rejects 'proof' with no reviews, 'showcase' with a thin gallery and
+// 'offer' with no offer — so never CHOOSE one of those here, whether the
+// suggestion came from the AI strategy or from the variety pool (four builds
+// were blocked on Oct 4 for a strategy-picked 'proof' with zero reviews).
+export function structureSupported(value, evidence = {}) {
+  if (value === 'proof') return (evidence.reviews || 0) > 0;
+  if (value === 'showcase') return (evidence.gallery || 0) >= 4;
+  if (value === 'offer') return !!evidence.hasOffer;
+  return true;
+}
 export function chooseStructure({ seed, flagged = null, strategy = null, evidence = {} } = {}) {
   if (flagged) return { value: flagged, source: 'flag' };
-  if (strategy && strategy !== 'classic') return { value: strategy, source: 'strategy' };
+  if (strategy && strategy !== 'classic' && structureSupported(strategy, evidence)) return { value: strategy, source: 'strategy' };
   const primary = fallbackStructure(evidence);
-  const pool = [primary, primary, ...(STRUCT_ALTS[primary] || ['story', 'flagship'])];
-  return { value: pickStructure(seed, pool), source: `variety(pool:${primary})` };
+  const pool = [primary, primary, ...(STRUCT_ALTS[primary] || ['story', 'flagship'])].filter((v) => structureSupported(v, evidence));
+  // dropping unsupported alternatives must not collapse the spread: 'classic'
+  // (the vertical's own trust-led order) is always honest, so it fills in
+  if (new Set(pool).size < 3) pool.push('classic');
+  const value = pickStructure(seed, pool.length ? pool : ['story']);
+  const why = strategy && strategy !== 'classic' && !structureSupported(strategy, evidence) ? `, strategy '${strategy}' unsupported` : '';
+  return { value, source: `variety(pool:${primary}${why})` };
 }
 
 export default { seedOf, pick, pickStructure, pickFontPack, pickRad,
-  fallbackArchetype, fallbackStructure, chooseArchetype, chooseStructure, FONT_ALTS };
+  fallbackArchetype, fallbackStructure, chooseArchetype, chooseStructure, structureSupported, FONT_ALTS };

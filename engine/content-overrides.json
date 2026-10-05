@@ -1,5 +1,5 @@
 {
-  "_comment": "Per-prospect hand-verified content. Highest priority — beats capture, AI, and pack defaults. Keyed by slug. Use to correct any demo whose real services didn't extract cleanly. Fields: services[], headline, subhead, about, specialty.",
+  "_comment": "Per-prospect hand-verified content. Highest priority — beats capture, AI, and pack defaults. Keyed by slug. Use to correct any demo whose real services didn't extract cleanly. Fields: name (business name, used when the site title is a placeholder), services[], headline, subhead, about, specialty.",
   "vaughn-law-com": {
     "headline": "Fractional counsel and M&A advisors for closely held businesses.",
     "subhead": "We serve as fractional general counsel and sell-side M&A advisors, guiding owners of $5M–$100M companies from strategy to a profitable exit.",

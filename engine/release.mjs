@@ -7,6 +7,8 @@
 //   node engine/release.mjs --par 6        # parallel width (default 6)
 //
 // The pipeline, in order — each step is a HARD GATE unless noted:
+//   0. ROSTER    every gallery card must be in the harvest roster (or
+//                engine/handbuilt.json) — stale public builds abort
 //   1. SMOKE     build one known-good site; any engine crash aborts before
 //                touching the portfolio (kills merge-chimera class bugs)
 //   2. BUILD     parallel regen of every cached prospect (--pages)
@@ -44,6 +46,31 @@ const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 const step = (n, msg) => console.log(`\n━━ [${n}/8] ${msg} ${'━'.repeat(Math.max(0, 46 - msg.length))} ${((Date.now()-t0)/1000|0)}s`);
 const die = (msg) => { console.error(`\n🛑 RELEASE ABORTED — ${msg}\nNothing was deployed. Production is untouched.`); process.exit(1); };
 const run = (cmd, opts = {}) => execSync(cmd, { cwd: ROOT, encoding: 'utf8', stdio: opts.quiet ? ['ignore','pipe','pipe'] : 'inherit', ...opts });
+
+// ── 0. GALLERY ROSTER: every public card must be rebuilt by THIS release ─────
+// The release used to rebuild only the harvest roster while the gallery kept
+// serving older builds: on Oct 4, 32 of 41 gallery sites were July-5-era pages
+// that had never passed the current gates (invisible buttons, hero text cut
+// mid-word, "Default Web Site Page" as a brand). A gallery card whose site this
+// release does not build is a stale page under the engine's name — abort.
+// Hand-built references are listed in engine/handbuilt.json and exempt.
+{
+  const harvestSlugs = new Set();
+  for (const d of ['assets/harvest/business','assets/harvest/fc','assets/harvest/nucleus','assets/harvest/competitors']) {
+    const full = path.join(ROOT, d);
+    if (fs.existsSync(full)) for (const f of fs.readdirSync(full)) if (f.endsWith('.html'))
+      harvestSlugs.add(f.replace(/\.html$/,'').replace(/^fc-/,'').replace(/[^a-z0-9]+/gi,'-').toLowerCase());
+  }
+  let handbuilt = [];
+  try { handbuilt = JSON.parse(fs.readFileSync(path.join(ROOT, 'engine/handbuilt.json'), 'utf8')).slugs || []; } catch {}
+  const cards = new Set();
+  for (const f of ['index.html', 'gallery/index.html']) {
+    try { for (const m of fs.readFileSync(path.join(ROOT, f), 'utf8').matchAll(/<a class="w?card[^"]*" href="\/([a-z0-9-]+)\/"/g)) cards.add(m[1]); } catch {}
+  }
+  const stale = [...cards].filter(c => !harvestSlugs.has(c) && !handbuilt.includes(c));
+  if (stale.length) die(`${stale.length} gallery card(s) link sites this release does not rebuild:\n   ${stale.join('\n   ')}\nAdd each one's harvest (assets/harvest/business/<domain>.html) so the current engine and every gate cover it, or take it out of the gallery.`);
+  console.log(`✅ gallery roster: ${cards.size} cards, all rebuilt by this release${handbuilt.length ? ` (${handbuilt.length} hand-built exempt)` : ''}`);
+}
 
 // ── 1. SMOKE: the engine must build a site before it may build the portfolio ──
 step(1, `SMOKE TEST (${SMOKE_DOMAIN})`);

@@ -26,6 +26,7 @@
 //         const assets = await saveAssets(slug, cap, ROOT);   // downloads
 // ─────────────────────────────────────────────────────────────────────────────
 import fs from 'node:fs';
+import { clampWords } from './text.mjs';
 import path from 'node:path';
 import { execFileSync } from 'node:child_process';
 import * as cheerio from 'cheerio';
@@ -501,7 +502,7 @@ export function extractJsonLd($pages) {
     }
     if (n.geo && !out.geo && n.geo.latitude) out.geo = { lat: +n.geo.latitude, lng: +n.geo.longitude };
     const body = n.reviewBody || (String(n['@type'] || '') === 'Review' && n.description);
-    if (body) out.reviews.push({ q: String(body).replace(/\s+/g, ' ').trim().slice(0, 300), name: (n.author && (n.author.name || (typeof n.author === 'string' ? n.author : ''))) || '' });
+    if (body) out.reviews.push({ q: clampWords(String(body), 300), name: (n.author && (n.author.name || (typeof n.author === 'string' ? n.author : ''))) || '' });
   }
   out.hours = [...new Set(out.hours)].slice(0, 7);
   out.reviews = out.reviews.filter((r, i, a) => r.q.length > 20 && a.findIndex((x) => x.q === r.q) === i).slice(0, 6);
@@ -758,10 +759,17 @@ export async function imageSignals(bufOrPath) {
   if (!sharp) return { graphic: false, skin: null, entropy: null };
   try {
     const pipe = sharp(bufOrPath, { failOn: 'none' }).resize(64, 64, { fit: 'fill' });
-    const [{ data, info }, stats] = await Promise.all([
+    const [{ data, info }, stats, alpha] = await Promise.all([
       pipe.clone().removeAlpha().toColourspace('srgb').raw().toBuffer({ resolveWithObject: true }),
       pipe.clone().stats(),
+      pipe.clone().ensureAlpha().extractChannel(3).raw().toBuffer(),
     ]);
+    // A photograph is never see-through. A PNG whose frame is largely
+    // transparent is a cutout, a frame or a logo lockup — hrcoc's "hero" was a
+    // 1970px transparent border graphic that rendered as an empty white box.
+    let clear = 0;
+    for (const a of alpha) if (a < 200) clear++;
+    const seeThrough = alpha.length ? clear / alpha.length : 0;
     const ch = info.channels || 3;
     const px = Math.floor(data.length / ch);
     if (!px) return { graphic: false, skin: null, entropy: null };
@@ -813,7 +821,8 @@ export async function imageSignals(bufOrPath) {
     const duotone = satFrac >= 0.5 && hueConc >= 0.9 && counts.size < 260;
 
     return {
-      graphic: votes >= 2 || duotone,
+      graphic: votes >= 2 || duotone || seeThrough > 0.2,
+      seeThrough: Math.round(seeThrough * 1000) / 1000,
       skin: Math.round((skinPx / px) * 1000) / 1000,
       entropy: Math.round(entropy * 100) / 100,
       duotone,

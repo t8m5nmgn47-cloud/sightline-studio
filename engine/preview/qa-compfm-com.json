@@ -2,18 +2,12 @@
   "slug": "compfm-com",
   "pass": false,
   "fails": [
-    "no meta description",
     "no canonical",
-    "no og:title",
-    "no JSON-LD"
+    "no og:title"
   ],
   "warns": [
-    "image-poor page (0 images) — capture found no usable photos?",
-    "no FAQ section (business page)",
-    "no about/story section (business page)",
-    "thin page: only 5 sections",
-    "template-scent headline: \"How we can help.\" (regenerate with current engine)"
+    "network/resource console errors (3): Failed to load resource: net::ERR_FILE_NOT_FOUND | Failed to load resource: net::ERR_FILE_NOT_FOUND | Failed to load resource: net::ERR_FILE_NOT_FOUND"
   ],
-  "rendered": false,
-  "at": "2026-07-09T23:23:30.369Z"
+  "rendered": true,
+  "at": "2026-10-05T02:37:52.167Z"
 }

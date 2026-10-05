@@ -1,14 +1,8 @@
 {
   "slug": "equippedchurch-net",
-  "pass": false,
-  "fails": [
-    "no canonical",
-    "no og:title",
-    "no JSON-LD",
-    "white-on-brand contrast 2.69 < 3.0 (#00b389)",
-    "care form present but not wired to /api/contact"
-  ],
+  "pass": true,
+  "fails": [],
   "warns": [],
-  "rendered": false,
-  "at": "2026-07-09T23:23:30.804Z"
+  "rendered": true,
+  "at": "2026-10-05T03:15:24.568Z"
 }

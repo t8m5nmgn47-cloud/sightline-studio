@@ -8,7 +8,9 @@
     "no JSON-LD",
     "care form present but not wired to /api/contact"
   ],
-  "warns": [],
-  "rendered": false,
-  "at": "2026-07-09T23:23:32.113Z"
+  "warns": [
+    "network/resource console errors (2): Failed to load resource: net::ERR_FILE_NOT_FOUND | Failed to load resource: net::ERR_FILE_NOT_FOUND"
+  ],
+  "rendered": true,
+  "at": "2026-10-05T02:38:07.376Z"
 }

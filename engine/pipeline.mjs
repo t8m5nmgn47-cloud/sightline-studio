@@ -12,6 +12,7 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { normalize, assemble, assembleSite, recommendRecipe, applyRecipeVariety, shortName, isPhotoMeta } from './site-engine.mjs';
 import { capture, saveAssets, registrableDomain } from './capture.mjs';
+import { squash, isPlaceholderName, looksPlaceholderPage, PLACEHOLDER_PAGE_TEXT, nameMatchesDomain } from './identity.mjs';
 import { detectVertical, buildSections, vary, storyBody, sameCopy } from './vertical-content.mjs';
 import { seedOf, chooseArchetype, chooseStructure } from './variety.mjs';
 
@@ -43,6 +44,7 @@ function findCapture(slug, domain){
 function looksShell(html){
   if (!html) return true;
   if (/checking your browser|just a moment|cf-browser-verification|attention required|access denied|enable javascript and cookies|privacy error|your connection is not private|net::err_cert|page not found/i.test(html.slice(0, 6000))) return true;
+  if (PLACEHOLDER_PAGE_TEXT.test(html.slice(0, 8000))) return true;
   const text = html.replace(/<script[\s\S]*?<\/script>|<style[\s\S]*?<\/style>|<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim();
   return text.length < 800;
 }
@@ -144,33 +146,13 @@ function defaultSections(pack){
   };
 }
 
-// ── name↔domain matching (G2) ───────────────────────────────────────────────
-// "Does this name belong to this domain?" used to be answered by ANY token of
-// >3 chars appearing in the domain string. On wamboltwealth.com that made
-// "Carson Wealth" — a completely different firm, served from a mis-filed cache
-// — look like a match, because "wealth" is in the domain. Industry words carry
-// no identity, so they are filtered out before matching, and what remains must
-// clear a real bar: two shared tokens, or one distinctive (>=6-char) one.
-const GENERIC_TOKENS = new Set([
-  'wealth','health','dental','legal','group','associates','partners','financial',
-  'advisor','advisors','service','services','solution','solutions','care','clinic',
-  'center','centre','company','insurance','title','law','home','first','american',
-  'national','family','management','capital','church','medical',
-]);
-const identityTokens = (t) => (t || '').toLowerCase().split(/[^a-z0-9]+/)
-  .filter((w) => w.length > 3 && !GENERIC_TOKENS.has(w));
-function nameMatchesDomain(name, domain){
-  const d = (domain || '').toLowerCase();
-  const hits = identityTokens(name).filter((w) => d.includes(w));
-  return hits.length >= 2 || hits.some((w) => w.length >= 6);
-}
-
 function pickName(sig, domain){
   const clean = s => (s || '').replace(/\s+/g, ' ').trim();
   const humanize = d => d.replace(/^www\./,'').replace(/\.[a-z]+$/,'').replace(/[-_.]+/g,' ').replace(/\b\w/g,c=>c.toUpperCase());
   const raw = [clean(sig.og_site_name), clean(sig.title || '')].filter(Boolean).join(' | ');
   const parts = raw.split(/[|–—·:]/).map(s=>s.trim()).filter(Boolean)
-    .filter((p,i,a)=>a.findIndex(x=>x.toLowerCase()===p.toLowerCase())===i);
+    .filter((p,i,a)=>a.findIndex(x=>x.toLowerCase()===p.toLowerCase())===i)
+    .filter(p => !isPlaceholderName(p));                     // G0: "Mysite" is not a name
   if (!parts.length) return humanize(domain);
   const decap = p => /^[^a-z]+$/.test(p) && p.length > 6
     ? p.toLowerCase().replace(/\b\w/g,c=>c.toUpperCase()).replace(/\b(Of|The|And|In|At)\b/g,m=>m.toLowerCase()).replace(/^./,c=>c.toUpperCase())
@@ -256,6 +238,14 @@ const sig = cap.sig;
   }
 }
 
+// ── G0 (page): a hosting/builder placeholder is not a website to redesign ──
+if (looksPlaceholderPage(sig.title, sig.visible_text)) {
+  console.error(`\n❌ Placeholder page for ${domain} — the site is serving a hosting or builder default page`);
+  console.error(`   (title: "${squash(sig.title).slice(0, 80)}"), not the business's own website.`);
+  console.error('   There is nothing real to rebuild from. Park the harvest until the site is back up.\n');
+  process.exit(3);
+}
+
 const navText = ((sig.nav_tabs || []).map(t=>t.label).join(' ') + ' ').repeat(3);
 let name = pickName(sig, domain);
 const pack = detectPack((name + ' ').repeat(5) + (sig.title || '') + ' ' + navText + (sig.visible_text || '').slice(0, 5000), {
@@ -268,6 +258,28 @@ if (cap.copy?.businessName && cap.copy.businessName.length >= 3) {
   // when it is the one with real identity evidence for THIS domain.
   if (!nameMatchesDomain(name, domain) && nameMatchesDomain(cap.copy.businessName, domain))
     name = cap.copy.businessName;
+}
+
+// ── G0 (name): never ship a placeholder as the brand ──────────────────────────
+// If the page's own title and og:site_name were all placeholders, pickName fell
+// back to the bare domain ("Hrcoc"). The LLM's reading of the page may still
+// know the real name; take it only if it isn't a placeholder itself. With no
+// trustworthy name anywhere, stop: the fix is a hand-verified name in
+// engine/content-overrides.json, not a guess on a public page.
+{
+  const titleParts = [sig.og_site_name, sig.title].map(squash).filter(Boolean).join(' | ')
+    .split(/[|–—·:]/).map(squash).filter(Boolean);
+  const onlyPlaceholders = titleParts.length > 0 && titleParts.every(isPlaceholderName);
+  const llmName = squash(cap.copy?.businessName);
+  if (onlyPlaceholders && llmName.length >= 3 && !isPlaceholderName(llmName)) name = llmName;
+  let ovName = null;
+  try { ovName = squash(JSON.parse(fs.readFileSync(path.join(ROOT, 'engine/content-overrides.json'), 'utf8'))[slug]?.name); } catch {}
+  if (ovName) name = ovName;                               // hand-verified truth beats all extraction
+  if (isPlaceholderName(name) || (onlyPlaceholders && !ovName && name !== llmName)) {
+    console.error(`\n❌ No trustworthy business name for ${domain} — its title is a placeholder ("${squash(sig.og_site_name || sig.title).slice(0, 60)}") and the page text didn't name the business.`);
+    console.error(`   Add a hand-verified "name" for "${slug}" to engine/content-overrides.json and re-run.\n`);
+    process.exit(3);
+  }
 }
 
 // `name` is final from here on. Two names, one derivation. `name` is the LEGAL
@@ -457,6 +469,13 @@ const heroGate = m => {
 };
 const heroMeta = (assets.photoMeta || []).find(m=>m.path===assets.heroImage);
 let capturedHero = override?.heroImage || ((!isBiz || heroGate(heroMeta)) ? assets.heroImage : null);
+// A graphic is never the hero, church or business: hrcoc's captured "hero" was
+// a transparent frame PNG that rendered as an empty white box (church pages
+// skip the resolution and vision gates, so this is their only guard).
+if (!override?.heroImage && capturedHero && heroMeta?.graphic) {
+  console.log('  ! captured hero is a graphic (banner/cutout/frame) — using curated stock hero');
+  capturedHero = null;
+}
 if (isBiz && assets.heroImage && !capturedHero)
   console.log('  ! captured hero failed resolution/detail gate — using curated stock hero');
 if (isBiz && capturedHero && !override?.heroImage) {

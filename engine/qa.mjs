@@ -9,11 +9,13 @@
 //     • palette contrast: white-on-brand ≥ 3.0 (buttons/bands),
 //       ink-on-bg ≥ 4.5 (body text)
 //     • no unresolved template artifacts (`${`, `undefined`, `[object Object]`)
+//     • no prose cut off mid-word/mid-sentence (hard slice() of display text)
 //     • form wired (care-form posts to /api/contact) when a form is present
 //
 //   Rendered (when headless Chrome is available):
 //     • zero console errors
 //     • no horizontal overflow at 360 / 768 / 1440 px
+//     • every button's text ≥ 3:1 against the ground behind it
 //
 // Usage:  node engine/qa.mjs <slug> [<slug>…] | --all
 // Exit:   non-zero when any demo FAILS (warnings don't fail the gate).
@@ -25,6 +27,17 @@ import * as cheerio from 'cheerio';
 import { fileURLToPath } from 'node:url';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
+
+// ── word list (for the cut-off-text check; macOS/Linux ship one) ─────────────
+const DICT = (() => { for (const f of ['/usr/share/dict/words', '/usr/dict/words']) {
+  try { return new Set(fs.readFileSync(f, 'utf8').split('\n').map((w) => w.trim().toLowerCase()).filter(Boolean)); } catch {} }
+  return null; })();
+function isWord(w) {
+  w = w.toLowerCase(); if (!DICT || DICT.has(w)) return true;
+  for (const [suf, rep] of [['s',''],['es',''],['ies','y'],['ed',''],['ed','e'],['ing',''],['ing','e'],['ly',''],['er',''],['ers',''],['est',''],['ment',''],['ments',''],['ness',''],['ful',''],['al',''],['ally','']])
+    if (w.endsWith(suf) && DICT.has(w.slice(0, -suf.length) + rep)) return true;
+  return false;
+}
 
 // ── colour math (mirrors site-engine) ────────────────────────────────────────
 const rgb = (h) => { h = h.replace('#',''); if (h.length===3) h = [...h].map(c=>c+c).join('');
@@ -291,6 +304,24 @@ function staticChecks(slug) {
   if (/\bundefined\b/.test(visible)) warns.push('"undefined" appears in page text');
   if (/\[object Object\]/.test(visible)) fails.push('[object Object] in page text');
 
+  // 4b. cut-off text — prose that stops mid-word. Old builds hard-sliced
+  // display text ("…enthusiasm for your satisf", "…defend you, or compen").
+  // Long prose that ends without punctuation is suspicious (warning); when its
+  // last word isn't a word at all, it was cut (failure).
+  {
+    const cut = [], bare = [];
+    $t('p, blockquote').each((_, el) => {
+      const node = $t(el).clone(); node.find('cite, footer, .who, .rv-name').remove();
+      const txt = node.text().replace(/\s+/g, ' ').trim();
+      if (txt.length < 110 || !/[A-Za-z0-9]$/.test(txt)) return;
+      const last = (txt.match(/([A-Za-z]+)$/) || [])[1] || '';
+      if (last && /^[a-z]/.test(last) && DICT && !isWord(last)) cut.push('…' + txt.slice(-40));
+      else bare.push('…' + txt.slice(-40));
+    });
+    if (cut.length) fails.push(`text cut off mid-word (${cut.length}): "${cut[0]}" — trim at word/sentence boundaries (clampWords), never slice()`);
+    if (bare.length) warns.push(`long text ends without punctuation (${bare.length}): "${bare[0]}"`);
+  }
+
   // 5. form wiring
   if ($('form.care-form').length && !/fetch\('\/api\/contact'/.test(html)) fails.push('care form present but not wired to /api/contact');
 
@@ -331,6 +362,36 @@ async function renderedChecks(slug, { shots = false } = {}) {
       const over = await page.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth);
       if (over > 2) fails.push(`horizontal overflow at ${w}px (+${over}px)`);
     }
+    // button legibility — the text of every button-styled link/button must read
+    // against what is actually behind it (old builds shipped white "ghost" phone
+    // buttons on near-white grounds: 1.05:1). Photo grounds are skipped here:
+    // their scrim is policed by the tone checks above.
+    await page.setViewportSize({ width: 1440, height: 900 });
+    const weak = await page.evaluate(() => {
+      const parse = (c) => { const m = String(c).match(/rgba?\(([^)]+)\)/); if (!m) return null; const v = m[1].split(/[ ,/]+/).filter(Boolean).map(Number); return { r: v[0], g: v[1], b: v[2], a: v.length > 3 ? v[3] : 1 }; };
+      const lum = ({ r, g, b }) => { const f = (x) => { x /= 255; return x <= 0.03928 ? x / 12.92 : Math.pow((x + 0.055) / 1.055, 2.4); }; return 0.2126 * f(r) + 0.7152 * f(g) + 0.0722 * f(b); };
+      const ratio = (a, b) => { const l1 = lum(a), l2 = lum(b); return (Math.max(l1, l2) + 0.05) / (Math.min(l1, l2) + 0.05); };
+      const ground = (el) => { const layers = []; for (let e = el; e && e !== document.documentElement; e = e.parentElement) {
+          const cs = getComputedStyle(e);
+          if (cs.backgroundImage && cs.backgroundImage !== 'none' && !/gradient/.test(cs.backgroundImage)) return null;
+          if (e !== el && e.querySelector(':scope > img, :scope > picture, :scope > video')) { const m = e.querySelector(':scope > img, :scope > picture, :scope > video').getBoundingClientRect(); const r = el.getBoundingClientRect(); if (m.left <= r.left && m.right >= r.right && m.top <= r.top && m.bottom >= r.bottom) return null; }
+          const c = parse(cs.backgroundColor); if (c && c.a > 0) { layers.push(c); if (c.a >= 0.99) break; } }
+        let b = { r: 255, g: 255, b: 255 }; for (const l of layers.reverse()) b = { r: l.r * l.a + b.r * (1 - l.a), g: l.g * l.a + b.g * (1 - l.a), b: l.b * l.a + b.b * (1 - l.a) }; return b; };
+      const out = [];
+      for (const el of document.querySelectorAll('a, button')) {
+        const r = el.getBoundingClientRect(); if (r.width < 40 || r.height < 24) continue;
+        const cs = getComputedStyle(el); if (cs.visibility === 'hidden' || +cs.opacity < 0.5) continue;
+        const txt = (el.innerText || '').trim(); if (!txt || txt.length > 60) continue;
+        const fill = parse(cs.backgroundColor) || { a: 0 };
+        const isBtn = /\b(btn|button|cta)\b/i.test(el.className) || (parseFloat(cs.paddingLeft) >= 10 && (parseFloat(cs.borderTopWidth) > 0 || fill.a > 0));
+        if (!isBtn) continue;
+        const fg = parse(cs.color), bg = ground(el); if (!fg || !bg) continue;
+        const c = ratio(fg, bg);
+        if (c < 3) out.push(`"${txt.slice(0, 28)}" ${c.toFixed(2)}:1`);
+      }
+      return out;
+    });
+    if (weak.length) fails.push(`button text unreadable on its ground (${weak.length}): ${weak.slice(0, 3).join(' · ')} — needs ≥ 3:1`);
     // screenshot for the admin grid / outreach one-pager (above-the-fold, desktop)
     if (shots) {
       const dir = path.join(ROOT, 'thumbs');

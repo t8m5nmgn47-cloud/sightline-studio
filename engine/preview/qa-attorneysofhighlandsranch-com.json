@@ -2,10 +2,7 @@
   "slug": "attorneysofhighlandsranch-com",
   "pass": true,
   "fails": [],
-  "warns": [
-    "no FAQ section (business page)",
-    "network/resource console errors (1): Failed to load resource: net::ERR_CONNECTION_RESET"
-  ],
+  "warns": [],
   "rendered": true,
-  "at": "2026-07-27T23:02:05.437Z"
+  "at": "2026-10-05T03:15:16.915Z"
 }
